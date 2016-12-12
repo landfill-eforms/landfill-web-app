@@ -8,12 +8,15 @@ landfill-web-app
   * [Front-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#front-end-server-1)
   * [Back-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#back-end-server-1)
   * [Database Management](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#database-management-1)
+ * [Launching Server Instances]()
+  * [Front-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#front-end-server-2)
+  * [Back-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#back-end-server-2)
 
 ## Prerequisites
 This section lists the prerequisites for each component of the web application separately. You will only need the prereqs for the component(s) that you want to work on or run.
 ### Front-End Server
 * Node 4 or higher, together with npm 3 or higher. Download both from [here](https://nodejs.org/en/download/).
-* Angular-CLI (see below for instructions).
+* Angular-CLI (installation instructions [below](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#install-angular-cli)).
 * Visual Studio Code, or another TypeScript editor. Download VS Code from [here](https://code.visualstudio.com/).
 
 ### Back-End Server
@@ -38,3 +41,8 @@ Description
 ### Back-End Server
 
 ### Database Management
+
+## Launching Server Instances
+Description
+### Front-End Server
+### Back-End Server

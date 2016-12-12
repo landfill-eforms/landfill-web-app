@@ -1,4 +1,7 @@
 landfill-web-app
+## Table of Contents
+* [Prerequisites]()
+* [Environment Setup]()
 
 ## Prerequisites
 This section lists the prerequisites for each component of the web application separately. You will only need the prereqs for the component(s) that you want to work on or run.
@@ -11,4 +14,21 @@ This section lists the prerequisites for each component of the web application s
 * Eclipse, or another Java IDE.
 * Gradle Buildship plugin for Eclipse, or the equivalent if using a different IDE. Installation instructions can be found [here](http://download.eclipse.org/buildship/updates/e46/releases/1.0/1.0.21.v20161010-1640/).
 
-To be continued...
+### Database Management
+* Microsoft SQL Server Management Studio. Download from [here](https://msdn.microsoft.com/en-us/library/mt238290.aspx).
+
+
+## Environment Setup
+Description
+### Front-End Server
+#### Install Angular-CLI
+1. Open a termainal/command prompt window.
+2. Run `npm install -g angular-cli` to install Angular-CLI.
+
+#### Install npm Dependencies
+1. cd into the `landfill-web-app/client` folder.
+2. Run `npm install` to install the project dependencies.
+
+### Back-End Server
+
+### Database Management

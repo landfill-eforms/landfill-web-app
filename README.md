@@ -1,7 +1,13 @@
 landfill-web-app
 ## Table of Contents
-* [Prerequisites]()
-* [Environment Setup]()
+* [Prerequisites](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#prerequisites)
+  * [Front-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#front-end-server)
+  * [Back-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#back-end-server)
+  * [Database Management](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#database-management)
+* [Environment Setup](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#environment-setup)
+  * [Front-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#front-end-server-1)
+  * [Back-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#back-end-server-1)
+  * [Database Management](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#database-management-1)
 
 ## Prerequisites
 This section lists the prerequisites for each component of the web application separately. You will only need the prereqs for the component(s) that you want to work on or run.

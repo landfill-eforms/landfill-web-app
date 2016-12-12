@@ -1,4 +1,4 @@
-landfill-web-app
+# Landfill e-Forms Web Application
 ## Table of Contents
 * [Prerequisites](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#prerequisites)
   * [Front-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#front-end-server)
@@ -8,7 +8,7 @@ landfill-web-app
   * [Front-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#front-end-server-1)
   * [Back-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#back-end-server-1)
   * [Database Management](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#database-management-1)
- * [Launching Server Instances]()
+* [Launching Server Instances](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#launching-server-instances)
   * [Front-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#front-end-server-2)
   * [Back-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#back-end-server-2)
 
@@ -43,6 +43,6 @@ Description
 ### Database Management
 
 ## Launching Server Instances
-Description
+This sections describes the process of launching an instance of a server for testing, etc.
 ### Front-End Server
 ### Back-End Server

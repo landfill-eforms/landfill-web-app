@@ -53,8 +53,9 @@ The dependencies may take a few miniutes to download.
 1. Start Eclipse.
 2. Import `landfill-web-app/server` as Gradle Project.
 
+To be continued...
 ### Database Management
-
+Coming soon...
 ## Launching Server Instances
 This sections describes the process of launching a local instance of a server for testing, etc.
 ### Front-End Server

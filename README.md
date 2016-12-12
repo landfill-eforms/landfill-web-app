@@ -1,4 +1,4 @@
-# Landfill e-Forms Web Application
+landfill-web-app
 ## Table of Contents
 * [Prerequisites](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#prerequisites)
   * [Front-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#front-end-server)
@@ -28,21 +28,37 @@ This section lists the prerequisites for each component of the web application s
 
 
 ## Environment Setup
-Description
+This section will help you set up the development environments for the first time.
 ### Front-End Server
+The following instructions assumes that you will be using Visual Studio Code as the TypeScript editor.
+#### Select Project Folder
+1. Start Visual Studio Code.
+2. Go to File->Open Folder... and select the `landfill-web-app/client` folder.
+
+After this step, you should see the contents of the `landfill-web-app/client` folder in the Explorer pane.
+
 #### Install Angular-CLI
-1. Open a termainal/command prompt window.
-2. Run `npm install -g angular-cli` to install Angular-CLI.
+If your machine does not have Angular-CLI installed, you will need to install it. You can skip this step if Angular-CLI is already installed.
+
+1. Open the Visual Studio Code built in console by pressing `CTRL+~`.
+2. Type `npm install -g angular-cli` and hit enter to install Angular-CLI.
 
 #### Install npm Dependencies
-1. cd into the `landfill-web-app/client` folder.
-2. Run `npm install` to install the project dependencies.
+1. Open the Visual Studio Code built in console by pressing `CTRL+~`, if its not already opened.
+2. cd into the `landfill-web-app/client` folder.
+3. Run `npm install` to install the project dependencies.
 
 ### Back-End Server
+1. Start Eclipse.
+2. Import `landfill-web-app/server` as Gradle Project.
 
 ### Database Management
 
 ## Launching Server Instances
-This sections describes the process of launching an instance of a server for testing, etc.
+This sections describes the process of launching a local instance of a server for testing, etc.
 ### Front-End Server
+
+Note front-end server is set to listen on port 4200, so make sure that no other processes are listening on the same port number.
 ### Back-End Server
+
+Note back-end server is set to listen on port 8080, so make sure that no other processes are listening on the same port number.

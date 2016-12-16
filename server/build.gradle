@@ -27,12 +27,15 @@ repositories {
 
 ext {
 	springVersion = ''
+	springSecurityVersion = '4.2.0.RELEASE'
 	hibernateVersion = '5.0.1.Final'
 	jacksonVersion = '2.8.4'
 }
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
+	compile('org.springframework.security:spring-security-web:' + springSecurityVersion)
+	compile('org.springframework.security:spring-security-config:' + springSecurityVersion)
 	compile('org.springframework.session:spring-session')
 	compile('org.springframework:spring-core')
 	compile('org.springframework:spring-web')

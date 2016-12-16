@@ -1,4 +1,4 @@
-package com.landfill_eforms.server;
+package com.landfill_eforms.server.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

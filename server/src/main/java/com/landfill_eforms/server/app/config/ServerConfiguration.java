@@ -1,4 +1,4 @@
-package com.landfill_eforms.server;
+package com.landfill_eforms.server.app.config;
 
 import javax.sql.DataSource;
 
@@ -19,7 +19,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @EnableTransactionManagement
-public class ServerConfig {
+public class ServerConfiguration {
 	
 	@Value("${spring.datasource.driver-class-name}")
 	private String className;

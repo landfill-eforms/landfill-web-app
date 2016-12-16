@@ -1,4 +1,4 @@
-package com.landfill_eforms.server;
+package com.landfill_eforms.server.app.config;
 
 import javax.sql.DataSource;
 
@@ -11,12 +11,15 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.landfill_eforms.server.entities.EmailAddress;
+import com.landfill_eforms.server.entities.User;
+import com.landfill_eforms.server.entities.UserRole;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @EnableTransactionManagement
-public class ServerConfig {
+public class ServerConfiguration {
 	
 	@Value("${spring.datasource.driver-class-name}")
 	private String className;
@@ -52,8 +55,9 @@ public class ServerConfig {
 //						Instrument.class,
 //						InstrumentType.class,
 //						Site.class,
-//						User.class,
-//						UserRole.class
+						EmailAddress.class,
+						User.class,
+						UserRole.class
 						)
 				.buildSessionFactory();
 	}

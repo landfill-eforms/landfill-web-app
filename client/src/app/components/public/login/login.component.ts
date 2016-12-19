@@ -22,23 +22,31 @@ export class LoginComponent implements OnInit {
     login(event, username, password) {
     event.preventDefault();
         let body = JSON.stringify({username, password});
-        let contentHeaders = new Headers();
-        contentHeaders.append('Accept', 'application/json');
-        contentHeaders.append('Content-Type', 'multipart/form-data');
-        // this.http.post('http://localhost:8080/login/test', body, {headers: contentHeaders})
-        // .subscribe(
-        //     response => {
-        //     localStorage.setItem('id_token', response.json().id_token);
-        //     this.router.navigate(['home']);
-        //     },
-        //     error => {
-        //     alert(error.text());
-        //     console.log(error.text());
-        // });
-        this.http.post('http://localhost:8080/login/test', body, {headers: contentHeaders}).map((res:Response) => res.json()).subscribe(
-                data => console.log("data", data),
-                err => console.log("error", err)
-            );
+        let contentHeaders = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'text/plain',
+            // 'Access-Control-Expose-Headers': 'etag'
+        });
+        // contentHeaders.append('Accept', 'application/json');
+        //contentHeaders.append('Content-Type', 'wtf');
+        // contentHeaders.append('Access-Control-Expose-Headers', 'etag');
+
+        this.http.post('http://localhost:8080/login', body, {headers: contentHeaders})
+        .subscribe(
+            (res) => {
+                console.log("???",res);
+            // localStorage.setItem('id_token', response.json().id_token);
+            // this.router.navigate(['home']);
+            },
+            error => {
+            //alert(error.text());
+            console.log(error.text());
+        });
+
+        // this.http.post('http://localhost:8080/login', body, {headers: contentHeaders}).map((res:Response) => res.json()).subscribe(
+        //         data => console.log("data", data),
+        //         err => console.log("error", err)
+        //     );
     }
 
 }

@@ -24,6 +24,8 @@ public class TokenAuthenticationService {
             .signWith(SignatureAlgorithm.HS512, secret)
             .compact();
         response.addHeader(headerString, tokenPrefix + " " + JWT);
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
     }
 
     public Authentication getAuthentication(HttpServletRequest request) {

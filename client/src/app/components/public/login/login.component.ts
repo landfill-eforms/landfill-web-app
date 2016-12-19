@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
         this.http.post('http://localhost:8080/login', body, {headers: contentHeaders})
         .subscribe(
             (res) => {
-                console.log("???",res);
+                let jwtToken:string = res.headers.get("Authorization").replace("Bearer ", "");
+                console.log("JWT Token:", jwtToken);
+                localStorage.setItem('id_token', jwtToken);
             // localStorage.setItem('id_token', response.json().id_token);
             // this.router.navigate(['home']);
             },

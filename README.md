@@ -63,7 +63,7 @@ To launch the front-end server from within Visual Studio Code:
 
 1. Open the Visual Studio Code built in console by pressing `CTRL+~`.
 2. Make sure that the current working directory is the `landfill-web-app/client` folder.
-3. Run the command `ng-serve` to start the front-end server.
+3. Run the command `ng serve` to start the front-end server.
 
 Note front-end server is set to listen on port 4200, so make sure that no other processes are listening on the same port number. The home page can then be accessed at <http://localhost:4200/>.
 ### Back-End Server

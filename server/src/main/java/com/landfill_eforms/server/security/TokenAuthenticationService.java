@@ -20,6 +20,7 @@ public class TokenAuthenticationService {
         // We generate a token now.
         String JWT = Jwts.builder()
             .setSubject(username)
+            //.setPayload("HELLO?")
             .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
             .signWith(SignatureAlgorithm.HS512, secret)
             .compact();

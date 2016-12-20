@@ -3,6 +3,8 @@ import {Http, Response, Headers} from '@angular/http';
 import {Router} from '@angular/router';
 import 'rxjs/Rx';
 
+import {JwtHelper} from 'angular2-jwt';
+
 @Component({
     selector: 'login',
     templateUrl: './login.component.html',
@@ -10,9 +12,11 @@ import 'rxjs/Rx';
 })
 export class LoginComponent implements OnInit {
 
+    jwtHelper: JwtHelper = new JwtHelper();
+
     constructor (
         private router:Router,
-        private http:Http
+        private http:Http,
     ) {}
 
     ngOnInit() {
@@ -36,6 +40,11 @@ export class LoginComponent implements OnInit {
             (res) => {
                 let jwtToken:string = res.headers.get("Authorization").replace("Bearer ", "");
                 console.log("JWT Token:", jwtToken);
+                console.log(
+                    this.jwtHelper.decodeToken(jwtToken),
+                    this.jwtHelper.getTokenExpirationDate(jwtToken),
+                    this.jwtHelper.isTokenExpired(jwtToken)
+                );
                 localStorage.setItem('id_token', jwtToken);
             // localStorage.setItem('id_token', response.json().id_token);
             // this.router.navigate(['home']);

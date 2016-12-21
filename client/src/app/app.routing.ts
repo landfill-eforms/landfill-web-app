@@ -1,5 +1,6 @@
 import {Routes, RouterModule} from '@angular/router';
 import {ModuleWithProviders} from "@angular/core";
+import {AuthGuard} from "./services/auth/auth-guard";
 import {LoginComponent} from './components/public/login/login.component';
 import {InstantaneousTestComponent} from './components/test/instantaneous-test/instantaneous-test.component';
 import {InstantaneousReportTestComponent} from './components/test/instantaneous-report-test/instantaneous-report-test.component';
@@ -20,18 +21,30 @@ const PublicRoutes: Routes = [
 ];
 
 const TestRoutes:Routes = [
-
     {
         path: 'instantaneous_report',
         component: InstantaneousReportTestComponent,
+        canActivate: [AuthGuard],
+        data: {roles: [
+            "ROLE_ADMIN",
+            "ROLE_USER"
+        ]}
     },
     {
         path: 'instantaneous_test',
         component: InstantaneousTestComponent,
+        canActivate: [AuthGuard],
+        data: {roles: [
+            "ROLE_ADMIN",
+        ]}
     },
     {
         path: 'instantaneous_upload',
         component: InstantaneousUploadTestComponent,
+        canActivate: [AuthGuard],
+        data: {roles: [
+            "ROLE_ADMIN",
+        ]}
     },
 
 ];

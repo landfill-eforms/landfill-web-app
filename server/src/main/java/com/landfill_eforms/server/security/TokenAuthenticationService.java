@@ -1,6 +1,8 @@
 package com.landfill_eforms.server.security;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +18,12 @@ public class TokenAuthenticationService {
     private String secret = "ThisIsASecret";
     private String tokenPrefix = "Bearer";
     private String headerString = "Authorization";
-    public void addAuthentication(HttpServletResponse response, String username) {
-        // We generate a token now.
+    public void addAuthentication(HttpServletResponse response, Authentication authentication) {
+    	Map<String, Object> claims = new HashMap<>();
+    	claims.put("username", authentication.getName());
+    	claims.put("authorities", authentication.getAuthorities());
         String JWT = Jwts.builder()
-            .setSubject(username)
-            //.setPayload("HELLO?")
+        	.setClaims(claims)
             .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
             .signWith(SignatureAlgorithm.HS512, secret)
             .compact();
@@ -33,14 +36,14 @@ public class TokenAuthenticationService {
         String token = request.getHeader(headerString);
         if (token != null) {
             // parse the token.
-            String username = Jwts.parser()
+            Object username = Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody()
-                .getSubject();
-            if (username != null) // we managed to retrieve a user
+                .get("username");
+            if (username != null && username instanceof String) // we managed to retrieve a user
             {
-                return new AuthenticatedUser(username);
+                return new AuthenticatedUser((String)username);
             }
         }
         return null;

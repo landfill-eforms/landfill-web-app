@@ -5,23 +5,30 @@ import java.util.Collection;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
+import com.landfill_eforms.server.entities.User;
+
+/**
+ * @author Alvin Quach
+ */
 public class AuthenticatedUser implements Authentication {
 
-    private String name;
     private boolean authenticated = true;
+    private User user;
+    private String username;
+    
 
-    AuthenticatedUser(String name){
-        this.name = name;
+    AuthenticatedUser(String username){
+        this.username = username;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return user.getAuthorities();
     }
 
     @Override
     public Object getCredentials() {
-        return null;
+        return user.getPassword();
     }
 
     @Override
@@ -46,6 +53,6 @@ public class AuthenticatedUser implements Authentication {
 
     @Override
     public String getName() {
-        return this.name;
+        return user.getUsername();
     }
 }

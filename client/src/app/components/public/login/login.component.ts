@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
                 let claims:any = this.jwtHelper.decodeToken(jwtToken);
                 localStorage.setItem("id_token", jwtToken);
                 localStorage.setItem("username", claims["username"]);
-                localStorage.setItem("user_role", claims.authorities[0].authority);
+                //localStorage.setItem("user_role", claims.authorities[0].authority);
                 this.router.navigate(['/instantaneous_report']);
             },
             error => {

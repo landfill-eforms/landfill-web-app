@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.config;
+package com.landfill_eforms.server.configs;
 
 import javax.sql.DataSource;
 
@@ -17,6 +17,9 @@ import com.landfill_eforms.server.entities.UserRole;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+/**
+ * @author Alvin Quach
+ */
 @Configuration
 @EnableTransactionManagement
 public class DataSourceConfig {

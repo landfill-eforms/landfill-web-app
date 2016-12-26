@@ -1,5 +1,7 @@
 package com.landfill_eforms.server.entities;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,11 +12,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author Alvin Quach
+ */
 @Entity
 @Table(name="test.dbo.Users")
-public class User {
+public class User implements UserDetails {
 	
 	@Id
 	@Column(name="UserPK")
@@ -63,6 +71,7 @@ public class User {
 		this.userRole = userRole;
 	}
 
+	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -71,6 +80,7 @@ public class User {
 		this.username = username;
 	}
 
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -125,6 +135,36 @@ public class User {
 
 	public void setEmailAddress(EmailAddress emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 import {AppRoutes, Routing, AppRouterProviders} from './app.routing';
 import {AppComponent} from './app.component';
 import {AUTH_PROVIDERS} from 'angular2-jwt';
-import {AuthGuard} from './services/auth/auth-guard';
+import {AuthGuard} from './services/auth/authguard';
 
 import {PublicModule} from './components/public/public.module'
 import {TestModule} from './components/test/test.module';

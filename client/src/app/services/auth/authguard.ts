@@ -15,9 +15,10 @@ export class AuthGuard implements CanActivate {
             let routeRoles:string[] = route.data["roles"];
             let userRole:string = localStorage.getItem("user_role");
             console.log(userRole, routeRoles);
-            if (routeRoles.indexOf(userRole) >= 0) {
-                return true;
-            }
+            return true;
+            // if (routeRoles.indexOf(userRole) >= 0) {
+            //     return true;
+            // }
         }
 
         // If not, they redirect them to the login page

@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author Alvin Quach
+ */
 @Entity
 @Table(name="test.dbo.UserRoles")
 public class UserRole {

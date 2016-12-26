@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.landfill_eforms.server.dao.test.SleepTestDao;
-import com.landfill_eforms.server.entities.test.Sleep;
 
+/**
+ * For testing purposes.
+ * @author Alvin Quach
+ */
 @RequestMapping("rest/test")
 @RestController
 public class SleepTestController {
@@ -18,7 +21,7 @@ public class SleepTestController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public Object get(@PathVariable Integer id) {
-		return sleepTestDao.getTestById(id);
+		return sleepTestDao.getSleepById(id);
 	}
 	
 }

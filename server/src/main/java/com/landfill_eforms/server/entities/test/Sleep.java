@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,16 +11,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
+ * For testing purposes.
  * @author Alvin Quach
  */
 @Entity
 @Table(name="test.dbo.Sleep")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class Sleep {
 
 	@Id
@@ -32,10 +29,8 @@ public class Sleep {
 	@NotNull
 	private String name;
 	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy="sleeps")
-	//@JsonBackReference
-	//@LazyCollection(LazyCollectionOption.FALSE)
-	//@JoinTable(name="test.dbo.SleepTest", joinColumns=@JoinColumn(name="SleepFK"), inverseJoinColumns=@JoinColumn(name="TestFK"))
+	@JsonIgnoreProperties({"sleeps"})
+	@ManyToMany(mappedBy="sleeps")
 	private Set<Test> tests;
 
 	public Integer getId() {

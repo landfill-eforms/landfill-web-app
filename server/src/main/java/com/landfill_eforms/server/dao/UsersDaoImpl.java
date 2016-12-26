@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.landfill_eforms.server.entities.User;
 
+/**
+ * @author Alvin Quach
+ */
 @SuppressWarnings("unchecked")
 @Repository
 public class UsersDaoImpl implements UsersDao {

@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author Alvin Quach
+ */
 @Entity
 @Table(name="test.dbo.UserRoles")
 public class UserRole {
@@ -18,7 +21,7 @@ public class UserRole {
 	private Integer id;
 	
 	@NotNull
-	private String name;
+	private String code;
 	
 	private String description;
 
@@ -30,12 +33,12 @@ public class UserRole {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getCode() {
+		return code;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getDescription() {

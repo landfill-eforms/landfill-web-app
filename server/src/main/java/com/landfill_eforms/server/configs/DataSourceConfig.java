@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.config;
+package com.landfill_eforms.server.configs;
 
 import javax.sql.DataSource;
 
@@ -14,9 +14,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.landfill_eforms.server.entities.EmailAddress;
 import com.landfill_eforms.server.entities.User;
 import com.landfill_eforms.server.entities.UserRole;
+import com.landfill_eforms.server.entities.test.Sleep;
+import com.landfill_eforms.server.entities.test.Test;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+/**
+ * @author Alvin Quach
+ */
 @Configuration
 @EnableTransactionManagement
 public class DataSourceConfig {
@@ -57,7 +62,12 @@ public class DataSourceConfig {
 //						Site.class,
 						EmailAddress.class,
 						User.class,
-						UserRole.class
+						UserRole.class,
+						
+						// Test classes
+						Sleep.class,
+						Test.class
+						
 						)
 				.buildSessionFactory();
 	}

@@ -17,7 +17,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  */
 public class JWTAuthenticationService {
 
-	public static final long EXPIRATION_TIME = 1000 * 60 * 2; // 2 Minutes
+	public static final long EXPIRATION_TIME = 1000 * 60 * 5; // 5 Minutes
 	public static final String SECRET = "secret";
 	public static final String TOKEN_PREFIX = "Bearer";
 	public static final String HEADER_STRING = "Authorization";

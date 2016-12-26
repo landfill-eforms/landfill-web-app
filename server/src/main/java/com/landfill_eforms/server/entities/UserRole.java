@@ -21,7 +21,7 @@ public class UserRole {
 	private Integer id;
 	
 	@NotNull
-	private String name;
+	private String code;
 	
 	private String description;
 
@@ -33,12 +33,12 @@ public class UserRole {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getCode() {
+		return code;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getDescription() {

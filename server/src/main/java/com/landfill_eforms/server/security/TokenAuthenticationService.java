@@ -15,9 +15,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 /**
  * @author Alvin Quach
  */
-public class JWTAuthenticationService {
+public class TokenAuthenticationService {
 
-	public static final long EXPIRATION_TIME = 1000 * 60 * 5; // 5 Minutes
+	public static final long EXPIRATION_TIME = 1000 * 60 * 10; // 10 Minutes
 	public static final String SECRET = "secret";
 	public static final String TOKEN_PREFIX = "Bearer";
 	public static final String HEADER_STRING = "Authorization";
@@ -39,14 +39,12 @@ public class JWTAuthenticationService {
     public Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
-            // parse the token.
             Object username = Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token)
                 .getBody()
                 .get("username");
-            if (username != null && username instanceof String) // we managed to retrieve a user
-            {
+            if (username != null && username instanceof String) {
                 return new AuthenticatedUser((String)username);
             }
         }

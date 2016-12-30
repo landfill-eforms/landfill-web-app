@@ -13,8 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.landfill_eforms.server.security.JWTAuthenticationFilter;
-import com.landfill_eforms.server.security.JWTLoginFilter;
+import com.landfill_eforms.server.security.TokenAuthenticationFilter;
+import com.landfill_eforms.server.security.TokenLoginFilter;
 
 /**
  * @author Alvin Quach
@@ -47,9 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	            .anyRequest().authenticated()
 	            .and()
             // We filter the api/login requests
-            .addFilterBefore(new JWTLoginFilter(LOGIN_PATH, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new TokenLoginFilter(LOGIN_PATH, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
             // And filter other requests to check the presence of JWT in header
-            .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(new TokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
     
 	@Bean

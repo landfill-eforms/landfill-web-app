@@ -16,19 +16,20 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.landfill_eforms.server.entities.User;
 
-public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
+public class TokenLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-    private JWTAuthenticationService tokenAuthenticationService;
+    private TokenAuthenticationService tokenAuthenticationService;
     
-    public JWTLoginFilter(String url, AuthenticationManager authenticationManager) {
+    public TokenLoginFilter(String url, AuthenticationManager authenticationManager) {
     	super(url);
         setAuthenticationManager(authenticationManager);
-        tokenAuthenticationService = new JWTAuthenticationService();
+        tokenAuthenticationService = new TokenAuthenticationService();
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
         User credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(), User.class);
+        System.out.println("ATTEMPTING AUTHENTICATION...");
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword());
         return getAuthenticationManager().authenticate(token);
     }

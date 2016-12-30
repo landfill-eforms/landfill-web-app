@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
+import {MaterialModule} from '@angular/material'
 import {AppRoutes, Routing, AppRouterProviders} from './app.routing';
 import {AppComponent} from './app.component';
 import {AUTH_PROVIDERS} from 'angular2-jwt';
@@ -23,6 +24,7 @@ import {SitesService} from './services/sites.service';
     FormsModule,
     HttpModule,
     RouterModule,
+    MaterialModule.forRoot(),
     //AppRoutes,
     Routing,
     PublicModule,

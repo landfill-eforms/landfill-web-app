@@ -1,7 +1,7 @@
-package com.landfill_eforms.server.dao.test;
+package com.landfill_eforms.server.persistence.dao.test;
 
-import com.landfill_eforms.server.entities.test.Sleep;
-import com.landfill_eforms.server.entities.test.Test;
+import com.landfill_eforms.server.persistence.entities.test.Sleep;
+import com.landfill_eforms.server.persistence.entities.test.Test;
 
 public interface SleepTestDao {
 

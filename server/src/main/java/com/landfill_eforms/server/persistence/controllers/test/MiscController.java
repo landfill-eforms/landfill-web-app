@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.controllers.test;
+package com.landfill_eforms.server.persistence.controllers.test;
 
 public class MiscController {
 

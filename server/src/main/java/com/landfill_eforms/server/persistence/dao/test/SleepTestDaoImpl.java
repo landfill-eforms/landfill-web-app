@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.dao.test;
+package com.landfill_eforms.server.persistence.dao.test;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.landfill_eforms.server.entities.test.Sleep;
-import com.landfill_eforms.server.entities.test.Test;
+import com.landfill_eforms.server.persistence.entities.test.Sleep;
+import com.landfill_eforms.server.persistence.entities.test.Test;
 
 /**
  * For testing purposes.

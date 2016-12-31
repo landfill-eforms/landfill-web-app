@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.controllers.test;
+package com.landfill_eforms.server.persistence.controllers.test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.landfill_eforms.server.dao.test.SleepTestDao;
+import com.landfill_eforms.server.persistence.dao.test.SleepTestDao;
 
 /**
  * For testing purposes.

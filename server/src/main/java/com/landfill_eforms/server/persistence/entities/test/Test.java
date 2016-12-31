@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.entities.test;
+package com.landfill_eforms.server.persistence.entities.test;
 
 import java.util.Set;
 

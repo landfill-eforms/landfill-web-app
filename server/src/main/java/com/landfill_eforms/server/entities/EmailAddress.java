@@ -55,4 +55,21 @@ public class EmailAddress {
 		return localPart + "@" + domain;
 	}
 	
+	/**
+	 * Creates a new <code>EmailAddress</code> based on an input string.
+	 * Returns <code>null</code> if the string is not a valid email address.
+	 * @param emailAddress A string representation of an email address.
+	 * @return The <code>EmailAddress</code> representation of the input string,
+	 * 		   or <code>null</code> if the string is not a vaild email address.
+	 */
+	public static EmailAddress fromString(String emailAddress) {
+		String[] parts = emailAddress.split("@");
+		if (parts.length == 2) {
+			EmailAddress result = new EmailAddress();
+			result.setLocalPart(parts[0]);
+			result.setDomain(parts[1]);
+		}
+		return null;
+	}
+	
 }

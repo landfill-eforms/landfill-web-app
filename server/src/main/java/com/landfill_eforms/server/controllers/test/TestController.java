@@ -1,6 +1,8 @@
 package com.landfill_eforms.server.controllers.test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,14 +16,21 @@ import com.landfill_eforms.server.dao.test.SleepTestDao;
  */
 @RequestMapping("rest/test")
 @RestController
-public class SleepTestController {
+public class TestController {
 
 	@Autowired
 	SleepTestDao sleepTestDao;
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/sleep/{id}", method=RequestMethod.GET)
 	public Object get(@PathVariable Integer id) {
 		return sleepTestDao.getSleepById(id);
+	}
+	
+	@RequestMapping(value="/authentication", method=RequestMethod.GET)
+	public Object get() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getClass().getName());
+		return auth;
 	}
 	
 }

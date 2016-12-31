@@ -23,13 +23,14 @@ public class TokenLoginFilter extends AbstractAuthenticationProcessingFilter {
     public TokenLoginFilter(String url, AuthenticationManager authenticationManager) {
     	super(url);
         setAuthenticationManager(authenticationManager);
+        
         tokenAuthenticationService = new TokenAuthenticationService();
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
         User credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(), User.class);
-        System.out.println("ATTEMPTING AUTHENTICATION...");
+        System.out.println("Using AuthenticationManager: "  + getAuthenticationManager().getClass().getName());
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword());
         return getAuthenticationManager().authenticate(token);
     }

@@ -14,31 +14,31 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.landfill_eforms.server.entities.User;
+import com.landfill_eforms.server.persistence.entities.User;
 
 public class TokenLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-    private TokenAuthenticationService tokenAuthenticationService;
-    
-    public TokenLoginFilter(String url, AuthenticationManager authenticationManager) {
-    	super(url);
-        setAuthenticationManager(authenticationManager);
-        
-        tokenAuthenticationService = new TokenAuthenticationService();
-    }
+	private TokenAuthenticationService tokenAuthenticationService;
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
-        User credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(), User.class);
-        System.out.println("Using AuthenticationManager: "  + getAuthenticationManager().getClass().getName());
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword());
-        return getAuthenticationManager().authenticate(token);
-    }
+	public TokenLoginFilter(String url, AuthenticationManager authenticationManager) {
+		super(url);
+		setAuthenticationManager(authenticationManager);
 
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-        System.out.println(authentication.getClass().getName());
-    	//String name = authentication.getName();
-        tokenAuthenticationService.addAuthentication(response, authentication);
-    }
+		tokenAuthenticationService = new TokenAuthenticationService();
+	}
+
+	@Override
+	public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
+		User credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(), User.class);
+		System.out.println("Using AuthenticationManager: "  + getAuthenticationManager().getClass().getName());
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword());
+		return getAuthenticationManager().authenticate(token);
+	}
+
+	@Override
+	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
+		System.out.println(authentication.getClass().getName());
+		//String name = authentication.getName();
+		tokenAuthenticationService.addAuthentication(response, authentication);
+	}
 }

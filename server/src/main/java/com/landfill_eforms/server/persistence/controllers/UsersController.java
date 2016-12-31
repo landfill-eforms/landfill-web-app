@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.controllers;
+package com.landfill_eforms.server.persistence.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.landfill_eforms.server.dao.UsersDao;
-import com.landfill_eforms.server.entities.User;
+import com.landfill_eforms.server.persistence.dao.UsersDao;
+import com.landfill_eforms.server.persistence.entities.User;
 
 @RequestMapping("rest/users")
 @RestController

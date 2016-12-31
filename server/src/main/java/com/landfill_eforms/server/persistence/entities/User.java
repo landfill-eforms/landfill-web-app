@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.entities;
+package com.landfill_eforms.server.persistence.entities;
 
 import java.util.Collection;
 

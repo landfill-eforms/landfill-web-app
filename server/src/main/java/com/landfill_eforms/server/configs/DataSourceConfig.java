@@ -11,11 +11,11 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.landfill_eforms.server.entities.EmailAddress;
-import com.landfill_eforms.server.entities.User;
-import com.landfill_eforms.server.entities.UserRole;
-import com.landfill_eforms.server.entities.test.Sleep;
-import com.landfill_eforms.server.entities.test.Test;
+import com.landfill_eforms.server.persistence.entities.EmailAddress;
+import com.landfill_eforms.server.persistence.entities.User;
+import com.landfill_eforms.server.persistence.entities.UserRole;
+import com.landfill_eforms.server.persistence.entities.test.Sleep;
+import com.landfill_eforms.server.persistence.entities.test.Test;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 

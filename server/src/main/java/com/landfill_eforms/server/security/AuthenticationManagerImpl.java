@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.landfill_eforms.server.dao.UsersDao;
-import com.landfill_eforms.server.entities.User;
+import com.landfill_eforms.server.persistence.dao.UsersDao;
+import com.landfill_eforms.server.persistence.entities.User;
 
 /**
  * Custom implementation of <code>AuthenticationManager</code>.

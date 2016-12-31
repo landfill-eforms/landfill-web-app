@@ -14,11 +14,11 @@ import org.springframework.web.filter.GenericFilterBean;
 
 public class TokenAuthenticationFilter extends GenericFilterBean {
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        Authentication authentication = new TokenAuthenticationService().getAuthentication((HttpServletRequest)request);
-        System.out.println("DOING IT!");
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        filterChain.doFilter(request,response);
-    }
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+		Authentication authentication = new TokenAuthenticationService().getAuthentication((HttpServletRequest)request);
+		System.out.println("DOING IT!");
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		filterChain.doFilter(request,response);
+	}
 }

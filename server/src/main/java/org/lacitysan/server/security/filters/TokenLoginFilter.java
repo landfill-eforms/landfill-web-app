@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.security.filters;
+package org.lacitysan.server.security.filters;
 
 import java.io.IOException;
 
@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.lacitysan.server.persistence.entities.User;
+import org.lacitysan.server.security.TokenAuthenticationService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,8 +16,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.landfill_eforms.server.persistence.entities.User;
-import com.landfill_eforms.server.security.TokenAuthenticationService;
 
 public class TokenLoginFilter extends AbstractAuthenticationProcessingFilter {
 

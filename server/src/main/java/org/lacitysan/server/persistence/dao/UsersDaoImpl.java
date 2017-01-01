@@ -1,13 +1,12 @@
-package com.landfill_eforms.server.persistence.dao;
+package org.lacitysan.server.persistence.dao;
 
 import java.util.List;
 
+import org.lacitysan.server.persistence.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.landfill_eforms.server.persistence.entities.User;
 
 /**
  * @author Alvin Quach

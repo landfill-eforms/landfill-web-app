@@ -1,5 +1,8 @@
-package com.landfill_eforms.server.security;
+package org.lacitysan.server.security;
 
+import org.lacitysan.server.persistence.dao.UsersDao;
+import org.lacitysan.server.persistence.entities.User;
+import org.lacitysan.server.security.filters.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -8,10 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import com.landfill_eforms.server.persistence.dao.UsersDao;
-import com.landfill_eforms.server.persistence.entities.User;
-import com.landfill_eforms.server.security.filters.MyUserDetails;
 
 /**
  * Custom implementation of <code>AuthenticationManager</code>.

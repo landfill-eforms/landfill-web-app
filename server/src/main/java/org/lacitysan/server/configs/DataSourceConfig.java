@@ -1,8 +1,13 @@
-package com.landfill_eforms.server.configs;
+package org.lacitysan.server.configs;
 
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.lacitysan.server.persistence.entities.EmailAddress;
+import org.lacitysan.server.persistence.entities.User;
+import org.lacitysan.server.persistence.entities.UserRole;
+import org.lacitysan.server.persistence.entities.test.Sleep;
+import org.lacitysan.server.persistence.entities.test.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +16,6 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.landfill_eforms.server.persistence.entities.EmailAddress;
-import com.landfill_eforms.server.persistence.entities.User;
-import com.landfill_eforms.server.persistence.entities.UserRole;
-import com.landfill_eforms.server.persistence.entities.test.Sleep;
-import com.landfill_eforms.server.persistence.entities.test.Test;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 

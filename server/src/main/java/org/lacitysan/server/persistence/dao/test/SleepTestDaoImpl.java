@@ -1,15 +1,14 @@
-package com.landfill_eforms.server.persistence.dao.test;
+package org.lacitysan.server.persistence.dao.test;
 
 import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.lacitysan.server.persistence.entities.test.Sleep;
+import org.lacitysan.server.persistence.entities.test.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.landfill_eforms.server.persistence.entities.test.Sleep;
-import com.landfill_eforms.server.persistence.entities.test.Test;
 
 /**
  * For testing purposes.

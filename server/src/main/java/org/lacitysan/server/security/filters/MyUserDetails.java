@@ -1,17 +1,16 @@
-package com.landfill_eforms.server.security.filters;
+package org.lacitysan.server.security.filters;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.lacitysan.server.persistence.entities.User;
+import org.lacitysan.server.persistence.entities.UserGroup;
+import org.lacitysan.server.persistence.entities.UserRole;
+import org.lacitysan.server.security.MyGrantedAuthority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.landfill_eforms.server.persistence.entities.User;
-import com.landfill_eforms.server.persistence.entities.UserGroup;
-import com.landfill_eforms.server.persistence.entities.UserRole;
-import com.landfill_eforms.server.security.MyGrantedAuthority;
 
 public class MyUserDetails implements UserDetails {
 	

@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.persistence.entities;
+package org.lacitysan.server.persistence.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

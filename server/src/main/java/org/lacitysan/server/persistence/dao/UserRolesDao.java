@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.persistence.dao;
+package org.lacitysan.server.persistence.dao;
 
 /**
  * @author Alvin Quach

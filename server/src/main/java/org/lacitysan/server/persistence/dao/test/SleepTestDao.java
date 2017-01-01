@@ -1,7 +1,7 @@
-package com.landfill_eforms.server.persistence.dao.test;
+package org.lacitysan.server.persistence.dao.test;
 
-import com.landfill_eforms.server.persistence.entities.test.Sleep;
-import com.landfill_eforms.server.persistence.entities.test.Test;
+import org.lacitysan.server.persistence.entities.test.Sleep;
+import org.lacitysan.server.persistence.entities.test.Test;
 
 public interface SleepTestDao {
 

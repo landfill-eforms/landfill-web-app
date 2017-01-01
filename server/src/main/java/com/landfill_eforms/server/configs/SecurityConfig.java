@@ -12,8 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.landfill_eforms.server.security.TokenAuthenticationFilter;
-import com.landfill_eforms.server.security.TokenLoginFilter;
+import com.landfill_eforms.server.security.filters.TokenAuthenticationFilter;
+import com.landfill_eforms.server.security.filters.TokenLoginFilter;
 
 /**
  * @author Alvin Quach

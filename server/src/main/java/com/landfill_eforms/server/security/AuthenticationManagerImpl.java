@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.landfill_eforms.server.persistence.dao.UsersDao;
 import com.landfill_eforms.server.persistence.entities.User;
+import com.landfill_eforms.server.security.filters.MyUserDetails;
 
 /**
  * Custom implementation of <code>AuthenticationManager</code>.
@@ -39,7 +40,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 			throw new BadCredentialsException("Invalid Password");
 		}
 		
-		AuthenticatedUser result = new AuthenticatedUser(user);
+		AuthenticatedUser result = new AuthenticatedUser(new MyUserDetails(user));
 		return result;
 	}
 

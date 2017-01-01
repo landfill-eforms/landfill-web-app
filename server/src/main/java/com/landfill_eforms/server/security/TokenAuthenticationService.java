@@ -24,7 +24,7 @@ public class TokenAuthenticationService {
 	public static final String TOKEN_PREFIX = "Bearer";
 	public static final String HEADER_STRING = "Authorization";
 
-	public void addAuthentication(HttpServletResponse response, Authentication authentication) {
+	public static void addAuthentication(HttpServletResponse response, Authentication authentication) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("username", authentication.getName());
 		claims.put("authorities", authentication.getAuthorities());
@@ -38,7 +38,7 @@ public class TokenAuthenticationService {
 		response.addHeader("Access-Control-Expose-Headers", "Authorization");
 	}
 
-	public Authentication getAuthentication(HttpServletRequest request) {
+	public static Authentication getAuthentication(HttpServletRequest request) {
 
 		String token = request.getHeader(HEADER_STRING);
 		try {

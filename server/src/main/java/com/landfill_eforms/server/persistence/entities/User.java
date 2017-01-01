@@ -1,6 +1,6 @@
 package com.landfill_eforms.server.persistence.entities;
 
-import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,53 +8,44 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Alvin Quach
  */
 @Entity
 @Table(name="test.dbo.Users")
-public class User implements UserDetails {
+public class User {
 	
 	@Id
 	@Column(name="UserPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name="UserRoleFK")
-	private UserRole userRole;
-	
 	@NotNull
 	private String username;
 	
 	@NotNull
-	//@JsonIgnore
 	private String password;
+
+	@JsonIgnoreProperties({"users"})
+	@ManyToMany
+	@JoinTable(name="test.dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserGroupFK"), inverseJoinColumns=@JoinColumn(name="UserFK"))
+	private Set<UserGroup> userGroups;
 	
 	@NotNull
-	private Boolean active;
+	private Boolean enabled;
 	
-	private String employeeID;
-	
-	private String firstname;
-	
-	private String lastname;
-	
-	private String initials;
-	
-	@ManyToOne
-	@JoinColumn(name="EmailAddressFK")
-	private EmailAddress emailAddress;
-	
+	@OneToOne
+	@JoinColumn(name="UserProfileFK")
+	private UserProfile userProfile;
+
 	public Integer getId() {
 		return id;
 	}
@@ -63,15 +54,6 @@ public class User implements UserDetails {
 		this.id = id;
 	}
 
-	public UserRole getUserRole() {
-		return userRole;
-	}
-
-	public void setUserRole(UserRole userRole) {
-		this.userRole = userRole;
-	}
-
-	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -80,7 +62,6 @@ public class User implements UserDetails {
 		this.username = username;
 	}
 
-	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -89,82 +70,28 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	public Boolean getActive() {
-		return active;
+	public Set<UserGroup> getUserGroups() {
+		return userGroups;
 	}
 
-	public void setActive(Boolean active) {
-		this.active = active;
+	public void setUserGroups(Set<UserGroup> userGroups) {
+		this.userGroups = userGroups;
 	}
 
-	public String getEmployeeID() {
-		return employeeID;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setEmployeeID(String employeeID) {
-		this.employeeID = employeeID;
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public UserProfile getUserProfile() {
+		return userProfile;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getInitials() {
-		return initials;
-	}
-
-	public void setInitials(String initials) {
-		this.initials = initials;
-	}
-
-	public EmailAddress getEmailAddress() {
-		return emailAddress;
-	}
-
-	public void setEmailAddress(EmailAddress emailAddress) {
-		this.emailAddress = emailAddress;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
+	
 }

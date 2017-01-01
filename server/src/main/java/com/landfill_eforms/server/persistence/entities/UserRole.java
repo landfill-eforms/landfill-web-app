@@ -1,12 +1,17 @@
 package com.landfill_eforms.server.persistence.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Alvin Quach
@@ -24,6 +29,10 @@ public class UserRole {
 	private String code;
 	
 	private String description;
+	
+	@JsonIgnoreProperties({"userRoles"})
+	@ManyToMany(mappedBy="userRoles")
+	private Set<UserGroup> userGroups;
 
 	public Integer getId() {
 		return id;

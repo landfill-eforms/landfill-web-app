@@ -1,4 +1,4 @@
-package com.landfill_eforms.server.security;
+package com.landfill_eforms.server.security.filters;
 
 import java.io.IOException;
 
@@ -15,16 +15,13 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.landfill_eforms.server.persistence.entities.User;
+import com.landfill_eforms.server.security.TokenAuthenticationService;
 
 public class TokenLoginFilter extends AbstractAuthenticationProcessingFilter {
-
-	private TokenAuthenticationService tokenAuthenticationService;
 
 	public TokenLoginFilter(String url, AuthenticationManager authenticationManager) {
 		super(url);
 		setAuthenticationManager(authenticationManager);
-
-		tokenAuthenticationService = new TokenAuthenticationService();
 	}
 
 	@Override
@@ -39,6 +36,6 @@ public class TokenLoginFilter extends AbstractAuthenticationProcessingFilter {
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
 		System.out.println(authentication.getClass().getName());
 		//String name = authentication.getName();
-		tokenAuthenticationService.addAuthentication(response, authentication);
+		TokenAuthenticationService.addAuthentication(response, authentication);
 	}
 }

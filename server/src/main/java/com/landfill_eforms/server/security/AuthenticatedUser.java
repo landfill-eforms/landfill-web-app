@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.landfill_eforms.server.persistence.entities.User;
 
@@ -14,37 +15,33 @@ import com.landfill_eforms.server.persistence.entities.User;
 @SuppressWarnings("serial")
 public class AuthenticatedUser implements Authentication {
 
-	private String username;
-	private Collection<? extends GrantedAuthority> authorities;
+	private UserDetails userDetails;
 
-	AuthenticatedUser(User user){
-		this.username = user.getUsername();
-		this.authorities = user.getAuthorities();
+	AuthenticatedUser(UserDetails userDetails){
+		this.userDetails = userDetails;
 	}
 
 	AuthenticatedUser(String username, Collection<? extends GrantedAuthority> authorities) {
-		this.username = username;
-		this.authorities = authorities;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities;
+		return userDetails.getAuthorities();
 	}
 
 	@Override
 	public Object getCredentials() {
-		return null; // Password should not need to be stored or retrieved from this object.
+		return userDetails.getPassword();
 	}
 
 	@Override
 	public Object getDetails() {
-		return null;
+		return null; // No additional user details are implemented.
 	}
 
 	@Override
 	public Object getPrincipal() {
-		return username; // TODO: Create a new UserDetails implementation.
+		return userDetails;
 	}
 
 	@Override
@@ -59,6 +56,6 @@ public class AuthenticatedUser implements Authentication {
 
 	@Override
 	public String getName() {
-		return username;
+		return getPrincipal().toString();
 	}
 }

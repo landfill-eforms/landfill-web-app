@@ -1,4 +1,4 @@
-package org.lacitysan.server.security;
+package org.lacitysan.landfill.server.security;
 
 import java.util.Date;
 import java.util.HashMap;

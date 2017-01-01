@@ -1,4 +1,4 @@
-package org.lacitysan.server.persistence.controllers.test;
+package org.lacitysan.landfill.server.persistence.controllers.test;
 
 public class MiscController {
 

@@ -1,6 +1,6 @@
-package org.lacitysan.server.persistence.dao;
+package org.lacitysan.landfill.server.persistence.dao;
 
-import org.lacitysan.server.persistence.entities.User;
+import org.lacitysan.landfill.server.persistence.entities.User;
 
 /**
  * @author Alvin Quach

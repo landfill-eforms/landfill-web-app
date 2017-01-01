@@ -1,4 +1,4 @@
-package org.lacitysan.server.security.filters;
+package org.lacitysan.landfill.server.security.filters;
 
 import java.io.IOException;
 
@@ -7,8 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.lacitysan.server.persistence.entities.User;
-import org.lacitysan.server.security.TokenAuthenticationService;
+import org.lacitysan.landfill.server.persistence.entities.User;
+import org.lacitysan.landfill.server.security.TokenAuthenticationService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

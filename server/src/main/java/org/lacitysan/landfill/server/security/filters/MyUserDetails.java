@@ -1,14 +1,14 @@
-package org.lacitysan.server.security.filters;
+package org.lacitysan.landfill.server.security.filters;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.lacitysan.server.persistence.entities.User;
-import org.lacitysan.server.persistence.entities.UserGroup;
-import org.lacitysan.server.persistence.entities.UserRole;
-import org.lacitysan.server.security.MyGrantedAuthority;
+import org.lacitysan.landfill.server.persistence.entities.User;
+import org.lacitysan.landfill.server.persistence.entities.UserGroup;
+import org.lacitysan.landfill.server.persistence.entities.UserRole;
+import org.lacitysan.landfill.server.security.MyGrantedAuthority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

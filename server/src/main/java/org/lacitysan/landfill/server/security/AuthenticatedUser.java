@@ -1,8 +1,8 @@
-package org.lacitysan.server.security;
+package org.lacitysan.landfill.server.security;
 
 import java.util.Collection;
 
-import org.lacitysan.server.persistence.entities.User;
+import org.lacitysan.landfill.server.persistence.entities.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

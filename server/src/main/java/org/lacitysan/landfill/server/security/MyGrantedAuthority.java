@@ -1,4 +1,4 @@
-package org.lacitysan.server.security;
+package org.lacitysan.landfill.server.security;
 
 import org.springframework.security.core.GrantedAuthority;
 

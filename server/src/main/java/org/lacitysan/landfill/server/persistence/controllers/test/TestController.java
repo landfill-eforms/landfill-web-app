@@ -1,6 +1,6 @@
-package org.lacitysan.server.persistence.controllers.test;
+package org.lacitysan.landfill.server.persistence.controllers.test;
 
-import org.lacitysan.server.persistence.dao.test.SleepTestDao;
+import org.lacitysan.landfill.server.persistence.dao.test.SleepTestDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

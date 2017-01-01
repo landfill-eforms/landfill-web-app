@@ -1,7 +1,7 @@
-package org.lacitysan.server.persistence.controllers;
+package org.lacitysan.landfill.server.persistence.controllers;
 
-import org.lacitysan.server.persistence.dao.UsersDao;
-import org.lacitysan.server.persistence.entities.User;
+import org.lacitysan.landfill.server.persistence.dao.UsersDao;
+import org.lacitysan.landfill.server.persistence.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;

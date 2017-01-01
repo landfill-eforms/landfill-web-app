@@ -1,7 +1,7 @@
-package org.lacitysan.server.configs;
+package org.lacitysan.landfill.server.configs;
 
-import org.lacitysan.server.security.filters.TokenAuthenticationFilter;
-import org.lacitysan.server.security.filters.TokenLoginFilter;
+import org.lacitysan.landfill.server.security.filters.TokenAuthenticationFilter;
+import org.lacitysan.landfill.server.security.filters.TokenLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

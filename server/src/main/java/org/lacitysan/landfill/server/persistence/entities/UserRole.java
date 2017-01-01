@@ -1,4 +1,4 @@
-package org.lacitysan.server.persistence.entities;
+package org.lacitysan.landfill.server.persistence.entities;
 
 import java.util.Set;
 

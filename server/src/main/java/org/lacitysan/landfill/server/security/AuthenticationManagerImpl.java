@@ -1,8 +1,8 @@
-package org.lacitysan.server.security;
+package org.lacitysan.landfill.server.security;
 
-import org.lacitysan.server.persistence.dao.UsersDao;
-import org.lacitysan.server.persistence.entities.User;
-import org.lacitysan.server.security.filters.MyUserDetails;
+import org.lacitysan.landfill.server.persistence.dao.UsersDao;
+import org.lacitysan.landfill.server.persistence.entities.User;
+import org.lacitysan.landfill.server.security.filters.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

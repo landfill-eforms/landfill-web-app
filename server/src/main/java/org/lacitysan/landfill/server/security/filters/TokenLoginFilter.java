@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.lacitysan.landfill.server.persistence.entities.User;
-import org.lacitysan.landfill.server.security.TokenAuthenticationService;
+import org.lacitysan.landfill.server.security.TokenAuthenticationUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,6 +36,6 @@ public class TokenLoginFilter extends AbstractAuthenticationProcessingFilter {
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
 		System.out.println(authentication.getClass().getName());
 		//String name = authentication.getName();
-		TokenAuthenticationService.addAuthentication(response, authentication);
+		TokenAuthenticationUtil.addAuthentication(response, authentication);
 	}
 }

@@ -38,7 +38,7 @@ public class MyUserDetails implements UserDetails {
 		}
 		this.authorities = testGroups.stream().flatMap(g -> g.getUserRoles().stream()).map(r -> new MyGrantedAuthority(r.getCode())).collect(Collectors.toSet());
 	}
-
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;

@@ -3,8 +3,9 @@ package org.lacitysan.landfill.server.configs;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
-import org.lacitysan.landfill.server.persistence.entities.EmailAddress;
 import org.lacitysan.landfill.server.persistence.entities.User;
+import org.lacitysan.landfill.server.persistence.entities.UserGroup;
+import org.lacitysan.landfill.server.persistence.entities.UserProfile;
 import org.lacitysan.landfill.server.persistence.entities.UserRole;
 import org.lacitysan.landfill.server.persistence.entities.test.Sleep;
 import org.lacitysan.landfill.server.persistence.entities.test.Test;
@@ -60,9 +61,10 @@ public class DataSourceConfig {
 //						Instrument.class,
 //						InstrumentType.class,
 //						Site.class,
-						EmailAddress.class,
-						User.class,
+						UserGroup.class,
+						UserProfile.class,
 						UserRole.class,
+						User.class,
 						
 						// Test classes
 						Sleep.class,

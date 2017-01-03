@@ -2,45 +2,43 @@ package org.lacitysan.landfill.server.security;
 
 import java.util.Collection;
 
-import org.lacitysan.landfill.server.persistence.entities.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * Custom implementation of <code>Authentication</code>.
+ * Custom implementation of <code>Authentication</code> containing only the username and granted authorities.
  * @author Alvin Quach
  */
-@SuppressWarnings("serial")
 public class AuthenticatedUser implements Authentication {
 
-	private UserDetails userDetails;
-
-	AuthenticatedUser(UserDetails userDetails){
-		this.userDetails = userDetails;
-	}
+	private static final long serialVersionUID = 1829948366121048803L;
+	
+	private String username;
+	private Collection<? extends GrantedAuthority> authorities;
 
 	AuthenticatedUser(String username, Collection<? extends GrantedAuthority> authorities) {
+		this.username = username;
+		this.authorities = authorities;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return userDetails.getAuthorities();
+		return authorities;
 	}
 
 	@Override
 	public Object getCredentials() {
-		return userDetails.getPassword();
+		return null;
 	}
 
 	@Override
 	public Object getDetails() {
-		return null; // No additional user details are implemented.
+		return null;
 	}
 
 	@Override
 	public Object getPrincipal() {
-		return userDetails;
+		return username;
 	}
 
 	@Override

@@ -1,9 +1,12 @@
-package org.lacitysan.landfill.server.persistence.entities;
+package org.lacitysan.landfill.server.persistence.entity;
 
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.lacitysan.landfill.lib.enumeration.UserRole;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -36,9 +41,10 @@ public class UserGroup {
 	@ManyToMany(mappedBy="userGroups")
 	private Set<User> users;
 	
-	@JsonIgnoreProperties({"userGroups"})
-	@ManyToMany
-	@JoinTable(name="test.dbo.UserGroupsXRefUserRoles", joinColumns=@JoinColumn(name="UserRoleFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
+	@ElementCollection(targetClass=UserRole.class)
+	@JoinTable(name="test.dbo.UserGroupsXRefUserRoles", joinColumns=@JoinColumn(name="UserGroupFK"))
+	@Column(name="UserRoleFK")
+	@Enumerated(EnumType.ORDINAL)
 	private Set<UserRole> userRoles;
 
 	public Integer getId() {

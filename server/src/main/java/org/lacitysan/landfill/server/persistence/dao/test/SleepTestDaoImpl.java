@@ -3,8 +3,8 @@ package org.lacitysan.landfill.server.persistence.dao.test;
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.lacitysan.landfill.server.persistence.entities.test.Sleep;
-import org.lacitysan.landfill.server.persistence.entities.test.Test;
+import org.lacitysan.landfill.server.persistence.entity.test.Sleep;
+import org.lacitysan.landfill.server.persistence.entity.test.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;

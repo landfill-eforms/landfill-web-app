@@ -1,8 +1,7 @@
 package org.lacitysan.landfill.server.security;
 
 import org.lacitysan.landfill.server.persistence.dao.UsersDao;
-import org.lacitysan.landfill.server.persistence.entities.User;
-import org.lacitysan.landfill.server.security.filters.MyUserDetails;
+import org.lacitysan.landfill.server.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -39,7 +38,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 			throw new BadCredentialsException("Invalid Password");
 		}
 		
-		AuthenticatedUser result = new AuthenticatedUser(new MyUserDetails(user));
+		AuthenticatedUser result = new AuthenticatedUser(user.getUsername(), TokenAuthenticationUtil.userGroupToAuthorities(user.getUserGroups()));
 		return result;
 	}
 

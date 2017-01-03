@@ -3,11 +3,11 @@ package org.lacitysan.landfill.server.configs;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
-import org.lacitysan.landfill.server.persistence.entities.EmailAddress;
-import org.lacitysan.landfill.server.persistence.entities.User;
-import org.lacitysan.landfill.server.persistence.entities.UserRole;
-import org.lacitysan.landfill.server.persistence.entities.test.Sleep;
-import org.lacitysan.landfill.server.persistence.entities.test.Test;
+import org.lacitysan.landfill.server.persistence.entity.User;
+import org.lacitysan.landfill.server.persistence.entity.UserGroup;
+import org.lacitysan.landfill.server.persistence.entity.UserProfile;
+import org.lacitysan.landfill.server.persistence.entity.test.Sleep;
+import org.lacitysan.landfill.server.persistence.entity.test.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,9 +60,9 @@ public class DataSourceConfig {
 //						Instrument.class,
 //						InstrumentType.class,
 //						Site.class,
-						EmailAddress.class,
+						UserGroup.class,
+						UserProfile.class,
 						User.class,
-						UserRole.class,
 						
 						// Test classes
 						Sleep.class,

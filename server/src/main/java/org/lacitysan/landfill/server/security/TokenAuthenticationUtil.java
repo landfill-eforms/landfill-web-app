@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.lacitysan.landfill.server.persistence.entities.UserGroup;
+import org.lacitysan.landfill.server.persistence.entity.UserGroup;
 import org.springframework.security.core.Authentication;
 
 import io.jsonwebtoken.Claims;
@@ -65,7 +65,7 @@ public class TokenAuthenticationUtil {
 	}
 	
 	public static Set<MyGrantedAuthority> userGroupToAuthorities(Collection<UserGroup> userGroups) {
-		return userGroups.stream().flatMap(g -> g.getUserRoles().stream()).map(r -> new MyGrantedAuthority(r.getCode())).collect(Collectors.toSet());
+		return userGroups.stream().flatMap(g -> g.getUserRoles().stream()).map(r -> new MyGrantedAuthority(r.getName())).collect(Collectors.toSet());
 	}
 
 }

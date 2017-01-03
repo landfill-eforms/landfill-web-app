@@ -2,7 +2,8 @@ package org.lacitysan.landfill.server.persistence.dao;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.persistence.entities.User;
+import org.hibernate.Hibernate;
+import org.lacitysan.landfill.server.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,14 +19,16 @@ public class UsersDaoImpl implements UsersDao {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 	
-	
 	@Override
 	@Transactional
 	public User getUserByUsername(String username) {
 		String query = "from User where username=?";
-		List<User> result = (List<User>)hibernateTemplate.find(query, username);
-		if (!result.isEmpty()) {
-			return result.get(0);
+		List<User> results = (List<User>)hibernateTemplate.find(query, username);
+		if (!results.isEmpty()) {
+			User result = results.get(0);
+			Hibernate.initialize(result.getUserGroups());
+			// TODO Initialize user roles.
+			return result;
 		}
 		return null;
 	}

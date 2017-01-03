@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.lacitysan.landfill.server.persistence.entities.User;
+import org.lacitysan.landfill.server.persistence.entity.User;
 import org.lacitysan.landfill.server.security.TokenAuthenticationUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

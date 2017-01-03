@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.persistence.entities;
+package org.lacitysan.landfill.server.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

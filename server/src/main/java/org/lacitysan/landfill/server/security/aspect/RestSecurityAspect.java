@@ -32,81 +32,87 @@ public class RestSecurityAspect {
 	private static final boolean DEBUG = true;
 
 	@Before("execution(* org.lacitysan.landfill.server.persistence.controllers..*(..))")
-	public void before(JoinPoint joinPoint) throws AccessDeniedException {
+	public void before(JoinPoint joinPoint) {
 
-		if (DEBUG) printStart(joinPoint.getSignature().getName(), joinPoint.getTarget().getClass().getName());
+		try {
 
-		// Get the Authentication from the security context holder.
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			if (DEBUG) printStart(joinPoint.getSignature().getName(), joinPoint.getTarget().getClass().getName());
 
-		// If no Authentication was found, then deny access.
-		if (auth == null) {
-			String message = "Authentication error.";
-			if (DEBUG) printDenied(message);
-			throw new AccessDeniedException(message);
-		}
+			// Get the Authentication from the security context holder.
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		// Get user roles from the Authentication.
-		Set<String> userRoles = auth.getAuthorities().stream().map(g -> g.getAuthority()).collect(Collectors.toSet());
-
-		// If the user is a super admin, then allow access.
-		if (userRoles.contains(UserRole.SUPER_ADMIN.getName())) {
-			if (DEBUG) printSuccess("User is a super admin.");
-			return;
-		}
-
-		// The set of roles allowed to access the method as defined by the method's @RestSecurity and/or the controller's @RestControllerSecurity.
-		Set<String> allowedRoles = new HashSet<>();
-
-		// Get the method that is being called.
-		Method method = ((MethodSignature)joinPoint.getSignature()).getMethod();
-
-		// Get the @RestSecurity annotation from the method. Traverses super methods if @RestSecurity can be found on the given method itself.
-		RestSecurity restSecurity = AnnotationUtils.findAnnotation(method, RestSecurity.class);
-
-		// Get the set of roles allowed to access the method from its @RestSecurty, and add it to the allowedRoles set.
-		if (restSecurity != null) {
-			allowedRoles.addAll(Arrays.asList(restSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
-		}
-
-		else if (DEBUG && restSecurity == null) System.out.println("No RestSecurity was found for the method.");
-
-		// Get the RestSecurityMode from the @RestSecurity. If no roles were defined by the @RestSecurity (or if it was null), then the rest security mode will default to APPEND.
-		RestSecurityMode restSecurityMode = (allowedRoles.isEmpty() ? RestSecurityMode.APPEND : restSecurity.mode());
-
-		// If the RestSecurityMode is APPEND, then an additional set of roles will have to be retrieved from the controller's @RestControllerSecurity.
-		if (restSecurityMode == RestSecurityMode.APPEND) {
-
-			// Get the @RestControllerSecurity from the controller. Traverses super classes if @RestControllerSecurity can be found on the given class itself.
-			RestControllerSecurity restControllerSecurity = AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), RestControllerSecurity.class);
-
-			// Get the set of roles allowed to access the method from the @RestControllerSecurty and add the roles to the allowedRoles set.
-			if (restControllerSecurity != null) {
-				allowedRoles.addAll(Arrays.asList(restControllerSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
+			// If no Authentication was found, then deny access.
+			if (auth == null) {
+				String message = "Authentication error.";
+				if (DEBUG) printDenied(message);
+				throw new AccessDeniedException(message);
 			}
 
-			else if (DEBUG) System.out.println("No RestControllerSecurity was found for the controller.");
-		}
-		
-		// If the allowedRoles set is empty, then everyone with a valid Authentication is allowed to access the resource.
-		if (allowedRoles.isEmpty()) {
-			if (DEBUG) printSuccess("No specific roles are required to access this resource.");
-			return;
-		}
-		
-		// If any of the user's roles match a role from the allowedRoles set, then allow access.
-		if (allowedRoles.removeAll(userRoles)) {
-			if (DEBUG) printSuccess("User has at least one of the required role(s).");
-			return;
+			// Get user roles from the Authentication.
+			Set<String> userRoles = auth.getAuthorities().stream().map(g -> g.getAuthority()).collect(Collectors.toSet());
+
+			// If the user is a super admin, then allow access.
+			if (userRoles.contains(UserRole.SUPER_ADMIN.getName())) {
+				if (DEBUG) printSuccess("User is a super admin.");
+				return;
+			}
+
+			// The set of roles allowed to access the method as defined by the method's @RestSecurity and/or the controller's @RestControllerSecurity.
+			Set<String> allowedRoles = new HashSet<>();
+
+			// Get the method that is being called.
+			Method method = ((MethodSignature)joinPoint.getSignature()).getMethod();
+
+			// Get the @RestSecurity annotation from the method. Traverses super methods if @RestSecurity cannot be found on the given method itself.
+			RestSecurity restSecurity = AnnotationUtils.findAnnotation(method, RestSecurity.class);
+
+			// Get the set of roles allowed to access the method from its @RestSecurty, and add it to the allowedRoles set.
+			if (restSecurity != null) {
+				allowedRoles.addAll(Arrays.asList(restSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
+			}
+
+			else if (DEBUG && restSecurity == null) System.out.println("No RestSecurity was found for the method.");
+
+			// Get the RestSecurityMode from the @RestSecurity. If no roles were defined by the @RestSecurity (or if it was null), then the rest security mode will default to APPEND.
+			RestSecurityMode restSecurityMode = (allowedRoles.isEmpty() ? RestSecurityMode.APPEND : restSecurity.mode());
+
+			// If the RestSecurityMode is APPEND, then an additional set of roles will have to be retrieved from the controller's @RestControllerSecurity.
+			if (restSecurityMode == RestSecurityMode.APPEND) {
+
+				// Get the @RestControllerSecurity from the controller. Traverses super classes if @RestControllerSecurity cannot be found on the given class itself.
+				RestControllerSecurity restControllerSecurity = AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), RestControllerSecurity.class);
+
+				// Get the set of roles allowed to access the method from the @RestControllerSecurty and add the roles to the allowedRoles set.
+				if (restControllerSecurity != null) {
+					allowedRoles.addAll(Arrays.asList(restControllerSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
+				}
+
+				else if (DEBUG) System.out.println("No RestControllerSecurity was found for the controller.");
+			}
+
+			// If the allowedRoles set is empty, then everyone with a valid Authentication is allowed to access the resource.
+			if (allowedRoles.isEmpty()) {
+				if (DEBUG) printSuccess("No specific roles are required to access this resource.");
+				return;
+			}
+
+			// If any of the user's roles match a role from the allowedRoles set, then allow access.
+			if (allowedRoles.removeAll(userRoles)) {
+				if (DEBUG) printSuccess("User has at least one of the required role(s).");
+				return;
+			}
+
+			// Deny access if none of the roles match.
+			else {
+				String message = "User does not have any of the required roles(s).";
+				if (DEBUG) printDenied(message);
+				throw new AccessDeniedException(message);
+			}
+
+		} catch (AccessDeniedException e) {
+			// TODO Implement error message in response.
 		}
 
-		// Deny access if none of the roles match.
-		else {
-			String message = "User does not have any of the required roles(s).";
-			if (DEBUG) printDenied(message);
-			throw new AccessDeniedException(message);
-		}
-		
 	}
 
 	/** Prints the start of the debug message */

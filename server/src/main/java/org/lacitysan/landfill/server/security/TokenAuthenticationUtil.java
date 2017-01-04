@@ -1,8 +1,10 @@
 package org.lacitysan.landfill.server.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.lacitysan.landfill.server.persistence.entity.UserGroup;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -31,7 +34,7 @@ public class TokenAuthenticationUtil {
 	public static void addAuthentication(HttpServletResponse response, Authentication authentication) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("username", authentication.getName());
-		claims.put("roles", authentication.getAuthorities());
+		claims.put("roles", authentication.getAuthorities().stream().map(a -> a.getAuthority()).toArray());
 		String JWT = Jwts.builder()
 				.setClaims(claims)
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
@@ -42,28 +45,33 @@ public class TokenAuthenticationUtil {
 		response.addHeader("Access-Control-Expose-Headers", "Authorization");
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static Authentication getAuthentication(HttpServletRequest request) {
-
 		String token = request.getHeader(HEADER_STRING);
-		try {
-			if (token != null) {
+		if (token != null) {
+			try {
 				Claims claims = Jwts.parser()
 						.setSigningKey(SECRET)
 						.parseClaimsJws(token)
 						.getBody();
 				Object username = claims.get("username");
-				Object authorities = claims.get("roles");
-				System.out.println("Type of authorites: " + authorities.getClass().getName());
-				if (username != null && username instanceof String) {
-					return new AuthenticatedUser((String)username, null);
+				Object roles = claims.get("roles");
+				if (username != null) {
+					List<GrantedAuthority> authorities = new ArrayList<>(); 
+					if (roles != null && roles instanceof List) {
+						for (Object role : (List)roles) {
+							authorities.add(new MyGrantedAuthority(role.toString()));
+						}
+					}
+					return new AuthenticatedUser(username.toString(), authorities);
 				}
+			} catch (ExpiredJwtException e) {
+				System.out.println("ExpiredJwtException: Token " + token + " is expired.");
 			}
-		} catch (ExpiredJwtException e) {
-			System.out.println("ExpiredJwtException: Token " + token + " is expired.");
 		}
 		return null;
 	}
-	
+
 	public static Set<MyGrantedAuthority> userGroupToAuthorities(Collection<UserGroup> userGroups) {
 		return userGroups.stream().flatMap(g -> g.getUserRoles().stream()).map(r -> new MyGrantedAuthority(r.getName())).collect(Collectors.toSet());
 	}

@@ -25,6 +25,6 @@ public @interface RestSecurity {
 	 * will append to instead of overriding the roles specified in the controller's 
 	 * <code>RestControllerSecurity</code> (if exists) for the method.
 	 */
-	boolean append() default false;
+	RestSecurityMode mode() default RestSecurityMode.OVERRIDE;
 	
 }

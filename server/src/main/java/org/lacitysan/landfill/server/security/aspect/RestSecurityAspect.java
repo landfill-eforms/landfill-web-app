@@ -29,7 +29,6 @@ import org.springframework.stereotype.Component;
 public class RestSecurityAspect {
 
 	private static final boolean DEBUG = true;
-	private static final String DENIED_ROLES_NO_MATCH = "User does not have any of the required roles(s).";
 
 	@Before("execution(* org.lacitysan.landfill.server.persistence.controllers..*(..))")
 	public void before(JoinPoint joinPoint) throws AccessDeniedException {

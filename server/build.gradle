@@ -32,7 +32,7 @@ ext {
 	hibernateVersion = '5.0.1.Final'
 	jacksonVersion = '2.8.4'
 	jjwtVersion = '0.7.0'
-	aspectjVersion = '1.8.10'
+	aspectjVersion = '1.8.9'
 }
 
 dependencies {

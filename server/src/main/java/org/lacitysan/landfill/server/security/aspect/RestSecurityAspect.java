@@ -28,6 +28,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RestSecurityAspect {
 
+	/** Whether to print debug messages. */
 	private static final boolean DEBUG = true;
 
 	@Before("execution(* org.lacitysan.landfill.server.persistence.controllers..*(..))")
@@ -60,26 +61,26 @@ public class RestSecurityAspect {
 		// Get the method that is being called.
 		Method method = ((MethodSignature)joinPoint.getSignature()).getMethod();
 
-		// Get the RestSecurity annotation from the method. Traverses super methods if RestSecurity can be found on the given method itself.
+		// Get the @RestSecurity annotation from the method. Traverses super methods if @RestSecurity can be found on the given method itself.
 		RestSecurity restSecurity = AnnotationUtils.findAnnotation(method, RestSecurity.class);
 
-		// Get the set of roles allowed to access the method from its RestSecurty, and add it to the allowedRoles set.
+		// Get the set of roles allowed to access the method from its @RestSecurty, and add it to the allowedRoles set.
 		if (restSecurity != null) {
 			allowedRoles.addAll(Arrays.asList(restSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
 		}
 
 		else if (DEBUG && restSecurity == null) System.out.println("No RestSecurity was found for the method.");
 
-		// Get the RestSecurityMode from the RestSecurity. If no roles were defined by the RestSecurity (or if it was null), then the rest security mode will default to APPEND.
+		// Get the RestSecurityMode from the @RestSecurity. If no roles were defined by the @RestSecurity (or if it was null), then the rest security mode will default to APPEND.
 		RestSecurityMode restSecurityMode = (allowedRoles.isEmpty() ? RestSecurityMode.APPEND : restSecurity.mode());
 
-		// If the RestSecurityMode is APPEND, then an additional set of roles will have to be retrieved from the controller's RestControllerSecurity.
+		// If the RestSecurityMode is APPEND, then an additional set of roles will have to be retrieved from the controller's @RestControllerSecurity.
 		if (restSecurityMode == RestSecurityMode.APPEND) {
 
-			// Get the RestControllerSecurity from the controller. Traverses super classes if RestControllerSecurity can be found on the given class itself.
+			// Get the @RestControllerSecurity from the controller. Traverses super classes if @RestControllerSecurity can be found on the given class itself.
 			RestControllerSecurity restControllerSecurity = AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), RestControllerSecurity.class);
 
-			// Get the set of roles allowed to access the method from the RestControllerSecurty and add the roles to the allowedRoles set.
+			// Get the set of roles allowed to access the method from the @RestControllerSecurty and add the roles to the allowedRoles set.
 			if (restControllerSecurity != null) {
 				allowedRoles.addAll(Arrays.asList(restControllerSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
 			}

@@ -32,6 +32,7 @@ ext {
 	hibernateVersion = '5.0.1.Final'
 	jacksonVersion = '2.8.4'
 	jjwtVersion = '0.7.0'
+	aspectjVersion = '1.8.10'
 }
 
 dependencies {
@@ -49,6 +50,7 @@ dependencies {
 	compile('org.hibernate:hibernate-hikaricp:' + hibernateVersion)
 	compile('com.fasterxml.jackson.core:jackson-databind:' + jacksonVersion)
 	compile('io.jsonwebtoken:jjwt:' + jjwtVersion)
+	compile('org.aspectj:aspectjweaver:' + aspectjVersion)
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

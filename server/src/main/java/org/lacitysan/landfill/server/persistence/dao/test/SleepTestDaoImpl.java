@@ -20,12 +20,14 @@ public class SleepTestDaoImpl implements SleepTestDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
-	
+
 	@Override
 	@Transactional
 	public Sleep getSleepById(Integer id) {
-		String query = "from Sleep where id=?";
-		List<Sleep> results = (List<Sleep>)hibernateTemplate.find(query, id);
+		List<Sleep> results = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createQuery("from Sleep where id=:id")
+				.setParameter("id", id)
+				.list();
 		if (!results.isEmpty()) {
 			Sleep result = results.get(0);
 			Hibernate.initialize(result.getTests());
@@ -33,12 +35,14 @@ public class SleepTestDaoImpl implements SleepTestDao {
 		}
 		return null;
 	}
-	
+
 	@Override
 	@Transactional
 	public Test getTestById(Integer id) {
-		String query = "from Test where id=?";
-		List<Test> results = (List<Test>)hibernateTemplate.find(query, id);
+		List<Test> results = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createQuery("from Test where id=:id")
+				.setParameter("id", id)
+				.list();
 		if (!results.isEmpty()) {
 			Test result = results.get(0);
 			Hibernate.initialize(result.getSleeps());
@@ -46,5 +50,5 @@ public class SleepTestDaoImpl implements SleepTestDao {
 		}
 		return null;
 	}
-	
+
 }

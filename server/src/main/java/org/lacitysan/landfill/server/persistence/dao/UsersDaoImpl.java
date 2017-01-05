@@ -15,15 +15,17 @@ import org.springframework.transaction.annotation.Transactional;
 @SuppressWarnings("unchecked")
 @Repository
 public class UsersDaoImpl implements UsersDao {
-	
+
 	@Autowired
 	HibernateTemplate hibernateTemplate;
-	
+
 	@Override
 	@Transactional
 	public User getUserByUsername(String username) {
-		String query = "from User where username=?";
-		List<User> results = (List<User>)hibernateTemplate.find(query, username);
+		List<User> results = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createQuery("from User where username=:username")
+				.setParameter("username", username)
+				.list();
 		if (!results.isEmpty()) {
 			User result = results.get(0);
 			Hibernate.initialize(result.getUserGroups());
@@ -32,5 +34,5 @@ public class UsersDaoImpl implements UsersDao {
 		}
 		return null;
 	}
-	
+
 }

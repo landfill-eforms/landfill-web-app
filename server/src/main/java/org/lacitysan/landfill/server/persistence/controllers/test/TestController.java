@@ -1,8 +1,6 @@
 package org.lacitysan.landfill.server.persistence.controllers.test;
 
-import org.lacitysan.landfill.lib.enumeration.UserRole;
 import org.lacitysan.landfill.server.persistence.dao.test.SleepTestDao;
-import org.lacitysan.landfill.server.security.annotation.RestControllerSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
  * For testing purposes.
  * @author Alvin Quach
  */
-@RestControllerSecurity(UserRole.SUPER_ADMIN)
 @RequestMapping("rest/test")
 @RestController
 public class TestController {

@@ -18,8 +18,7 @@ public class TokenAuthenticationFilter extends GenericFilterBean {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 		Authentication authentication = TokenAuthenticationUtil.getAuthentication((HttpServletRequest)request);
-		System.out.println("DOING IT!");
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		filterChain.doFilter(request,response);
+		filterChain.doFilter(request, response);
 	}
 }

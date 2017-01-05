@@ -41,9 +41,8 @@ public class RestSecurityAspect {
 
 		// If no Authentication was found, then deny access.
 		if (auth == null) {
-			String message = "Authentication error.";
-			if (DEBUG) printDenied(message);
-			throw new AccessDeniedException(message);
+			if (DEBUG) printDenied("Authentication could not be retrived from SecurityContextHolder.");
+			throw new AccessDeniedException("Authentication error.");
 		}
 
 		// Get user roles from the Authentication.
@@ -102,9 +101,8 @@ public class RestSecurityAspect {
 
 		// Deny access if none of the roles match.
 		else {
-			String message = "User does not have any of the required roles(s).";
-			if (DEBUG) printDenied(message);
-			throw new AccessDeniedException(message);
+			if (DEBUG) printDenied("User does not have any of the required roles(s).");
+			throw new AccessDeniedException("You are not authorized to access this resource.");
 		}
 
 	}

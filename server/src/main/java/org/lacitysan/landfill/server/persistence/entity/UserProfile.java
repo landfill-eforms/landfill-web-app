@@ -7,11 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+
 /**
  * @author Alvin Quach
  */
 @Entity
-@Table(name="dbo.UserProfiles")
+@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.UserProfiles")
 public class UserProfile {
 	
 	@Id

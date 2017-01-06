@@ -14,13 +14,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Alvin Quach
  */
 @Entity
-@Table(name="test.dbo.Users")
+@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.Users")
 public class User {
 	
 	@Id

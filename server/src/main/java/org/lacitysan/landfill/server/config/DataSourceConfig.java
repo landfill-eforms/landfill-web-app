@@ -1,8 +1,9 @@
-package org.lacitysan.landfill.server.configs;
+package org.lacitysan.landfill.server.config;
 
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.persistence.entity.User;
 import org.lacitysan.landfill.server.persistence.entity.UserGroup;
 import org.lacitysan.landfill.server.persistence.entity.UserProfile;
@@ -32,8 +33,9 @@ public class DataSourceConfig {
 	@Value("${spring.datasource.url}")
 	private String serverName;
 	
-	@Value("${spring.datasource.name}")
-	private String databaseName;
+//	Database name is now defined in ApplicationProperty
+//	@Value("${spring.datasource.name}")
+//	private String databaseName;
 	
 	@Value("${spring.datasource.username}")
 	private String username;
@@ -53,13 +55,6 @@ public class DataSourceConfig {
 	public SessionFactory sessionFactory() {
 		return new LocalSessionFactoryBuilder(getDataSource())
 				.addAnnotatedClasses(
-//						Sleep.class,
-//						MonitoringPoints.class,
-//						MonitoringPointType.class,
-//						InstantaneousData.class,
-//						Instrument.class,
-//						InstrumentType.class,
-//						Site.class,
 						UserGroup.class,
 						UserProfile.class,
 						User.class,
@@ -77,7 +72,7 @@ public class DataSourceConfig {
 		HikariConfig dataSource = new HikariConfig();
 		dataSource.setDataSourceClassName(className);
 		dataSource.addDataSourceProperty("serverName", serverName);
-		dataSource.addDataSourceProperty("databaseName", databaseName);
+		dataSource.addDataSourceProperty("databaseName", ApplicationProperty.DATABASE_NAME);
 		dataSource.setUsername(username);
 		dataSource.setPassword(password);
 		dataSource.setInitializationFailFast(initializationFailFast);

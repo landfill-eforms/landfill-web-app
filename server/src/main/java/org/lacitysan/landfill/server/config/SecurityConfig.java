@@ -1,5 +1,6 @@
-package org.lacitysan.landfill.server.configs;
+package org.lacitysan.landfill.server.config;
 
+import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.security.filters.TokenAuthenticationFilter;
 import org.lacitysan.landfill.server.security.filters.TokenLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	public static final String LOGIN_PATH = "/login";
-
 	@Autowired
 	AuthenticationManager authenticationManager;
 
@@ -33,10 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//.anonymous().disable()
 		.authorizeRequests()
 			.antMatchers("/").permitAll()
-			.antMatchers(HttpMethod.POST, LOGIN_PATH).permitAll()
+			.antMatchers(HttpMethod.POST, ApplicationProperty.LOGIN_PATH).permitAll()
 			.anyRequest().authenticated()
 			.and()
-		.addFilterBefore(new TokenLoginFilter(LOGIN_PATH, authenticationManager), UsernamePasswordAuthenticationFilter.class)
+		.addFilterBefore(new TokenLoginFilter(ApplicationProperty.LOGIN_PATH, authenticationManager), UsernamePasswordAuthenticationFilter.class)
 		.addFilterBefore(new TokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 

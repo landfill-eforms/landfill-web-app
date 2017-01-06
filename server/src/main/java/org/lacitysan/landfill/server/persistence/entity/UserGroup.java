@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.lib.enumeration.UserRole;
+import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Alvin Quach
  */
 @Entity
-@Table(name="test.dbo.UserGroups")
+@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.UserGroups")
 public class UserGroup {
 	
 	@Id

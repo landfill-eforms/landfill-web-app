@@ -10,6 +10,7 @@ import {AUTH_PROVIDERS} from 'angular2-jwt';
 import {AuthGuard} from './services/auth/authguard';
 
 import {PublicModule} from './components/public/public.module'
+import {NavigationModule} from './components/navigation/navigation.module'
 import {TestModule} from './components/test/test.module';
 
 import {InstantaneousDataService} from './services/instantaneous-data.service';
@@ -20,14 +21,15 @@ import {SitesService} from './services/sites.service';
     AppComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    RouterModule,
-    MaterialModule.forRoot(),
+    // BrowserModule,
+    // FormsModule,
+    // HttpModule,
+    // RouterModule,
+    //MaterialModule.forRoot(),
     //AppRoutes,
     Routing,
     PublicModule,
+    NavigationModule,
     TestModule,
   ],
   providers: [

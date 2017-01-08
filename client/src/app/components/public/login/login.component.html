@@ -1,11 +1,22 @@
-<form (submit)="login($event, username.value, password.value)">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" #username class="form-control" id="username" placeholder="Username">
+<md-toolbar>
+    <button md-icon-button (click)="sidenav.open()">
+        <md-icon>menu</md-icon>
+    </button>
+    <span>TEST</span>
+</md-toolbar>
+<md-sidenav-container fullscreen>
+    <md-sidenav #sidenav mode="over" opened="false">Drawer content</md-sidenav>
+    <div>
+        <form (submit)="login($event, username.value, password.value)">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" #username class="form-control" id="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" #password class="form-control" id="password" placeholder="Password">
+            </div>
+            <button md-raised-button type="submit">Submit</button>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" #password class="form-control" id="password" placeholder="Password">
-    </div>
-    <button type="submit">Submit</button>
-</form>
+</md-sidenav-container>

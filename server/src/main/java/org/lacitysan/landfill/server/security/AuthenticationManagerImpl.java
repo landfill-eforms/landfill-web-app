@@ -30,12 +30,12 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 		String username = (String)authentication.getPrincipal();
 		User user = usersDao.getUserByUsername(username);
 		if (user == null) {
-			throw new UsernameNotFoundException("Invalid Username");
+			throw new UsernameNotFoundException("Invalid Username"); // TODO Change this to "Invalid user or password"
 		}
 		
 		String password = (String)authentication.getCredentials();
 		if (password == null || !passwordEncoder.matches(password, user.getPassword())) {
-			throw new BadCredentialsException("Invalid Password");
+			throw new BadCredentialsException("Invalid Password"); // TODO Change this to "Invalid user or password"
 		}
 		
 		AuthenticatedUser result = new AuthenticatedUser(user.getUsername(), TokenAuthenticationUtil.userGroupToAuthorities(user.getUserGroups()));

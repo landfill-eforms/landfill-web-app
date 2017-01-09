@@ -19,7 +19,7 @@ public class UserProfile {
 	@Id
 	@Column(name="UserProfilePK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer userProfileId;
 	
 	private String firstname;
 	
@@ -33,12 +33,12 @@ public class UserProfile {
 	
 	private String employeeId;
 
-	public Integer getId() {
-		return id;
+	public Integer getUserProfileId() {
+		return userProfileId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUserProfileId(Integer userProfileId) {
+		this.userProfileId = userProfileId;
 	}
 
 	public String getFirstname() {

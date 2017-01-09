@@ -28,7 +28,7 @@ public class User {
 	@Id
 	@Column(name="UserPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer userId;
 	
 	@NotNull
 	private String username;
@@ -38,7 +38,7 @@ public class User {
 
 	@JsonIgnoreProperties({"users"})
 	@ManyToMany
-	@JoinTable(name="test.dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserGroupFK"), inverseJoinColumns=@JoinColumn(name="UserFK"))
+	@JoinTable(name="test.dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
 	private Set<UserGroup> userGroups;
 	
 	@NotNull
@@ -48,12 +48,12 @@ public class User {
 	@JoinColumn(name="UserProfileFK")
 	private UserProfile userProfile;
 
-	public Integer getId() {
-		return id;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {

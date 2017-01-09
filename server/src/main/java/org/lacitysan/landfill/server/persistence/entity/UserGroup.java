@@ -1,5 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -31,12 +33,27 @@ public class UserGroup {
 	@Id
 	@Column(name="UserGroupPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer userGroupId;
 	
 	@NotNull
 	private String name;
 	
 	private String description;
+	
+	// TODO Find a better way to implement/retrieve 'modified by' and 'created by' info.
+	@JsonIgnoreProperties({"password", "userGroups", "enabled", "userProfile"})
+	@ManyToOne
+	@JoinColumn(name="CreatedBy")
+	private User createdBy;
+	
+	private Date createdDate;
+	
+	@JsonIgnoreProperties({"password", "userGroups", "enabled", "userProfile"})
+	@ManyToOne
+	@JoinColumn(name="ModifiedBy")
+	private User modifiedBy;
+	
+	private Date modifiedDate;
 	
 	@JsonIgnoreProperties({"userGroups"})
 	@ManyToMany(mappedBy="userGroups")
@@ -44,16 +61,16 @@ public class UserGroup {
 	
 	@ElementCollection(targetClass=UserRole.class)
 	@JoinTable(name="test.dbo.UserGroupsXRefUserRoles", joinColumns=@JoinColumn(name="UserGroupFK"))
-	@Column(name="UserRoleFK")
+	@Column(name="UserRoleOrdinal")
 	@Enumerated(EnumType.ORDINAL)
 	private Set<UserRole> userRoles;
 
-	public Integer getId() {
-		return id;
+	public Integer getUserGroupId() {
+		return userGroupId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUserGroupId(Integer userGroupId) {
+		this.userGroupId = userGroupId;
 	}
 
 	public String getName() {
@@ -88,4 +105,36 @@ public class UserGroup {
 		this.userRoles = userRoles;
 	}
 
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+	
 }

@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '../common/common.module'
-
-import {LoginComponent} from './login/login.component';
+import {NavigationBaseComponent} from './navigation-base/navigation-base.component';
 
 @NgModule({
     imports: [
@@ -9,10 +8,10 @@ import {LoginComponent} from './login/login.component';
     ],
     providers: [],
     declarations: [
-        LoginComponent,
+        NavigationBaseComponent,
     ]
 })
 
-export class PublicModule {
+export class NavigationModule {
     
 }

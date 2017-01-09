@@ -27,6 +27,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  */
 public class TokenAuthenticationUtil {
 
+	/** Adds authentication info to response header. */
 	public static void addAuthentication(HttpServletResponse response, Authentication authentication) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("username", authentication.getName());
@@ -41,7 +42,6 @@ public class TokenAuthenticationUtil {
 		response.addHeader("Access-Control-Expose-Headers", "Authorization");
 	}
 
-	@SuppressWarnings("rawtypes")
 	public static Authentication getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(ApplicationProperty.HTTP_TOKEN_HEADER_NAME);
 		if (token != null) {
@@ -55,7 +55,7 @@ public class TokenAuthenticationUtil {
 				if (username != null) {
 					List<GrantedAuthority> authorities = new ArrayList<>(); 
 					if (roles != null && roles instanceof List) {
-						for (Object role : (List)roles) {
+						for (Object role : (List<?>)roles) {
 							authorities.add(new MyGrantedAuthority(role.toString()));
 						}
 					}
@@ -69,7 +69,10 @@ public class TokenAuthenticationUtil {
 	}
 
 	public static Set<MyGrantedAuthority> userGroupToAuthorities(Collection<UserGroup> userGroups) {
-		return userGroups.stream().flatMap(g -> g.getUserRoles().stream()).map(r -> new MyGrantedAuthority(r.getName())).collect(Collectors.toSet());
+		return userGroups.stream()
+				.flatMap(g -> g.getUserRoles().stream())
+				.map(r -> new MyGrantedAuthority(r.name()))
+				.collect(Collectors.toSet());
 	}
 
 }

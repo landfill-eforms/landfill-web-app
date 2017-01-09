@@ -1,11 +1,24 @@
-<form (submit)="login($event, username.value, password.value)">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" #username class="form-control" id="username" placeholder="Username">
+<div class="background">
+    <div class="logo-container">
+        <img src="http://www.lvt-ia.org/wp-content/uploads/2015/09/LASanitation_logo_fin.png">
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" #password class="form-control" id="password" placeholder="Password">
+    <div class="card-container flex-container" fxLayout="row" fxLayoutAlign="center center">
+        <md-card fxFlex="400px" style="padding:32px 24px;">
+            <md-card-content>
+                <form (submit)="login($event, username.value, password.value)">
+                    <div>
+                        <md-input-container style="width:100%">
+                            <input md-input placeholder="Username">
+                        </md-input-container>
+                    </div>
+                    <div>
+                        <md-input-container style="width:100%">
+                            <input md-input placeholder="Password" type="password">
+                        </md-input-container>
+                    </div>
+                    <button md-raised-button color="warn" type="submit" style="width:100%; margin:16px 0;">Login</button>
+                </form>
+            </md-card-content>
+        </md-card>
     </div>
-    <button type="submit">Submit</button>
-</form>
+</div>

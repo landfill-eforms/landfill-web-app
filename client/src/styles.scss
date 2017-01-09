@@ -3,6 +3,11 @@
 
 html {
     font-family: "arial", Times, sans-serif;
+    height: 100%;
+    body {
+        margin: 0;
+        height: 100%;
+    }
 }
 
 md-sidenav-container {

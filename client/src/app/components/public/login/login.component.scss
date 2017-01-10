@@ -1,16 +1,21 @@
 .background {
-    background-color: greenyellow;
-    height: 100%;
+	background-color: #774422;
+	height: 100%;
 }
 
 .logo-container {
-    text-align: center;
-    padding: 100px 0 50px 0;
-    img {
-        width: 300px;
-    }
+	text-align: center;
+	padding: 100px 0 50px 0;
+	img {
+		width: 300px;
+	}
 }
 
 .card-container {
-    text-align: center;
+	text-align: center;
+}
+
+.login-button {
+	width: 100%;
+	margin: 16px 0;
 }

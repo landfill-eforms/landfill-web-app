@@ -1,24 +1,22 @@
 <div class="background">
-    <div class="logo-container">
-        <img src="http://www.lvt-ia.org/wp-content/uploads/2015/09/LASanitation_logo_fin.png">
-    </div>
-    <div class="card-container flex-container" fxLayout="row" fxLayoutAlign="center center">
-        <md-card fxFlex="400px" style="padding:32px 24px;">
-            <md-card-content>
-                <form (submit)="login($event, username.value, password.value)">
-                    <div>
-                        <md-input-container style="width:100%">
-                            <input md-input placeholder="Username">
-                        </md-input-container>
-                    </div>
-                    <div>
-                        <md-input-container style="width:100%">
-                            <input md-input placeholder="Password" type="password">
-                        </md-input-container>
-                    </div>
-                    <button md-raised-button color="warn" type="submit" style="width:100%; margin:16px 0;">Login</button>
-                </form>
-            </md-card-content>
-        </md-card>
-    </div>
+	<div class="logo-container">
+		<img src="http://www.lvt-ia.org/wp-content/uploads/2015/09/LASanitation_logo_fin.png">
+	</div>
+	<div class="card-container flex-container" fxLayout="row" fxLayoutAlign="center center">
+		<md-card fxFlex="400px" style="padding:32px 24px;">
+			<md-card-content>
+				<div>
+					<md-input-container style="width:100%">
+						<input [(ngModel)]="credentials.username" md-input placeholder="Username">
+					</md-input-container>
+				</div>
+				<div>
+					<md-input-container style="width:100%">
+						<input type="password" [(ngModel)]="credentials.password" md-input placeholder="Password">
+					</md-input-container>
+				</div>
+				<button md-raised-button color="warn" class="login-button" (click)="login()">LOGIN</button>
+			</md-card-content>
+		</md-card>
+	</div>
 </div>

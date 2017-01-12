@@ -1,3 +1,4 @@
+import { DirectivesModule } from './../directives/directives.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '../common/common.module'
 
@@ -8,7 +9,8 @@ import {SleepTestComponent} from './sleep-test/sleep-test.component';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        DirectivesModule
     ],
     providers: [],
     declarations: [

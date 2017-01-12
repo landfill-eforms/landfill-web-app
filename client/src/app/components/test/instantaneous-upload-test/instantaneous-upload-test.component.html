@@ -9,3 +9,7 @@
 
 <textarea [(ngModel)]="_file"></textarea>
 <button (click)="upload()">Upload</button>
+
+<div>
+<file-upload #fu (change)="fu.upload()"></file-upload>
+</div>

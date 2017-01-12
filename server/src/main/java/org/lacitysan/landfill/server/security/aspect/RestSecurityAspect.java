@@ -31,7 +31,7 @@ public class RestSecurityAspect {
 	/** Whether to print debug messages. */
 	private static final boolean DEBUG = true;
 
-	@Before("execution(* org.lacitysan.landfill.server.persistence.controllers..*(..))")
+	@Before("execution(* org.lacitysan.landfill.server.rest..*(..))")
 	public void before(JoinPoint joinPoint) throws AccessDeniedException {
 
 		if (DEBUG) printStart(joinPoint.getSignature().getName(), joinPoint.getTarget().getClass().getName());

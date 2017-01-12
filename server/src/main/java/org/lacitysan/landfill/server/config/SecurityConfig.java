@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 			.antMatchers("/").permitAll()
 			.antMatchers(HttpMethod.POST, ApplicationProperty.LOGIN_PATH).permitAll()
+			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 		.addFilterBefore(new TokenLoginFilter(ApplicationProperty.LOGIN_PATH, authenticationManager), UsernamePasswordAuthenticationFilter.class)

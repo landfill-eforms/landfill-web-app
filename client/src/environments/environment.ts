@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  resourceUrl: "http://localhost:8080/"
+  loginUrl: "http://localhost:8080/login",
+  resourceUrl: "http://localhost:8080/rest"
 };

@@ -3,6 +3,7 @@ import { JwtHelper } from 'angular2-jwt';
 import { Headers, Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { RestrictedRouteBase } from './../../app.routing';
+import { environment } from './../../../environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,7 @@ export class AuthService {
 			'Content-Type': 'text/plain',
 		});
 
-		this.http.post('http://localhost:8080/login', body, {headers: contentHeaders}).subscribe(
+		this.http.post(environment.loginUrl, body, {headers: contentHeaders}).subscribe(
 			(response:Response) => {
 				let jwtToken:string = response.headers.get("Authorization").replace("Bearer ", "");
 				console.log("JWT Token:", jwtToken);
@@ -31,8 +32,8 @@ export class AuthService {
 					this.jwtHelper.isTokenExpired(jwtToken),
 				);
 				let claims:any = this.jwtHelper.decodeToken(jwtToken);
-				localStorage.setItem("id_token", jwtToken);
-				localStorage.setItem("username", claims["username"]);
+				sessionStorage.setItem("id_token", jwtToken);
+				sessionStorage.setItem("username", claims["username"]);
 				this.router.navigate(['/' + RestrictedRouteBase + '/instantaneous_report']);
 			},
 			(error:any) => {
@@ -41,7 +42,7 @@ export class AuthService {
 	}
 
 	logout() {
-		localStorage.clear();
+		sessionStorage.clear();
 		this.router.navigate(['/login']);
 	}
 

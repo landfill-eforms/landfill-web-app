@@ -20,6 +20,9 @@ public class ApplicationProperty {
 	/** The path to the server's login resource. */
 	public static final String LOGIN_PATH = "/login";
 	
+	/** The path to the server's REST resources. */
+	public static final String RESOURCE_PATH = "rest";
+	
 	/** The secret for generated JWTs. */
 	public static final String TOKEN_SECRET = "secret";
 	

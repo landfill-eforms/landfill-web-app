@@ -46,6 +46,8 @@ public class TokenAuthenticationUtil {
 		String token = request.getHeader(ApplicationProperty.HTTP_TOKEN_HEADER_NAME);
 		if (token != null) {
 			try {
+				token = token.replace(ApplicationProperty.HTTP_TOKEN_PREFIX + " ", "");
+				System.out.println(token);
 				Claims claims = Jwts.parser()
 						.setSigningKey(ApplicationProperty.TOKEN_SECRET)
 						.parseClaimsJws(token)

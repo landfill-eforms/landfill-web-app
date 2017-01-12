@@ -1,5 +1,6 @@
-package org.lacitysan.landfill.server.persistence.controllers.test;
+package org.lacitysan.landfill.server.rest.test;
 
+import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.persistence.dao.test.SleepTestDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * For testing purposes.
  * @author Alvin Quach
  */
-@RequestMapping("rest/test")
+@RequestMapping(ApplicationProperty.RESOURCE_PATH + "test")
 @RestController
 public class TestController {
 

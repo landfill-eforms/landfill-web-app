@@ -8,13 +8,16 @@ import { AppRoutes, Routing, AppRouterProviders } from './app.routing';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './services/auth/authguard';
 import { AuthService } from './services/auth/auth.service';
+import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
 
 import { PublicModule } from './components/public/public.module'
 import { NavigationModule } from './components/navigation/navigation.module'
+import { DirectivesModule } from './components/directives/directives.module';
 import { TestModule } from './components/test/test.module';
 
 import { InstantaneousDataService } from './services/instantaneous-data.service';
 import { SitesService } from './services/sites.service';
+import { FileUploadService } from './services/file-upload.service';
 
 @NgModule({
 	declarations: [
@@ -30,12 +33,27 @@ import { SitesService } from './services/sites.service';
 		Routing,
 		PublicModule,
 		NavigationModule,
+		DirectivesModule,
 		TestModule,
 	],
 	providers: [
 		//AppRouterProviders,
+		AuthHttp,
+		provideAuth({
+			headerName: 'Authorization',
+			headerPrefix: 'Bearer',
+			tokenName: 'id_token',
+			tokenGetter: (() => {
+				let jwt:string = sessionStorage.getItem('id_token');
+				console.log("JWT", jwt);
+				return jwt;
+			}),
+			globalHeaders: [{ 'Content-Type': 'text/plain' }],
+			noJwtError: false
+        }),
 		AuthGuard,
 		AuthService,
+		FileUploadService,
 		InstantaneousDataService,
 		SitesService,
 	],

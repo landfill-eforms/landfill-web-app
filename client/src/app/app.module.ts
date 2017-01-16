@@ -48,7 +48,7 @@ import { FileUploadService } from './services/file-upload.service';
 				console.log("JWT", jwt);
 				return jwt;
 			}),
-			globalHeaders: [{ 'Content-Type': 'text/plain' }],
+			//globalHeaders: [{ 'Content-Type': 'text/plain' }],
 			noJwtError: false
         }),
 		AuthGuard,

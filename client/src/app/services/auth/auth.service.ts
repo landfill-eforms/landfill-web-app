@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { JwtHelper } from 'angular2-jwt';
-import { Headers, Http, Response } from '@angular/http';
+import { JwtHelper, AuthHttp, AuthConfig } from 'angular2-jwt';
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { RestrictedRouteBase } from './../../app.routing';
 import { environment } from './../../../environments/environment';
@@ -47,3 +47,20 @@ export class AuthService {
 	}
 
 }
+
+export function authFactory(http:Http, options:RequestOptions) {
+	return new AuthHttp(new AuthConfig({
+		headerName: 'Authorization',
+		headerPrefix: 'Bearer',
+		tokenName: 'id_token',
+		tokenGetter: (() => sessionStorage.getItem('id_token')),
+		//globalHeaders: [{ 'Content-Type': 'text/plain' }],
+		noJwtError: false
+	}), http, options);
+};
+
+export const AuthProvider = {
+	provide: AuthHttp,
+	deps: [Http, RequestOptions],
+	useFactory: authFactory
+};

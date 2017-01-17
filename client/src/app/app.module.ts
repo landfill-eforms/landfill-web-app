@@ -7,7 +7,7 @@ import { MaterialModule } from '@angular/material'
 import { AppRoutes, Routing, AppRouterProviders } from './app.routing';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './services/auth/authguard';
-import { AuthService } from './services/auth/auth.service';
+import { AuthService, AuthProvider } from './services/auth/auth.service';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
 
 import { PublicModule } from './components/public/public.module'
@@ -39,18 +39,7 @@ import { FileUploadService } from './services/file-upload.service';
 	providers: [
 		//AppRouterProviders,
 		AuthHttp,
-		provideAuth({
-			headerName: 'Authorization',
-			headerPrefix: 'Bearer',
-			tokenName: 'id_token',
-			tokenGetter: (() => {
-				let jwt:string = sessionStorage.getItem('id_token');
-				console.log("JWT", jwt);
-				return jwt;
-			}),
-			//globalHeaders: [{ 'Content-Type': 'text/plain' }],
-			noJwtError: false
-        }),
+		AuthProvider,
 		AuthGuard,
 		AuthService,
 		FileUploadService,

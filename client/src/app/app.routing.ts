@@ -1,11 +1,12 @@
-import {Routes, RouterModule} from '@angular/router';
-import {ModuleWithProviders} from "@angular/core";
-import {AuthGuard} from "./services/auth/authguard";
-import {LoginComponent} from './components/public/login/login.component';
-import {NavigationBaseComponent} from './components/navigation/navigation-base/navigation-base.component';
-import {InstantaneousTestComponent} from './components/test/instantaneous-test/instantaneous-test.component';
-import {InstantaneousReportTestComponent} from './components/test/instantaneous-report-test/instantaneous-report-test.component';
-import {InstantaneousUploadTestComponent} from './components/test/instantaneous-upload-test/instantaneous-upload-test.component';
+import { Routes, RouterModule } from '@angular/router';
+import { ModuleWithProviders } from "@angular/core";
+import { AuthGuard } from "./services/auth/authguard";
+import { LoginComponent } from './components/public/login/login.component';
+import { ForbiddenComponent } from './components/public/forbidden/forbidden.component';
+import { NavigationBaseComponent } from './components/navigation/navigation-base/navigation-base.component';
+import { InstantaneousTestComponent } from './components/test/instantaneous-test/instantaneous-test.component';
+import { InstantaneousReportTestComponent } from './components/test/instantaneous-report-test/instantaneous-report-test.component';
+import { InstantaneousUploadTestComponent } from './components/test/instantaneous-upload-test/instantaneous-upload-test.component';
 
 export const RestrictedRouteBase:string = "app";
 
@@ -18,6 +19,10 @@ const PublicRoutes:Routes = [
 	{
 		path: 'login',
 		component: LoginComponent,   
+	},
+	{
+		path: 'forbidden',
+		component: ForbiddenComponent
 	}
 ];
 
@@ -57,7 +62,7 @@ const TestRoutes:Routes = [
 		component: InstantaneousTestComponent,
 		canActivate: [AuthGuard],
 		data: {roles: [
-			"ROLE_ADMIN",
+			"SUPER_ADMIN",
 		]}
 	},
 	{
@@ -65,7 +70,7 @@ const TestRoutes:Routes = [
 		component: InstantaneousUploadTestComponent,
 		canActivate: [AuthGuard],
 		data: {roles: [
-			"ROLE_ADMIN",
+			"SUPER_ADMIN",
 		]}
 	},
 

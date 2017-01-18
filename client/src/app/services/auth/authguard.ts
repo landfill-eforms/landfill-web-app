@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
 		}
 
 		console.log("AuthGuard: Denying access because user doesn't have any of the requred roles.")
-		// TODO Redirect to 403 error page.
+		this.router.navigate(['/forbidden']);
 		return false;
 
 	}

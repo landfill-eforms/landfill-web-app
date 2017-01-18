@@ -44,8 +44,8 @@ public class User {
 	@NotNull
 	private Boolean enabled;
 	
-	@OneToOne
-	@JoinColumn(name="UserProfileFK")
+	@JsonIgnoreProperties({"user"})
+	@OneToOne(mappedBy="user")
 	private UserProfile userProfile;
 
 	public Integer getUserId() {

@@ -1,27 +1,45 @@
-import { tokenNotExpired } from 'angular2-jwt';
+import { AuthService } from './auth.service';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-	constructor(private router: Router) {}
+	constructor(
+		private router: Router,
+		private authService:AuthService
+	) {}
 
 	canActivate(route:ActivatedRouteSnapshot):boolean {
+
 		console.log(route.data);
 
-		if (tokenNotExpired()) {
-			let routeRoles:string[] = route.data["roles"];
-			let userRole:string = localStorage.getItem("user_role");
-			console.log(userRole, routeRoles);
-			return true;
-			// if (routeRoles.indexOf(userRole) >= 0) {
-			//     return true;
-			// }
+		if (this.authService.isTokenExpired()) {
+			console.log("AuthGuard: JWT Token is expired...")
+			this.router.navigate(['/login']);
+			// TODO Add inactivity message.
+			return false;
 		}
 
-		// If not, they redirect them to the login page
-		this.router.navigate(['/login']);
+		let userRoles:string[] = this.authService.getUserRoles();
+		if (userRoles.indexOf("SUPER_ADMIN") > -1 || userRoles.indexOf("ADMIN") > -1) {
+			console.log("AuthGuard: Allowing access because user is an admin.")
+			return true;
+		}
+
+		let requiredRoles:string[] = route.data["roles"];
+		for (let i = 0; i < userRoles.length; i++) {
+			if (requiredRoles.indexOf(userRoles[i]) > -1) {
+				console.log("AuthGuard: Allowing access because user has one or more required roles.")
+				return true;
+			}
+		}
+
+		console.log("AuthGuard: Denying access because user doesn't have any of the requred roles.")
+		this.router.navigate(['/forbidden']);
 		return false;
+
 	}
+
 }

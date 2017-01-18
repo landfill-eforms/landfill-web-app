@@ -15,6 +15,22 @@ export class AuthService {
 		private router:Router,
 	) {}
 
+	getToken():string {
+		return sessionStorage.getItem('id_token');
+	}
+
+	isTokenExpired():boolean {
+		return this.jwtHelper.isTokenExpired(this.getToken());
+	}
+
+	getUserRoles():string[] {
+		let claims:any = this.jwtHelper.decodeToken(this.getToken());
+		if (claims['roles'] && Array.isArray(claims['roles'])) {
+			return claims['roles'];
+		}
+		return [];
+	}
+
 	login(username:string, password:string) {
 		let body = JSON.stringify({username, password});
 		let contentHeaders = new Headers({
@@ -31,9 +47,7 @@ export class AuthService {
 					this.jwtHelper.getTokenExpirationDate(jwtToken),
 					this.jwtHelper.isTokenExpired(jwtToken),
 				);
-				let claims:any = this.jwtHelper.decodeToken(jwtToken);
 				sessionStorage.setItem("id_token", jwtToken);
-				sessionStorage.setItem("username", claims["username"]);
 				this.router.navigate(['/' + RestrictedRouteBase + '/instantaneous_report']);
 			},
 			(error:any) => {

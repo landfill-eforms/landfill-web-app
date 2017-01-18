@@ -5,9 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Alvin Quach
@@ -20,6 +24,11 @@ public class UserProfile {
 	@Column(name="UserProfilePK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer userProfileId;
+	
+	@JsonIgnoreProperties({"userProfile"})
+	@OneToOne
+	@JoinColumn(name="UserFK")
+	private User user;
 	
 	private String firstname;
 	

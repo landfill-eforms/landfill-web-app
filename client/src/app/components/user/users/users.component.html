@@ -1,1 +1,26 @@
-USER LIST
+<h2>Users</h2>
+
+<table>
+	<tr style="text-align:left;">
+		<th>Username</th>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Employee ID</th>
+		<th>Active</th>
+	</tr>
+	<tr *ngFor="let user of users">
+		<td>
+			<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
+				{{user.username}}
+			</a>
+		</td>
+		<td>{{user.userProfile.firstname}} {{user.userProfile.lastname}}</td>
+		<td>{{user.userProfile.emailAddress}}</td>
+		<td>{{user.userProfile.employeeId}}</td>
+		<td>{{user.enabled}}</td>
+	</tr>
+</table>
+
+<button md-raised-button color="accent" routerLink="../new-user" routerLikeActive="active">
+	NEW USER
+</button>

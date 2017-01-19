@@ -1,0 +1,31 @@
+<h3>User Profile</h3>
+
+<div>
+	<md-input-container>
+		<input md-input placeholder="Username" [(ngModel)]="user.username" disabled>
+	</md-input-container>
+</div>
+<div>
+	<md-input-container>
+		<input md-input placeholder="First Name" [(ngModel)]="user.userProfile.firstname">
+	</md-input-container>
+</div>
+<div>
+	<md-input-container>
+		<input md-input placeholder="Middle Name" [(ngModel)]="user.userProfile.middlename">
+	</md-input-container>
+</div>
+<div>
+	<md-input-container>
+		<input md-input placeholder="Last Name" [(ngModel)]="user.userProfile.lastname">
+	</md-input-container>
+</div>
+<div>
+	<md-input-container>
+		<input md-input placeholder="Email" [(ngModel)]="user.userProfile.emailAddress">
+	</md-input-container>
+</div>
+
+<button md-raised-button color="accent" (click)="save()">
+	SAVE
+</button>

@@ -18,6 +18,7 @@ import { DirectivesModule } from './components/directives/directives.module';
 import { UserModule } from './components/user/user.module';
 import { TestModule } from './components/test/test.module';
 
+import { UserService } from './services/user-service';
 import { InstantaneousDataService } from './services/instantaneous-data.service';
 import { SitesService } from './services/sites.service';
 import { FileUploadService } from './services/file-upload.service';
@@ -47,6 +48,7 @@ import { FileUploadService } from './services/file-upload.service';
 		AuthProvider,
 		AuthGuard,
 		AuthService,
+		UserService,
 		FileUploadService,
 		InstantaneousDataService,
 		SitesService,

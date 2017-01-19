@@ -2,6 +2,7 @@ package org.lacitysan.landfill.server.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class UserProfile {
 	private Integer userProfileId;
 	
 	@JsonIgnoreProperties({"userProfile"})
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="UserFK")
 	private User user;
 	

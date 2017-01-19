@@ -21,23 +21,27 @@ const UserRoutes:Routes = [
 		component: UsersComponent,
 	},
 	{
-		path: 'user/:userId',
+		path: 'user/:username',
 		component: UserBaseComponent,
-		children: [
-			{
-				path: '',
-				redirectTo: 'overview',
-				pathMatch: 'full',
-			},
-			{
-				path: 'overview',
-				component: UserOverviewComponent,
-			},
-			{
-				path: 'profile',
-				component: UserProfileComponent,
-			},
-		]
+		// children: [
+		// 	{
+		// 		path: '',
+		// 		redirectTo: 'overview',
+		// 		pathMatch: 'full',
+		// 	},
+		// 	{
+		// 		path: 'overview',
+		// 		component: UserBaseComponent,
+		// 	},
+		// 	{
+		// 		path: 'profile',
+		// 		component: UserBaseComponent,
+		// 	},
+		// ]
+	},
+	{
+		path: 'new-user',
+		component: UserProfileComponent
 	}
 ];
 

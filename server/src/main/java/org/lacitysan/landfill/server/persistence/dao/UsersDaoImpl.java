@@ -1,8 +1,9 @@
 package org.lacitysan.landfill.server.persistence.dao;
 
+import java.util.List;
+
 import org.hibernate.Hibernate;
 import org.lacitysan.landfill.server.persistence.entity.User;
-import org.lacitysan.landfill.server.persistence.entity.UserGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -26,12 +27,29 @@ public class UsersDaoImpl implements UsersDao {
 				.uniqueResult();
 		if (result instanceof User) {
 			User user = (User)result;
-			for (UserGroup userGroup : user.getUserGroups()) {
-				Hibernate.initialize(userGroup.getUserRoles());
-			}
+			user.getUserGroups().stream().forEach(userGroup -> Hibernate.initialize(userGroup.getUserRoles()));
 			return user;
 		}
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<User> getAllUsers() {
+		List<User> result = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(User.class)
+				.list();
+		result.stream().forEach(user -> user.getUserGroups().stream().forEach(userGroup -> Hibernate.initialize(userGroup.getUserRoles())));
+		return result;
+	}
+	
+	@Override
+	@Transactional
+	public Object save(User user) {
+		hibernateTemplate.save(user.getUserProfile());
+		System.out.println("HELLO????S");
+		return hibernateTemplate.save(user);
 	}
 
 }

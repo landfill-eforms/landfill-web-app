@@ -10,9 +10,12 @@ import { AuthGuard } from './services/auth/authguard';
 import { AuthService, AuthProvider } from './services/auth/auth.service';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
 
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
 import { PublicModule } from './components/public/public.module'
 import { NavigationModule } from './components/navigation/navigation.module'
 import { DirectivesModule } from './components/directives/directives.module';
+import { UserModule } from './components/user/user.module';
 import { TestModule } from './components/test/test.module';
 
 import { InstantaneousDataService } from './services/instantaneous-data.service';
@@ -21,7 +24,8 @@ import { FileUploadService } from './services/file-upload.service';
 
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+		DashboardComponent
 	],
 	imports: [
 		// BrowserModule,
@@ -34,6 +38,7 @@ import { FileUploadService } from './services/file-upload.service';
 		PublicModule,
 		NavigationModule,
 		DirectivesModule,
+		UserModule,
 		TestModule,
 	],
 	providers: [

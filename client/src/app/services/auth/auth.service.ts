@@ -48,7 +48,7 @@ export class AuthService {
 					this.jwtHelper.isTokenExpired(jwtToken),
 				);
 				sessionStorage.setItem("id_token", jwtToken);
-				this.router.navigate(['/' + RestrictedRouteBase + '/instantaneous_report']);
+				this.router.navigate(['/' + RestrictedRouteBase]);
 			},
 			(error:any) => {
 			console.log(error.text());

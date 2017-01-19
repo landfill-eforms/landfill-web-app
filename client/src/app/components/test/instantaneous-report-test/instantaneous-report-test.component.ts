@@ -7,7 +7,7 @@ import {InstantaneousDataService} from '../../../services/instantaneous-data.ser
 import {SitesService} from '../../../services/sites.service';
 
 @Component({
-    selector: 'instantaneous-report-test',
+    selector: 'app-instantaneous-report-test',
     templateUrl: './instantaneous-report-test.component.html',
     styleUrls: ['./instantaneous-report-test.component.scss']
 })

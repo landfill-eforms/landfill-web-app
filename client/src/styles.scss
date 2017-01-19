@@ -1,5 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+
+$navbar-height: 64px;
 
 html {
     font-family: Roboto,"Helvetica Neue",sans-serif;
@@ -12,8 +13,18 @@ html {
 
 // Navbar + Sidenav
 md-sidenav-container {
-    top: 64px !important;
+    top: $navbar-height !important;
 }
 md-toolbar-row {
-    height: 64px !important;
+    height: $navbar-height !important;
+}
+.navbar-shadow {
+    width: 100%;
+    height: $navbar-height;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 6.9px rgba(0,0,0,0.69);
+    z-index: 9001;
+    pointer-events: none;
 }

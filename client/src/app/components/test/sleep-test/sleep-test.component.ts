@@ -4,7 +4,7 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/Rx';
 
 @Component({
-  selector: 'sleep-test',
+  selector: 'app-sleep-test',
   templateUrl: './sleep-test.component.html',
   styleUrls: ['./sleep-test.component.scss']
 })

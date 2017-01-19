@@ -7,42 +7,36 @@ import { NavigationBaseComponent } from './components/navigation/navigation-base
 import { InstantaneousTestComponent } from './components/test/instantaneous-test/instantaneous-test.component';
 import { InstantaneousReportTestComponent } from './components/test/instantaneous-report-test/instantaneous-report-test.component';
 import { InstantaneousUploadTestComponent } from './components/test/instantaneous-upload-test/instantaneous-upload-test.component';
+import { UserOverviewComponent } from './components/user/user-overview/user-overview.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+import { UserBaseComponent } from './components/user/user-base/user-base.component';
+import { UsersComponent } from './components/user/users/users.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
-export const RestrictedRouteBase:string = "app";
+export const RestrictedRouteBase:string = 'app';
 
-const PublicRoutes:Routes = [
+const UserRoutes:Routes = [
 	{
-		path: '', 
-		redirectTo: 'login',
-		pathMatch: 'full',
+		path: 'users',
+		component: UsersComponent,
 	},
 	{
-		path: 'login',
-		component: LoginComponent,   
-	},
-	{
-		path: 'forbidden',
-		component: ForbiddenComponent
-	}
-];
-
-const RestrictedRoutes:Routes = [
-	{
-		path: RestrictedRouteBase,
-		component: NavigationBaseComponent,
+		path: 'user/:userId',
+		component: UserBaseComponent,
 		children: [
 			{
-				path: 'instantaneous_report',
-				component: InstantaneousReportTestComponent,
+				path: '',
+				redirectTo: 'overview',
+				pathMatch: 'full',
 			},
 			{
-				path: 'instantaneous_test',
-				component: InstantaneousTestComponent,
+				path: 'overview',
+				component: UserOverviewComponent,
 			},
 			{
-				path: 'instantaneous_upload',
-				component: InstantaneousUploadTestComponent,
-			}
+				path: 'profile',
+				component: UserProfileComponent,
+			},
 		]
 	}
 ];
@@ -76,10 +70,47 @@ const TestRoutes:Routes = [
 
 ];
 
+/** Routes that are accessible without authorization. */
+const PublicRoutes:Routes = [
+	{
+		path: '', 
+		redirectTo: 'login',
+		pathMatch: 'full',
+	},
+	{
+		path: 'login',
+		component: LoginComponent,   
+	},
+	{
+		path: 'forbidden',
+		component: ForbiddenComponent
+	}
+];
+
+/** Routes that can only be accessed by authorized users. */
+const RestrictedRoutes:Routes = [
+	{
+		path: RestrictedRouteBase,
+		component: NavigationBaseComponent,
+		children: [
+			{
+				path: '',
+				redirectTo: 'dashboard',
+				pathMatch: 'full',
+			},
+			{
+				path: 'dashboard',
+				component: DashboardComponent,
+			},
+			...TestRoutes,
+			...UserRoutes
+		]
+	}
+];
+
 export const AppRoutes:any[] = [
 	...PublicRoutes,
-	...RestrictedRoutes,
-	...TestRoutes,
+	...RestrictedRoutes
 ];
 
 export const AppRouterProviders:any[] = [

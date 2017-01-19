@@ -4,7 +4,7 @@ import 'rxjs/Rx';
 import {InstantaneousDataService} from '../../../services/instantaneous-data.service';
 
 @Component({
-    selector: 'instantaneous-upload-test',
+    selector: 'app-instantaneous-upload-test',
     templateUrl: './instantaneous-upload-test.component.html',
     styleUrls: ['./instantaneous-upload-test.component.scss']
 })

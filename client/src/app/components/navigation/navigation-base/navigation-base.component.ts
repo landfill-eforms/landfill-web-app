@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './../../../services/auth/auth.service';
 
 @Component({
-	selector: 'navigation-base',
+	selector: 'app-navigation-base',
 	templateUrl: './navigation-base.component.html',
 	styleUrls: ['./navigation-base.component.scss']
 })

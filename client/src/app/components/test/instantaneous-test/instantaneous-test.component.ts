@@ -6,7 +6,7 @@ import 'rxjs/Rx';
 import {InstantaneousDataService} from '../../../services/instantaneous-data.service';
 
 @Component({
-    selector: 'instantaneous-test',
+    selector: 'app-instantaneous-test',
     templateUrl: './instantaneous-test.component.html',
     styleUrls: ['./instantaneous-test.component.scss']
 })

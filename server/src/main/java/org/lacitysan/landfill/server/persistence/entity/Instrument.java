@@ -11,12 +11,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.lib.enumeration.InstrumentType;
+import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 
 /**
  * @author Alvin Quach
  */
 @Entity
-@Table(name="test.dbo.Instruments")
+@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.Instruments")
 public class Instrument {
 	
 	@Id

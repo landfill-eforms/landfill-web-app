@@ -12,11 +12,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+
 /**
  * @author Alvin Quach
  */
 @Entity
-@Table(name="test.dbo.InstantaneousData")
+@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.InstantaneousData")
 public class InstantaneousData {
 	
 	@Id

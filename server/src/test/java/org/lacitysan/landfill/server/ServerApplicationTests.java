@@ -1,4 +1,4 @@
-package com.landfill_eforms.server;
+package org.lacitysan.landfill.server;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,11 +1,11 @@
-package org.lacitysan.landfill.server.datamap.entity;
+package org.lacitysan.landfill.server.datamap.model.mobile;
 
 import java.sql.Time;
 
 /**
  * @author Alvin Quach
  */
-public class InstantaneousDataMapped {
+public class InstantaneousDataMobile {
 	
 	private String mId;
 	private String gridId;

@@ -14,12 +14,13 @@ import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.lib.enumeration.MonitoringPointType;
 import org.lacitysan.landfill.lib.enumeration.Site;
+import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 
 /**
  * @author Alvin Quach
  */
 @Entity
-@Table(name = "test.dbo.MonitoringPoints")
+@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.MonitoringPoints")
 public class MonitoringPoint {
 
 	@Id

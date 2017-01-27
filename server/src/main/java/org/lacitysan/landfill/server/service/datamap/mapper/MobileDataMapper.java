@@ -1,7 +1,7 @@
-package org.lacitysan.landfill.server.datamap.mapper;
+package org.lacitysan.landfill.server.service.datamap.mapper;
 
-import org.lacitysan.landfill.server.datamap.model.mobile.InstantaneousDataMobile;
 import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
+import org.lacitysan.landfill.server.service.datamap.model.mobile.InstantaneousDataMobile;
 
 /**
  * A utilities class for converting data models between the web server and the mobile app.

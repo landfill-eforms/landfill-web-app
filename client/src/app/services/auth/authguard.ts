@@ -2,6 +2,7 @@ import { AuthService } from './auth.service';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { RestrictedRouteBase } from './../../app.routing';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -37,7 +38,7 @@ export class AuthGuard implements CanActivate {
 		}
 
 		console.log("AuthGuard: Denying access because user doesn't have any of the requred roles.")
-		this.router.navigate(['/forbidden']);
+		this.router.navigate([RestrictedRouteBase + '/forbidden']);
 		return false;
 
 	}

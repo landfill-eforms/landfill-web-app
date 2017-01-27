@@ -23,21 +23,6 @@ const UserRoutes:Routes = [
 	{
 		path: 'user/:username',
 		component: UserBaseComponent,
-		// children: [
-		// 	{
-		// 		path: '',
-		// 		redirectTo: 'overview',
-		// 		pathMatch: 'full',
-		// 	},
-		// 	{
-		// 		path: 'overview',
-		// 		component: UserBaseComponent,
-		// 	},
-		// 	{
-		// 		path: 'profile',
-		// 		component: UserBaseComponent,
-		// 	},
-		// ]
 	},
 	{
 		path: 'new-user',
@@ -74,6 +59,14 @@ const TestRoutes:Routes = [
 
 ];
 
+/** Routes that are activated when an HTTP error status is received. */
+const StatusRoutes:Routes = [
+	{
+		path: 'forbidden',
+		component: ForbiddenComponent
+	},
+];
+
 /** Routes that are accessible without authorization. */
 const PublicRoutes:Routes = [
 	{
@@ -85,10 +78,7 @@ const PublicRoutes:Routes = [
 		path: 'login',
 		component: LoginComponent,   
 	},
-	{
-		path: 'forbidden',
-		component: ForbiddenComponent
-	}
+	...StatusRoutes
 ];
 
 /** Routes that can only be accessed by authorized users. */
@@ -106,8 +96,9 @@ const RestrictedRoutes:Routes = [
 				path: 'dashboard',
 				component: DashboardComponent,
 			},
+			...StatusRoutes,
 			...TestRoutes,
-			...UserRoutes
+			...UserRoutes,
 		]
 	}
 ];

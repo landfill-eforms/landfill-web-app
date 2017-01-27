@@ -1,23 +1,37 @@
-import { Component, Input, ElementRef } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 import { FileUploadService } from './../../../services/file-upload.service';
 
 
 // Source: http://stackoverflow.com/questions/36352405/file-upload-with-angular2-to-rest-api/39862337#39862337
 @Component({
     selector: 'app-file-upload',
-    template: '<input type="file" [multiple]="multiple">'
+    templateUrl: './file-upload.component.html',
+    styleUrls: ['./file-upload.component.scss']
 })
 export class FileUploadComponent {
 
     @Input() multiple:boolean = false;
+    @ViewChild('fileInput') el:ElementRef;
+
+    selectedFileNames:string[] = [];
 
     constructor(
-		private fileUploadService:FileUploadService,
-		private el:ElementRef
+		private fileUploadService:FileUploadService
 		) {}
 
+    fileSelected() {
+        let inputEl:HTMLInputElement = this.el.nativeElement;
+        console.log(inputEl.files);
+        let fileCount:number = inputEl.files.length;
+        this.selectedFileNames = [];
+        for (let i = 0; i < fileCount; i++) {
+            this.selectedFileNames.push(inputEl.files.item(i).name);
+        }
+    }
+
     upload() {
-        let inputEl:HTMLInputElement = this.el.nativeElement.querySelector('[type="file"]');
+        let inputEl:HTMLInputElement = this.el.nativeElement;
+        console.log(inputEl.files);
         let fileCount:number = inputEl.files.length;
         let formData = new FormData();
         if (fileCount > 0) {

@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author Alvin Quach
  */
@@ -36,6 +38,7 @@ public class InstantaneousData {
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
 	
+	@JsonIgnoreProperties({"password", "userGroups", "enabled", "userProfile"})
 	@ManyToOne
 	//(fetch=FetchType.LAZY)
 	@JoinColumn(name="UserFK")

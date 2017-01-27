@@ -40,7 +40,7 @@ export class FileUploadComponent {
             }
 			this.fileUploadService.testUpload((data) => {
 				console.log(data);
-			}, formData);
+            }, (err) => {console.log(err)}, formData);
         }
     }
 

@@ -10,10 +10,10 @@ export class FileUploadService {
 
 	constructor(private authHttp: AuthHttp) {}
 
-	testUpload(callback:(data) => void, formData:FormData) {
+	testUpload(success:(data) => void, error:(err) => void, formData:FormData) {
 	this.authHttp.post(this.baseUrl + "/upload", formData).map((res:Response) => res.json()).subscribe(
-			data => callback(data),
-			err => console.log(err),
+			data => success(data),
+			err => error(err),
 		);
 	}
 

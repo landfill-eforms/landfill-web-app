@@ -10,8 +10,8 @@ public class InstantaneousDataMobile {
 	private String mId;
 	private String gridId;
 	private Double methaneReading;
-	private Time mStartDate;
-	private Time mEndDate;
+	private String mStartDate;
+	private String mEndDate;
 
 	public String getmId() {
 		return mId;
@@ -31,17 +31,17 @@ public class InstantaneousDataMobile {
 	public void setMethaneReading(Double methaneReading) {
 		this.methaneReading = methaneReading;
 	}
-	public Time getmStartDate() {
+	public String getmStartDate() {
 		return mStartDate;
 	}
-	public void setmStartDate(Time mStartDate) {
+	public void setmStartDate(String mStartDate) {
 		this.mStartDate = mStartDate;
 	}
-	public Time getmEndDate() {
+	public String getmEndDate() {
 		return mEndDate;
 	}
-	public void setmEndDate(Time mEndDate) {
+	public void setmEndDate(String mEndDate) {
 		this.mEndDate = mEndDate;
 	}
-	
+
 }

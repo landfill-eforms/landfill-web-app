@@ -11,4 +11,6 @@ public interface InstantaneousDataDao {
 
 	List<InstantaneousData> getBySite(String siteName);
 
+	void save(InstantaneousData data);
+
 }

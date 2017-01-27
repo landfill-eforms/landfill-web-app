@@ -4,6 +4,9 @@ import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.Instrument;
+import org.lacitysan.landfill.server.persistence.entity.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.entity.User;
 import org.lacitysan.landfill.server.persistence.entity.UserGroup;
 import org.lacitysan.landfill.server.persistence.entity.UserProfile;
@@ -58,6 +61,9 @@ public class DataSourceConfig {
 						UserGroup.class,
 						UserProfile.class,
 						User.class,
+						InstantaneousData.class,
+						Instrument.class,
+						MonitoringPoint.class,
 						
 						// Test classes
 						Sleep.class,

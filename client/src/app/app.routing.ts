@@ -51,7 +51,7 @@ const TestRoutes:Routes = [
 	{
 		path: 'instantaneous_upload',
 		component: InstantaneousUploadTestComponent,
-		canActivate: [AuthGuard],
+		// canActivate: [AuthGuard],
 		// data: {roles: [
 		// 	"SUPER_ADMIN",
 		// ]}

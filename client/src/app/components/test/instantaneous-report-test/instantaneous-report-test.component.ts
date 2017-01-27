@@ -14,9 +14,15 @@ import {SitesService} from '../../../services/sites.service';
 export class InstantaneousReportTestComponent implements OnInit {
 
     data:any[] = [];
-    sites:any = {
-        list: [],
-        selected: {}
+    sites:{list:string[], selected:string} = {
+        list: [
+            "Bishops",
+            "Gaffey",
+            "Lopez",
+            "Sheldon",
+            "Toyon"
+        ],
+        selected: null
     }
 
     // Util functions
@@ -24,18 +30,18 @@ export class InstantaneousReportTestComponent implements OnInit {
     getTime = DateTimeUtils.getTime;
 
     constructor (
-        private _instantaneousDataService:InstantaneousDataService,
-        private _sitesService:SitesService
+        private instantaneousDataService:InstantaneousDataService,
+        private sitesService:SitesService
         ) {}
 
     ngOnInit() {
 
         // Load list of sites
-        this._sitesService.getVisible((data) => {
-            console.log("Sites Loaded", data);
-            this.sites.list = data;
-            this.sites.selected = data[0];
-        });
+        // this.sitesService.getVisible((data) => {
+        //     console.log("Sites Loaded", data);
+        //     this.sites.list = data;
+        //     this.sites.selected = data[0];
+        // });
     }
 
     getStatus(reading:number):string {
@@ -50,17 +56,20 @@ export class InstantaneousReportTestComponent implements OnInit {
 
     getAll() {
         console.log(this.sites);
-        this._instantaneousDataService.getAll((data) => {
+        this.instantaneousDataService.getAll((data) => {
             console.log(data);
             this.data = data;
         });
     }
 
     getData() {
-        this._instantaneousDataService.getBySiteName((data) => {
+        if (!this.sites.selected) {
+            return;
+        }
+        this.instantaneousDataService.getBySiteName((data) => {
             console.log(data);
             this.data = data;
-        }, this.sites.selected.siteName);
+        }, this.sites.selected.toUpperCase());
     }
     
 }

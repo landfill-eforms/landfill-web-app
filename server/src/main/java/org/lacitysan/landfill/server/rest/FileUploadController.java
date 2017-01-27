@@ -23,6 +23,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FileUploadController {
 	
 	@Autowired
+	MobileDataMapper mobileDataMapper;
+	
+	@Autowired
 	InstantaneousDataDao instantaneousDataDao;
 
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
@@ -33,7 +36,7 @@ public class FileUploadController {
 			List<InstantaneousDataMobile> rawList = mapper.readValue(file.getBytes(), new TypeReference<List<InstantaneousDataMobile>>(){});
 			List<InstantaneousData> result = new ArrayList<>();
 			for (InstantaneousDataMobile raw : rawList) {
-				InstantaneousData data = MobileDataMapper.unmapInstantaneousData(raw);
+				InstantaneousData data = mobileDataMapper.unmapInstantaneousData(raw);
 				instantaneousDataDao.save(data);
 			}
 			return result;

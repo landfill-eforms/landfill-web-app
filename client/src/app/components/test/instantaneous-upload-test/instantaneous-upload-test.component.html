@@ -1,15 +1,9 @@
-<!--<h3>Upload Instantaneous Data</h3>-->
-
-<!--<input type="file" (change)="info()">
-<button (click)="upload()">Upload</button>-->
-
-<div style="padding-bottom:24px">
-    <a href="/instantaneous_report">View Reports</a>
-</div>
-
-<textarea [(ngModel)]="_file"></textarea>
-<button (click)="upload()">Upload</button>
-
-<div>
-<app-file-upload #fu (change)="fu.upload()"></app-file-upload>
+<div class="component">
+    <h3>Upload Instantaneous Data</h3>
+    <div>
+        <app-file-upload #fileUpload (change)="fileUpload.fileSelected()"></app-file-upload>
+    </div>
+    <div style="margin-top:16px;">
+        <button md-raised-button color="accent" (click)="fileUpload.upload()">UPLOAD</button>
+    </div>
 </div>

@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { JwtHelper, AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { MdSnackBar } from '@angular/material';
 import { RestrictedRouteBase } from './../../app.routing';
 import { environment } from './../../../environments/environment';
 
@@ -13,6 +14,7 @@ export class AuthService {
 	constructor(
 		private http:Http,
 		private router:Router,
+		private snackBar:MdSnackBar
 	) {}
 
 	getToken():string {
@@ -37,7 +39,6 @@ export class AuthService {
 			'Accept': 'application/json',
 			'Content-Type': 'text/plain',
 		});
-
 		this.http.post(environment.loginUrl, body, {headers: contentHeaders}).subscribe(
 			(response:Response) => {
 				let jwtToken:string = response.headers.get("Authorization").replace("Bearer ", "");
@@ -51,8 +52,8 @@ export class AuthService {
 				this.router.navigate(['/' + RestrictedRouteBase]);
 			},
 			(error:any) => {
-			console.log(error.text());
-		});
+				this.snackBar.open(JSON.parse(error.text()).message, "OK", {duration: 2000});
+			});
 	}
 
 	logout() {

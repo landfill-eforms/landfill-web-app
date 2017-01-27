@@ -14,3 +14,23 @@
 .sidenav-contents {
 	width: 250px;
 }
+
+.sidenav-link {
+	height: 50px;
+	background: white;
+	border-bottom: solid 1px lightgray;
+	cursor: pointer;
+}
+
+.sidenav-link:hover {
+	background: #EEE;
+}
+
+.sidenav-link-active, .sidenav-link-active:hover {
+	background: #f44336;
+	color: white;
+}
+
+.sidenav-link-icon {
+	text-align: center;
+}

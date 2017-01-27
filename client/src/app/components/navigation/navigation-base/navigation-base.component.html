@@ -19,20 +19,15 @@
 <md-sidenav-container fullscreen>
 	<md-sidenav #sidenav mode="over" opened="false" class="sidenav-contents">
 		<div>
-			<md-list>
-				<md-list-item>
-					<a routerLink="dashboard" routerLikeActive="active">
-						<md-icon>dashboard</md-icon>
-						Dashboard
-					</a>
-				</md-list-item>
-				<md-list-item>
-					<a routerLink="users" routerLikeActive="active">
-						<md-icon>people</md-icon>
-						Manage Users
-					</a>
-				</md-list-item>
-			</md-list>
+			<div *ngFor="let link of links" 
+				 [routerLink]="link.route" 
+				 routerLinkActive="sidenav-link-active" 
+				 class="sidenav-link flex-container"
+				 fxLayout="row"
+				 fxLayoutAlign=" center">
+				<md-icon class="sidenav-link-icon flex-item" fxFlex="64px">{{link.icon}}</md-icon>
+				<div class="flex-item" fxFlex>{{link.label}}</div>
+			</div>
 		</div>
 	</md-sidenav>
 	<router-outlet></router-outlet>

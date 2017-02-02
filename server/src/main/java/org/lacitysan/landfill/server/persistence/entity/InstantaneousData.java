@@ -29,18 +29,15 @@ public class InstantaneousData {
 	private Integer id;
 		
 	@ManyToOne
-	//(fetch=FetchType.LAZY)
 	@JoinColumn(name="MonitoringPointFK")
 	private MonitoringPoint monitoringPoint;
 		
 	@ManyToOne
-	//(fetch=FetchType.LAZY)
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
 	
 	@JsonIgnoreProperties({"password", "userGroups", "enabled", "userProfile"})
 	@ManyToOne
-	//(fetch=FetchType.LAZY)
 	@JoinColumn(name="UserFK")
 	private User user;
 	

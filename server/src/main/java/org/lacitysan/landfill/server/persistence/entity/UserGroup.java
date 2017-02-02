@@ -33,7 +33,7 @@ public class UserGroup {
 	@Id
 	@Column(name="UserGroupPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer userGroupId;
+	private Integer id;
 	
 	@NotNull
 	private String name;
@@ -65,12 +65,12 @@ public class UserGroup {
 	@Enumerated(EnumType.ORDINAL)
 	private Set<UserRole> userRoles;
 
-	public Integer getUserGroupId() {
-		return userGroupId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setUserGroupId(Integer userGroupId) {
-		this.userGroupId = userGroupId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {

@@ -28,7 +28,7 @@ public class User {
 	@Id
 	@Column(name="UserPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer userId;
+	private Integer id;
 	
 	@NotNull
 	private String username;
@@ -48,12 +48,12 @@ public class User {
 	@OneToOne(mappedBy="user")
 	private UserProfile userProfile;
 
-	public Integer getUserId() {
-		return userId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getUsername() {

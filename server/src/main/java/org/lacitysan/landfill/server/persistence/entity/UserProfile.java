@@ -24,7 +24,7 @@ public class UserProfile {
 	@Id
 	@Column(name="UserProfilePK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer userProfileId;
+	private Integer id;
 	
 	@JsonIgnoreProperties({"userProfile"})
 	@OneToOne(fetch=FetchType.LAZY)
@@ -43,12 +43,12 @@ public class UserProfile {
 	
 	private String employeeId;
 
-	public Integer getUserProfileId() {
-		return userProfileId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setUserProfileId(Integer userProfileId) {
-		this.userProfileId = userProfileId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getFirstname() {

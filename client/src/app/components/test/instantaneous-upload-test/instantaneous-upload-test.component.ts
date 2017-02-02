@@ -13,7 +13,7 @@ export class InstantaneousUploadTestComponent implements OnInit {
     _file:any;
 
     constructor(
-        private _el:ElementRef,
+        private _el:ElementRef, 
         private _instantaneousDataService:InstantaneousDataService
         ) {}
 

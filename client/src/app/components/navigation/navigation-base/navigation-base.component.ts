@@ -10,28 +10,41 @@ import { AuthService } from './../../../services/auth/auth.service';
 })
 export class NavigationBaseComponent implements OnInit {
 
-	readonly links:{route:string, icon:string, label:string}[] = [
-		{
-			route: 'dashboard', 
-			icon: 'dashboard', 
-			label: 'Dashboard'
-		},
-		{
-			route: 'users', 
-			icon: 'people', 
-			label: 'Manage Users'
-		},
-		{
-			route: 'instantaneous_upload',
-			icon: 'file_upload',
-			label: 'Upload File'
-		},
-		{
-			route: 'instantaneous_report',
-			icon: 'assignment',
-			label: 'Instantaneous Report'
-		}
-	];
+	readonly UserManagementSection:RouteSection = {
+		name: "User Management",
+		routes: [
+			{
+				route: 'dashboard',
+				icon: 'dashboard', 
+				label: 'Dashboard',
+				visible: false
+			},
+			{
+				route: 'users', 
+				icon: 'people', 
+				label: 'Manage Users',
+				visible: false
+			},
+			{
+				route: 'instantaneous_upload',
+				icon: 'file_upload',
+				label: 'Upload File',
+				visible: false
+			},
+			{
+				route: 'instantaneous_report',
+				icon: 'assignment',
+				label: 'Instantaneous Report',
+				visible: false
+			},
+			{
+				route: 'instantaneous_report',
+				icon: 'assignment',
+				label: 'Instantaneous Report',
+				visible: false
+			}
+		]
+	};
 
 	constructor (
 		private router:Router,
@@ -47,4 +60,16 @@ export class NavigationBaseComponent implements OnInit {
 		this.authService.logout();
 	}
 
+}
+
+class Route {
+	route:string;
+	icon:string;
+	label:string;
+	visible:boolean;
+}
+
+class RouteSection {
+	name:string;
+	routes:Route[];
 }

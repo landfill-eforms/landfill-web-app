@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { RestrictedRouteBase } from './../../app.routing';
 import { environment } from './../../../environments/environment';
+import { UserRole } from './../../model/lib/enumeration/user-role.enum';
 
 @Injectable()
 export class AuthService {
@@ -25,10 +26,10 @@ export class AuthService {
 		return this.jwtHelper.isTokenExpired(this.getToken());
 	}
 
-	getUserRoles():string[] {
-		let claims:any = this.jwtHelper.decodeToken(this.getToken());
-		if (claims['roles'] && Array.isArray(claims['roles'])) {
-			return claims['roles'];
+	getUserRoles():UserRole[] {
+		let result = JSON.parse(sessionStorage.getItem("user_roles"));
+		if (Array.isArray(result)) {
+			return result;
 		}
 		return [];
 	}
@@ -44,11 +45,12 @@ export class AuthService {
 				let jwtToken:string = response.headers.get("Authorization").replace("Bearer ", "");
 				console.log("JWT Token:", jwtToken);
 				console.log(
+					"Decoded Token",
 					this.jwtHelper.decodeToken(jwtToken),
-					this.jwtHelper.getTokenExpirationDate(jwtToken),
-					this.jwtHelper.isTokenExpired(jwtToken),
+					this.jwtHelper.getTokenExpirationDate(jwtToken)
 				);
 				sessionStorage.setItem("id_token", jwtToken);
+				sessionStorage.setItem("user_roles", JSON.stringify(this.parseUserRoles(jwtToken)));
 				this.router.navigate(['/' + RestrictedRouteBase]);
 			},
 			(error:any) => {
@@ -59,6 +61,22 @@ export class AuthService {
 	logout() {
 		sessionStorage.clear();
 		this.router.navigate(['/login']);
+	}
+
+	private parseUserRoles(jwtToken:string):UserRole[] {
+		let claims:any = this.jwtHelper.decodeToken(jwtToken);
+		let roles = claims['roles'];
+		if (roles && Array.isArray(roles)) {
+			let result:UserRole[] = [];
+			for (let i = 0; i < roles.length; i++) {
+				let role:UserRole = UserRole[roles[i]];
+				if (role) {
+					result.push(role);
+				}
+			}
+			return result;
+		}
+		return [];
 	}
 
 }

@@ -19,14 +19,21 @@
 <md-sidenav-container fullscreen>
 	<md-sidenav #sidenav mode="over" opened="false" class="sidenav-contents">
 		<div>
-			<div *ngFor="let link of links" 
-				 [routerLink]="link.route" 
-				 routerLinkActive="sidenav-link-active" 
-				 class="sidenav-link flex-container"
-				 fxLayout="row"
-				 fxLayoutAlign=" center">
-				<md-icon class="sidenav-link-icon flex-item" fxFlex="64px">{{link.icon}}</md-icon>
-				<div class="flex-item" fxFlex>{{link.label}}</div>
+			<div class="sidenav-section" *ngFor="let section of sections">
+				<div class="sidenav-section-header">
+					{{section.name}}
+				</div>
+				<div *ngFor="let route of section.routes">
+					<div *ngIf="route.visible" 
+						[routerLink]="route.path" 
+						routerLinkActive="sidenav-link-active" 
+						class="sidenav-link flex-container"
+						fxLayout="row"
+						fxLayoutAlign=" center">
+						<md-icon class="sidenav-link-icon flex-item" fxFlex="64px">{{route.icon}}</md-icon>
+						<div class="flex-item" fxFlex>{{route.label}}</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</md-sidenav>

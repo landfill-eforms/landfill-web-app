@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from "@angular/core";
 import { AuthGuard } from "./services/auth/authguard";
+import { UserRole } from './model/lib/enumeration/user-role.enum';
 import { LoginComponent } from './components/public/login/login.component';
 import { ForbiddenComponent } from './components/public/forbidden/forbidden.component';
 import { NavigationBaseComponent } from './components/navigation/navigation-base/navigation-base.component';
@@ -45,7 +46,7 @@ const TestRoutes:Routes = [
 		component: InstantaneousTestComponent,
 		canActivate: [AuthGuard],
 		data: {roles: [
-			"SUPER_ADMIN",
+			UserRole["SUPER_ADMIN"],
 		]}
 	},
 	{
@@ -53,7 +54,7 @@ const TestRoutes:Routes = [
 		component: InstantaneousUploadTestComponent,
 		canActivate: [AuthGuard],
 		data: {roles: [
-			"SUPER_ADMIN",
+			UserRole["SUPER_ADMIN"],
 		]}
 	},
 
@@ -82,7 +83,7 @@ const PublicRoutes:Routes = [
 ];
 
 /** Routes that can only be accessed by authorized users. */
-const RestrictedRoutes:Routes = [
+export const RestrictedRoutes:Routes = [
 	{
 		path: RestrictedRouteBase,
 		component: NavigationBaseComponent,

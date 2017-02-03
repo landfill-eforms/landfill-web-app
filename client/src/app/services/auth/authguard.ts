@@ -3,6 +3,7 @@ import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { RestrictedRouteBase } from './../../app.routing';
+import { UserRole } from './../../model/lib/enumeration/user-role.enum';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -23,15 +24,15 @@ export class AuthGuard implements CanActivate {
 			return false;
 		}
 
-		let userRoles:string[] = this.authService.getUserRoles();
-		if (userRoles.indexOf("SUPER_ADMIN") > -1 || userRoles.indexOf("ADMIN") > -1) {
+		let userRoles:number[] = this.authService.getUserRoles().map(r => r.ordinal);
+		if (userRoles.indexOf(0) > -1 || userRoles.indexOf(1) > -1) {
 			console.log("AuthGuard: Allowing access because user is an admin.")
 			return true;
 		}
 
-		let requiredRoles:string[] = route.data["roles"];
-		for (let i = 0; i < userRoles.length; i++) {
-			if (requiredRoles.indexOf(userRoles[i]) > -1) {
+		let requiredRoles:UserRole[] = route.data["roles"];
+		for (let i = 0; i < requiredRoles.length; i++) {
+			if (userRoles.indexOf(requiredRoles[i].ordinal) > -1) {
 				console.log("AuthGuard: Allowing access because user has one or more required roles.")
 				return true;
 			}

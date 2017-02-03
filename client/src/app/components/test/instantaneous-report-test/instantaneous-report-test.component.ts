@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 import {DateTimeUtils} from '../../../utils/date-time-utils';
 import {InstantaneousDataService} from '../../../services/instantaneous-data.service';
 import {SitesService} from '../../../services/sites.service';
+import { Site } from './../../../model/lib/enumeration/site.enum';
 
 @Component({
     selector: 'app-instantaneous-report-test',
@@ -30,15 +31,12 @@ export class InstantaneousReportTestComponent implements OnInit {
 
     ngOnInit() {
 
-        // Load list of sites
-        this._sitesService.getVisible((data) => {
-            console.log("Sites Loaded", data);
-            this.sites.list = data;
-            this.sites.selected = data[0];
-        });
+        // Get list of active sites
+        this.sites.list = Site.values.filter(s => s.active);
     }
 
     getStatus(reading:number):string {
+        reading /= 100;
         if (reading > 500) {
             return "hotspot";
         }
@@ -60,7 +58,7 @@ export class InstantaneousReportTestComponent implements OnInit {
         this._instantaneousDataService.getBySiteName((data) => {
             console.log(data);
             this.data = data;
-        }, this.sites.selected.siteName);
+        }, this.sites.selected.name.toUpperCase()); // TODO Add name to enums.
     }
     
 }

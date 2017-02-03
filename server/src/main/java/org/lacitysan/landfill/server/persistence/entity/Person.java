@@ -2,11 +2,9 @@ package org.lacitysan.landfill.server.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -18,17 +16,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.UserProfiles")
-public class UserProfile {
+@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.Persons")
+public class Person {
 	
 	@Id
-	@Column(name="UserProfilePK")
+	@Column(name="PersonPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonIgnoreProperties({"userProfile"})
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="UserFK")
+	@JsonIgnoreProperties({"person"})
+	@OneToOne(mappedBy="person")
 	private User user;
 	
 	private String firstname;
@@ -49,6 +46,14 @@ public class UserProfile {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getFirstname() {

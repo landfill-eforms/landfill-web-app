@@ -13,6 +13,7 @@ import { UserProfileComponent } from './components/user/user-profile/user-profil
 import { UserBaseComponent } from './components/user/user-base/user-base.component';
 import { UsersComponent } from './components/user/users/users.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ComingSoonComponent } from './components/public/coming-soon/coming-soon.component';
 
 export const RestrictedRouteBase:string = 'app';
 
@@ -63,6 +64,10 @@ const TestRoutes:Routes = [
 /** Routes that are activated when an HTTP error status is received. */
 const StatusRoutes:Routes = [
 	{
+		path: 'coming-soon',
+		component: ComingSoonComponent
+	},
+	{
 		path: 'forbidden',
 		component: ForbiddenComponent
 	},
@@ -77,7 +82,7 @@ const PublicRoutes:Routes = [
 	},
 	{
 		path: 'login',
-		component: LoginComponent,   
+		component: LoginComponent
 	},
 	...StatusRoutes
 ];

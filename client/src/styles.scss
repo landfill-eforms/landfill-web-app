@@ -13,6 +13,7 @@ html {
 
 // Navbar + Sidenav
 md-sidenav-container {
+    background: #EEE !important;
     top: $navbar-height !important;
 }
 md-toolbar-row {
@@ -29,6 +30,54 @@ md-toolbar-row {
     pointer-events: none;
 }
 
+a {
+    color: #2196F3;
+    text-decoration: none;
+}
+
+.md-input-full-width {
+    width: 100%;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .component {
     padding: 0 16px;
+}
+
+.section-single {
+    margin: 24px;
+}
+
+.section-multiple {
+    margin: 12px;
+}
+
+.section-multiple-container {
+    padding: 12px;
+}
+
+.list-table{
+    padding: 16px;
+}
+
+.list-table-header {
+    text-align: left;
+    font-weight: bold;
+    padding: 12px 0;
+    border-bottom: solid 1px #DDD;
+}
+
+.list-table-row {
+    height: 54px;
+    padding-top: 18px;
+    background: #F3F3F3;
+}
+
+.list-table-odd-row {
+    background: #FFF;
 }

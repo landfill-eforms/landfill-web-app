@@ -1,26 +1,49 @@
-<h2>Users</h2>
-
-<table>
-	<tr style="text-align:left;">
-		<th>Username</th>
-		<th>Name</th>
-		<th>Email</th>
-		<th>Employee ID</th>
-		<th>Active</th>
-	</tr>
-	<tr *ngFor="let user of users">
-		<td>
-			<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
-				{{user.username}}
-			</a>
-		</td>
-		<td>{{user.userProfile.firstname}} {{user.userProfile.lastname}}</td>
-		<td>{{user.userProfile.emailAddress}}</td>
-		<td>{{user.userProfile.employeeId}}</td>
-		<td>{{user.enabled}}</td>
-	</tr>
-</table>
-
-<button md-raised-button color="accent" routerLink="../new-user" routerLikeActive="active">
-	NEW USER
-</button>
+<md-card class="section-single">
+	<md-card-content>
+		<h2>Manage Users</h2>
+		<div class="list-table">
+			<div class="list-table-header flex-container" fxLayout="row">
+				<div class="flex-item" fxFlex>
+					Username
+				</div>
+				<div class="flex-item" fxFlex="25">
+					Name
+				</div>
+				<div class="flex-item" fxFlex="25">
+					Email
+				</div>
+				<div class="flex-item" fxFlex="25">
+					Employee ID
+				</div>
+				<div class="flex-item" fxFlex="50px" style="text-align:center;">
+					Active
+				</div>
+			</div>
+			<div *ngFor="let user of users; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row':isOdd}">
+				<div class="truncate flex-item" fxFlex>
+					<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
+						{{user.username}}
+					</a>
+				</div>
+				<div class="truncate flex-item" fxFlex="25">
+					{{user.person.firstname}} {{user.person.lastname}}
+				</div>
+				<div class="truncate flex-item" fxFlex="25">
+					{{user.person.emailAddress}}
+				</div>
+				<div class="truncate flex-item" fxFlex="25">
+					{{user.person.employeeId}}
+				</div>
+				<div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon *ngIf="user.enabled" style="color:#0D0;">check</md-icon>
+					<md-icon *ngIf="!user.enabled" style="color:#D00;">close</md-icon>
+				</div>
+			</div>
+		</div>
+	</md-card-content>
+	<md-card-actions>
+		<button md-button routerLink="../new-user" routerLikeActive="active">
+			NEW USER
+		</button>
+	</md-card-actions>
+</md-card>

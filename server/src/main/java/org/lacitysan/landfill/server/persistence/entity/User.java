@@ -1,9 +1,11 @@
 package org.lacitysan.landfill.server.persistence.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -39,14 +43,16 @@ public class User {
 	@JsonIgnoreProperties({"users"})
 	@ManyToMany
 	@JoinTable(name="test.dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
-	private Set<UserGroup> userGroups;
+	private Set<UserGroup> userGroups = new HashSet<>();
 	
 	@NotNull
 	private Boolean enabled;
 	
-	@JsonIgnoreProperties({"user"})
-	@OneToOne(mappedBy="user")
-	private UserProfile userProfile;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user"})
+	@Cascade(CascadeType.ALL)
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="PersonFK")
+	private Person person;
 
 	public Integer getId() {
 		return id;
@@ -88,12 +94,12 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public UserProfile getUserProfile() {
-		return userProfile;
+	public Person getPerson() {
+		return person;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
-	
+
 }

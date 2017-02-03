@@ -21,6 +21,12 @@ export class NavigationBaseComponent implements OnInit {
 				label: 'Dashboard',
 				visible: false
 			},
+			{
+				path: 'coming-soon',
+				icon: 'settings', 
+				label: 'Application Settings',
+				visible: false
+			},
 		]
 	};
 
@@ -30,13 +36,13 @@ export class NavigationBaseComponent implements OnInit {
 			{
 				path: 'users', 
 				icon: 'people', 
-				label: 'Manage Users',
+				label: 'Users',
 				visible: false
 			},
 			{
-				path: 'instantaneous_upload',
-				icon: 'file_upload',
-				label: 'Upload File',
+				path: 'user-groups',
+				icon: 'group_work',
+				label: 'User Groups',
 				visible: false
 			},
 		]
@@ -50,6 +56,30 @@ export class NavigationBaseComponent implements OnInit {
 				icon: 'assignment',
 				label: 'Instantaneous Report',
 				visible: false
+			},
+			{
+				path: 'coming-soon',
+				icon: 'assignment',
+				label: 'IME Report',
+				visible: false
+			},
+			{
+				path: 'coming-soon',
+				icon: 'assignment',
+				label: 'Integrated Report',
+				visible: false
+			},
+			{
+				path: 'coming-soon',
+				icon: 'assignment',
+				label: 'ISE Report',
+				visible: false
+			},
+			{
+				path: 'coming-soon',
+				icon: 'assignment',
+				label: 'Probe Report',
+				visible: false
 			}
 		]
 	};
@@ -62,6 +92,12 @@ export class NavigationBaseComponent implements OnInit {
 				icon: 'file_upload',
 				label: 'Upload From Mobile',
 				visible: false
+			},
+			{
+				path: 'coming-soon',
+				icon: 'sync',
+				label: 'Sync To Mobile',
+				visible: false
 			}
 		]
 	};
@@ -69,7 +105,8 @@ export class NavigationBaseComponent implements OnInit {
 	readonly sections:RouteSection[] = [
 		this.homeSection,
 		this.userManagementSection,
-		this.reportsSection
+		this.reportsSection,
+		this.dataTransferSection
 	];
 
 	constructor (
@@ -94,7 +131,7 @@ export class NavigationBaseComponent implements OnInit {
 
 	private routeIsVisible(path:string[], level:number, appRoutes:Route[]):boolean {
 		let userRoles:UserRole[] = this.authService.getUserRoles();
-		if (userRoles.indexOf(UserRole.SUPER_ADMIN) > -1 || userRoles.indexOf(UserRole.ADMIN) > -1) {
+		if (this.authService.hasRole(UserRole.SUPER_ADMIN, userRoles) || this.authService.hasRole(UserRole.ADMIN, userRoles)) {
 			return true;
 		}
 		for (let i = 0; i < appRoutes.length; i++) {
@@ -109,7 +146,7 @@ export class NavigationBaseComponent implements OnInit {
 				else if (route.data && route.data["roles"] && Array.isArray(route.data["roles"]) && route.data["roles"].length) {
 					let requiredRoles:UserRole[] = route.data["roles"];
 					for (let j = 0; j < userRoles.length; j++) {
-						if (userRoles.indexOf(requiredRoles[j]) > -1) {
+						if (this.authService.hasRole(userRoles[j], requiredRoles)) {
 							return true;
 						}
 					}

@@ -13,6 +13,8 @@ public interface UsersDao {
 
 	List<User> getAllUsers();
 
-	Object save(User user);
+	void update(User user);
+	
+	Object create(User user);
 
 }

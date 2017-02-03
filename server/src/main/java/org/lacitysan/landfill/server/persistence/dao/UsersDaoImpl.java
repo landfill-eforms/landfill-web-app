@@ -27,6 +27,7 @@ public class UsersDaoImpl implements UsersDao {
 				.uniqueResult();
 		if (result instanceof User) {
 			User user = (User)result;
+			Hibernate.initialize(user.getPerson());
 			user.getUserGroups().stream().forEach(userGroup -> Hibernate.initialize(userGroup.getUserRoles()));
 			return user;
 		}
@@ -40,15 +41,24 @@ public class UsersDaoImpl implements UsersDao {
 		List<User> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(User.class)
 				.list();
-		result.stream().forEach(user -> user.getUserGroups().stream().forEach(userGroup -> Hibernate.initialize(userGroup.getUserRoles())));
+		result.stream().forEach(user -> {
+			Hibernate.initialize(user.getPerson());
+			user.getUserGroups().stream().forEach(userGroup -> Hibernate.initialize(userGroup.getUserRoles()));
+		});
 		return result;
 	}
-	
+
 	@Override
 	@Transactional
-	public Object save(User user) {
-		hibernateTemplate.save(user.getUserProfile());
-		System.out.println("HELLO????S");
+	public void update(User user) {
+		//hibernateTemplate.update(user.getUserProfile());
+		hibernateTemplate.update(user);
+	}
+
+	@Override
+	@Transactional
+	public Object create(User user) {
+		hibernateTemplate.save(user.getPerson());
 		return hibernateTemplate.save(user);
 	}
 

@@ -24,8 +24,15 @@ export class UserService {
 			);
 	}
 
-	save(callback:(data) => void, user:any) {
-		this.authHttp.post(this.baseUrl + "/save", user).map((res:Response) => res.json()).subscribe(
+	update(callback:(data) => void, user:any) {
+		this.authHttp.post(this.baseUrl, user).map((res:Response) => res.json()).subscribe(
+				data => callback(data),
+				err => console.log(err)
+			);
+	}
+
+	create(callback:(data) => void, user:any) {
+		this.authHttp.post(this.baseUrl + '/new', user).map((res:Response) => res.json()).subscribe(
 				data => callback(data),
 				err => console.log(err)
 			);

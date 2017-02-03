@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './../../../services/user-service';
+import { User } from './../../../model/server/persistence/entity/user.class';
+import { Person } from './../../../model/server/persistence/entity/person.class';
 
 @Component({
 	selector: 'app-user-base',
@@ -10,9 +12,7 @@ import { UserService } from './../../../services/user-service';
 export class UserBaseComponent implements OnInit {
 
 	username:string = "aquach";
-	user:any = {
-		userProfile: {}
-	};
+	user:User = new User();
 
 	constructor(
 		private userService:UserService,
@@ -20,6 +20,8 @@ export class UserBaseComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.user = new User();
+		this.user.person = new Person();
 		this.username = this.activatedRoute.params['_value']['username'];
 		console.log(this.username);
 		this.userService.getByUsername((data) => {

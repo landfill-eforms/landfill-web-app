@@ -1,31 +1,84 @@
-<h3>User Profile</h3>
-
-<div>
-	<md-input-container>
-		<input md-input placeholder="Username" [(ngModel)]="user.username" disabled>
-	</md-input-container>
+<div class="section-multiple-container flex-container" fxLayout="column" fxLayout.gt-sm="row">
+	<md-card class="section-multiple flex-item" fxFlex>
+		<md-card-content>
+			<h2>User Profile</h2>
+			<div class="flex-container" fxLayout="column">
+				<div class="flex-item" fxFlex>
+					<md-input-container class="md-input-full-width">
+						<input md-input placeholder="Username" [(ngModel)]="user.username" [disabled]="!isNew">
+					</md-input-container>
+				</div>
+				<div *ngIf="isNew" class="flex-item" fxFlex>
+					<md-input-container class="md-input-full-width">
+						<input md-input placeholder="Password" [(ngModel)]="user.password" type="password">
+					</md-input-container>
+				</div>
+				<div class="flex-item" fxFlex>
+					<md-input-container class="md-input-full-width">
+						<input md-input placeholder="First Name" [(ngModel)]="user.person.firstname">
+					</md-input-container>
+				</div>
+				<div class="flex-item" fxFlex>
+					<md-input-container class="md-input-full-width">
+						<input md-input placeholder="Middle Name" [(ngModel)]="user.person.middlename">
+					</md-input-container>
+				</div>
+				<div class="flex-item" fxFlex>
+					<md-input-container class="md-input-full-width">
+						<input md-input placeholder="Last Name" [(ngModel)]="user.person.lastname">
+					</md-input-container>
+				</div>
+				<div class="flex-item" fxFlex>
+					<md-input-container class="md-input-full-width">
+						<input md-input placeholder="Email" [(ngModel)]="user.person.emailAddress">
+					</md-input-container>
+				</div>
+			</div>
+		</md-card-content>
+		<md-card-actions>
+			<button md-raised-button color="accent" (click)="save()">
+				SAVE
+			</button>
+		</md-card-actions>
+	</md-card>
+	<md-card class="section-multiple flex-item" fxFlex>
+		<md-card-content>
+			<h2>User Profile</h2>
+			<div>
+				<md-input-container class="md-input-full-width">
+					<input md-input placeholder="Username" [(ngModel)]="user.username" [disabled]="!isNew">
+				</md-input-container>
+			</div>
+			<div *ngIf="isNew">
+				<md-input-container class="md-input-full-width">
+					<input md-input placeholder="Password" [(ngModel)]="user.password" type="password">
+				</md-input-container>
+			</div>
+			<div>
+				<md-input-container class="md-input-full-width">
+					<input md-input placeholder="First Name" [(ngModel)]="user.person.firstname">
+				</md-input-container>
+			</div>
+			<div>
+				<md-input-container class="md-input-full-width">
+					<input md-input placeholder="Middle Name" [(ngModel)]="user.person.middlename">
+				</md-input-container>
+			</div>
+			<div>
+				<md-input-container class="md-input-full-width">
+					<input md-input placeholder="Last Name" [(ngModel)]="user.person.lastname">
+				</md-input-container>
+			</div>
+			<div>
+				<md-input-container class="md-input-full-width">
+					<input md-input placeholder="Email" [(ngModel)]="user.person.emailAddress">
+				</md-input-container>
+			</div>
+		</md-card-content>
+		<md-card-actions>
+			<button md-raised-button color="accent" (click)="save()">
+				SAVE
+			</button>
+		</md-card-actions>
+	</md-card>
 </div>
-<div>
-	<md-input-container>
-		<input md-input placeholder="First Name" [(ngModel)]="user.userProfile.firstname">
-	</md-input-container>
-</div>
-<div>
-	<md-input-container>
-		<input md-input placeholder="Middle Name" [(ngModel)]="user.userProfile.middlename">
-	</md-input-container>
-</div>
-<div>
-	<md-input-container>
-		<input md-input placeholder="Last Name" [(ngModel)]="user.userProfile.lastname">
-	</md-input-container>
-</div>
-<div>
-	<md-input-container>
-		<input md-input placeholder="Email" [(ngModel)]="user.userProfile.emailAddress">
-	</md-input-container>
-</div>
-
-<button md-raised-button color="accent" (click)="save()">
-	SAVE
-</button>

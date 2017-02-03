@@ -63,6 +63,15 @@ export class AuthService {
 		this.router.navigate(['/login']);
 	}
 
+	hasRole(role:UserRole, userRoles:UserRole[]) {
+		for (let i = 0; i < userRoles.length; i++) {
+			if (userRoles[i].ordinal == role.ordinal) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private parseUserRoles(jwtToken:string):UserRole[] {
 		let claims:any = this.jwtHelper.decodeToken(jwtToken);
 		let roles = claims['roles'];

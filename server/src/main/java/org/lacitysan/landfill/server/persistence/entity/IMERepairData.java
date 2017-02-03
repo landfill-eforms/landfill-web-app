@@ -33,7 +33,7 @@ public class IMERepairData {
 	@JoinColumn(name="IMENumberFK")
 	private IMENumber imeNumber;
 	
-	@JsonIgnoreProperties({"password", "userGroups", "enabled", "userProfile"})
+	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
 	@ManyToOne
 	@JoinColumn(name="UserFK")
 	private User user;

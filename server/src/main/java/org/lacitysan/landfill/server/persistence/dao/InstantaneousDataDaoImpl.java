@@ -27,11 +27,11 @@ public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
 				.createQuery("from InstantaneousData where monitoringPoint.site=:site")
 				.setParameter("site", Site.valueOf(siteName))
 				.list();
-		for (InstantaneousData data : result) {
+		result.stream().forEach(data -> {
 			Hibernate.initialize(data.getInstrument());
 			Hibernate.initialize(data.getMonitoringPoint());
-			Hibernate.initialize(data.getUser());
-		}
+			Hibernate.initialize(data.getUser().getPerson());
+		});
 		return result;
 	}
 

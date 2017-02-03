@@ -1,39 +1,37 @@
-<div style="padding-bottom:24px">
-    <a href="/instantaneous_upload">Upload JSON File</a>
-    <a href="/instantaneous_test">Add Test Data</a>
-</div>
-<h3>Instantaneous Reports</h3>
-<div style="padding-bottom:5px">
-    <select [(ngModel)]="sites.selected">
-        <option *ngFor="let site of sites.list" [ngValue]="site">
-            {{site.siteName}}
-        </option>
-    </select>
-    <button md-button (click)="getData()">Apply</button>
-</div>
-<div *ngIf="data.length > 0">
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Barom.</th>
-            <th>Inspector</th>
-            <th>Grid</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Instrument</th>
-            <th>Reading</th>
-            <th>IME#</th>
-        </tr>
-        <tr *ngFor="let inst of data" [ngClass]="getStatus(inst.methaneLevel / 100)">
-            <td>{{getDate(inst.startTime)}}</td>
-            <td>{{inst.barometricPressure / 100}}</td>
-            <td>{{inst.user.firstname}} {{inst.user.lastname}}</td>
-            <td>{{inst.monitoringPoint.monitoringPointName}}</td>
-            <td>{{getTime(inst.startTime)}}</td>
-            <td>{{getTime(inst.endTime)}}</td>
-            <td>{{inst.instrument.serialNumber}}</td>
-            <td>{{inst.methaneLevel / 100}}</td>
-            <td>{{inst.imeNumber}}</td>
-        </tr>
-    </table>
-</div>
+<md-card class="section-single">
+	<md-card-content>
+        <h2>Instantaneous Reports</h2>
+        <div style="padding-bottom:5px">
+            <md-select [(ngModel)]="sites.selected" placeholder="Site" style="width:200px;padding-right:32px;">
+                <md-option *ngFor="let site of sites.list" [value]="site">
+                    {{site.name}}
+                </md-option>
+            </md-select>
+            <button md-raised-button (click)="getData()">VIEW REPORT</button>
+        </div>
+        <div *ngIf="data.length > 0" class="list-table">
+            <div class="list-table-header flex-container" fxLayout="row">
+                <div class="flex-item" fxFlex>Date</div>
+                <div class="flex-item" fxFlex>Barom.</div>
+                <div class="flex-item" fxFlex>Inspector</div>
+                <div class="flex-item" fxFlex>Grid</div>
+                <div class="flex-item" fxFlex>Start</div>
+                <div class="flex-item" fxFlex>End</div>
+                <div class="flex-item" fxFlex>Instrument</div>
+                <div class="flex-item" fxFlex>Reading</div>
+                <div class="flex-item" fxFlex>IME#</div>
+            </div>
+            <div *ngFor="let inst of data; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd, 'warmspot': getStatus(inst.methaneLevel) == 'warmspot', 'hotspot': getStatus(inst.methaneLevel) == 'hotspot'}">
+                <div class="truncate flex-item" fxFlex>{{getDate(inst.startTime)}}</div>
+                <div class="truncate flex-item" fxFlex>{{inst.barometricPressure / 100}}</div>
+                <div class="truncate flex-item" fxFlex>{{inst.user.person.firstname}} {{inst.user.person.lastname}}</div>
+                <div class="truncate flex-item" fxFlex>{{inst.monitoringPoint.monitoringPointName}}</div>
+                <div class="truncate flex-item" fxFlex>{{getTime(inst.startTime)}}</div>
+                <div class="truncate flex-item" fxFlex>{{getTime(inst.endTime)}}</div>
+                <div class="truncate flex-item" fxFlex>{{inst.instrument.serialNumber}}</div>
+                <div class="truncate flex-item" fxFlex>{{inst.methaneLevel / 100}}</div>
+                <div class="truncate flex-item" fxFlex>{{inst.imeNumber}}</div>
+            </div>
+        </div>
+	</md-card-content>
+</md-card>

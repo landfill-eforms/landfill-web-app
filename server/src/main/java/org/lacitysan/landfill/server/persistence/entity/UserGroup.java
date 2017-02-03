@@ -41,14 +41,14 @@ public class UserGroup {
 	private String description;
 	
 	// TODO Find a better way to implement/retrieve 'modified by' and 'created by' info.
-	@JsonIgnoreProperties({"password", "userGroups", "enabled", "userProfile"})
+	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
 	@ManyToOne
 	@JoinColumn(name="CreatedBy")
 	private User createdBy;
 	
 	private Date createdDate;
 	
-	@JsonIgnoreProperties({"password", "userGroups", "enabled", "userProfile"})
+	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
 	@ManyToOne
 	@JoinColumn(name="ModifiedBy")
 	private User modifiedBy;

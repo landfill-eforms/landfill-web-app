@@ -80,6 +80,36 @@ export class NavigationBaseComponent implements OnInit {
 				icon: 'assignment',
 				label: 'Probe Report',
 				visible: false
+			},
+			{
+				path: 'coming-soon',
+				icon: 'email',
+				label: 'Email Reports',
+				visible: false
+			}
+		]
+	};
+
+	readonly notificationSection:RouteSection = {
+		name: "Notifications",
+		routes: [
+			{
+				path: 'coming-soon',
+				icon: 'error',
+				label: 'Current Alerts',
+				visible: false
+			},
+			{
+				path: 'coming-soon',
+				icon: 'warning',
+				label: 'Manage Alerts',
+				visible: false
+			},
+			{
+				path: 'coming-soon',
+				icon: 'email',
+				label: 'Email Notification Settings',
+				visible: false
 			}
 		]
 	};
@@ -106,6 +136,7 @@ export class NavigationBaseComponent implements OnInit {
 		this.homeSection,
 		this.userManagementSection,
 		this.reportsSection,
+		this.notificationSection,
 		this.dataTransferSection
 	];
 

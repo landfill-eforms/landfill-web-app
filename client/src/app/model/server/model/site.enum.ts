@@ -4,16 +4,16 @@
  */
 export class Site {
 
-	static readonly BISHOPS:Site = new Site(0, "Bishops", "BC", "", true);
-	static readonly BRANFORD:Site = new Site(1, "Branford", "BR", "", false);
+	static readonly BISHOPS:Site = new Site(0, "BISHOPS", "BC", "", true);
+	static readonly BRANFORD:Site = new Site(1, "BRANFORD", "BR", "", false);
 	static readonly CLARTS:Site = new Site(2, "CLARTS", "CL", "", false);
-	static readonly GAFFEY:Site = new Site(3, "Gaffey", "GA", "", true);
-	static readonly GRIFFITH_PARK:Site = new Site(4, "Griffith Park", "GP", "", false);
+	static readonly GAFFEY:Site = new Site(3, "GAFFEY", "GA", "", true);
+	static readonly GRIFFITH_PARK:Site = new Site(4, "GRIFFITH_PARK", "GP", "", false);
 	static readonly LCEC:Site = new Site(5, "LCEC", "LC", "", false);
-	static readonly LOPEZ:Site = new Site(6, "Lopez", "LC", "", true);
-	static readonly POLY_HIGH:Site = new Site(7, "PolyHigh", "PH", "", false);
-	static readonly SHELDON:Site = new Site(8, "Sheldon", "SH", "", true);
-	static readonly TOYON:Site = new Site(9, "Toyon", "TC", "", true);
+	static readonly LOPEZ:Site = new Site(6, "LOPEZ", "LC", "", true);
+	static readonly POLY_HIGH:Site = new Site(7, "POLY_HIGH", "PH", "", false);
+	static readonly SHELDON:Site = new Site(8, "SHELDON", "SH", "", true);
+	static readonly TOYON:Site = new Site(9, "TOYON", "TC", "", true);
 
 	readonly ordinal:number;
 	readonly name:string;

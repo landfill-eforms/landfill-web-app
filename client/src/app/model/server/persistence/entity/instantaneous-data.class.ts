@@ -1,3 +1,4 @@
+import { IMENumber } from './ime-number.class';
 import { User } from './user.class';
 import { Instrument } from './instrument.class';
 import { MonitoringPoint } from './monitoring-point.class';
@@ -15,5 +16,5 @@ export class InstantaneousData {
 	methaneLevel:number;
 	startTime:number;
 	endTime:number;
-	imeNumber:string;
+	imeNumber:IMENumber;
 }

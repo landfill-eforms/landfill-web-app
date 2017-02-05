@@ -10,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.lib.enumeration.MonitoringPointType;
-import org.lacitysan.landfill.lib.enumeration.Site;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.model.MonitoringPointType;
+import org.lacitysan.landfill.server.model.Site;
 
 /**
  * @author Alvin Quach

@@ -19,7 +19,7 @@
 					Active
 				</div>
 			</div>
-			<div *ngFor="let user of users; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row':isOdd}">
+			<div *ngFor="let user of users; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
 				<div class="truncate flex-item" fxFlex>
 					<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
 						{{user.username}}

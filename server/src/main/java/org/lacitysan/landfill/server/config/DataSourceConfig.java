@@ -4,15 +4,14 @@ import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.entity.User;
-import org.lacitysan.landfill.server.persistence.entity.UserGroup;
 import org.lacitysan.landfill.server.persistence.entity.IMEData;
 import org.lacitysan.landfill.server.persistence.entity.IMENumber;
 import org.lacitysan.landfill.server.persistence.entity.IMERepairData;
 import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.Instrument;
-import org.lacitysan.landfill.server.persistence.entity.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.entity.Person;
+import org.lacitysan.landfill.server.persistence.entity.User;
+import org.lacitysan.landfill.server.persistence.entity.UserGroup;
 import org.lacitysan.landfill.server.persistence.entity.test.Sleep;
 import org.lacitysan.landfill.server.persistence.entity.test.Test;
 import org.springframework.beans.factory.annotation.Value;
@@ -66,7 +65,6 @@ public class DataSourceConfig {
 						IMERepairData.class,
 						InstantaneousData.class,
 						Instrument.class,
-						MonitoringPoint.class,
 						Person.class,
 						User.class,
 						UserGroup.class,

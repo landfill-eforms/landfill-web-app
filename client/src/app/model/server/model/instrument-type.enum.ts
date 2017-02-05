@@ -8,11 +8,11 @@ export class InstrumentType {
 	static readonly OTHER_TOOL:InstrumentType = new InstrumentType(1, "OTHER_TOOL", );
 
 	readonly ordinal:number;
-	readonly name:string;
+	readonly constantName:string;
 
-	private constructor(ordinal:number, name:string) {
+	private constructor(ordinal:number, constantName:string) {
 		this.ordinal = ordinal;
-		this.name = name;
+		this.constantName = constantName;
 	}
 
 	static readonly values:InstrumentType[] = [

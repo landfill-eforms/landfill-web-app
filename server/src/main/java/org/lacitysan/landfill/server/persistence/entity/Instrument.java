@@ -31,7 +31,7 @@ public class Instrument {
 	@NotNull
 	private String name;
 	
-	@Column(name="InstrumentTypeFK")
+	@Column(name="InstrumentTypeOrdinal")
 	@Enumerated(EnumType.ORDINAL)
 	private InstrumentType instrumentType;
 	

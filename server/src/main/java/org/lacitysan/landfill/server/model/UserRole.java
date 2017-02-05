@@ -24,8 +24,6 @@ public enum UserRole {
 	private String groupAction;
 	private String description;
 	
-	// private UserRole() {}
-	
 	private UserRole(String name, String description) {
 		this.name = name;
 		this.description = description;

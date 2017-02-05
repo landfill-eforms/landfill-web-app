@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.persistence.dao;
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.lacitysan.landfill.lib.enumeration.Site;
+import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;

@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.lib.enumeration.InstrumentType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.model.InstrumentType;
 
 /**
  * @author Alvin Quach
@@ -31,7 +31,7 @@ public class Instrument {
 	@NotNull
 	private String name;
 	
-	@Column(name="InstrumentTypeFK")
+	@Column(name="InstrumentTypeOrdinal")
 	@Enumerated(EnumType.ORDINAL)
 	private InstrumentType instrumentType;
 	

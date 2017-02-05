@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.model.MonitoringPoint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -28,8 +31,8 @@ public class InstantaneousData {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 		
-	@ManyToOne
-	@JoinColumn(name="MonitoringPointFK")
+	@Column(name="MonitoringPointOrdinal")
+	@Enumerated(EnumType.ORDINAL)
 	private MonitoringPoint monitoringPoint;
 		
 	@ManyToOne

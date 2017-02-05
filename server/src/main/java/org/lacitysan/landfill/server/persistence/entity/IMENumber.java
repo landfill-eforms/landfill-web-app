@@ -3,19 +3,20 @@ package org.lacitysan.landfill.server.persistence.entity;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.lacitysan.landfill.server.model.MonitoringPoint;
 
 /**
  * @author Alvin Quach
@@ -32,9 +33,9 @@ public class IMENumber {
 	@NotNull
 	private String imeNumber;
 	
-	@JsonIgnoreProperties({"imeNumbers"})
-	@ManyToMany
-	@JoinTable(name="test.dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"), inverseJoinColumns=@JoinColumn(name="MonitoringPointFK"))
+	@ElementCollection(targetClass=MonitoringPoint.class)
+	@JoinTable(name="test.dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
+	@Enumerated(EnumType.ORDINAL)
 	private Set<MonitoringPoint> monitoringPoints;
 
 	public Integer getId() {

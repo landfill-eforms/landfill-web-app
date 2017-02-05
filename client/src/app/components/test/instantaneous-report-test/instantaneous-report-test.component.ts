@@ -5,7 +5,7 @@ import 'rxjs/Rx';
 import {DateTimeUtils} from '../../../utils/date-time-utils';
 import {InstantaneousDataService} from '../../../services/instantaneous-data.service';
 import {SitesService} from '../../../services/sites.service';
-import { Site } from './../../../model/lib/enumeration/site.enum';
+import { Site } from './../../../model/server/model/site.enum';
 
 @Component({
     selector: 'app-instantaneous-report-test',

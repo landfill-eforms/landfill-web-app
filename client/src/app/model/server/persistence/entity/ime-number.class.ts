@@ -1,4 +1,4 @@
-import { MonitoringPoint } from './monitoring-point.class';
+import { MonitoringPoint } from '../../model/monitoring-point.enum';
 
 /**
  * This class was automatically generated from IMENumber.java using typescript-gen.

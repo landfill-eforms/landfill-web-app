@@ -18,8 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.lib.enumeration.UserRole;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.model.UserRole;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

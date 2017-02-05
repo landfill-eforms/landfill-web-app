@@ -19,7 +19,7 @@
                 <div class="flex-item" fxFlex>End</div>
                 <div class="flex-item" fxFlex>Instrument</div>
                 <div class="flex-item" fxFlex>Reading</div>
-                <div class="flex-item" fxFlex>IME#</div>
+                <div class="flex-item" fxFlex (click)="orderBy('imeNumber')">IME#</div>
             </div>
             <div *ngFor="let inst of data; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd, 'warmspot': getStatus(inst.methaneLevel) == 'warmspot', 'hotspot': getStatus(inst.methaneLevel) == 'hotspot'}">
                 <div class="truncate flex-item" fxFlex>{{getDate(inst.startTime)}}</div>

@@ -53,7 +53,9 @@ public class InstantaneousData {
 	@NotNull
 	private Timestamp endTime;
 	
-	private String imeNumber;
+	@ManyToOne
+	@JoinColumn(name="IMENumberFK")
+	private IMENumber imeNumber;
 
 	public Integer getId() {
 		return id;
@@ -119,11 +121,11 @@ public class InstantaneousData {
 		this.endTime = endTime;
 	}
 
-	public String getImeNumber() {
+	public IMENumber getImeNumber() {
 		return imeNumber;
 	}
 
-	public void setImeNumber(String imeNumber) {
+	public void setImeNumber(IMENumber imeNumber) {
 		this.imeNumber = imeNumber;
 	}
 

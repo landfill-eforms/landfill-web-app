@@ -1,5 +1,5 @@
-import { UserGroup } from './user-group.class';
 import { Person } from './person.class';
+import { UserGroup } from './user-group.class';
 
 /**
  * This class was automatically generated from User.java using typescript-gen.

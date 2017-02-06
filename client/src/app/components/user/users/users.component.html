@@ -1,25 +1,29 @@
 <md-card class="section-single">
 	<md-card-content>
-		<h2>Manage Users</h2>
-		<div class="list-table">
-			<div class="list-table-header flex-container" fxLayout="row">
-				<div class="flex-item" fxFlex>
+		<div class="section-title">Manage Users</div>
+		<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+			<md-spinner class="loading-indicator-spinner"></md-spinner>
+			<div class="loading-indicator-message">{{loadingMessage}}</div>
+		</div>
+		<div *ngIf="isDataLoaded" class="list-table">
+			<div class="list-table-header-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex>
 					Username
 				</div>
-				<div class="flex-item" fxFlex="25">
+				<div class="truncate flex-item" fxFlex="25">
 					Name
 				</div>
-				<div class="flex-item" fxFlex="25">
+				<div class="truncate flex-item" fxFlex="25">
 					Email
 				</div>
-				<div class="flex-item" fxFlex="25">
+				<div class="truncate flex-item" fxFlex="25">
 					Employee ID
 				</div>
-				<div class="flex-item" fxFlex="50px" style="text-align:center;">
+				<div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
 					Active
 				</div>
 			</div>
-			<div *ngFor="let user of users; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row':isOdd}">
+			<div *ngFor="let user of users; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
 				<div class="truncate flex-item" fxFlex>
 					<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
 						{{user.username}}
@@ -42,7 +46,7 @@
 		</div>
 	</md-card-content>
 	<md-card-actions>
-		<button md-button routerLink="../new-user" routerLikeActive="active">
+		<button md-button (click)="openNewUserDialog()">
 			NEW USER
 		</button>
 	</md-card-actions>

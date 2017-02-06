@@ -38,6 +38,7 @@ public class User {
 	private String username;
 	
 	@NotNull
+	//@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
 
 	@JsonIgnoreProperties({"users"})

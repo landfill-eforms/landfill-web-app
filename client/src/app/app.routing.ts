@@ -1,7 +1,11 @@
-import { Routes, RouterModule } from '@angular/router';
+import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
+import { InstantaneousData } from './model/server/persistence/entity/instantaneous-data.class';
+import { UserGroupComponent } from './components/user-group/user-group/user-group.component';
+import { UserGroupsComponent } from './components/user-group/user-groups/user-groups.component';
+import { Route, Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from "@angular/core";
 import { AuthGuard } from "./services/auth/authguard";
-import { UserRole } from './model/lib/enumeration/user-role.enum';
+import { UserRole } from './model/server/model/user-role.enum';
 import { LoginComponent } from './components/public/login/login.component';
 import { ForbiddenComponent } from './components/public/forbidden/forbidden.component';
 import { NavigationBaseComponent } from './components/navigation/navigation-base/navigation-base.component';
@@ -32,16 +36,22 @@ const UserRoutes:Routes = [
 	}
 ];
 
+const UserGroupsRoute:Route = {
+	path: 'user-groups',
+	component: UserGroupsComponent
+}
+
+const UserGroupRoute:Route = {
+	path: 'user-group/:id',
+	component: UserGroupComponent
+}
+
+const InstantaneousReportRoute:Route = {
+	path: 'instantaneous-report',
+	component: InstantaneousReportComponent
+}
+
 const TestRoutes:Routes = [
-	{
-		path: 'instantaneous_report',
-		component: InstantaneousReportTestComponent,
-		// canActivate: [AuthGuard],
-		// data: {roles: [
-		//     "SUPER_ADMIN",
-		//     "ROLE_USER"
-		// ]}
-	},
 	{
 		path: 'instantaneous_test',
 		component: InstantaneousTestComponent,
@@ -103,8 +113,11 @@ export const RestrictedRoutes:Routes = [
 				component: DashboardComponent,
 			},
 			...StatusRoutes,
-			...TestRoutes,
+			//...TestRoutes,
 			...UserRoutes,
+			UserGroupsRoute,
+			UserGroupRoute,
+			InstantaneousReportRoute,
 		]
 	}
 ];

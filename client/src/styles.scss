@@ -15,6 +15,9 @@ html {
 md-sidenav-container {
     background: #EEE !important;
     top: $navbar-height !important;
+    .md-sidenav-opened {
+        box-shadow: 3px 0 6px rgba(0,0,0,0.24) !important;
+    }
 }
 md-toolbar-row {
     height: $navbar-height !important;
@@ -26,7 +29,7 @@ md-toolbar-row {
     top: 0;
     left: 0;
     box-shadow: 0 0 6.9px rgba(0,0,0,0.69);
-    z-index: 9001;
+    z-index: 999;
     pointer-events: none;
 }
 
@@ -37,6 +40,16 @@ a {
 
 .md-input-full-width {
     width: 100%;
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
 }
 
 .truncate {
@@ -59,25 +72,86 @@ a {
 
 .section-multiple-container {
     padding: 12px;
+    margin: 16px;
+    background: #EEE;
 }
 
-.list-table{
+.section-title {
+    font-weight: normal;
+    font-size: 1.337rem;
+}
+
+.section-form-container {
+    padding: 24px 16px 16px 16px;
+}
+
+.list-table {
     padding: 16px;
 }
 
-.list-table-header {
+.list-table-header-row {
     text-align: left;
     font-weight: bold;
-    padding: 12px 0;
+    height: 41px;
     border-bottom: solid 1px #DDD;
+}
+
+.list-table-header-label {
+    position: relative;
+    top: 11px;
+}
+
+.list-table-header-label-sortable {
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.list-table-header-sort {
+    position: relative;
+    top: 6px;
+    transition: transform 0.2s ease-in-out;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.list-table-header-sort-reverse {
+    transform: rotate(-180deg);
+}
+
+.list-table-header-sort-inactive {
+    visibility: hidden;
+    transform: rotate(-90deg);
 }
 
 .list-table-row {
     height: 54px;
     padding-top: 18px;
-    background: #F3F3F3;
+    background: #F7F7F7;
+    transition: background 0.1s linear;
 }
 
 .list-table-odd-row {
     background: #FFF;
+}
+
+// .list-table-row:hover {
+//     background: #E7E7E7;
+// }
+
+// .list-table-odd-row:hover {
+//     background: #EEE;
+// }
+
+.loading-indicator-container {
+    padding-top: 16px;
+}
+
+.loading-indicator-spinner {
+    padding-left: calc(50% - 50px);
+}
+
+.loading-indicator-message {
+    font-weight: lighter;
+    font-size: 1.337rem;
+    text-align: center;
 }

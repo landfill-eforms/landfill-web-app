@@ -1,6 +1,7 @@
 import { User } from './user.class';
+import { IMENumber } from './ime-number.class';
+import { MonitoringPoint } from '../../model/monitoring-point.enum';
 import { Instrument } from './instrument.class';
-import { MonitoringPoint } from './monitoring-point.class';
 
 /**
  * This class was automatically generated from InstantaneousData.java using typescript-gen.
@@ -15,5 +16,5 @@ export class InstantaneousData {
 	methaneLevel:number;
 	startTime:number;
 	endTime:number;
-	imeNumber:string;
+	imeNumber:IMENumber;
 }

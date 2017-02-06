@@ -23,7 +23,7 @@ public class UserController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-	@RequestMapping(value="/username/{username}", method=RequestMethod.GET)
+	@RequestMapping(value="/unique/username/{username}", method=RequestMethod.GET)
 	public User getByUsername(@PathVariable String username) {
 		return usersDao.getUserByUsername(username);
 	}

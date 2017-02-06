@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { RestrictedRouteBase } from './../../app.routing';
 import { environment } from './../../../environments/environment';
-import { UserRole } from './../../model/lib/enumeration/user-role.enum';
+import { UserRole } from './../../model/server/model/user-role.enum';
 
 @Injectable()
 export class AuthService {

@@ -1,0 +1,31 @@
+<md-dialog-content>
+	<div class="section-title">Register New User</div>
+	<div class="section-form-container">
+		<md-input-container class="md-input-full-width">
+			<input md-input placeholder="Username" [(ngModel)]="user.username">
+		</md-input-container>
+		<md-input-container class="md-input-full-width">
+			<input md-input placeholder="Password" [(ngModel)]="user.password" type="password">
+		</md-input-container>
+		<md-input-container class="md-input-full-width">
+			<input md-input placeholder="First Name" [(ngModel)]="user.person.firstname">
+		</md-input-container>
+		<md-input-container class="md-input-full-width">
+			<input md-input placeholder="Middle Name" [(ngModel)]="user.person.middlename">
+		</md-input-container>
+		<md-input-container class="md-input-full-width">
+			<input md-input placeholder="Last Name" [(ngModel)]="user.person.lastname">
+		</md-input-container>
+		<md-input-container class="md-input-full-width">
+			<input md-input placeholder="Email" [(ngModel)]="user.person.emailAddress">
+		</md-input-container>
+	</div>
+</md-dialog-content>
+<md-dialog-actions>
+	<button md-button (click)="cancel()">
+		CANCEL
+	</button>
+	<button md-button (click)="confirm()">
+		CONFIRM
+	</button>
+</md-dialog-actions>

@@ -1,22 +1,49 @@
-<md-card class="section-single">
-	<md-card-content>
-		<div class="section-title">Edit User Group &ndash; {{userGroup.name}}</div>
-		<div *ngIf="!isDataLoaded" class="loading-indicator-container">
-			<md-spinner class="loading-indicator-spinner"></md-spinner>
-			<div class="loading-indicator-message">Loading...</div>
-		</div>
-		<div *ngIf="isDataLoaded" class="section-form-container">
-			<md-input-container class="md-input-full-width">
-				<input md-input placeholder="Group Name" [(ngModel)]="userGroup.name">
-			</md-input-container>
-			<md-input-container class="md-input-full-width">
-				<input md-input placeholder="Description" [(ngModel)]="userGroup.description">
-			</md-input-container>
-		</div>
-	</md-card-content>
-	<md-card-actions>
-		<button md-button (click)=save()>
-			SAVE
-		</button>
-	</md-card-actions>
-</md-card>
+<div class="section-multiple-container">
+	<div class="section-title">Edit User Group &ndash; {{userGroup.name}}</div>
+	<div class="flex-container" fxLayout="column" fxLayout.gt-sm="row">
+		<md-card class="section-multiple flex-item" fxFlex>
+			<md-card-content>
+				<div class="section-title">Group Information</div>
+				<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+					<md-spinner class="loading-indicator-spinner"></md-spinner>
+					<div class="loading-indicator-message">Loading...</div>
+				</div>
+				<div *ngIf="isDataLoaded" class="section-form-container">
+					<md-input-container class="md-input-full-width">
+						<input md-input placeholder="Group Name" [(ngModel)]="userGroup.name">
+					</md-input-container>
+					<md-input-container class="md-input-full-width">
+						<input md-input placeholder="Description" [(ngModel)]="userGroup.description">
+					</md-input-container>
+				</div>
+			</md-card-content>
+			<md-card-actions>
+				<button md-button (click)=save()>
+					SAVE
+				</button>
+			</md-card-actions>
+		</md-card>
+		<md-card class="section-multiple flex-item" fxFlex>
+			<md-card-content>
+				<div class="section-title">User Roles</div>
+				<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+					<md-spinner class="loading-indicator-spinner"></md-spinner>
+					<div class="loading-indicator-message">Loading...</div>
+				</div>
+				<div *ngIf="isDataLoaded" class="section-form-container">
+					<md-input-container class="md-input-full-width">
+						<input md-input placeholder="Group Name" [(ngModel)]="userGroup.name">
+					</md-input-container>
+					<md-input-container class="md-input-full-width">
+						<input md-input placeholder="Description" [(ngModel)]="userGroup.description">
+					</md-input-container>
+				</div>
+			</md-card-content>
+			<md-card-actions>
+				<button md-button (click)=save()>
+					SAVE
+				</button>
+			</md-card-actions>
+		</md-card>
+	</div>
+<div>

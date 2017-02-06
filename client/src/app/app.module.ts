@@ -1,3 +1,4 @@
+import { ReportModule } from './components/report/report.module';
 import { NewUserDialogComponent } from './components/user/new-user-dialog/new-user-dialog.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -44,6 +45,7 @@ import { FileUploadService } from './services/file-upload.service';
 		DirectivesModule,
 		UserModule,
 		UserGroupModule,
+		ReportModule,
 		TestModule,
 	],
 	entryComponents: [

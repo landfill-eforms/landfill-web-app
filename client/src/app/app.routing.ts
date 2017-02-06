@@ -1,3 +1,5 @@
+import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
+import { InstantaneousData } from './model/server/persistence/entity/instantaneous-data.class';
 import { UserGroupComponent } from './components/user-group/user-group/user-group.component';
 import { UserGroupsComponent } from './components/user-group/user-groups/user-groups.component';
 import { Route, Routes, RouterModule } from '@angular/router';
@@ -44,16 +46,12 @@ const UserGroupRoute:Route = {
 	component: UserGroupComponent
 }
 
+const InstantaneousReportRoute:Route = {
+	path: 'instantaneous-report',
+	component: InstantaneousReportComponent
+}
+
 const TestRoutes:Routes = [
-	{
-		path: 'instantaneous_report',
-		component: InstantaneousReportTestComponent,
-		// canActivate: [AuthGuard],
-		// data: {roles: [
-		//     "SUPER_ADMIN",
-		//     "ROLE_USER"
-		// ]}
-	},
 	{
 		path: 'instantaneous_test',
 		component: InstantaneousTestComponent,
@@ -115,10 +113,11 @@ export const RestrictedRoutes:Routes = [
 				component: DashboardComponent,
 			},
 			...StatusRoutes,
-			...TestRoutes,
+			//...TestRoutes,
 			...UserRoutes,
 			UserGroupsRoute,
 			UserGroupRoute,
+			InstantaneousReportRoute,
 		]
 	}
 ];

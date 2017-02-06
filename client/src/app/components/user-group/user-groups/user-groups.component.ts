@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { UserGroupService } from './../../../services/user-group.service';
 import { UserGroup } from './../../../model/server/persistence/entity/user-group.class';
 import { Component, OnInit } from '@angular/core';
@@ -42,11 +43,7 @@ export class UserGroupsComponent implements OnInit {
 			this.sort.reversed = false;
 		}
 		this.userGroups.sort((a, b) => {
-			let aName = a.name.toLowerCase();
-			let bName = b.name.toLowerCase();
-			if (aName > bName) return this.sort.reversed ? -1 : 1;
-			if (aName === bName) return 0;
-			if (aName < bName) return this.sort.reversed ? 1 : -1;
+			return this.groupNameSortFunction(a.name.toLowerCase(), b.name.toLowerCase(), this.sort.reversed);
 		});
 	}
 
@@ -59,8 +56,19 @@ export class UserGroupsComponent implements OnInit {
 			this.sort.reversed = false;
 		}
 		this.userGroups.sort((a, b) => {
-			return (a.users.length - b.users.length) * (this.sort.reversed ? 1 : -1);
+			let compareCount:number = (a.users.length - b.users.length) * (this.sort.reversed ? 1 : -1);
+			if (compareCount != 0) {
+				return compareCount;
+			}
+			return this.groupNameSortFunction(a.name.toLowerCase(), b.name.toLowerCase(), false);
 		});
+	}
+
+	// TODO Move this to a util class.
+	private groupNameSortFunction(a:string, b:string, reversed:boolean):number {
+		if (a > b) return reversed ? -1 : 1;
+		if (a == b) return 0;
+		if (a < b) return reversed ? 1 : -1;
 	}
 
 }

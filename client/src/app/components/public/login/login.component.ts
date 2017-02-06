@@ -18,7 +18,6 @@ export class LoginComponent {
 	) {}
 
 	login() {
-		console.log(this.credentials)
 		this.authService.login(this.credentials.username, this.credentials.password);
 	}
 

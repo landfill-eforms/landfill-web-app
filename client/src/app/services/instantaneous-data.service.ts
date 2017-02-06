@@ -1,8 +1,7 @@
-import { Component, OnInit, Injectable } from '@angular/core';
-import { Response, Headers, RequestOptions } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { environment } from '../../environments/environment';
-
 @Injectable()
 export class InstantaneousDataService {
 

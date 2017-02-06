@@ -1,4 +1,6 @@
-import { Routes, RouterModule } from '@angular/router';
+import { UserGroupComponent } from './components/user-group/user-group/user-group.component';
+import { UserGroupsComponent } from './components/user-group/user-groups/user-groups.component';
+import { Route, Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from "@angular/core";
 import { AuthGuard } from "./services/auth/authguard";
 import { UserRole } from './model/server/model/user-role.enum';
@@ -31,6 +33,16 @@ const UserRoutes:Routes = [
 		component: UserProfileComponent
 	}
 ];
+
+const UserGroupsRoute:Route = {
+	path: 'user-groups',
+	component: UserGroupsComponent
+}
+
+const UserGroupRoute:Route = {
+	path: 'user-group/:id',
+	component: UserGroupComponent
+}
 
 const TestRoutes:Routes = [
 	{
@@ -105,6 +117,8 @@ export const RestrictedRoutes:Routes = [
 			...StatusRoutes,
 			...TestRoutes,
 			...UserRoutes,
+			UserGroupsRoute,
+			UserGroupRoute,
 		]
 	}
 ];

@@ -1,0 +1,63 @@
+<md-card class="section-single">
+	<md-card-content>
+		<div class="section-title">User Groups</div>
+		<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+			<md-spinner class="loading-indicator-spinner"></md-spinner>
+			<div class="loading-indicator-message">{{loadingMessage}}</div>
+		</div>
+		<div *ngIf="isDataLoaded" class="list-table">
+			<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex (click)="sortByGroupName()">
+					<span class="list-table-header-label-sortable">Group Name</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'name'}">
+						arrow_downward</md-icon>
+				</div>
+				<div class="truncate flex-item" fxFlex="100px" (click)="sortByUserCount()">
+					<span class="list-table-header-label-sortable">Users</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'users'}">
+						arrow_downward</md-icon>
+				</div>
+				<div class="truncate flex-item" fxFlex="60">
+					<span class="list-table-header-label">Description</span>
+				</div>
+				<div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">Delete</span>
+				</div>
+			</div>
+			<div *ngFor="let group of userGroups; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+				<div class="truncate flex-item" fxFlex>
+					<a [routerLink]="'../user-group/' + group.id" routerLikeActive="active">
+						{{group.name}}
+					</a>
+				</div>
+				<div class="truncate flex-item" fxFlex="100px">
+					{{group.users.length}}
+				</div>
+				<div class="truncate flex-item" fxFlex="60">
+					{{group.description}}
+				</div>
+				<!--<div class="truncate flex-item" fxFlex="25">
+					{{user.person.emailAddress}}
+				</div>
+				<div class="truncate flex-item" fxFlex="25">
+					{{user.person.employeeId}}
+				</div>-->
+				<div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon style="color:#F00;cursor:pointer;">delete</md-icon>
+				</div>
+			</div>
+		</div>
+	</md-card-content>
+	<md-card-actions>
+		<button md-button routerLink="../new-user-group">
+			NEW USER GROUP
+		</button>
+		<button md-button (click)="test()">
+			TEST
+		</button>
+	</md-card-actions>
+</md-card>

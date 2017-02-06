@@ -12,7 +12,7 @@
 				</div>
 				<div>
 					<md-input-container style="width:100%">
-						<input type="password" [(ngModel)]="credentials.password" md-input placeholder="Password">
+						<input type="password" [(ngModel)]="credentials.password" md-input placeholder="Password" (keyup.enter)="login()">
 					</md-input-container>
 				</div>
 				<button md-raised-button color="warn" class="login-button" (click)="login()">LOGIN</button>

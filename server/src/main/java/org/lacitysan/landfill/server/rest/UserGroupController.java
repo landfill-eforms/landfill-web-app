@@ -19,7 +19,7 @@ public class UserGroupController {
 	@Autowired
 	UserGroupsDao userGroupsDao;
 	
-	@RequestMapping(value="/id/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public UserGroup getById(@PathVariable String id) {
 		if (id.matches("^-?\\d+$")) {
 			return userGroupsDao.getUserGroupById(Integer.valueOf(id));

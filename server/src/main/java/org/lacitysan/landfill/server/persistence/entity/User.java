@@ -21,8 +21,6 @@ import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 /**
  * @author Alvin Quach
@@ -40,7 +38,7 @@ public class User {
 	private String username;
 	
 	@NotNull
-	@JsonProperty(access=Access.WRITE_ONLY)
+	//@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
 
 	@JsonIgnoreProperties({"users"})

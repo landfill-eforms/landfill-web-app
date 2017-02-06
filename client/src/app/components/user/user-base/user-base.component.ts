@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from './../../../services/user-service';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from './../../../services/user.service';
 import { User } from './../../../model/server/persistence/entity/user.class';
 import { Person } from './../../../model/server/persistence/entity/person.class';
 
@@ -11,7 +11,7 @@ import { Person } from './../../../model/server/persistence/entity/person.class'
 })
 export class UserBaseComponent implements OnInit {
 
-	username:string = "aquach";
+	username:string;
 	user:User = new User();
 
 	constructor(

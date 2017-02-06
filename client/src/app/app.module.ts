@@ -1,3 +1,4 @@
+import { NewUserDialogComponent } from './components/user/new-user-dialog/new-user-dialog.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,9 +17,11 @@ import { PublicModule } from './components/public/public.module'
 import { NavigationModule } from './components/navigation/navigation.module'
 import { DirectivesModule } from './components/directives/directives.module';
 import { UserModule } from './components/user/user.module';
+import { UserGroupModule } from './components/user-group/user-group.module';
 import { TestModule } from './components/test/test.module';
 
-import { UserService } from './services/user-service';
+import { UserGroupService } from './services/user-group.service';
+import { UserService } from './services/user.service';
 import { InstantaneousDataService } from './services/instantaneous-data.service';
 import { SitesService } from './services/sites.service';
 import { FileUploadService } from './services/file-upload.service';
@@ -40,7 +43,11 @@ import { FileUploadService } from './services/file-upload.service';
 		NavigationModule,
 		DirectivesModule,
 		UserModule,
+		UserGroupModule,
 		TestModule,
+	],
+	entryComponents: [
+		NewUserDialogComponent,
 	],
 	providers: [
 		//AppRouterProviders,
@@ -49,10 +56,14 @@ import { FileUploadService } from './services/file-upload.service';
 		AuthGuard,
 		AuthService,
 		UserService,
+		UserGroupService,
 		FileUploadService,
 		InstantaneousDataService,
 		SitesService,
 	],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+
+}

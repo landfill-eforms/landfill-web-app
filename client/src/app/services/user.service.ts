@@ -1,7 +1,8 @@
-import { Component, OnInit, Injectable } from '@angular/core';
-import { Response, Headers, RequestOptions } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { environment } from '../../environments/environment';
+import { User } from './../model/server/persistence/entity/user.class';
 
 @Injectable()
 export class UserService {
@@ -11,7 +12,7 @@ export class UserService {
 	constructor(private authHttp: AuthHttp) {}
 
 	getByUsername(callback:(data) => void, username:string) {
-		this.authHttp.get(this.baseUrl + "/username/" + username).map((res:Response) => res.json()).subscribe(
+		this.authHttp.get(this.baseUrl + "/unique/username/" + username).map((res:Response) => res.json()).subscribe(
 				data => callback(data),
 				err => console.log(err)
 			);
@@ -24,14 +25,14 @@ export class UserService {
 			);
 	}
 
-	update(callback:(data) => void, user:any) {
+	update(callback:(data) => void, user:User) {
 		this.authHttp.post(this.baseUrl, user).map((res:Response) => res.json()).subscribe(
 				data => callback(data),
 				err => console.log(err)
 			);
 	}
 
-	create(callback:(data) => void, user:any) {
+	create(callback:(data) => void, user:User) {
 		this.authHttp.post(this.baseUrl + '/new', user).map((res:Response) => res.json()).subscribe(
 				data => callback(data),
 				err => console.log(err)

@@ -52,7 +52,7 @@ export class NavigationBaseComponent implements OnInit {
 		name: "Reports",
 		routes: [
 			{
-				path: 'instantaneous_report',
+				path: 'instantaneous-report',
 				icon: 'assignment',
 				label: 'Instantaneous Report',
 				visible: false

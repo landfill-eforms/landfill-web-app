@@ -1,3 +1,4 @@
+import { NewUserDialogComponent } from './new-user-dialog/new-user-dialog.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '../common/common.module'
 import { UserBaseComponent } from './user-base/user-base.component';
@@ -14,7 +15,8 @@ import { UserOverviewComponent } from './user-overview/user-overview.component';
 		UsersComponent,
 		UserBaseComponent,
         UserOverviewComponent,
-		UserProfileComponent
+		UserProfileComponent,
+        NewUserDialogComponent
     ]
 })
 

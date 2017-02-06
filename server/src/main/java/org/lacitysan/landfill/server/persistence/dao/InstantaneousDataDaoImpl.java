@@ -1,10 +1,15 @@
 package org.lacitysan.landfill.server.persistence.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.Restrictions;
+import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
+import org.lacitysan.landfill.server.service.MonitoringPointService;
+import org.lacitysan.landfill.server.service.model.OrdinalRange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,14 +24,22 @@ public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 
+	@Autowired
+	MonitoringPointService monitoringPointService;
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public List<InstantaneousData> getBySite(String siteName) {
-		List<InstantaneousData> result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createQuery("from InstantaneousData where monitoringPoint.site=:site")
-				.setParameter("site", Site.valueOf(siteName))
-				.list();
+		List<InstantaneousData> result = new ArrayList<>();
+		MonitoringPoint[] monitoringPoints = MonitoringPoint.values();
+		for (OrdinalRange range : monitoringPointService.getGridsBySite(Site.valueOf(siteName))) {
+			result.addAll(hibernateTemplate.getSessionFactory().getCurrentSession()
+					.createCriteria(InstantaneousData.class)
+					.add(Restrictions.ge("monitoringPoint", monitoringPoints[range.getMin()]))
+					.add(Restrictions.le("monitoringPoint", monitoringPoints[range.getMax()]))
+					.list());
+		}
 		result.stream().forEach(data -> {
 			Hibernate.initialize(data.getInstrument());
 			Hibernate.initialize(data.getMonitoringPoint());

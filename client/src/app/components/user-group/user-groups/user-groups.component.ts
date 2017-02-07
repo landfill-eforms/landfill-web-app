@@ -1,3 +1,8 @@
+import { NewUserGroupDialogComponent } from './../new-user-group-dialog/new-user-group-dialog.component';
+import { MdDialogConfig } from '@angular/material';
+import { MdDialogRef } from '@angular/material';
+import { MdDialog } from '@angular/material';
+import { MdSnackBar } from '@angular/material';
 import { async } from '@angular/core/testing';
 import { UserGroupService } from './../../../services/user-group.service';
 import { UserGroup } from './../../../model/server/persistence/entity/user-group.class';
@@ -18,10 +23,18 @@ export class UserGroupsComponent implements OnInit {
 		reversed: false
 	}
 
-	constructor(private userGroupService:UserGroupService) {}
+	constructor(
+		private userGroupService:UserGroupService,
+		private dialog:MdDialog,
+		private snackBar:MdSnackBar
+	) {}
 
 	ngOnInit() {
 		this.loadingMessage = "Loading User Groups...";
+		this.loadUserGroups();
+	}
+
+	loadUserGroups() {
 		this.userGroupService.getAll((data) => {
 			console.log(data);
 			this.userGroups = data;
@@ -29,9 +42,20 @@ export class UserGroupsComponent implements OnInit {
 		});
 	}
 
-	test() {
-		this.sort.current = "users";
-		console.log(this.userGroups.sort((a, b) => a.users.length - b.users.length));
+	openNewUserGroupDialog() {
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '640px';
+			//dialogConfig.height = '480px';
+		let dialogRef:MdDialogRef<NewUserGroupDialogComponent> = this.dialog.open(NewUserGroupDialogComponent, dialogConfig);
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.snackBar.open("New user group has been created.", "OK", {duration: 2000});
+				this.isDataLoaded = false;
+				this.loadingMessage = "Reloading User Groups..."
+				this.loadUserGroups();
+			}
+		});
+
 	}
 
 	sortByGroupName() {
@@ -66,9 +90,8 @@ export class UserGroupsComponent implements OnInit {
 
 	// TODO Move this to a util class.
 	private groupNameSortFunction(a:string, b:string, reversed:boolean):number {
-		if (a > b) return reversed ? -1 : 1;
 		if (a == b) return 0;
-		if (a < b) return reversed ? 1 : -1;
+		return (a > b ? 1 : -1) * (reversed ? -1 : 1);
 	}
 
 }

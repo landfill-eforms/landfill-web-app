@@ -113,7 +113,7 @@ export const RestrictedRoutes:Routes = [
 				component: DashboardComponent,
 			},
 			...StatusRoutes,
-			//...TestRoutes,
+			...TestRoutes,
 			...UserRoutes,
 			UserGroupsRoute,
 			UserGroupRoute,

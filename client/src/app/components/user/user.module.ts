@@ -1,3 +1,4 @@
+import { UserGroupSelectorComponent } from './user-group-selector/user-group-selector.component';
 import { NewUserDialogComponent } from './new-user-dialog/new-user-dialog.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '../common/common.module'
@@ -16,6 +17,7 @@ import { UserOverviewComponent } from './user-overview/user-overview.component';
 		UserBaseComponent,
         UserOverviewComponent,
 		UserProfileComponent,
+        UserGroupSelectorComponent,
         NewUserDialogComponent
     ]
 })

@@ -24,16 +24,18 @@ export class MonitoringPointType {
 		this.name = name;
 	}
 
-	static readonly values:MonitoringPointType[] = [
-		MonitoringPointType.AMBIENT,
-		MonitoringPointType.BIOFILTER,
-		MonitoringPointType.GRID,
-		MonitoringPointType.GROUNDWATER,
-		MonitoringPointType.LEACHATE,
-		MonitoringPointType.LFG,
-		MonitoringPointType.PILE,
-		MonitoringPointType.PROBE,
-		MonitoringPointType.STORMWATER
-	];
+	static values():MonitoringPointType[] {
+		return [
+			MonitoringPointType.AMBIENT,
+			MonitoringPointType.BIOFILTER,
+			MonitoringPointType.GRID,
+			MonitoringPointType.GROUNDWATER,
+			MonitoringPointType.LEACHATE,
+			MonitoringPointType.LFG,
+			MonitoringPointType.PILE,
+			MonitoringPointType.PROBE,
+			MonitoringPointType.STORMWATER
+		];
+	}
 
 }

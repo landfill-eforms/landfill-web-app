@@ -6,21 +6,37 @@
 			<div class="loading-indicator-message">{{loadingMessage}}</div>
 		</div>
 		<div *ngIf="isDataLoaded" class="list-table">
-			<div class="list-table-header-row flex-container" fxLayout="row">
-				<div class="truncate flex-item" fxFlex>
-					Username
+			<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex (click)="sortByUsername()">
+					<span class="list-table-header-label-sortable">Username</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'username'}">
+						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="25">
-					Name
+				<div class="truncate flex-item" fxFlex="25" (click)="sortByName()">
+					<span class="list-table-header-label-sortable">Name</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'name'}">
+						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="25">
-					Email
+				<div class="truncate flex-item" fxFlex="25" (click)="sortByEmail()">
+					<span class="list-table-header-label-sortable">Email</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'email'}">
+						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="25">
-					Employee ID
+				<div class="truncate flex-item" fxFlex="25" (click)="sortByEmployeeId()">
+					<span class="list-table-header-label-sortable">Employee ID</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'employeeId'}">
+						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
-					Active
+					<span class="list-table-header-label">Active</span>
 				</div>
 			</div>
 			<div *ngFor="let user of users; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
@@ -30,7 +46,7 @@
 					</a>
 				</div>
 				<div class="truncate flex-item" fxFlex="25">
-					{{user.person.firstname}} {{user.person.lastname}}
+					{{user.person.lastname}}, {{user.person.firstname}}
 				</div>
 				<div class="truncate flex-item" fxFlex="25">
 					{{user.person.emailAddress}}

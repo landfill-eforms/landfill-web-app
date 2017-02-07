@@ -118,7 +118,7 @@ export class NavigationBaseComponent implements OnInit {
 		name: "Data Transfer",
 		routes: [
 			{
-				path: 'instantaneous_upload',
+				path: 'instantaneous-upload',
 				icon: 'file_upload',
 				label: 'Upload From Mobile',
 				visible: false

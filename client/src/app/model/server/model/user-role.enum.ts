@@ -34,20 +34,22 @@ export class UserRole {
 		this.description = description;
 	}
 
-	static readonly values:UserRole[] = [
-		UserRole.SUPER_ADMIN,
-		UserRole.ADMIN,
-		UserRole.CREATE_USERS,
-		UserRole.DEACTIVATE_USERS,
-		UserRole.RESET_USER_PASSWORDS,
-		UserRole.RESET_USER_USERNAMES,
-		UserRole.EDIT_USER_PROFILES,
-		UserRole.ASSIGN_EMPLOYEE_ID,
-		UserRole.ASSIGN_USER_GROUPS,
-		UserRole.CREATE_USER_GROUPS,
-		UserRole.DELETE_USER_GROUPS,
-		UserRole.EDIT_USER_GROUPS,
-		UserRole.TEST
-	];
+	static values():UserRole[] {
+		return [
+			UserRole.SUPER_ADMIN,
+			UserRole.ADMIN,
+			UserRole.CREATE_USERS,
+			UserRole.DEACTIVATE_USERS,
+			UserRole.RESET_USER_PASSWORDS,
+			UserRole.RESET_USER_USERNAMES,
+			UserRole.EDIT_USER_PROFILES,
+			UserRole.ASSIGN_EMPLOYEE_ID,
+			UserRole.ASSIGN_USER_GROUPS,
+			UserRole.CREATE_USER_GROUPS,
+			UserRole.DELETE_USER_GROUPS,
+			UserRole.EDIT_USER_GROUPS,
+			UserRole.TEST
+		];
+	}
 
 }

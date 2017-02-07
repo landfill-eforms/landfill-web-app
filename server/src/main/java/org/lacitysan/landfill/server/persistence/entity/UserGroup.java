@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -63,7 +64,7 @@ public class UserGroup {
 	@JoinTable(name="test.dbo.UserGroupsXRefUserRoles", joinColumns=@JoinColumn(name="UserGroupFK"))
 	@Column(name="UserRoleOrdinal")
 	@Enumerated(EnumType.ORDINAL)
-	private Set<UserRole> userRoles;
+	private Set<UserRole> userRoles = new HashSet<>();
 
 	public Integer getId() {
 		return id;

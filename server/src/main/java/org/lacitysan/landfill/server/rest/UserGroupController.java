@@ -33,8 +33,9 @@ public class UserGroupController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public void update(@RequestBody UserGroup userGroup) {
+	public Object update(@RequestBody UserGroup userGroup) {
 		userGroupsDao.update(userGroup);
+		return true;
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)

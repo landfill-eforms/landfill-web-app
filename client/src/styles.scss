@@ -81,6 +81,11 @@ a {
     font-size: 1.337rem;
 }
 
+.section-subtitle {
+    font-weight: lighter;
+    font-size: 1.0rem;
+}
+
 .section-form-container {
     padding: 24px 16px 16px 16px;
 }
@@ -154,4 +159,10 @@ a {
     font-weight: lighter;
     font-size: 1.337rem;
     text-align: center;
+}
+
+.fab-action-button-container {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
 }

@@ -11,6 +11,7 @@ import { Person } from './../../../model/server/persistence/entity/person.class'
 })
 export class UserBaseComponent implements OnInit {
 
+	isDataLoaded:boolean;
 	username:string;
 	user:User = new User();
 
@@ -27,6 +28,8 @@ export class UserBaseComponent implements OnInit {
 		this.userService.getByUsername((data) => {
 			console.log(data);
 			this.user = data;
+			//this.user.userGroups.map(g => {g.users = undefined}); // Need to remove the list of users; it will cause deserialization erros when saving.
+			this.isDataLoaded = true;
 		}, this.username);
 	}
 	

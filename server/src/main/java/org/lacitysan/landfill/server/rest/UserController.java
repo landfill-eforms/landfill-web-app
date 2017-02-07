@@ -34,9 +34,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public void update(@RequestBody User user) {
+	public Object update(@RequestBody User user) {
 		//user.getPerson().setUser(user);
 		usersDao.update(user);
+		return true;
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)

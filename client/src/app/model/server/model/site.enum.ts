@@ -31,17 +31,19 @@ export class Site {
 		this.active = active;
 	}
 
-	static readonly values:Site[] = [
-		Site.BISHOPS,
-		Site.BRANFORD,
-		Site.CLARTS,
-		Site.GAFFEY,
-		Site.GRIFFITH_PARK,
-		Site.LCEC,
-		Site.LOPEZ,
-		Site.POLY_HIGH,
-		Site.SHELDON,
-		Site.TOYON
-	];
+	static values():Site[] {
+		return [
+			Site.BISHOPS,
+			Site.BRANFORD,
+			Site.CLARTS,
+			Site.GAFFEY,
+			Site.GRIFFITH_PARK,
+			Site.LCEC,
+			Site.LOPEZ,
+			Site.POLY_HIGH,
+			Site.SHELDON,
+			Site.TOYON
+		];
+	}
 
 }

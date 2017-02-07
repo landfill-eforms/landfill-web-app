@@ -15,9 +15,11 @@ export class InstrumentType {
 		this.constantName = constantName;
 	}
 
-	static readonly values:InstrumentType[] = [
-		InstrumentType.CH4_BAG,
-		InstrumentType.OTHER_TOOL
-	];
+	static values():InstrumentType[] {
+		return [
+			InstrumentType.CH4_BAG,
+			InstrumentType.OTHER_TOOL
+		];
+	}
 
 }

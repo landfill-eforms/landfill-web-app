@@ -1,0 +1,49 @@
+<div class="flex-container" fxLayout="row" fxLayoutAlign="space-around center" style="margin:16px;">
+	<div class="flex-item" fxFlex="47">
+		<div class="section-subtitle">Avalable Roles</div>
+		<div class="roles-selection-box">
+			<div *ngFor="let role of availableRoles" class="role-container flex-container" fxLayout="row"> 
+				<div class="role-add-button flex-item" fxFlex fxFlexAlign="center">
+					<md-icon color="accent" (click)="addRole(role)" mdTooltip="Add Role" mdTooltipPosition="after">add</md-icon>
+				</div>
+				<div class="role-info flex-item" fxFlex>
+					<div class="role-title">
+						<div *ngIf="role.group">
+							{{role.group}} - {{role.groupAction}}
+						</div>
+						<div *ngIf="!role.group">
+							{{role.name}}
+						</div>
+					</div>
+					<div class="role-description">
+						{{role.description}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="flex-item" fxFlex="47">
+		<div class="section-subtitle">Assigned Roles</div>
+		<div class="roles-selection-box">
+			<div *ngFor="let role of selectedRoles" class="role-container flex-container" fxLayout="row"> 
+				<div class="role-add-button flex-item" fxFlex fxFlexAlign="center">
+					<md-icon color="warn" (click)="removeRole(role)" mdTooltip="Remove Role" mdTooltipPosition="after">remove</md-icon>
+				</div>
+				<div class="role-info flex-item" fxFlex>
+					<div class="role-title">
+						<div *ngIf="role.group">
+							{{role.group}} - {{role.groupAction}}
+						</div>
+						<div *ngIf="!role.group">
+							{{role.name}}
+						</div>
+					</div>
+					<div class="role-description">
+						{{role.description}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--<button md-button (click)="consoleLog()">CONSOLE LOG</button>-->

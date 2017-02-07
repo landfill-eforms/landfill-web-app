@@ -35,7 +35,7 @@ export class InstantaneousReportComponent implements OnInit {
     ngOnInit() {
 
         // Get list of active sites
-        this.sites.list = Site.values.filter(s => s.active);
+        this.sites.list = Site.values().filter(s => s.active);
     }
 
     getStatus(reading:number):string {

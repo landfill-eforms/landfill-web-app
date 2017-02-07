@@ -1,3 +1,4 @@
+import { MdSnackBar } from '@angular/material';
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from './../../../services/user.service';
 import { User } from './../../../model/server/persistence/entity/user.class';
@@ -11,10 +12,14 @@ import { Person } from './../../../model/server/persistence/entity/person.class'
 export class UserProfileComponent implements OnInit {
 	
 	@Input() user:User;
+	@Input() isDataLoaded:boolean;
 
 	isNew:boolean = false;
 
-	constructor(private userService:UserService) {}
+	constructor(
+		private userService:UserService,
+		private snackBar:MdSnackBar,
+	) {}
 
 	ngOnInit() {
 		if (!this.user) {
@@ -30,6 +35,7 @@ export class UserProfileComponent implements OnInit {
 		console.log("SAVE USER", this.user);
 		if (!this.isNew) {
 			this.userService.update((data) => {
+				this.snackBar.open("User saved.", "OK", {duration: 2000});
 				console.log(data);
 			}, this.user);
 		}

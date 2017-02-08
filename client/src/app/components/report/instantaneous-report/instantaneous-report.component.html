@@ -7,7 +7,10 @@
 					{{site.name}}
 				</md-option>
 			</md-select>
-			<input type="date">
+			<span>From</span>
+			<input type="date" (change)="onStartDateChange($event)">
+			<span style="padding-left:8px;">To</span>
+			<input type="date" (change)="onEndDateChange($event)">
 			<button md-raised-button (click)="getData()">GET REPORT</button>
 		</div>
 		<div *ngIf="!isDataLoaded" class="loading-indicator-container">

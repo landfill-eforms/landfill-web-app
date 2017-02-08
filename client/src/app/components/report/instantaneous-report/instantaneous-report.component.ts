@@ -18,6 +18,10 @@ export class InstantaneousReportComponent implements OnInit {
         list: [],
         selected: {}
     }
+	dateRange:any = {
+		start: -1,
+		end: -1
+	}
 	sort:any = {
 		current: "",
 		reversed: false
@@ -50,15 +54,16 @@ export class InstantaneousReportComponent implements OnInit {
     }
 
     getData() {
+		console.log(this.dateRange)
 		this.data = [];
 		this.isDataLoaded = false;
-        this.instantaneousDataService.getBySiteName((data) => {
+        this.instantaneousDataService.getBySiteAndDate((data) => {
             console.log(data);
             for (let i = 0; i < data.length; i++) {
 				this.data.push(this.instantaneousDataService.processDataPoint(data[i]));
 			}
 			this.isDataLoaded = true;
-        }, this.sites.selected.name.toUpperCase()); // TODO Add name to enums.
+        }, this.sites.selected.name.toUpperCase(), this.dateRange.start, this.dateRange.end);
     }
 
 	sortByDate() {
@@ -106,6 +111,34 @@ export class InstantaneousReportComponent implements OnInit {
 		});
 	}
 
+	sortByIme() {
+		if (this.sort.current === "ime") {
+			this.sort.reversed = !this.sort.reversed;
+		}
+		else {
+			this.sort.current = "ime";
+			this.sort.reversed = false;
+		}
+		this.data.sort((a, b) => {
+			if (a.imeNumber && !b.imeNumber) {
+				return 1 * (this.sort.reversed ? -1 : 1);
+			}
+			else if (b.imeNumber && !a.imeNumber) {
+				return -1 * (this.sort.reversed ? -1 : 1);
+			}
+			else if (!a.imeNumber && !b.imeNumber) {
+				var compareGrid = 0;
+			}
+			else {
+				var compareGrid = this.stringSortFunction(a.imeNumber.imeNumber, b.imeNumber.imeNumber, this.sort.reversed);
+			}
+			if (compareGrid != 0) {
+				return compareGrid;
+			}
+			return this.stringSortFunction(a.monitoringPoint.name, b.monitoringPoint.name, this.sort.reversed);
+		});
+	}
+
 	sortByMethaneLevel() {
 		if (this.sort.current === "methaneLevel") {
 			this.sort.reversed = !this.sort.reversed;
@@ -115,6 +148,14 @@ export class InstantaneousReportComponent implements OnInit {
 			this.sort.reversed = false;
 		}
 		this.data.sort((a, b) => (a.methaneLevel - b.methaneLevel) * (this.sort.reversed ? -1 : 1));
+	}
+
+	onStartDateChange(event) {
+		this.dateRange.start = event.target.valueAsNumber || -1;
+	}
+
+	onEndDateChange(event) {
+		this.dateRange.end = event.target.valueAsNumber || -1;
 	}
 
 	// TODO Move this to a util class.

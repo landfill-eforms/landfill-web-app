@@ -1,8 +1,10 @@
 package org.lacitysan.landfill.server.persistence.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
@@ -39,6 +41,33 @@ public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
 					.add(Restrictions.ge("monitoringPoint", monitoringPoints[range.getMin()]))
 					.add(Restrictions.le("monitoringPoint", monitoringPoints[range.getMax()]))
 					.list());
+		}
+		result.stream().forEach(data -> {
+			Hibernate.initialize(data.getInstrument());
+			Hibernate.initialize(data.getMonitoringPoint());
+			Hibernate.initialize(data.getUser().getPerson());
+		});
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<InstantaneousData> getBySiteAndDate(String siteName, Long start, Long end) {
+		List<InstantaneousData> result = new ArrayList<>();
+		MonitoringPoint[] monitoringPoints = MonitoringPoint.values();
+		for (OrdinalRange range : monitoringPointService.getGridsBySite(Site.valueOf(siteName))) {
+			Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
+					.createCriteria(InstantaneousData.class)
+					.add(Restrictions.ge("monitoringPoint", monitoringPoints[range.getMin()]))
+					.add(Restrictions.le("monitoringPoint", monitoringPoints[range.getMax()]));
+			if (start >= 0) {
+				criteria.add(Restrictions.ge("startTime", new Date(start)));
+			}
+			if (end >= 0) {
+				criteria.add(Restrictions.le("endTime", new Date(end)));
+			}
+			result.addAll(criteria.list());
 		}
 		result.stream().forEach(data -> {
 			Hibernate.initialize(data.getInstrument());

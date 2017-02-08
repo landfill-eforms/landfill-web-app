@@ -19,6 +19,13 @@ export class InstantaneousDataService {
 			);
 	}
 
+	getBySiteAndDate(callback:(data) => void, siteName:string, start:number, end:number) {
+		this.authHttp.get(this.baseUrl + "/" + siteName + "/" + start + "/" + end).map((res:Response) => res.json()).subscribe(
+				data => callback(data),
+				err => console.log(err)
+			);
+	}
+
 	getAll(callback:(data) => void) {
 		this.authHttp.get(this.baseUrl).map((res:Response) => res.json()).subscribe(
 				data => callback(data),

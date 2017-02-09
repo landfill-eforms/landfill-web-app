@@ -1,9 +1,9 @@
-package org.lacitysan.landfill.server.persistence.dao;
+package org.lacitysan.landfill.server.persistence.dao.user;
 
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.lacitysan.landfill.server.persistence.entity.User;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;

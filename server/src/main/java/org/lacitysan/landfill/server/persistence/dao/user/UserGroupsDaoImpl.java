@@ -1,10 +1,10 @@
-package org.lacitysan.landfill.server.persistence.dao;
+package org.lacitysan.landfill.server.persistence.dao.user;
 
 import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
-import org.lacitysan.landfill.server.persistence.entity.UserGroup;
+import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -46,8 +46,9 @@ public class UserGroupsDaoImpl implements UserGroupsDao {
 	
 	@Override
 	@Transactional
-	public void update(UserGroup userGroup) {
+	public Object update(UserGroup userGroup) {
 		hibernateTemplate.update(userGroup);
+		return true;
 	}
 	
 	@Override

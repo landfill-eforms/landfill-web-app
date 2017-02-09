@@ -30,6 +30,6 @@ public class ApplicationProperty {
 	// Long
 	
 	/** How long a generated JWT is valid for before expiring. */
-	public static final long TOKEN_EXPIRATION_TIME = 1000 * 60 * 30; // 30 Minutes
+	public static final long TOKEN_EXPIRATION_TIME = 1000 * 60 * 60; // 60 Minutes
 	
 }

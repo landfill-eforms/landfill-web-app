@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.entity.UserGroup;
+import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 

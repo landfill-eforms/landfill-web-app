@@ -19,17 +19,17 @@ public class UserGroupController {
 	@Autowired
 	UserGroupsDao userGroupsDao;
 	
+	@RequestMapping(value="/list/all", method=RequestMethod.GET)
+	public List<UserGroup> getAll() {
+		return userGroupsDao.getAllUserGroups();
+	}
+	
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public UserGroup getById(@PathVariable String id) {
 		if (id.matches("^-?\\d+$")) {
 			return userGroupsDao.getUserGroupById(Integer.valueOf(id));
 		}
 		return null;
-	}
-	
-	@RequestMapping(value="/list/all", method=RequestMethod.GET)
-	public List<UserGroup> getAll() {
-		return userGroupsDao.getAllUserGroups();
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

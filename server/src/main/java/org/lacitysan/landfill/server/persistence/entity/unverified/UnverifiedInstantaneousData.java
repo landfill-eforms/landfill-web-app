@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
@@ -53,8 +55,9 @@ public class UnverifiedInstantaneousData {
 	private IMENumber imeNumber;
 	
 	@JsonIgnoreProperties({"unverifiedInstantaneousData"})
+	@Cascade(CascadeType.ALL)
 	@ManyToOne
-	@JoinColumn(name="UnverifiedDataSetFK")
+	@JoinColumn(name="UnverifiedDataSetFK", nullable=false)
 	private UnverifiedDataSet unverifiedDataSet;
 
 	public Integer getId() {

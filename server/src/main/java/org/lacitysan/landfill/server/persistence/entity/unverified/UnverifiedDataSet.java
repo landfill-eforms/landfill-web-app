@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.unverified;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
@@ -58,8 +61,9 @@ public class UnverifiedDataSet {
 	private Short barometricPressure;
 	
 	@JsonIgnoreProperties({"unverifiedDataSet"})
+	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
-	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData;
+	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
 
 	// TODO Add other data types.
 	

@@ -1,7 +1,10 @@
 package org.lacitysan.landfill.server.persistence.entity.unverified;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -24,6 +28,9 @@ import org.lacitysan.landfill.server.persistence.entity.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * @author Alvin Quach
+ */
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.UnverifiedDataSets")
 public class UnverifiedDataSet {
@@ -64,6 +71,9 @@ public class UnverifiedDataSet {
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
+	
+	@Transient
+	private Map<String, List<String>> errors = new HashMap<>();
 
 	// TODO Add other data types.
 	
@@ -146,5 +156,13 @@ public class UnverifiedDataSet {
 	public void setUnverifiedInstantaneousData(Set<UnverifiedInstantaneousData> unverifiedInstantaneousData) {
 		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
 	}
-	
+
+	public Map<String, List<String>> getErrors() {
+		return errors;
+	}
+
+	public void setErrors(Map<String, List<String>> errors) {
+		this.errors = errors;
+	}
+
 }

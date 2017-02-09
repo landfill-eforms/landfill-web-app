@@ -1,8 +1,8 @@
+import { UserGroup } from './../model/server/persistence/entity/user/user-group.class';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { environment } from '../../environments/environment';
-import { UserGroup } from './../model/server/persistence/entity/user-group.class';
 
 @Injectable()
 export class UserGroupService {

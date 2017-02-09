@@ -1,3 +1,4 @@
+import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
 import { NewUserGroupDialogComponent } from './../new-user-group-dialog/new-user-group-dialog.component';
 import { MdDialogConfig } from '@angular/material';
 import { MdDialogRef } from '@angular/material';
@@ -5,7 +6,6 @@ import { MdDialog } from '@angular/material';
 import { MdSnackBar } from '@angular/material';
 import { async } from '@angular/core/testing';
 import { UserGroupService } from './../../../services/user-group.service';
-import { UserGroup } from './../../../model/server/persistence/entity/user-group.class';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

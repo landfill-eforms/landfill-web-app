@@ -4,16 +4,19 @@ import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.entity.IMEData;
-import org.lacitysan.landfill.server.persistence.entity.IMENumber;
-import org.lacitysan.landfill.server.persistence.entity.IMERepairData;
-import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.Instrument;
-import org.lacitysan.landfill.server.persistence.entity.Person;
-import org.lacitysan.landfill.server.persistence.entity.User;
-import org.lacitysan.landfill.server.persistence.entity.UserGroup;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMERepairData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.test.Sleep;
 import org.lacitysan.landfill.server.persistence.entity.test.Test;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIMEData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.user.Person;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
+import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,23 +34,23 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @EnableTransactionManagement
 public class DataSourceConfig {
-	
+
 	@Value("${spring.datasource.driver-class-name}")
 	private String className;
-	
+
 	@Value("${spring.datasource.url}")
 	private String serverName;
-	
-//	Database name is now defined in ApplicationProperty
-//	@Value("${spring.datasource.name}")
-//	private String databaseName;
-	
+
+	//	Database name is now defined in ApplicationProperty
+	//	@Value("${spring.datasource.name}")
+	//	private String databaseName;
+
 	@Value("${spring.datasource.username}")
 	private String username;
-	
+
 	@Value("${spring.datasource.password}")
 	private String password;
-	
+
 	@Value("${spring.datasource.hikari.initialization-fail-fast}")
 	private Boolean initializationFailFast;
 
@@ -60,19 +63,30 @@ public class DataSourceConfig {
 	public SessionFactory sessionFactory() {
 		return new LocalSessionFactoryBuilder(getDataSource())
 				.addAnnotatedClasses(
+
+						// Instantaneous
 						IMEData.class,
 						IMENumber.class,
 						IMERepairData.class,
 						InstantaneousData.class,
+
+						// Instrument
 						Instrument.class,
+
+						// Unverified
+						UnverifiedDataSet.class,
+						UnverifiedIMEData.class,
+						UnverifiedInstantaneousData.class,
+
+						// User
 						Person.class,
 						User.class,
 						UserGroup.class,
-						
+
 						// Test classes
 						Sleep.class,
 						Test.class
-						
+
 						)
 				.buildSessionFactory();
 	}

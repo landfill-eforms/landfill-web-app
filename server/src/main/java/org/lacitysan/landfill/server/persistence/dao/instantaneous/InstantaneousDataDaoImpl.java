@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.persistence.dao;
+package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,7 +9,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.model.Site;
-import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.lacitysan.landfill.server.service.model.OrdinalRange;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
 		result.stream().forEach(data -> {
 			Hibernate.initialize(data.getInstrument());
 			Hibernate.initialize(data.getMonitoringPoint());
-			Hibernate.initialize(data.getUser().getPerson());
+			Hibernate.initialize(data.getInspector().getPerson());
 		});
 		return result;
 	}
@@ -72,7 +72,7 @@ public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
 		result.stream().forEach(data -> {
 			Hibernate.initialize(data.getInstrument());
 			Hibernate.initialize(data.getMonitoringPoint());
-			Hibernate.initialize(data.getUser().getPerson());
+			Hibernate.initialize(data.getInspector().getPerson());
 		});
 		return result;
 	}

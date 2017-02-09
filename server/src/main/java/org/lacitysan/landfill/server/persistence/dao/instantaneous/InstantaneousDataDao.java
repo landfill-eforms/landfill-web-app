@@ -1,8 +1,8 @@
-package org.lacitysan.landfill.server.persistence.dao;
+package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 
 /**
  * @author Alvin Quach

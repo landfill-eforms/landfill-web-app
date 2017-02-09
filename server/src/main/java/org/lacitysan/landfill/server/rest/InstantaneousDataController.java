@@ -3,8 +3,8 @@ package org.lacitysan.landfill.server.rest;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.dao.InstantaneousDataDao;
-import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.dao.instantaneous.InstantaneousDataDao;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

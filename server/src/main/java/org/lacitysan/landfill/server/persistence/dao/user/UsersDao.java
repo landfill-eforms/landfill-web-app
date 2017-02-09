@@ -1,8 +1,8 @@
-package org.lacitysan.landfill.server.persistence.dao;
+package org.lacitysan.landfill.server.persistence.dao.user;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.persistence.entity.User;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 
 /**
  * @author Alvin Quach

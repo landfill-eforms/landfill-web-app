@@ -1,5 +1,6 @@
-package org.lacitysan.landfill.server.persistence.entity;
+package org.lacitysan.landfill.server.persistence.entity.user;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,17 +45,17 @@ public class UserGroup {
 	// TODO Find a better way to implement/retrieve 'modified by' and 'created by' info.
 	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
 	@ManyToOne
-	@JoinColumn(name="CreatedBy")
+	@JoinColumn(name="CreatedByFK")
 	private User createdBy;
 	
-	private Date createdDate;
+	private Timestamp createdDate;
 	
 	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
 	@ManyToOne
-	@JoinColumn(name="ModifiedBy")
+	@JoinColumn(name="ModifiedByFK")
 	private User modifiedBy;
 	
-	private Date modifiedDate;
+	private Timestamp modifiedDate;
 	
 	@JsonIgnoreProperties({"userGroups"})
 	@ManyToMany(mappedBy="userGroups")
@@ -118,7 +119,7 @@ public class UserGroup {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -134,7 +135,7 @@ public class UserGroup {
 		return modifiedDate;
 	}
 
-	public void setModifiedDate(Date modifiedDate) {
+	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
 	

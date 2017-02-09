@@ -1,8 +1,8 @@
-package org.lacitysan.landfill.server.persistence.dao;
+package org.lacitysan.landfill.server.persistence.dao.user;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.persistence.entity.UserGroup;
+import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 
 /**
  * @author Alvin Quach
@@ -13,7 +13,7 @@ public interface UserGroupsDao {
 
 	List<UserGroup> getAllUserGroups();
 
-	void update(UserGroup userGroup);
+	Object update(UserGroup userGroup);
 
 	Object create(UserGroup userGroup);
 

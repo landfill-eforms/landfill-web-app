@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.persistence.entity;
+package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
 import java.sql.Timestamp;
 
@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,19 +25,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class IMEData {
 	
 	@Id
-	@Column(name="IMEDataPK")
+	@Column(name="IMEPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-//	@JsonIgnoreProperties()
+	@JsonIgnoreProperties({"imeData"})
 	@ManyToOne
 	@JoinColumn(name="IMENumberFK")
 	private IMENumber imeNumber;
 	
 	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
 	@ManyToOne
-	@JoinColumn(name="UserFK")
-	private User user;
+	@JoinColumn(name="InspectorFK")
+	private User inspector;
 	
 	@NotNull
 	private Integer methaneLevel;
@@ -63,12 +64,12 @@ public class IMEData {
 		this.imeNumber = imeNumber;
 	}
 
-	public User getUser() {
-		return user;
+	public User getInspector() {
+		return inspector;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setInspector(User inspector) {
+		this.inspector = inspector;
 	}
 
 	public Integer getMethaneLevel() {

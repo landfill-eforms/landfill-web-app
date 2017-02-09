@@ -10,11 +10,11 @@ import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.model.MonitoringPointType;
 import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.dao.test.SleepTestDao;
-import org.lacitysan.landfill.server.persistence.entity.IMEData;
-import org.lacitysan.landfill.server.persistence.entity.IMENumber;
-import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.Instrument;
-import org.lacitysan.landfill.server.persistence.entity.User;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -50,7 +50,7 @@ public class TestController {
 		return auth;
 	}
 	
-	
+/*	@RequestMapping(value="/test", method=RequestMethod.GET)
 	public void createDummyData()
 	{
 		
@@ -129,6 +129,6 @@ public class TestController {
 			imeData.add(filler2);
 		}
 		
-	}
+	}*/
 	
 }

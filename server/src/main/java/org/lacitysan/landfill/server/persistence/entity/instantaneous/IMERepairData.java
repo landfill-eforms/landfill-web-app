@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.persistence.entity;
+package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
 import java.sql.Timestamp;
 
@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -28,7 +29,7 @@ public class IMERepairData {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-//	@JsonIgnoreProperties()
+	@JsonIgnoreProperties({"imeRepairData"})
 	@ManyToOne
 	@JoinColumn(name="IMENumberFK")
 	private IMENumber imeNumber;

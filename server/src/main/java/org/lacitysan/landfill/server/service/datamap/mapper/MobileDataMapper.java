@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.service.datamap.mapper;
 
-import org.lacitysan.landfill.server.persistence.entity.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.service.datamap.model.mobile.InstantaneousDataMobile;
 
 /**

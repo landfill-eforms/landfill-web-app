@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.persistence.entity;
+package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
 import java.sql.Timestamp;
 
@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
+import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.InstantaneousData")
+//@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class InstantaneousData {
 	
 	@Id
@@ -41,8 +44,8 @@ public class InstantaneousData {
 	
 	@JsonIgnoreProperties({"password", "userGroups", "enabled"})
 	@ManyToOne
-	@JoinColumn(name="UserFK")
-	private User user;
+	@JoinColumn(name="InspectorFK")
+	private User inspector;
 	
 	@NotNull
 	private Short barometricPressure;
@@ -56,6 +59,7 @@ public class InstantaneousData {
 	@NotNull
 	private Timestamp endTime;
 	
+	@JsonIgnoreProperties({"instantaneousData"})
 	@ManyToOne
 	@JoinColumn(name="IMENumberFK")
 	private IMENumber imeNumber;
@@ -84,12 +88,12 @@ public class InstantaneousData {
 		this.instrument = instrument;
 	}
 
-	public User getUser() {
-		return user;
+	public User getInspector() {
+		return inspector;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setInspector(User inspector) {
+		this.inspector = inspector;
 	}
 
 	public Short getBarometricPressure() {

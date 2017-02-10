@@ -62,7 +62,11 @@
 						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(inst.endTime)}}</div>
 						<div class="truncate flex-item" fxFlex>{{inst.instrument.serialNumber}}</div>
 						<div class="truncate flex-item" fxFlex>{{inst.methaneLevel / 100}}</div>
-						<div class="truncate flex-item" fxFlex>{{inst.imeNumber}}</div>
+						<div class="truncate flex-item" fxFlex>
+							{{inst.imeNumber}}
+							<md-icon *ngIf="inst.methaneLevel >= 50000" (click)="openAssignIMENumberDialog(inst)" class="list-table-icon-button" color="accent">{{inst.imeNumber ? 'swap_horiz' : 'add'}}</md-icon>
+							<md-icon *ngIf="inst.methaneLevel < 50000 && inst.imeNumber" class="list-table-icon-button" color="warn">remove</md-icon>
+						</div>
 					</div>
 				</div>
 			</md-card-content>

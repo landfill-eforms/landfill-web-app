@@ -1,3 +1,5 @@
+import { CommonModule } from './components/common/common.module';
+import { AssignIMENumberDialogComponent } from './components/unverified-data/assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataService } from './services/unverified-data-set.service';
 import { UnverifiedDataModule } from './components/unverified-data/unverified-data.module';
 import { InstantaneousModule } from './components/instantaneous/instantaneous.module';
@@ -42,6 +44,7 @@ import { FileUploadService } from './services/file-upload.service';
 		// RouterModule,
 		//MaterialModule.forRoot(),
 		//AppRoutes,
+		CommonModule,
 		Routing,
 		PublicModule,
 		NavigationModule,
@@ -56,6 +59,7 @@ import { FileUploadService } from './services/file-upload.service';
 	entryComponents: [
 		NewUserDialogComponent,
 		NewUserGroupDialogComponent,
+		AssignIMENumberDialogComponent,
 	],
 	providers: [
 		//AppRouterProviders,

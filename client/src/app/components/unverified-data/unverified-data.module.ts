@@ -1,3 +1,4 @@
+import { AssignIMENumberDialogComponent } from './assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataSetComponent } from './unverified-data-set/unverified-data-set.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from './../common/common.module';
@@ -9,6 +10,7 @@ import { UnverifiedDataSetsComponent } from './unverified-data-sets/unverified-d
     ],
     providers: [],
     declarations: [
+		AssignIMENumberDialogComponent,
 		UnverifiedDataSetsComponent,
 		UnverifiedDataSetComponent
 	]

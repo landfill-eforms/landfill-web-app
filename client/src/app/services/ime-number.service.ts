@@ -1,3 +1,4 @@
+import { Site } from './../model/server/model/site.enum';
 import { Response } from '@angular/http';
 import { environment } from './../../environments/environment';
 import { AuthHttp } from 'angular2-jwt';
@@ -12,6 +13,13 @@ export class IMENumberService {
 
 	getAll(callback:(data) => void) {
 		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
+				data => callback(data),
+				err => console.log(err)
+			);
+	}
+
+	getBySite(callback:(data) => void, site:Site) {
+		this.authHttp.get(this.baseUrl + "/list/site/" + site.constantName).map((res:Response) => res.json()).subscribe(
 				data => callback(data),
 				err => console.log(err)
 			);

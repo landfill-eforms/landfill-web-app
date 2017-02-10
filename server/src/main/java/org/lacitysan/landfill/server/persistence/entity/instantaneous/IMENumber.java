@@ -1,8 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -20,9 +19,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.model.Site;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -38,6 +40,7 @@ public class IMENumber {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotNull
 	@Column(name="SiteOrdinal")
 	@Enumerated(EnumType.ORDINAL)
 	private Site site;
@@ -49,18 +52,26 @@ public class IMENumber {
 	private Short series;
 	
 	@NotNull
-	private Boolean unverified;
+	@Column(name="StatusOrdinal")
+	@Enumerated(EnumType.ORDINAL)
+	private IMENumberStatus status;
 	
 	@ElementCollection(targetClass=MonitoringPoint.class)
 	@JoinTable(name="test.dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
+	@Column(name="MonitoringPointOrdinal")
 	@Enumerated(EnumType.ORDINAL)
 	private Set<MonitoringPoint> monitoringPoints;
 	
-	@JsonIgnoreProperties({"imeNumber"})
+	@JsonIgnoreProperties({"imeNumber", "instrument", "inspector"})
 	@OneToMany(mappedBy="imeNumber")
 	private Set<InstantaneousData> instantaneousData;
 	
+	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumber", "instrument"})
+	@OneToMany(mappedBy="imeNumber")
+	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData;
+	
 	@JsonIgnoreProperties({"imeNumber"})
+	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="imeNumber")
 	private Set<IMEData> imeData;
 	
@@ -103,12 +114,12 @@ public class IMENumber {
 		this.site = site;
 	}
 
-	public Boolean getUnverified() {
-		return unverified;
+	public IMENumberStatus getStatus() {
+		return status;
 	}
 
-	public void setUnverified(Boolean unverified) {
-		this.unverified = unverified;
+	public void setStatus(IMENumberStatus status) {
+		this.status = status;
 	}
 
 	public Set<MonitoringPoint> getMonitoringPoints() {
@@ -125,6 +136,14 @@ public class IMENumber {
 
 	public void setInstantaneousData(Set<InstantaneousData> instantaneousData) {
 		this.instantaneousData = instantaneousData;
+	}
+	
+	public Set<UnverifiedInstantaneousData> getUnverifiedInstantaneousData() {
+		return unverifiedInstantaneousData;
+	}
+
+	public void setUnverifiedInstantaneousData(Set<UnverifiedInstantaneousData> unverifiedInstantaneousData) {
+		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
 	}
 
 	public Set<IMEData> getImeData() {
@@ -153,15 +172,14 @@ public class IMENumber {
 
 	@Override
 	public String toString() {
-		Calendar date = new GregorianCalendar();
-		date.setTime(this.discoveryDate);
-		return this.site.getShortName() + 
-				"-" + 
-				(date.get(Calendar.MONTH) + 1) +
-				(date.get(Calendar.DAY_OF_MONTH)) +
-				(date.get(Calendar.YEAR) % 2000) +
-				"-" + 
-				(this.series < 10 ? "0" + this.series : this.series);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyy");
+		return this.site.getShortName() + "-" + dateFormat.format(this.discoveryDate) + "-" +	(this.series < 10 ? "0" + this.series : this.series);
+	}
+	
+	public enum IMENumberStatus {
+		UNVERIFIED,
+		ACTIVE,
+		CLOSED
 	}
 	
 }

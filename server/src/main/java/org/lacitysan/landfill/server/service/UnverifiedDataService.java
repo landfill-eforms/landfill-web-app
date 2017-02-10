@@ -15,6 +15,7 @@ import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMERepairData;
+import org.lacitysan.landfill.server.persistence.dao.instantaneous.IMENumbersDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
@@ -32,6 +33,40 @@ public class UnverifiedDataService {
 	
 	@Autowired
 	MonitoringPointService monitoringPointService;
+	
+	@Autowired
+	IMENumbersDao imeNumbersDao;
+	
+	public Set<InstantaneousData> verifyInstantaneousData(UnverifiedDataSet dataSet) {
+		Set<InstantaneousData> result = new HashSet<>();
+		Short barometricPressure = dataSet.getBarometricPressure();
+		if (barometricPressure == null) {
+			// TODO Check range of barometric pressure.
+			return null;
+		}
+		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
+			InstantaneousData instantaneousData = new InstantaneousData();
+			instantaneousData.setId(0);
+			if (data.getMethaneLevel() >= 50000) { 
+				if (data.getImeNumber() == null) {
+					return null;
+				}
+				instantaneousData.setImeNumber(data.getImeNumber());
+			}
+			else if (data.getMethaneLevel() < 50000 && data.getImeNumber() != null) {
+				return null;
+			}
+			instantaneousData.setInspector(dataSet.getInspector());
+			instantaneousData.setBarometricPressure(barometricPressure);
+			instantaneousData.setStartTime(data.getStartTime());
+			instantaneousData.setEndTime(data.getEndTime());
+			instantaneousData.setInstrument(data.getInstrument());
+			instantaneousData.setMonitoringPoint(data.getMonitoringPoint());
+			instantaneousData.setMethaneLevel(data.getMethaneLevel());
+			result.add(instantaneousData);
+		}
+		return result;
+	}
 	
 	public UnverifiedDataSet createDummyData() {
 		
@@ -56,7 +91,7 @@ public class UnverifiedDataService {
 		List<MonitoringPointType> typeList = Arrays.asList(new MonitoringPointType[] {MonitoringPointType.GRID});
 		Set<MonitoringPoint> usedMonitoringPoints = new HashSet<>();
 		for (int i = 0; i < new Random().nextInt(20); i++) {
-			Long startTime = baseStartTime -  1000 * 60 * new Random().nextInt(180);
+			Long startTime = baseStartTime - 1000 * 60 * new Random().nextInt(180);
 			UnverifiedInstantaneousData instantaneousData = new UnverifiedInstantaneousData();
 			while (true) {
 				MonitoringPoint grid = monitoringPointService.getRandom(siteList, typeList);

@@ -1,10 +1,14 @@
 package org.lacitysan.landfill.server.rest;
 
 import java.util.List;
+import java.util.Set;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.persistence.dao.instantaneous.InstantaneousDataDao;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetsDao;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.service.UnverifiedDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +31,9 @@ public class UnverifiedDataController {
 	@Autowired
 	UnverifiedDataService unverifiedDataService;
 	
+	@Autowired
+	InstantaneousDataDao instantaneousDataDao;
+	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<UnverifiedDataSet> getAll() {
 		return unverifiedDataSetsDao.getAll();
@@ -42,14 +49,31 @@ public class UnverifiedDataController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public Object update(@RequestBody UnverifiedDataSet dataSet) {
+		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
+			data.setUnverifiedDataSet(dataSet);
+		}
 		unverifiedDataSetsDao.update(dataSet);
 		return true;
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)
 	public Object create(@RequestBody UnverifiedDataSet dataSet) {
-		//userGroupsDao.create(userGroup);
+		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
+			data.setUnverifiedDataSet(dataSet);
+		}
 		return unverifiedDataSetsDao.create(dataSet);
+	}
+	
+	@RequestMapping(value="/commit", method=RequestMethod.POST)
+	public Object commit(@RequestBody UnverifiedDataSet dataSet) {
+		Set<InstantaneousData> verifiedData = unverifiedDataService.verifyInstantaneousData(dataSet);
+		if (verifiedData == null) {
+			return false;
+		}
+		for (InstantaneousData data : unverifiedDataService.verifyInstantaneousData(dataSet)) {
+			instantaneousDataDao.create(data);
+		}
+		return unverifiedDataSetsDao.delete(dataSet);
 	}
 	
 	@RequestMapping(value="/dummy", method=RequestMethod.GET)
@@ -57,5 +81,10 @@ public class UnverifiedDataController {
 	public Object createDummyData() {
 		return unverifiedDataSetsDao.create(unverifiedDataService.createDummyData());
 	}
+	
+//	private UnverifiedDataSet initialize(UnverifiedDataSet dataSet) {
+//		Hibernate.initialize(proxy);
+//		return dataSet;
+//	}
 	
 }

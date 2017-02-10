@@ -1,3 +1,77 @@
-
-
-UNVERIFIED DATA SETS.
+<md-card class="section-single">
+	<md-card-content>
+		<div class="section-title">Unverified Data Sets</div>
+		<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+			<md-spinner class="loading-indicator-spinner"></md-spinner>
+			<div class="loading-indicator-message">Loading Data...</div>
+		</div>
+		<div *ngIf="isDataLoaded" class="list-table">
+			<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex (click)="sortBySite()">
+					<span class="list-table-header-label-sortable">Site</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'site'}">
+						arrow_downward</md-icon>
+				</div>
+				<div class="truncate flex-item" fxFlex (click)="sortByUploadedBy()">
+					<span class="list-table-header-label-sortable">Uploaded By</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'date'}">
+						arrow_downward</md-icon>
+				</div>
+				<div class="truncate flex-item" fxFlex (click)="sortByUploadedDate()">
+					<span class="list-table-header-label-sortable">Upload Date</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'date'}">
+						arrow_downward</md-icon>
+				</div>
+				<div class="truncate flex-item" fxFlex (click)="sortByModifiededBy()">
+					<span class="list-table-header-label-sortable">Modified By</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'date'}">
+						arrow_downward</md-icon>
+				</div>
+				<div class="truncate flex-item" fxFlex (click)="sortByModifiedDate()">
+					<span class="list-table-header-label-sortable">Modified Date</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'date'}">
+						arrow_downward</md-icon>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="list-table-header-label">Filename</span>
+				</div>
+				<div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">Edit</span>
+				</div>
+			</div>
+			<div *ngFor="let dataSet of dataSets; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+				<div class="truncate flex-item" fxFlex>
+					{{dataSet.site.name}}
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					{{dataSet.uploadedBy ? StringUtils.formatPersonName(dataSet.uploadedBy.person) : ''}}
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					{{dataSet.uploadedDate ? DateTimeUtils.getDate(dataSet.uploadedDate) : ''}}
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					{{dataSet.modifiedBy ? StringUtils.formatPersonName(dataSet.modifiedBy.person) : ''}}
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					{{dataSet.modifiedDate ? DateTimeUtils.getDate(dataSet.modifiedDate) : ''}}
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					{{dataSet.filename}}
+				</div>
+				<div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon [routerLink]="'../unverified-data-set/' + dataSet.id" mdTooltip="Edit" mdTooltipPosition="after" style="color:#07F;cursor:pointer;">edit</md-icon>
+				</div>
+			</div>
+		</div>
+	</md-card-content>
+</md-card>

@@ -30,7 +30,7 @@
 			</div>
 			<div *ngFor="let group of userGroups; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
 				<div class="truncate flex-item" fxFlex>
-					<a [routerLink]="'../user-group/' + group.id" routerLikeActive="active">
+					<a [routerLink]="'../user-group/' + group.id">
 						{{group.name}}
 					</a>
 				</div>

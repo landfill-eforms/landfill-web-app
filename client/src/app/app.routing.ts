@@ -1,3 +1,5 @@
+import { UnverifiedDataSetComponent } from './components/unverified-data/unverified-data-set/unverified-data-set.component';
+import { UnverifiedDataSetsComponent } from './components/unverified-data/unverified-data-sets/unverified-data-sets.component';
 import { IMENumbersComponent } from './components/instantaneous/ime-numbers/ime-numbers.component';
 import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
 import { UserGroupComponent } from './components/user-group/user-group/user-group.component';
@@ -55,6 +57,16 @@ const IMENumbersRoute:Route = {
 	component: IMENumbersComponent
 }
 
+const UnverifiedDataSetRoute:Route = {
+	path: 'unverified-data-set/:id',
+	component: UnverifiedDataSetComponent
+}
+
+const UnverifiedDataSetsRoute:Route = {
+	path: 'unverified-data-sets',
+	component: UnverifiedDataSetsComponent
+}
+
 const TestRoutes:Routes = [
 	{
 		path: 'instantaneous_test',
@@ -65,7 +77,7 @@ const TestRoutes:Routes = [
 		]}
 	},
 	{
-		path: 'instantaneous_upload',
+		path: 'instantaneous-upload',
 		component: InstantaneousUploadTestComponent,
 		canActivate: [AuthGuard],
 		data: {roles: [
@@ -123,6 +135,8 @@ export const RestrictedRoutes:Routes = [
 			UserGroupRoute,
 			InstantaneousReportRoute,
 			IMENumbersRoute,
+			UnverifiedDataSetsRoute,
+			UnverifiedDataSetRoute,
 		]
 	}
 ];

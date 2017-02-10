@@ -1,0 +1,80 @@
+<div class="section-multiple-container">
+	<div class="section-title">Verify Data</div>
+	<div class="flex-container" fxLayout="column">
+		<md-card class="section-multiple flex-item" fxFlex>
+			<md-card-content>
+				<div class="section-title">Errors</div>
+				<div *ngIf="isDataLoaded">
+					<div *ngIf="!dataSet.errors || !dataSet.errors.instantaneous.length">
+						<i>No errors found.</i>
+					</div>
+					<div *ngIf="dataSet.errors">
+						<div *ngFor="let error of dataSet.errors.instantaneous" class="error-item">
+							{{error}}
+						</div>
+					</div>
+				</div>
+			</md-card-content>
+		</md-card>
+		<md-card class="section-multiple flex-item" fxFlex>
+			<md-card-content>
+				<div class="section-title">Instantaneous Data</div>
+				<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+					<md-spinner class="loading-indicator-spinner"></md-spinner>
+					<div class="loading-indicator-message">Loading...</div>
+				</div>
+				<div *ngIf="isDataLoaded && dataSet.unverifiedInstantaneousData.length > 0" class="list-table">
+					<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+						<div class="truncate flex-item" fxFlex (click)="sortByGrid()">
+							<span class="list-table-header-label-sortable">Grid</span>
+							<md-icon class="list-table-header-sort" [ngClass]="{
+								'list-table-header-sort-reverse':sort.reversed,
+								'list-table-header-sort-inactive':sort.current !== 'grid'}">
+								arrow_downward</md-icon>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="list-table-header-label">Start</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="list-table-header-label">End</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="list-table-header-label">Instrument</span>
+						</div>
+						<div class="truncate flex-item" fxFlex (click)="sortByMethaneLevel()">
+							<span class="list-table-header-label-sortable">Reading (ppm)</span>
+							<md-icon class="list-table-header-sort" [ngClass]="{
+								'list-table-header-sort-reverse':sort.reversed,
+								'list-table-header-sort-inactive':sort.current !== 'methaneLevel'}">
+								arrow_downward</md-icon>
+						</div>
+						<div class="truncate flex-item" fxFlex (click)="sortByIme()">
+							<span class="list-table-header-label-sortable">IME#</span>
+							<md-icon class="list-table-header-sort" [ngClass]="{
+								'list-table-header-sort-reverse':sort.reversed,
+								'list-table-header-sort-inactive':sort.current !== 'ime'}">
+								arrow_downward</md-icon>
+						</div>
+					</div>
+					<div *ngFor="let inst of dataSet.unverifiedInstantaneousData; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+						<div class="truncate flex-item" fxFlex>{{inst.monitoringPoint.name}}</div>
+						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(inst.startTime)}}</div>
+						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(inst.endTime)}}</div>
+						<div class="truncate flex-item" fxFlex>{{inst.instrument.serialNumber}}</div>
+						<div class="truncate flex-item" fxFlex>{{inst.methaneLevel / 100}}</div>
+						<div class="truncate flex-item" fxFlex>
+							{{inst.imeNumber}}
+							<md-icon *ngIf="inst.methaneLevel >= 50000" (click)="openAssignIMENumberDialog(inst)" class="list-table-icon-button" color="accent">{{inst.imeNumber ? 'swap_horiz' : 'add'}}</md-icon>
+							<md-icon *ngIf="inst.methaneLevel < 50000 && inst.imeNumber" class="list-table-icon-button" color="warn">remove</md-icon>
+						</div>
+					</div>
+				</div>
+			</md-card-content>
+		</md-card>
+	</div>
+<div>
+<div class="fab-action-button-container">
+	<button md-fab (click)="save()" mdTooltip="Save" mdTooltipPosition="above">
+		<md-icon>save</md-icon>
+	</button>
+</div>

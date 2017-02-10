@@ -1,8 +1,10 @@
 package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
+import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,28 @@ public class IMENumbersDaoImpl implements IMENumbersDao {
 				.list();
 		return result;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<IMENumber> getBySite(String siteName) {
+		List<IMENumber> result = new ArrayList<>();
+		Site site = Site.valueOf(siteName);
+		if (site != null) {
+			result = hibernateTemplate.getSessionFactory().getCurrentSession()
+					.createCriteria(IMENumber.class)
+					.add(Restrictions.eq("site", Site.valueOf(siteName)))
+					.list();
+			//		result.stream().forEach(data -> {
+			//			Hibernate.initialize(data.getInstrument());
+			//			Hibernate.initialize(data.getMonitoringPoint());
+			//			Hibernate.initialize(data.getInspector().getPerson());
+			//		});
+			return result;
+		}
+		return null;
+	}
+
 	@Override
 	@Transactional
 	public IMENumber getById(Integer id) {
@@ -45,7 +68,7 @@ public class IMENumbersDaoImpl implements IMENumbersDao {
 		}
 		return null;
 	}
-	
+
 	@Override
 	@Transactional
 	public Object update(IMENumber imeNumber) {
@@ -58,5 +81,5 @@ public class IMENumbersDaoImpl implements IMENumbersDao {
 	public Object create(IMENumber imeNumber) {
 		return hibernateTemplate.save(imeNumber);
 	}
-	
+
 }

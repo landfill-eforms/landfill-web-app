@@ -55,7 +55,6 @@ export class UserGroupsComponent implements OnInit {
 				this.loadUserGroups();
 			}
 		});
-
 	}
 
 	delete(userGroup:UserGroup) {

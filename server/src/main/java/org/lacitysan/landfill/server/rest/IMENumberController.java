@@ -27,6 +27,11 @@ public class IMENumberController {
 		return imeNumbersDao.getAll();
 	}
 	
+	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
+	public List<IMENumber> getBySite(@PathVariable String siteName) {
+		return imeNumbersDao.getBySite(siteName);
+	}
+	
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public IMENumber getById(@PathVariable String id) {
 		if (id.matches("^-?\\d+$")) {

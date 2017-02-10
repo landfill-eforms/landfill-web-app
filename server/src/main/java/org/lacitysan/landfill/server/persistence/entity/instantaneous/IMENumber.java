@@ -20,9 +20,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.model.Site;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -38,6 +41,7 @@ public class IMENumber {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotNull
 	@Column(name="SiteOrdinal")
 	@Enumerated(EnumType.ORDINAL)
 	private Site site;
@@ -49,7 +53,9 @@ public class IMENumber {
 	private Short series;
 	
 	@NotNull
-	private Boolean unverified;
+	@Column(name="StatusOrdinal")
+	@Enumerated(EnumType.ORDINAL)
+	private IMENumberStatus status;
 	
 	@ElementCollection(targetClass=MonitoringPoint.class)
 	@JoinTable(name="test.dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
@@ -61,6 +67,11 @@ public class IMENumber {
 	private Set<InstantaneousData> instantaneousData;
 	
 	@JsonIgnoreProperties({"imeNumber"})
+	@OneToMany(mappedBy="imeNumber")
+	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData;
+	
+	@JsonIgnoreProperties({"imeNumber"})
+	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="imeNumber")
 	private Set<IMEData> imeData;
 	
@@ -103,12 +114,12 @@ public class IMENumber {
 		this.site = site;
 	}
 
-	public Boolean getUnverified() {
-		return unverified;
+	public IMENumberStatus getStatus() {
+		return status;
 	}
 
-	public void setUnverified(Boolean unverified) {
-		this.unverified = unverified;
+	public void setStatus(IMENumberStatus status) {
+		this.status = status;
 	}
 
 	public Set<MonitoringPoint> getMonitoringPoints() {
@@ -125,6 +136,14 @@ public class IMENumber {
 
 	public void setInstantaneousData(Set<InstantaneousData> instantaneousData) {
 		this.instantaneousData = instantaneousData;
+	}
+	
+	public Set<UnverifiedInstantaneousData> getUnverifiedInstantaneousData() {
+		return unverifiedInstantaneousData;
+	}
+
+	public void setUnverifiedInstantaneousData(Set<UnverifiedInstantaneousData> unverifiedInstantaneousData) {
+		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
 	}
 
 	public Set<IMEData> getImeData() {
@@ -162,6 +181,12 @@ public class IMENumber {
 				(date.get(Calendar.YEAR) % 2000) +
 				"-" + 
 				(this.series < 10 ? "0" + this.series : this.series);
+	}
+	
+	public enum IMENumberStatus {
+		UNVERIFIED,
+		ACTIVE,
+		CLOSED
 	}
 	
 }

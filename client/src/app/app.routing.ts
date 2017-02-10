@@ -77,7 +77,7 @@ const TestRoutes:Routes = [
 		]}
 	},
 	{
-		path: 'instantaneous_upload',
+		path: 'instantaneous-upload',
 		component: InstantaneousUploadTestComponent,
 		canActivate: [AuthGuard],
 		data: {roles: [

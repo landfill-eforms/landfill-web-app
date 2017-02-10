@@ -1,3 +1,5 @@
+import { MdSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 import { FileUploadService } from './../../../services/file-upload.service';
 
@@ -16,6 +18,8 @@ export class FileUploadComponent {
     selectedFileNames:string[] = [];
 
     constructor(
+        private router:Router,
+        private snackBar:MdSnackBar,
 		private fileUploadService:FileUploadService
 		) {}
 
@@ -40,6 +44,11 @@ export class FileUploadComponent {
             }
 			this.fileUploadService.testUpload((data) => {
 				console.log(data);
+
+                // TODO Move these somewhere else.
+                this.router.navigate(['/app/unverified-data-set/' + data.id]); 
+                this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
+
 			}, formData);
         }
     }

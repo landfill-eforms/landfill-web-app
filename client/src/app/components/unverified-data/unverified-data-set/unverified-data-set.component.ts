@@ -12,7 +12,7 @@ import { Site } from './../../../model/server/model/site.enum';
 import { MonitoringPoint } from './../../../model/server/model/monitoring-point.enum';
 import { MdSnackBar } from '@angular/material';
 import { UnverifiedDataService } from './../../../services/unverified-data-set.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UnverifiedDataSet } from './../../../model/server/persistence/entity/unverified/unverified-data-set.class';
 import { Component, OnInit } from '@angular/core';
 
@@ -38,6 +38,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 	constructor(
 		private activatedRoute:ActivatedRoute,
+		private router:Router,
 		private unverifiedDataService:UnverifiedDataService,
 		private imeNumberService:IMENumberService,
 		private dialog:MdDialog,
@@ -45,15 +46,11 @@ export class UnverifiedDataSetComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		console.log("HELLO?????");
 		this.dataSetId = this.activatedRoute.params['_value']['id'];
 		
 		this.unverifiedDataService.getById((data) => {
-			console.log(data);
-			data["site"] = EnumUtils.convertToEnum(Site, data["site"]);
-			for (let j = 0; j < data.unverifiedInstantaneousData.length; j++) {
-				data.unverifiedInstantaneousData[j]["monitoringPoint"] = EnumUtils.convertToEnum(MonitoringPoint, data.unverifiedInstantaneousData[j]["monitoringPoint"]);
-			}
-			this.dataSet = this.unverifiedDataService.checkForErrors(data);
+			this.dataSet = this.processData(data);
 			this.sortByGrid();
 			this.imeNumberService.getBySite((data) => {
 				// TODO Use current date.
@@ -66,18 +63,76 @@ export class UnverifiedDataSetComponent implements OnInit {
 		}, this.dataSetId);
 	}
 
+	// TODO Clean this up.
+	processData(data:any):UnverifiedDataSet {
+		data["site"] = EnumUtils.convertToEnum(Site, data["site"]);
+		if (data.barometricPressure) {
+			data.barometricPressure = data.barometricPressure / 100;
+		}
+		for (let j = 0; j < data.unverifiedInstantaneousData.length; j++) {
+			data.unverifiedInstantaneousData[j]["monitoringPoint"] = EnumUtils.convertToEnum(MonitoringPoint, data.unverifiedInstantaneousData[j]["monitoringPoint"]);
+		}
+		return this.unverifiedDataService.checkForErrors(data);
+	}
+
 	openAssignIMENumberDialog(data:UnverifiedInstantaneousData) {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
 		let dialogRef:MdDialogRef<AssignIMENumberDialogComponent> = this.dialog.open(AssignIMENumberDialogComponent, dialogConfig);
+		dialogRef.componentInstance.site = this.dataSet.site;
 		dialogRef.componentInstance.data = data;
 		dialogRef.componentInstance.createdIMENumbers = this.createdIMENumbers;
 		dialogRef.componentInstance.existingIMENumbers = this.existingIMENumbers;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
+				this.unverifiedDataService.checkForErrors(this.dataSet);
 			}
 		});
+	}
+
+	removeImeNumber(data:UnverifiedInstantaneousData) {
+		this.snackBar.open("IME number has been removed.", "OK", {duration: 2000});
+		data.imeNumber = null;
+		this.unverifiedDataService.checkForErrors(this.dataSet);
+	}
+
+	save() {
+		this.dataSet.site = EnumUtils.convertToString(this.dataSet.site);
+		if (this.dataSet.barometricPressure) {
+			this.dataSet.barometricPressure = this.dataSet.barometricPressure * 100;
+		}
+		for (let j = 0; j < this.dataSet.unverifiedInstantaneousData.length; j++) {
+			this.dataSet.unverifiedInstantaneousData[j].monitoringPoint = EnumUtils.convertToString(this.dataSet.unverifiedInstantaneousData[j].monitoringPoint);
+		}
+		console.log(this.dataSet);
+		this.unverifiedDataService.update((data) => {
+			if (data) {
+				this.processData(this.dataSet);
+				this.snackBar.open("Data saved.", "OK", {duration: 2000});
+			}
+		}, this.dataSet);
+	}
+
+	commit() {
+		if (this.dataSet.errors && (this.dataSet.errors.dataSet.length != 0 || this.dataSet.errors.instantaneous.length != 0)) {
+			this.snackBar.open("Cannot commit data because it contains errors.", "OK", {duration: 2000});
+			return;
+		}
+		this.dataSet.site = EnumUtils.convertToString(this.dataSet.site);
+		if (this.dataSet.barometricPressure) {
+			this.dataSet.barometricPressure = this.dataSet.barometricPressure * 100;
+		}
+		for (let j = 0; j < this.dataSet.unverifiedInstantaneousData.length; j++) {
+			this.dataSet.unverifiedInstantaneousData[j].monitoringPoint = EnumUtils.convertToString(this.dataSet.unverifiedInstantaneousData[j].monitoringPoint);
+		}
+		this.unverifiedDataService.commit((data) => {
+			if (data) {
+				this.processData(this.dataSet);
+				this.snackBar.open("Data set successfully verified.", "OK", {duration: 3000});
+				this.router.navigate(['/app/unverified-data-sets']);
+			}
+		}, this.dataSet);
 	}
 
 	sortByGrid() {

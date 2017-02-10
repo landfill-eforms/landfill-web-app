@@ -2,13 +2,38 @@
 	<div class="section-title">Verify Data</div>
 	<div class="flex-container" fxLayout="column">
 		<md-card class="section-multiple flex-item" fxFlex>
+			<md-card-content *ngIf="isDataLoaded" >
+				<div class="section-title">Data Information</div>
+				<div class="section-form-container flex-container" fxLayout="row">
+					<div class="flex-item" fxFlex>
+						<strong>Inspector:</strong> {{dataSet.inspector.person.firstname}} {{dataSet.inspector.person.lastname}}
+					</div>
+					<div class="flex-item" fxFlex>
+						<strong>Site:</strong> {{dataSet.site.name}}
+					</div>
+					<div class="flex-item" fxFlex>
+						<strong>Upload Date:</strong> {{DateTimeUtils.getDate(dataSet.uploadedDate)}}
+					</div>
+					<div class="flex-item" fxFlex>
+						<strong>File Name:</strong> {{dataSet.filename}}
+					</div>
+					<md-input-container class="flex-item" fxFlex style="margin-top:-20px;">
+						<input md-input type="number" min="29.5" max="30.5" placeholder="Barometric Pressure" [(ngModel)]="dataSet.barometricPressure" (ngModelChange)="unverifiedDataService.checkForErrors(dataSet)">
+					</md-input-container>
+				</div>
+			</md-card-content>
+		</md-card>
+		<md-card class="section-multiple flex-item" fxFlex>
 			<md-card-content>
 				<div class="section-title">Errors</div>
 				<div *ngIf="isDataLoaded">
-					<div *ngIf="!dataSet.errors || !dataSet.errors.instantaneous.length">
+					<div *ngIf="!dataSet.errors || !(dataSet.errors.instantaneous.length || dataSet.errors.dataSet.length)" style="padding:8px 0;">
 						<i>No errors found.</i>
 					</div>
 					<div *ngIf="dataSet.errors">
+						<div *ngFor="let error of dataSet.errors.dataSet" class="error-item">
+							{{error}}
+						</div>
 						<div *ngFor="let error of dataSet.errors.instantaneous" class="error-item">
 							{{error}}
 						</div>
@@ -48,12 +73,15 @@
 								'list-table-header-sort-inactive':sort.current !== 'methaneLevel'}">
 								arrow_downward</md-icon>
 						</div>
-						<div class="truncate flex-item" fxFlex (click)="sortByIme()">
+						<div class="truncate flex-item" fxFlex="150px" (click)="sortByIme()">
 							<span class="list-table-header-label-sortable">IME#</span>
 							<md-icon class="list-table-header-sort" [ngClass]="{
 								'list-table-header-sort-reverse':sort.reversed,
 								'list-table-header-sort-inactive':sort.current !== 'ime'}">
 								arrow_downward</md-icon>
+						</div>
+						<div class="truncate flex-item" fxFlex="150px">
+							<span class="list-table-header-label"></span>
 						</div>
 					</div>
 					<div *ngFor="let inst of dataSet.unverifiedInstantaneousData; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
@@ -62,10 +90,14 @@
 						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(inst.endTime)}}</div>
 						<div class="truncate flex-item" fxFlex>{{inst.instrument.serialNumber}}</div>
 						<div class="truncate flex-item" fxFlex>{{inst.methaneLevel / 100}}</div>
-						<div class="truncate flex-item" fxFlex>
-							{{inst.imeNumber}}
-							<md-icon *ngIf="inst.methaneLevel >= 50000" (click)="openAssignIMENumberDialog(inst)" class="list-table-icon-button" color="accent">{{inst.imeNumber ? 'swap_horiz' : 'add'}}</md-icon>
-							<md-icon *ngIf="inst.methaneLevel < 50000 && inst.imeNumber" class="list-table-icon-button" color="warn">remove</md-icon>
+						<div class="truncate flex-item" fxFlex="150px">
+							{{inst.imeNumber ? inst.imeNumber.imeNumber : ''}}
+							<!--<md-icon *ngIf="inst.methaneLevel >= 50000" (click)="openAssignIMENumberDialog(inst)" mdTooltip="Change" mdTooltipPosition="after" class="list-table-icon-button" color="accent">{{inst.imeNumber ? 'sync' : 'add'}}</md-icon>
+							<md-icon *ngIf="inst.methaneLevel < 50000 && inst.imeNumber" mdTooltip="Remove" mdTooltipPosition="after" class="list-table-icon-button" color="warn">remove</md-icon>-->
+						</div>
+						<div class="flex-item" fxFlex="150px">
+							<button md-raised-button *ngIf="inst.methaneLevel >= 50000" (click)="openAssignIMENumberDialog(inst)" style="margin-top:-18px;">{{inst.imeNumber ? 'CHANGE IME#' : 'ADD IME#'}}</button>
+							<button md-raised-button *ngIf="inst.methaneLevel < 50000 && inst.imeNumber" (click)="removeImeNumber(inst)" style="margin-top:-18px;">REMOVE IME#</button>
 						</div>
 					</div>
 				</div>
@@ -74,7 +106,10 @@
 	</div>
 <div>
 <div class="fab-action-button-container">
-	<button md-fab (click)="save()" mdTooltip="Save" mdTooltipPosition="above">
+	<button md-fab (click)="commit()" mdTooltip="Commit" mdTooltipPosition="above" class="fab-action-button">
+		<md-icon>done</md-icon>
+	</button>
+	<button md-fab (click)="save()" mdTooltip="Save" mdTooltipPosition="above" class="fab-action-button">
 		<md-icon>save</md-icon>
 	</button>
 </div>

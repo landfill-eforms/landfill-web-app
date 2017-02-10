@@ -1,0 +1,47 @@
+$ime-number-add-remove-button-width: 50px;
+
+.ime-numbers-selection-box {
+	width: calc(100% - 16px);
+	height: 250px;
+	overflow-y: auto;
+	margin: 8px 0;
+	border-top: solid 1px rgba(0,0,0,0.12);
+	border-bottom: solid 1px rgba(0,0,0,0.12);
+}
+
+.ime-number-container {
+	width: 100%;
+	border-bottom: solid 1px rgba(0,0,0,0.12);
+	background: #FFF;
+	transition: background 0.2s linear;
+}
+
+.ime-number-container:hover {
+	background: #F7F7F7;
+}
+
+.ime-number-add-button {
+	max-width: $ime-number-add-remove-button-width;
+	md-icon {
+		font-size: 2em;
+		cursor: pointer;
+	}
+}
+
+.ime-number-info {
+	width: calc(100% - #{$ime-number-add-remove-button-width});
+	height: 48px;
+}
+
+.ime-number-title {
+	padding: 16px;
+}
+
+.ime-number-description {
+	color: rgba(0,0,0,0.69);
+	font-size: 0.91em;
+	//font-weight: 300;
+	height: 30px;
+	overflow-y: auto;
+	//width: calc(100% - #{$ime-number-add-remove-button-width});
+}

@@ -19,6 +19,9 @@ import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Alvin Quach
+ */
 @Service
 public class UnverifiedDataService {
 	
@@ -68,5 +71,22 @@ public class UnverifiedDataService {
 		return dataSet;
 		
 	}
+	
+//	public void verifyData(UnverifiedDataSet dataSet) {
+//		
+//		List<String> instantaneousErrors = new ArrayList<>();
+//		
+//		// Check if all the data's monitoring points belong to the correct site.
+//		for (UnverifiedInstantaneousData instantaneousData : dataSet.getUnverifiedInstantaneousData()) {
+//			if (instantaneousData.getMonitoringPoint().getSite() != dataSet.getSite()) {
+//				instantaneousErrors.add(")
+//			}
+//		}
+//		
+//	}
+//	
+//	private String getInstantaneousDataDescriptor(UnverifiedInstantaneousData instantaneousData) {
+//		return "";
+//	}
 
 }

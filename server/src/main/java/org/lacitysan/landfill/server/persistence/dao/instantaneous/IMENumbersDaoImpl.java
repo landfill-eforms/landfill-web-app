@@ -1,9 +1,9 @@
-package org.lacitysan.landfill.server.persistence.dao.unverified;
+package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  */
 @Repository
-public class UnverifiedDataSetsDaoImpl implements UnverifiedDataSetsDao {
+public class IMENumbersDaoImpl implements IMENumbersDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
@@ -25,38 +25,38 @@ public class UnverifiedDataSetsDaoImpl implements UnverifiedDataSetsDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<UnverifiedDataSet> getAll() {
-		List<UnverifiedDataSet> result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(UnverifiedDataSet.class)
+	public List<IMENumber> getAll() {
+		List<IMENumber> result = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(IMENumber.class)
 				.list();
 		return result;
 	}
 	
 	@Override
 	@Transactional
-	public UnverifiedDataSet getById(Integer id) {
+	public IMENumber getById(Integer id) {
 		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(UnverifiedDataSet.class)
+				.createCriteria(IMENumber.class)
 				.add(Restrictions.idEq(id))
 				.uniqueResult();
-		if (result instanceof UnverifiedDataSet) {
-			UnverifiedDataSet data = (UnverifiedDataSet)result;
+		if (result instanceof IMENumber) {
+			IMENumber data = (IMENumber)result;
 			return data;
 		}
 		return null;
 	}
-
+	
 	@Override
 	@Transactional
-	public Object update(UnverifiedDataSet unverifiedDataSet) {
-		hibernateTemplate.update(unverifiedDataSet);
+	public Object update(IMENumber imeNumber) {
+		hibernateTemplate.update(imeNumber);
 		return true;
 	}
 
 	@Override
 	@Transactional
-	public Object create(UnverifiedDataSet unverifiedDataSet) {
-		return hibernateTemplate.save(unverifiedDataSet);
+	public Object create(IMENumber imeNumber) {
+		return hibernateTemplate.save(imeNumber);
 	}
-
+	
 }

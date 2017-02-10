@@ -1,5 +1,5 @@
+import { IMENumbersComponent } from './components/instantaneous/ime-numbers/ime-numbers.component';
 import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
-import { InstantaneousData } from './model/server/persistence/entity/instantaneous-data.class';
 import { UserGroupComponent } from './components/user-group/user-group/user-group.component';
 import { UserGroupsComponent } from './components/user-group/user-groups/user-groups.component';
 import { Route, Routes, RouterModule } from '@angular/router';
@@ -10,7 +10,6 @@ import { LoginComponent } from './components/public/login/login.component';
 import { ForbiddenComponent } from './components/public/forbidden/forbidden.component';
 import { NavigationBaseComponent } from './components/navigation/navigation-base/navigation-base.component';
 import { InstantaneousTestComponent } from './components/test/instantaneous-test/instantaneous-test.component';
-import { InstantaneousReportTestComponent } from './components/test/instantaneous-report-test/instantaneous-report-test.component';
 import { InstantaneousUploadTestComponent } from './components/test/instantaneous-upload-test/instantaneous-upload-test.component';
 import { UserOverviewComponent } from './components/user/user-overview/user-overview.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
@@ -49,6 +48,11 @@ const UserGroupRoute:Route = {
 const InstantaneousReportRoute:Route = {
 	path: 'instantaneous-report',
 	component: InstantaneousReportComponent
+}
+
+const IMENumbersRoute:Route = {
+	path: 'ime-numbers',
+	component: IMENumbersComponent
 }
 
 const TestRoutes:Routes = [
@@ -118,6 +122,7 @@ export const RestrictedRoutes:Routes = [
 			UserGroupsRoute,
 			UserGroupRoute,
 			InstantaneousReportRoute,
+			IMENumbersRoute,
 		]
 	}
 ];

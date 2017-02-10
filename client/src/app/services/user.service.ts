@@ -1,8 +1,8 @@
+import { User } from './../model/server/persistence/entity/user/user.class';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { environment } from '../../environments/environment';
-import { User } from './../model/server/persistence/entity/user.class';
 
 @Injectable()
 export class UserService {

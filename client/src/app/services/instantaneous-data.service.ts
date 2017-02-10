@@ -1,5 +1,5 @@
+import { InstantaneousData } from './../model/server/persistence/entity/instantaneous/instantaneous-data.class';
 import { MonitoringPoint } from './../model/server/model/monitoring-point.enum';
-import { InstantaneousData } from './../model/server/persistence/entity/instantaneous-data.class';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
@@ -10,7 +10,7 @@ export class InstantaneousDataService {
 
 	readonly baseUrl:string = environment.resourceUrl + '/instantaneous-data';
 
-	constructor(private authHttp: AuthHttp) {}
+	constructor(private authHttp:AuthHttp) {}
 
 	getBySiteName(callback:(data) => void, siteName:string) {
 		this.authHttp.get(this.baseUrl + "/" + siteName).map((res:Response) => res.json()).subscribe(

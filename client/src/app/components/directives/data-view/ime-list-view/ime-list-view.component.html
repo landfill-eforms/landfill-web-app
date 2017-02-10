@@ -1,0 +1,42 @@
+<div *ngIf="data.length > 0" class="list-table">
+	<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+		<div class="truncate flex-item" fxFlex (click)="sortByIme()">
+			<span class="list-table-header-label-sortable">IME#</span>
+			<md-icon class="list-table-header-sort" [ngClass]="{
+				'list-table-header-sort-reverse':sort.reversed,
+				'list-table-header-sort-inactive':sort.current !== 'ime'}">
+				arrow_downward</md-icon>
+		</div>
+		<div class="truncate flex-item" fxFlex (click)="sortByDate()">
+			<span class="list-table-header-label-sortable">Date</span>
+			<md-icon class="list-table-header-sort" [ngClass]="{
+				'list-table-header-sort-reverse':sort.reversed,
+				'list-table-header-sort-inactive':sort.current !== 'date'}">
+				arrow_downward</md-icon>
+		</div>
+		<div class="truncate flex-item" fxFlex (click)="sortByInitMethaneLevel()">
+			<span class="list-table-header-label-sortable">Initial Reading</span>
+			<md-icon class="list-table-header-sort" [ngClass]="{
+				'list-table-header-sort-reverse':sort.reversed,
+				'list-table-header-sort-inactive':sort.current !== 'initMethaneLevel'}">
+				arrow_downward</md-icon>
+		</div>
+		<div class="truncate flex-item" fxFlex (click)="sortByLastMethaneLevel()">
+			<span class="list-table-header-label-sortable">Latest Reading</span>
+			<md-icon class="list-table-header-sort" [ngClass]="{
+				'list-table-header-sort-reverse':sort.reversed,
+				'list-table-header-sort-inactive':sort.current !== 'lastMethaneLevel'}">
+				arrow_downward</md-icon>
+		</div>
+		<div class="truncate flex-item" fxFlex="100px" style="text-align:center;">
+			<span class="list-table-header-label">Status</span>
+		</div>
+	</div>
+	<div *ngFor="let ime of data; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd, 'warmspot': getStatus(ime.methaneLevel) == 'warmspot', 'hotspot': getStatus(ime.methaneLevel) == 'hotspot'}">
+		<div class="truncate flex-item" fxFlex>{{ime.imeNumber}}</div>
+		<div class="truncate flex-item" fxFlex>{{getDate(ime.startTime)}}</div>
+		<div class="truncate flex-item" fxFlex></div>
+		<div class="truncate flex-item" fxFlex></div>
+		<div class="truncate flex-item" fxFlex="100px"></div>
+	</div>
+</div>

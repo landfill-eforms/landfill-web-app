@@ -1,8 +1,8 @@
+import { UserGroup } from './../model/server/persistence/entity/user/user-group.class';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { environment } from '../../environments/environment';
-import { UserGroup } from './../model/server/persistence/entity/user-group.class';
 
 @Injectable()
 export class UserGroupService {
@@ -34,6 +34,14 @@ export class UserGroupService {
 
 	create(callback:(data) => void, userGroup:UserGroup) {
 		this.authHttp.post(this.baseUrl + '/new', userGroup).map((res:Response) => res.json()).subscribe(
+				data => callback(data),
+				err => console.log(err)
+			);
+	}
+
+	// TODO Find out why delete request method is giving cors error.
+	delete(callback:(data) => void, userGroup:UserGroup) {
+		this.authHttp.post(this.baseUrl + '/delete', userGroup).map((res:Response) => res.json()).subscribe(
 				data => callback(data),
 				err => console.log(err)
 			);

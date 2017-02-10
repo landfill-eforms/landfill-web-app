@@ -1,4 +1,4 @@
-import { UserRole } from '../../model/user-role.enum';
+import { UserRole } from '../../../model/user-role.enum';
 import { User } from './user.class';
 
 /**
@@ -10,9 +10,7 @@ export class UserGroup {
 	name:string;
 	description:string;
 	createdBy:User;
-	createdDate:number;
 	modifiedBy:User;
-	modifiedDate:number;
 	users:User[];
 	userRoles:UserRole[];
 }

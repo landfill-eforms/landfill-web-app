@@ -1,4 +1,4 @@
-import { InstrumentType } from '../../model/instrument-type.enum';
+import { InstrumentType } from '../../../model/instrument-type.enum';
 
 /**
  * This class was automatically generated from Instrument.java using typescript-gen.

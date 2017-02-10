@@ -1,5 +1,5 @@
+import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
 import { UserGroupService } from './../../../services/user-group.service';
-import { UserGroup } from './../../../model/server/persistence/entity/user-group.class';
 import { Component, OnChanges, Input, OnInit } from '@angular/core';
 
 @Component({

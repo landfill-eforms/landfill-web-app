@@ -1,3 +1,4 @@
+import { StringUtils } from './../../../utils/string.utils';
 import { InstantaneousData } from './../../../model/server/persistence/entity/instantaneous/instantaneous-data.class';
 import { Site } from './../../../model/server/model/site.enum';
 import { DateTimeUtils } from './../../../utils/date-time-utils';
@@ -11,6 +12,8 @@ import { OnInit, Component } from '@angular/core';
     styleUrls: ['./instantaneous-report.component.scss']
 })
 export class InstantaneousReportComponent implements OnInit {
+
+	stringUtils = StringUtils;
 
 	isDataLoaded:boolean = true;
 	data:InstantaneousData[] = [];

@@ -1,0 +1,10 @@
+<md-card class="section-single">
+	<md-card-content>
+		<div class="section-title">IME Number List</div>
+		<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+			<md-spinner class="loading-indicator-spinner"></md-spinner>
+			<div class="loading-indicator-message">Loading IME Numbers...</div>
+		</div>
+		<app-ime-list-view *ngIf="isDataLoaded" [data]="imeNumbers" [edit]="true"></app-ime-list-view>
+	</md-card-content>
+</md-card>

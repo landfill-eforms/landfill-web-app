@@ -39,4 +39,12 @@ export class UserGroupService {
 			);
 	}
 
+	// TODO Find out why delete request method is giving cors error.
+	delete(callback:(data) => void, userGroup:UserGroup) {
+		this.authHttp.post(this.baseUrl + '/delete', userGroup).map((res:Response) => res.json()).subscribe(
+				data => callback(data),
+				err => console.log(err)
+			);
+	}
+
 }

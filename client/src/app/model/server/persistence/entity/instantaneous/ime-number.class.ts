@@ -18,4 +18,5 @@ export class IMENumber {
 	instantaneousData:InstantaneousData[];
 	imeData:IMEData[];
 	imeRepairData:IMERepairData[];
+	imeNumber:string;
 }

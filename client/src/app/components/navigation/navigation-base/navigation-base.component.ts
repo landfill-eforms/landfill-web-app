@@ -48,6 +48,18 @@ export class NavigationBaseComponent implements OnInit {
 		]
 	};
 
+	readonly instantaneousSection:RouteSection = {
+		name: "Instantaneous Data",
+		routes: [
+			{
+				path: 'ime-numbers',
+				icon: 'add',
+				label: 'IME List',
+				visible: false
+			}
+		]
+	}
+
 	readonly reportsSection:RouteSection = {
 		name: "Reports",
 		routes: [
@@ -134,6 +146,7 @@ export class NavigationBaseComponent implements OnInit {
 
 	readonly sections:RouteSection[] = [
 		this.homeSection,
+		this.instantaneousSection,
 		this.userManagementSection,
 		this.reportsSection,
 		this.notificationSection,

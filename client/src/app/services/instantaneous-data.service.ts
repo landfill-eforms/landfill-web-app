@@ -10,7 +10,7 @@ export class InstantaneousDataService {
 
 	readonly baseUrl:string = environment.resourceUrl + '/instantaneous-data';
 
-	constructor(private authHttp: AuthHttp) {}
+	constructor(private authHttp:AuthHttp) {}
 
 	getBySiteName(callback:(data) => void, siteName:string) {
 		this.authHttp.get(this.baseUrl + "/" + siteName).map((res:Response) => res.json()).subscribe(

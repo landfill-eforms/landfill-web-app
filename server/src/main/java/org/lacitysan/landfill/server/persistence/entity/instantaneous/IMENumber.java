@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
@@ -67,6 +68,9 @@ public class IMENumber {
 	@OneToMany(mappedBy="imeNumber")
 	private Set<IMERepairData> imeRepairData;
 
+	@Transient
+	private String imeNumber;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -137,6 +141,14 @@ public class IMENumber {
 
 	public void setImeRepairData(Set<IMERepairData> imeRepairData) {
 		this.imeRepairData = imeRepairData;
+	}
+
+	public String getImeNumber() {
+		return this.toString();
+	}
+
+	public void setImeNumber(String imeNumber) {
+		this.imeNumber = this.toString();
 	}
 
 	@Override

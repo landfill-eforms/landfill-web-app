@@ -1,3 +1,4 @@
+import { IMENumbersComponent } from './components/instantaneous/ime-numbers/ime-numbers.component';
 import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
 import { UserGroupComponent } from './components/user-group/user-group/user-group.component';
 import { UserGroupsComponent } from './components/user-group/user-groups/user-groups.component';
@@ -47,6 +48,11 @@ const UserGroupRoute:Route = {
 const InstantaneousReportRoute:Route = {
 	path: 'instantaneous-report',
 	component: InstantaneousReportComponent
+}
+
+const IMENumbersRoute:Route = {
+	path: 'ime-numbers',
+	component: IMENumbersComponent
 }
 
 const TestRoutes:Routes = [
@@ -116,6 +122,7 @@ export const RestrictedRoutes:Routes = [
 			UserGroupsRoute,
 			UserGroupRoute,
 			InstantaneousReportRoute,
+			IMENumbersRoute,
 		]
 	}
 ];

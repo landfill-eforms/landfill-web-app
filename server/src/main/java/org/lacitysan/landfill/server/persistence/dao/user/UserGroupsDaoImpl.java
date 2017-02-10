@@ -56,6 +56,13 @@ public class UserGroupsDaoImpl implements UserGroupsDao {
 	public Object create(UserGroup userGroup) {
 		return hibernateTemplate.save(userGroup);
 	}
+	
+	@Override
+	@Transactional
+	public Object delete(UserGroup userGroup) {
+		hibernateTemplate.delete(userGroup);
+		return true;
+	}
 
 	private UserGroup initialize(UserGroup userGroup) {
 		Hibernate.initialize(userGroup.getCreatedBy());

@@ -17,5 +17,7 @@ public interface UserGroupsDao {
 
 	Object create(UserGroup userGroup);
 
+	Object delete(UserGroup userGroup);
+
 
 }

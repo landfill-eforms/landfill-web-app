@@ -58,6 +58,21 @@ export class UserGroupsComponent implements OnInit {
 
 	}
 
+	delete(userGroup:UserGroup) {
+		if (userGroup.users.length) {
+			this.snackBar.open("This user group cannot be deleted because it is assigned to user(s).", "OK", {duration: 3000});
+		}
+		else {
+			this.userGroupService.delete((data) => {
+				console.log(data);
+				this.snackBar.open("User group has been deleted.", "OK", {duration: 2000});
+				this.isDataLoaded = false;
+				this.loadingMessage = "Reloading User Groups..."
+				this.loadUserGroups();
+			}, userGroup);
+		}
+	}
+
 	sortByGroupName() {
 		if (this.sort.current === "name") {
 			this.sort.reversed = !this.sort.reversed;

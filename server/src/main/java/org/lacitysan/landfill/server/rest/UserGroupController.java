@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author Alvin Quach
+ */
 @RequestMapping(ApplicationProperty.RESOURCE_PATH + "/user-group")
 @RestController
 public class UserGroupController {
@@ -34,14 +37,19 @@ public class UserGroupController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public Object update(@RequestBody UserGroup userGroup) {
-		userGroupsDao.update(userGroup);
-		return true;
+		return userGroupsDao.update(userGroup);
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)
 	public Object create(@RequestBody UserGroup userGroup) {
 		//userGroupsDao.create(userGroup);
 		return userGroupsDao.create(userGroup);
+	}
+	
+	// TODO Find out why RequestMethod.DELETE is giving cors error.
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public Object deleteById(@RequestBody UserGroup userGroup) {
+		return userGroupsDao.delete(userGroup);
 	}
 
 }

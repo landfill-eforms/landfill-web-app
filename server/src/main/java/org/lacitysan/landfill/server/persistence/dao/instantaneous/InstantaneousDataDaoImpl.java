@@ -76,5 +76,11 @@ public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
 		});
 		return result;
 	}
+	
+	@Override
+	@Transactional
+	public void create(InstantaneousData data) {
+		hibernateTemplate.save(data);
+	}
 
 }

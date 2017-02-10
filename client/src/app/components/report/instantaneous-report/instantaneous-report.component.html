@@ -76,7 +76,7 @@
                 <div class="truncate flex-item" fxFlex>{{getTime(inst.endTime)}}</div>
                 <div class="truncate flex-item" fxFlex>{{inst.instrument.serialNumber}}</div>
                 <div class="truncate flex-item" fxFlex>{{inst.methaneLevel / 100}}</div>
-                <div class="truncate flex-item" fxFlex>{{inst.imeNumber}}</div>
+                <div class="truncate flex-item" fxFlex>{{inst.imeNumber ? inst.imeNumber.imeNumber : ''}}</div>
             </div>
         </div>
 	</md-card-content>

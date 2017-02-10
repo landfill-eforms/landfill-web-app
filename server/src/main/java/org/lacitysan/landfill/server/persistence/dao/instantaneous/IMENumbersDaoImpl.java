@@ -3,6 +3,7 @@ package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
@@ -31,6 +32,9 @@ public class IMENumbersDaoImpl implements IMENumbersDao {
 		List<IMENumber> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(IMENumber.class)
 				.list();
+		result.stream().forEach(imeNumber -> {
+			initialize(imeNumber);
+		});
 		return result;
 	}
 
@@ -45,11 +49,9 @@ public class IMENumbersDaoImpl implements IMENumbersDao {
 					.createCriteria(IMENumber.class)
 					.add(Restrictions.eq("site", Site.valueOf(siteName)))
 					.list();
-			//		result.stream().forEach(data -> {
-			//			Hibernate.initialize(data.getInstrument());
-			//			Hibernate.initialize(data.getMonitoringPoint());
-			//			Hibernate.initialize(data.getInspector().getPerson());
-			//		});
+					result.stream().forEach(imeNumber -> {
+						initialize(imeNumber);
+					});
 			return result;
 		}
 		return null;
@@ -63,8 +65,7 @@ public class IMENumbersDaoImpl implements IMENumbersDao {
 				.add(Restrictions.idEq(id))
 				.uniqueResult();
 		if (result instanceof IMENumber) {
-			IMENumber data = (IMENumber)result;
-			return data;
+			return initialize((IMENumber)result);
 		}
 		return null;
 	}
@@ -80,6 +81,15 @@ public class IMENumbersDaoImpl implements IMENumbersDao {
 	@Transactional
 	public Object create(IMENumber imeNumber) {
 		return hibernateTemplate.save(imeNumber);
+	}
+	
+	private IMENumber initialize(IMENumber imeNumber) {
+		Hibernate.initialize(imeNumber.getMonitoringPoints());
+		Hibernate.initialize(imeNumber.getInstantaneousData());
+		Hibernate.initialize(imeNumber.getUnverifiedInstantaneousData());
+		Hibernate.initialize(imeNumber.getImeData());
+		Hibernate.initialize(imeNumber.getImeRepairData());
+		return imeNumber;
 	}
 
 }

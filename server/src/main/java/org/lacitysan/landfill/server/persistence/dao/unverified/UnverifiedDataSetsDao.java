@@ -14,4 +14,6 @@ public interface UnverifiedDataSetsDao {
 
 	Object create(UnverifiedDataSet unverifiedDataSet);
 
+	Object delete(UnverifiedDataSet unverifiedDataSet);
+
 }

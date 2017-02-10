@@ -1,8 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -59,14 +58,15 @@ public class IMENumber {
 	
 	@ElementCollection(targetClass=MonitoringPoint.class)
 	@JoinTable(name="test.dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
+	@Column(name="MonitoringPointOrdinal")
 	@Enumerated(EnumType.ORDINAL)
 	private Set<MonitoringPoint> monitoringPoints;
 	
-	@JsonIgnoreProperties({"imeNumber"})
+	@JsonIgnoreProperties({"imeNumber", "instrument", "inspector"})
 	@OneToMany(mappedBy="imeNumber")
 	private Set<InstantaneousData> instantaneousData;
 	
-	@JsonIgnoreProperties({"imeNumber"})
+	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumber", "instrument"})
 	@OneToMany(mappedBy="imeNumber")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData;
 	
@@ -172,15 +172,8 @@ public class IMENumber {
 
 	@Override
 	public String toString() {
-		Calendar date = new GregorianCalendar();
-		date.setTime(this.discoveryDate);
-		return this.site.getShortName() + 
-				"-" + 
-				(date.get(Calendar.MONTH) + 1) +
-				(date.get(Calendar.DAY_OF_MONTH)) +
-				(date.get(Calendar.YEAR) % 2000) +
-				"-" + 
-				(this.series < 10 ? "0" + this.series : this.series);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyy");
+		return this.site.getShortName() + "-" + dateFormat.format(this.discoveryDate) + "-" +	(this.series < 10 ? "0" + this.series : this.series);
 	}
 	
 	public enum IMENumberStatus {

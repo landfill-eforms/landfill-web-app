@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import {Component, OnInit, ElementRef} from '@angular/core';
 import 'rxjs/Rx';
 
@@ -14,6 +15,7 @@ export class InstantaneousUploadTestComponent implements OnInit {
 
     constructor(
         private _el:ElementRef, 
+        private router:Router,
         private _instantaneousDataService:InstantaneousDataService
         ) {}
 
@@ -34,6 +36,7 @@ export class InstantaneousUploadTestComponent implements OnInit {
 
         this._instantaneousDataService.upload((data) => {
             console.log(data);
+            this.router.navigate(['/app/unverified-data-set/' + data.id]);
             // this._instantaneousDataService.save((data2) => {
             //     console.log(data2);
             // }, data);

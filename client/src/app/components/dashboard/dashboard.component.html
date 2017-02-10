@@ -1,2 +1,146 @@
-<md-card>DASHBOARD</md-card>
-
+<div class="dashboard-container">
+	<div class="dashboard-title">
+		Today's Dashboard
+	</div>
+	<div class="dashboard-card-container">
+		<md-card class="dashboard-main-card">
+			<md-card-content>
+				<div class="dashboard-card-title">
+					<div>
+						<md-icon class="dashboard-main-card-title-icon">build</md-icon>
+					</div>
+					<div class="dashboard-main-title-text">
+						Main Card
+					</div>
+				</div>
+				<div class="dashboard-card-stat">
+					1
+				</div>
+			</md-card-content>
+			<md-card-footer>
+				<div class="dashboard-card-footer">
+					<md-icon>trending_down</md-icon>
+					13% From Yesterday
+				</div>
+			</md-card-footer>
+		</md-card>
+	</div>
+	<div class="flex-container" fxLayout="row">
+		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
+			<md-card class="dashboard-card">
+				<md-card-content>
+					<div class="dashboard-card-title">
+						<md-icon class="dashboard-card-title-icon">hourglass_empty</md-icon>
+						Pending Data Sets
+					</div>
+					<div class="dashboard-card-stat">
+						1
+					</div>
+				</md-card-content>
+				<md-card-footer>
+					<div class="dashboard-card-footer">
+						<md-icon>trending_down</md-icon>
+						13% From Yesterday
+					</div>
+				</md-card-footer>
+			</md-card>
+		</div>
+		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
+			<md-card class="dashboard-card">
+				<md-card-content>
+					<div class="dashboard-card-title">
+						<md-icon class="dashboard-card-title-icon">done</md-icon>
+						Hotspots Closed
+					</div>
+					<div class="dashboard-card-stat">
+						3
+					</div>
+				</md-card-content>
+				<md-card-footer>
+					<div class="dashboard-card-footer">
+						<md-icon>trending_up</md-icon>
+						33% From Yesterday
+					</div>
+				</md-card-footer>
+			</md-card>
+		</div>
+		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
+			<md-card class="dashboard-card">
+				<md-card-content>
+					<div class="dashboard-card-title">
+						<md-icon class="dashboard-card-title-icon">assignment_late</md-icon>
+						Grids Overdue
+					</div>
+					<div class="dashboard-card-stat">
+						37
+					</div>
+				</md-card-content>
+				<md-card-footer>
+					<div class="dashboard-card-footer">
+						<md-icon>trending_down</md-icon>
+						69% From Yesterday
+					</div>
+				</md-card-footer>
+			</md-card>
+		</div>
+	</div>
+	<div class="flex-container" fxLayout="row">
+		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
+			<md-card class="dashboard-card">
+				<md-card-content>
+					<div class="dashboard-card-title">
+						<md-icon class="dashboard-card-title-icon">build</md-icon>
+						Insert Title Here
+					</div>
+					<div class="dashboard-card-stat">
+						1
+					</div>
+				</md-card-content>
+				<md-card-footer>
+					<div class="dashboard-card-footer">
+						<md-icon>trending_flat</md-icon>
+						0% From Yesterday
+					</div>
+				</md-card-footer>
+			</md-card>
+		</div>
+		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
+			<md-card class="dashboard-card">
+				<md-card-content>
+					<div class="dashboard-card-title">
+						<md-icon class="dashboard-card-title-icon">build</md-icon>
+						Insert Title Here
+					</div>
+					<div class="dashboard-card-stat">
+						1
+					</div>
+				</md-card-content>
+				<md-card-footer>
+					<div class="dashboard-card-footer">
+						<md-icon>trending_flat</md-icon>
+						0% From Yesterday
+					</div>
+				</md-card-footer>
+			</md-card>
+		</div>
+		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
+			<md-card class="dashboard-card">
+				<md-card-content>
+					<div class="dashboard-card-title">
+						<md-icon class="dashboard-card-title-icon">build</md-icon>
+						Insert Title Here
+					</div>
+					<div class="dashboard-card-stat">
+						1
+					</div>
+				</md-card-content>
+				<md-card-footer>
+					<div class="dashboard-card-footer">
+						<md-icon>trending_flat</md-icon>
+						0% From Yesterday
+					</div>
+				</md-card-footer>
+			</md-card>
+		</div>
+	</div>
+</div>

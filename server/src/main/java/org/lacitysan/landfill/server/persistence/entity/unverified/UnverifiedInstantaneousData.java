@@ -49,7 +49,7 @@ public class UnverifiedInstantaneousData {
 	@NotNull
 	private Timestamp endTime;
 	
-	@JsonIgnoreProperties({"unverifiedInstantaneousData"})
+	@JsonIgnoreProperties({"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"})
 	@ManyToOne
 	@JoinColumn(name="IMENumberFK")
 	private IMENumber imeNumber;

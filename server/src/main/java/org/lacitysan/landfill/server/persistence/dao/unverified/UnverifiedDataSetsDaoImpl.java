@@ -61,6 +61,13 @@ public class UnverifiedDataSetsDaoImpl implements UnverifiedDataSetsDao {
 		return hibernateTemplate.save(unverifiedDataSet);
 	}
 	
+	@Override
+	@Transactional
+	public Object delete(UnverifiedDataSet unverifiedDataSet) {
+		hibernateTemplate.delete(unverifiedDataSet);
+		return true;
+	}
+	
 	private UnverifiedDataSet initialize(UnverifiedDataSet dataSet) {
 		Hibernate.initialize(dataSet.getInspector().getPerson());
 		Hibernate.initialize(dataSet.getUploadedBy());

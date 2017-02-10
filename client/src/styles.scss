@@ -32,6 +32,9 @@ md-toolbar-row {
     z-index: 999;
     pointer-events: none;
 }
+.md-sidenav-content {
+  transform: initial !important;
+}
 
 a {
     color: #2196F3;

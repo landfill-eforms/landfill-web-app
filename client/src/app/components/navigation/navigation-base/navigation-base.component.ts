@@ -60,6 +60,18 @@ export class NavigationBaseComponent implements OnInit {
 		]
 	}
 
+	readonly unverifiedDataSection:RouteSection = {
+		name: "Data Verification",
+		routes: [
+			{
+				path: 'unverified-data-sets',
+				icon: 'gesture',
+				label: 'Unverified Data Sets',
+				visible: false
+			}
+		]
+	}
+
 	readonly reportsSection:RouteSection = {
 		name: "Reports",
 		routes: [
@@ -146,11 +158,12 @@ export class NavigationBaseComponent implements OnInit {
 
 	readonly sections:RouteSection[] = [
 		this.homeSection,
+		this.dataTransferSection,
 		this.instantaneousSection,
+		this.unverifiedDataSection,
 		this.userManagementSection,
 		this.reportsSection,
 		this.notificationSection,
-		this.dataTransferSection
 	];
 
 	constructor (

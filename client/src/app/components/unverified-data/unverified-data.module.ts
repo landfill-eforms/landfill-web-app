@@ -1,3 +1,4 @@
+import { UnverifiedDataSetComponent } from './unverified-data-set/unverified-data-set.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from './../common/common.module';
 import { UnverifiedDataSetsComponent } from './unverified-data-sets/unverified-data-sets.component';
@@ -8,7 +9,8 @@ import { UnverifiedDataSetsComponent } from './unverified-data-sets/unverified-d
     ],
     providers: [],
     declarations: [
-		UnverifiedDataSetsComponent
+		UnverifiedDataSetsComponent,
+		UnverifiedDataSetComponent
 	]
 })
 

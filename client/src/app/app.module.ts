@@ -1,3 +1,4 @@
+import { UnverifiedDataService } from './services/unverified-data-set.service';
 import { UnverifiedDataModule } from './components/unverified-data/unverified-data.module';
 import { InstantaneousModule } from './components/instantaneous/instantaneous.module';
 import { IMEDataService } from './services/ime-data.service';
@@ -66,6 +67,7 @@ import { FileUploadService } from './services/file-upload.service';
 		UserGroupService,
 		FileUploadService,
 		InstantaneousDataService,
+		UnverifiedDataService,
 		IMENumberService,
 		IMEDataService,
 		SitesService,

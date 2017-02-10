@@ -51,7 +51,7 @@ public class UnverifiedDataService {
 		List<MonitoringPointType> typeList = Arrays.asList(new MonitoringPointType[] {MonitoringPointType.GRID});
 		Set<MonitoringPoint> usedMonitoringPoints = new HashSet<>();
 		for (int i = 0; i < new Random().nextInt(20); i++) {
-			Long startTime = baseStartTime -  1000 * 60 * new Random().nextInt(180);
+			Long startTime = baseStartTime - 1000 * 60 * new Random().nextInt(180);
 			UnverifiedInstantaneousData instantaneousData = new UnverifiedInstantaneousData();
 			while (true) {
 				MonitoringPoint grid = monitoringPointService.getRandom(siteList, typeList);

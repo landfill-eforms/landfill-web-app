@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 
@@ -30,6 +32,7 @@ public class IMEData {
 	private Integer id;
 	
 	@JsonIgnoreProperties({"imeData"})
+	@Cascade(CascadeType.ALL)
 	@ManyToOne
 	@JoinColumn(name="IMENumberFK")
 	private IMENumber imeNumber;

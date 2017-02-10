@@ -2,6 +2,7 @@ package org.lacitysan.landfill.server.persistence.dao.unverified;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
@@ -29,6 +30,7 @@ public class UnverifiedDataSetsDaoImpl implements UnverifiedDataSetsDao {
 		List<UnverifiedDataSet> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(UnverifiedDataSet.class)
 				.list();
+		result.stream().forEach(dataSet -> initialize(dataSet));
 		return result;
 	}
 	
@@ -40,8 +42,8 @@ public class UnverifiedDataSetsDaoImpl implements UnverifiedDataSetsDao {
 				.add(Restrictions.idEq(id))
 				.uniqueResult();
 		if (result instanceof UnverifiedDataSet) {
-			UnverifiedDataSet data = (UnverifiedDataSet)result;
-			return data;
+			UnverifiedDataSet dataSet = (UnverifiedDataSet)result;
+			return initialize(dataSet);
 		}
 		return null;
 	}
@@ -57,6 +59,22 @@ public class UnverifiedDataSetsDaoImpl implements UnverifiedDataSetsDao {
 	@Transactional
 	public Object create(UnverifiedDataSet unverifiedDataSet) {
 		return hibernateTemplate.save(unverifiedDataSet);
+	}
+	
+	private UnverifiedDataSet initialize(UnverifiedDataSet dataSet) {
+		Hibernate.initialize(dataSet.getInspector().getPerson());
+		Hibernate.initialize(dataSet.getUploadedBy());
+		if (dataSet.getUploadedBy() != null) {
+			Hibernate.initialize(dataSet.getUploadedBy().getPerson());
+		}
+		Hibernate.initialize(dataSet.getModifiedBy());
+		if (dataSet.getModifiedBy() != null) {
+			Hibernate.initialize(dataSet.getModifiedBy().getPerson());
+		}
+		dataSet.getUnverifiedInstantaneousData().stream().forEach(instantaneousData -> {
+			Hibernate.initialize(instantaneousData.getInstrument());
+		});
+		return dataSet;
 	}
 
 }

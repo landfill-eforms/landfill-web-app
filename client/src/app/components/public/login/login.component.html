@@ -7,12 +7,12 @@
 			<md-card-content>
 				<div>
 					<md-input-container style="width:100%">
-						<input [(ngModel)]="credentials.username" md-input placeholder="Username">
+						<input [(ngModel)]="credentials.username" mdInput placeholder="Username">
 					</md-input-container>
 				</div>
 				<div>
 					<md-input-container style="width:100%">
-						<input type="password" [(ngModel)]="credentials.password" md-input placeholder="Password" (keyup.enter)="login()">
+						<input type="password" [(ngModel)]="credentials.password" mdInput placeholder="Password" (keyup.enter)="login()">
 					</md-input-container>
 				</div>
 				<button md-raised-button color="warn" class="login-button" (click)="login()">LOGIN</button>

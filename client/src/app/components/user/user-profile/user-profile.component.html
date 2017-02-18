@@ -15,22 +15,22 @@
 				</div>
 				<div *ngIf="isDataLoaded" class="section-form-container">
 					<md-input-container class="md-input-full-width">
-						<input md-input placeholder="Username" [(ngModel)]="user.username" [disabled]="!isNew">
+						<input mdInput placeholder="Username" [(ngModel)]="user.username" [disabled]="!isNew">
 					</md-input-container>
 					<!--<md-input-container class="md-input-full-width">
-						<input md-input placeholder="Password" [(ngModel)]="user.password" type="password">
+						<input mdInput placeholder="Password" [(ngModel)]="user.password" type="password">
 					</md-input-container>-->
 					<md-input-container class="md-input-full-width">
-						<input md-input placeholder="First Name" [(ngModel)]="user.person.firstname">
+						<input mdInput placeholder="First Name" [(ngModel)]="user.person.firstname">
 					</md-input-container>
 					<md-input-container class="md-input-full-width">
-						<input md-input placeholder="Middle Name" [(ngModel)]="user.person.middlename">
+						<input mdInput placeholder="Middle Name" [(ngModel)]="user.person.middlename">
 					</md-input-container>
 					<md-input-container class="md-input-full-width">
-						<input md-input placeholder="Last Name" [(ngModel)]="user.person.lastname">
+						<input mdInput placeholder="Last Name" [(ngModel)]="user.person.lastname">
 					</md-input-container>
 					<md-input-container class="md-input-full-width">
-						<input md-input placeholder="Email" [(ngModel)]="user.person.emailAddress">
+						<input mdInput placeholder="Email" [(ngModel)]="user.person.emailAddress">
 					</md-input-container>
 				</div>
 			</md-card-content>

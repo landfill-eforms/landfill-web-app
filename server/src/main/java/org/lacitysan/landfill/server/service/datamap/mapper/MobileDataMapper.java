@@ -5,13 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 
+import org.lacitysan.landfill.server.model.IMENumberStatus;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.model.MonitoringPointType;
 import org.lacitysan.landfill.server.model.Site;
-import org.lacitysan.landfill.server.persistence.dao.user.UsersDao;
+import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber.IMENumberStatus;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 public class MobileDataMapper {
 
 	@Autowired
-	UsersDao usersDao;
+	UserDao userDao;
 	
 	@Autowired
 	MonitoringPointService monitoringPointService;
@@ -86,7 +86,7 @@ public class MobileDataMapper {
 				if (site != null && entity.getImeNumber().substring(10,12).matches("^-?\\d+$")) {
 					imeNumber.setSite(site);
 					imeNumber.setDiscoveryDate(discoveryDate);
-					imeNumber.setSeries(Short.parseShort(entity.getImeNumber().substring(10,12)));
+					imeNumber.setSequence(Short.parseShort(entity.getImeNumber().substring(10,12)));
 					imeNumber.setStatus(IMENumberStatus.UNVERIFIED);
 					imeNumbers.add(imeNumber);
 					result.setImeNumber(imeNumber);

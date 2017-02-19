@@ -7,7 +7,7 @@ import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 /**
  * @author Alvin Quach
  */
-public interface UserGroupsDao {
+public interface UserGroupDao {
 
 	UserGroup getUserGroupById(Integer id);
 

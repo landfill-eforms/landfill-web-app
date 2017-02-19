@@ -22,9 +22,11 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.model.IMENumberStatus;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.service.IMEService;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -49,7 +51,7 @@ public class IMENumber {
 	private Timestamp discoveryDate;
 	
 	@NotNull
-	private Short series;
+	private Short sequence;
 	
 	@NotNull
 	@Column(name="StatusOrdinal")
@@ -98,12 +100,12 @@ public class IMENumber {
 		this.discoveryDate = discoveryDate;
 	}
 
-	public Short getSeries() {
-		return series;
+	public Short getSequence() {
+		return sequence;
 	}
 
-	public void setSeries(Short series) {
-		this.series = series;
+	public void setSequence(Short sequence) {
+		this.sequence = sequence;
 	}
 
 	public Site getSite() {
@@ -172,14 +174,7 @@ public class IMENumber {
 
 	@Override
 	public String toString() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyy");
-		return this.site.getShortName() + "-" + dateFormat.format(this.discoveryDate) + "-" +	(this.series < 10 ? "0" + this.series : this.series);
+		return IMEService.getStringFromIMENumber(this);
 	}
-	
-	public enum IMENumberStatus {
-		UNVERIFIED,
-		ACTIVE,
-		CLOSED
-	}
-	
+
 }

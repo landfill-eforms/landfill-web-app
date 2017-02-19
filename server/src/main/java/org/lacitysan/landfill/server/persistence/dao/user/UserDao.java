@@ -7,7 +7,7 @@ import org.lacitysan.landfill.server.persistence.entity.user.User;
 /**
  * @author Alvin Quach
  */
-public interface UsersDao {
+public interface UserDao {
 
 	User getUserByUsername(String username);
 

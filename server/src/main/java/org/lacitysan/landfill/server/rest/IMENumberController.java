@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.rest;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.dao.instantaneous.IMENumbersDao;
+import org.lacitysan.landfill.server.persistence.dao.instantaneous.IMENumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IMENumberController {
 	
 	@Autowired
-	IMENumbersDao imeNumbersDao;
+	IMENumberDao imeNumbersDao;
 	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<IMENumber> getAll() {

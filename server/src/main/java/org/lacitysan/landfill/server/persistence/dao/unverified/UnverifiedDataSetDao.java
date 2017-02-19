@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 
-public interface UnverifiedDataSetsDao {
+public interface UnverifiedDataSetDao {
 
 	List<UnverifiedDataSet> getAll();
 

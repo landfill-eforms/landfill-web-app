@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Handles the logical operations for IME related objects, such as <code>IMENumber</code> and <code>IMEData</code>.
  * @author Alvin Quach
  */
 @Service

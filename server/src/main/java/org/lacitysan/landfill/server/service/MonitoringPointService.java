@@ -13,7 +13,7 @@ import org.lacitysan.landfill.server.model.util.IntegerRange;
 import org.springframework.stereotype.Service;
 
 /**
- * Handles the logical operations for both the <code>Site</code> and <code>MonitoringPoint</code> classes.
+ * Handles the logical operations for both the <code>Site</code> and <code>MonitoringPoint</code> enums.
  * @author Alvin Quach
  */
 @Service

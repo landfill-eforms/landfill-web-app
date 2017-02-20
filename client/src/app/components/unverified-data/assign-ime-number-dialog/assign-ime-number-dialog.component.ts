@@ -34,7 +34,7 @@ export class AssignIMENumberDialogComponent {
 		let imeNumber:IMENumber = new IMENumber();
 		imeNumber.site = <any>this.site.constantName;
 		imeNumber.discoveryDate = this.action.newDate;
-		imeNumber.series = this.action.newSeries;
+		imeNumber.sequence = this.action.newSeries;
 		imeNumber.status = <any>IMENumberStatus.UNVERIFIED.constantName;
 		imeNumber.imeNumber = this.action.newImeNumberString;
 		this.imeNumberService.create((data) => {
@@ -76,14 +76,14 @@ export class AssignIMENumberDialogComponent {
 		let max:number = 0;
 		for (let i = 0; i < this.existingIMENumbers.length; i++) {
 			let imeNumber:IMENumber = this.existingIMENumbers[i];
-			if (imeNumber.discoveryDate == date && imeNumber.series > max) {
-				max = imeNumber.series;
+			if (imeNumber.discoveryDate == date && imeNumber.sequence > max) {
+				max = imeNumber.sequence;
 			}
 		}
 		// for (let i = 0; i < this.createdIMENumbers.length; i++) {
 		// 	let imeNumber:IMENumber = this.createdIMENumbers[i];
-		// 	if (imeNumber.discoveryDate == date && imeNumber.series > max) {
-		// 		max = imeNumber.series;
+		// 	if (imeNumber.discoveryDate == date && imeNumber.sequence > max) {
+		// 		max = imeNumber.sequence;
 		// 	}
 		// }
 		return max;

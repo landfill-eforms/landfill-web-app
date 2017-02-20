@@ -12,10 +12,14 @@ import java.util.stream.Collectors;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.model.MonitoringPointType;
 import org.lacitysan.landfill.server.model.Site;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMERepairData;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.IMENumbersDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIMEData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,14 +103,56 @@ public class UnverifiedDataService {
 			instantaneousData.setInstrument(instrument);
 			instantaneousData.setMethaneLevel(new Random().nextInt(1337) * 100);
 			instantaneousData.setStartTime(new Timestamp(startTime));
-			instantaneousData.setEndTime(new Timestamp(startTime + 1000 * 60 * 30));
+			instantaneousData.setEndTime(new Timestamp(startTime + 1000 * 60 * 30));		
 			instantaneousData.setUnverifiedDataSet(dataSet);
+			
+			if(instantaneousData.getMethaneLevel()> 50000)
+			{
+				IMENumber num = new IMENumber();
+				num.setId(0);
+				num.setSite(site);
+				num.setDiscoveryDate(instantaneousData.getStartTime());
+				
+				short series;
+				Set<InstantaneousData> instant = new HashSet();
+				
+				InstantaneousData data = new InstantaneousData();
+				data.setId(dataSet.getId());
+				data.setBarometricPressure(dataSet.getBarometricPressure());
+				data.setEndTime(instantaneousData.getEndTime());
+				
+				IMENumber ime = new IMENumber();
+				data.setImeNumber(ime);
+				
+				data.setInspector(dataSet.getInspector());
+				data.setInstrument(instantaneousData.getInstrument());
+				data.setMethaneLevel(instantaneousData.getMethaneLevel());
+				data.setMonitoringPoint(instantaneousData.getMonitoringPoint());
+				data.setStartTime(instantaneousData.getStartTime());
+				
+				instant.add(data);
+				num.setInstantaneousData(instant);
+				
+				Set<IMEData> imeData = new HashSet();
+				num.setImeData(imeData);
+				
+				Set<IMERepairData> imeRepairData = new HashSet();
+				num.setImeRepairData(imeRepairData);
+				
+				Set<MonitoringPoint> monitoringPoints = new HashSet<MonitoringPoint>();
+				monitoringPoints.add(instantaneousData.getMonitoringPoint());
+				num.setMonitoringPoints(monitoringPoints);
+				instantaneousData.setImeNumber(num);
+			}		
+			
 			dataSet.getUnverifiedInstantaneousData().add(instantaneousData);
 		
 		}
 		return dataSet;
 		
 	}
+	
+	
 	
 //	public void verifyData(UnverifiedDataSet dataSet) {
 //		

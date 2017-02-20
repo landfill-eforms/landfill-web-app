@@ -40,7 +40,7 @@ export class NavigationBaseComponent implements OnInit {
 				visible: false
 			},
 			{
-				path: 'user-groups',
+				path: 'user-group-list',
 				icon: 'group_work',
 				label: 'User Groups',
 				visible: false
@@ -64,7 +64,7 @@ export class NavigationBaseComponent implements OnInit {
 		name: "Data Verification",
 		routes: [
 			{
-				path: 'unverified-data-sets',
+				path: 'unverified-data-set-list',
 				icon: 'gesture',
 				label: 'Unverified Data Sets',
 				visible: false

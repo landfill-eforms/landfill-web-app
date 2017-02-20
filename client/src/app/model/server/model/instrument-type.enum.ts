@@ -4,8 +4,8 @@
  */
 export class InstrumentType {
 
-	static readonly CH4_BAG:InstrumentType = new InstrumentType(0, "CH4_BAG", );
-	static readonly OTHER_TOOL:InstrumentType = new InstrumentType(1, "OTHER_TOOL", );
+	static readonly CH4_BAG:InstrumentType = new InstrumentType(0, "CH4_BAG");
+	static readonly OTHER_TOOL:InstrumentType = new InstrumentType(1, "OTHER_TOOL");
 
 	readonly ordinal:number;
 	readonly constantName:string;

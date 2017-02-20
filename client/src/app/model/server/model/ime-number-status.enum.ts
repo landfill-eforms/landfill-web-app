@@ -4,9 +4,9 @@
  */
 export class IMENumberStatus {
 
-	static readonly UNVERIFIED:IMENumberStatus = new IMENumberStatus(0, "UNVERIFIED", );
-	static readonly ACTIVE:IMENumberStatus = new IMENumberStatus(1, "ACTIVE", );
-	static readonly CLOSED:IMENumberStatus = new IMENumberStatus(2, "CLOSED", );
+	static readonly UNVERIFIED:IMENumberStatus = new IMENumberStatus(0, "UNVERIFIED");
+	static readonly ACTIVE:IMENumberStatus = new IMENumberStatus(1, "ACTIVE");
+	static readonly CLOSED:IMENumberStatus = new IMENumberStatus(2, "CLOSED");
 
 	readonly ordinal:number;
 	readonly constantName:string;

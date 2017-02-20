@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  */
 @Repository
-public class UnverifiedDataSetsDaoImpl implements UnverifiedDataSetsDao {
+public class UnverifiedDataSetDaoImpl implements UnverifiedDataSetDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;

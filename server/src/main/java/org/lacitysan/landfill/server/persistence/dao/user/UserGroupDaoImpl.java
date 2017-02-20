@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  */
 @Repository
-public class UserGroupsDaoImpl implements UserGroupsDao {
+public class UserGroupDaoImpl implements UserGroupDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;

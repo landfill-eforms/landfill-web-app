@@ -5,13 +5,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 
+import org.lacitysan.landfill.server.model.IMENumberStatus;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
-import org.lacitysan.landfill.server.model.MonitoringPointType;
 import org.lacitysan.landfill.server.model.Site;
-import org.lacitysan.landfill.server.persistence.dao.user.UsersDao;
+import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber.IMENumberStatus;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
@@ -27,7 +26,7 @@ import org.springframework.stereotype.Service;
 public class MobileDataMapper {
 
 	@Autowired
-	UsersDao usersDao;
+	UserDao userDao;
 	
 	@Autowired
 	MonitoringPointService monitoringPointService;
@@ -61,7 +60,7 @@ public class MobileDataMapper {
 
 		// TODO Implement this inside the enum.
 		if (entity.getGridId() != null && !entity.getGridId().isEmpty() && entity.getLandFillLocation() != null && !entity.getLandFillLocation().isEmpty()) {
-			MonitoringPoint grid = getGridBySiteNameAndId(entity.getLandFillLocation(), entity.getGridId());
+			MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByName(entity.getLandFillLocation()), entity.getGridId());
 			if (grid == null) {
 				System.out.println("Error Unmapping Instantaneous Data: Grid not found.");
 				return null;
@@ -81,12 +80,12 @@ public class MobileDataMapper {
 			if (!imeNumberFound) {
 				IMENumber imeNumber = new IMENumber();
 				imeNumber.setId(0);
-				Site site = getSiteByShortName(entity.getImeNumber().substring(0,2)); // Redundant?
+				Site site = monitoringPointService.getSiteByShortName(entity.getImeNumber().substring(0,2)); // Redundant?
 				Timestamp discoveryDate = new Timestamp(new SimpleDateFormat("MMddyy").parse(entity.getImeNumber().substring(3,9)).getTime());
 				if (site != null && entity.getImeNumber().substring(10,12).matches("^-?\\d+$")) {
 					imeNumber.setSite(site);
 					imeNumber.setDiscoveryDate(discoveryDate);
-					imeNumber.setSeries(Short.parseShort(entity.getImeNumber().substring(10,12)));
+					imeNumber.setSequence(Short.parseShort(entity.getImeNumber().substring(10,12)));
 					imeNumber.setStatus(IMENumberStatus.UNVERIFIED);
 					imeNumbers.add(imeNumber);
 					result.setImeNumber(imeNumber);
@@ -101,37 +100,6 @@ public class MobileDataMapper {
 
 		return result;
 
-	}
-	
-	// TODO Move this to its own service.
-		private Site getSiteByShortName(String shortName) {
-			for (Site site : Site.values()) {
-				if (site.getShortName().equals(shortName)) {
-					return site;
-				}
-			}
-			return null;
-		}
-	
-	// TODO Move this to its own service.
-	private Site getSiteBySiteName(String siteName) {
-		for (Site site : Site.values()) {
-			if (site.getName().equals(siteName)) {
-				return site;
-			}
-		}
-		return null;
-	}
-	
-	// TODO Move this to its own service.
-	private MonitoringPoint getGridBySiteNameAndId(String siteName, String gridId) {
-		Site site = getSiteBySiteName(siteName);
-		for (MonitoringPoint point : MonitoringPoint.values()) {
-			if (point.getSite() == site && point.getType() == MonitoringPointType.GRID && point.getName().equals(gridId)) {
-				return point;
-			}
-		}
-		return null;
 	}
 
 }

@@ -1,4 +1,3 @@
-import { IMENumberStatus } from './../../../model/server/persistence/entity/instantaneous/ime-number-status.enum';
 import { IMENumberService } from './../../../services/ime-number.service';
 import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';
@@ -130,7 +129,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 			if (data) {
 				this.processData(this.dataSet);
 				this.snackBar.open("Data set successfully verified.", "OK", {duration: 3000});
-				this.router.navigate(['/app/unverified-data-sets']);
+				this.router.navigate(['/app/unverified-data-set-list']);
 			}
 		}, this.dataSet);
 	}

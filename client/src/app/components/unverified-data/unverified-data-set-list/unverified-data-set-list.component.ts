@@ -1,3 +1,4 @@
+import { ArrayUtils } from './../../../utils/array.utils';
 import { MonitoringPoint } from './../../../model/server/model/monitoring-point.enum';
 import { EnumUtils } from './../../../utils/enum.utils';
 import { Site } from './../../../model/server/model/site.enum';
@@ -9,9 +10,9 @@ import { OnInit, Component } from '@angular/core';
 
 
 @Component({
-	selector: 'app-unverified-data-sets',
-	templateUrl: './unverified-data-sets.component.html',
-	styleUrls: ['./unverified-data-sets.component.scss']
+	selector: 'app-unverified-data-set-list',
+	templateUrl: './unverified-data-set-list.component.html',
+	styleUrls: ['./unverified-data-set-list.component.scss']
 })
 export class UnverifiedDataSetsComponent implements OnInit {
 
@@ -53,9 +54,28 @@ export class UnverifiedDataSetsComponent implements OnInit {
 			this.sort.current = "site";
 			this.sort.reversed = false;
 		}
-		this.dataSets.sort((a, b) => {
-			return this.stringSortFunction(a.site.constantName, b.site.constantName, this.sort.reversed);
-		});
+		let properties:string[] = [
+			"site.constantName",
+			"uploadedDate",
+			"filename"
+		]
+		ArrayUtils.sort(this.dataSets, properties, this.sort.reversed, false);
+	}
+
+	sortByUploadedDate() {
+		if (this.sort.current === "uploadedDate") {
+			this.sort.reversed = !this.sort.reversed;
+		}
+		else {
+			this.sort.current = "uploadedDate";
+			this.sort.reversed = false;
+		}
+		let properties:string[] = [
+			"uploadedDate",
+			"site.constantName",
+			"filename"
+		]
+		ArrayUtils.sort(this.dataSets, properties, this.sort.reversed, false);
 	}
 
 	// TODO Move this to a util class.

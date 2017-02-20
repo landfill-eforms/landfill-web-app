@@ -1,5 +1,5 @@
 import { InstantaneousData } from './instantaneous-data.class';
-import { IMENumberStatus } from './ime-number-status.enum';
+import { IMENumberStatus } from '../../../model/ime-number-status.enum';
 import { MonitoringPoint } from '../../../model/monitoring-point.enum';
 import { IMERepairData } from './ime-repair-data.class';
 import { IMEData } from './ime-data.class';
@@ -14,7 +14,7 @@ export class IMENumber {
 	id:number;
 	site:Site;
 	discoveryDate:number;
-	series:number;
+	sequence:number;
 	status:IMENumberStatus;
 	monitoringPoints:MonitoringPoint[];
 	instantaneousData:InstantaneousData[];

@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  */
 @Repository
-public class IMENumbersDaoImpl implements IMENumbersDao {
+public class IMENumberDaoImpl implements IMENumberDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;

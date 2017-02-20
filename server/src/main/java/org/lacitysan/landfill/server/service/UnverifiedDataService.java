@@ -35,7 +35,7 @@ public class UnverifiedDataService {
 	MonitoringPointService monitoringPointService;
 	
 	@Autowired
-	IMENumbersDao imeNumbersDao;
+	IMENumberDao imeNumberDao;
 	
 	public Set<InstantaneousData> verifyInstantaneousData(UnverifiedDataSet dataSet) {
 		Set<InstantaneousData> result = new HashSet<>();
@@ -87,14 +87,12 @@ public class UnverifiedDataService {
 		Instrument instrument = new Instrument();
 		instrument.setId(1);
 		Long baseStartTime = date - 1000 * 60 * 60 * 24 * new Random().nextInt(60);
-		List<Site> siteList = Arrays.asList(new Site[] {site});
-		List<MonitoringPointType> typeList = Arrays.asList(new MonitoringPointType[] {MonitoringPointType.GRID});
 		Set<MonitoringPoint> usedMonitoringPoints = new HashSet<>();
 		for (int i = 0; i < new Random().nextInt(20); i++) {
 			Long startTime = baseStartTime - 1000 * 60 * new Random().nextInt(180);
 			UnverifiedInstantaneousData instantaneousData = new UnverifiedInstantaneousData();
 			while (true) {
-				MonitoringPoint grid = monitoringPointService.getRandom(siteList, typeList);
+				MonitoringPoint grid = monitoringPointService.getRandom(MonitoringPointType.GRID, site);
 				if (usedMonitoringPoints.add(grid)) {
 					instantaneousData.setMonitoringPoint(grid);
 					break;

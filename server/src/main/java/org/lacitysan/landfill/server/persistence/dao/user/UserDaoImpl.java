@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  */
 @Repository
-public class UsersDaoImpl implements UsersDao {
+public class UserDaoImpl implements UserDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;

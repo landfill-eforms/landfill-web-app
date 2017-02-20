@@ -9,9 +9,9 @@ import java.util.Set;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.model.Site;
-import org.lacitysan.landfill.server.persistence.dao.instantaneous.IMENumbersDao;
-import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetsDao;
-import org.lacitysan.landfill.server.persistence.dao.user.UsersDao;
+import org.lacitysan.landfill.server.persistence.dao.instantaneous.IMENumberDao;
+import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
+import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
@@ -36,13 +36,13 @@ public class FileUploadController {
 	MobileDataMapper mobileDataMapper;
 	
 	@Autowired
-	UnverifiedDataSetsDao unverifiedDataSetsDao;
+	UnverifiedDataSetDao unverifiedDataSetDao;
 	
 	@Autowired
-	IMENumbersDao imeNumbersDao;
+	IMENumberDao imeNumberDao;
 	
 	@Autowired
-	UsersDao usersDao;
+	UserDao userDao;
 
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public Object testUpload(@RequestBody MultipartFile file) {
@@ -65,14 +65,14 @@ public class FileUploadController {
 			}
 			
 			for (IMENumber imeNumber : imeNumbers) {
-				imeNumber.setId((Integer)imeNumbersDao.create(imeNumber));
+				imeNumber.setId((Integer)imeNumberDao.create(imeNumber));
 			}
 			
 			dataSet.setId(0);
 			dataSet.setFilename(file.getOriginalFilename());
 			dataSet.setSite(site);
 			dataSet.setUnverifiedInstantaneousData(inst);
-			User inspector = usersDao.getUserByUsername(rawList.get(0).getInspectorUserName());
+			User inspector = userDao.getUserByUsername(rawList.get(0).getInspectorUserName());
 			if (inspector == null) {
 				inspector = new User();
 				inspector.setId(1);
@@ -81,7 +81,7 @@ public class FileUploadController {
 			dataSet.setInspector(inspector);
 			dataSet.setUploadedBy(inspector);
 			dataSet.setUploadedDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
-			Object result = unverifiedDataSetsDao.create(dataSet);
+			Object result = unverifiedDataSetDao.create(dataSet);
 			if (result instanceof Integer) {
 				dataSet.setId((Integer)result);
 			}

@@ -5,6 +5,7 @@ import { environment } from './../../environments/environment';
 import { AuthHttp } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 
+/** Handles the logical operations for IMENumber objects. */
 @Injectable()
 export class IMENumberService {
 
@@ -40,11 +41,11 @@ export class IMENumberService {
 			);
 	}
 
-	generateIMENumberString(site:Site, discoveryDate:number, series:number) {
-		let date:Date = new Date(discoveryDate);
+	getStringFromImeNumber(imeNumber:IMENumber):string {
+		let date:Date = new Date(imeNumber.discoveryDate);
 		let month = date.getMonth() + 1;
 		let dayOfMonth = date.getDate();
-        return site.shortName + "-" + (month < 10 ? "0" + month : month) + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth) + (date.getFullYear() % 2000) + "-" + (series < 10 ? "0" + series : series);
-	} 
+        return imeNumber.site.shortName + "-" + (date.getFullYear() % 2000) + (month < 10 ? "0" + month : month) + "-" + (imeNumber.sequence < 10 ? "0" : "") + imeNumber.sequence;
+	}
 
 }

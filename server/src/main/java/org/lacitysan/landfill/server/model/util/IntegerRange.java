@@ -1,12 +1,13 @@
-package org.lacitysan.landfill.server.service.model;
+package org.lacitysan.landfill.server.model.util;
 
 /**
+ * A range of integers represented by a min and max value.
  * @author Alvin Quach
  */
-public class OrdinalRange {
+public class IntegerRange {
 	private int min;
 	private int max;
-	public OrdinalRange(int min, int max) {
+	public IntegerRange(int min, int max) {
 		this.min = min;
 		this.max = max;
 	}

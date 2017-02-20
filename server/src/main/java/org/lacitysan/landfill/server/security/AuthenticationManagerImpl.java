@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.security;
 
-import org.lacitysan.landfill.server.persistence.dao.user.UsersDao;
+import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class AuthenticationManagerImpl implements AuthenticationManager {
 
 	@Autowired
-	UsersDao usersDao;
+	UserDao userDao;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -28,7 +28,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		
 		String username = (String)authentication.getPrincipal();
-		User user = usersDao.getUserByUsername(username);
+		User user = userDao.getUserByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid Username"); // TODO Change this to "Invalid user or password"
 		}

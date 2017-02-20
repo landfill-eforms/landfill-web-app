@@ -11,7 +11,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 		FormsModule,
 		RouterModule,
 		MaterialModule.forRoot(),
-		FlexLayoutModule.forRoot()
+		FlexLayoutModule
 	],
 	providers: [],
 	declarations: [],

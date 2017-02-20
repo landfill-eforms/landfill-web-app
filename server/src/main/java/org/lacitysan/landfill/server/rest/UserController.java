@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.rest;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.dao.user.UsersDao;
+import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,25 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 	@Autowired
-	UsersDao usersDao;
+	UserDao userDao;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
 	@RequestMapping(value="/unique/username/{username}", method=RequestMethod.GET)
 	public User getByUsername(@PathVariable String username) {
-		return usersDao.getUserByUsername(username);
+		return userDao.getUserByUsername(username);
 	}
 	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<User> getAll() {
-		return usersDao.getAllUsers();
+		return userDao.getAllUsers();
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public Object update(@RequestBody User user) {
 		//user.getPerson().setUser(user);
-		usersDao.update(user);
+		userDao.update(user);
 		return true;
 	}
 	
@@ -46,7 +46,7 @@ public class UserController {
 		//user.getPerson().setUser(user);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setEnabled(true);
-		return usersDao.create(user);
+		return userDao.create(user);
 	}
 	
 }

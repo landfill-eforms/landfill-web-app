@@ -1,4 +1,4 @@
-import { IMENumberStatus } from './../../../model/server/persistence/entity/instantaneous/ime-number-status.enum';
+import { IMENumberStatus } from './../../../model/server/model/ime-number-status.enum';
 import { Site } from './../../../model/server/model/site.enum';
 import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { IMENumberService } from './../../../services/ime-number.service';
@@ -34,7 +34,7 @@ export class AssignIMENumberDialogComponent {
 		let imeNumber:IMENumber = new IMENumber();
 		imeNumber.site = <any>this.site.constantName;
 		imeNumber.discoveryDate = this.action.newDate;
-		imeNumber.series = this.action.newSeries;
+		imeNumber.sequence = this.action.newSeries;
 		imeNumber.status = <any>IMENumberStatus.UNVERIFIED.constantName;
 		imeNumber.imeNumber = this.action.newImeNumberString;
 		this.imeNumberService.create((data) => {
@@ -55,7 +55,11 @@ export class AssignIMENumberDialogComponent {
 		this.action.newDate = event.target.valueAsNumber  + 1000 * 60 * 60 * 24; // Date picker is off by one day.
 		if (this.action.newDate) {
 			this.action.newSeries = this.findMaxIMESeries(this.action.newDate) + 1;
-			this.action.newImeNumberString = this.imeNumberService.generateIMENumberString(this.site, this.action.newDate, this.action.newSeries);
+			this.action.newImeNumberString = this.imeNumberService.getStringFromImeNumber(<any>{
+				site: this.site, 
+				discoveryDate: this.action.newDate, 
+				sequence: this.action.newSeries
+			});
 		}
 		else {
 			this.action.newSeries = null;
@@ -76,14 +80,14 @@ export class AssignIMENumberDialogComponent {
 		let max:number = 0;
 		for (let i = 0; i < this.existingIMENumbers.length; i++) {
 			let imeNumber:IMENumber = this.existingIMENumbers[i];
-			if (imeNumber.discoveryDate == date && imeNumber.series > max) {
-				max = imeNumber.series;
+			if (imeNumber.discoveryDate == date && imeNumber.sequence > max) {
+				max = imeNumber.sequence;
 			}
 		}
 		// for (let i = 0; i < this.createdIMENumbers.length; i++) {
 		// 	let imeNumber:IMENumber = this.createdIMENumbers[i];
-		// 	if (imeNumber.discoveryDate == date && imeNumber.series > max) {
-		// 		max = imeNumber.series;
+		// 	if (imeNumber.discoveryDate == date && imeNumber.sequence > max) {
+		// 		max = imeNumber.sequence;
 		// 	}
 		// }
 		return max;

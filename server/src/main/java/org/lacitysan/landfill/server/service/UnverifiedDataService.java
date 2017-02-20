@@ -12,14 +12,13 @@ import java.util.stream.Collectors;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.model.MonitoringPointType;
 import org.lacitysan.landfill.server.model.Site;
+import org.lacitysan.landfill.server.persistence.dao.instantaneous.IMENumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMERepairData;
-import org.lacitysan.landfill.server.persistence.dao.instantaneous.IMENumbersDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIMEData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author Alvin Quach
+ * @author Allen Huang
  */
 @Service
 public class UnverifiedDataService {

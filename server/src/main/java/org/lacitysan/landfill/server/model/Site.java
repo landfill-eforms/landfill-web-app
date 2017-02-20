@@ -31,12 +31,15 @@ public enum Site {
 	public String getName() {
 		return name;
 	}
+	
 	public String getShortName() {
 		return shortName;
 	}
+	
 	public String getType() {
 		return type;
 	}
+	
 	public boolean isActive() {
 		return active;
 	}

@@ -1,7 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -174,7 +173,7 @@ public class IMENumber {
 
 	@Override
 	public String toString() {
-		return IMEService.getStringFromIMENumber(this);
+		return new IMEService().getStringFromIMENumber(this);
 	}
 
 }

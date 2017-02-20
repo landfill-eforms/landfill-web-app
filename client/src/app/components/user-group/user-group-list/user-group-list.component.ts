@@ -9,9 +9,9 @@ import { UserGroupService } from './../../../services/user-group.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'app-user-groups',
-	templateUrl: './user-groups.component.html',
-	styleUrls: ['./user-groups.component.scss']
+	selector: 'app-user-group-list',
+	templateUrl: './user-group-list.component.html',
+	styleUrls: ['./user-group-list.component.scss']
 })
 export class UserGroupsComponent implements OnInit {
 

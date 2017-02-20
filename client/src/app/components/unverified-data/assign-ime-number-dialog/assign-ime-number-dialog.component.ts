@@ -1,4 +1,4 @@
-import { IMENumberStatus } from './../../../model/server/persistence/entity/instantaneous/ime-number-status.enum';
+import { IMENumberStatus } from './../../../model/server/model/ime-number-status.enum';
 import { Site } from './../../../model/server/model/site.enum';
 import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { IMENumberService } from './../../../services/ime-number.service';
@@ -55,7 +55,11 @@ export class AssignIMENumberDialogComponent {
 		this.action.newDate = event.target.valueAsNumber  + 1000 * 60 * 60 * 24; // Date picker is off by one day.
 		if (this.action.newDate) {
 			this.action.newSeries = this.findMaxIMESeries(this.action.newDate) + 1;
-			this.action.newImeNumberString = this.imeNumberService.generateIMENumberString(this.site, this.action.newDate, this.action.newSeries);
+			this.action.newImeNumberString = this.imeNumberService.getStringFromImeNumber(<any>{
+				site: this.site, 
+				discoveryDate: this.action.newDate, 
+				sequence: this.action.newSeries
+			});
 		}
 		else {
 			this.action.newSeries = null;

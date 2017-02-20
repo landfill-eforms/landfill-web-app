@@ -1,9 +1,9 @@
 import { UnverifiedDataSetComponent } from './components/unverified-data/unverified-data-set/unverified-data-set.component';
-import { UnverifiedDataSetsComponent } from './components/unverified-data/unverified-data-sets/unverified-data-sets.component';
+import { UnverifiedDataSetsComponent } from './components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
 import { IMENumbersComponent } from './components/instantaneous/ime-numbers/ime-numbers.component';
 import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
 import { UserGroupComponent } from './components/user-group/user-group/user-group.component';
-import { UserGroupsComponent } from './components/user-group/user-groups/user-groups.component';
+import { UserGroupsComponent } from './components/user-group/user-group-list/user-group-list.component';
 import { Route, Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from "@angular/core";
 import { AuthGuard } from "./services/auth/authguard";
@@ -16,7 +16,7 @@ import { InstantaneousUploadTestComponent } from './components/test/instantaneou
 import { UserOverviewComponent } from './components/user/user-overview/user-overview.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { UserBaseComponent } from './components/user/user-base/user-base.component';
-import { UsersComponent } from './components/user/users/users.component';
+import { UserListComponent } from './components/user/user-list/user-list.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ComingSoonComponent } from './components/public/coming-soon/coming-soon.component';
 
@@ -25,7 +25,7 @@ export const RestrictedRouteBase:string = 'app';
 const UserRoutes:Routes = [
 	{
 		path: 'users',
-		component: UsersComponent,
+		component: UserListComponent,
 	},
 	{
 		path: 'user/:username',
@@ -38,7 +38,7 @@ const UserRoutes:Routes = [
 ];
 
 const UserGroupsRoute:Route = {
-	path: 'user-groups',
+	path: 'user-group-list',
 	component: UserGroupsComponent
 }
 
@@ -63,7 +63,7 @@ const UnverifiedDataSetRoute:Route = {
 }
 
 const UnverifiedDataSetsRoute:Route = {
-	path: 'unverified-data-sets',
+	path: 'unverified-data-set-list',
 	component: UnverifiedDataSetsComponent
 }
 

@@ -25,7 +25,7 @@ public class IMEService {
 	 * @param imeNumber The object that contains the IME number's information. 
 	 * @return The formatted IME number string.
 	 */
-	public String getStringFromIMENumber(IMENumber imeNumber) {
+	public String getStringFromImeNumber(IMENumber imeNumber) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMM");
 		return imeNumber.getSite().getShortName() + "-" + dateFormat.format(imeNumber.getDiscoveryDate()) + "-" + String.format("%02d", 5);
 	}
@@ -38,7 +38,7 @@ public class IMEService {
 	 * @param imeNumber String representation of an IME number.
 	 * @return A generated <code>IMENumber</code> object based on the input IME number string, or <code>null</code> if the input string was not valid.
 	 */
-	public IMENumber getIMENumberFromString(String imeNumber) {
+	public IMENumber getImeNumberFromString(String imeNumber) {
 		imeNumber = imeNumber.replaceAll("-", "").trim();
 		try {
 			if (imeNumber.length() != 8) {

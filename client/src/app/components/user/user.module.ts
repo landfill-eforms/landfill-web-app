@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '../common/common.module'
 import { UserBaseComponent } from './user-base/user-base.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { UsersComponent } from './users/users.component';
+import { UserListComponent } from './user-list/user-list.component';
 import { UserOverviewComponent } from './user-overview/user-overview.component';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { UserOverviewComponent } from './user-overview/user-overview.component';
     ],
     providers: [],
     declarations: [
-		UsersComponent,
+		UserListComponent,
 		UserBaseComponent,
         UserOverviewComponent,
 		UserProfileComponent,

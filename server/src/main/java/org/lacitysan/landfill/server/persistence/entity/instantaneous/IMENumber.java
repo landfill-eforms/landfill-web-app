@@ -173,7 +173,7 @@ public class IMENumber {
 
 	@Override
 	public String toString() {
-		return new IMEService().getStringFromIMENumber(this);
+		return new IMEService().getStringFromImeNumber(this);
 	}
 
 }

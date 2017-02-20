@@ -41,11 +41,11 @@ export class IMENumberService {
 			);
 	}
 
-	generateIMENumberString(site:Site, discoveryDate:number, sequence:number) {
-		let date:Date = new Date(discoveryDate);
+	getStringFromImeNumber(imeNumber:IMENumber):string {
+		let date:Date = new Date(imeNumber.discoveryDate);
 		let month = date.getMonth() + 1;
 		let dayOfMonth = date.getDate();
-        return site.shortName + "-" + (month < 10 ? "0" + month : month) + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth) + (date.getFullYear() % 2000) + "-" + (sequence < 10 ? "0" + sequence : sequence);
-	} 
+        return imeNumber.site.shortName + "-" + (date.getFullYear() % 2000) + (month < 10 ? "0" + month : month) + "-" + (imeNumber.sequence < 10 ? "0" : "") + imeNumber.sequence;
+	}
 
 }

@@ -30,7 +30,7 @@ public class TokenAuthenticationUtil {
 	/** Adds authentication info to response header. */
 	public static void addAuthentication(HttpServletResponse response, Authentication authentication) {
 		Map<String, Object> claims = new HashMap<>();
-		claims.put("username", authentication.getName());
+		claims.put("principle", authentication.getPrincipal());
 		claims.put("roles", authentication.getAuthorities().stream().map(a -> a.getAuthority()).toArray());
 		String JWT = Jwts.builder()
 				.setClaims(claims)
@@ -52,16 +52,22 @@ public class TokenAuthenticationUtil {
 						.setSigningKey(ApplicationProperty.TOKEN_SECRET)
 						.parseClaimsJws(token)
 						.getBody();
-				Object username = claims.get("username");
+				Object principle = claims.get("principle");
 				Object roles = claims.get("roles");
-				if (username != null) {
+				if (principle != null && principle instanceof Map) {
+					Object id = ((Map<?, ?>)principle).get("id");
+					Object username = ((Map<?, ?>)principle).get("username");
+					if (id == null || username == null) {
+						return null;
+					}
 					List<GrantedAuthority> authorities = new ArrayList<>(); 
 					if (roles != null && roles instanceof List) {
 						for (Object role : (List<?>)roles) {
 							authorities.add(new MyGrantedAuthority(role.toString()));
 						}
 					}
-					return new AuthenticatedUser(username.toString(), authorities);
+					System.out.println("USER ID: " + id.toString());
+					return new AuthenticatedUser(Integer.parseInt(id.toString()), username.toString(), authorities);
 				}
 			} catch (ExpiredJwtException e) {
 				System.out.println("ExpiredJwtException: Token " + token + " is expired.");

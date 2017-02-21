@@ -16,16 +16,17 @@ This project is very much still a work in progress.
 ## Prerequisites
 This section lists the prerequisites for each component of the web application separately. You will only need the prereqs for the component(s) that you want to work on or run.
 ### Front-End Server
-* Node 4 or higher, together with npm 3 or higher. Download both from [here](https://nodejs.org/en/download/).
+* Currently, Node 4 or higher together with npm 3 or higher is required. However, Node 6.9 or higher may be required in future versions of the project, and is thus recommended. Download both Node and npm from [here](https://nodejs.org/en/download/). For Linux users, Node can be installed via [package manager](https://nodejs.org/en/download/package-manager/), and npm can be similarly installed.
 * Angular-CLI (installation instructions [below](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#installing-angular-cli)).
 * Visual Studio Code, or another TypeScript editor. Download VS Code from [here](https://code.visualstudio.com/).
 
 ### Back-End Server
 * Eclipse, or another Java IDE.
-* Gradle Buildship plugin for Eclipse, or the equivalent if using a different IDE. Installation instructions can be found [here](http://download.eclipse.org/buildship/updates/e46/releases/1.0/1.0.21.v20161010-1640/).
+* Gradle Buildship plugin for Eclipse, or the equivalent if using a different IDE. Installation instructions can be found [here](http://download.eclipse.org/buildship/updates/e46/releases/2.x/2.0.0.v20170111-1029/).
+* JDBC Driver for Microsoft SQL Server. Download [here](https://www.microsoft.com/en-us/download/details.aspx?id=11774).
 
 ### Database Management
-* Microsoft SQL Server Management Studio. Download from [here](https://msdn.microsoft.com/en-us/library/mt238290.aspx).
+* Microsoft SQL Server Management Studio. Download from [here](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
 
 ## Environment Setup
 This section will help you set up the development environments for the first time. Each component will require its respective [prerequisites](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#prerequisites) to be installed.
@@ -52,8 +53,9 @@ The dependencies may take a few miniutes to download.
 ### Back-End Server
 1. Start Eclipse.
 2. Import `landfill-web-app/server` as Gradle Project.
+3. If Gradle has not automatically downloaded the project dependencies, right click on the 'server' project folder and click Gradle->Refresh Gradle Project.
+4. Add the Microsoft SQL Server JDBC driver 'sqljdbc42.jar' as an external JAR.
 
-To be continued...
 ### Database Management
 Coming soon...
 ## Launching Server Instances

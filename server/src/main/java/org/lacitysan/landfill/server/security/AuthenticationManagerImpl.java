@@ -38,7 +38,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 			throw new BadCredentialsException("Invalid Password"); // TODO Change this to "Invalid user or password"
 		}
 		
-		AuthenticatedUser result = new AuthenticatedUser(user.getUsername(), TokenAuthenticationUtil.userGroupToAuthorities(user.getUserGroups()));
+		AuthenticatedUser result = new AuthenticatedUser(user.getId(), user.getUsername(), TokenAuthenticationUtil.userGroupToAuthorities(user.getUserGroups()));
 		return result;
 	}
 

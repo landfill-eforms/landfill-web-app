@@ -13,7 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class AuthenticatedUser implements Authentication {
 
-	private static final long serialVersionUID = 1829948366121048803L;
+	private static final long serialVersionUID = -3618696865152998087L;
 	
 	private Integer id;
 	private String username;

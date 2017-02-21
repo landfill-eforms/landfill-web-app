@@ -6,13 +6,13 @@ import org.springframework.security.core.GrantedAuthority;
  * Custom implementation of <code>GrantedAuthority</code>
  * @author Alvin Quach
  */
-public class MyGrantedAuthority implements GrantedAuthority {
+public class GrantedAuthorityImpl implements GrantedAuthority {
 
-	private static final long serialVersionUID = -5221704708351024711L;
+	private static final long serialVersionUID = 6428040432019203777L;
 	
 	String authority;
 	
-	public MyGrantedAuthority(String authority) {
+	public GrantedAuthorityImpl(String authority) {
 		this.authority = authority;
 	}
 	
@@ -26,10 +26,10 @@ public class MyGrantedAuthority implements GrantedAuthority {
 		if (o == null) {
 			return false;
 		}
-		if (!(o instanceof MyGrantedAuthority)) {
+		if (!(o instanceof GrantedAuthorityImpl)) {
 			return false;
 		}
-		return authority.equals(((MyGrantedAuthority)o).getAuthority());
+		return authority.equals(((GrantedAuthorityImpl)o).getAuthority());
 	}
 	
 }

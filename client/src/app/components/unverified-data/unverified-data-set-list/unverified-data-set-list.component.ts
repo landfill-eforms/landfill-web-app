@@ -1,4 +1,4 @@
-import { ArrayUtils } from './../../../utils/array.utils';
+import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { MonitoringPoint } from './../../../model/server/model/monitoring-point.enum';
 import { EnumUtils } from './../../../utils/enum.utils';
 import { Site } from './../../../model/server/model/site.enum';
@@ -18,13 +18,39 @@ export class UnverifiedDataSetsComponent implements OnInit {
 
 	StringUtils = StringUtils;
 	DateTimeUtils = DateTimeUtils;
-	
 
 	dataSets:UnverifiedDataSet[] = [];
 	isDataLoaded:boolean = false;
-	sort:any = {
+
+	sort:Sort = {
 		current: "id",
 		reversed: false
+	}
+
+	sortProperties:any = {
+		site: [
+			"site.constantName",
+			"uploadedDate",
+			"filename"
+		],
+		uploadedBy: [
+			"uploadedBy",
+			"uploadedDate",
+			"filename"
+		],
+		uploadedDate: [
+			"uploadedDate",
+			"filename"
+		],
+		modifiedBy: [
+			"modifiedBy",
+			"modifiedDate",
+			"filename"
+		],
+		modifiedDate: [
+			"modifiedDate",
+			"filename"
+		]
 	}
 
 	constructor(
@@ -46,42 +72,8 @@ export class UnverifiedDataSetsComponent implements OnInit {
 		});
 	}
 
-	sortBySite() {
-		if (this.sort.current === "site") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "site";
-			this.sort.reversed = false;
-		}
-		let properties:string[] = [
-			"site.constantName",
-			"uploadedDate",
-			"filename"
-		]
-		ArrayUtils.sort(this.dataSets, properties, this.sort.reversed, false);
-	}
-
-	sortByUploadedDate() {
-		if (this.sort.current === "uploadedDate") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "uploadedDate";
-			this.sort.reversed = false;
-		}
-		let properties:string[] = [
-			"uploadedDate",
-			"site.constantName",
-			"filename"
-		]
-		ArrayUtils.sort(this.dataSets, properties, this.sort.reversed, false);
-	}
-
-	// TODO Move this to a util class.
-	private stringSortFunction(a:string, b:string, reversed:boolean):number {
-		if (a == b) return 0;
-		return (a > b ? 1 : -1) * (reversed ? -1 : 1);
+	sortBy(sortBy:string) {
+		SortUtils.sortAndUpdate(this.sort, sortBy, this.dataSets, this.sortProperties[sortBy]);
 	}
 
 }

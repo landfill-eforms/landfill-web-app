@@ -7,39 +7,39 @@
 		</div>
 		<div *ngIf="isDataLoaded" class="list-table">
 			<div class="unselectable list-table-header-row flex-container" fxLayout="row">
-				<div class="truncate flex-item" fxFlex (click)="sortBySite()">
+				<div class="truncate flex-item" fxFlex (click)="sortBy('site')">
 					<span class="list-table-header-label-sortable">Site</span>
 					<md-icon class="list-table-header-sort" [ngClass]="{
 						'list-table-header-sort-reverse':sort.reversed,
 						'list-table-header-sort-inactive':sort.current !== 'site'}">
 						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortByUploadedBy()">
+				<div class="truncate flex-item" fxFlex (click)="sortBy('uploadedBy')">
 					<span class="list-table-header-label-sortable">Uploaded By</span>
 					<md-icon class="list-table-header-sort" [ngClass]="{
 						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'date'}">
+						'list-table-header-sort-inactive':sort.current !== 'uploadedBy'}">
 						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortByUploadedDate()">
+				<div class="truncate flex-item" fxFlex (click)="sortBy('uploadedDate')">
 					<span class="list-table-header-label-sortable">Upload Date</span>
 					<md-icon class="list-table-header-sort" [ngClass]="{
 						'list-table-header-sort-reverse':sort.reversed,
 						'list-table-header-sort-inactive':sort.current !== 'uploadedDate'}">
 						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortByModifiededBy()">
+				<div class="truncate flex-item" fxFlex (click)="sortBy('modifiedBy')">
 					<span class="list-table-header-label-sortable">Modified By</span>
 					<md-icon class="list-table-header-sort" [ngClass]="{
 						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'date'}">
+						'list-table-header-sort-inactive':sort.current !== 'modifiedBy'}">
 						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortByModifiedDate()">
+				<div class="truncate flex-item" fxFlex (click)="sortBy('modifiedDate')">
 					<span class="list-table-header-label-sortable">Modified Date</span>
 					<md-icon class="list-table-header-sort" [ngClass]="{
 						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'date'}">
+						'list-table-header-sort-inactive':sort.current !== 'modifiedDate'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex>

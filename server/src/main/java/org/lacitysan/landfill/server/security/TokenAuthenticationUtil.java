@@ -41,13 +41,13 @@ public class TokenAuthenticationUtil {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Expose-Headers", "Authorization");
 	}
-
+	
+	/** Parses the JWT from incoming HTTP requests and generates an <code>AuthenticatedUser</code> object based on the parsed info. */
 	public static Authentication getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(ApplicationProperty.HTTP_TOKEN_HEADER_NAME);
 		if (token != null) {
 			try {
 				token = token.replace(ApplicationProperty.HTTP_TOKEN_PREFIX + " ", "");
-				System.out.println(token);
 				Claims claims = Jwts.parser()
 						.setSigningKey(ApplicationProperty.TOKEN_SECRET)
 						.parseClaimsJws(token)
@@ -63,10 +63,9 @@ public class TokenAuthenticationUtil {
 					List<GrantedAuthority> authorities = new ArrayList<>(); 
 					if (roles != null && roles instanceof List) {
 						for (Object role : (List<?>)roles) {
-							authorities.add(new MyGrantedAuthority(role.toString()));
+							authorities.add(new GrantedAuthorityImpl(role.toString()));
 						}
 					}
-					System.out.println("USER ID: " + id.toString());
 					return new AuthenticatedUser(Integer.parseInt(id.toString()), username.toString(), authorities);
 				}
 			} catch (ExpiredJwtException e) {
@@ -76,10 +75,11 @@ public class TokenAuthenticationUtil {
 		return null;
 	}
 
-	public static Set<MyGrantedAuthority> userGroupToAuthorities(Collection<UserGroup> userGroups) {
+	/** Converts a collection of user groups to a set of granted authorities. */
+	public static Set<GrantedAuthority> userGroupToAuthorities(Collection<UserGroup> userGroups) {
 		return userGroups.stream()
 				.flatMap(g -> g.getUserRoles().stream())
-				.map(r -> new MyGrantedAuthority(r.name()))
+				.map(r -> new GrantedAuthorityImpl(r.name()))
 				.collect(Collectors.toSet());
 	}
 

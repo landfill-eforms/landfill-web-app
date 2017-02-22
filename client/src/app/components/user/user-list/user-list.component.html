@@ -7,28 +7,28 @@
 		</div>
 		<div *ngIf="isDataLoaded" class="list-table">
 			<div class="unselectable list-table-header-row flex-container" fxLayout="row">
-				<div class="truncate flex-item" fxFlex (click)="sortByUsername()">
+				<div class="truncate flex-item" fxFlex (click)="sortBy('username')">
 					<span class="list-table-header-label-sortable">Username</span>
 					<md-icon class="list-table-header-sort" [ngClass]="{
 						'list-table-header-sort-reverse':sort.reversed,
 						'list-table-header-sort-inactive':sort.current !== 'username'}">
 						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="25" (click)="sortByName()">
+				<div class="truncate flex-item" fxFlex="25" (click)="sortBy('name')">
 					<span class="list-table-header-label-sortable">Name</span>
 					<md-icon class="list-table-header-sort" [ngClass]="{
 						'list-table-header-sort-reverse':sort.reversed,
 						'list-table-header-sort-inactive':sort.current !== 'name'}">
 						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="25" (click)="sortByEmail()">
+				<div class="truncate flex-item" fxFlex="25" (click)="sortBy('emailAddress')">
 					<span class="list-table-header-label-sortable">Email</span>
 					<md-icon class="list-table-header-sort" [ngClass]="{
 						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'email'}">
+						'list-table-header-sort-inactive':sort.current !== 'emailAddress'}">
 						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="25" (click)="sortByEmployeeId()">
+				<div class="truncate flex-item" fxFlex="25" (click)="sortBy('employeeId')">
 					<span class="list-table-header-label-sortable">Employee ID</span>
 					<md-icon class="list-table-header-sort" [ngClass]="{
 						'list-table-header-sort-reverse':sort.reversed,

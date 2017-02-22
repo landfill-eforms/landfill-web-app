@@ -12,17 +12,17 @@ import { UserRole } from './../../../model/server/model/user-role.enum';
 })
 export class NavigationBaseComponent implements OnInit {
 
-	readonly homeSection:RouteSection = {
+	readonly homeSection:NavRouteSection = {
 		name: "Home",
-		routes: [
+		links: [
 			{
-				path: 'dashboard',
+				route: 'dashboard',
 				icon: 'dashboard', 
 				label: 'Dashboard',
 				visible: false
 			},
 			{
-				path: 'coming-soon',
+				route: 'coming-soon',
 				icon: 'settings', 
 				label: 'Application Settings',
 				visible: false
@@ -30,17 +30,17 @@ export class NavigationBaseComponent implements OnInit {
 		]
 	};
 
-	readonly userManagementSection:RouteSection = {
+	readonly userManagementSection:NavRouteSection = {
 		name: "User Management",
-		routes: [
+		links: [
 			{
-				path: 'users', 
+				route: 'users', 
 				icon: 'people', 
 				label: 'Users',
 				visible: false
 			},
 			{
-				path: 'user-group-list',
+				route: 'user-group-list',
 				icon: 'group_work',
 				label: 'User Groups',
 				visible: false
@@ -48,11 +48,11 @@ export class NavigationBaseComponent implements OnInit {
 		]
 	};
 
-	readonly instantaneousSection:RouteSection = {
+	readonly instantaneousSection:NavRouteSection = {
 		name: "Instantaneous Data",
-		routes: [
+		links: [
 			{
-				path: 'ime-numbers',
+				route: 'ime-numbers',
 				icon: 'add',
 				label: 'IME List',
 				visible: false
@@ -60,11 +60,11 @@ export class NavigationBaseComponent implements OnInit {
 		]
 	}
 
-	readonly unverifiedDataSection:RouteSection = {
+	readonly unverifiedDataSection:NavRouteSection = {
 		name: "Data Verification",
-		routes: [
+		links: [
 			{
-				path: 'unverified-data-set-list',
+				route: 'unverified-data-set-list',
 				icon: 'gesture',
 				label: 'Unverified Data Sets',
 				visible: false
@@ -72,41 +72,41 @@ export class NavigationBaseComponent implements OnInit {
 		]
 	}
 
-	readonly reportsSection:RouteSection = {
+	readonly reportsSection:NavRouteSection = {
 		name: "Reports",
-		routes: [
+		links: [
 			{
-				path: 'instantaneous-report',
+				route: 'instantaneous-report',
 				icon: 'assignment',
 				label: 'Instantaneous Report',
 				visible: false
 			},
 			{
-				path: 'coming-soon',
+				route: 'coming-soon',
 				icon: 'assignment',
 				label: 'IME Report',
 				visible: false
 			},
 			{
-				path: 'coming-soon',
+				route: 'coming-soon',
 				icon: 'assignment',
 				label: 'Integrated Report',
 				visible: false
 			},
 			{
-				path: 'coming-soon',
+				route: 'coming-soon',
 				icon: 'assignment',
 				label: 'ISE Report',
 				visible: false
 			},
 			{
-				path: 'coming-soon',
+				route: 'coming-soon',
 				icon: 'assignment',
 				label: 'Probe Report',
 				visible: false
 			},
 			{
-				path: 'coming-soon',
+				route: 'coming-soon',
 				icon: 'email',
 				label: 'Email Reports',
 				visible: false
@@ -114,23 +114,23 @@ export class NavigationBaseComponent implements OnInit {
 		]
 	};
 
-	readonly notificationSection:RouteSection = {
+	readonly notificationSection:NavRouteSection = {
 		name: "Notifications",
-		routes: [
+		links: [
 			{
-				path: 'coming-soon',
+				route: 'coming-soon',
 				icon: 'error',
 				label: 'Current Alerts',
 				visible: false
 			},
 			{
-				path: 'coming-soon',
+				route: 'coming-soon',
 				icon: 'warning',
 				label: 'Manage Alerts',
 				visible: false
 			},
 			{
-				path: 'coming-soon',
+				route: 'coming-soon',
 				icon: 'email',
 				label: 'Email Notification Settings',
 				visible: false
@@ -138,17 +138,17 @@ export class NavigationBaseComponent implements OnInit {
 		]
 	};
 
-	readonly dataTransferSection:RouteSection = {
+	readonly dataTransferSection:NavRouteSection = {
 		name: "Data Transfer",
-		routes: [
+		links: [
 			{
-				path: 'instantaneous-upload',
+				route: 'instantaneous-upload',
 				icon: 'file_upload',
 				label: 'Upload From Mobile',
 				visible: false
 			},
 			{
-				path: 'coming-soon',
+				route: 'coming-soon',
 				icon: 'sync',
 				label: 'Sync To Mobile',
 				visible: false
@@ -156,7 +156,7 @@ export class NavigationBaseComponent implements OnInit {
 		]
 	};
 
-	readonly sections:RouteSection[] = [
+	readonly sections:NavRouteSection[] = [
 		this.homeSection,
 		this.dataTransferSection,
 		this.instantaneousSection,
@@ -174,10 +174,10 @@ export class NavigationBaseComponent implements OnInit {
 
 	ngOnInit() {
 		for (let i = 0; i < this.sections.length; i++) {
-			let section:RouteSection = this.sections[i];
-			for (let j = 0; j < section.routes.length; j++) {
-				let route = section.routes[j];
-				route.visible = this.routeIsVisible(route.path.split('/'), 0, RestrictedRoutes[0].children);
+			let section:NavRouteSection = this.sections[i];
+			for (let j = 0; j < section.links.length; j++) {
+				let link = section.links[j];
+				//link.visible = this.routeIsVisible(route.path.split('/'), 0, RestrictedRoutes[0].children);
 			}
 		}
 	}
@@ -217,14 +217,14 @@ export class NavigationBaseComponent implements OnInit {
 
 }
 
-class RouteLink {
-	path:string;
+class NavRouteLink {
+	route:Route;
 	icon:string;
 	label:string;
 	visible:boolean;
 }
 
-class RouteSection {
+class NavRouteSection {
 	name:string;
-	routes:RouteLink[];
+	links:NavRouteLink[];
 }

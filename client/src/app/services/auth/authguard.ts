@@ -24,18 +24,9 @@ export class AuthGuard implements CanActivate {
 			return false;
 		}
 
-		let userRoles:number[] = this.authService.getUserRoles().map(r => r.ordinal);
-		if (userRoles.indexOf(0) > -1 || userRoles.indexOf(1) > -1) {
-			console.log("AuthGuard: Allowing access because user is an admin.")
+		if (this.authService.canAccess(route.data["roles"])) {
+			console.log("AuthGuard: Allowing access because user is an admin or has a required role.");
 			return true;
-		}
-
-		let requiredRoles:UserRole[] = route.data["roles"];
-		for (let i = 0; i < requiredRoles.length; i++) {
-			if (userRoles.indexOf(requiredRoles[i].ordinal) > -1) {
-				console.log("AuthGuard: Allowing access because user has one or more required roles.")
-				return true;
-			}
 		}
 
 		console.log("AuthGuard: Denying access because user doesn't have any of the requred roles.")

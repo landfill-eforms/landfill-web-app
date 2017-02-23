@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Route, Router } from '@angular/router';
-import { RestrictedRoutes } from './../../../app.routing';
+import { RestrictedRoutes, DefinedRoutes } from './../../../app.routing';
 import { AuthService } from './../../../services/auth/auth.service';
 import { UserRole } from './../../../model/server/model/user-role.enum';
 
@@ -16,7 +16,7 @@ export class NavigationBaseComponent implements OnInit {
 		name: "Home",
 		links: [
 			{
-				route: 'dashboard',
+				route: DefinedRoutes.DASHBOARD,
 				icon: 'dashboard', 
 				label: 'Dashboard',
 				visible: false
@@ -34,13 +34,13 @@ export class NavigationBaseComponent implements OnInit {
 		name: "User Management",
 		links: [
 			{
-				route: 'users', 
+				route: DefinedRoutes.USER_LIST, 
 				icon: 'people', 
 				label: 'Users',
 				visible: false
 			},
 			{
-				route: 'user-group-list',
+				route: DefinedRoutes.USER_GROUP_LIST,
 				icon: 'group_work',
 				label: 'User Groups',
 				visible: false
@@ -64,7 +64,7 @@ export class NavigationBaseComponent implements OnInit {
 		name: "Data Verification",
 		links: [
 			{
-				route: 'unverified-data-set-list',
+				route: DefinedRoutes.UNVERIFIED_DATA_SET_LIST,
 				icon: 'gesture',
 				label: 'Unverified Data Sets',
 				visible: false
@@ -76,7 +76,7 @@ export class NavigationBaseComponent implements OnInit {
 		name: "Reports",
 		links: [
 			{
-				route: 'instantaneous-report',
+				route: DefinedRoutes.INSTANTANEOUS_REPORT,
 				icon: 'assignment',
 				label: 'Instantaneous Report',
 				visible: false
@@ -142,7 +142,7 @@ export class NavigationBaseComponent implements OnInit {
 		name: "Data Transfer",
 		links: [
 			{
-				route: 'instantaneous-upload',
+				route: DefinedRoutes.INSTANTANEOUS_UPLOAD,
 				icon: 'file_upload',
 				label: 'Upload From Mobile',
 				visible: false
@@ -159,7 +159,7 @@ export class NavigationBaseComponent implements OnInit {
 	readonly sections:NavRouteSection[] = [
 		this.homeSection,
 		this.dataTransferSection,
-		this.instantaneousSection,
+		// this.instantaneousSection,
 		this.unverifiedDataSection,
 		this.userManagementSection,
 		this.reportsSection,
@@ -177,42 +177,14 @@ export class NavigationBaseComponent implements OnInit {
 			let section:NavRouteSection = this.sections[i];
 			for (let j = 0; j < section.links.length; j++) {
 				let link = section.links[j];
-				//link.visible = this.routeIsVisible(route.path.split('/'), 0, RestrictedRoutes[0].children);
+				link.visible = !link.route.data || this.authService.canAccess(link.route.data["roles"]);
+				console.log(link.route.path, link.visible);
 			}
 		}
 	}
 
 	logout() {
 		this.authService.logout();
-	}
-
-	private routeIsVisible(path:string[], level:number, appRoutes:Route[]):boolean {
-		let userRoles:UserRole[] = this.authService.getUserRoles();
-		if (this.authService.hasRole(UserRole.SUPER_ADMIN, userRoles) || this.authService.hasRole(UserRole.ADMIN, userRoles)) {
-			return true;
-		}
-		for (let i = 0; i < appRoutes.length; i++) {
-			let route:Route = appRoutes[i];
-			if (route.path === path[level]) {
-				if (path[level + 1]) {
-					if (route.children && route.children.length) {
-						return this.routeIsVisible(path, level + 1, route.children);
-					}
-					return false;
-				}
-				else if (route.data && route.data["roles"] && Array.isArray(route.data["roles"]) && route.data["roles"].length) {
-					let requiredRoles:UserRole[] = route.data["roles"];
-					for (let j = 0; j < userRoles.length; j++) {
-						if (this.authService.hasRole(userRoles[j], requiredRoles)) {
-							return true;
-						}
-					}
-					return false;
-				}
-				return true;
-			}
-		}
-		return false;
 	}
 
 }

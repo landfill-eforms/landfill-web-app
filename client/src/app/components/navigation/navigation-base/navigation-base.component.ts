@@ -21,12 +21,12 @@ export class NavigationBaseComponent implements OnInit {
 				label: 'Dashboard',
 				visible: false
 			},
-			{
-				path: 'coming-soon',
-				icon: 'settings', 
-				label: 'Application Settings',
-				visible: false
-			},
+			// {
+			// 	path: 'coming-soon',
+			// 	icon: 'settings', 
+			// 	label: 'Application Settings',
+			// 	visible: false
+			// },
 		]
 	};
 
@@ -81,36 +81,36 @@ export class NavigationBaseComponent implements OnInit {
 				label: 'Instantaneous Report',
 				visible: false
 			},
-			{
-				path: 'coming-soon',
-				icon: 'assignment',
-				label: 'IME Report',
-				visible: false
-			},
-			{
-				path: 'coming-soon',
-				icon: 'assignment',
-				label: 'Integrated Report',
-				visible: false
-			},
-			{
-				path: 'coming-soon',
-				icon: 'assignment',
-				label: 'ISE Report',
-				visible: false
-			},
-			{
-				path: 'coming-soon',
-				icon: 'assignment',
-				label: 'Probe Report',
-				visible: false
-			},
-			{
-				path: 'coming-soon',
-				icon: 'email',
-				label: 'Email Reports',
-				visible: false
-			}
+			// {
+			// 	path: 'coming-soon',
+			// 	icon: 'assignment',
+			// 	label: 'IME Report',
+			// 	visible: false
+			// },
+			// {
+			// 	path: 'coming-soon',
+			// 	icon: 'assignment',
+			// 	label: 'Integrated Report',
+			// 	visible: false
+			// },
+			// {
+			// 	path: 'coming-soon',
+			// 	icon: 'assignment',
+			// 	label: 'ISE Report',
+			// 	visible: false
+			// },
+			// {
+			// 	path: 'coming-soon',
+			// 	icon: 'assignment',
+			// 	label: 'Probe Report',
+			// 	visible: false
+			// },
+			// {
+			// 	path: 'coming-soon',
+			// 	icon: 'email',
+			// 	label: 'Email Reports',
+			// 	visible: false
+			// }
 		]
 	};
 
@@ -147,23 +147,23 @@ export class NavigationBaseComponent implements OnInit {
 				label: 'Upload From Mobile',
 				visible: false
 			},
-			{
-				path: 'coming-soon',
-				icon: 'sync',
-				label: 'Sync To Mobile',
-				visible: false
-			}
+			// {
+			// 	path: 'coming-soon',
+			// 	icon: 'sync',
+			// 	label: 'Sync To Mobile',
+			// 	visible: false
+			// }
 		]
 	};
 
 	readonly sections:RouteSection[] = [
 		this.homeSection,
 		this.dataTransferSection,
-		this.instantaneousSection,
+		// this.instantaneousSection,
 		this.unverifiedDataSection,
 		this.userManagementSection,
 		this.reportsSection,
-		this.notificationSection,
+		// this.notificationSection,
 	];
 
 	constructor (

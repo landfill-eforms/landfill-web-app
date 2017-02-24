@@ -1,4 +1,4 @@
-import { ReportsComponent } from './components/report/reports/reports.component';
+import { ReportsComponent } from './components/report/report-selector/report-selector.component';
 import { UnverifiedDataSetComponent } from './components/unverified-data/unverified-data-set/unverified-data-set.component';
 import { UnverifiedDataSetsComponent } from './components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
 import { IMENumbersComponent } from './components/instantaneous/ime-numbers/ime-numbers.component';

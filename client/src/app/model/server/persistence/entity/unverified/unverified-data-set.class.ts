@@ -1,5 +1,5 @@
-import { UnverifiedInstantaneousData } from './unverified-instantaneous-data.class';
 import { User } from '../user/user.class';
+import { UnverifiedInstantaneousData } from './unverified-instantaneous-data.class';
 import { Site } from '../../../model/site.enum';
 
 /**

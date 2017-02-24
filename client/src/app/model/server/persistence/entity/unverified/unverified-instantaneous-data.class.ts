@@ -1,6 +1,6 @@
+import { MonitoringPoint } from '../../../model/monitoring-point.enum';
 import { Instrument } from '../instrument/instrument.class';
 import { IMENumber } from '../instantaneous/ime-number.class';
-import { MonitoringPoint } from '../../../model/monitoring-point.enum';
 import { UnverifiedDataSet } from './unverified-data-set.class';
 
 /**

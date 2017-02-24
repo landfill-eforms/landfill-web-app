@@ -48,8 +48,6 @@ public class User {
 	
 	private String lastname;
 	
-	private String initials;
-	
 	private String emailAddress;
 	
 	private String employeeId;
@@ -111,14 +109,6 @@ public class User {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
-	}
-
-	public String getInitials() {
-		return initials;
-	}
-
-	public void setInitials(String initials) {
-		this.initials = initials;
 	}
 
 	public String getEmailAddress() {

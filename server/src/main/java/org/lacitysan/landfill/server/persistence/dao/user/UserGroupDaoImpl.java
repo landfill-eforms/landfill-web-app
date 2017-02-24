@@ -68,7 +68,7 @@ public class UserGroupDaoImpl implements UserGroupDao {
 		Hibernate.initialize(userGroup.getCreatedBy());
 		Hibernate.initialize(userGroup.getModifiedBy());
 		userGroup.getUsers().stream().forEach(user -> {
-			Hibernate.initialize(user.getPerson());
+			Hibernate.initialize(user);
 		});
 		Hibernate.initialize(userGroup.getUserRoles());
 		return userGroup;

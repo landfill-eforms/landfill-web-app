@@ -5,19 +5,15 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -46,15 +42,21 @@ public class User {
 	@JoinTable(name="test.dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
 	private Set<UserGroup> userGroups = new HashSet<>();
 	
+	private String firstname;
+	
+	private String middlename;
+	
+	private String lastname;
+	
+	private String initials;
+	
+	private String emailAddress;
+	
+	private String employeeId;
+	
 	@NotNull
 	private Boolean enabled;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user"})
-	@Cascade(CascadeType.ALL)
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="PersonFK")
-	private Person person;
-
 	public Integer getId() {
 		return id;
 	}
@@ -87,20 +89,60 @@ public class User {
 		this.userGroups = userGroups;
 	}
 
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getMiddlename() {
+		return middlename;
+	}
+
+	public void setMiddlename(String middlename) {
+		this.middlename = middlename;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getInitials() {
+		return initials;
+	}
+
+	public void setInitials(String initials) {
+		this.initials = initials;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+
 	public Boolean getEnabled() {
 		return enabled;
 	}
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
-	}
-
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
 	}
 
 }

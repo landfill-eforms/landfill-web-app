@@ -4,16 +4,16 @@
  */
 export class Site {
 
-	static readonly BISHOPS:Site = new Site(0, "BISHOPS", "BC", "BC", "", true);
-	static readonly BRANFORD:Site = new Site(1, "BRANFORD", "BR", "BR", "", false);
-	static readonly CLARTS:Site = new Site(2, "CLARTS", "CL", "CL", "", false);
-	static readonly GAFFEY:Site = new Site(3, "GAFFEY", "GA", "GA", "", true);
-	static readonly GRIFFITH_PARK:Site = new Site(4, "GRIFFITH_PARK", "GP", "GP", "", false);
-	static readonly LCEC:Site = new Site(5, "LCEC", "LC", "LC", "", false);
-	static readonly LOPEZ:Site = new Site(6, "LOPEZ", "LC", "LC", "", true);
-	static readonly POLY_HIGH:Site = new Site(7, "POLY_HIGH", "PH", "PH", "", false);
-	static readonly SHELDON:Site = new Site(8, "SHELDON", "SH", "SH", "", true);
-	static readonly TOYON:Site = new Site(9, "TOYON", "TC", "TC", "", true);
+	static readonly BISHOPS:Site = new Site(0, "BISHOPS", "Bishops", "BC", "", true);
+	static readonly BRANFORD:Site = new Site(1, "BRANFORD", "Branford", "BR", "", false);
+	static readonly CLARTS:Site = new Site(2, "CLARTS", "CLARTS", "CL", "", false);
+	static readonly GAFFEY:Site = new Site(3, "GAFFEY", "Gaffey", "GA", "", true);
+	static readonly GRIFFITH_PARK:Site = new Site(4, "GRIFFITH_PARK", "Griffith Park", "GP", "", false);
+	static readonly LCEC:Site = new Site(5, "LCEC", "LCEC", "LC", "", false);
+	static readonly LOPEZ:Site = new Site(6, "LOPEZ", "Lopez", "LC", "", true);
+	static readonly POLY_HIGH:Site = new Site(7, "POLY_HIGH", "PolyHigh", "PH", "", false);
+	static readonly SHELDON:Site = new Site(8, "SHELDON", "Sheldon", "SH", "", true);
+	static readonly TOYON:Site = new Site(9, "TOYON", "Toyon", "TCC", "", true);
 
 	readonly ordinal:number;
 	readonly constantName:string;

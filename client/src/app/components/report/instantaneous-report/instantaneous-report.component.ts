@@ -13,8 +13,6 @@ import { OnInit, Component } from '@angular/core';
 })
 export class InstantaneousReportComponent implements OnInit {
 
-	stringUtils = StringUtils;
-
 	isDataLoaded:boolean = true;
 	data:InstantaneousData[] = [];
 	sites:any = {
@@ -30,10 +28,6 @@ export class InstantaneousReportComponent implements OnInit {
 		reversed: false
 	}
 
-    // Util functions
-    getDate = DateTimeUtils.getDate;
-    getTime = DateTimeUtils.getTime;
-
     constructor (
         private instantaneousDataService:InstantaneousDataService,
         private sitesService:SitesService
@@ -43,17 +37,6 @@ export class InstantaneousReportComponent implements OnInit {
 
         // Get list of active sites
         this.sites.list = Site.values().filter(s => s.active);
-    }
-
-    getStatus(reading:number):string {
-        reading /= 100;
-        if (reading > 500) {
-            return "hotspot";
-        }
-        else if (reading > 300) {
-            return "warmspot"
-        }
-        return "";
     }
 
     getData() {
@@ -66,93 +49,8 @@ export class InstantaneousReportComponent implements OnInit {
 				this.data.push(this.instantaneousDataService.processDataPoint(data[i]));
 			}
 			this.isDataLoaded = true;
-			this.sortByDate();
         }, this.sites.selected.name.toUpperCase(), this.dateRange.start, this.dateRange.end);
     }
-
-	sortByDate() {
-		if (this.sort.current === "date") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "date";
-			this.sort.reversed = false;
-		}
-		this.data.sort((a, b) => (a.startTime - b.startTime) * (this.sort.reversed ? -1 : 1));
-	}
-
-	sortByUser() {
-		if (this.sort.current === "user") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "user";
-			this.sort.reversed = false;
-		}
-		this.data.sort((a, b) => {
-			let compareName:number = this.stringSortFunction((a.inspector.lastname + a.inspector.firstname).toLowerCase(), (b.inspector.lastname + b.inspector.firstname).toLowerCase(), this.sort.reversed);
-			if (compareName != 0) {
-				return compareName;
-			}
-			return (a.startTime - b.startTime) * (this.sort.reversed ? -1 : 1);
-		});
-	}
-
-	sortByGrid() {
-		if (this.sort.current === "grid") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "grid";
-			this.sort.reversed = false;
-		}
-		this.data.sort((a, b) => {
-			let compareGrid = (a.monitoringPoint.ordinal - b.monitoringPoint.ordinal) * (this.sort.reversed ? -1 : 1);
-			if (compareGrid != 0) {
-				return compareGrid;
-			}
-			return (a.startTime - b.startTime) * (this.sort.reversed ? -1 : 1);
-		});
-	}
-
-	sortByIme() {
-		if (this.sort.current === "ime") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "ime";
-			this.sort.reversed = false;
-		}
-		this.data.sort((a, b) => {
-			if (a.imeNumber && !b.imeNumber) {
-				return 1 * (this.sort.reversed ? -1 : 1);
-			}
-			else if (b.imeNumber && !a.imeNumber) {
-				return -1 * (this.sort.reversed ? -1 : 1);
-			}
-			else if (!a.imeNumber && !b.imeNumber) {
-				var compareGrid = 0;
-			}
-			else {
-				var compareGrid = this.stringSortFunction(a.imeNumber.imeNumber, b.imeNumber.imeNumber, this.sort.reversed);
-			}
-			if (compareGrid != 0) {
-				return compareGrid;
-			}
-			return (a.monitoringPoint.ordinal - b.monitoringPoint.ordinal) * (this.sort.reversed ? -1 : 1);
-		});
-	}
-
-	sortByMethaneLevel() {
-		if (this.sort.current === "methaneLevel") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "methaneLevel";
-			this.sort.reversed = false;
-		}
-		this.data.sort((a, b) => (a.methaneLevel - b.methaneLevel) * (this.sort.reversed ? -1 : 1));
-	}
 
 	onStartDateChange(event) {
 		this.dateRange.start = event.target.valueAsNumber || -1;

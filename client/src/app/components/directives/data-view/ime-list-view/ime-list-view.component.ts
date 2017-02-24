@@ -1,3 +1,5 @@
+import { DateTimeUtils } from './../../../../utils/date-time.utils';
+import { Sort, SortUtils } from './../../../../utils/sort.utils';
 import { IMENumber } from './../../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
@@ -13,8 +15,36 @@ export class IMEListComponent implements OnChanges {
 
 	@Input() edit:boolean = false;
 
-	ngOnChanges() {
+	dateTimeUtils = DateTimeUtils;
 
+	sort:Sort = {
+		current: "",
+		reversed: false
+	}
+
+	sortProperties:any = {
+		date: [
+			"discoveryDate"
+		],
+		ime: [
+			"imeNumber"
+		],
+		initMethaneLevel: [
+			"imeData.0.imeNumber"
+		],
+		lastMethaneLevel: [
+			"imeData.0.imeNumber" // Fix this
+		]
+	}
+
+	ngOnChanges() {
+		if (this.data) {
+			this.sortBy("ime");
+		}
+	}
+
+	sortBy(sortBy:string) {
+		SortUtils.sortAndUpdate(this.sort, sortBy, this.data, this.sortProperties[sortBy]);
 	}
 
 }

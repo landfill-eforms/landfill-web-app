@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
 
 
 @Component({
-    selector: 'app-ime-numbers',
-    templateUrl: './ime-numbers.component.html',
-    styleUrls: ['./ime-numbers.component.scss']
+    selector: 'app-ime-number-list',
+    templateUrl: './ime-number-list.component.html',
+    styleUrls: ['./ime-number-list.component.scss']
 })
-export class IMENumbersComponent implements OnInit {
+export class IMENumberListComponent implements OnInit {
 
 	imeNumbers:IMENumber[] = [];
 	isDataLoaded:boolean = false;

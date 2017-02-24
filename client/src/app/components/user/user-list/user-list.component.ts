@@ -1,3 +1,4 @@
+import { StringUtils } from './../../../utils/string.utils';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { NewUserDialogComponent } from './../new-user-dialog/new-user-dialog.component';
@@ -11,6 +12,8 @@ import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/mate
 	styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+
+	stringUtils = StringUtils;
 
 	isDataLoaded:boolean;
 	loadingMessage:string;

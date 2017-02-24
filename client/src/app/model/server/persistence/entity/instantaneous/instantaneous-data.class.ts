@@ -1,7 +1,7 @@
-import { Instrument } from '../instrument/instrument.class';
-import { IMENumber } from './ime-number.class';
-import { User } from '../user/user.class';
 import { MonitoringPoint } from '../../../model/monitoring-point.enum';
+import { Instrument } from '../instrument/instrument.class';
+import { User } from '../user/user.class';
+import { IMENumber } from './ime-number.class';
 
 /**
  * This class was automatically generated from InstantaneousData.java using typescript-gen.

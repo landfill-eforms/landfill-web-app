@@ -13,7 +13,7 @@ export class Site {
 	static readonly LOPEZ:Site = new Site(6, "LOPEZ", "Lopez", "LC", "", true);
 	static readonly POLY_HIGH:Site = new Site(7, "POLY_HIGH", "PolyHigh", "PH", "", false);
 	static readonly SHELDON:Site = new Site(8, "SHELDON", "Sheldon", "SH", "", true);
-	static readonly TOYON:Site = new Site(9, "TOYON", "Toyon", "TCC", "", true);
+	static readonly TOYON:Site = new Site(9, "TOYON", "Toyon", "TC", "", true);
 
 	readonly ordinal:number;
 	readonly constantName:string;

@@ -16,21 +16,29 @@ export class UserRole {
 	static readonly CREATE_USER_GROUPS:UserRole = new UserRole(9, "CREATE_USER_GROUPS", "Create User Groups", "User Groups", "Create", "User can create new user groups.");
 	static readonly DELETE_USER_GROUPS:UserRole = new UserRole(10, "DELETE_USER_GROUPS", "Delete User Groups", "User Groups", "Delete", "User can delete existing user groups.");
 	static readonly EDIT_USER_GROUPS:UserRole = new UserRole(11, "EDIT_USER_GROUPS", "Edit User Groups", "User Groups", "Edit", "User can add/remove roles and rename existing user groups.");
-	static readonly TEST:UserRole = new UserRole(12, "TEST", "Test", null, null, "Testing 123");
+	static readonly UPLOAD_MOBILE_DATA:UserRole = new UserRole(12, "UPLOAD_MOBILE_DATA", "Upload Mobile Data", "Mobile App Sync", "Upload", "User can upload data form the mobile application.");
+	static readonly DOWNLOAD_MOBILE_DATA:UserRole = new UserRole(13, "DOWNLOAD_MOBILE_DATA", "Download Mobile Data", "Mobile App Sync", "Download", "User can download data for transfer to the mobile applications.");
+	static readonly VIEW_UNVERIFIED_DATA_SET_LIST:UserRole = new UserRole(14, "VIEW_UNVERIFIED_DATA_SET_LIST", "View Unverified Data Set List", "Unverified Data", "View List", "User can view the list of unverified data sets.");
+	static readonly VIEW_UNVERIFIED_DATA_SET:UserRole = new UserRole(15, "VIEW_UNVERIFIED_DATA_SET", "View Unverified Data Set", "Unverified Data", "View List", "User can view the details of an unverified data set.");
+	static readonly EDIT_UNVERIFIED_DATA_SET:UserRole = new UserRole(16, "EDIT_UNVERIFIED_DATA_SET", "Edit Unverified Data Set", "Unverified Data", "View List", "User can edit and save the details of an unverified data set.");
+	static readonly DELETE_UNVERIFIED_DATA_SET:UserRole = new UserRole(17, "DELETE_UNVERIFIED_DATA_SET", "Delete Unverified Data Set", "Unverified Data", "View List", "User can delete entire unverified data sets.");
+	static readonly DELETE_UNVERIFIED_DATA:UserRole = new UserRole(18, "DELETE_UNVERIFIED_DATA", "Delete Unverified Data", "Unverified Data", "View List", "User can delete individual data entries in an unverified data set.");
+	static readonly COMMIT_UNVERIFIED_DATA_SET:UserRole = new UserRole(19, "COMMIT_UNVERIFIED_DATA_SET", "Commit Unverified Data Set", "Unverified Data", "View List", "User can commit unverified data sets.");
+	static readonly GENERATE_REPORTS:UserRole = new UserRole(20, "GENERATE_REPORTS", "Generate Reports", "Reports", "Generate", "User can generate reports.");
 
 	readonly ordinal:number;
 	readonly constantName:string;
 	readonly name:string;
-	readonly group:string;
-	readonly groupAction:string;
+	readonly category:string;
+	readonly categoryAction:string;
 	readonly description:string;
 
-	private constructor(ordinal:number, constantName:string, name:string, group:string, groupAction:string, description:string) {
+	private constructor(ordinal:number, constantName:string, name:string, category:string, categoryAction:string, description:string) {
 		this.ordinal = ordinal;
 		this.constantName = constantName;
 		this.name = name;
-		this.group = group;
-		this.groupAction = groupAction;
+		this.category = category;
+		this.categoryAction = categoryAction;
 		this.description = description;
 	}
 
@@ -48,7 +56,15 @@ export class UserRole {
 			UserRole.CREATE_USER_GROUPS,
 			UserRole.DELETE_USER_GROUPS,
 			UserRole.EDIT_USER_GROUPS,
-			UserRole.TEST
+			UserRole.UPLOAD_MOBILE_DATA,
+			UserRole.DOWNLOAD_MOBILE_DATA,
+			UserRole.VIEW_UNVERIFIED_DATA_SET_LIST,
+			UserRole.VIEW_UNVERIFIED_DATA_SET,
+			UserRole.EDIT_UNVERIFIED_DATA_SET,
+			UserRole.DELETE_UNVERIFIED_DATA_SET,
+			UserRole.DELETE_UNVERIFIED_DATA,
+			UserRole.COMMIT_UNVERIFIED_DATA_SET,
+			UserRole.GENERATE_REPORTS
 		];
 	}
 

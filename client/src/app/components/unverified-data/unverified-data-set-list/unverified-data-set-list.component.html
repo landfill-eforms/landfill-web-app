@@ -54,13 +54,13 @@
 					{{dataSet.site.name}}
 				</div>
 				<div class="truncate flex-item" fxFlex>
-					{{dataSet.uploadedBy ? StringUtils.formatPersonName(dataSet.uploadedBy.person) : ''}}
+					{{dataSet.uploadedBy ? StringUtils.formatUserName(dataSet.uploadedBy) : ''}}
 				</div>
 				<div class="truncate flex-item" fxFlex>
 					{{dataSet.uploadedDate ? DateTimeUtils.getDate(dataSet.uploadedDate) : ''}}
 				</div>
 				<div class="truncate flex-item" fxFlex>
-					{{dataSet.modifiedBy ? StringUtils.formatPersonName(dataSet.modifiedBy.person) : ''}}
+					{{dataSet.modifiedBy ? StringUtils.formatUserName(dataSet.modifiedBy) : ''}}
 				</div>
 				<div class="truncate flex-item" fxFlex>
 					{{dataSet.modifiedDate ? DateTimeUtils.getDate(dataSet.modifiedDate) : ''}}

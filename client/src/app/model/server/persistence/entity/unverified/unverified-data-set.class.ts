@@ -1,6 +1,6 @@
+import { UnverifiedInstantaneousData } from './unverified-instantaneous-data.class';
 import { User } from '../user/user.class';
 import { Site } from '../../../model/site.enum';
-import { UnverifiedInstantaneousData } from './unverified-instantaneous-data.class';
 
 /**
  * This class was automatically generated from UnverifiedDataSet.java using typescript-gen.

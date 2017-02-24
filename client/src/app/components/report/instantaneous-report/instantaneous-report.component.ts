@@ -90,7 +90,7 @@ export class InstantaneousReportComponent implements OnInit {
 			this.sort.reversed = false;
 		}
 		this.data.sort((a, b) => {
-			let compareName:number = this.stringSortFunction((a.inspector.person.lastname + a.inspector.person.firstname).toLowerCase(), (b.inspector.person.lastname + b.inspector.person.firstname).toLowerCase(), this.sort.reversed);
+			let compareName:number = this.stringSortFunction((a.inspector.lastname + a.inspector.firstname).toLowerCase(), (b.inspector.lastname + b.inspector.firstname).toLowerCase(), this.sort.reversed);
 			if (compareName != 0) {
 				return compareName;
 			}

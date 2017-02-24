@@ -14,7 +14,6 @@ import org.lacitysan.landfill.server.persistence.entity.test.Test;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIMEData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.user.Person;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Value;
@@ -79,7 +78,6 @@ public class DataSourceConfig {
 						UnverifiedInstantaneousData.class,
 
 						// User
-						Person.class,
 						User.class,
 						UserGroup.class,
 

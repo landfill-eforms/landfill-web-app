@@ -17,7 +17,7 @@ export class ImeReportComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-
+        
 		this.imeNumberService.getAll((data) => {
 			console.log(data);
 			this.imeNumbers = data;

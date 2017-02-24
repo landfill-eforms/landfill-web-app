@@ -41,9 +41,9 @@
 				{{ime.imeNumber}}
 			</div>
 		</div>
-		<div class="truncate flex-item" fxFlex>{{ime.imeData[0] ? dateTimeUtils.getDate(ime.imeData[0].dateCode) : 'Unknown'}}</div>
-		<div class="truncate flex-item" fxFlex></div>
-		<div class="truncate flex-item" fxFlex></div>
+		<div class="truncate flex-item" fxFlex>{{ime.imeData[0] ? dateTimeUtils.getDate(ime.imeData[0].dateTime) : 'Unknown'}}</div>
+		<div class="truncate flex-item" fxFlex>{{ime.imeData[0] ? ime.imeData[0].methaneLevel / 100 : 'Unknown'}}</div>
+		<div class="truncate flex-item" fxFlex>{{ime.imeData[0] ? ime.imeData[ime.imeData.length - 1].methaneLevel / 100 : 'Unknown'}}</div>
 		<div class="truncate flex-item" fxFlex="100px"></div>
 	</div>
 </div>

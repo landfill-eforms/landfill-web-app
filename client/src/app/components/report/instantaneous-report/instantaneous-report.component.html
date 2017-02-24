@@ -70,7 +70,7 @@
             <div *ngFor="let inst of data; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd, 'warmspot': getStatus(inst.methaneLevel) == 'warmspot', 'hotspot': getStatus(inst.methaneLevel) == 'hotspot'}">
                 <div class="truncate flex-item" fxFlex>{{getDate(inst.startTime)}}</div>
                 <div class="truncate flex-item" fxFlex>{{inst.barometricPressure / 100}}</div>
-                <div class="truncate flex-item" fxFlex>{{stringUtils.formatPersonName(inst.inspector.person)}}</div>
+                <div class="truncate flex-item" fxFlex>{{stringUtils.formatUserName(inst.inspector)}}</div>
                 <div class="truncate flex-item" fxFlex>{{inst.monitoringPoint.name}}</div>
                 <div class="truncate flex-item" fxFlex>{{getTime(inst.startTime)}}</div>
                 <div class="truncate flex-item" fxFlex>{{getTime(inst.endTime)}}</div>

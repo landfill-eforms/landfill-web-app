@@ -1,4 +1,3 @@
-import { Person } from './../../../model/server/persistence/entity/user/person.class';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { UserService } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -26,7 +25,6 @@ export class NewUserDialogComponent implements OnInit {
 
 	ngOnInit() {
 		this.user = new User();
-		this.user.person = new Person();
 	}
 
 	verifyPassword() {

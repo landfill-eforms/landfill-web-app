@@ -1,5 +1,4 @@
 import { User } from './../../../model/server/persistence/entity/user/user.class';
-import { Person } from './../../../model/server/persistence/entity/user/person.class';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from './../../../services/user.service';
@@ -22,7 +21,6 @@ export class UserBaseComponent implements OnInit {
 
 	ngOnInit() {
 		this.user = new User();
-		this.user.person = new Person();
 		this.username = this.activatedRoute.params['_value']['username'];
 		console.log(this.username);
 		this.userService.getByUsername((data) => {

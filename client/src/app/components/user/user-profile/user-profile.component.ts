@@ -1,4 +1,3 @@
-import { Person } from './../../../model/server/persistence/entity/user/person.class';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { MdSnackBar } from '@angular/material';
 import { Component, Input, OnInit } from '@angular/core';
@@ -26,8 +25,6 @@ export class UserProfileComponent implements OnInit {
 			this.isNew = true;
 			this.user = new User();
 			this.user.id = 4;
-			this.user.person = new Person();
-			this.user.person.id = 4;
 		}
 	}
 

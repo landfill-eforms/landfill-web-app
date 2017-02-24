@@ -26,14 +26,14 @@ export class UserListComponent implements OnInit {
 			"username"
 		],
 		name: [
-			"person.lastname",
-			"person.firstname"
+			"lastname",
+			"firstname"
 		],
 		emailAddress: [
-			"person.emailAddress"
+			"emailAddress"
 		],
 		employeeId: [
-			"person.employeeId"
+			"employeeId"
 		]
 	}
 

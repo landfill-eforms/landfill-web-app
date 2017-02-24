@@ -1,10 +1,10 @@
-import { InstantaneousData } from './instantaneous-data.class';
 import { IMENumberStatus } from '../../../model/ime-number-status.enum';
-import { MonitoringPoint } from '../../../model/monitoring-point.enum';
 import { IMERepairData } from './ime-repair-data.class';
-import { IMEData } from './ime-data.class';
-import { Site } from '../../../model/site.enum';
 import { UnverifiedInstantaneousData } from '../unverified/unverified-instantaneous-data.class';
+import { InstantaneousData } from './instantaneous-data.class';
+import { IMEData } from './ime-data.class';
+import { MonitoringPoint } from '../../../model/monitoring-point.enum';
+import { Site } from '../../../model/site.enum';
 
 /**
  * This class was automatically generated from IMENumber.java using typescript-gen.

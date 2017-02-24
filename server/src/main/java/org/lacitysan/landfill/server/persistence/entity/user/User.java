@@ -37,7 +37,7 @@ public class User {
 	//@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
 
-	@JsonIgnoreProperties({"users"})
+	@JsonIgnoreProperties({"users", "createdBy", "createdDate", "modifiedBy", "modifiedDate"})
 	@ManyToMany
 	@JoinTable(name="test.dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
 	private Set<UserGroup> userGroups = new HashSet<>();
@@ -47,8 +47,6 @@ public class User {
 	private String middlename;
 	
 	private String lastname;
-	
-	private String initials;
 	
 	private String emailAddress;
 	
@@ -111,14 +109,6 @@ public class User {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
-	}
-
-	public String getInitials() {
-		return initials;
-	}
-
-	public void setInitials(String initials) {
-		this.initials = initials;
 	}
 
 	public String getEmailAddress() {

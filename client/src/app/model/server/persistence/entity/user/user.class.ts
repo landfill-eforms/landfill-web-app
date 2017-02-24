@@ -1,5 +1,4 @@
 import { UserGroup } from './user-group.class';
-import { Person } from './person.class';
 
 /**
  * This class was automatically generated from User.java using typescript-gen.
@@ -10,6 +9,11 @@ export class User {
 	username:string;
 	password:string;
 	userGroups:UserGroup[];
+	firstname:string;
+	middlename:string;
+	lastname:string;
+	initials:string;
+	emailAddress:string;
+	employeeId:string;
 	enabled:boolean;
-	person:Person;
 }

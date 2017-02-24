@@ -1,10 +1,9 @@
-import { Person } from './../model/server/persistence/entity/user/person.class';
-
+import { User } from './../model/server/persistence/entity/user/user.class';
 export class StringUtils {
 
-	/** Takes a Person object and outputs a name string in the following format: Last, First Middle. */
-	static formatPersonName(person:Person):string {
-		return StringUtils.formatName(person.firstname, person.middlename, person.lastname);
+	/** Takes a user object and outputs a name string in the following format: Last, First Middle. */
+	static formatUserName(user:User):string {
+		return StringUtils.formatName(user.firstname, user.middlename, user.lastname);
 	}
 
 	/** Takes a first name, a middle name, and a last name and outputs a name string in the following format: Last, First Middle. */

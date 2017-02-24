@@ -1,3 +1,4 @@
+import { ReportsComponent } from './reports/reports.component';
 import { InstantaneousReportComponent } from './instantaneous-report/instantaneous-report.component';
 import { CommonModule } from './../common/common.module';
 import { NgModule } from '@angular/core';
@@ -8,6 +9,7 @@ import { NgModule } from '@angular/core';
 	],
 	providers: [],
 	declarations: [
+		ReportsComponent,
 		InstantaneousReportComponent
 	]
 })

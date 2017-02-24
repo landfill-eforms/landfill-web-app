@@ -1,3 +1,4 @@
+import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { NewUserDialogComponent } from './../new-user-dialog/new-user-dialog.component';
 import { Component, OnInit } from '@angular/core';
@@ -14,9 +15,26 @@ export class UserListComponent implements OnInit {
 	isDataLoaded:boolean;
 	loadingMessage:string;
 	users:User[];
-	sort:any = {
+	
+	sort:Sort = {
 		current: "id",
 		reversed: false
+	}
+
+	sortProperties:any = {
+		username: [
+			"username"
+		],
+		name: [
+			"person.lastname",
+			"person.firstname"
+		],
+		emailAddress: [
+			"person.emailAddress"
+		],
+		employeeId: [
+			"person.employeeId"
+		]
 	}
 
 	constructor(
@@ -52,63 +70,9 @@ export class UserListComponent implements OnInit {
 			}
 		});
 	}
-	
-	sortByUsername() {
-		if (this.sort.current === "username") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "username";
-			this.sort.reversed = false;
-		}
-		this.users.sort((a, b) => {
-			return this.stringSortFunction(a.username, b.username, this.sort.reversed);
-		});
-	}
 
-	sortByName() {
-		if (this.sort.current === "name") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "name";
-			this.sort.reversed = false;
-		}
-		this.users.sort((a, b) => {
-			return this.stringSortFunction(a.person.lastname + a.person.firstname, b.person.lastname + b.person.firstname, this.sort.reversed);
-		});
-	}
-
-	sortByEmail() {
-		if (this.sort.current === "email") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "email";
-			this.sort.reversed = false;
-		}
-		this.users.sort((a, b) => {
-			return this.stringSortFunction(a.person.emailAddress, b.person.emailAddress, this.sort.reversed);
-		});
-	}
-
-	sortByEmployeeId() {
-		if (this.sort.current === "employeeId") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "employeeId";
-			this.sort.reversed = false;
-		}
-		this.users.sort((a, b) => {
-			return this.stringSortFunction(a.person.employeeId, b.person.employeeId, this.sort.reversed);
-		});
-	}
-
-	// TODO Move this to a util class.
-	private stringSortFunction(a:string, b:string, reversed:boolean):number {
-		if (a == b) return 0;
-		return (a > b ? 1 : -1) * (reversed ? -1 : 1);
+	sortBy(sortBy:string) {
+		SortUtils.sortAndUpdate(this.sort, sortBy, this.users, this.sortProperties[sortBy]);
 	}
 
 }

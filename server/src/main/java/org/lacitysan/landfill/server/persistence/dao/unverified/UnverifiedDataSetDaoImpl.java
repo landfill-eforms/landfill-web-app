@@ -69,14 +69,14 @@ public class UnverifiedDataSetDaoImpl implements UnverifiedDataSetDao {
 	}
 	
 	private UnverifiedDataSet initialize(UnverifiedDataSet dataSet) {
-		Hibernate.initialize(dataSet.getInspector().getPerson());
+		Hibernate.initialize(dataSet.getInspector());
 		Hibernate.initialize(dataSet.getUploadedBy());
 		if (dataSet.getUploadedBy() != null) {
-			Hibernate.initialize(dataSet.getUploadedBy().getPerson());
+			Hibernate.initialize(dataSet.getUploadedBy());
 		}
 		Hibernate.initialize(dataSet.getModifiedBy());
 		if (dataSet.getModifiedBy() != null) {
-			Hibernate.initialize(dataSet.getModifiedBy().getPerson());
+			Hibernate.initialize(dataSet.getModifiedBy());
 		}
 		dataSet.getUnverifiedInstantaneousData().stream().forEach(instantaneousData -> {
 			Hibernate.initialize(instantaneousData.getInstrument());

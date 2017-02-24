@@ -63,9 +63,16 @@ export class AuthService {
 		this.router.navigate(['/login']);
 	}
 
-	hasRole(role:UserRole, userRoles:UserRole[]) {
-		for (let i = 0; i < userRoles.length; i++) {
-			if (userRoles[i].ordinal == role.ordinal) {
+	canAccess(requiredRoles:any[]) {
+		if (!requiredRoles) {
+			return true;
+		}
+		let userRoles:number[] = this.getUserRoles().map(r => r.ordinal);
+		if (userRoles.indexOf(0) > -1 || userRoles.indexOf(1) > -1) {
+			return true;
+		}
+		for (let i = 0; i < requiredRoles.length; i++) {
+			if (userRoles.indexOf(requiredRoles[i].ordinal) > -1) {
 				return true;
 			}
 		}
@@ -74,7 +81,7 @@ export class AuthService {
 
 	private parseUserRoles(jwtToken:string):UserRole[] {
 		let claims:any = this.jwtHelper.decodeToken(jwtToken);
-		let roles = claims['roles'];
+		let roles = claims["roles"];
 		if (roles && Array.isArray(roles)) {
 			let result:UserRole[] = [];
 			for (let i = 0; i < roles.length; i++) {

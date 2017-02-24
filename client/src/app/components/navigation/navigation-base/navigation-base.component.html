@@ -23,15 +23,15 @@
 				<div class="sidenav-section-header">
 					{{section.name}}
 				</div>
-				<div *ngFor="let route of section.routes">
-					<div *ngIf="route.visible" 
-						[routerLink]="route.path" 
+				<div *ngFor="let link of section.links">
+					<div *ngIf="link.visible" 
+						[routerLink]="link.route.path" 
 						routerLinkActive="sidenav-link-active" 
 						class="sidenav-link flex-container"
 						fxLayout="row"
 						fxLayoutAlign=" center">
-						<md-icon class="sidenav-link-icon flex-item" fxFlex="64px">{{route.icon}}</md-icon>
-						<div class="flex-item" fxFlex>{{route.label}}</div>
+						<md-icon class="sidenav-link-icon flex-item" fxFlex="64px">{{link.icon}}</md-icon>
+						<div class="flex-item" fxFlex>{{link.label}}</div>
 					</div>
 				</div>
 			</div>

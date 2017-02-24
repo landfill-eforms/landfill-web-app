@@ -1,3 +1,4 @@
+import { ReportsComponent } from './components/report/reports/reports.component';
 import { UnverifiedDataSetComponent } from './components/unverified-data/unverified-data-set/unverified-data-set.component';
 import { UnverifiedDataSetsComponent } from './components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
 import { IMENumbersComponent } from './components/instantaneous/ime-numbers/ime-numbers.component';
@@ -20,6 +21,8 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ComingSoonComponent } from './components/public/coming-soon/coming-soon.component';
 
+// THIS IS A MESS RIGHT NOW
+
 export const RestrictedRouteBase:string = 'app';
 
 const UserRoutes:Routes = [
@@ -37,55 +40,80 @@ const UserRoutes:Routes = [
 	}
 ];
 
-const UserGroupsRoute:Route = {
-	path: 'user-group-list',
-	component: UserGroupsComponent
-}
+/** Contains Routes that could be accessed within the web-app via links, buttons, etc. */
+export class DefinedRoutes {
 
-const UserGroupRoute:Route = {
-	path: 'user-group/:id',
-	component: UserGroupComponent
-}
+	// static readonly LOGIN:Route = {
+	// 	path: 'login',
+	// 	component: LoginComponent
+	// }
 
-const InstantaneousReportRoute:Route = {
-	path: 'instantaneous-report',
-	component: InstantaneousReportComponent
+	static readonly PLACEHOLDER:Route = {
+		path: 'coming-soon',
+		component: ComingSoonComponent
+	}
+
+	static readonly DASHBOARD:Route = {
+		path: 'dashboard',
+		component: DashboardComponent,
+	}
+
+	static readonly USER_LIST:Route = {
+		path: 'user-list',
+		component: UserListComponent,
+	}
+
+	static readonly USER:Route = {
+		path: 'user/:username',
+		component: UserBaseComponent,
+	}
+
+	// static readonly NEW_USER:Route = {
+	// 	path: 'new-user',
+	// 	component: UserProfileComponent
+	// }
+
+	static readonly USER_GROUP_LIST:Route = {
+		path: 'user-group-list',
+		component: UserGroupsComponent,
+	}
+
+	static readonly USER_GROUP:Route = {
+		path: 'user-group/:id',
+		component: UserGroupComponent,
+	}
+
+	static readonly UNVERIFIED_DATA_SET_LIST:Route = {
+		path: 'unverified-data-set-list',
+		component: UnverifiedDataSetsComponent
+	}
+
+	static readonly UNVERIFIED_DATA_SET:Route = {
+		path: 'unverified-data-set/:id',
+		component: UnverifiedDataSetComponent
+	}
+
+	static readonly REPORTS:Route = {
+		path: 'reports',
+		component: ReportsComponent
+	}
+
+	static readonly INSTANTANEOUS_REPORT:Route = {
+		path: 'instantaneous-report',
+		component: InstantaneousReportComponent
+	}
+
+	static readonly INSTANTANEOUS_UPLOAD:Route = {
+		path: 'instantaneous-upload',
+		component: InstantaneousUploadTestComponent
+	}
+
 }
 
 const IMENumbersRoute:Route = {
 	path: 'ime-numbers',
 	component: IMENumbersComponent
 }
-
-const UnverifiedDataSetRoute:Route = {
-	path: 'unverified-data-set/:id',
-	component: UnverifiedDataSetComponent
-}
-
-const UnverifiedDataSetsRoute:Route = {
-	path: 'unverified-data-set-list',
-	component: UnverifiedDataSetsComponent
-}
-
-const TestRoutes:Routes = [
-	{
-		path: 'instantaneous_test',
-		component: InstantaneousTestComponent,
-		canActivate: [AuthGuard],
-		data: {roles: [
-			UserRole["SUPER_ADMIN"],
-		]}
-	},
-	{
-		path: 'instantaneous-upload',
-		component: InstantaneousUploadTestComponent,
-		canActivate: [AuthGuard],
-		data: {roles: [
-			UserRole["SUPER_ADMIN"],
-		]}
-	},
-
-];
 
 /** Routes that are activated when an HTTP error status is received. */
 const StatusRoutes:Routes = [
@@ -124,19 +152,18 @@ export const RestrictedRoutes:Routes = [
 				redirectTo: 'dashboard',
 				pathMatch: 'full',
 			},
-			{
-				path: 'dashboard',
-				component: DashboardComponent,
-			},
+			DefinedRoutes.DASHBOARD,
+			DefinedRoutes.USER,
+			DefinedRoutes.USER_LIST,
+			DefinedRoutes.USER_GROUP,
+			DefinedRoutes.USER_GROUP_LIST,
+			DefinedRoutes.UNVERIFIED_DATA_SET,
+			DefinedRoutes.UNVERIFIED_DATA_SET_LIST,
+			DefinedRoutes.REPORTS,
+			DefinedRoutes.INSTANTANEOUS_REPORT,
+			DefinedRoutes.INSTANTANEOUS_UPLOAD,
 			...StatusRoutes,
-			...TestRoutes,
 			...UserRoutes,
-			UserGroupsRoute,
-			UserGroupRoute,
-			InstantaneousReportRoute,
-			IMENumbersRoute,
-			UnverifiedDataSetsRoute,
-			UnverifiedDataSetRoute,
 		]
 	}
 ];

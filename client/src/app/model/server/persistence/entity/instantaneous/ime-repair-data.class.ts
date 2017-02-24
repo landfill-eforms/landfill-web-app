@@ -1,5 +1,4 @@
 import { User } from '../user/user.class';
-import { IMENumber } from './ime-number.class';
 
 /**
  * This class was automatically generated from IMERepairData.java using typescript-gen.
@@ -7,7 +6,6 @@ import { IMENumber } from './ime-number.class';
  */
 export class IMERepairData {
 	id:number;
-	imeNumber:IMENumber;
 	user:User;
 	dateTime:number;
 	water:boolean;

@@ -1,6 +1,5 @@
 package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
-import java.sql.Timestamp;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -47,7 +46,7 @@ public class IMENumber {
 	private Site site;
 	
 	@NotNull
-	private Timestamp discoveryDate;
+	private Integer dateCode;
 	
 	@NotNull
 	private Short sequence;
@@ -76,9 +75,9 @@ public class IMENumber {
 	@OneToMany(mappedBy="imeNumber")
 	private Set<IMEData> imeData;
 	
-	@JsonIgnoreProperties({"imeNumber"})
-	@OneToMany(mappedBy="imeNumber")
-	private Set<IMERepairData> imeRepairData;
+//	@JsonIgnoreProperties({"imeNumber"})
+//	@OneToMany(mappedBy="imeNumber")
+//	private Set<IMERepairData> imeRepairData;
 
 	@Transient
 	private String imeNumber;
@@ -91,12 +90,12 @@ public class IMENumber {
 		this.id = id;
 	}
 
-	public Timestamp getDiscoveryDate() {
-		return discoveryDate;
+	public Integer getDateCode() {
+		return dateCode;
 	}
 
-	public void setDiscoveryDate(Timestamp discoveryDate) {
-		this.discoveryDate = discoveryDate;
+	public void setDateCode(Integer dateCode) {
+		this.dateCode = dateCode;
 	}
 
 	public Short getSequence() {
@@ -155,13 +154,13 @@ public class IMENumber {
 		this.imeData = imeData;
 	}
 	
-	public Set<IMERepairData> getImeRepairData() {
-		return imeRepairData;
-	}
-
-	public void setImeRepairData(Set<IMERepairData> imeRepairData) {
-		this.imeRepairData = imeRepairData;
-	}
+//	public Set<IMERepairData> getImeRepairData() {
+//		return imeRepairData;
+//	}
+//
+//	public void setImeRepairData(Set<IMERepairData> imeRepairData) {
+//		this.imeRepairData = imeRepairData;
+//	}
 
 	public String getImeNumber() {
 		return this.toString();

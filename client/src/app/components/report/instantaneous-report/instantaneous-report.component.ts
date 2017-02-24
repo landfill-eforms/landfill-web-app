@@ -23,10 +23,6 @@ export class InstantaneousReportComponent implements OnInit {
 		start: -1,
 		end: -1
 	}
-	sort:any = {
-		current: "",
-		reversed: false
-	}
 
     constructor (
         private instantaneousDataService:InstantaneousDataService,
@@ -58,13 +54,6 @@ export class InstantaneousReportComponent implements OnInit {
 
 	onEndDateChange(event) {
 		this.dateRange.end = event.target.valueAsNumber || -1;
-	}
-
-	// TODO Move this to a util class.
-	private stringSortFunction(a:string, b:string, reversed:boolean):number {
-		if (a > b) return reversed ? -1 : 1;
-		if (a == b) return 0;
-		if (a < b) return reversed ? 1 : -1;
 	}
 
 }

@@ -13,13 +13,12 @@ import { Site } from '../../../model/site.enum';
 export class IMENumber {
 	id:number;
 	site:Site;
-	discoveryDate:number;
+	dateCode:number;
 	sequence:number;
 	status:IMENumberStatus;
 	monitoringPoints:MonitoringPoint[];
 	instantaneousData:InstantaneousData[];
 	unverifiedInstantaneousData:UnverifiedInstantaneousData[];
 	imeData:IMEData[];
-	imeRepairData:IMERepairData[];
 	imeNumber:string;
 }

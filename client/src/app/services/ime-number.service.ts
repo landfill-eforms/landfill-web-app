@@ -13,6 +13,13 @@ export class IMENumberService {
 
 	constructor(private authHttp:AuthHttp) {}
 
+	getByImeNumber(callback:(data) => void, imeNumber:string) {
+		this.authHttp.get(this.baseUrl + "/unique/imeNumber/" + imeNumber).map((res:Response) => res.json()).subscribe(
+				data => callback(data),
+				err => console.log(err)
+			);
+	}
+
 	getAll(callback:(data) => void) {
 		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
 				data => callback(data),
@@ -42,7 +49,7 @@ export class IMENumberService {
 	}
 
 	getStringFromImeNumber(imeNumber:IMENumber):string {
-		let date:Date = new Date(imeNumber.discoveryDate);
+		let date:Date = new Date(imeNumber.dateCode);
 		let month = date.getMonth() + 1;
 		let dayOfMonth = date.getDate();
         return imeNumber.site.shortName + "-" + (date.getFullYear() % 2000) + (month < 10 ? "0" + month : month) + "-" + (imeNumber.sequence < 10 ? "0" : "") + imeNumber.sequence;

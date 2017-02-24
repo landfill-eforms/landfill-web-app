@@ -1,3 +1,4 @@
+import { IMERepairData } from './ime-repair-data.class';
 import { User } from '../user/user.class';
 import { IMENumber } from './ime-number.class';
 
@@ -12,4 +13,5 @@ export class IMEData {
 	methaneLevel:number;
 	dateTime:number;
 	description:string;
+	imeRepairData:IMERepairData;
 }

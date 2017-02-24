@@ -1,9 +1,5 @@
 package org.lacitysan.landfill.server.service;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +22,7 @@ public class IMEService {
 	 * @return The formatted IME number string.
 	 */
 	public String getStringFromImeNumber(IMENumber imeNumber) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMM");
-		return imeNumber.getSite().getShortName() + "-" + dateFormat.format(imeNumber.getDiscoveryDate()) + "-" + String.format("%02d", 5);
+		return imeNumber.getSite().getShortName() + "-" + String.format("%04d", imeNumber.getDateCode()) + "-" + String.format("%02d", imeNumber.getSequence());
 	}
 
 	/**
@@ -48,16 +43,14 @@ public class IMEService {
 			if (site == null) {
 				return null; // TODO Have this throw some exceptions instead of returning null.
 			}
-			Timestamp discoveryDate = new Timestamp(new SimpleDateFormat("yyMM").parse(imeNumber.substring(2,6)).getTime());
+			Integer dateCode = Integer.valueOf(imeNumber.substring(2,6)); // TODO Verify that this is valid.
 			Short sequence = Short.valueOf(imeNumber.substring(6));
 			IMENumber result = new IMENumber();
+			result.setId(0);
 			result.setSite(site);
-			result.setDiscoveryDate(discoveryDate);
+			result.setDateCode(dateCode);
 			result.setSequence(sequence);
 			return result;
-		} catch (ParseException e) {
-			// TODO Have this re-throw an exception with @ResponseStatus annotation.
-			e.printStackTrace();
 		} catch (NumberFormatException e) {
 			// TODO Have this re-throw an exception with @ResponseStatus annotation.
 			e.printStackTrace();

@@ -1,0 +1,39 @@
+<div class="section-multiple-container">
+	<div class="section-title">View IME Number</div>
+	<div class="flex-container" fxLayout="column">
+		<md-card class="section-multiple flex-item" fxFlex>
+			<md-card-content *ngIf="isDataLoaded" >
+				<div class="section-title">IME Info</div>
+				<div *ngIf="imeNumberData" class="section-form-container flex-container" fxLayout="row">
+					<div class="flex-item" fxFlex>
+						<strong>IME Number:</strong> {{imeNumberData.imeNumber}}
+					</div>
+					<div class="flex-item" fxFlex>
+						<strong>Site:</strong>
+					</div>
+					<div class="flex-item" fxFlex>
+						<strong>Grids:</strong>
+					</div>
+				</div>
+				<div *ngIf="!imeNumberData">
+					IME Number '{{imeNumber}}' could not be found.
+				</div>
+			</md-card-content>
+		</md-card>
+		<md-card class="section-multiple flex-item" fxFlex>
+			<md-card-content>
+				<div class="section-title">IME Records</div>
+				<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+					<md-spinner class="loading-indicator-spinner"></md-spinner>
+					<div class="loading-indicator-message">Loading...</div>
+				</div>
+				<app-ime-data-view [data]="imeNumberData.imeData" [edit]="true"></app-ime-data-view>
+			</md-card-content>
+		</md-card>
+	</div>
+</div>
+<div class="fab-action-button-container">
+	<button md-fab (click)="save()" mdTooltip="Save" mdTooltipPosition="above" class="fab-action-button">
+		<md-icon>save</md-icon>
+	</button>
+</div>

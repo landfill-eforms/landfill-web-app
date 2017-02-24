@@ -9,7 +9,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 	templateUrl: './ime-list-view.component.html',
 	styleUrls: ['./ime-list-view.component.scss']
 })
-export class IMEListComponent implements OnChanges {
+export class IMEListViewComponent implements OnChanges {
 
 	@Input() data:IMENumber[] = [];
 
@@ -24,16 +24,16 @@ export class IMEListComponent implements OnChanges {
 
 	sortProperties:any = {
 		date: [
-			"discoveryDate"
+			"imeData.0.dateTime"
 		],
 		ime: [
 			"imeNumber"
 		],
 		initMethaneLevel: [
-			"imeData.0.imeNumber"
+			"imeData.0.methaneLevel"
 		],
 		lastMethaneLevel: [
-			"imeData.0.imeNumber" // Fix this
+			"imeData.0.methaneLevel" // Fix this
 		]
 	}
 

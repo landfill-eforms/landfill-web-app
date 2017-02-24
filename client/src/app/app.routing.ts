@@ -1,3 +1,5 @@
+import { ImeReportComponent } from './components/report/ime-report/ime-report.component';
+import { IMENumberComponent } from './components/instantaneous/ime-number/ime-number.component';
 import { IMENumberListComponent } from './components/instantaneous/ime-number-list/ime-number-list.component';
 import { ReportsComponent } from './components/report/report-selector/report-selector.component';
 import { UnverifiedDataSetComponent } from './components/unverified-data/unverified-data-set/unverified-data-set.component';
@@ -98,6 +100,11 @@ export class DefinedRoutes {
 		component: IMENumberListComponent
 	}
 
+	static readonly IME_NUMBER:Route = {
+		path: 'ime-number/:imeNumber',
+		component: IMENumberComponent
+	}
+
 	static readonly REPORTS:Route = {
 		path: 'reports',
 		component: ReportsComponent
@@ -106,6 +113,11 @@ export class DefinedRoutes {
 	static readonly INSTANTANEOUS_REPORT:Route = {
 		path: 'instantaneous-report',
 		component: InstantaneousReportComponent
+	}
+
+	static readonly EXCEEDENCE_REPORT:Route = {
+		path: 'exceedence-report',
+		component: ImeReportComponent
 	}
 
 	static readonly INSTANTANEOUS_UPLOAD:Route = {
@@ -153,15 +165,17 @@ export const RestrictedRoutes:Routes = [
 				pathMatch: 'full',
 			},
 			DefinedRoutes.DASHBOARD,
-			DefinedRoutes.USER,
 			DefinedRoutes.USER_LIST,
-			DefinedRoutes.USER_GROUP,
+			DefinedRoutes.USER,
 			DefinedRoutes.USER_GROUP_LIST,
-			DefinedRoutes.UNVERIFIED_DATA_SET,
+			DefinedRoutes.USER_GROUP,
 			DefinedRoutes.UNVERIFIED_DATA_SET_LIST,
+			DefinedRoutes.UNVERIFIED_DATA_SET,
 			DefinedRoutes.IME_NUMBER_LIST,
+			DefinedRoutes.IME_NUMBER,
 			DefinedRoutes.REPORTS,
 			DefinedRoutes.INSTANTANEOUS_REPORT,
+			DefinedRoutes.EXCEEDENCE_REPORT,
 			DefinedRoutes.INSTANTANEOUS_UPLOAD,
 			...StatusRoutes,
 			...UserRoutes,

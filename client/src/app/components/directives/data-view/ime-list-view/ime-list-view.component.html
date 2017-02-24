@@ -8,7 +8,7 @@
 				arrow_downward</md-icon>
 		</div>
 		<div class="truncate flex-item" fxFlex (click)="sortBy('date')">
-			<span class="list-table-header-label-sortable">Date</span>
+			<span class="list-table-header-label-sortable">Discovery Date</span>
 			<md-icon class="list-table-header-sort" [ngClass]="{
 				'list-table-header-sort-reverse':sort.reversed,
 				'list-table-header-sort-inactive':sort.current !== 'date'}">
@@ -33,8 +33,15 @@
 		</div>
 	</div>
 	<div *ngFor="let ime of data; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
-		<div class="truncate flex-item" fxFlex>{{ime.imeNumber}}</div>
-		<div class="truncate flex-item" fxFlex>{{dateTimeUtils.getDate(ime.discoveryDate)}}</div>
+		<div class="truncate flex-item" fxFlex>
+			<a *ngIf="edit" [routerLink]="'../ime-number/' + ime.imeNumber">
+				{{ime.imeNumber}}
+			</a>
+			<div *ngIf="!edit">
+				{{ime.imeNumber}}
+			</div>
+		</div>
+		<div class="truncate flex-item" fxFlex>{{ime.imeData[0] ? dateTimeUtils.getDate(ime.imeData[0].dateCode) : 'Unknown'}}</div>
 		<div class="truncate flex-item" fxFlex></div>
 		<div class="truncate flex-item" fxFlex></div>
 		<div class="truncate flex-item" fxFlex="100px"></div>

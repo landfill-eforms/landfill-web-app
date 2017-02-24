@@ -14,7 +14,7 @@ public enum Site {
 	LOPEZ			("Lopez", "LC", "", true),
 	POLY_HIGH		("PolyHigh", "PH", "", false),
 	SHELDON			("Sheldon", "SH", "", true),
-	TOYON			("Toyon", "TCC", "", true);
+	TOYON			("Toyon", "TC", "", true);
 	
 	private String name;
 	private String shortName;

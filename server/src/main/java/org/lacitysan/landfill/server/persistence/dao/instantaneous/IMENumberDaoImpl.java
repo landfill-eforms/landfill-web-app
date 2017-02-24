@@ -6,7 +6,9 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.model.Site;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.service.IMEService;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -21,6 +23,9 @@ public class IMENumberDaoImpl implements IMENumberDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
+
+	@Autowired
+	IMEService imeService;
 
 	@Autowired
 	MonitoringPointService monitoringPointService;
@@ -49,9 +54,9 @@ public class IMENumberDaoImpl implements IMENumberDao {
 					.createCriteria(IMENumber.class)
 					.add(Restrictions.eq("site", Site.valueOf(siteName)))
 					.list();
-					result.stream().forEach(imeNumber -> {
-						initialize(imeNumber);
-					});
+			result.stream().forEach(imeNumber -> {
+				initialize(imeNumber);
+			});
 			return result;
 		}
 		return null;
@@ -59,13 +64,18 @@ public class IMENumberDaoImpl implements IMENumberDao {
 
 	@Override
 	@Transactional
-	public IMENumber getById(Integer id) {
-		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(IMENumber.class)
-				.add(Restrictions.idEq(id))
-				.uniqueResult();
-		if (result instanceof IMENumber) {
-			return initialize((IMENumber)result);
+	public IMENumber getByImeNumber(String imeNumber) {
+		IMENumber temp = imeService.getImeNumberFromString(imeNumber);
+		if (temp != null) {
+			Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
+					.createCriteria(IMENumber.class)
+					.add(Restrictions.eq("site", temp.getSite()))
+					.add(Restrictions.eq("dateCode", temp.getDateCode()))
+					.add(Restrictions.eq("sequence", temp.getSequence()))
+					.uniqueResult();
+			if (result instanceof IMENumber) {
+				return initialize((IMENumber)result);
+			}
 		}
 		return null;
 	}
@@ -73,6 +83,12 @@ public class IMENumberDaoImpl implements IMENumberDao {
 	@Override
 	@Transactional
 	public Object update(IMENumber imeNumber) {
+		
+		// TODO MOVE THIS
+		for (IMEData data : imeNumber.getImeData() ) {
+			data.setImeNumber(imeNumber);
+		}
+		
 		hibernateTemplate.update(imeNumber);
 		return true;
 	}
@@ -82,13 +98,13 @@ public class IMENumberDaoImpl implements IMENumberDao {
 	public Object create(IMENumber imeNumber) {
 		return hibernateTemplate.save(imeNumber);
 	}
-	
+
 	private IMENumber initialize(IMENumber imeNumber) {
 		Hibernate.initialize(imeNumber.getMonitoringPoints());
 		Hibernate.initialize(imeNumber.getInstantaneousData());
 		Hibernate.initialize(imeNumber.getUnverifiedInstantaneousData());
 		Hibernate.initialize(imeNumber.getImeData());
-		Hibernate.initialize(imeNumber.getImeRepairData());
+//		Hibernate.initialize(imeNumber.getImeRepairData());
 		return imeNumber;
 	}
 

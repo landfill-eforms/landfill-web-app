@@ -1,3 +1,5 @@
+import { IMERepairDialogComponent } from './components/directives/dialog/ime-repair-dialog/ime-repair-dialog.component';
+import { IMERecheckDialogComponent } from './components/directives/dialog/ime-recheck-dialog/ime-recheck-dialog.component';
 import { CommonModule } from './components/common/common.module';
 import { AssignIMENumberDialogComponent } from './components/unverified-data/assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataService } from './services/unverified-data-set.service';
@@ -60,6 +62,8 @@ import { FileUploadService } from './services/file-upload.service';
 		NewUserDialogComponent,
 		NewUserGroupDialogComponent,
 		AssignIMENumberDialogComponent,
+		IMERecheckDialogComponent,
+		IMERepairDialogComponent
 	],
 	providers: [
 		//AppRouterProviders,

@@ -166,6 +166,52 @@ export class NavigationBaseComponent implements OnInit {
 		this.notificationSection,
 	];
 
+	// TEMPORARY
+	tempLinks:NavRouteLink[] = [
+		{
+			route: DefinedRoutes.DASHBOARD,
+			icon: 'dashboard', 
+			label: 'Dashboard',
+			visible: false
+		},
+		{
+			route: DefinedRoutes.USER_LIST, 
+			icon: 'people', 
+			label: 'Users',
+			visible: false
+		},
+		{
+			route: DefinedRoutes.USER_GROUP_LIST,
+			icon: 'group_work',
+			label: 'User Groups',
+			visible: false
+		},
+		{
+			route: DefinedRoutes.INSTANTANEOUS_UPLOAD,
+			icon: 'file_upload',
+			label: 'Upload From Mobile',
+			visible: false
+		},
+		{
+			route: DefinedRoutes.UNVERIFIED_DATA_SET_LIST,
+			icon: 'gesture',
+			label: 'Unverified Data Sets',
+			visible: false
+		},
+		{
+			route: DefinedRoutes.IME_NUMBER_LIST,
+			icon: 'format_list_numbered',
+			label: 'IME Numbers',
+			visible: false
+		},
+		{
+			route: DefinedRoutes.REPORTS,
+			icon: 'assignment',
+			label: 'Reports',
+			visible: false
+		},
+	];
+
 	constructor (
 		private router:Router,
 		private http:Http,
@@ -180,6 +226,10 @@ export class NavigationBaseComponent implements OnInit {
 				link.visible = !link.route.data || this.authService.canAccess(link.route.data["roles"]);
 				console.log(link.route.path, link.visible);
 			}
+		}
+		for (let i = 0; i < this.tempLinks.length; i++) {
+			let link = this.tempLinks[i];
+			link.visible = !link.route.data || this.authService.canAccess(link.route.data["roles"]);
 		}
 	}
 

@@ -9,7 +9,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 	templateUrl: './instantaneous-data-view.component.html',
 	styleUrls: ['./instantaneous-data-view.component.scss']
 })
-export class InstantaneousDataViewComponent {
+export class InstantaneousDataViewComponent implements OnChanges {
 
 	@Input() data:InstantaneousData[] = [];
 
@@ -43,12 +43,11 @@ export class InstantaneousDataViewComponent {
 		]
 	}
 
-	// ngOnChanges() {
-	// 	console.log("HELLO?")
-	// 	if (this.data) {
-	// 		this.sortBy("date");
-	// 	}
-	// }
+	ngOnChanges() {
+		if (this.data) {
+			this.sortBy("date");
+		}
+	}
 
 	sortBy(sortBy:string) {
 		SortUtils.sortAndUpdate(this.sort, sortBy, this.data, this.sortProperties[sortBy]);

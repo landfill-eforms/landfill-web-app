@@ -1,0 +1,24 @@
+<md-dialog-content>
+	<div class="section-title">IME Recheck</div>
+	<div class="section-form-container">
+		<md-input-container class="md-input-full-width">
+			<input mdInput placeholder="Description" [(ngModel)]="data.description">
+		</md-input-container>
+		<md-input-container class="md-input-full-width">
+			<input mdInput type="number" placeholder="Value (ppm/v)" [(ngModel)]="data.methaneLevel">
+		</md-input-container>
+		<md-select [(ngModel)]="data.inspector" placeholder="Inspector" style="width:100%">
+			<md-option *ngFor="let user of users" [value]="user">
+				{{user.firstname}} {{user.lastname}}
+			</md-option>
+		</md-select>
+	</div>
+</md-dialog-content>
+<md-dialog-actions>
+	<button md-button (click)="cancel()">
+		CANCEL
+	</button>
+	<button md-button (click)="submit()">
+		SAVE
+	</button>
+</md-dialog-actions>

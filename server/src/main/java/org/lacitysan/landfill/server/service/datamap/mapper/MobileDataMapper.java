@@ -78,18 +78,18 @@ public class MobileDataMapper {
 				}
 			}
 			if (!imeNumberFound) {
-				IMENumber imeNumber = new IMENumber();
+/*				IMENumber imeNumber = new IMENumber();
 				imeNumber.setId(0);
 				Site site = monitoringPointService.getSiteByShortName(entity.getImeNumber().substring(0,2)); // Redundant?
 				Timestamp discoveryDate = new Timestamp(new SimpleDateFormat("MMddyy").parse(entity.getImeNumber().substring(3,9)).getTime());
-				if (site != null && entity.getImeNumber().substring(10,12).matches("^-?\\d+$")) {
+				if (site != null && entity.getImeNumber().substring(10,12).matches("^-?\\d+$") && entity.getImeNumber().substring(10,12).matches("^-?\\d+$")) {
 					imeNumber.setSite(site);
 					imeNumber.setDiscoveryDate(discoveryDate);
 					imeNumber.setSequence(Short.parseShort(entity.getImeNumber().substring(10,12)));
 					imeNumber.setStatus(IMENumberStatus.UNVERIFIED);
 					imeNumbers.add(imeNumber);
 					result.setImeNumber(imeNumber);
-				}
+				}*/
 			}
 		}
 		result.setMethaneLevel((int)(entity.getMethaneReading() * 100));

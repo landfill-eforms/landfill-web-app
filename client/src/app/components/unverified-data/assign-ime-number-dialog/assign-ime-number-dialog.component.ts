@@ -6,7 +6,6 @@ import { UnverifiedInstantaneousData } from './../../../model/server/persistence
 import { MdDialogRef } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
 	selector: 'app-assign-ime-number-dialog',
 	templateUrl: './assign-ime-number-dialog.component.html',
@@ -33,7 +32,7 @@ export class AssignIMENumberDialogComponent {
 	createImeNumber() {
 		let imeNumber:IMENumber = new IMENumber();
 		imeNumber.site = <any>this.site.constantName;
-		imeNumber.discoveryDate = this.action.newDate;
+		imeNumber.dateCode = this.action.newDate;
 		imeNumber.sequence = this.action.newSeries;
 		imeNumber.status = <any>IMENumberStatus.UNVERIFIED.constantName;
 		imeNumber.imeNumber = this.action.newImeNumberString;
@@ -57,7 +56,7 @@ export class AssignIMENumberDialogComponent {
 			this.action.newSeries = this.findMaxIMESeries(this.action.newDate) + 1;
 			this.action.newImeNumberString = this.imeNumberService.getStringFromImeNumber(<any>{
 				site: this.site, 
-				discoveryDate: this.action.newDate, 
+				dateCode: this.action.newDate, 
 				sequence: this.action.newSeries
 			});
 		}
@@ -80,13 +79,13 @@ export class AssignIMENumberDialogComponent {
 		let max:number = 0;
 		for (let i = 0; i < this.existingIMENumbers.length; i++) {
 			let imeNumber:IMENumber = this.existingIMENumbers[i];
-			if (imeNumber.discoveryDate == date && imeNumber.sequence > max) {
+			if (imeNumber.dateCode == date && imeNumber.sequence > max) {
 				max = imeNumber.sequence;
 			}
 		}
 		// for (let i = 0; i < this.createdIMENumbers.length; i++) {
 		// 	let imeNumber:IMENumber = this.createdIMENumbers[i];
-		// 	if (imeNumber.discoveryDate == date && imeNumber.sequence > max) {
+		// 	if (imeNumber.dateCode == date && imeNumber.sequence > max) {
 		// 		max = imeNumber.sequence;
 		// 	}
 		// }

@@ -29,11 +29,6 @@ public class IMERepairData {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonIgnoreProperties({"imeRepairData"})
-	@ManyToOne
-	@JoinColumn(name="IMENumberFK")
-	private IMENumber imeNumber;
-	
 	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
 	@ManyToOne
 	@JoinColumn(name="UserFK")
@@ -60,14 +55,6 @@ public class IMERepairData {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public IMENumber getImeNumber() {
-		return imeNumber;
-	}
-
-	public void setImeNumber(IMENumber imeNumber) {
-		this.imeNumber = imeNumber;
 	}
 
 	public User getUser() {

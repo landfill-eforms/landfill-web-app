@@ -17,67 +17,6 @@
 			<md-spinner class="loading-indicator-spinner"></md-spinner>
 			<div class="loading-indicator-message">Generating Report...</div>
 		</div>
-		<div *ngIf="data.length > 0" class="list-table">
-            <div class="unselectable list-table-header-row flex-container" fxLayout="row">
-				<div class="truncate flex-item" fxFlex (click)="sortByDate()">
-					<span class="list-table-header-label-sortable">Date</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'date'}">
-						arrow_downward</md-icon>
-				</div>
-                <div class="truncate flex-item" fxFlex>
-					<span class="list-table-header-label">Barom.</span>
-				</div>
-                <div class="truncate flex-item" fxFlex (click)="sortByUser()">
-					<span class="list-table-header-label-sortable">Inspector</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'user'}">
-						arrow_downward</md-icon>
-				</div>
-                <div class="truncate flex-item" fxFlex (click)="sortByGrid()">
-					<span class="list-table-header-label-sortable">Grid</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'grid'}">
-						arrow_downward</md-icon>
-				</div>
-                <div class="truncate flex-item" fxFlex>
-					<span class="list-table-header-label">Start</span>
-				</div>
-                <div class="truncate flex-item" fxFlex>
-					<span class="list-table-header-label">End</span>
-				</div>
-                <div class="truncate flex-item" fxFlex>
-					<span class="list-table-header-label">Instrument</span>
-				</div>
-                <div class="truncate flex-item" fxFlex (click)="sortByMethaneLevel()">
-					<span class="list-table-header-label-sortable">Reading (ppm)</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'methaneLevel'}">
-						arrow_downward</md-icon>
-				</div>
-                <div class="truncate flex-item" fxFlex (click)="sortByIme()">
-					<span class="list-table-header-label-sortable">IME#</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'ime'}">
-						arrow_downward</md-icon>
-				</div>
-            </div>
-            <div *ngFor="let inst of data; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd, 'warmspot': getStatus(inst.methaneLevel) == 'warmspot', 'hotspot': getStatus(inst.methaneLevel) == 'hotspot'}">
-                <div class="truncate flex-item" fxFlex>{{getDate(inst.startTime)}}</div>
-                <div class="truncate flex-item" fxFlex>{{inst.barometricPressure / 100}}</div>
-                <div class="truncate flex-item" fxFlex>{{stringUtils.formatUserName(inst.inspector)}}</div>
-                <div class="truncate flex-item" fxFlex>{{inst.monitoringPoint.name}}</div>
-                <div class="truncate flex-item" fxFlex>{{getTime(inst.startTime)}}</div>
-                <div class="truncate flex-item" fxFlex>{{getTime(inst.endTime)}}</div>
-                <div class="truncate flex-item" fxFlex>{{inst.instrument.serialNumber}}</div>
-                <div class="truncate flex-item" fxFlex>{{inst.methaneLevel / 100}}</div>
-                <div class="truncate flex-item" fxFlex>{{inst.imeNumber ? inst.imeNumber.imeNumber : ''}}</div>
-            </div>
-        </div>
+		<app-instantaneous-data-view [data]="data"></app-instantaneous-data-view>
 	</md-card-content>
 </md-card>

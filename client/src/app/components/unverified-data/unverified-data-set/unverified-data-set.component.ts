@@ -54,7 +54,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 			this.imeNumberService.getBySite((data) => {
 				// TODO Use current date.
 				this.existingIMENumbers = data.filter(number => 
-					number.discoveryDate >= this.dataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
+					number.dateCode >= this.dataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
 				);
 				console.log(this.existingIMENumbers);
 				this.isDataLoaded = true;

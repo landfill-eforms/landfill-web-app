@@ -1,4 +1,5 @@
-import { IMENumbersComponent } from './ime-numbers/ime-numbers.component';
+import { IMENumberComponent } from './ime-number/ime-number.component';
+import { IMENumberListComponent } from './ime-number-list/ime-number-list.component';
 import { DirectivesModule } from './../directives/directives.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from './../common/common.module';
@@ -10,8 +11,8 @@ import { CommonModule } from './../common/common.module';
 	],
 	providers: [],
 	declarations: [
-		IMENumbersComponent,
-		
+		IMENumberListComponent,
+		IMENumberComponent
 	]
 })
 

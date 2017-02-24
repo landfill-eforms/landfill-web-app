@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -50,6 +51,11 @@ public class IMEData {
 	
 	@NotNull
 	private String description;
+	
+	@OneToOne
+	@Cascade(CascadeType.ALL)
+	@JoinColumn(name="IMERepairFK")
+	private IMERepairData imeRepairData;
 
 	public Integer getId() {
 		return id;
@@ -97,6 +103,14 @@ public class IMEData {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public IMERepairData getImeRepairData() {
+		return imeRepairData;
+	}
+
+	public void setImeRepairData(IMERepairData imeRepairData) {
+		this.imeRepairData = imeRepairData;
 	}
 
 }

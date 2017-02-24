@@ -18,8 +18,17 @@
 </md-toolbar>
 <md-sidenav-container fullscreen>
 	<md-sidenav #sidenav mode="side" opened="true" class="sidenav-contents">
-		<div>
-			<div class="sidenav-section" *ngFor="let section of sections">
+		<div >
+			<div class="nav-logo">
+				<div>
+					<picture >				
+						<img class="la-logo" src="/src/public/images/la-seal.svg"/>			
+					</picture>
+				</div>
+				<div class="nav-logo-text">
+					<font color="white">Bureau of Sanitation</font>	
+				</div>
+			<!--</div>
 				<div class="sidenav-section-header">
 					{{section.name}}
 				</div>
@@ -33,8 +42,27 @@
 						<md-icon class="sidenav-link-icon flex-item" fxFlex="64px">{{link.icon}}</md-icon>
 						<div class="flex-item" fxFlex>{{link.label}}</div>
 					</div>
+				</div>-->
+			</div>
+
+
+
+			<!-- TEMPORARY -->
+			<div *ngFor="let link of tempLinks">
+				<div *ngIf="link.visible" 
+					[routerLink]="link.route.path" 
+				routerLinkActive="sidenav-link-active" 
+					class="sidenav-link flex-container"
+					fxLayout="row"
+					fxLayoutAlign=" center"
+					style="border-bottom: solid 0px lightgray;">
+					<md-icon class="sidenav-link-icon flex-item" fxFlex="64px">{{link.icon}}</md-icon>
+					<div class="flex-item" fxFlex>{{link.label}}</div>
 				</div>
 			</div>
+
+
+
 		</div>
 	</md-sidenav>
 	<router-outlet></router-outlet>

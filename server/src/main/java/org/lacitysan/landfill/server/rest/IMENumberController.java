@@ -32,12 +32,10 @@ public class IMENumberController {
 		return imeNumbersDao.getBySite(siteName);
 	}
 	
-	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
-	public IMENumber getById(@PathVariable String id) {
-		if (id.matches("^-?\\d+$")) {
-			return imeNumbersDao.getById(Integer.valueOf(id));
-		}
-		return null;
+	@RequestMapping(value="/unique/imeNumber/{imeNumber}", method=RequestMethod.GET)
+	public IMENumber getByImeNumber(@PathVariable String imeNumber) {
+		System.out.println(imeNumber);
+		return imeNumbersDao.getByImeNumber(imeNumber);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

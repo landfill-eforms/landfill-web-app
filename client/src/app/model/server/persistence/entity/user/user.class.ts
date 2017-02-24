@@ -12,7 +12,6 @@ export class User {
 	firstname:string;
 	middlename:string;
 	lastname:string;
-	initials:string;
 	emailAddress:string;
 	employeeId:string;
 	enabled:boolean;

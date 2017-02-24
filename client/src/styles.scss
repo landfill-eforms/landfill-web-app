@@ -15,7 +15,7 @@ html {
 md-sidenav-container {
     background: #EEE !important;
     top: $navbar-height !important;
-    .md-sidenav-opened {
+    .mat-sidenav-opened {
         box-shadow: 3px 0 6px rgba(0,0,0,0.24) !important;
     }
 }
@@ -32,7 +32,7 @@ md-toolbar-row {
     z-index: 999;
     pointer-events: none;
 }
-.md-sidenav-content {
+.mat-sidenav-content {
   transform: initial !important;
 }
 
@@ -95,6 +95,12 @@ a {
 
 .list-table {
     padding: 16px;
+}
+
+.list-table-super-header-row {
+    text-align: center;
+    font-weight: bold;
+    height: 31px;
 }
 
 .list-table-header-row {

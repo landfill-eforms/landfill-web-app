@@ -10,8 +10,8 @@ public interface IMENumberDao {
 	
 	List<IMENumber> getBySite(String siteName);
 
-	IMENumber getById(Integer id);
-
+	IMENumber getByImeNumber(String imeNumber);
+	
 	Object update(IMENumber imeNumber);
 
 	Object create(IMENumber imeNumber);

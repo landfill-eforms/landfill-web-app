@@ -109,7 +109,9 @@ public class UnverifiedDataService {
 				IMENumber num = new IMENumber();
 				num.setId(0);
 				num.setSite(site);
-				num.setDiscoveryDate(instantaneousData.getStartTime());
+				
+				// TODO Fix this.
+				//num.setDiscoveryDate(instantaneousData.getStartTime());
 				
 				short series;
 				Set<InstantaneousData> instant = new HashSet();
@@ -135,7 +137,7 @@ public class UnverifiedDataService {
 				num.setImeData(imeData);
 				
 				Set<IMERepairData> imeRepairData = new HashSet();
-				num.setImeRepairData(imeRepairData);
+				//num.setImeRepairData(imeRepairData);
 				
 				Set<MonitoringPoint> monitoringPoints = new HashSet<MonitoringPoint>();
 				monitoringPoints.add(instantaneousData.getMonitoringPoint());

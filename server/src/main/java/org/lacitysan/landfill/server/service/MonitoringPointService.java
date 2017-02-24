@@ -25,12 +25,24 @@ public class MonitoringPointService {
 	 * @return A <code>Site</code> that matches the given short name, or <code>null</code> if no suitable site was found.
 	 */
 	public Site getSiteByShortName(String shortName) {
+		
+		// Prefer active site.
+		for (Site site : Site.values()) {
+			if (site.getShortName().equalsIgnoreCase(shortName) && site.isActive()) {
+				return site;
+			}
+		}
+		
+		// If no active site was found, then consider all sites.
 		for (Site site : Site.values()) {
 			if (site.getShortName().equalsIgnoreCase(shortName)) {
 				return site;
 			}
 		}
+		
+		// If no site was found, then return null.
 		return null;
+		
 	}
 	
 	/**

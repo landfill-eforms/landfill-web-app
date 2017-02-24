@@ -46,7 +46,7 @@
 					</a>
 				</div>
 				<div class="truncate flex-item" fxFlex="25">
-					{{user.lastname}}, {{user.firstname}}
+					{{stringUtils.formatUserName(user)}}
 				</div>
 				<div class="truncate flex-item" fxFlex="25">
 					{{user.emailAddress}}

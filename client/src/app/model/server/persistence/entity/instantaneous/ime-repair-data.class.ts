@@ -1,4 +1,3 @@
-import { IMENumber } from './ime-number.class';
 import { User } from '../user/user.class';
 
 /**
@@ -7,7 +6,6 @@ import { User } from '../user/user.class';
  */
 export class IMERepairData {
 	id:number;
-	imeNumber:IMENumber;
 	user:User;
 	dateTime:number;
 	water:boolean;

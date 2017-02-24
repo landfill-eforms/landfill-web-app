@@ -68,10 +68,10 @@ export class DefinedRoutes {
 		component: UserBaseComponent,
 	}
 
-	// static readonly NEW_USER:Route = {
-	// 	path: 'new-user',
-	// 	component: UserProfileComponent
-	// }
+	static readonly NEW_USER:Route = {
+		path: 'new-user',
+		component: UserProfileComponent,
+	}
 
 	static readonly USER_GROUP_LIST:Route = {
 		path: 'user-group-list',

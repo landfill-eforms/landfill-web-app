@@ -1,5 +1,5 @@
-import { User } from '../user/user.class';
 import { IMENumber } from './ime-number.class';
+import { User } from '../user/user.class';
 
 /**
  * This class was automatically generated from IMEData.java using typescript-gen.

@@ -37,7 +37,7 @@ public class User {
 	//@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
 
-	@JsonIgnoreProperties({"users"})
+	@JsonIgnoreProperties({"users", "createdBy", "createdDate", "modifiedBy", "modifiedDate"})
 	@ManyToMany
 	@JoinTable(name="test.dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
 	private Set<UserGroup> userGroups = new HashSet<>();

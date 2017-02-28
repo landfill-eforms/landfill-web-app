@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -63,7 +64,7 @@ public class IMENumber {
 	private Set<MonitoringPoint> monitoringPoints;
 	
 	@JsonIgnoreProperties({"imeNumber", "instrument", "inspector"})
-	@OneToMany(mappedBy="imeNumber")
+	@ManyToMany(mappedBy="imeNumber")
 	private Set<InstantaneousData> instantaneousData;
 	
 	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumber", "instrument"})

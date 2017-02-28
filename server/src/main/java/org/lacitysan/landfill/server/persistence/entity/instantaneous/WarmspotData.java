@@ -1,7 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -29,18 +27,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.InstantaneousData")
-public class InstantaneousData {
+@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.WarmspotData")
+public class WarmspotData {
 	
 	@Id
-	@Column(name="InstantaneousPK")
+	@Column(name="WarmspotPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 		
 	@Column(name="MonitoringPointOrdinal")
 	@Enumerated(EnumType.ORDINAL)
 	private MonitoringPoint monitoringPoint;
-		
+	
 	@ManyToOne
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
@@ -51,26 +49,20 @@ public class InstantaneousData {
 	private User inspector;
 	
 	@NotNull
-	private Short barometricPressure;
-	
-	@NotNull
 	private Integer methaneLevel;	
 	
 	@NotNull
-	private Timestamp startTime;
+	private Timestamp date;
 	
 	@NotNull
-	private Timestamp endTime;
+	private String description;
 	
-	@JsonIgnoreProperties({"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"})
-	@ManyToMany
-	@JoinTable(name="test.dbo.InstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
-	private Set<IMENumber> imeNumbers = new HashSet<>();
+	@NotNull
+	private String size;
 	
-	@JsonIgnoreProperties({"instantaneousData"})
-	@ManyToMany
-	@JoinTable(name="test.dbo.InstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
-	private Set<WarmspotData> warmspots = new HashSet<>();
+	@JsonIgnoreProperties({"warmspots"})
+	@ManyToMany(mappedBy="warmspots")
+	private Set<InstantaneousData> instantaneousData;
 
 	public Integer getId() {
 		return id;
@@ -104,14 +96,6 @@ public class InstantaneousData {
 		this.inspector = inspector;
 	}
 
-	public Short getBarometricPressure() {
-		return barometricPressure;
-	}
-
-	public void setBarometricPressure(Short barometricPressure) {
-		this.barometricPressure = barometricPressure;
-	}
-
 	public Integer getMethaneLevel() {
 		return methaneLevel;
 	}
@@ -120,28 +104,28 @@ public class InstantaneousData {
 		this.methaneLevel = methaneLevel;
 	}
 
-	public Timestamp getStartTime() {
-		return startTime;
+	public Timestamp getDate() {
+		return date;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 
-	public Timestamp getEndTime() {
-		return endTime;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setEndTime(Timestamp endTime) {
-		this.endTime = endTime;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public Set<IMENumber> getImeNumbers() {
-		return imeNumbers;
+	public String getSize() {
+		return size;
 	}
 
-	public void setImeNumbers(Set<IMENumber> imeNumbers) {
-		this.imeNumbers = imeNumbers;
+	public void setSize(String size) {
+		this.size = size;
 	}
-
+	
 }

@@ -51,7 +51,7 @@ public class UnverifiedDataService {
 				if (data.getImeNumber() == null) {
 					return null;
 				}
-				instantaneousData.setImeNumber(data.getImeNumber());
+				//instantaneousData.setImeNumber(data.getImeNumber());
 			}
 			else if (data.getMethaneLevel() < 50000 && data.getImeNumber() != null) {
 				return null;
@@ -122,7 +122,7 @@ public class UnverifiedDataService {
 				data.setEndTime(instantaneousData.getEndTime());
 				
 				IMENumber ime = new IMENumber();
-				data.setImeNumber(ime);
+				//data.setImeNumber(ime);
 				
 				data.setInspector(dataSet.getInspector());
 				data.setInstrument(instantaneousData.getInstrument());

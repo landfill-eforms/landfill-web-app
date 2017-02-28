@@ -9,8 +9,6 @@ import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMERepairData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
-import org.lacitysan.landfill.server.persistence.entity.test.Sleep;
-import org.lacitysan.landfill.server.persistence.entity.test.Test;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIMEData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
@@ -79,11 +77,7 @@ public class DataSourceConfig {
 
 						// User
 						User.class,
-						UserGroup.class,
-
-						// Test classes
-						Sleep.class,
-						Test.class
+						UserGroup.class
 
 						)
 				.buildSessionFactory();

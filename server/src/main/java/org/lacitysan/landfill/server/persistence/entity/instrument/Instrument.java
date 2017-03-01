@@ -1,5 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.instrument;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,11 +9,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.model.InstrumentType;
+import org.lacitysan.landfill.server.model.InstrumentStatus;
+import org.lacitysan.landfill.server.model.Site;
 
 /**
  * @author Alvin Quach
@@ -29,12 +34,29 @@ public class Instrument {
 	private String serialNumber;
 	
 	@NotNull
-	private String name;
-	
-	@Column(name="InstrumentTypeOrdinal")
-	@Enumerated(EnumType.ORDINAL)
+	@ManyToOne
+	@JoinColumn(name="InstrumentTypeFK")
 	private InstrumentType instrumentType;
 	
+	@NotNull
+	@Column(name="InstrumentStatusOrdinal")
+	@Enumerated(EnumType.ORDINAL)
+	private InstrumentStatus instrumentStatus;
+	
+	private Timestamp serviceDueDate;
+	
+	private Timestamp lastServiceDate;
+	
+	private Timestamp purchaseDate;
+	
+	@Column(name="SiteOrdinal")
+	@Enumerated(EnumType.ORDINAL)
+	private Site site;
+	
+	private String inventoryNumber;
+	
+	private String description;
+
 	public Integer getId() {
 		return id;
 	}
@@ -51,20 +73,68 @@ public class Instrument {
 		this.serialNumber = serialNumber;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public InstrumentType getInstrumentType() {
 		return instrumentType;
 	}
 
 	public void setInstrumentType(InstrumentType instrumentType) {
 		this.instrumentType = instrumentType;
+	}
+
+	public InstrumentStatus getInstrumentStatus() {
+		return instrumentStatus;
+	}
+
+	public void setInstrumentStatus(InstrumentStatus instrumentStatus) {
+		this.instrumentStatus = instrumentStatus;
+	}
+
+	public Timestamp getServiceDueDate() {
+		return serviceDueDate;
+	}
+
+	public void setServiceDueDate(Timestamp serviceDueDate) {
+		this.serviceDueDate = serviceDueDate;
+	}
+
+	public Timestamp getLastServiceDate() {
+		return lastServiceDate;
+	}
+
+	public void setLastServiceDate(Timestamp lastServiceDate) {
+		this.lastServiceDate = lastServiceDate;
+	}
+
+	public Timestamp getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(Timestamp purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+
+	public Site getSite() {
+		return site;
+	}
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
+
+	public String getInventoryNumber() {
+		return inventoryNumber;
+	}
+
+	public void setInventoryNumber(String inventoryNumber) {
+		this.inventoryNumber = inventoryNumber;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

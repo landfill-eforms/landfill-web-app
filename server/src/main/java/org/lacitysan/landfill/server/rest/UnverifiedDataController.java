@@ -76,11 +76,11 @@ public class UnverifiedDataController {
 		return unverifiedDataSetDao.delete(dataSet);
 	}
 	
-	@RequestMapping(value="/dummy", method=RequestMethod.GET)
-	@ResponseBody
-	public Object createDummyData() {
-		return unverifiedDataSetDao.create(unverifiedDataService.createDummyData());
-	}
+//	@RequestMapping(value="/dummy", method=RequestMethod.GET)
+//	@ResponseBody
+//	public Object createDummyData() {
+//		return unverifiedDataSetDao.create(unverifiedDataService.createDummyData());
+//	}
 	
 //	private UnverifiedDataSet initialize(UnverifiedDataSet dataSet) {
 //		Hibernate.initialize(proxy);

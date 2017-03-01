@@ -3,11 +3,11 @@ package org.lacitysan.landfill.server.service.datamap.mapper;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 
-import org.lacitysan.landfill.server.model.IMENumberStatus;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
-import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
@@ -72,7 +72,7 @@ public class MobileDataMapper {
 			boolean imeNumberFound = false;
 			for (IMENumber imeNumber : imeNumbers) {
 				if (imeNumber.toString().equals(entity.getImeNumber())) {
-					result.setImeNumber(imeNumber);
+					result.setImeNumbers(new HashSet<>(Arrays.asList(new IMENumber[] {imeNumber}))); // TODO Change this.
 					imeNumberFound = true;
 					break;
 				}

@@ -64,12 +64,12 @@ public class UnverifiedDataService {
 			else if (data.getMethaneLevel() >= 20000) {
 				
 				// If the data piont is a warmspot, but doesn't contain any warmspot data...
-				if (data.getWarmspots() == null || data.getWarmspots().isEmpty()) {
+				if (data.getWarmspotData() == null || data.getWarmspotData().isEmpty()) {
 					return null;
 				}
 				
 				// Validate each of the warmspots that are associated with the data point.
-				for (WarmspotData warmspot : data.getWarmspots()) {
+				for (WarmspotData warmspot : data.getWarmspotData()) {
 					if (warmspot.getMonitoringPoint().getSite() != site) {
 						return null;
 					}
@@ -80,7 +80,7 @@ public class UnverifiedDataService {
 			}
 			
 			// If the data point is neither a warmspot nor a hotspot, then they shouldnt have any IME Numbers or warmspots.
-			else if (!(data.getImeNumbers() == null || data.getImeNumbers().isEmpty()) && !(data.getWarmspots() == null || data.getWarmspots().isEmpty())) {
+			else if (!(data.getImeNumbers() == null || data.getImeNumbers().isEmpty()) && !(data.getWarmspotData() == null || data.getWarmspotData().isEmpty())) {
 				return null;
 			}
 			

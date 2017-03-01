@@ -28,6 +28,9 @@ import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * @author Alvin Quach
+ */
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.UnverifiedInstantaneousData")
 public class UnverifiedInstantaneousData {
@@ -56,14 +59,13 @@ public class UnverifiedInstantaneousData {
 	
 	@JsonIgnoreProperties({"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"})
 	@ManyToMany
-	@JoinColumn(name="IMENumberFK")
+	@JoinTable(name="test.dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<IMENumber> imeNumbers = new HashSet<>();
 	
-	// WTF!???????????????????????????????
-//	@JsonIgnoreProperties({"instantaneousData"})
+	@JsonIgnoreProperties({"unverifiedInstantaneousData", "instantaneousData"})
 	@ManyToMany
-	@JoinTable(name="test.dbo.InstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
-	private Set<WarmspotData> warmspots = new HashSet<>();
+	@JoinTable(name="test.dbo.UnverifiedInstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
+	private Set<WarmspotData> warmspotData = new HashSet<>();
 	
 	@JsonIgnoreProperties({"unverifiedInstantaneousData"})
 	@Cascade(CascadeType.ALL)
@@ -107,10 +109,6 @@ public class UnverifiedInstantaneousData {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
-	}
-
 	public Timestamp getEndTime() {
 		return endTime;
 	}
@@ -127,12 +125,12 @@ public class UnverifiedInstantaneousData {
 		this.imeNumbers = imeNumbers;
 	}
 
-	public Set<WarmspotData> getWarmspots() {
-		return warmspots;
+	public Set<WarmspotData> getWarmspotData() {
+		return warmspotData;
 	}
 
-	public void setWarmspots(Set<WarmspotData> warmspots) {
-		this.warmspots = warmspots;
+	public void setWarmspotData(Set<WarmspotData> warmspotData) {
+		this.warmspotData = warmspotData;
 	}
 
 	public UnverifiedDataSet getUnverifiedDataSet() {
@@ -141,6 +139,10 @@ public class UnverifiedInstantaneousData {
 
 	public void setUnverifiedDataSet(UnverifiedDataSet unverifiedDataSet) {
 		this.unverifiedDataSet = unverifiedDataSet;
+	}
+
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
 	}
 	
 }

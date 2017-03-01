@@ -67,10 +67,10 @@ public class InstantaneousData {
 	@JoinTable(name="test.dbo.InstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<IMENumber> imeNumbers = new HashSet<>();
 	
-	@JsonIgnoreProperties({"instantaneousData"})
+	@JsonIgnoreProperties({"instantaneousData", "unverifiedInstantaneousData"})
 	@ManyToMany
 	@JoinTable(name="test.dbo.InstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
-	private Set<WarmspotData> warmspots = new HashSet<>();
+	private Set<WarmspotData> warmspotData = new HashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -142,6 +142,14 @@ public class InstantaneousData {
 
 	public void setImeNumbers(Set<IMENumber> imeNumbers) {
 		this.imeNumbers = imeNumbers;
+	}
+
+	public Set<WarmspotData> getWarmspotData() {
+		return warmspotData;
+	}
+
+	public void setWarmspotData(Set<WarmspotData> warmspotData) {
+		this.warmspotData = warmspotData;
 	}
 
 }

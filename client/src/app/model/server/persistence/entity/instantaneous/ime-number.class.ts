@@ -1,9 +1,8 @@
-import { MonitoringPoint } from '../../../model/monitoring-point.enum';
-import { IMENumberStatus } from '../../../model/ime-number-status.enum';
 import { InstantaneousData } from './instantaneous-data.class';
-import { IMEData } from './ime-data.class';
-import { IMERepairData } from './ime-repair-data.class';
+import { IMENumberStatus } from '../../../model/ime-number-status.enum';
 import { UnverifiedInstantaneousData } from '../unverified/unverified-instantaneous-data.class';
+import { IMEData } from './ime-data.class';
+import { MonitoringPoint } from '../../../model/monitoring-point.enum';
 import { Site } from '../../../model/site.enum';
 
 /**

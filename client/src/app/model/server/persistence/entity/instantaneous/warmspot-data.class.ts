@@ -1,22 +1,18 @@
 import { User } from '../user/user.class';
-import { WarmspotData } from './warmspot-data.class';
 import { Instrument } from '../instrument/instrument.class';
-import { IMENumber } from './ime-number.class';
 import { MonitoringPoint } from '../../../model/monitoring-point.enum';
 
 /**
- * This class was automatically generated from InstantaneousData.java using typescript-gen.
+ * This class was automatically generated from WarmspotData.java using typescript-gen.
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
-export class InstantaneousData {
+export class WarmspotData {
 	id:number;
 	monitoringPoint:MonitoringPoint;
 	instrument:Instrument;
 	inspector:User;
-	barometricPressure:number;
 	methaneLevel:number;
-	startTime:number;
-	endTime:number;
-	imeNumbers:IMENumber[];
-	warmspotData:WarmspotData[];
+	date:number;
+	description:string;
+	size:string;
 }

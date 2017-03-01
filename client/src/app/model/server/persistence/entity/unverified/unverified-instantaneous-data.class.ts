@@ -1,7 +1,8 @@
-import { MonitoringPoint } from '../../../model/monitoring-point.enum';
+import { WarmspotData } from '../instantaneous/warmspot-data.class';
+import { UnverifiedDataSet } from './unverified-data-set.class';
 import { Instrument } from '../instrument/instrument.class';
 import { IMENumber } from '../instantaneous/ime-number.class';
-import { UnverifiedDataSet } from './unverified-data-set.class';
+import { MonitoringPoint } from '../../../model/monitoring-point.enum';
 
 /**
  * This class was automatically generated from UnverifiedInstantaneousData.java using typescript-gen.
@@ -14,6 +15,7 @@ export class UnverifiedInstantaneousData {
 	methaneLevel:number;
 	startTime:number;
 	endTime:number;
-	imeNumber:IMENumber;
+	imeNumbers:IMENumber[];
+	warmspotData:WarmspotData[];
 	unverifiedDataSet:UnverifiedDataSet;
 }

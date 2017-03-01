@@ -20,21 +20,24 @@ import org.springframework.stereotype.Service;
 public class MonitoringPointService {
 	
 	/**
-	 * Finds a site by its short name.
+	 * Finds a site by its short name. 
+	 * If there are multiple sites with the same short name, then it will try to return the active site.
 	 * @param shortName The case-insensitive short name of the site.
 	 * @return A <code>Site</code> that matches the given short name, or <code>null</code> if no suitable site was found.
 	 */
 	public Site getSiteByShortName(String shortName) {
 		
+		Site[] sites = Site.values();
+		
 		// Prefer active site.
-		for (Site site : Site.values()) {
+		for (Site site : sites) {
 			if (site.getShortName().equalsIgnoreCase(shortName) && site.isActive()) {
 				return site;
 			}
 		}
 		
 		// If no active site was found, then consider all sites.
-		for (Site site : Site.values()) {
+		for (Site site : sites) {
 			if (site.getShortName().equalsIgnoreCase(shortName)) {
 				return site;
 			}

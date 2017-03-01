@@ -68,17 +68,13 @@ public class IMENumber {
 	private Set<InstantaneousData> instantaneousData;
 	
 	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumber", "instrument"})
-	@OneToMany(mappedBy="imeNumber")
+	@ManyToMany(mappedBy="imeNumber")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData;
 	
 	@JsonIgnoreProperties({"imeNumber"})
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="imeNumber")
 	private Set<IMEData> imeData;
-	
-//	@JsonIgnoreProperties({"imeNumber"})
-//	@OneToMany(mappedBy="imeNumber")
-//	private Set<IMERepairData> imeRepairData;
 
 	@Transient
 	private String imeNumber;
@@ -154,14 +150,6 @@ public class IMENumber {
 	public void setImeData(Set<IMEData> imeData) {
 		this.imeData = imeData;
 	}
-	
-//	public Set<IMERepairData> getImeRepairData() {
-//		return imeRepairData;
-//	}
-//
-//	public void setImeRepairData(Set<IMERepairData> imeRepairData) {
-//		this.imeRepairData = imeRepairData;
-//	}
 
 	public String getImeNumber() {
 		return this.toString();

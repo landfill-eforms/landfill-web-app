@@ -1,6 +1,8 @@
 package org.lacitysan.landfill.server.persistence.entity.unverified;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,10 +23,14 @@ import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * @author Alvin Quach
+ */
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.UnverifiedInstantaneousData")
 public class UnverifiedInstantaneousData {
@@ -50,9 +58,14 @@ public class UnverifiedInstantaneousData {
 	private Timestamp endTime;
 	
 	@JsonIgnoreProperties({"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"})
-	@ManyToOne
-	@JoinColumn(name="IMENumberFK")
-	private IMENumber imeNumber;
+	@ManyToMany
+	@JoinTable(name="test.dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
+	private Set<IMENumber> imeNumbers = new HashSet<>();
+	
+	@JsonIgnoreProperties({"unverifiedInstantaneousData", "instantaneousData"})
+	@ManyToMany
+	@JoinTable(name="test.dbo.UnverifiedInstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
+	private Set<WarmspotData> warmspotData = new HashSet<>();
 	
 	@JsonIgnoreProperties({"unverifiedInstantaneousData"})
 	@Cascade(CascadeType.ALL)
@@ -96,10 +109,6 @@ public class UnverifiedInstantaneousData {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
-	}
-
 	public Timestamp getEndTime() {
 		return endTime;
 	}
@@ -108,12 +117,20 @@ public class UnverifiedInstantaneousData {
 		this.endTime = endTime;
 	}
 
-	public IMENumber getImeNumber() {
-		return imeNumber;
+	public Set<IMENumber> getImeNumbers() {
+		return imeNumbers;
 	}
 
-	public void setImeNumber(IMENumber imeNumber) {
-		this.imeNumber = imeNumber;
+	public void setImeNumbers(Set<IMENumber> imeNumbers) {
+		this.imeNumbers = imeNumbers;
+	}
+
+	public Set<WarmspotData> getWarmspotData() {
+		return warmspotData;
+	}
+
+	public void setWarmspotData(Set<WarmspotData> warmspotData) {
+		this.warmspotData = warmspotData;
 	}
 
 	public UnverifiedDataSet getUnverifiedDataSet() {
@@ -122,6 +139,10 @@ public class UnverifiedInstantaneousData {
 
 	public void setUnverifiedDataSet(UnverifiedDataSet unverifiedDataSet) {
 		this.unverifiedDataSet = unverifiedDataSet;
+	}
+
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
 	}
 	
 }

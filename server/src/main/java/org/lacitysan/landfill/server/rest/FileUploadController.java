@@ -17,7 +17,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDat
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.service.datamap.mapper.MobileDataMapper;
-import org.lacitysan.landfill.server.service.datamap.model.mobile.InstantaneousDataMobile;
+import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileInstantaneousData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,13 +49,13 @@ public class FileUploadController {
 		System.out.println("FILE SIZE: " + file.getSize());
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			List<InstantaneousDataMobile> rawList = mapper.readValue(file.getBytes(), new TypeReference<List<InstantaneousDataMobile>>(){});
+			List<MobileInstantaneousData> rawList = mapper.readValue(file.getBytes(), new TypeReference<List<MobileInstantaneousData>>(){});
 			Set<UnverifiedInstantaneousData> inst = new HashSet<>();
 			List<IMENumber> imeNumbers = new ArrayList<>();
 			UnverifiedDataSet dataSet = new UnverifiedDataSet();
 			Site site = null;
 			
-			for (InstantaneousDataMobile raw : rawList) {
+			for (MobileInstantaneousData raw : rawList) {
 				UnverifiedInstantaneousData data = mobileDataMapper.unmapInstantaneousData(raw, imeNumbers);
 				data.setUnverifiedDataSet(dataSet);
 				inst.add(data);

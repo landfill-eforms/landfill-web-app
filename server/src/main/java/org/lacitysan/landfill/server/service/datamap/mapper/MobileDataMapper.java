@@ -14,7 +14,7 @@ import org.lacitysan.landfill.server.persistence.entity.instantaneous.Instantane
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
-import org.lacitysan.landfill.server.service.datamap.model.mobile.InstantaneousDataMobile;
+import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileInstantaneousData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +36,8 @@ public class MobileDataMapper {
 	 * @param entity The <code>InstantaneousData</code> object to be mapped.
 	 * @return The <code>InstantaneousDataMobile</code> representation of the input object.
 	 */
-	public InstantaneousDataMobile mapInstantaneousData(InstantaneousData entity) {
-		InstantaneousDataMobile result = new InstantaneousDataMobile();
+	public MobileInstantaneousData mapInstantaneousData(InstantaneousData entity) {
+		MobileInstantaneousData result = new MobileInstantaneousData();
 		// TODO Implement logic
 		return result;
 	}
@@ -50,7 +50,7 @@ public class MobileDataMapper {
 	 * @return The <code>InstantaneousData</code> representation of the input object.
 	 * @throws ParseException 
 	 */
-	public UnverifiedInstantaneousData unmapInstantaneousData(InstantaneousDataMobile entity, Collection<IMENumber> imeNumbers) throws ParseException {
+	public UnverifiedInstantaneousData unmapInstantaneousData(MobileInstantaneousData entity, Collection<IMENumber> imeNumbers) throws ParseException {
 
 		UnverifiedInstantaneousData result = new UnverifiedInstantaneousData();
 

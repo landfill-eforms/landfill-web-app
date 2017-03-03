@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.service.datamap.model.mobile;
 /**
  * @author Alvin Quach
  */
-public class InstantaneousDataMobile {
+public class MobileInstantaneousData {
 	
 	private String mId;
 	private String landFillLocation;

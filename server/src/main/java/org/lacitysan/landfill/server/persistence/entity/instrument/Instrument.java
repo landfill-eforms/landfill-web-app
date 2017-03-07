@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.model.InstrumentStatus;
-import org.lacitysan.landfill.server.model.Site;
+import org.lacitysan.landfill.server.persistence.enums.InstrumentStatus;
+import org.lacitysan.landfill.server.persistence.enums.Site;
 
 /**
  * @author Alvin Quach

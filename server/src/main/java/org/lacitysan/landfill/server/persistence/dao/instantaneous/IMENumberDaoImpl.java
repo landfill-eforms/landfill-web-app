@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
-import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.lacitysan.landfill.server.service.IMEService;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;

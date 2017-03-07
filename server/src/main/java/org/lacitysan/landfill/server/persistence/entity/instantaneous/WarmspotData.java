@@ -17,10 +17,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
+import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

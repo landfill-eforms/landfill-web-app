@@ -21,10 +21,10 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.model.IMENumberStatus;
-import org.lacitysan.landfill.server.model.MonitoringPoint;
-import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.enums.IMENumberStatus;
+import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
+import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.lacitysan.landfill.server.service.IMEService;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

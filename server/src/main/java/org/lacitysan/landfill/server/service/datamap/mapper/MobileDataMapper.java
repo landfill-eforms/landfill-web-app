@@ -7,12 +7,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.lacitysan.landfill.server.model.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileInstantaneousData;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package org.lacitysan.landfill.server.service;
 
-import org.lacitysan.landfill.server.model.Site;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

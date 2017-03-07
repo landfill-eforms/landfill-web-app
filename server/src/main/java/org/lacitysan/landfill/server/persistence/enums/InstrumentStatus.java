@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.model;
+package org.lacitysan.landfill.server.persistence.enums;
 
 /**
  * Operational status of instruments.

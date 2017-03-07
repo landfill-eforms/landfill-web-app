@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.lacitysan.landfill.server.model.UserRole;
+import org.lacitysan.landfill.server.persistence.enums.UserRole;
 
 /**
  * Specifies which <code>UserRole</code> can access the annotated method.

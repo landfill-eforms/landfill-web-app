@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.model.util;
+package org.lacitysan.landfill.server.util.model;
 
 /**
  * A range of integers represented by a min and max value.

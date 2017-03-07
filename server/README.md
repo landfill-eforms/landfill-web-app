@@ -12,4 +12,4 @@ Database access and mapping is mostly handled by Hibernate 5. The configuration 
 * Contains a list of persistence entity classes.
 
 #### Entity Classes
-* Every time a new persistence entity class is created, it must be added into the `DataSourceConfig.java` configuration file. Likewise, when a persistence entity class is deleted, it must be removed from the configuration file. To temporarily disable an entity class, simply remove or comment it out in the configuration file.
+* When a new persistence entity class is created, it must be added into the `DataSourceConfig.java` configuration file. Likewise, when an existing persistence entity class is deleted, it must be removed from the configuration file.

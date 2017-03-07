@@ -18,11 +18,15 @@ import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.persistence.enums.InstrumentStatus;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Alvin Quach
  */
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.Instruments")
+@JsonInclude(Include.NON_NULL)
 public class Instrument {
 	
 	@Id

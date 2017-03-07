@@ -1,6 +1,6 @@
 import { InstrumentType } from './instrument-type.class';
-import { InstrumentStatus } from '../../../model/instrument-status.enum';
-import { Site } from '../../../model/site.enum';
+import { InstrumentStatus } from '../../enums/instrument-status.enum';
+import { Site } from '../../enums/site.enum';
 
 /**
  * This class was automatically generated from Instrument.java using typescript-gen.

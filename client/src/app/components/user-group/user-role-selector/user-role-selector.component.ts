@@ -1,4 +1,5 @@
-import { UserRole } from './../../../model/server/model/user-role.enum';
+import { SortUtils } from './../../../utils/sort.utils';
+import { UserRole } from './../../../model/server/persistence/enums/user-role.enum';
 import { Component, OnChanges, Input } from '@angular/core';
 
 @Component({
@@ -57,9 +58,15 @@ export class UserRoleSelectorComponent implements OnChanges {
 
 	// TODO Allow other types of sorting
 	private sortRoles(roles:UserRole[]):UserRole[] {
+		// let properties:string[]  = [
+		// 	"category",
+		// 	"categoryAction",
+		// 	"name"
+		// ];
+		// SortUtils.sort(roles, [], false);
 		roles.sort((a, b) => {
-			let stringA:string = a.group ? a.group + a.groupAction : a.name;
-			let stringB:string = b.group ? b.group + b.groupAction : b.name;
+			let stringA:string = a.category ? a.category + a.categoryAction : a.name;
+			let stringB:string = b.category ? b.category + b.categoryAction : b.name;
 			if (stringA == stringB) return 0;
 			return stringA > stringB ? 1 : -1;
 		});

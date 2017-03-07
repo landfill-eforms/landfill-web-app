@@ -3,7 +3,7 @@ import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { RestrictedRouteBase } from './../../app.routing';
-import { UserRole } from './../../model/server/model/user-role.enum';
+import { UserRole } from './../../model/server/persistence/enums/user-role.enum';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

@@ -3,7 +3,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { Route, Router } from '@angular/router';
 import { RestrictedRoutes, DefinedRoutes } from './../../../app.routing';
 import { AuthService } from './../../../services/auth/auth.service';
-import { UserRole } from './../../../model/server/model/user-role.enum';
+import { UserRole } from './../../../model/server/persistence/enums/user-role.enum';
 
 @Component({
 	selector: 'app-navigation-base',

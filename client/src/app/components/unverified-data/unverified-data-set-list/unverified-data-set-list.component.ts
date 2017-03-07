@@ -1,7 +1,7 @@
 import { Sort, SortUtils } from './../../../utils/sort.utils';
-import { MonitoringPoint } from './../../../model/server/model/monitoring-point.enum';
+import { MonitoringPoint } from './../../../model/server/persistence/enums/monitoring-point.enum';
 import { EnumUtils } from './../../../utils/enum.utils';
-import { Site } from './../../../model/server/model/site.enum';
+import { Site } from './../../../model/server/persistence/enums/site.enum';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { StringUtils } from './../../../utils/string.utils';
 import { UnverifiedDataService } from './../../../services/unverified-data-set.service';

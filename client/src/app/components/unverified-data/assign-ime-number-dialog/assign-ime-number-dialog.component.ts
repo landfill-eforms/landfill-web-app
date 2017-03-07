@@ -1,5 +1,5 @@
-import { IMENumberStatus } from './../../../model/server/model/ime-number-status.enum';
-import { Site } from './../../../model/server/model/site.enum';
+import { IMENumberStatus } from './../../../model/server/persistence/enums/ime-number-status.enum';
+import { Site } from './../../../model/server/persistence/enums/site.enum';
 import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { IMENumberService } from './../../../services/ime-number.service';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';

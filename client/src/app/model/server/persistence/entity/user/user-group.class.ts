@@ -1,5 +1,5 @@
 import { User } from './user.class';
-import { UserRole } from '../../../model/user-role.enum';
+import { UserRole } from '../../enums/user-role.enum';
 
 /**
  * This class was automatically generated from UserGroup.java using typescript-gen.

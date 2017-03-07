@@ -28,12 +28,15 @@ import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.lacitysan.landfill.server.service.IMEService;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * @author Alvin Quach
  */
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.IMENumbers")
+@JsonInclude(Include.NON_NULL)
 public class IMENumber {
 
 	@Id
@@ -64,11 +67,11 @@ public class IMENumber {
 	private Set<MonitoringPoint> monitoringPoints;
 	
 	@JsonIgnoreProperties({"imeNumber", "instrument", "inspector"})
-	@ManyToMany(mappedBy="imeNumber")
+	@ManyToMany(mappedBy="imeNumbers")
 	private Set<InstantaneousData> instantaneousData;
 	
 	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumber", "instrument"})
-	@ManyToMany(mappedBy="imeNumber")
+	@ManyToMany(mappedBy="imeNumbers")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData;
 	
 	@JsonIgnoreProperties({"imeNumber"})

@@ -24,12 +24,15 @@ import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * @author Alvin Quach
  */
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.InstantaneousData")
+@JsonInclude(Include.NON_NULL)
 public class InstantaneousData {
 	
 	@Id

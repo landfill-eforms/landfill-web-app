@@ -8,7 +8,9 @@ import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMERepairData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
+import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIMEData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
@@ -66,9 +68,11 @@ public class DataSourceConfig {
 						IMENumber.class,
 						IMERepairData.class,
 						InstantaneousData.class,
+						WarmspotData.class,
 
 						// Instrument
 						Instrument.class,
+						InstrumentType.class,
 
 						// Unverified
 						UnverifiedDataSet.class,

@@ -33,12 +33,12 @@ public class Instrument {
 	@NotNull
 	private String serialNumber;
 	
-	@NotNull
+	//@NotNull
 	@ManyToOne
 	@JoinColumn(name="InstrumentTypeFK")
 	private InstrumentType instrumentType;
 	
-	@NotNull
+	//@NotNull
 	@Column(name="InstrumentStatusOrdinal")
 	@Enumerated(EnumType.ORDINAL)
 	private InstrumentStatus instrumentStatus;

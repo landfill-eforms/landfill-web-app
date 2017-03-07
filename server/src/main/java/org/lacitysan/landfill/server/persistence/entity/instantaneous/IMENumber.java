@@ -64,11 +64,11 @@ public class IMENumber {
 	private Set<MonitoringPoint> monitoringPoints;
 	
 	@JsonIgnoreProperties({"imeNumber", "instrument", "inspector"})
-	@ManyToMany(mappedBy="imeNumber")
+	@ManyToMany(mappedBy="imeNumbers")
 	private Set<InstantaneousData> instantaneousData;
 	
 	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumber", "instrument"})
-	@ManyToMany(mappedBy="imeNumber")
+	@ManyToMany(mappedBy="imeNumbers")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData;
 	
 	@JsonIgnoreProperties({"imeNumber"})

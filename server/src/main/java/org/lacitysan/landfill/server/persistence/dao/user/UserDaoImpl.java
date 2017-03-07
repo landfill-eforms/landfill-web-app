@@ -59,7 +59,6 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	private User initialize(User user) {
-		Hibernate.initialize(user);
 		user.getUserGroups().stream().forEach(userGroup -> Hibernate.initialize(userGroup.getUserRoles()));
 		return user;
 	}

@@ -1,9 +1,9 @@
-import { InstantaneousData } from './../model/server/persistence/entity/instantaneous/instantaneous-data.class';
-import { MonitoringPoint } from './../model/server/persistence/enums/monitoring-point.enum';
+import { InstantaneousData } from './../../model/server/persistence/entity/instantaneous/instantaneous-data.class';
+import { MonitoringPoint } from './../../model/server/persistence/enums/monitoring-point.enum';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class InstantaneousDataService {

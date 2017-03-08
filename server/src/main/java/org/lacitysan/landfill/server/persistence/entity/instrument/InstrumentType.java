@@ -31,7 +31,38 @@ public class InstrumentType {
 	@NotNull
 	private String type;
 	
+	@NotNull
+	private String manufacturer;
+	
+	@NotNull
 	private String description;
+	
+	@NotNull
+	private Boolean instantaneous;
+	
+	@NotNull
+	private Boolean probe;
+	
+	@NotNull
+	private Boolean methanePercent;
+	
+	@NotNull
+	private Boolean methanePpm;
+	
+	@NotNull
+	private Boolean hydrogenSulfidePpm;
+	
+	@NotNull
+	private Boolean oxygenPercent;
+	
+	@NotNull
+	private Boolean carbonDioxidePercent;
+	
+	@NotNull
+	private Boolean nitrogenPercent;
+	
+	@NotNull
+	private Boolean pressure;
 	
 	@JsonIgnoreProperties({"instrumentType"})
 	@OneToMany(mappedBy="instrumentType")
@@ -53,12 +84,92 @@ public class InstrumentType {
 		this.type = type;
 	}
 
+	public String getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Boolean getInstantaneous() {
+		return instantaneous;
+	}
+
+	public void setInstantaneous(Boolean instantaneous) {
+		this.instantaneous = instantaneous;
+	}
+
+	public Boolean getProbe() {
+		return probe;
+	}
+
+	public void setProbe(Boolean probe) {
+		this.probe = probe;
+	}
+
+	public Boolean getMethanePercent() {
+		return methanePercent;
+	}
+
+	public void setMethanePercent(Boolean methanePercent) {
+		this.methanePercent = methanePercent;
+	}
+
+	public Boolean getMethanePpm() {
+		return methanePpm;
+	}
+
+	public void setMethanePpm(Boolean methanePpm) {
+		this.methanePpm = methanePpm;
+	}
+
+	public Boolean getHydrogenSulfidePpm() {
+		return hydrogenSulfidePpm;
+	}
+
+	public void setHydrogenSulfidePpm(Boolean hydrogenSulfidePpm) {
+		this.hydrogenSulfidePpm = hydrogenSulfidePpm;
+	}
+
+	public Boolean getOxygenPercent() {
+		return oxygenPercent;
+	}
+
+	public void setOxygenPercent(Boolean oxygenPercent) {
+		this.oxygenPercent = oxygenPercent;
+	}
+
+	public Boolean getCarbonDioxidePercent() {
+		return carbonDioxidePercent;
+	}
+
+	public void setCarbonDioxidePercent(Boolean carbonDioxidePercent) {
+		this.carbonDioxidePercent = carbonDioxidePercent;
+	}
+
+	public Boolean getNitrogenPercent() {
+		return nitrogenPercent;
+	}
+
+	public void setNitrogenPercent(Boolean nitrogenPercent) {
+		this.nitrogenPercent = nitrogenPercent;
+	}
+
+	public Boolean getPressure() {
+		return pressure;
+	}
+
+	public void setPressure(Boolean pressure) {
+		this.pressure = pressure;
 	}
 
 	public Set<Instrument> getInstruments() {
@@ -68,5 +179,5 @@ public class InstrumentType {
 	public void setInstruments(Set<Instrument> instruments) {
 		this.instruments = instruments;
 	}
-	
+
 }

@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 //import {Observable} from 'rxjs/Rx';
 import 'rxjs/Rx';
 
-import {InstantaneousDataService} from '../../../services/instantaneous-data.service';
+import {InstantaneousDataService} from '../../../services/instantaneous/instantaneous-data.service';
 
 @Component({
     selector: 'app-instantaneous-test',

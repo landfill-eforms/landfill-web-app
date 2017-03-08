@@ -1,8 +1,8 @@
-import { UserGroup } from './../model/server/persistence/entity/user/user-group.class';
+import { UserGroup } from './../../model/server/persistence/entity/user/user-group.class';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UserGroupService {
@@ -11,15 +11,15 @@ export class UserGroupService {
 
 	constructor(private authHttp: AuthHttp) {}
 
-	getById(callback:(data) => void, id:string) {
-		this.authHttp.get(this.baseUrl + "/unique/id/" + id).map((res:Response) => res.json()).subscribe(
+	getAll(callback:(data) => void) {
+		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
 				data => callback(data),
 				err => console.log(err)
 			);
 	}
 
-	getAll(callback:(data) => void) {
-		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
+	getById(callback:(data) => void, id:string) {
+		this.authHttp.get(this.baseUrl + "/unique/id/" + id).map((res:Response) => res.json()).subscribe(
 				data => callback(data),
 				err => console.log(err)
 			);

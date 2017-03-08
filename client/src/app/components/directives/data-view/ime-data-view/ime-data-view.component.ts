@@ -1,7 +1,7 @@
 import { IMERepairData } from './../../../../model/server/persistence/entity/instantaneous/ime-repair-data.class';
 import { IMERepairDialogComponent } from './../../dialog/ime-repair-dialog/ime-repair-dialog.component';
 import { User } from './../../../../model/server/persistence/entity/user/user.class';
-import { UserService } from './../../../../services/user.service';
+import { UserService } from './../../../../services/user/user.service';
 import { DateTimeUtils } from './../../../../utils/date-time.utils';
 import { StringUtils } from './../../../../utils/string.utils';
 import { IMERecheckDialogComponent } from './../../dialog/ime-recheck-dialog/ime-recheck-dialog.component';

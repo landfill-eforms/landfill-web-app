@@ -1,5 +1,5 @@
 import { Response } from '@angular/http';
-import { environment } from './../../environments/environment';
+import { environment } from './../../../environments/environment';
 import { AuthHttp } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 

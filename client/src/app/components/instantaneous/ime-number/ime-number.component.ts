@@ -1,7 +1,7 @@
 import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { MdSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { IMENumberService } from './../../../services/ime-number.service';
+import { IMENumberService } from './../../../services/instantaneous/ime-number.service';
 import { Component, OnInit } from '@angular/core';
 
 

@@ -2,8 +2,8 @@ import { StringUtils } from './../../../utils/string.utils';
 import { InstantaneousData } from './../../../model/server/persistence/entity/instantaneous/instantaneous-data.class';
 import { Site } from './../../../model/server/persistence/enums/site.enum';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
-import { SitesService } from './../../../services/sites.service';
-import { InstantaneousDataService } from './../../../services/instantaneous-data.service';
+import { SitesService } from './../../../services/monitoring-point/site.service';
+import { InstantaneousDataService } from './../../../services/instantaneous/instantaneous-data.service';
 import { OnInit, Component } from '@angular/core';
 
 @Component({
@@ -45,7 +45,7 @@ export class InstantaneousReportComponent implements OnInit {
 				this.data.push(this.instantaneousDataService.processDataPoint(data[i]));
 			}
 			this.isDataLoaded = true;
-        }, this.sites.selected.name.toUpperCase(), this.dateRange.start, this.dateRange.end);
+        }, this.site.selected.name.toUpperCase(), this.dateRange.start, this.dateRange.end);
     }
 
 	onStartDateChange(event) {

@@ -1,5 +1,5 @@
 import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
-import { UserGroupService } from './../../../services/user-group.service';
+import { UserGroupService } from './../../../services/user/user-group.service';
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from "@angular/material";
 

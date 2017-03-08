@@ -1,5 +1,5 @@
 import { User } from './../../../model/server/persistence/entity/user/user.class';
-import { UserService } from './../../../services/user.service';
+import { UserService } from './../../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from "@angular/material";
 

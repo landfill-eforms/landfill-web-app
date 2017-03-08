@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class UserGroupComponent implements OnInit {
 
 	isDataLoaded:boolean;
-	groupId:string;
+	userGroupId:string;
 	userGroup:UserGroup = new UserGroup();
 	selectedRoles:UserRole[];
 
@@ -25,14 +25,14 @@ export class UserGroupComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.groupId = this.activatedRoute.params['_value']['id'];
-		console.log(this.groupId);
+		this.userGroupId = this.activatedRoute.params['_value']['id'];
+		console.log(this.userGroupId);
 		this.userGroupService.getById((data) => {
 			console.log(data);
 			this.userGroup = data;
 			this.isDataLoaded = true;
 			this.selectedRoles = EnumUtils.convertToEnums(UserRole, this.userGroup.userRoles);
-		}, this.groupId);
+		}, this.userGroupId);
 	}
 
 	save() {

@@ -1,3 +1,7 @@
+import { InstrumentTypeComponent } from './components/instrument/instrument-type/instrument-type.component';
+import { InstrumentTypeListComponent } from './components/instrument/instrument-type-list/instrument-type-list.component';
+import { InstrumentComponent } from './components/instrument/instrument/instrument.component';
+import { InstrumentListComponent } from './components/instrument/instrument-list/instrument-list.component';
 import { ImeReportComponent } from './components/report/ime-report/ime-report.component';
 import { IMENumberComponent } from './components/instantaneous/ime-number/ime-number.component';
 import { IMENumberListComponent } from './components/instantaneous/ime-number-list/ime-number-list.component';
@@ -60,6 +64,7 @@ export class DefinedRoutes {
 		component: DashboardComponent,
 	}
 
+	///// USER ROUTES /////
 	static readonly USER_LIST:Route = {
 		path: 'user-list',
 		component: UserListComponent,
@@ -85,6 +90,28 @@ export class DefinedRoutes {
 		component: UserGroupComponent,
 	}
 
+	///// INSTRUMENT ROUTES /////
+	static readonly INSTRUMENT_LIST:Route = {
+		path: 'instrument-list',
+		component: InstrumentListComponent
+	}
+
+	static readonly INSTRUMENT:Route = {
+		path: 'instrument',
+		component: InstrumentComponent
+	}
+
+	static readonly INSTRUMENT_TYPE_LIST:Route = {
+		path: 'instrument-type-list',
+		component: InstrumentTypeListComponent
+	}
+
+	static readonly INSTRUMENT_TYPE:Route = {
+		path: 'instrument-type',
+		component: InstrumentTypeComponent
+	}
+
+	///// UNVERIFIED DATA ROUTES /////
 	static readonly UNVERIFIED_DATA_SET_LIST:Route = {
 		path: 'unverified-data-set-list',
 		component: UnverifiedDataSetsComponent
@@ -95,6 +122,7 @@ export class DefinedRoutes {
 		component: UnverifiedDataSetComponent
 	}
 
+	///// INSTANTANEOUS ROUTES /////
 	static readonly IME_NUMBER_LIST:Route = {
 		path: 'ime-number-list',
 		component: IMENumberListComponent
@@ -105,6 +133,7 @@ export class DefinedRoutes {
 		component: IMENumberComponent
 	}
 
+	///// REPORT ROUTES /////
 	static readonly REPORTS:Route = {
 		path: 'reports',
 		component: ReportsComponent
@@ -120,6 +149,7 @@ export class DefinedRoutes {
 		component: ImeReportComponent
 	}
 
+	///// DATA SYNC ROUTES /////
 	static readonly INSTANTANEOUS_UPLOAD:Route = {
 		path: 'instantaneous-upload',
 		component: InstantaneousUploadTestComponent

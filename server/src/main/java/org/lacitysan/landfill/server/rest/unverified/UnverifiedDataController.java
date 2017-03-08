@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.rest;
+package org.lacitysan.landfill.server.rest.unverified;
 
 import java.util.List;
 import java.util.Set;

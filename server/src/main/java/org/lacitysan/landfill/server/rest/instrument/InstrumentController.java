@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.rest;
+package org.lacitysan.landfill.server.rest.instrument;
 
 import java.util.List;
 

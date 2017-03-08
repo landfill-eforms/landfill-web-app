@@ -1,0 +1,105 @@
+<md-card class="section-single">
+	<md-card-content>
+		<div class="section-title">Equipment Types</div>
+		<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+			<md-spinner class="loading-indicator-spinner"></md-spinner>
+			<div class="loading-indicator-message">{{loadingMessage}}</div>
+		</div>
+		<div *ngIf="isDataLoaded" class="list-table">
+			<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex (click)="sortBy('type')">
+					<span class="list-table-header-label-sortable">Equipment Type</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'type'}">
+						arrow_downward</md-icon>
+				</div>
+				<div class="truncate flex-item" fxFlex (click)="sortBy('manufacturer')">
+					<span class="list-table-header-label-sortable">Manufacturer</span>
+					<md-icon class="list-table-header-sort" [ngClass]="{
+						'list-table-header-sort-reverse':sort.reversed,
+						'list-table-header-sort-inactive':sort.current !== 'manufacturer'}">
+						arrow_downward</md-icon>
+				</div>
+				<div class="truncate flex-item" fxFlex="50">
+					<span class="list-table-header-label">Description</span>
+				</div>
+				<div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">Instantaneous/Integerated</span>
+				</div>
+                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">Probes/Gas Wells</span>
+				</div>
+                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">CH<sub>4</sub> %</span>
+				</div>
+                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">CH<sub>4</sub> ppm</span>
+				</div>
+                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">H<sub>2</sub>S ppm</span>
+				</div>
+                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">O<sub>2</sub> %</span>
+				</div>
+                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">CO<sub>2</sub> %</span>
+				</div>
+                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">N<sub>2</sub> %</span>
+				</div>
+                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+					<span class="list-table-header-label">Pressure</span>
+				</div>
+			</div>
+			<div *ngFor="let type of instrumentTypeList; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+				<div class="truncate flex-item" fxFlex>
+					<a [routerLink]="'../type/' + type.typename" routerLikeActive="active">
+						{{type.type}}
+					</a>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					{{type.manufacturer}}
+				</div>
+				<div class="truncate flex-item" fxFlex="50">
+					{{type.description}}
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					{{type.employeeId}}
+				</div>
+				<div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon *ngIf="type.instantaneous" style="color:#0D0;">check</md-icon>
+				</div>
+                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon *ngIf="type.probe" style="color:#0D0;">check</md-icon>
+				</div>
+                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon *ngIf="type.methanePercent" style="color:#0D0;">check</md-icon>
+				</div>
+                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon *ngIf="type.methanePpm" style="color:#0D0;">check</md-icon>
+				</div>
+                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon *ngIf="type.hydrogenSulfidePpm" style="color:#0D0;">check</md-icon>
+				</div>
+                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon *ngIf="type.oxygenPercent" style="color:#0D0;">check</md-icon>
+				</div>
+                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon *ngIf="type.carbonDioxidePercent" style="color:#0D0;">check</md-icon>
+				</div>
+                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon *ngIf="type.nitrogenPercent" style="color:#0D0;">check</md-icon>
+				</div>
+                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+					<md-icon *ngIf="type.pressure" style="color:#0D0;">check</md-icon>
+				</div>
+			</div>
+		</div>
+	</md-card-content>
+	<md-card-actions>
+		<button md-button (click)="openNewUserDialog()">
+			NEW USER
+		</button>
+	</md-card-actions>
+</md-card>

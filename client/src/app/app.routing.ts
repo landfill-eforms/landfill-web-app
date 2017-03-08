@@ -97,7 +97,7 @@ export class DefinedRoutes {
 	}
 
 	static readonly INSTRUMENT:Route = {
-		path: 'instrument',
+		path: 'instrument/:id',
 		component: InstrumentComponent
 	}
 
@@ -107,7 +107,7 @@ export class DefinedRoutes {
 	}
 
 	static readonly INSTRUMENT_TYPE:Route = {
-		path: 'instrument-type',
+		path: 'instrument-type/:id',
 		component: InstrumentTypeComponent
 	}
 

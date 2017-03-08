@@ -3,6 +3,7 @@ package org.lacitysan.landfill.server.persistence.dao.instrument;
 import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -17,6 +18,20 @@ public class InstrumentDaoImpl implements InstrumentDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
+	
+	@Override
+	@Transactional
+	public Instrument getInstrumentById(Integer id) {
+		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(Instrument.class)
+				.add(Restrictions.idEq(id))
+				.uniqueResult();
+		if (result instanceof Instrument) {
+			Instrument instrument = (Instrument)result;
+			return initialize(instrument);
+		}
+		return null;
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override

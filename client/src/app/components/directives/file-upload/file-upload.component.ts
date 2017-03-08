@@ -1,7 +1,7 @@
 import { MdSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
-import { FileUploadService } from './../../../services/file-upload.service';
+import { FileUploadService } from './../../../services/file/file-upload.service';
 
 
 // Source: http://stackoverflow.com/questions/36352405/file-upload-with-angular2-to-rest-api/39862337#39862337

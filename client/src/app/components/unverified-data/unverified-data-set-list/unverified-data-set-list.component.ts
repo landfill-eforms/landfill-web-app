@@ -4,7 +4,7 @@ import { EnumUtils } from './../../../utils/enum.utils';
 import { Site } from './../../../model/server/persistence/enums/site.enum';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { StringUtils } from './../../../utils/string.utils';
-import { UnverifiedDataService } from './../../../services/unverified-data-set.service';
+import { UnverifiedDataService } from './../../../services/unverified/unverified-data-set.service';
 import { UnverifiedDataSet } from './../../../model/server/persistence/entity/unverified/unverified-data-set.class';
 import { OnInit, Component } from '@angular/core';
 

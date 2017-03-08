@@ -8,9 +8,15 @@ import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentTyp
  * @author aquach
  */
 public interface InstrumentTypeDao {
+	
+	InstrumentType getInstrumentTypeById(Integer id);
 
 	List<InstrumentType> getAllInstrumentTypes();
 
-	void update(InstrumentType instrument);
+	Object update(InstrumentType instrument);
+
+	Object create(InstrumentType instrumentType);
+
+	Object delete(InstrumentType instrumentType);
 
 }

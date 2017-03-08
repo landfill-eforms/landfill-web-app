@@ -9,6 +9,8 @@ import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
  */
 public interface InstrumentDao {
 
+	Instrument getInstrumentById(Integer id);
+	
 	List<Instrument> getAllInstruments();
 
 	Object update(Instrument instrument);

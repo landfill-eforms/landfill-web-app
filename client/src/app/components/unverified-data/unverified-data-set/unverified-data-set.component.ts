@@ -1,4 +1,4 @@
-import { IMENumberService } from './../../../services/ime-number.service';
+import { IMENumberService } from './../../../services/instantaneous/ime-number.service';
 import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';
 import { AssignIMENumberDialogComponent } from './../assign-ime-number-dialog/assign-ime-number-dialog.component';
@@ -10,7 +10,7 @@ import { EnumUtils } from './../../../utils/enum.utils';
 import { Site } from './../../../model/server/persistence/enums/site.enum';
 import { MonitoringPoint } from './../../../model/server/persistence/enums/monitoring-point.enum';
 import { MdSnackBar } from '@angular/material';
-import { UnverifiedDataService } from './../../../services/unverified-data-set.service';
+import { UnverifiedDataService } from './../../../services/unverified/unverified-data-set.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UnverifiedDataSet } from './../../../model/server/persistence/entity/unverified/unverified-data-set.class';
 import { Component, OnInit } from '@angular/core';

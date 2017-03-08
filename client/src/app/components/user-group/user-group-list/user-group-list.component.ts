@@ -5,7 +5,7 @@ import { MdDialogRef } from '@angular/material';
 import { MdDialog } from '@angular/material';
 import { MdSnackBar } from '@angular/material';
 import { async } from '@angular/core/testing';
-import { UserGroupService } from './../../../services/user-group.service';
+import { UserGroupService } from './../../../services/user/user-group.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

@@ -3,7 +3,7 @@ import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { NewUserDialogComponent } from './../new-user-dialog/new-user-dialog.component';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './../../../services/user.service';
+import { UserService } from './../../../services/user/user.service';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/material";
 
 @Component({

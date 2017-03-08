@@ -1,7 +1,7 @@
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { MdSnackBar } from '@angular/material';
 import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from './../../../services/user.service';
+import { UserService } from './../../../services/user/user.service';
 
 @Component({
 	selector: 'app-user-profile',

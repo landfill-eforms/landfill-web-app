@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.persistence.dao.instrument;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
+import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -18,6 +18,20 @@ public class InstrumentTypeDaoImpl implements InstrumentTypeDao {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 	
+	@Override
+	@Transactional
+	public InstrumentType getInstrumentTypeById(Integer id) {
+		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(InstrumentType.class)
+				.add(Restrictions.idEq(id))
+				.uniqueResult();
+		if (result instanceof InstrumentType) {
+			InstrumentType instrumentType = (InstrumentType)result;
+			return initialize(instrumentType);
+		}
+		return null;
+	}	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -31,12 +45,25 @@ public class InstrumentTypeDaoImpl implements InstrumentTypeDao {
 	
 	@Override
 	@Transactional
-	public void update(InstrumentType instrumentType) {
+	public Object update(InstrumentType instrumentType) {
 		hibernateTemplate.update(instrumentType);
+		return true;
+	}
+	
+	@Override
+	@Transactional
+	public Object create(InstrumentType instrumentType) {
+		return hibernateTemplate.save(instrumentType);
+	}
+	
+	@Override
+	@Transactional
+	public Object delete(InstrumentType instrumentType) {
+		hibernateTemplate.delete(instrumentType);
+		return true;
 	}
 	
 	private InstrumentType initialize(InstrumentType instrumentType) {
-		//Hibernate.initialize(instrumentType);
 		return instrumentType;
 	}
 	

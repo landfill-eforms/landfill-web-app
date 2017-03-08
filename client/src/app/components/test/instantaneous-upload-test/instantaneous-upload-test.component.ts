@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import {Component, OnInit, ElementRef} from '@angular/core';
 import 'rxjs/Rx';
 
-import {InstantaneousDataService} from '../../../services/instantaneous-data.service';
+import {InstantaneousDataService} from '../../../services/instantaneous/instantaneous-data.service';
 
 @Component({
     selector: 'app-instantaneous-upload-test',

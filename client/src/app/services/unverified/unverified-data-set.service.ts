@@ -1,8 +1,8 @@
-import { EnumUtils } from './../utils/enum.utils';
-import { MonitoringPoint } from './../model/server/persistence/enums/monitoring-point.enum';
-import { UnverifiedDataSet } from './../model/server/persistence/entity/unverified/unverified-data-set.class';
+import { EnumUtils } from './../../utils/enum.utils';
+import { MonitoringPoint } from './../../model/server/persistence/enums/monitoring-point.enum';
+import { UnverifiedDataSet } from './../../model/server/persistence/entity/unverified/unverified-data-set.class';
 import { Response } from '@angular/http';
-import { environment } from './../../environments/environment';
+import { environment } from './../../../environments/environment';
 import { AuthHttp } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 

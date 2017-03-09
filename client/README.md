@@ -17,6 +17,11 @@ Components typically contain a view (html), controller (typescript), and style (
 
 * It is NOT recommended to use `ng generate component component-name` to generate new components, as it doesn't follow project conventions. To be specific, it will create the component in the `src/app` directory and add the component directly as an import in `AppModule`.
 
+### Dialogs
+
+#### Creating New Dialogs
+* Need to add it to @NgModule.entryComponents.
+
 ## Deployment Notes
 ...
 

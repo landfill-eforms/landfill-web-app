@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './instrument-list.component.html',
     styleUrls: ['./instrument-list.component.scss']
 })
-export class InstrumentTypeListComponent implements OnInit {
+export class InstrumentListComponent implements OnInit {
 
     isDataLoaded:boolean;
     loadingMessage:string;

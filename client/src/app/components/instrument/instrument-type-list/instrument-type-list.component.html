@@ -21,34 +21,34 @@
 						'list-table-header-sort-inactive':sort.current !== 'manufacturer'}">
 						arrow_downward</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="50">
+				<div class="truncate flex-item" fxFlex="25">
 					<span class="list-table-header-label">Description</span>
 				</div>
-				<div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
-					<span class="list-table-header-label">Instantaneous/Integerated</span>
+				<div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
+					<span class="list-table-header-label">Inst./Intg.</span>
 				</div>
-                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
-					<span class="list-table-header-label">Probes/Gas Wells</span>
+                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
+					<span class="list-table-header-label">Probe/Gas</span>
 				</div>
-                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
 					<span class="list-table-header-label">CH<sub>4</sub> %</span>
 				</div>
-                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
 					<span class="list-table-header-label">CH<sub>4</sub> ppm</span>
 				</div>
-                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
 					<span class="list-table-header-label">H<sub>2</sub>S ppm</span>
 				</div>
-                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
 					<span class="list-table-header-label">O<sub>2</sub> %</span>
 				</div>
-                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
 					<span class="list-table-header-label">CO<sub>2</sub> %</span>
 				</div>
-                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
 					<span class="list-table-header-label">N<sub>2</sub> %</span>
 				</div>
-                <div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
 					<span class="list-table-header-label">Pressure</span>
 				</div>
 			</div>
@@ -61,37 +61,34 @@
 				<div class="truncate flex-item" fxFlex>
 					{{type.manufacturer}}
 				</div>
-				<div class="truncate flex-item" fxFlex="50">
+				<div class="truncate flex-item" fxFlex="25">
 					{{type.description}}
 				</div>
-				<div class="truncate flex-item" fxFlex>
-					{{type.employeeId}}
-				</div>
-				<div class="flex-item" fxFlex="50px" style="text-align:center;">
+				<div class="flex-item" fxFlex="86px" style="text-align:center;">
 					<md-icon *ngIf="type.instantaneous" style="color:#0D0;">check</md-icon>
 				</div>
-                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="flex-item" fxFlex="86px" style="text-align:center;">
 					<md-icon *ngIf="type.probe" style="color:#0D0;">check</md-icon>
 				</div>
-                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="flex-item" fxFlex="86px" style="text-align:center;">
 					<md-icon *ngIf="type.methanePercent" style="color:#0D0;">check</md-icon>
 				</div>
-                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="flex-item" fxFlex="86px" style="text-align:center;">
 					<md-icon *ngIf="type.methanePpm" style="color:#0D0;">check</md-icon>
 				</div>
-                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="flex-item" fxFlex="86px" style="text-align:center;">
 					<md-icon *ngIf="type.hydrogenSulfidePpm" style="color:#0D0;">check</md-icon>
 				</div>
-                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="flex-item" fxFlex="86px" style="text-align:center;">
 					<md-icon *ngIf="type.oxygenPercent" style="color:#0D0;">check</md-icon>
 				</div>
-                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="flex-item" fxFlex="86px" style="text-align:center;">
 					<md-icon *ngIf="type.carbonDioxidePercent" style="color:#0D0;">check</md-icon>
 				</div>
-                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="flex-item" fxFlex="86px" style="text-align:center;">
 					<md-icon *ngIf="type.nitrogenPercent" style="color:#0D0;">check</md-icon>
 				</div>
-                <div class="flex-item" fxFlex="50px" style="text-align:center;">
+                <div class="flex-item" fxFlex="86px" style="text-align:center;">
 					<md-icon *ngIf="type.pressure" style="color:#0D0;">check</md-icon>
 				</div>
 			</div>

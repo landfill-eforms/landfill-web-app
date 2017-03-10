@@ -18,6 +18,7 @@ import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.persistence.enums.InstrumentStatus;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -37,14 +38,15 @@ public class Instrument {
 	@NotNull
 	private String serialNumber;
 	
-	//@NotNull
+	@JsonIgnoreProperties({"instruments"})
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="InstrumentTypeFK")
 	private InstrumentType instrumentType;
 	
-	//@NotNull
-	@Column(name="InstrumentStatusOrdinal")
-	@Enumerated(EnumType.ORDINAL)
+	@NotNull
+	@Column(name="InstrumentStatusString")
+	@Enumerated(EnumType.STRING)
 	private InstrumentStatus instrumentStatus;
 	
 	private Timestamp serviceDueDate;
@@ -53,8 +55,8 @@ public class Instrument {
 	
 	private Timestamp purchaseDate;
 	
-	@Column(name="SiteOrdinal")
-	@Enumerated(EnumType.ORDINAL)
+	@Column(name="SiteString")
+	@Enumerated(EnumType.STRING)
 	private Site site;
 	
 	private String inventoryNumber;

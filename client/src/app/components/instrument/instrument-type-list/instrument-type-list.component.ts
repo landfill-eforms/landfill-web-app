@@ -1,4 +1,6 @@
-import { MdDialog, MdSnackBar } from '@angular/material';
+import { NewInstrumentTypeDialogComponent } from './../dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
+import { MdDialogRef } from '@angular/material';
+import { MdDialog, MdSnackBar, MdDialogConfig } from '@angular/material';
 import { InstrumentTypeService } from './../../../services/instrument/instrument-type.service';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { InstrumentType } from './../../../model/server/persistence/entity/instrument/instrument-type.class';
@@ -73,7 +75,7 @@ export class InstrumentTypeListComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-		this.loadingMessage = "Loading Equipment Types...";
+		this.loadingMessage = "Loading...";
 		this.loadInstrumentTypes();
 	}
 	
@@ -83,6 +85,21 @@ export class InstrumentTypeListComponent implements OnInit {
             this.instrumentTypeList = data;
             this.isDataLoaded = true;
         });
+    }
+
+    openNewInstrumentTypeDialog() {
+        let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '640px';
+			//dialogConfig.height = '480px';
+		let dialogRef:MdDialogRef<NewInstrumentTypeDialogComponent> = this.dialog.open(NewInstrumentTypeDialogComponent, dialogConfig);
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.snackBar.open("New user group has been created.", "OK", {duration: 2000});
+				this.isDataLoaded = false;
+				this.loadingMessage = "Reloading..."
+				this.loadInstrumentTypes();
+			}
+		});
     }
 
     sortBy(sortBy:string) {

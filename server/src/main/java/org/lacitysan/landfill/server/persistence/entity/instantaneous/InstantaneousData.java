@@ -40,8 +40,8 @@ public class InstantaneousData {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 		
-	@Column(name="MonitoringPointOrdinal")
-	@Enumerated(EnumType.ORDINAL)
+	@Column(name="MonitoringPointString")
+	@Enumerated(EnumType.STRING)
 	private MonitoringPoint monitoringPoint;
 		
 	@ManyToOne

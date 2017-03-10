@@ -28,7 +28,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		
 		String username = (String)authentication.getPrincipal();
-		User user = userDao.getUserByUsername(username);
+		User user = userDao.getUserByUsername(username.trim().replaceAll("\\s+", ""));
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid Username"); // TODO Change this to "Invalid user or password"
 		}

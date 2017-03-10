@@ -37,6 +37,7 @@ export class ImeNumberComponent implements OnInit {
 	save() {
 		this.imeNumberService.update((data) => {
 			console.log(data);
+			this.snackBar.open("IME entries have been updated.", "OK", {duration: 2000});
 		}, this.imeNumberData);
 	}
 

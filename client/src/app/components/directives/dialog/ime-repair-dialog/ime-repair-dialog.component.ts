@@ -23,7 +23,12 @@ export class ImeRepairDialogComponent {
 		
 		// TODO Do this properly
 		this.data.user = <any>{id:1};
-
+		if (!this.data.soil) {
+			this.data.soil = false;
+		}
+		if (!this.data.water) {
+			this.data.soil = false;
+		}
 		this.dialogRef.close(this.data);
 	}
 

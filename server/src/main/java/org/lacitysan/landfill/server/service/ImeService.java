@@ -43,8 +43,8 @@ public class ImeService {
 			if (site == null) {
 				return null; // TODO Have this throw some exceptions instead of returning null.
 			}
-			Integer dateCode = Integer.valueOf(imeNumber.substring(2,6)); // TODO Verify that this is valid.
-			Short sequence = Short.valueOf(imeNumber.substring(6));
+			int dateCode = Integer.valueOf(imeNumber.substring(2,6)); // TODO Verify that this is valid.
+			short sequence = Short.valueOf(imeNumber.substring(6));
 			ImeNumber result = new ImeNumber();
 			result.setId(0);
 			result.setSite(site);
@@ -52,10 +52,9 @@ public class ImeService {
 			result.setSequence(sequence);
 			return result;
 		} catch (NumberFormatException e) {
-			// TODO Have this re-throw an exception with @ResponseStatus annotation.
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 }

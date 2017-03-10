@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.service.datamap.model.mobile;
 
-public class MobileIMEData {
+public class MobileImeData {
 	
 	private String mId;
     private String mImeNumber;

@@ -32,20 +32,20 @@ export class AssignImeNumberDialogComponent {
 	createImeNumber() {
 		let imeNumber:ImeNumber = new ImeNumber();
 		imeNumber.site = <any>this.site.constantName;
-		imeNumber.dateCode = this.action.newDate;
+		imeNumber.dateCode = Number(this.action.newImeNumberString.substring(3, 7));  // TODO Make this better.
 		imeNumber.sequence = this.action.newSeries;
 		imeNumber.status = <any>ImeNumberStatus.UNVERIFIED.constantName;
 		imeNumber.imeNumber = this.action.newImeNumberString;
 		this.imeNumberService.create((data) => {
 			imeNumber.id = data;
-			this.data.imeNumber = imeNumber;
+			this.data.imeNumbers.push(imeNumber);
 			this.dialogRef.close(data);
 		}, imeNumber);
 		// this.createdImeNumbers.push(imeNumber);
 	}
 
 	addToImeNumber(imeNumber:ImeNumber) {
-		this.data.imeNumber = imeNumber;
+		this.data.imeNumbers.push(imeNumber);
 		this.dialogRef.close(imeNumber);
 	}
 

@@ -29,7 +29,7 @@ public class ImeNumberController {
 	
 	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
 	public List<ImeNumber> getBySite(@PathVariable String siteName) {
-		return imeNumbersDao.getBySite(siteName);
+		return imeNumbersDao.getBySiteName(siteName);
 	}
 	
 	@RequestMapping(value="/unique/imeNumber/{imeNumber}", method=RequestMethod.GET)

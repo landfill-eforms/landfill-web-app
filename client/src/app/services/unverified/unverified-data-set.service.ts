@@ -61,11 +61,14 @@ export class UnverifiedDataService {
 			if (data.monitoringPoint.site != dataSet.site) {
 				instantaneousErrors.push("The instantaneous reading of " + data.methaneLevel / 100 + "ppm has a grid on the wrong site (" + data.monitoringPoint.site.name + ")!");
 			}
-			if (data.methaneLevel >= 50000 && !data.imeNumber) {
+			if (data.methaneLevel >= 50000 && (!data.imeNumbers || data.imeNumbers.length == 0)) {
 				instantaneousErrors.push("The instantaneous reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " is missing an IME number.");
 			}
-			if (data.methaneLevel < 50000 && data.imeNumber) {
+			if (data.methaneLevel < 50000 && (data.imeNumbers && data.imeNumbers.length > 0)) {
 				instantaneousErrors.push("The instantaneous reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " should not have an IME number.");
+			}
+			if (!data.instrument) {
+				instantaneousErrors.push("The instantaneous reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an instrument specified.");
 			}
 		}
 

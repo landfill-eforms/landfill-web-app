@@ -53,7 +53,7 @@ public class WarmspotData {
 	private User inspector;
 	
 	@NotNull
-	private Integer methaneLevel;	
+	private int methaneLevel;	
 	
 	@NotNull
 	private Timestamp date;
@@ -104,11 +104,11 @@ public class WarmspotData {
 		this.inspector = inspector;
 	}
 
-	public Integer getMethaneLevel() {
+	public int getMethaneLevel() {
 		return methaneLevel;
 	}
 
-	public void setMethaneLevel(Integer methaneLevel) {
+	public void setMethaneLevel(int methaneLevel) {
 		this.methaneLevel = methaneLevel;
 	}
 
@@ -134,6 +134,22 @@ public class WarmspotData {
 
 	public void setSize(String size) {
 		this.size = size;
+	}
+
+	public Set<InstantaneousData> getInstantaneousData() {
+		return instantaneousData;
+	}
+
+	public void setInstantaneousData(Set<InstantaneousData> instantaneousData) {
+		this.instantaneousData = instantaneousData;
+	}
+
+	public Set<UnverifiedInstantaneousData> getUnverifiedInstantaneousData() {
+		return unverifiedInstantaneousData;
+	}
+
+	public void setUnverifiedInstantaneousData(Set<UnverifiedInstantaneousData> unverifiedInstantaneousData) {
+		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
 	}
 	
 }

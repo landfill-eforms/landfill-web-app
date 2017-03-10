@@ -1,3 +1,5 @@
+import { Instrument } from './../../../model/server/persistence/entity/instrument/instrument.class';
+import { InstrumentService } from './../../../services/instrument/instrument.service';
 import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
 import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';
@@ -26,6 +28,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 	DateTimeUtils = DateTimeUtils;
 
 	isDataLoaded:boolean = false;
+	instruments:Instrument[] = [];
 	dataSetId:string;
 	dataSet:UnverifiedDataSet;
 	existingImeNumbers:ImeNumber[];
@@ -40,6 +43,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		private router:Router,
 		private unverifiedDataService:UnverifiedDataService,
 		private imeNumberService:ImeNumberService,
+		private instrumentService:InstrumentService,
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
 	) {}
@@ -50,14 +54,23 @@ export class UnverifiedDataSetComponent implements OnInit {
 		
 		this.unverifiedDataService.getById((data) => {
 			this.dataSet = this.processData(data);
+			for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
+				if (!this.dataSet.unverifiedInstantaneousData[i].instrument) {
+					this.dataSet.unverifiedInstantaneousData[i].instrument = <any>{}; // LOLOLOL
+				}
+			}
 			this.sortByGrid();
 			this.imeNumberService.getBySite((data) => {
 				// TODO Use current date.
-				this.existingImeNumbers = data.filter(number => 
-					number.dateCode >= this.dataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
-				);
+				this.existingImeNumbers = data
+				// .filter(number => 
+				// 	number.dateCode >= this.dataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
+				// );
 				console.log(this.existingImeNumbers);
-				this.isDataLoaded = true;
+				this.instrumentService.getAll((data) => {
+					this.instruments = data;
+					this.isDataLoaded = true;
+				});
 			}, this.dataSet.site);
 		}, this.dataSetId);
 	}
@@ -90,9 +103,9 @@ export class UnverifiedDataSetComponent implements OnInit {
 		});
 	}
 
-	removeImeNumber(data:UnverifiedInstantaneousData) {
+	removeImeNumbers(data:UnverifiedInstantaneousData) {
 		this.snackBar.open("IME number has been removed.", "OK", {duration: 2000});
-		data.imeNumber = null;
+		data.imeNumbers = [];
 		this.unverifiedDataService.checkForErrors(this.dataSet);
 	}
 
@@ -160,17 +173,17 @@ export class UnverifiedDataSetComponent implements OnInit {
 			this.sort.reversed = false;
 		}
 		this.dataSet.unverifiedInstantaneousData.sort((a, b) => {
-			if (a.imeNumber && !b.imeNumber) {
+			if (a.imeNumbers[0] && !b.imeNumbers[0]) {
 				return 1 * (this.sort.reversed ? -1 : 1);
 			}
-			else if (b.imeNumber && !a.imeNumber) {
+			else if (b.imeNumbers[0] && !a.imeNumbers[0]) {
 				return -1 * (this.sort.reversed ? -1 : 1);
 			}
-			else if (!a.imeNumber && !b.imeNumber) {
+			else if (!a.imeNumbers[0] && !b.imeNumbers[0]) {
 				var compareGrid = 0;
 			}
 			else {
-				var compareGrid = this.stringSortFunction(a.imeNumber.imeNumber, b.imeNumber.imeNumber, this.sort.reversed);
+				var compareGrid = this.stringSortFunction(a.imeNumbers[0].imeNumber, b.imeNumbers[0].imeNumber, this.sort.reversed);
 			}
 			if (compareGrid != 0) {
 				return compareGrid;

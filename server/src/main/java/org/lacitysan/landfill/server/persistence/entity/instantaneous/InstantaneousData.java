@@ -54,10 +54,10 @@ public class InstantaneousData {
 	private User inspector;
 	
 	@NotNull
-	private Short barometricPressure;
+	private short barometricPressure;
 	
 	@NotNull
-	private Integer methaneLevel;	
+	private int methaneLevel;	
 	
 	@NotNull
 	private Timestamp startTime;
@@ -107,19 +107,19 @@ public class InstantaneousData {
 		this.inspector = inspector;
 	}
 
-	public Short getBarometricPressure() {
+	public short getBarometricPressure() {
 		return barometricPressure;
 	}
 
-	public void setBarometricPressure(Short barometricPressure) {
+	public void setBarometricPressure(short barometricPressure) {
 		this.barometricPressure = barometricPressure;
 	}
 
-	public Integer getMethaneLevel() {
+	public int getMethaneLevel() {
 		return methaneLevel;
 	}
 
-	public void setMethaneLevel(Integer methaneLevel) {
+	public void setMethaneLevel(int methaneLevel) {
 		this.methaneLevel = methaneLevel;
 	}
 

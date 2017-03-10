@@ -41,10 +41,14 @@ public class UnverifiedDataService {
 				return null;
 			}
 			
+			if (data.getInstrument() == null) {
+				return null;
+			}
+			
 			// If the data point is supposed to be a hotspot.
 			if (data.getMethaneLevel() >= 50000) { 
 				
-				// If the data piont is an IME, but doesn't contain any IME numbers...
+				// If the data point is an IME, but doesn't contain any IME numbers...
 				if (data.getImeNumbers() == null || data.getImeNumbers().isEmpty()) {
 					return null;
 				}

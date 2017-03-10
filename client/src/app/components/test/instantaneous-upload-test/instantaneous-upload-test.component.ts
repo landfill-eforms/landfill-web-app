@@ -36,7 +36,7 @@ export class InstantaneousUploadTestComponent implements OnInit {
 
         this._instantaneousDataService.upload((data) => {
             console.log(data);
-            this.router.navigate(['/app/unverified-data-set/' + data.id]);
+            //this.router.navigate(['/app/unverified-data-set/' + data.id]);
             // this._instantaneousDataService.save((data2) => {
             //     console.log(data2);
             // }, data);

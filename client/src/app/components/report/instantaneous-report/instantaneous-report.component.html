@@ -2,7 +2,7 @@
 	<md-card-content>
 		<div class="section-title">Instantaneous Report</div>
 		<div class="section-form-container">
-			<md-select [(ngModel)]="site.selected" placeholder="Site" style="width:200px;padding-right:32px;">
+			<md-select [(ngModel)]="sites.selected" placeholder="Site" style="width:200px;padding-right:32px;">
 				<md-option *ngFor="let site of sites.list" [value]="site">
 					{{site.name}}
 				</md-option>

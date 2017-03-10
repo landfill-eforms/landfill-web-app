@@ -61,9 +61,9 @@
 			</div>
 		</div>
 	</md-card-content>
-	<md-card-actions>
-		<button md-button (click)="openNewUserDialog()">
-			NEW USER
-		</button>
-	</md-card-actions>
 </md-card>
+<div class="fab-action-button-container">
+	<button md-fab (click)="openNewUserDialog()" mdTooltip="New User" mdTooltipPosition="above">
+		<md-icon>add</md-icon>
+	</button>
+</div>

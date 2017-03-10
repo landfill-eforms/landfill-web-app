@@ -210,6 +210,12 @@ export class NavigationBaseComponent implements OnInit {
 			label: 'Reports',
 			visible: false
 		},
+		{
+			route: DefinedRoutes.INSTRUMENT_LIST,
+			icon: 'format_paint',
+			label: 'Equipment',
+			visible: false
+		},
 	];
 
 	constructor (

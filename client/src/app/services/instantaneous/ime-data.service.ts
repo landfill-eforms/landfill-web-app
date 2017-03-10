@@ -4,7 +4,7 @@ import { AuthHttp } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class IMEDataService {
+export class ImeDataService {
 
 	readonly baseUrl:string = environment.resourceUrl + '/ime-data';
 

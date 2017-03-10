@@ -92,11 +92,11 @@
 						<div class="truncate flex-item" fxFlex>{{inst.methaneLevel / 100}}</div>
 						<div class="truncate flex-item" fxFlex="150px">
 							{{inst.imeNumber ? inst.imeNumber.imeNumber : ''}}
-							<!--<md-icon *ngIf="inst.methaneLevel >= 50000" (click)="openAssignIMENumberDialog(inst)" mdTooltip="Change" mdTooltipPosition="after" class="list-table-icon-button" color="accent">{{inst.imeNumber ? 'sync' : 'add'}}</md-icon>
+							<!--<md-icon *ngIf="inst.methaneLevel >= 50000" (click)="openAssignImeNumberDialog(inst)" mdTooltip="Change" mdTooltipPosition="after" class="list-table-icon-button" color="accent">{{inst.imeNumber ? 'sync' : 'add'}}</md-icon>
 							<md-icon *ngIf="inst.methaneLevel < 50000 && inst.imeNumber" mdTooltip="Remove" mdTooltipPosition="after" class="list-table-icon-button" color="warn">remove</md-icon>-->
 						</div>
 						<div class="flex-item" fxFlex="150px">
-							<button md-raised-button *ngIf="inst.methaneLevel >= 50000" (click)="openAssignIMENumberDialog(inst)" style="margin-top:-18px;">{{inst.imeNumber ? 'CHANGE IME#' : 'ADD IME#'}}</button>
+							<button md-raised-button *ngIf="inst.methaneLevel >= 50000" (click)="openAssignImeNumberDialog(inst)" style="margin-top:-18px;">{{inst.imeNumber ? 'CHANGE IME#' : 'ADD IME#'}}</button>
 							<button md-raised-button *ngIf="inst.methaneLevel < 50000 && inst.imeNumber" (click)="removeImeNumber(inst)" style="margin-top:-18px;">REMOVE IME#</button>
 						</div>
 					</div>

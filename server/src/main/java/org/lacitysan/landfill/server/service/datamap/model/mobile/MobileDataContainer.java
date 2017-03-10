@@ -5,17 +5,17 @@ import java.util.Set;
 
 public class MobileDataContainer {
 	
-	private Set<MobileIMEData> mImeDatas = new HashSet<>();
+	private Set<MobileImeData> mImeDatas = new HashSet<>();
 	
 	private Set<MobileInstantaneousData> mInstantaneousDatas = new HashSet<>();
 	
 	private Set<MobileWarmspotData> mWarmSpotDatas = new HashSet<>();
 
-	public Set<MobileIMEData> getmImeDatas() {
+	public Set<MobileImeData> getmImeDatas() {
 		return mImeDatas;
 	}
 
-	public void setmImeDatas(Set<MobileIMEData> mImeDatas) {
+	public void setmImeDatas(Set<MobileImeData> mImeDatas) {
 		this.mImeDatas = mImeDatas;
 	}
 

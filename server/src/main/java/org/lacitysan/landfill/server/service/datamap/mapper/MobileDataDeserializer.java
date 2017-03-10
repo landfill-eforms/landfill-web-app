@@ -8,10 +8,13 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
+import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileDataContainer;
+import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileImeData;
 import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileInstantaneousData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,21 @@ public class MobileDataDeserializer {
 	@Autowired
 	MonitoringPointService monitoringPointService;
 	
+	public UnverifiedDataSet deserializeData(MobileDataContainer mobileData) {
+		
+		// Create the resulting data set and set its id to 0.
+		UnverifiedDataSet result = new UnverifiedDataSet();
+		result.setId(0);
+		
+		// Fucking want to chop my dick off.
+		for (MobileImeData mobileImeData : mobileData.getmImeDatas()) {
+			
+		}
+		
+		// Return the result.
+		return result;
+	}
+	
 	/**
 	 * Deserializes a <code>InstantaneousDataMobile</code> object into an <code>UnverifiedInstantaneousData</code> object.
 	 * Currently, the user, monitoring point, and instrument data are not mapped, and will be <code>null</code> in the resulting output.
@@ -37,7 +55,7 @@ public class MobileDataDeserializer {
 	 * @return The <code>InstantaneousData</code> representation of the input object.
 	 * @throws ParseException 
 	 */
-	public UnverifiedInstantaneousData unmapInstantaneousData(MobileInstantaneousData entity, Collection<IMENumber> imeNumbers) throws ParseException {
+	public UnverifiedInstantaneousData deserializeInstantaneousData(MobileInstantaneousData entity, Collection<ImeNumber> imeNumbers) throws ParseException {
 
 		UnverifiedInstantaneousData result = new UnverifiedInstantaneousData();
 
@@ -53,9 +71,9 @@ public class MobileDataDeserializer {
 		
 		if (entity.getImeNumber() != null) {
 			boolean imeNumberFound = false;
-			for (IMENumber imeNumber : imeNumbers) {
+			for (ImeNumber imeNumber : imeNumbers) {
 				if (imeNumber.toString().equals(entity.getImeNumber())) {
-					result.setImeNumbers(new HashSet<>(Arrays.asList(new IMENumber[] {imeNumber}))); // TODO Change this.
+					result.setImeNumbers(new HashSet<>(Arrays.asList(new ImeNumber[] {imeNumber}))); // TODO Change this.
 					imeNumberFound = true;
 					break;
 				}

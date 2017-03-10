@@ -8,12 +8,12 @@ import { UserGroupService } from './services/user/user-group.service';
 import { SitesService } from './services/monitoring-point/site.service';
 import { InstrumentService } from './services/instrument/instrument.service';
 import { InstantaneousDataService } from './services/instantaneous/instantaneous-data.service';
-import { IMENumberService } from './services/instantaneous/ime-number.service';
-import { IMEDataService } from './services/instantaneous/ime-data.service';
-import { IMERepairDialogComponent } from './components/directives/dialog/ime-repair-dialog/ime-repair-dialog.component';
-import { IMERecheckDialogComponent } from './components/directives/dialog/ime-recheck-dialog/ime-recheck-dialog.component';
+import { ImeNumberService } from './services/instantaneous/ime-number.service';
+import { ImeDataService } from './services/instantaneous/ime-data.service';
+import { ImeRepairDialogComponent } from './components/directives/dialog/ime-repair-dialog/ime-repair-dialog.component';
+import { ImeRecheckDialogComponent } from './components/directives/dialog/ime-recheck-dialog/ime-recheck-dialog.component';
 import { CommonModule } from './components/common/common.module';
-import { AssignIMENumberDialogComponent } from './components/unverified-data/assign-ime-number-dialog/assign-ime-number-dialog.component';
+import { AssignImeNumberDialogComponent } from './components/unverified-data/assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataModule } from './components/unverified-data/unverified-data.module';
 import { InstantaneousModule } from './components/instantaneous/instantaneous.module';
 import { NewUserGroupDialogComponent } from './components/user-group/new-user-group-dialog/new-user-group-dialog.component';
@@ -67,9 +67,9 @@ import { FileUploadService } from './services/file/file-upload.service';
 	entryComponents: [
 		NewUserDialogComponent,
 		NewUserGroupDialogComponent,
-		AssignIMENumberDialogComponent,
-		IMERecheckDialogComponent,
-		IMERepairDialogComponent,
+		AssignImeNumberDialogComponent,
+		ImeRecheckDialogComponent,
+		ImeRepairDialogComponent,
 		NewInstrumentDialogComponent,
 		NewInstrumentTypeDialogComponent,
 	],
@@ -80,8 +80,8 @@ import { FileUploadService } from './services/file/file-upload.service';
 		AuthGuard,
 		AuthService,
 		FileUploadService,
-		IMEDataService,
-		IMENumberService,
+		ImeDataService,
+		ImeNumberService,
 		InstantaneousDataService,
 		InstrumentService,
 		InstrumentTypeService,

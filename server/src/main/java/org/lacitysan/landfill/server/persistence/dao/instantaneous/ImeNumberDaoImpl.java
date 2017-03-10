@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.enums.Site;
-import org.lacitysan.landfill.server.service.IMEService;
+import org.lacitysan.landfill.server.service.ImeService;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -19,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  */
 @Repository
-public class IMENumberDaoImpl implements IMENumberDao {
+public class ImeNumberDaoImpl implements ImeNumberDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 
 	@Autowired
-	IMEService imeService;
+	ImeService imeService;
 
 	@Autowired
 	MonitoringPointService monitoringPointService;
@@ -33,9 +33,9 @@ public class IMENumberDaoImpl implements IMENumberDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<IMENumber> getAll() {
-		List<IMENumber> result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(IMENumber.class)
+	public List<ImeNumber> getAll() {
+		List<ImeNumber> result = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(ImeNumber.class)
 				.list();
 		result.stream().forEach(imeNumber -> {
 			initialize(imeNumber);
@@ -46,12 +46,12 @@ public class IMENumberDaoImpl implements IMENumberDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<IMENumber> getBySite(String siteName) {
-		List<IMENumber> result = new ArrayList<>();
+	public List<ImeNumber> getBySite(String siteName) {
+		List<ImeNumber> result = new ArrayList<>();
 		Site site = Site.valueOf(siteName);
 		if (site != null) {
 			result = hibernateTemplate.getSessionFactory().getCurrentSession()
-					.createCriteria(IMENumber.class)
+					.createCriteria(ImeNumber.class)
 					.add(Restrictions.eq("site", Site.valueOf(siteName)))
 					.list();
 			result.stream().forEach(imeNumber -> {
@@ -64,17 +64,17 @@ public class IMENumberDaoImpl implements IMENumberDao {
 
 	@Override
 	@Transactional
-	public IMENumber getByImeNumber(String imeNumber) {
-		IMENumber temp = imeService.getImeNumberFromString(imeNumber);
+	public ImeNumber getByImeNumber(String imeNumber) {
+		ImeNumber temp = imeService.getImeNumberFromString(imeNumber);
 		if (temp != null) {
 			Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
-					.createCriteria(IMENumber.class)
+					.createCriteria(ImeNumber.class)
 					.add(Restrictions.eq("site", temp.getSite()))
 					.add(Restrictions.eq("dateCode", temp.getDateCode()))
 					.add(Restrictions.eq("sequence", temp.getSequence()))
 					.uniqueResult();
-			if (result instanceof IMENumber) {
-				return initialize((IMENumber)result);
+			if (result instanceof ImeNumber) {
+				return initialize((ImeNumber)result);
 			}
 		}
 		return null;
@@ -82,10 +82,10 @@ public class IMENumberDaoImpl implements IMENumberDao {
 
 	@Override
 	@Transactional
-	public Object update(IMENumber imeNumber) {
+	public Object update(ImeNumber imeNumber) {
 		
 		// TODO MOVE THIS
-		for (IMEData data : imeNumber.getImeData() ) {
+		for (ImeData data : imeNumber.getImeData() ) {
 			data.setImeNumber(imeNumber);
 		}
 		
@@ -95,11 +95,11 @@ public class IMENumberDaoImpl implements IMENumberDao {
 
 	@Override
 	@Transactional
-	public Object create(IMENumber imeNumber) {
+	public Object create(ImeNumber imeNumber) {
 		return hibernateTemplate.save(imeNumber);
 	}
 
-	private IMENumber initialize(IMENumber imeNumber) {
+	private ImeNumber initialize(ImeNumber imeNumber) {
 		Hibernate.initialize(imeNumber.getMonitoringPoints());
 		Hibernate.initialize(imeNumber.getInstantaneousData());
 		Hibernate.initialize(imeNumber.getUnverifiedInstantaneousData());

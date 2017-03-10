@@ -25,7 +25,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIns
 import org.lacitysan.landfill.server.persistence.enums.IMENumberStatus;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.Site;
-import org.lacitysan.landfill.server.service.IMEService;
+import org.lacitysan.landfill.server.service.ImeService;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.IMENumbers")
 @JsonInclude(Include.NON_NULL)
-public class IMENumber {
+public class ImeNumber {
 
 	@Id
 	@Column(name="IMENumberPK")
@@ -77,7 +77,7 @@ public class IMENumber {
 	@JsonIgnoreProperties({"imeNumber"})
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="imeNumber")
-	private Set<IMEData> imeData;
+	private Set<ImeData> imeData;
 
 	@Transient
 	private String imeNumber;
@@ -146,11 +146,11 @@ public class IMENumber {
 		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
 	}
 
-	public Set<IMEData> getImeData() {
+	public Set<ImeData> getImeData() {
 		return imeData;
 	}
 
-	public void setImeData(Set<IMEData> imeData) {
+	public void setImeData(Set<ImeData> imeData) {
 		this.imeData = imeData;
 	}
 
@@ -164,7 +164,7 @@ public class IMENumber {
 
 	@Override
 	public String toString() {
-		return new IMEService().getStringFromImeNumber(this);
+		return new ImeService().getStringFromImeNumber(this);
 	}
 
 }

@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.dao.instantaneous.IMENumberDao;
+import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
@@ -39,7 +39,7 @@ public class FileUploadController {
 	UnverifiedDataSetDao unverifiedDataSetDao;
 	
 	@Autowired
-	IMENumberDao imeNumberDao;
+	ImeNumberDao imeNumberDao;
 	
 	@Autowired
 	UserDao userDao;
@@ -51,7 +51,7 @@ public class FileUploadController {
 		try {
 			List<MobileInstantaneousData> rawList = mapper.readValue(file.getBytes(), new TypeReference<List<MobileInstantaneousData>>(){});
 			Set<UnverifiedInstantaneousData> inst = new HashSet<>();
-			List<IMENumber> imeNumbers = new ArrayList<>();
+			List<ImeNumber> imeNumbers = new ArrayList<>();
 			UnverifiedDataSet dataSet = new UnverifiedDataSet();
 			Site site = null;
 			
@@ -64,7 +64,7 @@ public class FileUploadController {
 				}
 			}
 			
-			for (IMENumber imeNumber : imeNumbers) {
+			for (ImeNumber imeNumber : imeNumbers) {
 				imeNumber.setId((Integer)imeNumberDao.create(imeNumber));
 			}
 			

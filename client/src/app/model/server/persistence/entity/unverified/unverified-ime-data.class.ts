@@ -1,13 +1,13 @@
 import { User } from '../user/user.class';
-import { IMENumber } from '../instantaneous/ime-number.class';
+import { ImeNumber } from '../instantaneous/ime-number.class';
 
 /**
- * This class was automatically generated from UnverifiedIMEData.java using typescript-gen.
+ * This class was automatically generated from UnverifiedImeData.java using typescript-gen.
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
-export class UnverifiedIMEData {
+export class UnverifiedImeData {
 	id:number;
-	imeNumber:IMENumber;
+	imeNumber:ImeNumber;
 	inspector:User;
 	methaneLevel:number;
 	dateTime:number;

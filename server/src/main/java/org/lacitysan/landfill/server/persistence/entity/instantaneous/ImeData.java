@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.IMEData")
 @JsonInclude(Include.NON_NULL)
-public class IMEData {
+public class ImeData {
 	
 	@Id
 	@Column(name="IMEPK")
@@ -39,7 +39,7 @@ public class IMEData {
 	@Cascade(CascadeType.ALL)
 	@ManyToOne
 	@JoinColumn(name="IMENumberFK")
-	private IMENumber imeNumber;
+	private ImeNumber imeNumber;
 	
 	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
 	@ManyToOne
@@ -58,7 +58,7 @@ public class IMEData {
 	@OneToOne
 	@Cascade(CascadeType.ALL)
 	@JoinColumn(name="IMERepairFK")
-	private IMERepairData imeRepairData;
+	private ImeRepairData imeRepairData;
 
 	public Integer getId() {
 		return id;
@@ -68,11 +68,11 @@ public class IMEData {
 		this.id = id;
 	}
 
-	public IMENumber getImeNumber() {
+	public ImeNumber getImeNumber() {
 		return imeNumber;
 	}
 
-	public void setImeNumber(IMENumber imeNumber) {
+	public void setImeNumber(ImeNumber imeNumber) {
 		this.imeNumber = imeNumber;
 	}
 
@@ -108,11 +108,11 @@ public class IMEData {
 		this.description = description;
 	}
 
-	public IMERepairData getImeRepairData() {
+	public ImeRepairData getImeRepairData() {
 		return imeRepairData;
 	}
 
-	public void setImeRepairData(IMERepairData imeRepairData) {
+	public void setImeRepairData(ImeRepairData imeRepairData) {
 		this.imeRepairData = imeRepairData;
 	}
 

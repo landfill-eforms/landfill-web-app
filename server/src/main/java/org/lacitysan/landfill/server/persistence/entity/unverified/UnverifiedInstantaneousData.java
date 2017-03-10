@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
@@ -63,7 +63,7 @@ public class UnverifiedInstantaneousData {
 	@JsonIgnoreProperties({"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"})
 	@ManyToMany
 	@JoinTable(name="test.dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
-	private Set<IMENumber> imeNumbers = new HashSet<>();
+	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
 	@JsonIgnoreProperties({"unverifiedInstantaneousData", "instantaneousData"})
 	@ManyToMany
@@ -120,11 +120,11 @@ public class UnverifiedInstantaneousData {
 		this.endTime = endTime;
 	}
 
-	public Set<IMENumber> getImeNumbers() {
+	public Set<ImeNumber> getImeNumbers() {
 		return imeNumbers;
 	}
 
-	public void setImeNumbers(Set<IMENumber> imeNumbers) {
+	public void setImeNumbers(Set<ImeNumber> imeNumbers) {
 		this.imeNumbers = imeNumbers;
 	}
 

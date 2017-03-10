@@ -1,6 +1,6 @@
 import { DateTimeUtils } from './../../../../utils/date-time.utils';
 import { Sort, SortUtils } from './../../../../utils/sort.utils';
-import { IMENumber } from './../../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumber } from './../../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 
@@ -9,9 +9,9 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 	templateUrl: './ime-list-view.component.html',
 	styleUrls: ['./ime-list-view.component.scss']
 })
-export class IMEListViewComponent implements OnChanges {
+export class ImeListViewComponent implements OnChanges {
 
-	@Input() data:IMENumber[] = [];
+	@Input() data:ImeNumber[] = [];
 
 	@Input() edit:boolean = false;
 

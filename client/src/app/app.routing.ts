@@ -3,8 +3,8 @@ import { InstrumentTypeListComponent } from './components/instrument/instrument-
 import { InstrumentComponent } from './components/instrument/instrument/instrument.component';
 import { InstrumentListComponent } from './components/instrument/instrument-list/instrument-list.component';
 import { ImeReportComponent } from './components/report/ime-report/ime-report.component';
-import { IMENumberComponent } from './components/instantaneous/ime-number/ime-number.component';
-import { IMENumberListComponent } from './components/instantaneous/ime-number-list/ime-number-list.component';
+import { ImeNumberComponent } from './components/instantaneous/ime-number/ime-number.component';
+import { ImeNumberListComponent } from './components/instantaneous/ime-number-list/ime-number-list.component';
 import { ReportsComponent } from './components/report/report-selector/report-selector.component';
 import { UnverifiedDataSetComponent } from './components/unverified-data/unverified-data-set/unverified-data-set.component';
 import { UnverifiedDataSetsComponent } from './components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
@@ -125,12 +125,12 @@ export class DefinedRoutes {
 	///// INSTANTANEOUS ROUTES /////
 	static readonly IME_NUMBER_LIST:Route = {
 		path: 'ime-number-list',
-		component: IMENumberListComponent
+		component: ImeNumberListComponent
 	}
 
 	static readonly IME_NUMBER:Route = {
 		path: 'ime-number/:imeNumber',
-		component: IMENumberComponent
+		component: ImeNumberComponent
 	}
 
 	///// REPORT ROUTES /////

@@ -1,5 +1,5 @@
-import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
-import { IMENumberService } from './../../../services/instantaneous/ime-number.service';
+import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,11 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImeReportComponent implements OnInit {
 
-    imeNumbers:IMENumber[] = [];
+    imeNumbers:ImeNumber[] = [];
 	isDataLoaded:boolean = false;
 
 	constructor(
-		private imeNumberService:IMENumberService
+		private imeNumberService:ImeNumberService
 	) {}
 
 	ngOnInit() {

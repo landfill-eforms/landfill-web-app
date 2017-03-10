@@ -1,7 +1,7 @@
-import { IMENumberService } from './../../../services/instantaneous/ime-number.service';
-import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
+import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';
-import { AssignIMENumberDialogComponent } from './../assign-ime-number-dialog/assign-ime-number-dialog.component';
+import { AssignImeNumberDialogComponent } from './../assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { MdDialogRef } from '@angular/material';
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
@@ -28,8 +28,8 @@ export class UnverifiedDataSetComponent implements OnInit {
 	isDataLoaded:boolean = false;
 	dataSetId:string;
 	dataSet:UnverifiedDataSet;
-	existingIMENumbers:IMENumber[];
-	createdIMENumbers:IMENumber[]; // IME numbers created during this session.
+	existingImeNumbers:ImeNumber[];
+	createdImeNumbers:ImeNumber[]; // IME numbers created during this session.
 	sort:any = {
 		current: "",
 		reversed: false
@@ -39,7 +39,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		private activatedRoute:ActivatedRoute,
 		private router:Router,
 		private unverifiedDataService:UnverifiedDataService,
-		private imeNumberService:IMENumberService,
+		private imeNumberService:ImeNumberService,
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
 	) {}
@@ -53,10 +53,10 @@ export class UnverifiedDataSetComponent implements OnInit {
 			this.sortByGrid();
 			this.imeNumberService.getBySite((data) => {
 				// TODO Use current date.
-				this.existingIMENumbers = data.filter(number => 
+				this.existingImeNumbers = data.filter(number => 
 					number.dateCode >= this.dataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
 				);
-				console.log(this.existingIMENumbers);
+				console.log(this.existingImeNumbers);
 				this.isDataLoaded = true;
 			}, this.dataSet.site);
 		}, this.dataSetId);
@@ -74,14 +74,14 @@ export class UnverifiedDataSetComponent implements OnInit {
 		return this.unverifiedDataService.checkForErrors(data);
 	}
 
-	openAssignIMENumberDialog(data:UnverifiedInstantaneousData) {
+	openAssignImeNumberDialog(data:UnverifiedInstantaneousData) {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
-		let dialogRef:MdDialogRef<AssignIMENumberDialogComponent> = this.dialog.open(AssignIMENumberDialogComponent, dialogConfig);
+		let dialogRef:MdDialogRef<AssignImeNumberDialogComponent> = this.dialog.open(AssignImeNumberDialogComponent, dialogConfig);
 		dialogRef.componentInstance.site = this.dataSet.site;
 		dialogRef.componentInstance.data = data;
-		dialogRef.componentInstance.createdIMENumbers = this.createdIMENumbers;
-		dialogRef.componentInstance.existingIMENumbers = this.existingIMENumbers;
+		dialogRef.componentInstance.createdImeNumbers = this.createdImeNumbers;
+		dialogRef.componentInstance.existingImeNumbers = this.existingImeNumbers;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});

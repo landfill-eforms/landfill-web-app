@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.service;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
@@ -50,7 +50,7 @@ public class UnverifiedDataService {
 				}
 				
 				// Validate each of the IME Numbers that are associated with the data point.
-				for (IMENumber imeNumber : data.getImeNumbers()) {
+				for (ImeNumber imeNumber : data.getImeNumbers()) {
 					if (imeNumber.getSite() != site) {
 						return null;
 					}

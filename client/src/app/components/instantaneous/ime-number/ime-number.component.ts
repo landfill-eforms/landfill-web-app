@@ -1,7 +1,7 @@
-import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { MdSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { IMENumberService } from './../../../services/instantaneous/ime-number.service';
+import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -11,14 +11,14 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./ime-number.component.scss']
 
 })
-export class IMENumberComponent implements OnInit {
+export class ImeNumberComponent implements OnInit {
 
 	isDataLoaded:boolean;
 	imeNumber:string;
-	imeNumberData:IMENumber = new IMENumber();
+	imeNumberData:ImeNumber = new ImeNumber();
 
 	constructor(
-		private imeNumberService:IMENumberService,
+		private imeNumberService:ImeNumberService,
 		private activatedRoute:ActivatedRoute,
 		private snackBar:MdSnackBar,
 	) {}

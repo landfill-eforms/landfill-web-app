@@ -25,17 +25,17 @@ export class MonitoringPoint {
 	static readonly GP_BIOFILTER_B_IN:MonitoringPoint = new MonitoringPoint(15, "GP_BIOFILTER_B_IN", "B-In", Site.GRIFFITH_PARK, MonitoringPointType.BIOFILTER);
 	static readonly GP_BIOFILTER_B_OUT:MonitoringPoint = new MonitoringPoint(16, "GP_BIOFILTER_B_OUT", "B-Out", Site.GRIFFITH_PARK, MonitoringPointType.BIOFILTER);
 	static readonly BC_GRID_A1:MonitoringPoint = new MonitoringPoint(17, "BC_GRID_A1", "A1", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A10:MonitoringPoint = new MonitoringPoint(18, "BC_GRID_A10", "A10", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A11:MonitoringPoint = new MonitoringPoint(19, "BC_GRID_A11", "A11", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A12:MonitoringPoint = new MonitoringPoint(20, "BC_GRID_A12", "A12", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A2:MonitoringPoint = new MonitoringPoint(21, "BC_GRID_A2", "A2", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A3:MonitoringPoint = new MonitoringPoint(22, "BC_GRID_A3", "A3", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A4:MonitoringPoint = new MonitoringPoint(23, "BC_GRID_A4", "A4", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A5:MonitoringPoint = new MonitoringPoint(24, "BC_GRID_A5", "A5", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A6:MonitoringPoint = new MonitoringPoint(25, "BC_GRID_A6", "A6", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A7:MonitoringPoint = new MonitoringPoint(26, "BC_GRID_A7", "A7", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A8:MonitoringPoint = new MonitoringPoint(27, "BC_GRID_A8", "A8", Site.BISHOPS, MonitoringPointType.GRID);
-	static readonly BC_GRID_A9:MonitoringPoint = new MonitoringPoint(28, "BC_GRID_A9", "A9", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A2:MonitoringPoint = new MonitoringPoint(18, "BC_GRID_A2", "A2", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A3:MonitoringPoint = new MonitoringPoint(19, "BC_GRID_A3", "A3", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A4:MonitoringPoint = new MonitoringPoint(20, "BC_GRID_A4", "A4", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A5:MonitoringPoint = new MonitoringPoint(21, "BC_GRID_A5", "A5", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A6:MonitoringPoint = new MonitoringPoint(22, "BC_GRID_A6", "A6", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A7:MonitoringPoint = new MonitoringPoint(23, "BC_GRID_A7", "A7", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A8:MonitoringPoint = new MonitoringPoint(24, "BC_GRID_A8", "A8", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A9:MonitoringPoint = new MonitoringPoint(25, "BC_GRID_A9", "A9", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A10:MonitoringPoint = new MonitoringPoint(26, "BC_GRID_A10", "A10", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A11:MonitoringPoint = new MonitoringPoint(27, "BC_GRID_A11", "A11", Site.BISHOPS, MonitoringPointType.GRID);
+	static readonly BC_GRID_A12:MonitoringPoint = new MonitoringPoint(28, "BC_GRID_A12", "A12", Site.BISHOPS, MonitoringPointType.GRID);
 	static readonly BC_GRID_B1:MonitoringPoint = new MonitoringPoint(29, "BC_GRID_B1", "B1", Site.BISHOPS, MonitoringPointType.GRID);
 	static readonly BC_GRID_B2:MonitoringPoint = new MonitoringPoint(30, "BC_GRID_B2", "B2", Site.BISHOPS, MonitoringPointType.GRID);
 	static readonly BC_GRID_B3:MonitoringPoint = new MonitoringPoint(31, "BC_GRID_B3", "B3", Site.BISHOPS, MonitoringPointType.GRID);
@@ -723,9 +723,6 @@ export class MonitoringPoint {
 			MonitoringPoint.GP_BIOFILTER_B_IN,
 			MonitoringPoint.GP_BIOFILTER_B_OUT,
 			MonitoringPoint.BC_GRID_A1,
-			MonitoringPoint.BC_GRID_A10,
-			MonitoringPoint.BC_GRID_A11,
-			MonitoringPoint.BC_GRID_A12,
 			MonitoringPoint.BC_GRID_A2,
 			MonitoringPoint.BC_GRID_A3,
 			MonitoringPoint.BC_GRID_A4,
@@ -734,6 +731,9 @@ export class MonitoringPoint {
 			MonitoringPoint.BC_GRID_A7,
 			MonitoringPoint.BC_GRID_A8,
 			MonitoringPoint.BC_GRID_A9,
+			MonitoringPoint.BC_GRID_A10,
+			MonitoringPoint.BC_GRID_A11,
+			MonitoringPoint.BC_GRID_A12,
 			MonitoringPoint.BC_GRID_B1,
 			MonitoringPoint.BC_GRID_B2,
 			MonitoringPoint.BC_GRID_B3,

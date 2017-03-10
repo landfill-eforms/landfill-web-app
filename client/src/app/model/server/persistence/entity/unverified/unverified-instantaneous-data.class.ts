@@ -1,7 +1,7 @@
 import { WarmspotData } from '../instantaneous/warmspot-data.class';
 import { UnverifiedDataSet } from './unverified-data-set.class';
 import { Instrument } from '../instrument/instrument.class';
-import { IMENumber } from '../instantaneous/ime-number.class';
+import { ImeNumber } from '../instantaneous/ime-number.class';
 import { MonitoringPoint } from '../../enums/monitoring-point.enum';
 
 /**
@@ -15,7 +15,7 @@ export class UnverifiedInstantaneousData {
 	methaneLevel:number;
 	startTime:number;
 	endTime:number;
-	imeNumbers:IMENumber[];
+	imeNumbers:ImeNumber[];
 	warmspotData:WarmspotData[];
 	unverifiedDataSet:UnverifiedDataSet;
 }

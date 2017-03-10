@@ -80,6 +80,8 @@ public class UnverifiedDataSetDaoImpl implements UnverifiedDataSetDao {
 		}
 		dataSet.getUnverifiedInstantaneousData().stream().forEach(instantaneousData -> {
 			Hibernate.initialize(instantaneousData.getInstrument());
+			instantaneousData.getImeNumbers().stream().forEach(imeNumber -> Hibernate.initialize(imeNumber));
+			instantaneousData.getWarmspotData().stream().forEach(warmspot -> Hibernate.initialize(warmspot));
 		});
 		return dataSet;
 	}

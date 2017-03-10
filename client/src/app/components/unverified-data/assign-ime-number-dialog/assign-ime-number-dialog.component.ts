@@ -1,7 +1,7 @@
-import { IMENumberStatus } from './../../../model/server/persistence/enums/ime-number-status.enum';
+import { ImeNumberStatus } from './../../../model/server/persistence/enums/ime-number-status.enum';
 import { Site } from './../../../model/server/persistence/enums/site.enum';
-import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
-import { IMENumberService } from './../../../services/instantaneous/ime-number.service';
+import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';
 import { MdDialogRef } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
@@ -11,12 +11,12 @@ import { Component, OnInit } from '@angular/core';
 	templateUrl: './assign-ime-number-dialog.component.html',
 	styleUrls: ['./assign-ime-number-dialog.component.scss']
 })
-export class AssignIMENumberDialogComponent {
+export class AssignImeNumberDialogComponent {
 
 	site:Site;
 	data:UnverifiedInstantaneousData;
-	existingIMENumbers:IMENumber[];
-	createdIMENumbers:IMENumber[]; // IME numbers created during this session.
+	existingImeNumbers:ImeNumber[];
+	createdImeNumbers:ImeNumber[]; // IME numbers created during this session.
 	action:any = {
 		useExisting: null,
 		newSeries: null,
@@ -25,27 +25,27 @@ export class AssignIMENumberDialogComponent {
 	}
 
 	constructor(
-		public dialogRef:MdDialogRef<AssignIMENumberDialogComponent>,
-		private imeNumberService:IMENumberService
+		public dialogRef:MdDialogRef<AssignImeNumberDialogComponent>,
+		private imeNumberService:ImeNumberService
 	) {}
 
 	createImeNumber() {
-		let imeNumber:IMENumber = new IMENumber();
+		let imeNumber:ImeNumber = new ImeNumber();
 		imeNumber.site = <any>this.site.constantName;
-		imeNumber.dateCode = this.action.newDate;
+		imeNumber.dateCode = Number(this.action.newImeNumberString.substring(3, 7));  // TODO Make this better.
 		imeNumber.sequence = this.action.newSeries;
-		imeNumber.status = <any>IMENumberStatus.UNVERIFIED.constantName;
+		imeNumber.status = <any>ImeNumberStatus.UNVERIFIED.constantName;
 		imeNumber.imeNumber = this.action.newImeNumberString;
 		this.imeNumberService.create((data) => {
 			imeNumber.id = data;
-			this.data.imeNumber = imeNumber;
+			this.data.imeNumbers.push(imeNumber);
 			this.dialogRef.close(data);
 		}, imeNumber);
-		// this.createdIMENumbers.push(imeNumber);
+		// this.createdImeNumbers.push(imeNumber);
 	}
 
-	addToImeNumber(imeNumber:IMENumber) {
-		this.data.imeNumber = imeNumber;
+	addToImeNumber(imeNumber:ImeNumber) {
+		this.data.imeNumbers.push(imeNumber);
 		this.dialogRef.close(imeNumber);
 	}
 
@@ -77,14 +77,14 @@ export class AssignIMENumberDialogComponent {
 
 	private findMaxIMESeries(date:number):number {
 		let max:number = 0;
-		for (let i = 0; i < this.existingIMENumbers.length; i++) {
-			let imeNumber:IMENumber = this.existingIMENumbers[i];
+		for (let i = 0; i < this.existingImeNumbers.length; i++) {
+			let imeNumber:ImeNumber = this.existingImeNumbers[i];
 			if (imeNumber.dateCode == date && imeNumber.sequence > max) {
 				max = imeNumber.sequence;
 			}
 		}
-		// for (let i = 0; i < this.createdIMENumbers.length; i++) {
-		// 	let imeNumber:IMENumber = this.createdIMENumbers[i];
+		// for (let i = 0; i < this.createdImeNumbers.length; i++) {
+		// 	let imeNumber:ImeNumber = this.createdImeNumbers[i];
 		// 	if (imeNumber.dateCode == date && imeNumber.sequence > max) {
 		// 		max = imeNumber.sequence;
 		// 	}

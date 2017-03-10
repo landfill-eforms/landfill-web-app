@@ -1,5 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIns
 import org.lacitysan.landfill.server.persistence.enums.IMENumberStatus;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.Site;
-import org.lacitysan.landfill.server.service.IMEService;
+import org.lacitysan.landfill.server.service.ImeService;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -37,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.IMENumbers")
 @JsonInclude(Include.NON_NULL)
-public class IMENumber {
+public class ImeNumber implements Comparable<ImeNumber> {
 
 	@Id
 	@Column(name="IMENumberPK")
@@ -45,39 +46,39 @@ public class IMENumber {
 	private Integer id;
 	
 	@NotNull
-	@Column(name="SiteOrdinal")
+	@Column(name="SiteString")
 	@Enumerated(EnumType.STRING)
 	private Site site;
 	
 	@NotNull
-	private Integer dateCode;
+	private int dateCode;
 	
 	@NotNull
-	private Short sequence;
+	private short sequence;
 	
 	@NotNull
-	@Column(name="StatusOrdinal")
+	@Column(name="StatusString")
 	@Enumerated(EnumType.STRING)
 	private IMENumberStatus status;
 	
 	@ElementCollection(targetClass=MonitoringPoint.class)
 	@JoinTable(name="test.dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
-	@Column(name="MonitoringPointOrdinal")
+	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
-	private Set<MonitoringPoint> monitoringPoints;
+	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();
 	
-	@JsonIgnoreProperties({"imeNumber", "instrument", "inspector"})
+	@JsonIgnoreProperties({"imeNumbers", "instrument", "inspector"})
 	@ManyToMany(mappedBy="imeNumbers")
-	private Set<InstantaneousData> instantaneousData;
+	private Set<InstantaneousData> instantaneousData = new HashSet<>();
 	
-	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumber", "instrument"})
+	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumbers", "instrument"})
 	@ManyToMany(mappedBy="imeNumbers")
-	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData;
+	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
 	
 	@JsonIgnoreProperties({"imeNumber"})
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="imeNumber")
-	private Set<IMEData> imeData;
+	private Set<ImeData> imeData = new HashSet<>();
 
 	@Transient
 	private String imeNumber;
@@ -90,19 +91,19 @@ public class IMENumber {
 		this.id = id;
 	}
 
-	public Integer getDateCode() {
+	public int getDateCode() {
 		return dateCode;
 	}
 
-	public void setDateCode(Integer dateCode) {
+	public void setDateCode(int dateCode) {
 		this.dateCode = dateCode;
 	}
 
-	public Short getSequence() {
+	public short getSequence() {
 		return sequence;
 	}
 
-	public void setSequence(Short sequence) {
+	public void setSequence(short sequence) {
 		this.sequence = sequence;
 	}
 
@@ -146,11 +147,11 @@ public class IMENumber {
 		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
 	}
 
-	public Set<IMEData> getImeData() {
+	public Set<ImeData> getImeData() {
 		return imeData;
 	}
 
-	public void setImeData(Set<IMEData> imeData) {
+	public void setImeData(Set<ImeData> imeData) {
 		this.imeData = imeData;
 	}
 
@@ -164,7 +165,18 @@ public class IMENumber {
 
 	@Override
 	public String toString() {
-		return new IMEService().getStringFromImeNumber(this);
+		return new ImeService().getStringFromImeNumber(this);
+	}
+
+	@Override
+	public int compareTo(ImeNumber o) {
+		if (this.site != o.getSite()) {
+			return this.site.compareTo(o.getSite());
+		}
+		if (this.dateCode != o.getDateCode()) {
+			return this.dateCode - o.getDateCode();
+		}
+		return 0;
 	}
 
 }

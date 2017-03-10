@@ -1,5 +1,5 @@
-import { IMENumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
-import { IMENumberService } from './../../../services/instantaneous/ime-number.service';
+import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -8,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './ime-number-list.component.html',
     styleUrls: ['./ime-number-list.component.scss']
 })
-export class IMENumberListComponent implements OnInit {
+export class ImeNumberListComponent implements OnInit {
 
-	imeNumbers:IMENumber[] = [];
+	imeNumbers:ImeNumber[] = [];
 	isDataLoaded:boolean = false;
 
 	constructor(
-		private imeNumberService:IMENumberService
+		private imeNumberService:ImeNumberService
 	) {}
 
 	ngOnInit() {

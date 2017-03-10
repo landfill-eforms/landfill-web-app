@@ -1,15 +1,15 @@
-import { IMERepairData } from './../../../../model/server/persistence/entity/instantaneous/ime-repair-data.class';
-import { IMERepairDialogComponent } from './../../dialog/ime-repair-dialog/ime-repair-dialog.component';
+import { ImeRepairData } from './../../../../model/server/persistence/entity/instantaneous/ime-repair-data.class';
+import { ImeRepairDialogComponent } from './../../dialog/ime-repair-dialog/ime-repair-dialog.component';
 import { User } from './../../../../model/server/persistence/entity/user/user.class';
 import { UserService } from './../../../../services/user/user.service';
 import { DateTimeUtils } from './../../../../utils/date-time.utils';
 import { StringUtils } from './../../../../utils/string.utils';
-import { IMERecheckDialogComponent } from './../../dialog/ime-recheck-dialog/ime-recheck-dialog.component';
+import { ImeRecheckDialogComponent } from './../../dialog/ime-recheck-dialog/ime-recheck-dialog.component';
 import { SortUtils } from './../../../../utils/sort.utils';
 import { MdDialog } from '@angular/material';
 import { MdDialogRef } from '@angular/material';
 import { MdDialogConfig } from '@angular/material';
-import { IMEData } from './../../../../model/server/persistence/entity/instantaneous/ime-data.class';
+import { ImeData } from './../../../../model/server/persistence/entity/instantaneous/ime-data.class';
 import { Component, OnChanges, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -17,9 +17,9 @@ import { Component, OnChanges, Input, OnInit } from '@angular/core';
 	templateUrl: './ime-data-view.component.html',
 	styleUrls: ['./ime-data-view.component.scss']
 })
-export class IMEDataViewComponent implements OnChanges, OnInit {
+export class ImeDataViewComponent implements OnChanges, OnInit {
 
-	@Input() data:IMEData[];
+	@Input() data:ImeData[];
 
 	@Input() edit:boolean;
 
@@ -59,7 +59,7 @@ export class IMEDataViewComponent implements OnChanges, OnInit {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
 		//dialogConfig.height = '480px';
-		let dialogRef:MdDialogRef<IMERecheckDialogComponent> = this.dialog.open(IMERecheckDialogComponent, dialogConfig);
+		let dialogRef:MdDialogRef<ImeRecheckDialogComponent> = this.dialog.open(ImeRecheckDialogComponent, dialogConfig);
 		dialogRef.componentInstance.users = this.users;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
@@ -71,13 +71,13 @@ export class IMEDataViewComponent implements OnChanges, OnInit {
 		});
 	}
 
-	openNewRepairDialog(data:IMEData) {
+	openNewRepairDialog(data:ImeData) {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
 		//dialogConfig.height = '480px';
-		let dialogRef:MdDialogRef<IMERepairDialogComponent> = this.dialog.open(IMERepairDialogComponent, dialogConfig);
+		let dialogRef:MdDialogRef<ImeRepairDialogComponent> = this.dialog.open(ImeRepairDialogComponent, dialogConfig);
 		if (!data.imeRepairData) {
-			data.imeRepairData = new IMERepairData();
+			data.imeRepairData = new ImeRepairData();
 		}
 		dialogRef.componentInstance.data = data.imeRepairData;
 		dialogRef.afterClosed().subscribe(result => {

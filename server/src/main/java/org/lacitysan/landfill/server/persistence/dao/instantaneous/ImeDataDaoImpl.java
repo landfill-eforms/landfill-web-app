@@ -1,10 +1,9 @@
-package org.lacitysan.landfill.server.persistence.dao.unverified;
+package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIMEData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -15,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  */
 @Repository
-public class UnverifiedIMEDataDaoImpl implements UnverifiedIMEDataDao {
+public class ImeDataDaoImpl implements ImeDataDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
@@ -26,37 +25,37 @@ public class UnverifiedIMEDataDaoImpl implements UnverifiedIMEDataDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<UnverifiedIMEData> getAll() {
-		List<UnverifiedIMEData> result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(UnverifiedIMEData.class)
+	public List<ImeData> getAll() {
+		List<ImeData> result = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(ImeData.class)
 				.list();
 		return result;
 	}
 	
 	@Override
 	@Transactional
-	public UnverifiedIMEData getById(Integer id) {
+	public ImeData getById(Integer id) {
 		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(IMEData.class)
+				.createCriteria(ImeData.class)
 				.add(Restrictions.idEq(id))
 				.uniqueResult();
-		if (result instanceof IMEData) {
-			UnverifiedIMEData data = (UnverifiedIMEData)result;
+		if (result instanceof ImeData) {
+			ImeData data = (ImeData)result;
 			return data;
 		}
 		return null;
 	}
-
+	
 	@Override
 	@Transactional
-	public Object update(UnverifiedIMEData imeNumber) {
+	public Object update(ImeData imeNumber) {
 		hibernateTemplate.update(imeNumber);
 		return true;
 	}
 
 	@Override
 	@Transactional
-	public Object create(UnverifiedIMEData imeNumber) {
+	public Object create(ImeData imeNumber) {
 		return hibernateTemplate.save(imeNumber);
 	}
 	

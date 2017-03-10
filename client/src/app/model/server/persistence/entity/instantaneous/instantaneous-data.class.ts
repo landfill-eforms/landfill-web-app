@@ -1,7 +1,7 @@
 import { User } from '../user/user.class';
 import { WarmspotData } from './warmspot-data.class';
 import { Instrument } from '../instrument/instrument.class';
-import { IMENumber } from './ime-number.class';
+import { ImeNumber } from './ime-number.class';
 import { MonitoringPoint } from '../../enums/monitoring-point.enum';
 
 /**
@@ -17,6 +17,6 @@ export class InstantaneousData {
 	methaneLevel:number;
 	startTime:number;
 	endTime:number;
-	imeNumbers:IMENumber[];
+	imeNumbers:ImeNumber[];
 	warmspotData:WarmspotData[];
 }

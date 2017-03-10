@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.service;
 
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @author Alvin Quach
  */
 @Service
-public class IMEService {
+public class ImeService {
 
 	@Autowired
 	MonitoringPointService monitoringPointService;
@@ -21,7 +21,7 @@ public class IMEService {
 	 * @param imeNumber The object that contains the IME number's information. 
 	 * @return The formatted IME number string.
 	 */
-	public String getStringFromImeNumber(IMENumber imeNumber) {
+	public String getStringFromImeNumber(ImeNumber imeNumber) {
 		return imeNumber.getSite().getShortName() + "-" + String.format("%04d", imeNumber.getDateCode()) + "-" + String.format("%02d", imeNumber.getSequence());
 	}
 
@@ -33,7 +33,7 @@ public class IMEService {
 	 * @param imeNumber String representation of an IME number.
 	 * @return A generated <code>IMENumber</code> object based on the input IME number string, or <code>null</code> if the input string was not valid.
 	 */
-	public IMENumber getImeNumberFromString(String imeNumber) {
+	public ImeNumber getImeNumberFromString(String imeNumber) {
 		imeNumber = imeNumber.replaceAll("-", "").trim();
 		try {
 			if (imeNumber.length() != 8) {
@@ -43,19 +43,18 @@ public class IMEService {
 			if (site == null) {
 				return null; // TODO Have this throw some exceptions instead of returning null.
 			}
-			Integer dateCode = Integer.valueOf(imeNumber.substring(2,6)); // TODO Verify that this is valid.
-			Short sequence = Short.valueOf(imeNumber.substring(6));
-			IMENumber result = new IMENumber();
+			int dateCode = Integer.valueOf(imeNumber.substring(2,6)); // TODO Verify that this is valid.
+			short sequence = Short.valueOf(imeNumber.substring(6));
+			ImeNumber result = new ImeNumber();
 			result.setId(0);
 			result.setSite(site);
 			result.setDateCode(dateCode);
 			result.setSequence(sequence);
 			return result;
 		} catch (NumberFormatException e) {
-			// TODO Have this re-throw an exception with @ResponseStatus annotation.
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 }

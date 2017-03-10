@@ -3,8 +3,8 @@ package org.lacitysan.landfill.server.rest.instantaneous;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.dao.instantaneous.IMEDataDao;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
+import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,34 +15,37 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author Alvin Quach
  */
-@RequestMapping(ApplicationProperty.RESOURCE_PATH + "/ime-data")
+@RequestMapping(ApplicationProperty.RESOURCE_PATH + "/ime-number")
 @RestController
-public class IMEDataController {
+public class ImeNumberController {
 	
 	@Autowired
-	IMEDataDao imeNumbersDao;
+	ImeNumberDao imeNumbersDao;
 	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
-	public List<IMEData> getAll() {
+	public List<ImeNumber> getAll() {
 		return imeNumbersDao.getAll();
 	}
 	
-	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
-	public IMEData getById(@PathVariable String id) {
-		if (id.matches("^-?\\d+$")) {
-			return imeNumbersDao.getById(Integer.valueOf(id));
-		}
-		return null;
+	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
+	public List<ImeNumber> getBySite(@PathVariable String siteName) {
+		return imeNumbersDao.getBySiteName(siteName);
+	}
+	
+	@RequestMapping(value="/unique/imeNumber/{imeNumber}", method=RequestMethod.GET)
+	public ImeNumber getByImeNumber(@PathVariable String imeNumber) {
+		System.out.println(imeNumber);
+		return imeNumbersDao.getByImeNumber(imeNumber);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public Object update(@RequestBody IMEData imeNumber) {
+	public Object update(@RequestBody ImeNumber imeNumber) {
 		imeNumbersDao.update(imeNumber);
 		return true;
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public Object create(@RequestBody IMEData imeNumber) {
+	public Object create(@RequestBody ImeNumber imeNumber) {
 		return imeNumbersDao.create(imeNumber);
 	}
 

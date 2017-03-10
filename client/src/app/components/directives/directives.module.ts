@@ -1,8 +1,8 @@
-import { IMERepairDialogComponent } from './dialog/ime-repair-dialog/ime-repair-dialog.component';
-import { IMERecheckDialogComponent } from './dialog/ime-recheck-dialog/ime-recheck-dialog.component';
-import { IMEDataViewComponent } from './data-view/ime-data-view/ime-data-view.component';
+import { ImeRepairDialogComponent } from './dialog/ime-repair-dialog/ime-repair-dialog.component';
+import { ImeRecheckDialogComponent } from './dialog/ime-recheck-dialog/ime-recheck-dialog.component';
+import { ImeDataViewComponent } from './data-view/ime-data-view/ime-data-view.component';
 import { InstantaneousDataViewComponent } from './data-view/instantaneous-data-view/instantaneous-data-view.component';
-import { IMEListViewComponent } from './data-view/ime-list-view/ime-list-view.component';
+import { ImeListViewComponent } from './data-view/ime-list-view/ime-list-view.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '../common/common.module'
 import { FileUploadComponent } from './file-upload/file-upload.component';
@@ -15,18 +15,18 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 	declarations: [
 		FileUploadComponent,
 		InstantaneousDataViewComponent,
-		IMEListViewComponent,
-		IMEDataViewComponent,
-		IMERecheckDialogComponent,
-		IMERepairDialogComponent
+		ImeListViewComponent,
+		ImeDataViewComponent,
+		ImeRecheckDialogComponent,
+		ImeRepairDialogComponent
 	],
 	exports: [
 		FileUploadComponent,
 		InstantaneousDataViewComponent,
-		IMEListViewComponent,
-		IMEDataViewComponent,
-		IMERecheckDialogComponent,
-		IMERepairDialogComponent
+		ImeListViewComponent,
+		ImeDataViewComponent,
+		ImeRecheckDialogComponent,
+		ImeRepairDialogComponent
 	]
 })
 

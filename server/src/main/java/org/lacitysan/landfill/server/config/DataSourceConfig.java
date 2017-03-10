@@ -4,15 +4,15 @@ import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMEData;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMERepairData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeRepairData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIMEData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedImeData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
@@ -64,9 +64,9 @@ public class DataSourceConfig {
 				.addAnnotatedClasses(
 
 						// Instantaneous
-						IMEData.class,
-						IMENumber.class,
-						IMERepairData.class,
+						ImeData.class,
+						ImeNumber.class,
+						ImeRepairData.class,
 						InstantaneousData.class,
 						WarmspotData.class,
 
@@ -76,7 +76,7 @@ public class DataSourceConfig {
 
 						// Unverified
 						UnverifiedDataSet.class,
-						UnverifiedIMEData.class,
+						UnverifiedImeData.class,
 						UnverifiedInstantaneousData.class,
 
 						// User

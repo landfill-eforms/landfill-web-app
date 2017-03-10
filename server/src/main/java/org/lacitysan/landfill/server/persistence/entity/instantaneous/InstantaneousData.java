@@ -54,10 +54,10 @@ public class InstantaneousData {
 	private User inspector;
 	
 	@NotNull
-	private Short barometricPressure;
+	private short barometricPressure;
 	
 	@NotNull
-	private Integer methaneLevel;	
+	private int methaneLevel;	
 	
 	@NotNull
 	private Timestamp startTime;
@@ -68,7 +68,7 @@ public class InstantaneousData {
 	@JsonIgnoreProperties({"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"})
 	@ManyToMany
 	@JoinTable(name="test.dbo.InstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
-	private Set<IMENumber> imeNumbers = new HashSet<>();
+	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
 	@JsonIgnoreProperties({"instantaneousData", "unverifiedInstantaneousData"})
 	@ManyToMany
@@ -107,19 +107,19 @@ public class InstantaneousData {
 		this.inspector = inspector;
 	}
 
-	public Short getBarometricPressure() {
+	public short getBarometricPressure() {
 		return barometricPressure;
 	}
 
-	public void setBarometricPressure(Short barometricPressure) {
+	public void setBarometricPressure(short barometricPressure) {
 		this.barometricPressure = barometricPressure;
 	}
 
-	public Integer getMethaneLevel() {
+	public int getMethaneLevel() {
 		return methaneLevel;
 	}
 
-	public void setMethaneLevel(Integer methaneLevel) {
+	public void setMethaneLevel(int methaneLevel) {
 		this.methaneLevel = methaneLevel;
 	}
 
@@ -139,11 +139,11 @@ public class InstantaneousData {
 		this.endTime = endTime;
 	}
 
-	public Set<IMENumber> getImeNumbers() {
+	public Set<ImeNumber> getImeNumbers() {
 		return imeNumbers;
 	}
 
-	public void setImeNumbers(Set<IMENumber> imeNumbers) {
+	public void setImeNumbers(Set<ImeNumber> imeNumbers) {
 		this.imeNumbers = imeNumbers;
 	}
 

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.UnverifiedIMEData")
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedIMEData {
+public class UnverifiedImeData {
 	
 	@Id
 	@Column(name="UnverifiedIMEPK")
@@ -34,7 +34,7 @@ public class UnverifiedIMEData {
 	
 	@ManyToOne
 	@JoinColumn(name="IMENumberFK")
-	private IMENumber imeNumber;
+	private ImeNumber imeNumber;
 	
 	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
 	@ManyToOne
@@ -55,11 +55,11 @@ public class UnverifiedIMEData {
 		this.id = id;
 	}
 
-	public IMENumber getImeNumber() {
+	public ImeNumber getImeNumber() {
 		return imeNumber;
 	}
 
-	public void setImeNumber(IMENumber imeNumber) {
+	public void setImeNumber(ImeNumber imeNumber) {
 		this.imeNumber = imeNumber;
 	}
 

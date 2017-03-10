@@ -1,6 +1,6 @@
 import { User } from './../../../../model/server/persistence/entity/user/user.class';
 import { MdDialogRef } from '@angular/material';
-import { IMEData } from './../../../../model/server/persistence/entity/instantaneous/ime-data.class';
+import { ImeData } from './../../../../model/server/persistence/entity/instantaneous/ime-data.class';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,12 +8,12 @@ import { Component } from '@angular/core';
 	templateUrl: './ime-recheck-dialog.component.html',
 	styleUrls: ['./ime-recheck-dialog.component.scss']
 })
-export class IMERecheckDialogComponent {
+export class ImeRecheckDialogComponent {
 
-	data:IMEData = new IMEData();
+	data:ImeData = new ImeData();
 	users:User[] = [];
 
-	constructor(public dialogRef:MdDialogRef<IMERecheckDialogComponent>) {
+	constructor(public dialogRef:MdDialogRef<ImeRecheckDialogComponent>) {
 
 	}
 

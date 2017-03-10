@@ -11,10 +11,10 @@
 		</md-radio-group>
 	</div>
 	<div *ngIf="action.useExisting">
-		<div *ngIf="existingIMENumbers.length > 0" style="padding:32px;">
+		<div *ngIf="existingImeNumbers.length > 0" style="padding:32px;">
 			<div class="section-subtitle">Avalable IME Numbers</div>
 			<div class="ime-numbers-selection-box">
-				<div *ngFor="let number of existingIMENumbers" class="ime-number-container flex-container" fxLayout="row"> 
+				<div *ngFor="let number of existingImeNumbers" class="ime-number-container flex-container" fxLayout="row"> 
 					<div class="ime-number-info flex-item" fxFlex>
 						<div class="ime-number-title">
 							{{number.imeNumber}}
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 		</div>
-		<div *ngIf="existingIMENumbers.length == 0" style="padding:8px 24px;"><i>No existing IME numbers are availble. Please create a new IME number instead.</i></div>
+		<div *ngIf="existingImeNumbers.length == 0" style="padding:8px 24px;"><i>No existing IME numbers are availble. Please create a new IME number instead.</i></div>
 	</div>
 	<div *ngIf="action.useExisting === false" style="padding:8px 24px;">
 		<div>

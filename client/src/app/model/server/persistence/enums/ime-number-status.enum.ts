@@ -1,12 +1,12 @@
 /**
- * This enum was automatically generated from IMENumberStatus.java using typescript-gen.
+ * This enum was automatically generated from ImeNumberStatus.java using typescript-gen.
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
-export class IMENumberStatus {
+export class ImeNumberStatus {
 
-	static readonly UNVERIFIED:IMENumberStatus = new IMENumberStatus(0, "UNVERIFIED");
-	static readonly ACTIVE:IMENumberStatus = new IMENumberStatus(1, "ACTIVE");
-	static readonly CLOSED:IMENumberStatus = new IMENumberStatus(2, "CLOSED");
+	static readonly UNVERIFIED:ImeNumberStatus = new ImeNumberStatus(0, "UNVERIFIED");
+	static readonly ACTIVE:ImeNumberStatus = new ImeNumberStatus(1, "ACTIVE");
+	static readonly CLOSED:ImeNumberStatus = new ImeNumberStatus(2, "CLOSED");
 
 	readonly ordinal:number;
 	readonly constantName:string;
@@ -16,11 +16,11 @@ export class IMENumberStatus {
 		this.constantName = constantName;
 	}
 
-	static values():IMENumberStatus[] {
+	static values():ImeNumberStatus[] {
 		return [
-			IMENumberStatus.UNVERIFIED,
-			IMENumberStatus.ACTIVE,
-			IMENumberStatus.CLOSED
+			ImeNumberStatus.UNVERIFIED,
+			ImeNumberStatus.ACTIVE,
+			ImeNumberStatus.CLOSED
 		];
 	}
 

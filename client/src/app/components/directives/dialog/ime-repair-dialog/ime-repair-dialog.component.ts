@@ -1,4 +1,4 @@
-import { IMERepairData } from './../../../../model/server/persistence/entity/instantaneous/ime-repair-data.class';
+import { ImeRepairData } from './../../../../model/server/persistence/entity/instantaneous/ime-repair-data.class';
 import { User } from './../../../../model/server/persistence/entity/user/user.class';
 import { MdDialogRef } from '@angular/material';
 import { Component, OnChanges } from '@angular/core';
@@ -8,11 +8,11 @@ import { Component, OnChanges } from '@angular/core';
 	templateUrl: './ime-repair-dialog.component.html',
 	styleUrls: ['./ime-repair-dialog.component.scss']
 })
-export class IMERepairDialogComponent {
+export class ImeRepairDialogComponent {
 
-	data:IMERepairData = new IMERepairData();
+	data:ImeRepairData = new ImeRepairData();
 
-	constructor(public dialogRef:MdDialogRef<IMERepairDialogComponent>) {
+	constructor(public dialogRef:MdDialogRef<ImeRepairDialogComponent>) {
 
 	}
 
@@ -23,7 +23,12 @@ export class IMERepairDialogComponent {
 		
 		// TODO Do this properly
 		this.data.user = <any>{id:1};
-
+		if (!this.data.soil) {
+			this.data.soil = false;
+		}
+		if (!this.data.water) {
+			this.data.soil = false;
+		}
 		this.dialogRef.close(this.data);
 	}
 

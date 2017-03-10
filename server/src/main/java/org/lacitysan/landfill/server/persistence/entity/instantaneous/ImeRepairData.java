@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.IMERepairData")
 @JsonInclude(Include.NON_NULL)
-public class IMERepairData {
+public class ImeRepairData {
 	
 	@Id
 	@Column(name="IMERepairPK")

@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.service;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
+import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
@@ -41,16 +41,20 @@ public class UnverifiedDataService {
 				return null;
 			}
 			
+			if (data.getInstrument() == null) {
+				return null;
+			}
+			
 			// If the data point is supposed to be a hotspot.
 			if (data.getMethaneLevel() >= 50000) { 
 				
-				// If the data piont is an IME, but doesn't contain any IME numbers...
+				// If the data point is an IME, but doesn't contain any IME numbers...
 				if (data.getImeNumbers() == null || data.getImeNumbers().isEmpty()) {
 					return null;
 				}
 				
 				// Validate each of the IME Numbers that are associated with the data point.
-				for (IMENumber imeNumber : data.getImeNumbers()) {
+				for (ImeNumber imeNumber : data.getImeNumbers()) {
 					if (imeNumber.getSite() != site) {
 						return null;
 					}

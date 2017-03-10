@@ -9,8 +9,6 @@ import java.util.HashSet;
 
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.IMENumber;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
@@ -19,12 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * A utilities class for converting data models between the web server and the mobile app.
+ * Deserializer service for converting data models from the mobile app to the web server.
  * @author Alvin Quach
  */
 @Service
-public class MobileDataMapper {
-
+public class MobileDataDeserializer {
+	
 	@Autowired
 	UserDao userDao;
 	
@@ -32,18 +30,7 @@ public class MobileDataMapper {
 	MonitoringPointService monitoringPointService;
 	
 	/**
-	 * Maps an <code>InstantaneousData</code> object into an <code>InstantaneousDataMobile</code> object.
-	 * @param entity The <code>InstantaneousData</code> object to be mapped.
-	 * @return The <code>InstantaneousDataMobile</code> representation of the input object.
-	 */
-	public MobileInstantaneousData mapInstantaneousData(InstantaneousData entity) {
-		MobileInstantaneousData result = new MobileInstantaneousData();
-		// TODO Implement logic
-		return result;
-	}
-
-	/**
-	 * Unmaps a <code>InstantaneousDataMobile</code> object into an <code>UnverifiedInstantaneousData</code> object.
+	 * Deserializes a <code>InstantaneousDataMobile</code> object into an <code>UnverifiedInstantaneousData</code> object.
 	 * Currently, the user, monitoring point, and instrument data are not mapped, and will be <code>null</code> in the resulting output.
 	 * @param entity The <code>InstantaneousDataMobile</code> object to be unmapped.
 	 * @param imeNumbers
@@ -53,10 +40,6 @@ public class MobileDataMapper {
 	public UnverifiedInstantaneousData unmapInstantaneousData(MobileInstantaneousData entity, Collection<IMENumber> imeNumbers) throws ParseException {
 
 		UnverifiedInstantaneousData result = new UnverifiedInstantaneousData();
-
-		Instrument instrument = new Instrument();
-		instrument.setId(1);
-		result.setInstrument(instrument);
 
 		// TODO Implement this inside the enum.
 		if (entity.getGridId() != null && !entity.getGridId().isEmpty() && entity.getLandFillLocation() != null && !entity.getLandFillLocation().isEmpty()) {

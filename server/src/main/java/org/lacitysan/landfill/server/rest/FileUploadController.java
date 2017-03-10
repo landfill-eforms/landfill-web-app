@@ -16,7 +16,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDat
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.Site;
-import org.lacitysan.landfill.server.service.datamap.mapper.MobileDataMapper;
+import org.lacitysan.landfill.server.service.datamap.mapper.MobileDataDeserializer;
 import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileInstantaneousData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FileUploadController {
 
 	@Autowired
-	MobileDataMapper mobileDataMapper;
+	MobileDataDeserializer mobileDataDeserializer;
 	
 	@Autowired
 	UnverifiedDataSetDao unverifiedDataSetDao;
@@ -56,7 +56,7 @@ public class FileUploadController {
 			Site site = null;
 			
 			for (MobileInstantaneousData raw : rawList) {
-				UnverifiedInstantaneousData data = mobileDataMapper.unmapInstantaneousData(raw, imeNumbers);
+				UnverifiedInstantaneousData data = mobileDataDeserializer.deserializeInstantaneousData(raw, imeNumbers);
 				data.setUnverifiedDataSet(dataSet);
 				inst.add(data);
 				if (site == null) {

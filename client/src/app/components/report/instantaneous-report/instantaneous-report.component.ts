@@ -45,7 +45,7 @@ export class InstantaneousReportComponent implements OnInit {
 				this.data.push(this.instantaneousDataService.processDataPoint(data[i]));
 			}
 			this.isDataLoaded = true;
-        }, this.site.selected.name.toUpperCase(), this.dateRange.start, this.dateRange.end);
+        }, this.sites.selected.name.toUpperCase(), this.dateRange.start, this.dateRange.end);
     }
 
 	onStartDateChange(event) {

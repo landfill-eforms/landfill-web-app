@@ -46,7 +46,7 @@ public class IMENumber {
 	
 	@NotNull
 	@Column(name="SiteOrdinal")
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private Site site;
 	
 	@NotNull
@@ -57,13 +57,13 @@ public class IMENumber {
 	
 	@NotNull
 	@Column(name="StatusOrdinal")
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private IMENumberStatus status;
 	
 	@ElementCollection(targetClass=MonitoringPoint.class)
 	@JoinTable(name="test.dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
 	@Column(name="MonitoringPointOrdinal")
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private Set<MonitoringPoint> monitoringPoints;
 	
 	@JsonIgnoreProperties({"imeNumber", "instrument", "inspector"})

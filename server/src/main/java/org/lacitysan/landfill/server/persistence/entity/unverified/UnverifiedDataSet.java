@@ -50,8 +50,8 @@ public class UnverifiedDataSet {
 	@JoinColumn(name="InspectorFK")
 	private User inspector;
 	
-	@Column(name="SiteOrdinal")
-	@Enumerated(EnumType.ORDINAL)
+	@Column(name="SiteString")
+	@Enumerated(EnumType.STRING)
 	private Site site;
 	
 	@JsonIgnoreProperties({"password", "userGroups", "enabled"})

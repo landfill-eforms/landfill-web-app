@@ -66,8 +66,8 @@ public class UserGroup {
 	
 	@ElementCollection(targetClass=UserRole.class)
 	@JoinTable(name="test.dbo.UserGroupsXRefUserRoles", joinColumns=@JoinColumn(name="UserGroupFK"))
-	@Column(name="UserRoleOrdinal")
-	@Enumerated(EnumType.ORDINAL)
+	@Column(name="UserRoleString")
+	@Enumerated(EnumType.STRING)
 	private Set<UserRole> userRoles = new HashSet<>();
 
 	public Integer getId() {

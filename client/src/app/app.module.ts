@@ -1,3 +1,5 @@
+import { NewInstrumentDialogComponent } from './components/instrument/dialog/new-instrument-dialog/new-instrument-dialog.component';
+import { NewInstrumentTypeDialogComponent } from './components/instrument/dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
 import { InstrumentTypeService } from './services/instrument/instrument-type.service';
 import { InstrumentModule } from './components/instrument/instrument.module';
 import { UnverifiedDataService } from './services/unverified/unverified-data-set.service';
@@ -67,7 +69,9 @@ import { FileUploadService } from './services/file/file-upload.service';
 		NewUserGroupDialogComponent,
 		AssignIMENumberDialogComponent,
 		IMERecheckDialogComponent,
-		IMERepairDialogComponent
+		IMERepairDialogComponent,
+		NewInstrumentDialogComponent,
+		NewInstrumentTypeDialogComponent,
 	],
 	providers: [
 		//AppRouterProviders,

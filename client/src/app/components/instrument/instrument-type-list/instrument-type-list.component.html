@@ -54,7 +54,7 @@
 			</div>
 			<div *ngFor="let type of instrumentTypeList; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
 				<div class="truncate flex-item" fxFlex>
-					<a [routerLink]="'../type/' + type.typename" routerLikeActive="active">
+					<a [routerLink]="'../instrument-type/' + type.id" routerLikeActive="active">
 						{{type.type}}
 					</a>
 				</div>
@@ -94,9 +94,9 @@
 			</div>
 		</div>
 	</md-card-content>
-	<md-card-actions>
-		<button md-button (click)="openNewUserDialog()">
-			NEW USER
-		</button>
-	</md-card-actions>
 </md-card>
+<div class="fab-action-button-container">
+	<button md-fab (click)="openNewInstrumentTypeDialog()" mdTooltip="Create Equipment Type" mdTooltipPosition="above">
+		<md-icon>add</md-icon>
+	</button>
+</div>

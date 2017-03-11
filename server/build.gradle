@@ -16,7 +16,7 @@ apply plugin: 'org.springframework.boot'
 
 jar {
 	baseName = 'server'
-	version = '0.0.1-SNAPSHOT'
+	version = '0.0.4-SNAPSHOT'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -49,5 +49,5 @@ dependencies {
 	compile('io.jsonwebtoken:jjwt:' + jjwtVersion)
 	compile('org.aspectj:aspectjweaver:' + aspectjVersion)
 	
-	compile files('bin/sqljdbc42.jar')
+	compile files('lib/sqljdbc42.jar')
 }

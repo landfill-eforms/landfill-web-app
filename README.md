@@ -23,7 +23,6 @@ This section lists the prerequisites for each component of the web application s
 ### Back-End Server
 * Eclipse, or another Java IDE.
 * Gradle Buildship plugin for Eclipse, or the equivalent if using a different IDE. Installation instructions can be found [here](http://download.eclipse.org/buildship/updates/e46/releases/2.x/2.0.0.v20170111-1029/).
-* JDBC Driver for Microsoft SQL Server. Download [here](https://www.microsoft.com/en-us/download/details.aspx?id=11774).
 
 ### Database Management
 * Microsoft SQL Server Management Studio. Download from [here](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
@@ -54,7 +53,7 @@ The dependencies may take a few miniutes to download.
 1. Start Eclipse.
 2. Import `landfill-web-app/server` as Gradle Project.
 3. If Gradle has not automatically downloaded the project dependencies, right click on the 'server' project folder and click Gradle->Refresh Gradle Project.
-4. Add the Microsoft SQL Server JDBC driver 'sqljdbc42.jar' as an external JAR.
+4. Add the Microsoft SQL Server JDBC driver `sqljdbc42.jar` from the `server/lib` directory to the project's build path.
 
 ### Database Management
 Coming soon...

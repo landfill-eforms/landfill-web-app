@@ -26,7 +26,7 @@ repositories {
 }
 
 ext {
-	springVersion = ''
+	springSecurityVersion = '4.1.3.RELEASE'
 	hibernateVersion = '5.0.1.Final'
 	jacksonVersion = '2.8.4'
 	jjwtVersion = '0.7.0'

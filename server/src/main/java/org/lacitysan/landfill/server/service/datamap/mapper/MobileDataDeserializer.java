@@ -1,7 +1,5 @@
 package org.lacitysan.landfill.server.service.datamap.mapper;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

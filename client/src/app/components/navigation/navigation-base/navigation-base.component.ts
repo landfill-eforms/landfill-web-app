@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Route, Router } from '@angular/router';
@@ -11,6 +12,9 @@ import { UserRole } from './../../../model/server/persistence/enums/user-role.en
 	styleUrls: ['./navigation-base.component.scss']
 })
 export class NavigationBaseComponent implements OnInit {
+
+	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-outline.PNG";
+	readonly citySealUrl:string = environment.assetsUrl + "/images/la-seal.svg";
 
 	readonly homeSection:NavRouteSection = {
 		name: "Home",

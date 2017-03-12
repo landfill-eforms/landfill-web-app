@@ -7,7 +7,7 @@
 		</div>
 		<div class="logo-container flex-item" fxFlex routerLink="dashboard" routerLikeActive="active">
 			<a routerLink="dashboard" routerLikeActive="active">
-				<img src="http://www.lvt-ia.org/wp-content/uploads/2015/09/LASanitation_logo_fin.png">
+				<img [src]="logoUrl">
 			</a>
 		</div>
 		<div class="flex-item" fxFlex="100px">
@@ -22,7 +22,7 @@
 			<div class="nav-logo">
 				<div>
 					<picture >				
-						<img class="la-logo" src="/src/public/images/la-seal.svg"/>			
+						<img class="la-logo" [src]="citySealUrl"/>			
 					</picture>
 				</div>
 				<div class="nav-logo-text">

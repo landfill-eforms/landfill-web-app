@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.service;
+package org.lacitysan.landfill.server.service.verification;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @author Alvin Quach
  */
 @Service
-public class UnverifiedDataService {
+public class DataVerificationService {
 	
 	public Set<InstantaneousData> verifyInstantaneousData(UnverifiedDataSet dataSet) {
 		

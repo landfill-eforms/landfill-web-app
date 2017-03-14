@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.service.datamap.model.mobile;
+package org.lacitysan.landfill.server.service.mobile.model;
 
 public class MobileWarmspotData {
 	

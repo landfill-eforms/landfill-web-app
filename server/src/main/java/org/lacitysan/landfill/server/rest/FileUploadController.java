@@ -8,8 +8,8 @@ import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSe
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
-import org.lacitysan.landfill.server.service.datamap.mapper.MobileDataDeserializer;
-import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileDataContainer;
+import org.lacitysan.landfill.server.service.mobile.MobileDataDeserializer;
+import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;

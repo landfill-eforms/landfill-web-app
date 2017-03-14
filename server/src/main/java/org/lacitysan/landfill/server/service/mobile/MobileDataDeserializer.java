@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.service.datamap.mapper;
+package org.lacitysan.landfill.server.service.mobile;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -25,10 +25,10 @@ import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.lacitysan.landfill.server.service.ImeService;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
-import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileDataContainer;
-import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileImeData;
-import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileInstantaneousData;
-import org.lacitysan.landfill.server.service.datamap.model.mobile.MobileWarmspotData;
+import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;
+import org.lacitysan.landfill.server.service.mobile.model.MobileImeData;
+import org.lacitysan.landfill.server.service.mobile.model.MobileInstantaneousData;
+import org.lacitysan.landfill.server.service.mobile.model.MobileWarmspotData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

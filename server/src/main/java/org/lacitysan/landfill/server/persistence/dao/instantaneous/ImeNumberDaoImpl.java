@@ -116,14 +116,10 @@ public class ImeNumberDaoImpl implements ImeNumberDao {
 	private ImeNumber initialize(ImeNumber imeNumber) {
 		Hibernate.initialize(imeNumber.getMonitoringPoints());
 		imeNumber.getInstantaneousData().stream().forEach(instantaneousData -> {
-			Hibernate.initialize(instantaneousData.getInstrument());
-			instantaneousData.getImeNumbers().stream().forEach(i -> Hibernate.initialize(i)); // WTF?
-			instantaneousData.getWarmspotData().stream().forEach(w -> Hibernate.initialize(w));
+			Hibernate.initialize(instantaneousData);
 		});
-		imeNumber.getUnverifiedInstantaneousData().stream().forEach(instantaneousData -> {
-			Hibernate.initialize(instantaneousData.getInstrument());
-			instantaneousData.getImeNumbers().stream().forEach(i -> Hibernate.initialize(i));
-			instantaneousData.getWarmspotData().stream().forEach(w -> Hibernate.initialize(w));
+		imeNumber.getUnverifiedInstantaneousData().stream().forEach(unverifiedInstantaneousData -> {
+			Hibernate.initialize(unverifiedInstantaneousData);
 		});
 		Hibernate.initialize(imeNumber.getImeData());
 		return imeNumber;

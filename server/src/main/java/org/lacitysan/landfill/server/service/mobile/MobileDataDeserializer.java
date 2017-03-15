@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.WarmspotDataDao;
+import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
@@ -46,6 +47,9 @@ public class MobileDataDeserializer {
 	
 	@Autowired
 	WarmspotDataDao warmspotDataDao;
+	
+	@Autowired
+	UnverifiedDataSetDao unverifiedDataSetDao;
 	
 	@Autowired
 	UserDao userDao;
@@ -126,7 +130,46 @@ public class MobileDataDeserializer {
 		
 		// Process the instantaneous data entries.
 		for (MobileInstantaneousData mobileInstantaneousData : mobileDataContainer.getmInstantaneousDatas()) {
-			UnverifiedInstantaneousData instantaneousData = deserializeInstantaneousData(mobileInstantaneousData, imeNumberMap);
+
+			UnverifiedInstantaneousData instantaneousData = new UnverifiedInstantaneousData();
+			
+			instantaneousData.setVerified(false);
+
+			// TODO Implement this inside the enum.
+			if (mobileInstantaneousData.getGridId() != null && !mobileInstantaneousData.getGridId().isEmpty() && mobileInstantaneousData.getmLocation() != null && !mobileInstantaneousData.getmLocation().isEmpty()) {
+				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByName(mobileInstantaneousData.getmLocation()), mobileInstantaneousData.getGridId());
+				if (grid == null) {
+					System.out.println("Error Unmapping Instantaneous Data: Grid " + mobileInstantaneousData.getGridId() + " in " + mobileInstantaneousData.getmLocation() + " not found.");
+					return null;
+				}
+				instantaneousData.setMonitoringPoint(grid);
+			}
+			if (mobileInstantaneousData.getImeNumber() != null && !mobileInstantaneousData.getImeNumber().isEmpty()) {
+				ImeNumber imeNumber = null;
+				for (ImeNumber existingImeNumber : imeNumberMap.keySet()) {
+					if (imeNumberMap.get(existingImeNumber).equals(mobileInstantaneousData.getImeNumber())) {
+						imeNumber = existingImeNumber;
+						break;
+					}
+				}
+				if (imeNumber == null) {
+					ImeNumber newImeNumber = imeService.getImeNumberFromString(mobileInstantaneousData.getImeNumber());
+					if (newImeNumber != null) {
+						short sequence = imeService.getNextSequence(newImeNumber.getSite(), newImeNumber.getDateCode(), false);
+						newImeNumber.setSequence(sequence);
+						newImeNumber.setStatus(IMENumberStatus.UNVERIFIED);
+						imeNumberMap.put(newImeNumber, mobileInstantaneousData.getImeNumber());
+						imeNumber = newImeNumber;
+					}
+				}
+				if (imeNumber != null) {
+					imeNumber.getUnverifiedInstantaneousData().add(instantaneousData);
+					instantaneousData.setImeNumbers(new HashSet<>(Arrays.asList(new ImeNumber[] {imeNumber}))); // TODO Change this.
+				}
+			}
+			instantaneousData.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
+			instantaneousData.setStartTime(parseDate(mobileInstantaneousData.getmStartDate()));
+			instantaneousData.setEndTime(parseDate(mobileInstantaneousData.getmEndDate()));
 			
 			// Set barometric pressure
 			if (mobileInstantaneousData.getmBarometricPressure() != null) {
@@ -152,9 +195,7 @@ public class MobileDataDeserializer {
 		}
 		
 		for (MobileWarmspotData mobileWarmspotData : mobileDataContainer.getmWarmSpotDatas()) {
-			// TODO URGENT NEED TO HANDLE UNVERIFIED WARMSPOT DATA
 			WarmspotData warmspotData = new WarmspotData();
-			warmspotData.setVerified(false);
 			warmspotData.setMethaneLevel((int)(mobileWarmspotData.getmMaxMethaneReading() * 100));
 			warmspotData.setDescription(mobileWarmspotData.getmDescription());
 			warmspotData.setSize(String.valueOf(mobileWarmspotData.getmEstimatedSize()));
@@ -164,11 +205,19 @@ public class MobileDataDeserializer {
 				continue;
 			}
 			warmspotData.setInspector(user);
-			UnverifiedDataSet hello = getDataSet(resultMap.get(user), monitoringPointService.getSiteByName(mobileWarmspotData.getmLocation()));
-			for (UnverifiedInstantaneousData instantaneousData : hello.getUnverifiedInstantaneousData()) {
-				if (instantaneousData.getMethaneLevel().equals(mobileWarmspotData.getmMaxMethaneReading())) {
-					warmspotData.setUnverifiedInstantaneousData(new HashSet<>(Arrays.asList(new UnverifiedInstantaneousData[] {instantaneousData})));
-					instantaneousData.getWarmspotData().add(warmspotData);
+			warmspotData.setVerified(false);
+			Site site = monitoringPointService.getSiteByName(mobileWarmspotData.getmLocation());
+			MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(site, mobileWarmspotData.getmGridId());
+			if (grid == null) {
+				System.out.println("Error Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGridId() + " in " + mobileWarmspotData.getmLocation() + " not found.");
+				return null;
+			}
+			warmspotData.setMonitoringPoint(grid);
+			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), site);
+			for (UnverifiedInstantaneousData unverifiedInstantaneousData : unverifiedDataSet.getUnverifiedInstantaneousData()) {
+				if (unverifiedInstantaneousData.getMethaneLevel().equals(mobileWarmspotData.getmMaxMethaneReading())) {
+					warmspotData.setUnverifiedInstantaneousData(new HashSet<>(Arrays.asList(new UnverifiedInstantaneousData[] {unverifiedInstantaneousData})));
+					unverifiedInstantaneousData.getWarmspotData().add(warmspotData);
 					break;
 				}
 			}
@@ -187,8 +236,11 @@ public class MobileDataDeserializer {
 			}
 		}
 		
+		Set<UnverifiedDataSet> result = resultMap.values().stream().map(map -> map.values()).flatMap(values -> values.stream()).collect(Collectors.toSet());
+		
 		// Insert IME numbers into database.
 		for (ImeNumber imeNumber : imeNumberMap.keySet()) {
+			// TODO Update 'modified by' field.
 			Object id = imeNumberDao.create(imeNumber);
 			if (id instanceof Integer) {
 				imeNumber.setId((Integer)id);
@@ -197,69 +249,28 @@ public class MobileDataDeserializer {
 		
 		// Insert warmspot entries into database.
 		for (WarmspotData warmspotData : warmspotDataSet) {
+			// TODO Update 'modified by' field.
 			Object id = warmspotDataDao.create(warmspotData);
 			if (id instanceof Integer) {
 				warmspotData.setId((Integer)id);
 			}
 		}
 		
+		// Insert unverified data sets into the database.
+		for (UnverifiedDataSet unverifiedDataSet : result) {
+			unverifiedDataSet.setUploadedBy(currentUser);
+			unverifiedDataSet.setUploadedDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+			unverifiedDataSet.setFilename(mobileDataContainer.getFilename());
+			Object id = unverifiedDataSetDao.create(unverifiedDataSet);
+			if (id instanceof Integer) {
+				unverifiedDataSet.setId((Integer)id);
+			}
+		}
+		
 		// Return the set of results.
-		return resultMap.values().stream().map(map -> map.values()).flatMap(values -> values.stream()).collect(Collectors.toSet());
-	}
-	
-	/**
-	 * Deserializes a <code>InstantaneousDataMobile</code> object into an <code>UnverifiedInstantaneousData</code> object.
-	 * Currently, the user, monitoring point, and instrument data are not mapped, and will be <code>null</code> in the resulting output.
-	 * @param mobileInstantaneousData The <code>InstantaneousDataMobile</code> object to be unmapped.
-	 * @param imeNumbers
-	 * @return The <code>InstantaneousData</code> representation of the input object.
-	 * @throws ParseException 
-	 */
-	private UnverifiedInstantaneousData deserializeInstantaneousData(MobileInstantaneousData mobileInstantaneousData, Map<ImeNumber, String> imeNumbers) throws ParseException {
-
-		UnverifiedInstantaneousData result = new UnverifiedInstantaneousData();
-		//result.setId(0); // Is this needed?
-
-		// TODO Implement this inside the enum.
-		if (mobileInstantaneousData.getGridId() != null && !mobileInstantaneousData.getGridId().isEmpty() && mobileInstantaneousData.getmLocation() != null && !mobileInstantaneousData.getmLocation().isEmpty()) {
-			MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByName(mobileInstantaneousData.getmLocation()), mobileInstantaneousData.getGridId());
-			if (grid == null) {
-				System.out.println("Error Unmapping Instantaneous Data: Grid " + mobileInstantaneousData.getGridId() + " in " + mobileInstantaneousData.getmLocation() + " not found.");
-				return null;
-			}
-			result.setMonitoringPoint(grid);
-		}
-		if (mobileInstantaneousData.getImeNumber() != null && !mobileInstantaneousData.getImeNumber().isEmpty()) {
-			ImeNumber imeNumber = null;
-			for (ImeNumber existingImeNumber : imeNumbers.keySet()) {
-				if (imeNumbers.get(existingImeNumber).equals(mobileInstantaneousData.getImeNumber())) {
-					imeNumber = existingImeNumber;
-					break;
-				}
-			}
-			if (imeNumber == null) {
-				ImeNumber newImeNumber = imeService.getImeNumberFromString(mobileInstantaneousData.getImeNumber());
-				if (newImeNumber != null) {
-					short sequence = imeService.getNextSequence(newImeNumber.getSite(), newImeNumber.getDateCode(), false);
-					newImeNumber.setSequence(sequence);
-					newImeNumber.setStatus(IMENumberStatus.UNVERIFIED);
-					imeNumbers.put(newImeNumber, mobileInstantaneousData.getImeNumber());
-					imeNumber = newImeNumber;
-				}
-			}
-			if (imeNumber != null) {
-				imeNumber.getUnverifiedInstantaneousData().add(result);
-				result.setImeNumbers(new HashSet<>(Arrays.asList(new ImeNumber[] {imeNumber}))); // TODO Change this.
-			}
-		}
-		result.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
-		result.setStartTime(parseDate(mobileInstantaneousData.getmStartDate()));
-		result.setEndTime(parseDate(mobileInstantaneousData.getmEndDate()));
-
 		return result;
-
 	}
-	
+
 	private UnverifiedDataSet getDataSet(Map<Site, UnverifiedDataSet> map, Site site) {
 		
 		// If a data set doesn't exist yet for the site, then create a new data set and set its id to 0.

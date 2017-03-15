@@ -33,9 +33,7 @@ public class ImeNumberDaoImpl implements ImeNumberDao {
 		List<ImeNumber> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(ImeNumber.class)
 				.list();
-		result.stream().forEach(imeNumber -> {
-			initialize(imeNumber);
-		});
+		result.forEach(imeNumber -> initialize(imeNumber));
 		return result;
 	}
 
@@ -50,9 +48,7 @@ public class ImeNumberDaoImpl implements ImeNumberDao {
 					.createCriteria(ImeNumber.class)
 					.add(Restrictions.eq("site", Site.valueOf(siteName)))
 					.list();
-			result.stream().forEach(imeNumber -> {
-				initialize(imeNumber);
-			});
+			result.forEach(imeNumber -> initialize(imeNumber));
 			return result;
 		}
 		return null;
@@ -69,9 +65,7 @@ public class ImeNumberDaoImpl implements ImeNumberDao {
 					.add(Restrictions.eq("site", site))
 					.add(Restrictions.eq("dateCode", dateCode))
 					.list();
-			result.stream().forEach(imeNumber -> {
-				initialize(imeNumber);
-			});
+			result.forEach(imeNumber -> initialize(imeNumber));
 			return result;
 		}
 		return null;
@@ -115,10 +109,10 @@ public class ImeNumberDaoImpl implements ImeNumberDao {
 
 	private ImeNumber initialize(ImeNumber imeNumber) {
 		Hibernate.initialize(imeNumber.getMonitoringPoints());
-		imeNumber.getInstantaneousData().stream().forEach(instantaneousData -> {
+		imeNumber.getInstantaneousData().forEach(instantaneousData -> {
 			Hibernate.initialize(instantaneousData);
 		});
-		imeNumber.getUnverifiedInstantaneousData().stream().forEach(unverifiedInstantaneousData -> {
+		imeNumber.getUnverifiedInstantaneousData().forEach(unverifiedInstantaneousData -> {
 			Hibernate.initialize(unverifiedInstantaneousData);
 		});
 		Hibernate.initialize(imeNumber.getImeData());

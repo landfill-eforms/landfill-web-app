@@ -26,7 +26,7 @@ public class WarmspotDataDaoImpl implements WarmspotDataDao {
 		List<WarmspotData> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(WarmspotData.class)
 				.list();
-		result.stream().forEach(warmspotData -> {
+		result.forEach(warmspotData -> {
 			initialize(warmspotData);
 		});
 		return result;
@@ -68,11 +68,11 @@ public class WarmspotDataDaoImpl implements WarmspotDataDao {
 	
 	private WarmspotData initialize(WarmspotData warmspotData) {
 		Hibernate.initialize(warmspotData.getInspector());
-		warmspotData.getInstantaneousData().stream().forEach(instantaneousData -> {
+		warmspotData.getInstantaneousData().forEach(instantaneousData -> {
 			Hibernate.initialize(instantaneousData.getInstrument());
 			Hibernate.initialize(instantaneousData.getInspector());
 		});
-		warmspotData.getUnverifiedInstantaneousData().stream().forEach(instantaneousData -> {
+		warmspotData.getUnverifiedInstantaneousData().forEach(instantaneousData -> {
 			Hibernate.initialize(instantaneousData.getInstrument());
 		});
 		return warmspotData;

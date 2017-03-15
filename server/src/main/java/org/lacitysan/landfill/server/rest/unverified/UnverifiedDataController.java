@@ -66,15 +66,9 @@ public class UnverifiedDataController {
 	
 	@RequestMapping(value="/commit", method=RequestMethod.POST)
 	public Object commit(@RequestBody UnverifiedDataSet dataSet) {
-		VerifiedDataSet verifiedDataSet = dataVerificationService.verifyInstantaneousData(dataSet);
-		Set<InstantaneousData> verifiedData = verifiedDataSet.getInstantaneousData();
-		if (verifiedData == null) { // TODO CHECKING FOR NULL WILL NO LONGER WORK
-			return false;
-		}
-		for (InstantaneousData data : verifiedData) {
-			instantaneousDataDao.create(data);
-		}
-		return unverifiedDataSetDao.delete(dataSet);
+		VerifiedDataSet verifiedDataSet = dataVerificationService.verifyAndCommit(dataSet);
+
+		return verifiedDataSet;
 	}
 
 }

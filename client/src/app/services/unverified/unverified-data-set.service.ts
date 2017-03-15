@@ -49,12 +49,7 @@ export class UnverifiedDataService {
 	}
 
 	checkForErrors(dataSet:UnverifiedDataSet):UnverifiedDataSet {
-
 		let dataSetErrors:string[] = [];
-		if (!dataSet.barometricPressure) {
-			dataSetErrors.push("The barometric pressure is not set.")
-		}
-
 		let instantaneousErrors:string[] = [];
 		for (let i = 0; i < dataSet.unverifiedInstantaneousData.length; i++) {
 			let data = dataSet.unverifiedInstantaneousData[i];
@@ -70,13 +65,14 @@ export class UnverifiedDataService {
 			if (!data.instrument) {
 				instantaneousErrors.push("The instantaneous reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an instrument specified.");
 			}
+			if (!data.barometricPressure) {
+				instantaneousErrors.push("The instantaneous reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an barometric pressure reading.");
+			}
 		}
-
 		dataSet.errors = {
 			dataSet: dataSetErrors,
 			instantaneous: instantaneousErrors
 		}
-
 		return dataSet;
 	}
 

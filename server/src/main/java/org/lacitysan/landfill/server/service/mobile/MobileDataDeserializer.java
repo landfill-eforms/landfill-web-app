@@ -3,7 +3,6 @@ package org.lacitysan.landfill.server.service.mobile;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -133,8 +132,6 @@ public class MobileDataDeserializer {
 
 			UnverifiedInstantaneousData instantaneousData = new UnverifiedInstantaneousData();
 			
-			instantaneousData.setVerified(false);
-
 			// TODO Implement this inside the enum.
 			if (mobileInstantaneousData.getGridId() != null && !mobileInstantaneousData.getGridId().isEmpty() && mobileInstantaneousData.getmLocation() != null && !mobileInstantaneousData.getmLocation().isEmpty()) {
 				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByName(mobileInstantaneousData.getmLocation()), mobileInstantaneousData.getGridId());
@@ -164,7 +161,7 @@ public class MobileDataDeserializer {
 				}
 				if (imeNumber != null) {
 					imeNumber.getUnverifiedInstantaneousData().add(instantaneousData);
-					instantaneousData.setImeNumbers(new HashSet<>(Arrays.asList(new ImeNumber[] {imeNumber}))); // TODO Change this.
+					instantaneousData.getImeNumbers().add(imeNumber);
 				}
 			}
 			instantaneousData.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
@@ -215,8 +212,8 @@ public class MobileDataDeserializer {
 			warmspotData.setMonitoringPoint(grid);
 			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), site);
 			for (UnverifiedInstantaneousData unverifiedInstantaneousData : unverifiedDataSet.getUnverifiedInstantaneousData()) {
-				if (unverifiedInstantaneousData.getMethaneLevel().equals(mobileWarmspotData.getmMaxMethaneReading())) {
-					warmspotData.setUnverifiedInstantaneousData(new HashSet<>(Arrays.asList(new UnverifiedInstantaneousData[] {unverifiedInstantaneousData})));
+				if (unverifiedInstantaneousData.getMethaneLevel().equals(warmspotData.getMethaneLevel())) {
+					warmspotData.getUnverifiedInstantaneousData().add(unverifiedInstantaneousData);
 					unverifiedInstantaneousData.getWarmspotData().add(warmspotData);
 					break;
 				}

@@ -80,9 +80,6 @@ public class UnverifiedInstantaneousData {
 	@Cascade(CascadeType.ALL)
 	private UnverifiedDataSet unverifiedDataSet;
 	
-	@NotNull
-	private Boolean verified;
-
 	public Integer getId() {
 		return id;
 	}
@@ -161,14 +158,6 @@ public class UnverifiedInstantaneousData {
 
 	public void setUnverifiedDataSet(UnverifiedDataSet unverifiedDataSet) {
 		this.unverifiedDataSet = unverifiedDataSet;
-	}
-
-	public Boolean getVerified() {
-		return verified;
-	}
-
-	public void setVerified(Boolean verified) {
-		this.verified = verified;
 	}
 	
 }

@@ -19,5 +19,4 @@ export class UnverifiedInstantaneousData {
 	imeNumbers:ImeNumber[];
 	warmspotData:WarmspotData[];
 	unverifiedDataSet:UnverifiedDataSet;
-	verified:boolean;
 }

@@ -30,7 +30,7 @@ public class UnverifiedDataSetDaoImpl implements UnverifiedDataSetDao {
 		List<UnverifiedDataSet> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(UnverifiedDataSet.class)
 				.list();
-		result.stream().forEach(dataSet -> initialize(dataSet));
+		result.forEach(dataSet -> initialize(dataSet));
 		return result;
 	}
 	
@@ -78,10 +78,10 @@ public class UnverifiedDataSetDaoImpl implements UnverifiedDataSetDao {
 		if (dataSet.getModifiedBy() != null) {
 			Hibernate.initialize(dataSet.getModifiedBy());
 		}
-		dataSet.getUnverifiedInstantaneousData().stream().forEach(instantaneousData -> {
+		dataSet.getUnverifiedInstantaneousData().forEach(instantaneousData -> {
 			Hibernate.initialize(instantaneousData.getInstrument());
-			instantaneousData.getImeNumbers().stream().forEach(imeNumber -> Hibernate.initialize(imeNumber));
-			instantaneousData.getWarmspotData().stream().forEach(warmspot -> Hibernate.initialize(warmspot));
+			instantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
+			instantaneousData.getWarmspotData().forEach(warmspot -> Hibernate.initialize(warmspot));
 		});
 		return dataSet;
 	}

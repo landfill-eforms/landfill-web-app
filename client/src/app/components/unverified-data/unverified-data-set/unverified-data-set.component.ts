@@ -33,6 +33,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 	dataSet:UnverifiedDataSet;
 	existingImeNumbers:ImeNumber[];
 	createdImeNumbers:ImeNumber[]; // IME numbers created during this session.
+	barometricPressure:number;
 	sort:any = {
 		current: "",
 		reversed: false
@@ -62,7 +63,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 			this.sortByGrid();
 			this.imeNumberService.getBySite((data) => {
 				// TODO Use current date.
-				this.existingImeNumbers = data
+				this.existingImeNumbers = data;
 				// .filter(number => 
 				// 	number.dateCode >= this.dataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
 				// );
@@ -81,8 +82,15 @@ export class UnverifiedDataSetComponent implements OnInit {
 		if (data.barometricPressure) {
 			data.barometricPressure = data.barometricPressure / 100;
 		}
-		for (let j = 0; j < data.unverifiedInstantaneousData.length; j++) {
-			data.unverifiedInstantaneousData[j]["monitoringPoint"] = EnumUtils.convertToEnum(MonitoringPoint, data.unverifiedInstantaneousData[j]["monitoringPoint"]);
+		for (let i = 0; i < data.unverifiedInstantaneousData.length; i++) {
+			let unverifiedInstantaneousData:any = data.unverifiedInstantaneousData[i];
+			unverifiedInstantaneousData["monitoringPoint"] = EnumUtils.convertToEnum(MonitoringPoint, unverifiedInstantaneousData["monitoringPoint"]);
+
+			// TEMPORARY
+			if (unverifiedInstantaneousData["barometricPressure"]) {
+				this.barometricPressure = unverifiedInstantaneousData["barometricPressure"] / 100;
+			}
+
 		}
 		return this.unverifiedDataService.checkForErrors(data);
 	}
@@ -109,13 +117,20 @@ export class UnverifiedDataSetComponent implements OnInit {
 		this.unverifiedDataService.checkForErrors(this.dataSet);
 	}
 
+	updateBarometricPressure() {
+		for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
+			if (this.barometricPressure) {
+				this.dataSet.unverifiedInstantaneousData[i].barometricPressure = this.barometricPressure * 100;
+			}
+		}
+		this.unverifiedDataService.checkForErrors(this.dataSet);
+	}
+
 	save() {
 		this.dataSet.site = EnumUtils.convertToString(this.dataSet.site);
-		if (this.dataSet.barometricPressure) {
-			this.dataSet.barometricPressure = this.dataSet.barometricPressure * 100;
-		}
-		for (let j = 0; j < this.dataSet.unverifiedInstantaneousData.length; j++) {
-			this.dataSet.unverifiedInstantaneousData[j].monitoringPoint = EnumUtils.convertToString(this.dataSet.unverifiedInstantaneousData[j].monitoringPoint);
+		for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
+			let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
+			unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
 		}
 		console.log(this.dataSet);
 		this.unverifiedDataService.update((data) => {
@@ -132,11 +147,9 @@ export class UnverifiedDataSetComponent implements OnInit {
 			return;
 		}
 		this.dataSet.site = EnumUtils.convertToString(this.dataSet.site);
-		if (this.dataSet.barometricPressure) {
-			this.dataSet.barometricPressure = this.dataSet.barometricPressure * 100;
-		}
-		for (let j = 0; j < this.dataSet.unverifiedInstantaneousData.length; j++) {
-			this.dataSet.unverifiedInstantaneousData[j].monitoringPoint = EnumUtils.convertToString(this.dataSet.unverifiedInstantaneousData[j].monitoringPoint);
+		for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
+			let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
+			unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
 		}
 		this.unverifiedDataService.commit((data) => {
 			if (data) {
@@ -208,6 +221,10 @@ export class UnverifiedDataSetComponent implements OnInit {
 		if (a > b) return reversed ? -1 : 1;
 		if (a == b) return 0;
 		if (a < b) return reversed ? 1 : -1;
+	}
+
+	consoleLog() {
+		console.log(this.dataSet);
 	}
 
 }

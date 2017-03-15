@@ -70,7 +70,7 @@ public class InstantaneousData {
 	@JoinTable(name="test.dbo.InstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
-	@JsonIgnoreProperties({"instantaneousData", "unverifiedInstantaneousData"})
+	@JsonIgnoreProperties({"instantaneousData", "unverifiedInstantaneousData", "inspector", "instrument"})
 	@ManyToMany
 	@JoinTable(name="test.dbo.InstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
 	private Set<WarmspotData> warmspotData = new HashSet<>();

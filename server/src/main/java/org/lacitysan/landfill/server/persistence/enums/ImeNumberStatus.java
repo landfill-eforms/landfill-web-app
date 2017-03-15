@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.persistence.enums;
 
-public enum IMENumberStatus {
+public enum ImeNumberStatus {
 	UNVERIFIED,
 	ACTIVE,
 	CLOSED

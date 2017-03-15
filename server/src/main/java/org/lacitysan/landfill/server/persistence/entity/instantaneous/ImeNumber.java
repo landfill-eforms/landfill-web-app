@@ -23,7 +23,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
-import org.lacitysan.landfill.server.persistence.enums.IMENumberStatus;
+import org.lacitysan.landfill.server.persistence.enums.ImeNumberStatus;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.lacitysan.landfill.server.service.ImeService;
@@ -59,7 +59,7 @@ public class ImeNumber implements Comparable<ImeNumber> {
 	@NotNull
 	@Column(name="StatusString")
 	@Enumerated(EnumType.STRING)
-	private IMENumberStatus status;
+	private ImeNumberStatus status;
 	
 	@ElementCollection(targetClass=MonitoringPoint.class)
 	@JoinTable(name="test.dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
@@ -115,11 +115,11 @@ public class ImeNumber implements Comparable<ImeNumber> {
 		this.site = site;
 	}
 
-	public IMENumberStatus getStatus() {
+	public ImeNumberStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(IMENumberStatus status) {
+	public void setStatus(ImeNumberStatus status) {
 		this.status = status;
 	}
 

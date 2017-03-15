@@ -5,7 +5,7 @@ import java.util.TreeSet;
 
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.persistence.enums.IMENumberStatus;
+import org.lacitysan.landfill.server.persistence.enums.ImeNumberStatus;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,7 +73,7 @@ public class ImeService {
 		
 		short last = 1;
 		for (ImeNumber imeNumber : existing) {
-			if (verifiedOnly && imeNumber.getStatus() == IMENumberStatus.UNVERIFIED) {
+			if (verifiedOnly && imeNumber.getStatus() == ImeNumberStatus.UNVERIFIED) {
 				continue;
 			}
 			if (imeNumber.getSequence() > last) {

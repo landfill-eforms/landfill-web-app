@@ -51,10 +51,10 @@ public class ImeNumber implements Comparable<ImeNumber> {
 	private Site site;
 	
 	@NotNull
-	private int dateCode;
+	private Integer dateCode;
 	
 	@NotNull
-	private short sequence;
+	private Short sequence;
 	
 	@NotNull
 	@Column(name="StatusString")
@@ -91,19 +91,19 @@ public class ImeNumber implements Comparable<ImeNumber> {
 		this.id = id;
 	}
 
-	public int getDateCode() {
+	public Integer getDateCode() {
 		return dateCode;
 	}
 
-	public void setDateCode(int dateCode) {
+	public void setDateCode(Integer dateCode) {
 		this.dateCode = dateCode;
 	}
 
-	public short getSequence() {
+	public Short getSequence() {
 		return sequence;
 	}
 
-	public void setSequence(short sequence) {
+	public void setSequence(Short sequence) {
 		this.sequence = sequence;
 	}
 

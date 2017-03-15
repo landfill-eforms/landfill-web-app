@@ -11,14 +11,12 @@ public interface ImeNumberDao {
 	
 	List<ImeNumber> getBySiteName(String siteName);
 
-	ImeNumber getByImeNumber(String imeNumber);
+	ImeNumber getByImeNumber(ImeNumber imeNumber);
 	
 	List<ImeNumber> getBySiteAndDateCode(Site site, Integer dateCode);
 	
 	Object update(ImeNumber imeNumber);
 
 	Object create(ImeNumber imeNumber);
-
-	short getNextSequence(Site site, Integer dateCode);
 
 }

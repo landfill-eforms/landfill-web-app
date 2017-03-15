@@ -68,8 +68,6 @@ public class UnverifiedDataSet {
 	
 	private Timestamp modifiedDate;
 	
-	private Short barometricPressure;
-	
 	@JsonIgnoreProperties({"unverifiedDataSet"})
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
@@ -142,14 +140,6 @@ public class UnverifiedDataSet {
 
 	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
-	}
-
-	public Short getBarometricPressure() {
-		return barometricPressure;
-	}
-
-	public void setBarometricPressure(Short barometricPressure) {
-		this.barometricPressure = barometricPressure;
 	}
 
 	public Set<UnverifiedInstantaneousData> getUnverifiedInstantaneousData() {

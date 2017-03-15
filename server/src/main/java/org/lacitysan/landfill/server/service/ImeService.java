@@ -1,6 +1,11 @@
 package org.lacitysan.landfill.server.service;
 
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.enums.IMENumberStatus;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +17,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ImeService {
 
+	@Autowired
+	ImeNumberDao imeNumberDao;
+	
 	@Autowired
 	MonitoringPointService monitoringPointService;
 
@@ -55,6 +63,25 @@ public class ImeService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public short getNextSequence(Site site, Integer dateCode, boolean verifiedOnly) {
+		
+		// Use TreeSet to store existing IME Numbers so that they are in order by sequence number.
+		Set<ImeNumber> existing = new TreeSet<>(); 
+		existing.addAll(imeNumberDao.getBySiteAndDateCode(site, dateCode));
+		
+		short last = 1;
+		for (ImeNumber imeNumber : existing) {
+			if (verifiedOnly && imeNumber.getStatus() == IMENumberStatus.UNVERIFIED) {
+				continue;
+			}
+			if (imeNumber.getSequence() > last) {
+				break;
+			}
+			last++;
+		}
+		return last;
 	}
 
 }

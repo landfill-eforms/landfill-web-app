@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
+import org.lacitysan.landfill.server.persistence.dao.instantaneous.WarmspotDataDao;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
@@ -30,6 +31,7 @@ import org.lacitysan.landfill.server.service.mobile.model.MobileImeData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileInstantaneousData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileWarmspotData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -43,6 +45,9 @@ public class MobileDataDeserializer {
 	ImeNumberDao imeNumberDao;
 	
 	@Autowired
+	WarmspotDataDao warmspotDataDao;
+	
+	@Autowired
 	UserDao userDao;
 	
 	@Autowired
@@ -53,17 +58,20 @@ public class MobileDataDeserializer {
 	
 	public Set<UnverifiedDataSet> deserializeData(MobileDataContainer mobileDataContainer) throws ParseException {
 		
-		// Store a map of users.
+		// Store a map of users by their usernames.
 		Map<String, User> userMap = new HashMap<>();
 
 		// Store a map of imported IME numbers. The value stored for each IME number is its original imported IME number string, if exists.
-		Map<ImeNumber, String> imeNumbers = new HashMap<>();
+		Map<ImeNumber, String> imeNumberMap = new HashMap<>();
+		
+		// Store a shit of all the warmspot data...
+		Set<WarmspotData> warmspotDataSet = new HashSet<>();
 		
 		// Fucking want to chop my dick off.
 		for (MobileImeData mobileImeData : mobileDataContainer.getmImeDatas()) {
 			
 			String imeNumberString = mobileImeData.getmImeNumber();
-			
+
 			// If the imported IME data doesn't contain an IME number, then get it from the site and date.
 			if (imeNumberString == null || imeNumberString.trim().isEmpty()) {
 				
@@ -93,7 +101,7 @@ public class MobileDataDeserializer {
 			}
 			
 			// Get next IME sequence number based on site and date code.
-			short sequence = imeNumberDao.getNextSequence(imeNumber.getSite(), imeNumber.getDateCode());
+			short sequence = imeService.getNextSequence(imeNumber.getSite(), imeNumber.getDateCode(), false);
 			imeNumber.setSequence(sequence);
 			
 			// Set the status of the IME number as unverified.
@@ -110,30 +118,35 @@ public class MobileDataDeserializer {
 			imeNumber.getImeData().add(imeData);
 			
 			// Add the IME number to the set of IME numbers.
-			imeNumbers.put(imeNumber, imeNumberString);
+			imeNumberMap.put(imeNumber, imeNumberString);
 		}
 		
 		// WTF???????????????
-		Map<User, Map<Site, UnverifiedDataSet>> result = new HashMap<>();
+		Map<User, Map<Site, UnverifiedDataSet>> resultMap = new HashMap<>();
 		
-		// Okay, no more comments.
+		// Process the instantaneous data entries.
 		for (MobileInstantaneousData mobileInstantaneousData : mobileDataContainer.getmInstantaneousDatas()) {
-			UnverifiedInstantaneousData instantaneousData = deserializeInstantaneousData(mobileInstantaneousData, imeNumbers);
+			UnverifiedInstantaneousData instantaneousData = deserializeInstantaneousData(mobileInstantaneousData, imeNumberMap);
+			
+			// Set barometric pressure
+			if (mobileInstantaneousData.getmBarometricPressure() != null) {
+				instantaneousData.setBarometricPressure((short)(mobileInstantaneousData.getmBarometricPressure() * 100));
+			}
+			
+			// Get user information.
 			User user = getUser(userMap, mobileInstantaneousData.getmInspectorUserName());
 			if (user == null) {
 				continue;
 			}
-			if (!result.containsKey(user)) {
+			if (!resultMap.containsKey(user)) {
 				Map<Site, UnverifiedDataSet> wtf = new HashMap<>();
-				result.put(user, wtf);
+				resultMap.put(user, wtf);
 			}
-			UnverifiedDataSet hello = getDataSet(result.get(user), monitoringPointService.getSiteByName(mobileInstantaneousData.getmLocation()));
+			UnverifiedDataSet hello = getDataSet(resultMap.get(user), monitoringPointService.getSiteByName(mobileInstantaneousData.getmLocation()));
 			if (hello.getInspector() == null) {
 				hello.setInspector(user);
 			}
-			if (mobileInstantaneousData.getmBarometricPressure() != null) {
-				hello.setBarometricPressure((short)(mobileInstantaneousData.getmBarometricPressure() * 100));
-			}
+
 			instantaneousData.setUnverifiedDataSet(hello);
 			hello.getUnverifiedInstantaneousData().add(instantaneousData);
 		}
@@ -141,16 +154,17 @@ public class MobileDataDeserializer {
 		for (MobileWarmspotData mobileWarmspotData : mobileDataContainer.getmWarmSpotDatas()) {
 			// TODO URGENT NEED TO HANDLE UNVERIFIED WARMSPOT DATA
 			WarmspotData warmspotData = new WarmspotData();
+			warmspotData.setVerified(false);
 			warmspotData.setMethaneLevel((int)(mobileWarmspotData.getmMaxMethaneReading() * 100));
 			warmspotData.setDescription(mobileWarmspotData.getmDescription());
 			warmspotData.setSize(String.valueOf(mobileWarmspotData.getmEstimatedSize()));
 			warmspotData.setDate(parseDate(mobileWarmspotData.getmDate()));
 			User user = getUser(userMap, mobileWarmspotData.getmInspectorUserName());
-			if (user == null || !result.containsKey(user)) {
+			if (user == null || !resultMap.containsKey(user)) {
 				continue;
 			}
 			warmspotData.setInspector(user);
-			UnverifiedDataSet hello = getDataSet(result.get(user), monitoringPointService.getSiteByName(mobileWarmspotData.getmLocation()));
+			UnverifiedDataSet hello = getDataSet(resultMap.get(user), monitoringPointService.getSiteByName(mobileWarmspotData.getmLocation()));
 			for (UnverifiedInstantaneousData instantaneousData : hello.getUnverifiedInstantaneousData()) {
 				if (instantaneousData.getMethaneLevel().equals(mobileWarmspotData.getmMaxMethaneReading())) {
 					warmspotData.setUnverifiedInstantaneousData(new HashSet<>(Arrays.asList(new UnverifiedInstantaneousData[] {instantaneousData})));
@@ -158,18 +172,39 @@ public class MobileDataDeserializer {
 					break;
 				}
 			}
+			warmspotDataSet.add(warmspotData);
 		}
 		
-		// Do some bad stuff
-		for (ImeNumber imeNumber : imeNumbers.keySet()) {
+		// *** If it got to this point in the code, then that means there was no 'errors' with the mobile data.
+		
+		// Get the current user from the security context holder, so we can update the 'modified by' and/or the 'created by' fields.
+		User currentUser = new User();
+		Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principle instanceof Map) {
+			Integer id = (Integer)((Map<?, ?>)principle).get("id");
+			if (id != null) {
+				currentUser.setId(id);
+			}
+		}
+		
+		// Insert IME numbers into database.
+		for (ImeNumber imeNumber : imeNumberMap.keySet()) {
 			Object id = imeNumberDao.create(imeNumber);
 			if (id instanceof Integer) {
 				imeNumber.setId((Integer)id);
 			}
 		}
 		
+		// Insert warmspot entries into database.
+		for (WarmspotData warmspotData : warmspotDataSet) {
+			Object id = warmspotDataDao.create(warmspotData);
+			if (id instanceof Integer) {
+				warmspotData.setId((Integer)id);
+			}
+		}
+		
 		// Return the set of results.
-		return result.values().stream().map(map -> map.values()).flatMap(values -> values.stream()).collect(Collectors.toSet());
+		return resultMap.values().stream().map(map -> map.values()).flatMap(values -> values.stream()).collect(Collectors.toSet());
 	}
 	
 	/**
@@ -180,7 +215,7 @@ public class MobileDataDeserializer {
 	 * @return The <code>InstantaneousData</code> representation of the input object.
 	 * @throws ParseException 
 	 */
-	public UnverifiedInstantaneousData deserializeInstantaneousData(MobileInstantaneousData mobileInstantaneousData, Map<ImeNumber, String> imeNumbers) throws ParseException {
+	private UnverifiedInstantaneousData deserializeInstantaneousData(MobileInstantaneousData mobileInstantaneousData, Map<ImeNumber, String> imeNumbers) throws ParseException {
 
 		UnverifiedInstantaneousData result = new UnverifiedInstantaneousData();
 		//result.setId(0); // Is this needed?
@@ -205,7 +240,7 @@ public class MobileDataDeserializer {
 			if (imeNumber == null) {
 				ImeNumber newImeNumber = imeService.getImeNumberFromString(mobileInstantaneousData.getImeNumber());
 				if (newImeNumber != null) {
-					short sequence = imeNumberDao.getNextSequence(newImeNumber.getSite(), newImeNumber.getDateCode());
+					short sequence = imeService.getNextSequence(newImeNumber.getSite(), newImeNumber.getDateCode(), false);
 					newImeNumber.setSequence(sequence);
 					newImeNumber.setStatus(IMENumberStatus.UNVERIFIED);
 					imeNumbers.put(newImeNumber, mobileInstantaneousData.getImeNumber());

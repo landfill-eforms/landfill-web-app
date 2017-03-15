@@ -42,15 +42,18 @@ public class UnverifiedInstantaneousData {
 	@Column(name="UnverifiedInstantaneousPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-		
+	
+	@NotNull
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
 	private MonitoringPoint monitoringPoint;
-		
+	
 	@ManyToOne
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
 
+	private Short barometricPressure;
+	
 	@NotNull
 	private Integer methaneLevel;	
 	
@@ -71,10 +74,14 @@ public class UnverifiedInstantaneousData {
 	private Set<WarmspotData> warmspotData = new HashSet<>();
 	
 	@JsonIgnoreProperties({"unverifiedInstantaneousData"})
-	@Cascade(CascadeType.ALL)
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="UnverifiedDataSetFK", nullable=false)
+	@Cascade(CascadeType.ALL)
 	private UnverifiedDataSet unverifiedDataSet;
+	
+	@NotNull
+	private Boolean verified;
 
 	public Integer getId() {
 		return id;
@@ -100,6 +107,14 @@ public class UnverifiedInstantaneousData {
 		this.instrument = instrument;
 	}
 
+	public Short getBarometricPressure() {
+		return barometricPressure;
+	}
+
+	public void setBarometricPressure(Short barometricPressure) {
+		this.barometricPressure = barometricPressure;
+	}
+
 	public Integer getMethaneLevel() {
 		return methaneLevel;
 	}
@@ -110,6 +125,10 @@ public class UnverifiedInstantaneousData {
 
 	public Timestamp getStartTime() {
 		return startTime;
+	}
+
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
 	}
 
 	public Timestamp getEndTime() {
@@ -144,8 +163,12 @@ public class UnverifiedInstantaneousData {
 		this.unverifiedDataSet = unverifiedDataSet;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
+	public Boolean getVerified() {
+		return verified;
+	}
+
+	public void setVerified(Boolean verified) {
+		this.verified = verified;
 	}
 	
 }

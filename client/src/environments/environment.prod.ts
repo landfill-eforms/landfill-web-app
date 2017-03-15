@@ -1,4 +1,4 @@
-export const serverUrl:string = "http://lef-backend.us-west-2.elasticbeanstalk.com/";
+export const serverUrl:string = "http://lef-backend.us-west-2.elasticbeanstalk.com";
 
 export const environment = {
   production: false,

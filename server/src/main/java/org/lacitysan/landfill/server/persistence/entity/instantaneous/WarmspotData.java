@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -38,7 +39,8 @@ public class WarmspotData {
 	@Column(name="WarmspotPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-		
+	
+	@NotNull
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
 	private MonitoringPoint monitoringPoint;
@@ -48,6 +50,7 @@ public class WarmspotData {
 	private Instrument instrument;
 	
 	@JsonIgnoreProperties({"password", "userGroups", "enabled"})
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;
@@ -64,13 +67,16 @@ public class WarmspotData {
 	@NotNull
 	private String size;
 	
-	@JsonIgnoreProperties({"warmspotData"})
+	@JsonIgnoreProperties({"warmspotData", "imeNumbers"})
 	@ManyToMany(mappedBy="warmspotData")
-	private Set<InstantaneousData> instantaneousData;
+	private Set<InstantaneousData> instantaneousData = new HashSet<>();
 	
-	@JsonIgnoreProperties({"warmspotData"})
+	@JsonIgnoreProperties({"warmspotData", "imeNumbers", "unverifiedDataSet"})
 	@ManyToMany(mappedBy="warmspotData")
-	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData;
+	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
+	
+	@NotNull
+	private Boolean verified;
 
 	public Integer getId() {
 		return id;
@@ -150,6 +156,14 @@ public class WarmspotData {
 
 	public void setUnverifiedInstantaneousData(Set<UnverifiedInstantaneousData> unverifiedInstantaneousData) {
 		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
+	}
+
+	public Boolean getVerified() {
+		return verified;
+	}
+
+	public void setVerified(Boolean verified) {
+		this.verified = verified;
 	}
 	
 }

@@ -12,6 +12,7 @@ export class UnverifiedInstantaneousData {
 	id:number;
 	monitoringPoint:MonitoringPoint;
 	instrument:Instrument;
+	barometricPressure:number;
 	methaneLevel:number;
 	startTime:number;
 	endTime:number;

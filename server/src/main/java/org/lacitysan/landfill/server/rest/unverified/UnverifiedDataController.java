@@ -10,6 +10,7 @@ import org.lacitysan.landfill.server.persistence.entity.instantaneous.Instantane
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.service.verification.DataVerificationService;
+import org.lacitysan.landfill.server.service.verification.model.VerifiedDataSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -65,25 +66,9 @@ public class UnverifiedDataController {
 	
 	@RequestMapping(value="/commit", method=RequestMethod.POST)
 	public Object commit(@RequestBody UnverifiedDataSet dataSet) {
-		Set<InstantaneousData> verifiedData = dataVerificationService.verifyInstantaneousData(dataSet);
-		if (verifiedData == null) {
-			return false;
-		}
-		for (InstantaneousData data : dataVerificationService.verifyInstantaneousData(dataSet)) {
-			instantaneousDataDao.create(data);
-		}
-		return unverifiedDataSetDao.delete(dataSet);
+		VerifiedDataSet verifiedDataSet = dataVerificationService.verifyAndCommit(dataSet);
+
+		return verifiedDataSet;
 	}
-	
-//	@RequestMapping(value="/dummy", method=RequestMethod.GET)
-//	@ResponseBody
-//	public Object createDummyData() {
-//		return unverifiedDataSetDao.create(unverifiedDataService.createDummyData());
-//	}
-	
-//	private UnverifiedDataSet initialize(UnverifiedDataSet dataSet) {
-//		Hibernate.initialize(proxy);
-//		return dataSet;
-//	}
-	
+
 }

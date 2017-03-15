@@ -54,10 +54,10 @@ public class InstantaneousData {
 	private User inspector;
 	
 	@NotNull
-	private short barometricPressure;
+	private Short  barometricPressure;
 	
 	@NotNull
-	private int methaneLevel;	
+	private Integer methaneLevel;	
 	
 	@NotNull
 	private Timestamp startTime;
@@ -70,7 +70,7 @@ public class InstantaneousData {
 	@JoinTable(name="test.dbo.InstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
-	@JsonIgnoreProperties({"instantaneousData", "unverifiedInstantaneousData"})
+	@JsonIgnoreProperties({"instantaneousData", "unverifiedInstantaneousData", "inspector", "instrument"})
 	@ManyToMany
 	@JoinTable(name="test.dbo.InstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
 	private Set<WarmspotData> warmspotData = new HashSet<>();
@@ -107,19 +107,19 @@ public class InstantaneousData {
 		this.inspector = inspector;
 	}
 
-	public short getBarometricPressure() {
+	public Short  getBarometricPressure() {
 		return barometricPressure;
 	}
 
-	public void setBarometricPressure(short barometricPressure) {
+	public void setBarometricPressure(Short  barometricPressure) {
 		this.barometricPressure = barometricPressure;
 	}
 
-	public int getMethaneLevel() {
+	public Integer getMethaneLevel() {
 		return methaneLevel;
 	}
 
-	public void setMethaneLevel(int methaneLevel) {
+	public void setMethaneLevel(Integer methaneLevel) {
 		this.methaneLevel = methaneLevel;
 	}
 

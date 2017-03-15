@@ -40,7 +40,7 @@ public class InstrumentDaoImpl implements InstrumentDao {
 		List<Instrument> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(Instrument.class)
 				.list();
-		result.stream().forEach(instrument -> initialize(instrument));
+		result.forEach(instrument -> initialize(instrument));
 		return result;
 	}
 	

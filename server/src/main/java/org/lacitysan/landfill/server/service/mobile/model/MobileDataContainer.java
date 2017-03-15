@@ -11,6 +11,8 @@ public class MobileDataContainer {
 	
 	private Set<MobileWarmspotData> mWarmSpotDatas = new HashSet<>();
 
+	private String filename;
+	
 	public Set<MobileImeData> getmImeDatas() {
 		return mImeDatas;
 	}
@@ -33,6 +35,14 @@ public class MobileDataContainer {
 
 	public void setmWarmSpotDatas(Set<MobileWarmspotData> mWarmSpotDatas) {
 		this.mWarmSpotDatas = mWarmSpotDatas;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 	
 }

@@ -1,5 +1,7 @@
 import { User } from '../user/user.class';
+import { InstantaneousData } from './instantaneous-data.class';
 import { Instrument } from '../instrument/instrument.class';
+import { UnverifiedInstantaneousData } from '../unverified/unverified-instantaneous-data.class';
 import { MonitoringPoint } from '../../enums/monitoring-point.enum';
 
 /**
@@ -15,4 +17,7 @@ export class WarmspotData {
 	date:number;
 	description:string;
 	size:string;
+	instantaneousData:InstantaneousData[];
+	unverifiedInstantaneousData:UnverifiedInstantaneousData[];
+	verified:boolean;
 }

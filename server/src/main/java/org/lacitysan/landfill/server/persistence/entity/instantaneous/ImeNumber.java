@@ -23,7 +23,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
-import org.lacitysan.landfill.server.persistence.enums.IMENumberStatus;
+import org.lacitysan.landfill.server.persistence.enums.ImeNumberStatus;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.lacitysan.landfill.server.service.ImeService;
@@ -51,15 +51,15 @@ public class ImeNumber implements Comparable<ImeNumber> {
 	private Site site;
 	
 	@NotNull
-	private int dateCode;
+	private Integer dateCode;
 	
 	@NotNull
-	private short sequence;
+	private Short sequence;
 	
 	@NotNull
 	@Column(name="StatusString")
 	@Enumerated(EnumType.STRING)
-	private IMENumberStatus status;
+	private ImeNumberStatus status;
 	
 	@ElementCollection(targetClass=MonitoringPoint.class)
 	@JoinTable(name="test.dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
@@ -67,11 +67,11 @@ public class ImeNumber implements Comparable<ImeNumber> {
 	@Enumerated(EnumType.STRING)
 	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();
 	
-	@JsonIgnoreProperties({"imeNumbers", "instrument", "inspector"})
+	@JsonIgnoreProperties({"imeNumbers", "warmspotData", "instrument", "inspector"})
 	@ManyToMany(mappedBy="imeNumbers")
 	private Set<InstantaneousData> instantaneousData = new HashSet<>();
 	
-	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumbers", "instrument"})
+	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumbers", "warmspotData", "instrument"})
 	@ManyToMany(mappedBy="imeNumbers")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
 	
@@ -91,19 +91,19 @@ public class ImeNumber implements Comparable<ImeNumber> {
 		this.id = id;
 	}
 
-	public int getDateCode() {
+	public Integer getDateCode() {
 		return dateCode;
 	}
 
-	public void setDateCode(int dateCode) {
+	public void setDateCode(Integer dateCode) {
 		this.dateCode = dateCode;
 	}
 
-	public short getSequence() {
+	public Short getSequence() {
 		return sequence;
 	}
 
-	public void setSequence(short sequence) {
+	public void setSequence(Short sequence) {
 		this.sequence = sequence;
 	}
 
@@ -115,11 +115,11 @@ public class ImeNumber implements Comparable<ImeNumber> {
 		this.site = site;
 	}
 
-	public IMENumberStatus getStatus() {
+	public ImeNumberStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(IMENumberStatus status) {
+	public void setStatus(ImeNumberStatus status) {
 		this.status = status;
 	}
 
@@ -173,8 +173,11 @@ public class ImeNumber implements Comparable<ImeNumber> {
 		if (this.site != o.getSite()) {
 			return this.site.compareTo(o.getSite());
 		}
-		if (this.dateCode != o.getDateCode()) {
+		if (!this.dateCode.equals(o.getDateCode())) {
 			return this.dateCode - o.getDateCode();
+		}
+		if (!this.sequence.equals(o.getSequence())) {
+			return this.sequence - o.getSequence();
 		}
 		return 0;
 	}

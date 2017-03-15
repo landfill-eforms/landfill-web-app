@@ -15,7 +15,6 @@ export class UnverifiedDataSet {
 	uploadedDate:number;
 	modifiedBy:User;
 	modifiedDate:number;
-	barometricPressure:number;
 	unverifiedInstantaneousData:UnverifiedInstantaneousData[];
 	errors:any;
 }

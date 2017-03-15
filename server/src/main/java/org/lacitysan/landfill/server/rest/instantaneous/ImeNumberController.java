@@ -5,6 +5,7 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.service.ImeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,9 @@ public class ImeNumberController {
 	@Autowired
 	ImeNumberDao imeNumbersDao;
 	
+	@Autowired
+	ImeService imeService;
+	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<ImeNumber> getAll() {
 		return imeNumbersDao.getAll();
@@ -34,8 +38,8 @@ public class ImeNumberController {
 	
 	@RequestMapping(value="/unique/imeNumber/{imeNumber}", method=RequestMethod.GET)
 	public ImeNumber getByImeNumber(@PathVariable String imeNumber) {
-		System.out.println(imeNumber);
-		return imeNumbersDao.getByImeNumber(imeNumber);
+		ImeNumber temp = imeService.getImeNumberFromString(imeNumber);
+		return imeNumbersDao.getByImeNumber(temp);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

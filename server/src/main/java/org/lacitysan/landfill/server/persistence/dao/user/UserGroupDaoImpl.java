@@ -40,7 +40,7 @@ public class UserGroupDaoImpl implements UserGroupDao {
 		List<UserGroup> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(UserGroup.class)
 				.list();
-		result.stream().forEach(userGroup -> initialize(userGroup));
+		result.forEach(userGroup -> initialize(userGroup));
 		return result;
 	}
 	
@@ -67,7 +67,7 @@ public class UserGroupDaoImpl implements UserGroupDao {
 	private UserGroup initialize(UserGroup userGroup) {
 		Hibernate.initialize(userGroup.getCreatedBy());
 		Hibernate.initialize(userGroup.getModifiedBy());
-		userGroup.getUsers().stream().forEach(user -> {
+		userGroup.getUsers().forEach(user -> {
 			Hibernate.initialize(user);
 		});
 		Hibernate.initialize(userGroup.getUserRoles());

@@ -43,7 +43,7 @@ public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
 					.add(Restrictions.le("monitoringPoint", monitoringPoints[range.getMax()]))
 					.list());
 		}
-		result.stream().forEach(data -> initialize(data));
+		result.forEach(data -> initialize(data));
 		return result;
 	}
 
@@ -66,21 +66,23 @@ public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
 			}
 			result.addAll(criteria.list());
 		}
-		result.stream().forEach(data -> initialize(data));
+		result.forEach(data -> initialize(data));
 		return result;
 	}
 	
 	@Override
 	@Transactional
-	public void create(InstantaneousData data) {
-		hibernateTemplate.save(data);
+	public Object create(InstantaneousData data) {
+		return hibernateTemplate.save(data);
 	}
 	
-	private InstantaneousData initialize(InstantaneousData data) {
-		Hibernate.initialize(data.getInstrument());
-		Hibernate.initialize(data.getMonitoringPoint());
-		Hibernate.initialize(data.getInspector());
-		return data;
+	private InstantaneousData initialize(InstantaneousData instantaneousData) {
+		Hibernate.initialize(instantaneousData.getInstrument());
+		Hibernate.initialize(instantaneousData.getMonitoringPoint());
+		Hibernate.initialize(instantaneousData.getInspector());
+		instantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
+		instantaneousData.getWarmspotData().forEach(warmspot -> Hibernate.initialize(warmspot));
+		return instantaneousData;
 	}
 
 }

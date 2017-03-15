@@ -41,7 +41,7 @@ public class UserDaoImpl implements UserDao {
 		List<User> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(User.class)
 				.list();
-		result.stream().forEach(user -> initialize(user));
+		result.forEach(user -> initialize(user));
 		return result;
 	}
 
@@ -59,7 +59,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	private User initialize(User user) {
-		user.getUserGroups().stream().forEach(userGroup -> Hibernate.initialize(userGroup.getUserRoles()));
+		user.getUserGroups().forEach(userGroup -> Hibernate.initialize(userGroup.getUserRoles()));
 		return user;
 	}
 

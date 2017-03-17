@@ -1,71 +1,17 @@
 package org.lacitysan.landfill.server.persistence.dao.instrument;
 
-import java.util.List;
-
 import org.hibernate.Hibernate;
-import org.hibernate.criterion.Restrictions;
+import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alvin Quach
  */
 @Repository
-public class InstrumentTypeDaoImpl implements InstrumentTypeDao {
+public class InstrumentTypeDaoImpl extends AbstractDaoImpl<InstrumentType> implements InstrumentTypeDao {
 
-	@Autowired
-	HibernateTemplate hibernateTemplate;
-
-	@Override
-	@Transactional
-	public InstrumentType getInstrumentTypeById(Integer id) {
-		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(InstrumentType.class)
-				.add(Restrictions.idEq(id))
-				.uniqueResult();
-		if (result instanceof InstrumentType) {
-			InstrumentType instrumentType = (InstrumentType)result;
-			return initialize(instrumentType);
-		}
-		return null;
-	}	
-
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<InstrumentType> getAllInstrumentTypes() {
-		List<InstrumentType> result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(InstrumentType.class)
-				.list();
-		result.forEach(instrumentType -> initialize(instrumentType));
-		return result;
-	}
-	
-	@Override
-	@Transactional
-	public InstrumentType create(InstrumentType instrumentType) {
-		hibernateTemplate.save(instrumentType);
-		return instrumentType;
-	}
-
-	@Override
-	@Transactional
-	public InstrumentType update(InstrumentType instrumentType) {
-		hibernateTemplate.update(instrumentType);
-		return instrumentType;
-	}
-
-	@Override
-	@Transactional
-	public InstrumentType delete(InstrumentType instrumentType) {
-		hibernateTemplate.delete(instrumentType);
-		return instrumentType;
-	}
-
-	private InstrumentType initialize(InstrumentType instrumentType) {
+	public InstrumentType initialize(InstrumentType instrumentType) {
 		instrumentType.getInstruments().forEach(instrument -> {
 			Hibernate.initialize(instrument.getInstrumentType());
 			Hibernate.initialize(instrument.getInstrumentStatus());

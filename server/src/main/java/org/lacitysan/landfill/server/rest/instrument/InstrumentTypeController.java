@@ -24,13 +24,13 @@ public class InstrumentTypeController {
 	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<InstrumentType> getAll() {
-		return instrumentTypeDao.getAllInstrumentTypes();
+		return instrumentTypeDao.getAll();
 	}
 	
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public InstrumentType getById(@PathVariable String id) {
 		if (id.matches("^-?\\d+$")) {
-			return instrumentTypeDao.getInstrumentTypeById(Integer.valueOf(id));
+			return instrumentTypeDao.getById(Integer.valueOf(id));
 		}
 		return null;
 	}

@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
+import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPointType;
@@ -22,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  */
 @Repository
-public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
+public class InstantaneousDataDaoImpl extends AbstractDaoImpl<InstantaneousData> implements InstantaneousDataDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
@@ -69,27 +70,9 @@ public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
 		result.forEach(data -> initialize(data));
 		return result;
 	}
-	
-	@Override
-	@Transactional
-	public InstantaneousData create(InstantaneousData instantaneousData) {
-		hibernateTemplate.save(instantaneousData);
-		return instantaneousData;
-	}
-	
-	@Override
-	public InstantaneousData update(InstantaneousData instantaneousData) {
-		hibernateTemplate.update(instantaneousData);
-		return instantaneousData;
-	}
 
-	@Override
-	public InstantaneousData delete(InstantaneousData instantaneousData) {
-		hibernateTemplate.delete(instantaneousData);
-		return instantaneousData;
-	}
 	
-	private InstantaneousData initialize(InstantaneousData instantaneousData) {
+	public InstantaneousData initialize(InstantaneousData instantaneousData) {
 		Hibernate.initialize(instantaneousData.getInstrument());
 		Hibernate.initialize(instantaneousData.getMonitoringPoint());
 		Hibernate.initialize(instantaneousData.getInspector());

@@ -1,73 +1,17 @@
 package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 
-import java.util.List;
-
 import org.hibernate.Hibernate;
-import org.hibernate.criterion.Restrictions;
+import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alvin Quach
  */
 @Repository
-public class WarmspotDataDaoImpl implements WarmspotDataDao {
-
-	@Autowired
-	HibernateTemplate hibernateTemplate;
-
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<WarmspotData> getAllWarmspots() {
-		List<WarmspotData> result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(WarmspotData.class)
-				.list();
-		result.forEach(warmspotData -> {
-			initialize(warmspotData);
-		});
-		return result;
-	}
+public class WarmspotDataDaoImpl extends AbstractDaoImpl<WarmspotData> implements WarmspotDataDao {
 	
-	@Override
-	@Transactional
-	public WarmspotData getWarmspotById(Integer id) {
-		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(WarmspotData.class)
-				.add(Restrictions.idEq(id))
-				.uniqueResult();
-		if (result instanceof WarmspotData) {
-			WarmspotData warmspotData = (WarmspotData)result;
-			return initialize(warmspotData);
-		}
-		return null;
-	}
-	
-	@Override
-	@Transactional
-	public WarmspotData create(WarmspotData warmspotData) {
-		hibernateTemplate.save(warmspotData);
-		return warmspotData;
-	}
-	
-	@Override
-	@Transactional
-	public WarmspotData update(WarmspotData warmspotData) {
-		hibernateTemplate.update(warmspotData);
-		return warmspotData;
-	}
-	
-	@Override
-	@Transactional
-	public WarmspotData delete(WarmspotData warmspotData) {
-		hibernateTemplate.delete(warmspotData);
-		return warmspotData;
-	}
-	
-	private WarmspotData initialize(WarmspotData warmspotData) {
+	public WarmspotData initialize(WarmspotData warmspotData) {
 		Hibernate.initialize(warmspotData.getInspector());
 		warmspotData.getInstantaneousData().forEach(instantaneousData -> {
 			Hibernate.initialize(instantaneousData.getInstrument());

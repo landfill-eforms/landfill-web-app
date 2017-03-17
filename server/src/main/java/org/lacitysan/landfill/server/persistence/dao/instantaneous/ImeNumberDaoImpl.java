@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
+import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.enums.Site;
-import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,24 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  */
 @Repository
-public class ImeNumberDaoImpl implements ImeNumberDao {
+public class ImeNumberDaoImpl extends AbstractDaoImpl<ImeNumber> implements ImeNumberDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
-
-	@Autowired
-	MonitoringPointService monitoringPointService;
-
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<ImeNumber> getAll() {
-		List<ImeNumber> result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(ImeNumber.class)
-				.list();
-		result.forEach(imeNumber -> initialize(imeNumber));
-		return result;
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -90,13 +76,6 @@ public class ImeNumberDaoImpl implements ImeNumberDao {
 
 	@Override
 	@Transactional
-	public ImeNumber create(ImeNumber imeNumber) {
-		hibernateTemplate.save(imeNumber);
-		return imeNumber;
-	}
-	
-	@Override
-	@Transactional
 	public ImeNumber update(ImeNumber imeNumber) {
 		
 		// TODO MOVE THIS
@@ -108,15 +87,7 @@ public class ImeNumberDaoImpl implements ImeNumberDao {
 		return imeNumber;
 	}
 
-	@Override
-	@Transactional
-	public ImeNumber delete(ImeNumber imeNumber) {
-		// TODO Check if the IME number is in use.
-		hibernateTemplate.delete(imeNumber);
-		return imeNumber;
-	}
-
-	private ImeNumber initialize(ImeNumber imeNumber) {
+	public ImeNumber initialize(ImeNumber imeNumber) {
 		Hibernate.initialize(imeNumber.getMonitoringPoints());
 		imeNumber.getInstantaneousData().forEach(instantaneousData -> {
 			Hibernate.initialize(instantaneousData);

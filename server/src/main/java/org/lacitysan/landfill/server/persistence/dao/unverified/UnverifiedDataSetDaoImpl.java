@@ -3,9 +3,6 @@ package org.lacitysan.landfill.server.persistence.dao.unverified;
 import org.hibernate.Hibernate;
 import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
-import org.lacitysan.landfill.server.service.MonitoringPointService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,12 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UnverifiedDataSetDaoImpl extends AbstractDaoImpl<UnverifiedDataSet> implements UnverifiedDataSetDao {
-
-	@Autowired
-	HibernateTemplate hibernateTemplate;
-
-	@Autowired
-	MonitoringPointService monitoringPointService;
 	
 	@Override
 	public UnverifiedDataSet initialize(UnverifiedDataSet unverifiedDataSet) {

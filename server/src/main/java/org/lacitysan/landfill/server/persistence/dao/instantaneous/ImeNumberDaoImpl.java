@@ -90,21 +90,30 @@ public class ImeNumberDaoImpl implements ImeNumberDao {
 
 	@Override
 	@Transactional
-	public Object update(ImeNumber imeNumber) {
+	public ImeNumber create(ImeNumber imeNumber) {
+		hibernateTemplate.save(imeNumber);
+		return imeNumber;
+	}
+	
+	@Override
+	@Transactional
+	public ImeNumber update(ImeNumber imeNumber) {
 		
 		// TODO MOVE THIS
-		for (ImeData data : imeNumber.getImeData() ) {
+		for (ImeData data : imeNumber.getImeData()) {
 			data.setImeNumber(imeNumber);
 		}
 		
 		hibernateTemplate.update(imeNumber);
-		return true;
+		return imeNumber;
 	}
 
 	@Override
 	@Transactional
-	public Object create(ImeNumber imeNumber) {
-		return hibernateTemplate.save(imeNumber);
+	public ImeNumber delete(ImeNumber imeNumber) {
+		// TODO Check if the IME number is in use.
+		hibernateTemplate.delete(imeNumber);
+		return imeNumber;
 	}
 
 	private ImeNumber initialize(ImeNumber imeNumber) {

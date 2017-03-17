@@ -43,25 +43,26 @@ public class InstrumentTypeDaoImpl implements InstrumentTypeDao {
 		result.forEach(instrumentType -> initialize(instrumentType));
 		return result;
 	}
+	
+	@Override
+	@Transactional
+	public InstrumentType create(InstrumentType instrumentType) {
+		hibernateTemplate.save(instrumentType);
+		return instrumentType;
+	}
 
 	@Override
 	@Transactional
-	public Object update(InstrumentType instrumentType) {
+	public InstrumentType update(InstrumentType instrumentType) {
 		hibernateTemplate.update(instrumentType);
-		return true;
+		return instrumentType;
 	}
 
 	@Override
 	@Transactional
-	public Object create(InstrumentType instrumentType) {
-		return hibernateTemplate.save(instrumentType);
-	}
-
-	@Override
-	@Transactional
-	public Object delete(InstrumentType instrumentType) {
+	public InstrumentType delete(InstrumentType instrumentType) {
 		hibernateTemplate.delete(instrumentType);
-		return true;
+		return instrumentType;
 	}
 
 	private InstrumentType initialize(InstrumentType instrumentType) {

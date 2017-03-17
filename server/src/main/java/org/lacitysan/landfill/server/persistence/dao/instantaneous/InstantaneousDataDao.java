@@ -13,6 +13,10 @@ public interface InstantaneousDataDao {
 
 	List<InstantaneousData> getBySiteAndDate(String siteName, Long start, Long end);
 
-	Object create(InstantaneousData data);
+	InstantaneousData create(InstantaneousData instantaneousData);
+	
+	InstantaneousData update(InstantaneousData instantaneousData);
+	
+	InstantaneousData delete(InstantaneousData instantaneousData);
 
 }

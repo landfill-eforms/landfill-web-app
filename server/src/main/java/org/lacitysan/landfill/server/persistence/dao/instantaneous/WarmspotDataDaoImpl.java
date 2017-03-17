@@ -48,22 +48,23 @@ public class WarmspotDataDaoImpl implements WarmspotDataDao {
 	
 	@Override
 	@Transactional
-	public Object update(WarmspotData warmspotData) {
+	public WarmspotData create(WarmspotData warmspotData) {
+		hibernateTemplate.save(warmspotData);
+		return warmspotData;
+	}
+	
+	@Override
+	@Transactional
+	public WarmspotData update(WarmspotData warmspotData) {
 		hibernateTemplate.update(warmspotData);
-		return true;
+		return warmspotData;
 	}
 	
 	@Override
 	@Transactional
-	public Object create(WarmspotData warmspotData) {
-		return hibernateTemplate.save(warmspotData);
-	}
-	
-	@Override
-	@Transactional
-	public Object delete(WarmspotData warmspotData) {
+	public WarmspotData delete(WarmspotData warmspotData) {
 		hibernateTemplate.delete(warmspotData);
-		return true;
+		return warmspotData;
 	}
 	
 	private WarmspotData initialize(WarmspotData warmspotData) {

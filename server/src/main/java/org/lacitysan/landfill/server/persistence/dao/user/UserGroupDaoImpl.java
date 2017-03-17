@@ -1,70 +1,23 @@
 package org.lacitysan.landfill.server.persistence.dao.user;
 
-import java.util.List;
-
 import org.hibernate.Hibernate;
-import org.hibernate.criterion.Restrictions;
+import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alvin Quach
  */
 @Repository
-public class UserGroupDaoImpl implements UserGroupDao {
+public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements UserGroupDao {
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 
 	@Override
-	@Transactional
-	public UserGroup getUserGroupById(Integer id) {
-		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(UserGroup.class)
-				.add(Restrictions.idEq(id))
-				.uniqueResult();
-		if (result instanceof UserGroup) {
-			UserGroup userGroup = (UserGroup)result;
-			return initialize(userGroup);
-		}
-		return null;
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<UserGroup> getAllUserGroups() {
-		List<UserGroup> result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(UserGroup.class)
-				.list();
-		result.forEach(userGroup -> initialize(userGroup));
-		return result;
-	}
-	
-	@Override
-	@Transactional
-	public Object update(UserGroup userGroup) {
-		hibernateTemplate.update(userGroup);
-		return true;
-	}
-	
-	@Override
-	@Transactional
-	public Object create(UserGroup userGroup) {
-		return hibernateTemplate.save(userGroup);
-	}
-	
-	@Override
-	@Transactional
-	public Object delete(UserGroup userGroup) {
-		hibernateTemplate.delete(userGroup);
-		return true;
-	}
-
-	private UserGroup initialize(UserGroup userGroup) {
+	public UserGroup initialize(UserGroup userGroup) {
 		Hibernate.initialize(userGroup.getCreatedBy());
 		Hibernate.initialize(userGroup.getModifiedBy());
 		userGroup.getUsers().forEach(user -> {

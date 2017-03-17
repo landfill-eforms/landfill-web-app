@@ -41,8 +41,9 @@ public class InstrumentTypeController {
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public Object create(@RequestBody InstrumentType instrumentType) {
-		return instrumentTypeDao.create(instrumentType);
+	public InstrumentType create(@RequestBody InstrumentType instrumentType) {
+		instrumentTypeDao.create(instrumentType);
+		return instrumentType;
 	}
 	
 	// TODO Find out why RequestMethod.DELETE is giving cors error.

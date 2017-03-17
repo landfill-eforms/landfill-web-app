@@ -24,13 +24,13 @@ public class UserGroupController {
 	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<UserGroup> getAll() {
-		return userGroupDao.getAllUserGroups();
+		return userGroupDao.getAll();
 	}
 	
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public UserGroup getById(@PathVariable String id) {
 		if (id.matches("^-?\\d+$")) {
-			return userGroupDao.getUserGroupById(Integer.valueOf(id));
+			return userGroupDao.getById(Integer.valueOf(id));
 		}
 		return null;
 	}
@@ -41,9 +41,9 @@ public class UserGroupController {
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public Object create(@RequestBody UserGroup userGroup) {
-		//userGroupsDao.create(userGroup);
-		return userGroupDao.create(userGroup);
+	public UserGroup create(@RequestBody UserGroup userGroup) {
+		userGroupDao.create(userGroup);
+		return userGroup;
 	}
 	
 	// TODO Find out why RequestMethod.DELETE is giving cors error.

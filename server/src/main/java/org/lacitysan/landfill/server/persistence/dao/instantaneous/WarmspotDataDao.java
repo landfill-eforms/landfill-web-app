@@ -10,10 +10,10 @@ public interface WarmspotDataDao {
 
 	WarmspotData getWarmspotById(Integer id);
 
-	Object update(WarmspotData warmspotData);
+	WarmspotData create(WarmspotData warmspotData);
+	
+	WarmspotData update(WarmspotData warmspotData);
 
-	Object create(WarmspotData warmspotData);
-
-	Object delete(WarmspotData warmspotData);
+	WarmspotData delete(WarmspotData warmspotData);
 
 }

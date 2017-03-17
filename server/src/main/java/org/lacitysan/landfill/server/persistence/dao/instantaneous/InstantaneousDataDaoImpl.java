@@ -72,8 +72,21 @@ public class InstantaneousDataDaoImpl implements InstantaneousDataDao {
 	
 	@Override
 	@Transactional
-	public Object create(InstantaneousData data) {
-		return hibernateTemplate.save(data);
+	public InstantaneousData create(InstantaneousData instantaneousData) {
+		hibernateTemplate.save(instantaneousData);
+		return instantaneousData;
+	}
+	
+	@Override
+	public InstantaneousData update(InstantaneousData instantaneousData) {
+		hibernateTemplate.update(instantaneousData);
+		return instantaneousData;
+	}
+
+	@Override
+	public InstantaneousData delete(InstantaneousData instantaneousData) {
+		hibernateTemplate.delete(instantaneousData);
+		return instantaneousData;
 	}
 	
 	private InstantaneousData initialize(InstantaneousData instantaneousData) {

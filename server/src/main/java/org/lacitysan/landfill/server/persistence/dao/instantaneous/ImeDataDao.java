@@ -10,8 +10,10 @@ public interface ImeDataDao {
 
 	ImeData getById(Integer id);
 
-	Object update(ImeData imeNumber);
+	ImeData create(ImeData imeData);
+	
+	ImeData update(ImeData imeData);
 
-	Object create(ImeData imeNumber);
+	ImeData delete(ImeData imeData);
 
 }

@@ -1,12 +1,10 @@
 package org.lacitysan.landfill.server.rest.unverified;
 
 import java.util.List;
-import java.util.Set;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.InstantaneousDataDao;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.service.verification.DataVerificationService;
@@ -57,11 +55,12 @@ public class UnverifiedDataController {
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public Object create(@RequestBody UnverifiedDataSet dataSet) {
+	public UnverifiedDataSet create(@RequestBody UnverifiedDataSet dataSet) {
 		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
 			data.setUnverifiedDataSet(dataSet);
 		}
-		return unverifiedDataSetDao.create(dataSet);
+		unverifiedDataSetDao.create(dataSet);
+		return dataSet;
 	}
 	
 	@RequestMapping(value="/commit", method=RequestMethod.POST)

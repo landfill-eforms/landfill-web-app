@@ -15,8 +15,10 @@ public interface ImeNumberDao {
 	
 	List<ImeNumber> getBySiteAndDateCode(Site site, Integer dateCode);
 	
-	Object update(ImeNumber imeNumber);
+	ImeNumber create(ImeNumber imeNumber);
+	
+	ImeNumber update(ImeNumber imeNumber);
 
-	Object create(ImeNumber imeNumber);
+	ImeNumber delete(ImeNumber imeNumber);
 
 }

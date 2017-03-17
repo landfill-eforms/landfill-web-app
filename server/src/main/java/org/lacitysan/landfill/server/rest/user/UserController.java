@@ -30,7 +30,7 @@ public class UserController {
 	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<User> getAll() {
-		return userDao.getAllUsers();
+		return userDao.getAll();
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

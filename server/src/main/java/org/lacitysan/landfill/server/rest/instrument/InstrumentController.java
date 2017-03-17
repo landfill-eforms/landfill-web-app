@@ -24,13 +24,13 @@ public class InstrumentController {
 	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<Instrument> getAll() {
-		return instrumentDao.getAllInstruments();
+		return instrumentDao.getAll();
 	}
 	
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public Instrument getById(@PathVariable String id) {
 		if (id.matches("^-?\\d+$")) {
-			return instrumentDao.getInstrumentById(Integer.valueOf(id));
+			return instrumentDao.getById(Integer.valueOf(id));
 		}
 		return null;
 	}
@@ -41,8 +41,9 @@ public class InstrumentController {
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public Object create(@RequestBody Instrument instrument) {
-		return instrumentDao.create(instrument);
+	public Instrument create(@RequestBody Instrument instrument) {
+		instrumentDao.create(instrument);
+		return instrument;
 	}
 	
 	// TODO Find out why RequestMethod.DELETE is giving cors error.

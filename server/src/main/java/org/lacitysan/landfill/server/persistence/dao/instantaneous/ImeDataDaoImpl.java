@@ -48,15 +48,23 @@ public class ImeDataDaoImpl implements ImeDataDao {
 	
 	@Override
 	@Transactional
-	public Object update(ImeData imeNumber) {
-		hibernateTemplate.update(imeNumber);
-		return true;
+	public ImeData create(ImeData imeData) {
+		hibernateTemplate.save(imeData);
+		return imeData;
+	}
+	
+	@Override
+	@Transactional
+	public ImeData update(ImeData imeData) {
+		hibernateTemplate.update(imeData);
+		return imeData;
 	}
 
 	@Override
 	@Transactional
-	public Object create(ImeData imeNumber) {
-		return hibernateTemplate.save(imeNumber);
+	public ImeData delete(ImeData imeData) {
+		hibernateTemplate.delete(imeData);
+		return imeData;
 	}
 	
 }

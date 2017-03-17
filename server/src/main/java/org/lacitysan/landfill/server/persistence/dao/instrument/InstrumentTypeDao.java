@@ -12,11 +12,11 @@ public interface InstrumentTypeDao {
 	InstrumentType getInstrumentTypeById(Integer id);
 
 	List<InstrumentType> getAllInstrumentTypes();
+	
+	InstrumentType create(InstrumentType instrumentType);
 
-	Object update(InstrumentType instrument);
+	InstrumentType update(InstrumentType instrumentType);
 
-	Object create(InstrumentType instrumentType);
-
-	Object delete(InstrumentType instrumentType);
+	InstrumentType delete(InstrumentType instrumentType);
 
 }

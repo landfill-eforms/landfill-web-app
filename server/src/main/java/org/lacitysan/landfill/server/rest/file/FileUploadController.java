@@ -1,9 +1,6 @@
-package org.lacitysan.landfill.server.rest;
+package org.lacitysan.landfill.server.rest.file;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
-import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
-import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.service.mobile.MobileDataDeserializer;
 import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +16,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author Alvin Quach
  */
-@RequestMapping(ApplicationProperty.RESOURCE_PATH + "/file")
+@RequestMapping(ApplicationProperty.RESOURCE_PATH + "/upload")
 @RestController
 public class FileUploadController {
 
 	@Autowired
 	MobileDataDeserializer mobileDataDeserializer;
 	
-	@Autowired
-	UnverifiedDataSetDao unverifiedDataSetDao;
-	
-	@Autowired
-	ImeNumberDao imeNumberDao;
-	
-	@Autowired
-	UserDao userDao;
-
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public Object testUpload(@RequestBody MultipartFile file) {
+	@RequestMapping(value="/mobile", method=RequestMethod.POST)
+	public Object uploadMobileData(@RequestBody MultipartFile file) {
 		try {
 			System.out.println("FILE SIZE: " + file.getSize());
 			ObjectMapper mapper = new ObjectMapper();

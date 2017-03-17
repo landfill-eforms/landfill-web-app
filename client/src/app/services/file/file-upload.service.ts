@@ -6,12 +6,12 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class FileUploadService {
 
-	readonly baseUrl:string = environment.resourceUrl + '/file';
+	readonly baseUrl:string = environment.resourceUrl + '/upload';
 
 	constructor(private authHttp: AuthHttp) {}
 
 	testUpload(callback:(data) => void, formData:FormData) {
-	this.authHttp.post(this.baseUrl + "/upload", formData).map((res:Response) => res.json()).subscribe(
+	this.authHttp.post(this.baseUrl + "/mobile", formData).map((res:Response) => res.json()).subscribe(
 			data => callback(data),
 			err => console.log(err),
 		);

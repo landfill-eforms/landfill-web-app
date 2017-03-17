@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao {
 	public User getUserByUsername(String username) {
 		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(User.class)
-				.add(Restrictions.eq("username", username))
+				.add(Restrictions.eq("username", username).ignoreCase()) // The ignoreCase() is not actually needed when working with SQL Server.
 				.uniqueResult();
 		if (result instanceof User) {
 			User user = (User)result;
@@ -47,15 +47,16 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	@Transactional
-	public void update(User user) {
-		//hibernateTemplate.update(user.getUserProfile());
+	public Object update(User user) {
 		hibernateTemplate.update(user);
+		return true;
 	}
 
 	@Override
 	@Transactional
-	public Object create(User user) {
-		return hibernateTemplate.save(user);
+	public User create(User user) {
+		hibernateTemplate.save(user);
+		return user;
 	}
 	
 	private User initialize(User user) {

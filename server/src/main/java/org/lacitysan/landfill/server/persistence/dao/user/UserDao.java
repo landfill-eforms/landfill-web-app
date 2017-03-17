@@ -13,8 +13,8 @@ public interface UserDao {
 
 	List<User> getAllUsers();
 
-	void update(User user);
+	Object update(User user);
 	
-	Object create(User user);
+	User create(User user);
 
 }

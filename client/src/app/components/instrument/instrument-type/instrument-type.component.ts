@@ -40,18 +40,22 @@ export class InstrumentTypeComponent implements OnInit {
 	ngOnInit() {
 		this.instrumentTypeId = this.activatedRoute.params['_value']['id'];
 		console.log(this.instrumentTypeId);
-		this.instrumentTypeService.getById((data) => {
-			console.log(data);
-			this.instrumentType = data;
-			this.isDataLoaded = true;
-		}, this.instrumentTypeId);
+		this.instrumentTypeService.getById(this.instrumentTypeId,
+			(data) => {
+				console.log(data);
+				this.instrumentType = data;
+				this.isDataLoaded = true;
+			}
+		);
 	}
 
 	save() {
-		this.instrumentTypeService.update((data) => {
-			console.log(data);
-			this.snackBar.open("Equipment type saved.", "OK", {duration: 2000});
-		}, this.instrumentType);
+		this.instrumentTypeService.update(this.instrumentType,
+			(data) => {
+				console.log(data);
+				this.snackBar.open("Equipment type saved.", "OK", {duration: 2000});
+			}
+		);
 	}
 
 	sortBy(sortBy:string) {

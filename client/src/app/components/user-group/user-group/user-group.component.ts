@@ -27,20 +27,24 @@ export class UserGroupComponent implements OnInit {
 	ngOnInit() {
 		this.userGroupId = this.activatedRoute.params['_value']['id'];
 		console.log(this.userGroupId);
-		this.userGroupService.getById((data) => {
-			console.log(data);
-			this.userGroup = data;
-			this.isDataLoaded = true;
-			this.selectedRoles = EnumUtils.convertToEnums(UserRole, this.userGroup.userRoles);
-		}, this.userGroupId);
+		this.userGroupService.getById(this.userGroupId, 
+			(data) => {
+				console.log(data);
+				this.userGroup = data;
+				this.isDataLoaded = true;
+				this.selectedRoles = EnumUtils.convertToEnums(UserRole, this.userGroup.userRoles);
+			}
+		);
 	}
 
 	save() {
 		this.userGroup.userRoles = EnumUtils.convertToStrings(this.selectedRoles);
-		this.userGroupService.update((data) => {
-			console.log(data);
-			this.snackBar.open("User group saved.", "OK", {duration: 2000});
-		}, this.userGroup);
+		this.userGroupService.update(this.userGroup,
+			(data) => {
+				console.log(data);
+				this.snackBar.open("User group saved.", "OK", {duration: 2000});
+			}
+		);
 	}
 
 	consoleLog() {

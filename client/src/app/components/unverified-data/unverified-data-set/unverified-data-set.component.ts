@@ -53,27 +53,31 @@ export class UnverifiedDataSetComponent implements OnInit {
 		console.log("HELLO?????");
 		this.dataSetId = this.activatedRoute.params['_value']['id'];
 		
-		this.unverifiedDataService.getById((data) => {
-			this.dataSet = this.processData(data);
-			for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
-				if (!this.dataSet.unverifiedInstantaneousData[i].instrument) {
-					this.dataSet.unverifiedInstantaneousData[i].instrument = <any>{}; // LOLOLOL
+		this.unverifiedDataService.getById(this.dataSetId,
+			(data) => {
+				this.dataSet = this.processData(data);
+				for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
+					if (!this.dataSet.unverifiedInstantaneousData[i].instrument) {
+						this.dataSet.unverifiedInstantaneousData[i].instrument = <any>{}; // LOLOLOL
+					}
 				}
+				this.sortByGrid();
+				this.imeNumberService.getBySite(this.dataSet.site,
+					(data) => {
+						// TODO Use current date.
+						this.existingImeNumbers = data;
+						// .filter(number => 
+						// 	number.dateCode >= this.dataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
+						// );
+						console.log(this.existingImeNumbers);
+						this.instrumentService.getAll((data) => {
+							this.instruments = data;
+							this.isDataLoaded = true;
+						});
+					}
+				);
 			}
-			this.sortByGrid();
-			this.imeNumberService.getBySite((data) => {
-				// TODO Use current date.
-				this.existingImeNumbers = data;
-				// .filter(number => 
-				// 	number.dateCode >= this.dataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
-				// );
-				console.log(this.existingImeNumbers);
-				this.instrumentService.getAll((data) => {
-					this.instruments = data;
-					this.isDataLoaded = true;
-				});
-			}, this.dataSet.site);
-		}, this.dataSetId);
+		);
 	}
 
 	// TODO Clean this up.
@@ -133,12 +137,14 @@ export class UnverifiedDataSetComponent implements OnInit {
 			unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
 		}
 		console.log(this.dataSet);
-		this.unverifiedDataService.update((data) => {
-			if (data) {
-				this.processData(this.dataSet);
-				this.snackBar.open("Data saved.", "OK", {duration: 2000});
+		this.unverifiedDataService.update(this.dataSet, 
+			(data) => {
+				if (data) {
+					this.processData(this.dataSet);
+					this.snackBar.open("Data saved.", "OK", {duration: 2000});
+				}
 			}
-		}, this.dataSet);
+		);
 	}
 
 	commit() {
@@ -151,13 +157,15 @@ export class UnverifiedDataSetComponent implements OnInit {
 			let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
 			unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
 		}
-		this.unverifiedDataService.commit((data) => {
-			if (data) {
-				this.processData(this.dataSet);
-				this.snackBar.open("Data set successfully verified.", "OK", {duration: 3000});
-				this.router.navigate(['/app/unverified-data-set-list']);
+		this.unverifiedDataService.commit(this.dataSet,
+			(data) => {
+				if (data) {
+					this.processData(this.dataSet);
+					this.snackBar.open("Data set successfully verified.", "OK", {duration: 3000});
+					this.router.navigate(['/app/unverified-data-set-list']);
+				}
 			}
-		}, this.dataSet);
+		);
 	}
 
 	sortByGrid() {

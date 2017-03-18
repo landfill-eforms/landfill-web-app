@@ -36,11 +36,13 @@ export class AssignImeNumberDialogComponent {
 		imeNumber.sequence = this.action.newSeries;
 		imeNumber.status = <any>ImeNumberStatus.UNVERIFIED.constantName;
 		imeNumber.imeNumber = this.action.newImeNumberString;
-		this.imeNumberService.create((data) => {
-			imeNumber.id = data;
-			this.data.imeNumbers.push(imeNumber);
-			this.dialogRef.close(data);
-		}, imeNumber);
+		this.imeNumberService.create(imeNumber, 
+			(data) => {
+				imeNumber.id = data;
+				this.data.imeNumbers.push(imeNumber);
+				this.dialogRef.close(data);
+			}
+		);
 		// this.createdImeNumbers.push(imeNumber);
 	}
 

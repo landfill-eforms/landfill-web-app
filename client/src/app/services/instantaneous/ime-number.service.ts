@@ -13,38 +13,38 @@ export class ImeNumberService {
 
 	constructor(private authHttp:AuthHttp) {}
 
-	getByImeNumber(callback:(data) => void, imeNumber:string) {
-		this.authHttp.get(this.baseUrl + "/unique/imeNumber/" + imeNumber).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
-			);
-	}
-
-	getAll(callback:(data) => void) {
+	getAll(success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
-
-	getBySite(callback:(data) => void, site:Site) {
+	
+	getBySite(site:Site, success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/list/site/" + site.constantName).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	update(callback:(data) => void, imeNumber:ImeNumber) {
-		this.authHttp.post(this.baseUrl, imeNumber).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	getByImeNumber(imeNumber:string, success:(data) => void, error?:(err) => void) {
+		this.authHttp.get(this.baseUrl + "/unique/imeNumber/" + imeNumber).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	create(callback:(data) => void, imeNumber:ImeNumber) {
-		this.authHttp.post(this.baseUrl + '/new', imeNumber).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	create(imeNumber:ImeNumber, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/create', imeNumber).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
+			);
+	}
+
+	update(imeNumber:ImeNumber, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/update', imeNumber).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 

@@ -10,10 +10,10 @@ export class ImeDataService {
 
 	constructor(private authHttp:AuthHttp) {}
 
-	getAll(callback:(data) => void) {
+	getAll(success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 

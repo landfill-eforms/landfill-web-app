@@ -11,31 +11,31 @@ export class UserService {
 
 	constructor(private authHttp: AuthHttp) {}
 
-	getByUsername(callback:(data) => void, username:string) {
+	getByUsername(username:string, success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/unique/username/" + username).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	getAll(callback:(data) => void) {
+	getAll(success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
+			);
+	}
+	
+	create(user:User, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/create', user).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	update(callback:(data) => void, user:User) {
-		this.authHttp.post(this.baseUrl, user).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
-			);
-	}
-
-	create(callback:(data) => void, user:User) {
-		this.authHttp.post(this.baseUrl + '/new', user).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	update(user:User, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/update', user).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 

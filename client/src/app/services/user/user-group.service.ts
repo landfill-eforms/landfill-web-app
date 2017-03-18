@@ -11,39 +11,39 @@ export class UserGroupService {
 
 	constructor(private authHttp: AuthHttp) {}
 
-	getAll(callback:(data) => void) {
+	getAll(success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	getById(callback:(data) => void, id:string) {
+	getById(id:string, success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/unique/id/" + id).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	update(callback:(data) => void, userGroup:UserGroup) {
-		this.authHttp.post(this.baseUrl, userGroup).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	create(userGroup:UserGroup, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/create', userGroup).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	create(callback:(data) => void, userGroup:UserGroup) {
-		this.authHttp.post(this.baseUrl + '/new', userGroup).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	update(userGroup:UserGroup, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/update', userGroup).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
 	// TODO Find out why delete request method is giving cors error.
-	delete(callback:(data) => void, userGroup:UserGroup) {
+	delete(userGroup:UserGroup, success:(data) => void, error?:(err) => void) {
 		this.authHttp.post(this.baseUrl + '/delete', userGroup).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 

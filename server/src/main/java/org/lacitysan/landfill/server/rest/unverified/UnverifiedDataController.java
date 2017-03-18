@@ -3,7 +3,6 @@ package org.lacitysan.landfill.server.rest.unverified;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
-import org.lacitysan.landfill.server.persistence.dao.instantaneous.InstantaneousDataDao;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
@@ -29,9 +28,6 @@ public class UnverifiedDataController {
 	@Autowired
 	DataVerificationService dataVerificationService;
 	
-	@Autowired
-	InstantaneousDataDao instantaneousDataDao;
-	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<UnverifiedDataSet> getAll() {
 		return unverifiedDataSetDao.getAll();
@@ -39,22 +35,15 @@ public class UnverifiedDataController {
 	
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public UnverifiedDataSet getById(@PathVariable String id) {
-		if (id.matches("^-?\\d+$")) {
+		try {
 			return unverifiedDataSetDao.getById(Integer.valueOf(id));
 		}
-		return null;
-	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public Object update(@RequestBody UnverifiedDataSet dataSet) {
-		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
-			data.setUnverifiedDataSet(dataSet);
+		catch (NumberFormatException e) {
+			return null;
 		}
-		unverifiedDataSetDao.update(dataSet);
-		return true;
 	}
 	
-	@RequestMapping(value="/new", method=RequestMethod.POST)
+	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public UnverifiedDataSet create(@RequestBody UnverifiedDataSet dataSet) {
 		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
 			data.setUnverifiedDataSet(dataSet);
@@ -62,6 +51,17 @@ public class UnverifiedDataController {
 		unverifiedDataSetDao.create(dataSet);
 		return dataSet;
 	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public UnverifiedDataSet update(@RequestBody UnverifiedDataSet dataSet) {
+		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
+			data.setUnverifiedDataSet(dataSet);
+		}
+		unverifiedDataSetDao.update(dataSet);
+		return dataSet;
+	}
+	
+	// TODO Create a method for deleting data sets.
 	
 	@RequestMapping(value="/commit", method=RequestMethod.POST)
 	public Object commit(@RequestBody UnverifiedDataSet dataSet) {

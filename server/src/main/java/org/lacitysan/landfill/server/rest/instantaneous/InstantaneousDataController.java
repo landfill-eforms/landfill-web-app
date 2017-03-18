@@ -30,7 +30,7 @@ public class InstantaneousDataController {
 	
 	@RequestMapping(value="/{siteName}/{start}/{end}", method=RequestMethod.GET)
 	@ResponseBody
-	public List<InstantaneousData> getBySite(@PathVariable String siteName, @PathVariable Long start, @PathVariable Long end) {
+	public List<InstantaneousData> getBySiteAndDate(@PathVariable String siteName, @PathVariable Long start, @PathVariable Long end) {
 		return instantaneousDataDao.getBySiteAndDate(siteName, start, end);
 	}
 	

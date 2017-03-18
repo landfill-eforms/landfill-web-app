@@ -42,15 +42,34 @@ public class ImeNumberController {
 		return imeNumbersDao.getByImeNumber(temp);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public Object update(@RequestBody ImeNumber imeNumber) {
-		imeNumbersDao.update(imeNumber);
-		return true;
+	@RequestMapping(value="/create", method=RequestMethod.POST)
+	public ImeNumber create(@RequestBody ImeNumber imeNumber) {
+		imeNumbersDao.create(imeNumber);
+		return imeNumber;
 	}
 	
-	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public Object create(@RequestBody ImeNumber imeNumber) {
-		return imeNumbersDao.create(imeNumber);
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public ImeNumber update(@RequestBody ImeNumber imeNumber) {
+		imeNumbersDao.update(imeNumber);
+		return imeNumber;
+	}
+
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public ImeNumber delete(@RequestBody ImeNumber imeNumber) {
+		imeNumbersDao.delete(imeNumber);
+		return imeNumber;
+	}
+
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+	public ImeNumber deleteById(@PathVariable String id) {
+		try {
+			ImeNumber imeNumber = new ImeNumber();
+			imeNumber.setId(Integer.parseInt(id));
+			return delete(imeNumber);
+		}
+		catch (NumberFormatException e) {
+			return null;
+		}
 	}
 
 }

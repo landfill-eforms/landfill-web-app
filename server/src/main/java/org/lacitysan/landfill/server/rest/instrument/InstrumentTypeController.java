@@ -29,27 +29,42 @@ public class InstrumentTypeController {
 	
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public InstrumentType getById(@PathVariable String id) {
-		if (id.matches("^-?\\d+$")) {
+		try {
 			return instrumentTypeDao.getById(Integer.valueOf(id));
 		}
-		return null;
+		catch (NumberFormatException e) {
+			return null;
+		}
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public Object update(@RequestBody InstrumentType instrumentType) {
-		return instrumentTypeDao.update(instrumentType);
-	}
-	
-	@RequestMapping(value="/new", method=RequestMethod.POST)
+	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public InstrumentType create(@RequestBody InstrumentType instrumentType) {
 		instrumentTypeDao.create(instrumentType);
 		return instrumentType;
 	}
 	
-	// TODO Find out why RequestMethod.DELETE is giving cors error.
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public InstrumentType update(@RequestBody InstrumentType instrumentType) {
+		instrumentTypeDao.update(instrumentType);
+		return instrumentType;
+	}
+	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public Object deleteById(@RequestBody InstrumentType instrumentType) {
-		return instrumentTypeDao.delete(instrumentType);
+	public InstrumentType delete(@RequestBody InstrumentType instrumentType) {
+		instrumentTypeDao.delete(instrumentType);
+		return instrumentType;
+	}
+	
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+	public InstrumentType deleteById(@PathVariable String id) {
+		try {
+			InstrumentType instrumentType = new InstrumentType();
+			instrumentType.setId(Integer.parseInt(id));
+			return delete(instrumentType);
+		}
+		catch (NumberFormatException e) {
+			return null;
+		}
 	}
 
 }

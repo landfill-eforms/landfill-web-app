@@ -29,21 +29,42 @@ public class ImeDataController {
 	
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public ImeData getById(@PathVariable String id) {
-		if (id.matches("^-?\\d+$")) {
+		try {
 			return imeNumbersDao.getById(Integer.valueOf(id));
 		}
-		return null;
+		catch (NumberFormatException e) {
+			return null;
+		}
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public Object update(@RequestBody ImeData imeNumber) {
-		imeNumbersDao.update(imeNumber);
-		return true;
+	@RequestMapping(value="/create", method=RequestMethod.POST)
+	public ImeData create(@RequestBody ImeData imeData) {
+		imeNumbersDao.create(imeData);
+		return imeData;
 	}
 	
-	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public Object create(@RequestBody ImeData imeNumber) {
-		return imeNumbersDao.create(imeNumber);
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public ImeData update(@RequestBody ImeData imeData) {
+		imeNumbersDao.update(imeData);
+		return imeData;
+	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public ImeData delete(@RequestBody ImeData imeData) {
+		imeNumbersDao.delete(imeData);
+		return imeData;
+	}
+	
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+	public ImeData deleteById(@PathVariable String id) {
+		try {
+			ImeData imeData = new ImeData();
+			imeData.setId(Integer.parseInt(id));
+			return delete(imeData);
+		}
+		catch (NumberFormatException e) {
+			return null;
+		}
 	}
 
 }

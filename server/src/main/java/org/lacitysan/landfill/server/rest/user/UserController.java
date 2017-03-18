@@ -5,6 +5,8 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
+import org.lacitysan.landfill.server.persistence.enums.UserRole;
+import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,15 +35,36 @@ public class UserController {
 		return userDao.getAll();
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public Object update(@RequestBody User user) {
-		userDao.update(user);
-		return true;
+	@RequestMapping(value="/create", method=RequestMethod.POST)
+	public User create(@RequestBody User user) {
+		userService.create(user);
+		return user;
 	}
 	
-	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public User create(@RequestBody User user) {
-		return userService.create(user);
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public User update(@RequestBody User user) {
+		userDao.update(user); // TODO Create method in service to update users.
+		return user;
+	}
+	
+	@RestSecurity({UserRole.SUPER_ADMIN})
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public User delete(@RequestBody User user) {
+		userDao.delete(user);
+		return user;
+	}
+	
+	@RestSecurity({UserRole.SUPER_ADMIN})
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+	public User deleteById(@PathVariable String id) {
+		try {
+			User user = new User();
+			user.setId(Integer.parseInt(id));
+			return delete(user);
+		}
+		catch (NumberFormatException e) {
+			return null;
+		}
 	}
 	
 }

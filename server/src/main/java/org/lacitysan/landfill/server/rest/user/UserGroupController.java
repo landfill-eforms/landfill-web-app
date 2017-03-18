@@ -29,27 +29,42 @@ public class UserGroupController {
 	
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public UserGroup getById(@PathVariable String id) {
-		if (id.matches("^-?\\d+$")) {
+		try {
 			return userGroupDao.getById(Integer.valueOf(id));
 		}
-		return null;
+		catch (NumberFormatException e) {
+			return null;
+		}
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public Object update(@RequestBody UserGroup userGroup) {
-		return userGroupDao.update(userGroup);
-	}
-	
-	@RequestMapping(value="/new", method=RequestMethod.POST)
+	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public UserGroup create(@RequestBody UserGroup userGroup) {
 		userGroupDao.create(userGroup);
 		return userGroup;
 	}
 	
-	// TODO Find out why RequestMethod.DELETE is giving cors error.
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public UserGroup update(@RequestBody UserGroup userGroup) {
+		userGroupDao.update(userGroup);
+		return userGroup;
+	}
+	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public Object deleteById(@RequestBody UserGroup userGroup) {
-		return userGroupDao.delete(userGroup);
+	public UserGroup delete(@RequestBody UserGroup userGroup) {
+		userGroupDao.delete(userGroup);
+		return userGroup;
+	}
+	
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+	public UserGroup deleteById(@PathVariable String id) {
+		try {
+			UserGroup userGroup = new UserGroup();
+			userGroup.setId(Integer.parseInt(id));
+			return delete(userGroup);
+		}
+		catch (NumberFormatException e) {
+			return null;
+		}
 	}
 
 }

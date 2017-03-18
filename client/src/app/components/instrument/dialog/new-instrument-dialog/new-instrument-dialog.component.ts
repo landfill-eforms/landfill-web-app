@@ -29,10 +29,12 @@ export class NewInstrumentDialogComponent implements OnInit {
 
 	confirm() {
 		// TODO Perform data verification before saving.
-		this.instrumentService.create((data) => {
-			console.log(data);
-			this.dialogRef.close(data);
-		}, this.instrument);
+		this.instrumentService.create(this.instrument,
+			(data) => {
+				console.log(data);
+				this.dialogRef.close(data);
+			}
+		);
 	}
 
 	cancel() {

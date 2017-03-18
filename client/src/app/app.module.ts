@@ -5,7 +5,6 @@ import { InstrumentModule } from './components/instrument/instrument.module';
 import { UnverifiedDataService } from './services/unverified/unverified-data-set.service';
 import { UserService } from './services/user/user.service';
 import { UserGroupService } from './services/user/user-group.service';
-import { SitesService } from './services/monitoring-point/site.service';
 import { InstrumentService } from './services/instrument/instrument.service';
 import { InstantaneousDataService } from './services/instantaneous/instantaneous-data.service';
 import { ImeNumberService } from './services/instantaneous/ime-number.service';
@@ -87,7 +86,6 @@ import { FileUploadService } from './services/file/file-upload.service';
 		InstantaneousDataService,
 		InstrumentService,
 		InstrumentTypeService,
-		SitesService,
 		UnverifiedDataService,
 		UserGroupService,
 		UserService

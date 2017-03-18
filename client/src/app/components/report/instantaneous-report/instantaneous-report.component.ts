@@ -2,7 +2,6 @@ import { StringUtils } from './../../../utils/string.utils';
 import { InstantaneousData } from './../../../model/server/persistence/entity/instantaneous/instantaneous-data.class';
 import { Site } from './../../../model/server/persistence/enums/site.enum';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
-import { SitesService } from './../../../services/monitoring-point/site.service';
 import { InstantaneousDataService } from './../../../services/instantaneous/instantaneous-data.service';
 import { OnInit, Component } from '@angular/core';
 
@@ -24,10 +23,9 @@ export class InstantaneousReportComponent implements OnInit {
 		end: -1
 	}
 
-    constructor (
-        private instantaneousDataService:InstantaneousDataService,
-        private sitesService:SitesService
-        ) {}
+    constructor (private instantaneousDataService:InstantaneousDataService) {
+        
+    }
 
     ngOnInit() {
 
@@ -39,13 +37,15 @@ export class InstantaneousReportComponent implements OnInit {
 		console.log(this.dateRange)
 		this.data = [];
 		this.isDataLoaded = false;
-        this.instantaneousDataService.getBySiteAndDate((data) => {
-            console.log(data);
-            for (let i = 0; i < data.length; i++) {
-				this.data.push(this.instantaneousDataService.processDataPoint(data[i]));
-			}
-			this.isDataLoaded = true;
-        }, this.sites.selected.name.toUpperCase(), this.dateRange.start, this.dateRange.end);
+        this.instantaneousDataService.getBySiteAndDate(this.sites.selected.name.toUpperCase(), this.dateRange.start, this.dateRange.end,
+            (data) => {
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    this.data.push(this.instantaneousDataService.processDataPoint(data[i]));
+                }
+                this.isDataLoaded = true;
+            }
+        );
     }
 
 	onStartDateChange(event) {

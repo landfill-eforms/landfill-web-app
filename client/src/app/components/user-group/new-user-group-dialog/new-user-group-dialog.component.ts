@@ -23,10 +23,12 @@ export class NewUserGroupDialogComponent implements OnInit {
 
 	confirm() {
 		// TODO Perform data verification before saving.
-		this.userGroupService.create((data) => {
-			console.log(data);
-			this.dialogRef.close(data);
-		}, this.userGroup);
+		this.userGroupService.create(this.userGroup,
+			(data) => {
+				console.log(data);
+				this.dialogRef.close(data);
+			}
+		);
 	}
 
 	cancel() {

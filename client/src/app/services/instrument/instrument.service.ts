@@ -11,39 +11,39 @@ export class InstrumentService {
 
 	constructor(private authHttp: AuthHttp) {}
 
-	getAll(callback:(data) => void) {
+	getAll(success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	getById(callback:(data) => void, id:string) {
+	getById(id:string, success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/unique/id/" + id).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	update(callback:(data) => void, instrument:Instrument) {
-		this.authHttp.post(this.baseUrl, instrument).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	create(instrument:Instrument, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/create', instrument).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	create(callback:(data) => void, instrument:Instrument) {
-		this.authHttp.post(this.baseUrl + '/new', instrument).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	update(instrument:Instrument, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/update', instrument).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
 	// TODO Find out why delete request method is giving cors error.
-	delete(callback:(data) => void, instrument:Instrument) {
+	delete(instrument:Instrument, success:(data) => void, error?:(err) => void) {
 		this.authHttp.post(this.baseUrl + '/delete', instrument).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 

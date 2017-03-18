@@ -13,38 +13,38 @@ export class UnverifiedDataService {
 
 	constructor(private authHttp:AuthHttp) {}
 
-	getAll(callback:(data) => void) {
+	getAll(success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	getById(callback:(data) => void, id:string) {
+	getById(id:string, success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/unique/id/" + id).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	update(callback:(data) => void, dataSet:UnverifiedDataSet) {
-		this.authHttp.post(this.baseUrl, dataSet).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	create(dataSet:UnverifiedDataSet, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/create', dataSet).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	create(callback:(data) => void, dataSet:UnverifiedDataSet) {
-		this.authHttp.post(this.baseUrl + '/new', dataSet).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	update(dataSet:UnverifiedDataSet, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/update', dataSet).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	commit(callback:(data) => void, dataSet:UnverifiedDataSet) {
+	commit(dataSet:UnverifiedDataSet, success:(data) => void, error?:(err) => void) {
 		this.authHttp.post(this.baseUrl + '/commit', dataSet).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 

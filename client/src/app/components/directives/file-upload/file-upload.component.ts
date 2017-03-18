@@ -42,14 +42,16 @@ export class FileUploadComponent {
             for (let i = 0; i < fileCount; i++) {
                 formData.append('file', inputEl.files.item(i));
             }
-			this.fileUploadService.testUpload((data) => {
-				console.log(data);
+			this.fileUploadService.testUpload(formData, 
+                (data) => {
+                    console.log(data);
 
-                // TODO Move these somewhere else.
-                this.router.navigate(['/app/unverified-data-set/' + data.id]); 
-                this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
+                    // TODO Move these somewhere else.
+                    this.router.navigate(['/app/unverified-data-set/' + data.id]); 
+                    this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
 
-			}, formData);
+                }
+            );
         }
     }
 

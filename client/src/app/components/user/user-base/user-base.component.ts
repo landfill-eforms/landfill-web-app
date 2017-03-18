@@ -23,12 +23,13 @@ export class UserBaseComponent implements OnInit {
 		this.user = new User();
 		this.username = this.activatedRoute.params['_value']['username'];
 		console.log(this.username);
-		this.userService.getByUsername((data) => {
-			console.log(data);
-			this.user = data;
-			//this.user.userGroups.map(g => {g.users = undefined}); // Need to remove the list of users; it will cause deserialization erros when saving.
-			this.isDataLoaded = true;
-		}, this.username);
+		this.userService.getByUsername(this.username,
+			(data) => {
+				console.log(data);
+				this.user = data;
+				this.isDataLoaded = true;
+			}
+		);
 	}
 	
 }

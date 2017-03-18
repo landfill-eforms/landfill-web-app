@@ -11,39 +11,39 @@ export class InstrumentTypeService {
 
 	constructor(private authHttp: AuthHttp) {}
 
-	getAll(callback:(data) => void) {
+	getAll(success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	getById(callback:(data) => void, id:string) {
+	getById(id:string, success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/unique/id/" + id).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	update(callback:(data) => void, instrumentType:InstrumentType) {
-		this.authHttp.post(this.baseUrl, instrumentType).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	create(instrumentType:InstrumentType, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/create', instrumentType).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	create(callback:(data) => void, instrumentType:InstrumentType) {
-		this.authHttp.post(this.baseUrl + '/new', instrumentType).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+	update(instrumentType:InstrumentType, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/update', instrumentType).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
 	// TODO Find out why delete request method is giving cors error.
-	delete(callback:(data) => void, instrumentType:InstrumentType) {
+	delete(instrumentType:InstrumentType, success:(data) => void, error?:(err) => void) {
 		this.authHttp.post(this.baseUrl + '/delete', instrumentType).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 

@@ -12,39 +12,25 @@ export class InstantaneousDataService {
 
 	constructor(private authHttp:AuthHttp) {}
 
-	getBySiteName(callback:(data) => void, siteName:string) {
+	getBySite(siteName:string, success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/" + siteName).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	getBySiteAndDate(callback:(data) => void, siteName:string, start:number, end:number) {
+	getBySiteAndDate(siteName:string, start:number, end:number, success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/" + siteName + "/" + start + "/" + end).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
 	}
 
-	getAll(callback:(data) => void) {
+	getAll(success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl).map((res:Response) => res.json()).subscribe(
-				data => callback(data),
-				err => console.log(err)
+				data => success(data),
+				err => error ? error(err) : console.log(err)
 			);
-	}
-
-	save(callback:(data) => void, input:any[]) {
-		this.authHttp.post(this.baseUrl, input).map((res:Response) => res.json()).subscribe(
-			data => callback(data),
-			err => console.log(err),
-		);
-	}
-
-	upload(callback:(data) => void, file:any) {
-		this.authHttp.post(this.baseUrl + "/upload", file).map((res:Response) => res.json()).subscribe(
-			data => callback(data),
-			err => console.log(err),
-		);
 	}
 
 	// TODO Rename this function.

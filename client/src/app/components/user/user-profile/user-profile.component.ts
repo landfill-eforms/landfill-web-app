@@ -13,8 +13,6 @@ export class UserProfileComponent implements OnInit {
 	@Input() user:User;
 	@Input() isDataLoaded:boolean;
 
-	isNew:boolean = false;
-
 	constructor(
 		private userService:UserService,
 		private snackBar:MdSnackBar,
@@ -22,25 +20,18 @@ export class UserProfileComponent implements OnInit {
 
 	ngOnInit() {
 		if (!this.user) {
-			this.isNew = true;
 			this.user = new User();
 			this.user.id = 4;
 		}
 	}
 
 	save() {
-		console.log("SAVE USER", this.user);
-		if (!this.isNew) {
-			this.userService.update((data) => {
+		this.userService.update(this.user,
+			(data) => {
 				this.snackBar.open("User saved.", "OK", {duration: 2000});
 				console.log(data);
-			}, this.user);
-		}
-		else {
-			this.userService.create((data) => {
-				console.log(data);
-			}, this.user);
-		}
+			}
+		);
 	}
 
 }

@@ -27,18 +27,22 @@ export class ImeNumberComponent implements OnInit {
 		// TODO Display error message if IME number in the URL is invalid.
 		this.imeNumber = this.activatedRoute.params['_value']['imeNumber'];
 		console.log(this.imeNumber);
-		this.imeNumberService.getByImeNumber((data) => {
-			console.log(data);
-			this.imeNumberData = data;
-			this.isDataLoaded = true;
-		}, this.imeNumber);
+		this.imeNumberService.getByImeNumber(this.imeNumber,
+			(data) => {
+				console.log(data);
+				this.imeNumberData = data;
+				this.isDataLoaded = true;
+			}
+		);
 	}
 
 	save() {
-		this.imeNumberService.update((data) => {
-			console.log(data);
-			this.snackBar.open("IME entries have been updated.", "OK", {duration: 2000});
-		}, this.imeNumberData);
+		this.imeNumberService.update(this.imeNumberData, 
+			(data) => {
+				console.log(data);
+				this.snackBar.open("IME entries have been updated.", "OK", {duration: 2000});
+			}
+		);
 	}
 
 }

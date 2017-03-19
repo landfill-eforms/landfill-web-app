@@ -1,7 +1,7 @@
 package org.lacitysan.landfill.server.config.constant;
 
 /**
- * Contains constants and other properties for classes that cannot read from <code>*.properties</code> files.
+ * Contains constants and other properties for classes that cannot read from <code>*.properties</code> files, and/or cannot be stored on the database.
  * @author Alvin Quach
  */
 public class ApplicationProperty {

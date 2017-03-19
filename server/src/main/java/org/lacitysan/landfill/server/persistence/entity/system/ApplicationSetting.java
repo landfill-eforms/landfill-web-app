@@ -1,0 +1,58 @@
+package org.lacitysan.landfill.server.persistence.entity.system;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.persistence.enums.ApplicationSettingType;
+
+/**
+ * Key value pair for application settings.
+ * @author Alvin Quach
+ */
+@Entity
+@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.ApplicationSettings")
+public class ApplicationSetting {
+	
+	@Id
+	@Column(name="Name")
+	private String key;
+	
+	@NotNull
+	@Column(name="TypeString")
+	@Enumerated(EnumType.STRING)
+	private ApplicationSettingType type;
+	
+	@NotNull
+	private String value;
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public ApplicationSettingType getType() {
+		return type;
+	}
+
+	public void setType(ApplicationSettingType type) {
+		this.type = type;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+}

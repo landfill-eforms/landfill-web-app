@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,22 +34,22 @@ public class TokenAuthenticationUtil {
 		claims.put("roles", authentication.getAuthorities().stream().map(a -> a.getAuthority()).toArray());
 		String JWT = Jwts.builder()
 				.setClaims(claims)
-				.setExpiration(new Date(System.currentTimeMillis() + ApplicationProperty.TOKEN_EXPIRATION_TIME))
-				.signWith(SignatureAlgorithm.HS512, ApplicationProperty.TOKEN_SECRET)
+				.setExpiration(new Date(System.currentTimeMillis() + ApplicationConstant.TOKEN_EXPIRATION_TIME))
+				.signWith(SignatureAlgorithm.HS512, ApplicationConstant.TOKEN_SECRET)
 				.compact();
-		response.addHeader(ApplicationProperty.HTTP_TOKEN_HEADER_NAME, ApplicationProperty.HTTP_TOKEN_PREFIX + " " + JWT);
+		response.addHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME, ApplicationConstant.HTTP_TOKEN_PREFIX + " " + JWT);
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Expose-Headers", "Authorization");
 	}
 	
 	/** Parses the JWT from incoming HTTP requests and generates an <code>AuthenticatedUser</code> object based on the parsed info. */
 	public static Authentication getAuthentication(HttpServletRequest request) {
-		String token = request.getHeader(ApplicationProperty.HTTP_TOKEN_HEADER_NAME);
+		String token = request.getHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME);
 		if (token != null) {
 			try {
-				token = token.replace(ApplicationProperty.HTTP_TOKEN_PREFIX + " ", "");
+				token = token.replace(ApplicationConstant.HTTP_TOKEN_PREFIX + " ", "");
 				Claims claims = Jwts.parser()
-						.setSigningKey(ApplicationProperty.TOKEN_SECRET)
+						.setSigningKey(ApplicationConstant.TOKEN_SECRET)
 						.parseClaimsJws(token)
 						.getBody();
 				Object principle = claims.get("principle");

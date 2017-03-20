@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.config;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeRepairData;
@@ -92,7 +92,7 @@ public class DataSourceConfig {
 		HikariConfig dataSource = new HikariConfig();
 		dataSource.setDataSourceClassName(className);
 		dataSource.addDataSourceProperty("serverName", serverName);
-		dataSource.addDataSourceProperty("databaseName", ApplicationProperty.DATABASE_NAME);
+		dataSource.addDataSourceProperty("databaseName", ApplicationConstant.DATABASE_NAME);
 		dataSource.setUsername(username);
 		dataSource.setPassword(password);
 		dataSource.setInitializationFailFast(initializationFailFast);

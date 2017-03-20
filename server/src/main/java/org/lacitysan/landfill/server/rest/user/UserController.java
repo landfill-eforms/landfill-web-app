@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.rest.user;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.UserRole;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping(ApplicationProperty.RESOURCE_PATH + "/user")
+@RequestMapping(ApplicationConstant.RESOURCE_PATH + "/user")
 @RestController
 public class UserController {
 

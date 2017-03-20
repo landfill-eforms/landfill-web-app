@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.service;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
 import org.lacitysan.landfill.server.exception.user.InvalidPasswordException;
 import org.lacitysan.landfill.server.exception.user.InvalidUsernameException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
@@ -45,9 +45,9 @@ public class UserService {
 	 * @return True if the username is valid, false otherwise.
 	 */
 	public boolean validateUsername(String username, boolean throwException) {
-		if (username.length() < ApplicationProperty.MINIMUM_USERNAME_LENGTH) {
+		if (username.length() < ApplicationConstant.MINIMUM_USERNAME_LENGTH) {
 			if (throwException) {
-				throw new InvalidUsernameException("Username must be at least " + ApplicationProperty.MINIMUM_USERNAME_LENGTH + " characters long.");
+				throw new InvalidUsernameException("Username must be at least " + ApplicationConstant.MINIMUM_USERNAME_LENGTH + " characters long.");
 			}
 			return false;
 		}
@@ -67,9 +67,9 @@ public class UserService {
 	 * @return True if the password is valid, false otherwise.
 	 */
 	public boolean validatePassword(String password, boolean throwException) {
-		if (password.length() < ApplicationProperty.MINIMUM_PASSWORD_LENGTH) {
+		if (password.length() < ApplicationConstant.MINIMUM_PASSWORD_LENGTH) {
 			if (throwException) {
-				throw new InvalidPasswordException("Password must be at least " + ApplicationProperty.MINIMUM_PASSWORD_LENGTH + " characters long.");
+				throw new InvalidPasswordException("Password must be at least " + ApplicationConstant.MINIMUM_PASSWORD_LENGTH + " characters long.");
 			}
 			return false;
 		}

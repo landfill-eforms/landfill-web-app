@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.rest.instantaneous;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.service.ImeService;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author Alvin Quach
  */
-@RequestMapping(ApplicationProperty.RESOURCE_PATH + "/ime-number")
+@RequestMapping(ApplicationConstant.RESOURCE_PATH + "/ime-number")
 @RestController
 public class ImeNumberController {
 	

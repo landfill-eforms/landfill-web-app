@@ -10,9 +10,7 @@ public interface ApplicationSettingDao {
 
 	List<ApplicationSetting> getAll();
 
-	ApplicationSetting create(ApplicationSetting applicationSetting);
-
-	ApplicationSetting update(ApplicationSetting applicationSetting);
+	ApplicationSetting set(ApplicationSetting applicationSetting);
 
 	ApplicationSetting delete(ApplicationSetting applicationSetting);
 

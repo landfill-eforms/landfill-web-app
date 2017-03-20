@@ -7,9 +7,9 @@ package org.lacitysan.landfill.server.persistence.enums;
 public enum ApplicationSettingType {
 	
 	STRING,
-	SHORT,
 	INTEGER,
 	LONG,
+	DOUBLE,
 	BOOLEAN
 
 }

@@ -40,15 +40,13 @@ public class ApplicationSettingDaoImpl implements ApplicationSettingDao {
 	
 	@Override
 	@Transactional
-	public ApplicationSetting create(ApplicationSetting applicationSetting) {
-		hibernateTemplate.save(applicationSetting);
-		return applicationSetting;
-	}
-
-	@Override
-	@Transactional
-	public ApplicationSetting update(ApplicationSetting applicationSetting) {
-		hibernateTemplate.update(applicationSetting);
+	public ApplicationSetting set(ApplicationSetting applicationSetting) {
+		if (get(applicationSetting.getKey()) == null) {
+			hibernateTemplate.save(applicationSetting);
+		}
+		else {
+			hibernateTemplate.update(applicationSetting);
+		}
 		return applicationSetting;
 	}
 

@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.rest.user;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.user.UserGroupDao;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author Alvin Quach
  */
-@RequestMapping(ApplicationProperty.RESOURCE_PATH + "/user-group")
+@RequestMapping(ApplicationConstant.RESOURCE_PATH + "/user-group")
 @RestController
 public class UserGroupController {
 	

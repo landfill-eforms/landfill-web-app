@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.enums.ApplicationSettingType;
 
 /**
@@ -16,7 +16,7 @@ import org.lacitysan.landfill.server.persistence.enums.ApplicationSettingType;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.ApplicationSettings")
+@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.ApplicationSettings")
 public class ApplicationSetting {
 	
 	@Id

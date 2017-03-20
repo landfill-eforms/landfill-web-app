@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.enums.ImeNumberStatus;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationProperty.DATABASE_NAME + ".dbo.IMENumbers")
+@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.IMENumbers")
 @JsonInclude(Include.NON_NULL)
 public class ImeNumber implements Comparable<ImeNumber> {
 

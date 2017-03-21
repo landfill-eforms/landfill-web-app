@@ -1,29 +1,30 @@
 package org.lacitysan.landfill.server.config.appvars.model;
 
-import org.lacitysan.landfill.server.config.appvars.AppVar;
+import org.lacitysan.landfill.server.config.appvars.ApplicationVariableDefinition;
 
 /**
+ * Don't know what to name this class.
  * @author Alvin Quach
  */
-public class AppVarSerialization {
+public class ApplicationVariableSerialization {
 	
-	private AppVarType type;
+	private ApplicationVariableType type;
 	private Object defaultValue;
 	private Object value;
 	
-	public AppVarSerialization() {}
+	public ApplicationVariableSerialization() {}
 	
-	public AppVarSerialization(AppVar appVar) {
+	public ApplicationVariableSerialization(ApplicationVariableDefinition appVar) {
 		this.type = appVar.getType();
 		this.defaultValue = appVar.getDefaultValue();
 		this.value = appVar.getValue();
 	}
 	
-	public AppVarType getType() {
+	public ApplicationVariableType getType() {
 		return type;
 	}
 	
-	public void setType(AppVarType type) {
+	public void setType(ApplicationVariableType type) {
 		this.type = type;
 	}
 	

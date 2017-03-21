@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.rest.user;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.UserRole;

@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.enums.ImeNumberStatus;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;

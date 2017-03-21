@@ -14,7 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

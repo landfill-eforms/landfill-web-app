@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.rest.user;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.user.UserGroupDao;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Autowired;

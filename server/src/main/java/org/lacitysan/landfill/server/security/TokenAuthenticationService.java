@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.lacitysan.landfill.server.config.appvars.AppVarService;
-import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.config.appvars.ApplicationVariableService;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,7 +32,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class TokenAuthenticationService {
 	
 	@Autowired
-	AppVarService appVarService;
+	ApplicationVariableService applicationVariableService;
 
 	/** Adds authentication info to response header. */
 	public void addAuthentication(HttpServletResponse response, Authentication authentication) {
@@ -41,7 +41,7 @@ public class TokenAuthenticationService {
 		claims.put("roles", authentication.getAuthorities().stream().map(a -> a.getAuthority()).toArray());
 		String JWT = Jwts.builder()
 				.setClaims(claims)
-				.setExpiration(new Date(System.currentTimeMillis() + appVarService.getTokenExpirationTime()))
+				.setExpiration(new Date(System.currentTimeMillis() + applicationVariableService.getTokenExpirationTime()))
 				.signWith(SignatureAlgorithm.HS512, ApplicationConstant.TOKEN_SECRET)
 				.compact();
 		response.addHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME, ApplicationConstant.HTTP_TOKEN_PREFIX + " " + JWT);

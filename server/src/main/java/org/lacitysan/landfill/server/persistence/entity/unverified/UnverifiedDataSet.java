@@ -22,7 +22,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 

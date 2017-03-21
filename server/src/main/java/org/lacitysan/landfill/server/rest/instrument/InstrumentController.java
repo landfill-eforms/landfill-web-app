@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.rest.instrument;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.springframework.beans.factory.annotation.Autowired;

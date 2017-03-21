@@ -4,75 +4,86 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.lacitysan.landfill.server.config.appvars.model.AppVarSerialization;
+import org.lacitysan.landfill.server.config.appvars.model.ApplicationVariableSerialization;
 import org.lacitysan.landfill.server.persistence.dao.system.ApplicationSettingDao;
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Don't know what to call this and where to put it.
+ * Don't know what to name this class.
  * @author Alvin Quach
  */
+@SuppressWarnings("unused")
 @Service
-public class AppVarService {
+public class ApplicationVariableService {
 	
 	private static final boolean DEBUG = true;
 	
 	private final ApplicationSettingDao applicationSettingDao;
 
 	@Autowired
-	public AppVarService(ApplicationSettingDao applicationSettingDao) {
+	public ApplicationVariableService(ApplicationSettingDao applicationSettingDao) {
 		this.applicationSettingDao = applicationSettingDao;
 		loadFromDatabase();
 	}
 	
 	/** How long a generated JWT is valid for before expiring. */
 	public long getTokenExpirationTime() {
-		return getLong(AppVar.TOKEN_EXPIRATION_TIME);
+		return getLong(ApplicationVariableDefinition.TOKEN_EXPIRATION_TIME);
 	}
 	
 	/** Minimum length of a username when creating users or changing username. */
 	public int getUsernameMinLength() {
-		return getInteger(AppVar.USERNAME_MIN_LENGTH);
+		return getInteger(ApplicationVariableDefinition.USERNAME_MIN_LENGTH);
 	}
 	
 	/** Maximum length of a username when creating users or changing username. */
 	public int getUsernameMaxLength() {
-		return getInteger(AppVar.USERNAME_MAX_LENGTH);
+		return getInteger(ApplicationVariableDefinition.USERNAME_MAX_LENGTH);
 	}
 	
 	/** Minimum length of a password when creating users or changing the password. */
 	public int getPasswordMinLength() {
-		return getInteger(AppVar.PASSWORD_MIN_LENGTH);
+		return getInteger(ApplicationVariableDefinition.PASSWORD_MIN_LENGTH);
 	}
 	
 	/** Maximum length of a password when creating users or changing the password. */
 	public int getPasswordMaxLength() {
-		return getInteger(AppVar.PASSWORD_MAX_LENGTH);
+		return getInteger(ApplicationVariableDefinition.PASSWORD_MAX_LENGTH);
 	}
 	
 	/** Whether passwords are required to have at least one special character. Not yet implemented. */
 	public boolean getPasswordEnforceSpecialChar() {
-		return getBoolean(AppVar.PASSWORD_ENFORCE_SPECIAL_CHAR);
+		return getBoolean(ApplicationVariableDefinition.PASSWORD_ENFORCE_SPECIAL_CHAR);
 	}
 	
-	
-	public void update(Map<String, AppVarSerialization> map) {
-		
+	public Map<String, ApplicationVariableSerialization> update(Map<String, ApplicationVariableSerialization> map) {
+		for (ApplicationVariableDefinition appVar : ApplicationVariableDefinition.values()) {
+			ApplicationVariableSerialization updatedVar = map.get(appVar.name());
+			if (updatedVar == null) {
+				continue;
+			}
+			if (!appVar.getValue().equals(updatedVar.getValue().toString())) {
+				set(appVar.name(), updatedVar.getValue().toString());
+				if (DEBUG) System.out.println("Application variable '" + appVar.name() + "' has been updated to '" + appVar.getDefaultValue().toString() + "'.");
+			}
+		}
+		loadFromDatabase();
+		return map();
 	}
 	
-	public Map<String, AppVarSerialization> export() {
-		Map<String, AppVarSerialization> result = new HashMap<>();
-		for (AppVar appVar : AppVar.values()) {
-			result.put(appVar.name(), new AppVarSerialization(appVar));
+	public Map<String, ApplicationVariableSerialization> map() {
+		Map<String, ApplicationVariableSerialization> result = new HashMap<>();
+		for (ApplicationVariableDefinition appVar : ApplicationVariableDefinition.values()) {
+			result.put(appVar.name(), new ApplicationVariableSerialization(appVar));
 		}
 		return result;
 	}
 
 	private void loadFromDatabase() {
 		List<ApplicationSetting> settings = applicationSettingDao.getAll();
-		for (AppVar appVar : AppVar.values()) {
+		for (ApplicationVariableDefinition appVar : ApplicationVariableDefinition.values()) {
 			ApplicationSetting loadedVar = settings.stream()
 					.filter(s -> s.getKey().equalsIgnoreCase(appVar.name()))
 					.findFirst()
@@ -85,7 +96,7 @@ public class AppVarService {
 		}
 	}
 	
-	private int getInteger(AppVar appVar) {
+	private int getInteger(ApplicationVariableDefinition appVar) {
 		Integer result = resolveInteger(appVar.getValue(), false);
 		if (result == null) {
 			result = resolveInteger(appVar.getDefaultValue(), true);
@@ -94,7 +105,7 @@ public class AppVarService {
 		return result;
 	}
 	
-	private long getLong(AppVar appVar) {
+	private long getLong(ApplicationVariableDefinition appVar) {
 		Long result = resolveLong(appVar.getValue(), false);
 		if (result == null) {
 			result = resolveLong(appVar.getDefaultValue(), true);
@@ -102,8 +113,8 @@ public class AppVarService {
 		}
 		return result;
 	}
-	
-	private double getDouble(AppVar appVar) {
+
+	private double getDouble(ApplicationVariableDefinition appVar) {
 		Double result = resolveDouble(appVar.getValue(), false);
 		if (result == null) {
 			result = resolveDouble(appVar.getDefaultValue(), true);
@@ -112,7 +123,7 @@ public class AppVarService {
 		return result;
 	}
 	
-	private boolean getBoolean(AppVar appVar) {
+	private boolean getBoolean(ApplicationVariableDefinition appVar) {
 		Boolean result = resolveBoolean(appVar.getValue(), false);
 		if (result == null) {
 			result = resolveBoolean(appVar.getDefaultValue(), true);

@@ -4,7 +4,7 @@ export class EnumUtils {
 	static convertToString(input:any):any {
 		let constantName = input.constantName;
 		if (typeof constantName == "string") {
-			return constantName
+			return constantName;
 		}
 		return null;
 	}
@@ -26,7 +26,7 @@ export class EnumUtils {
 		for (let i = 0; i < input.length; i++) {
 			let constantName = this.convertToString(input[i]);
 			if (constantName) {
-				result.push(input[i]);
+				result.push(constantName);
 			}
 		}
 		return result;

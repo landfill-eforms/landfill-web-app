@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.service;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.appvars.ApplicationVariableService;
 import org.lacitysan.landfill.server.exception.user.InvalidPasswordException;
 import org.lacitysan.landfill.server.exception.user.InvalidUsernameException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
@@ -20,6 +20,9 @@ public class UserService {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	ApplicationVariableService applicationVariableService;
 	
 	public User create(User user) {
 		
@@ -45,9 +48,9 @@ public class UserService {
 	 * @return True if the username is valid, false otherwise.
 	 */
 	public boolean validateUsername(String username, boolean throwException) {
-		if (username.length() < ApplicationProperty.MINIMUM_USERNAME_LENGTH) {
+		if (username.length() < applicationVariableService.getUsernameMinLength()) {
 			if (throwException) {
-				throw new InvalidUsernameException("Username must be at least " + ApplicationProperty.MINIMUM_USERNAME_LENGTH + " characters long.");
+				throw new InvalidUsernameException("Username must be at least " + applicationVariableService.getUsernameMinLength() + " characters long.");
 			}
 			return false;
 		}
@@ -67,9 +70,9 @@ public class UserService {
 	 * @return True if the password is valid, false otherwise.
 	 */
 	public boolean validatePassword(String password, boolean throwException) {
-		if (password.length() < ApplicationProperty.MINIMUM_PASSWORD_LENGTH) {
+		if (password.length() < applicationVariableService.getPasswordMinLength()) {
 			if (throwException) {
-				throw new InvalidPasswordException("Password must be at least " + ApplicationProperty.MINIMUM_PASSWORD_LENGTH + " characters long.");
+				throw new InvalidPasswordException("Password must be at least " + applicationVariableService.getPasswordMinLength() + " characters long.");
 			}
 			return false;
 		}

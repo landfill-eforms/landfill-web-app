@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.rest.instrument;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author Alvin Quach
  */
-@RequestMapping(ApplicationProperty.RESOURCE_PATH + "/instrument")
+@RequestMapping(ApplicationConstant.RESOURCE_PATH + "/instrument")
 @RestController
 public class InstrumentController {
 	

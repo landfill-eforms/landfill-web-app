@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.rest.instantaneous;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.InstantaneousDataDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.enums.UserRole;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping(ApplicationProperty.RESOURCE_PATH + "/instantaneous-data")
+@RequestMapping(ApplicationConstant.RESOURCE_PATH + "/instantaneous-data")
 @RestController
 public class InstantaneousDataController {
 	

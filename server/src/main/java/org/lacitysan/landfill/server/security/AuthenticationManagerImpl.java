@@ -24,6 +24,9 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	TokenAuthenticationService tokenAuthenticationService;
+	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		
@@ -38,7 +41,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 			throw new BadCredentialsException("Invalid Password"); // TODO Change this to "Invalid user or password"
 		}
 		
-		AuthenticatedUser result = new AuthenticatedUser(user.getId(), user.getUsername(), TokenAuthenticationUtil.userGroupToAuthorities(user.getUserGroups()));
+		AuthenticatedUser result = new AuthenticatedUser(user.getId(), user.getUsername(), tokenAuthenticationService.userGroupToAuthorities(user.getUserGroups()));
 		return result;
 	}
 

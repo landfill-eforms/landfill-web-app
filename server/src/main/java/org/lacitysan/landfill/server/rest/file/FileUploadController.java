@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.rest.file;
 
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 import org.lacitysan.landfill.server.service.mobile.MobileDataDeserializer;
 import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author Alvin Quach
  */
-@RequestMapping(ApplicationProperty.RESOURCE_PATH + "/upload")
+@RequestMapping(ApplicationConstant.RESOURCE_PATH + "/upload")
 @RestController
 public class FileUploadController {
 

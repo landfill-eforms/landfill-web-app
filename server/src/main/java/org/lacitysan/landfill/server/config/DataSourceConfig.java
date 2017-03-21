@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.config;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
-import org.lacitysan.landfill.server.config.constant.ApplicationProperty;
+import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeRepairData;
@@ -11,6 +11,7 @@ import org.lacitysan.landfill.server.persistence.entity.instantaneous.Instantane
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
+import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedImeData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
@@ -63,6 +64,9 @@ public class DataSourceConfig {
 		return new LocalSessionFactoryBuilder(getDataSource())
 				.addAnnotatedClasses(
 
+						// System
+						ApplicationSetting.class,
+						
 						// Instantaneous
 						ImeData.class,
 						ImeNumber.class,
@@ -92,7 +96,7 @@ public class DataSourceConfig {
 		HikariConfig dataSource = new HikariConfig();
 		dataSource.setDataSourceClassName(className);
 		dataSource.addDataSourceProperty("serverName", serverName);
-		dataSource.addDataSourceProperty("databaseName", ApplicationProperty.DATABASE_NAME);
+		dataSource.addDataSourceProperty("databaseName", ApplicationConstant.DATABASE_NAME);
 		dataSource.setUsername(username);
 		dataSource.setPassword(password);
 		dataSource.setInitializationFailFast(initializationFailFast);

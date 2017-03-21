@@ -1,5 +1,9 @@
 package org.lacitysan.landfill.server.persistence.enums;
 
+import org.lacitysan.landfill.server.json.LandfillEnumDeserializer;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * @author Alvin Quach
  */
@@ -58,6 +62,11 @@ public enum UserRole {
 
 	public String getCategoryAction() {
 		return categoryAction;
+	}
+	
+	@JsonCreator
+	public static UserRole deserialize(Object object) {
+		return LandfillEnumDeserializer.deserialize(UserRole.class, object);
 	}
 
 	/** Optional category groups for user roles. */

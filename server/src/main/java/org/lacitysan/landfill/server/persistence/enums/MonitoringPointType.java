@@ -1,5 +1,9 @@
 package org.lacitysan.landfill.server.persistence.enums;
 
+import org.lacitysan.landfill.server.json.LandfillEnumDeserializer;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * @author Alvin Quach
  */
@@ -23,6 +27,11 @@ public enum MonitoringPointType {
 
 	public String getName() {
 		return name;
+	}
+	
+	@JsonCreator
+	public static MonitoringPointType deserialize(Object object) {
+		return LandfillEnumDeserializer.deserialize(MonitoringPointType.class, object);
 	}
 
 }

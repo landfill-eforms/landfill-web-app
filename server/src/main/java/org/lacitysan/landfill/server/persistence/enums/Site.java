@@ -1,5 +1,9 @@
 package org.lacitysan.landfill.server.persistence.enums;
 
+import org.lacitysan.landfill.server.json.LandfillEnumDeserializer;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * @author Alvin Quach
  */
@@ -42,6 +46,11 @@ public enum Site {
 	
 	public boolean isActive() {
 		return active;
+	}
+	
+	@JsonCreator
+	public static Site deserialize(Object object) {
+		return LandfillEnumDeserializer.deserialize(Site.class, object);
 	}
 	
 }

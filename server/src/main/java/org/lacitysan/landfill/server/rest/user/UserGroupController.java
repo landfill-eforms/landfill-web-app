@@ -3,6 +3,7 @@ package org.lacitysan.landfill.server.rest.user;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserGroupDao;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,26 @@ public class UserGroupController {
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public UserGroup create(@RequestBody UserGroup userGroup) {
+		
+		// TODO Move this to a service.
+		userGroup.setName(userGroup.getName().trim());
+		if (userGroup.getName().isEmpty()) {
+			throw new EmptyStringException("User group name cannot be blank.");
+		}
+		
 		userGroupDao.create(userGroup);
 		return userGroup;
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public UserGroup update(@RequestBody UserGroup userGroup) {
+		
+		// TODO Move this to a service.
+		userGroup.setName(userGroup.getName().trim());
+		if (userGroup.getName().isEmpty()) {
+			throw new EmptyStringException("User group name cannot be blank.");
+		}
+		
 		userGroupDao.update(userGroup);
 		return userGroup;
 	}

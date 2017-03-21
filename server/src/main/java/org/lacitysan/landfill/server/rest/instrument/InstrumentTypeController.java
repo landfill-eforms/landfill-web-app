@@ -3,6 +3,7 @@ package org.lacitysan.landfill.server.rest.instrument;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentTypeDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,34 @@ public class InstrumentTypeController {
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public InstrumentType create(@RequestBody InstrumentType instrumentType) {
+		
+		// TODO Move this to a service.
+		instrumentType.setType(instrumentType.getType().trim());
+		if (instrumentType.getType().isEmpty()) {
+			throw new EmptyStringException("Instrument type cannot be blank");
+		}
+		instrumentType.setManufacturer(instrumentType.getManufacturer().trim());
+		if (instrumentType.getManufacturer().isEmpty()) {
+			throw new EmptyStringException("Manufacturer name cannot be blank");
+		}
+		
 		instrumentTypeDao.create(instrumentType);
 		return instrumentType;
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public InstrumentType update(@RequestBody InstrumentType instrumentType) {
+		
+		// TODO Move this to a service.
+		instrumentType.setType(instrumentType.getType().trim());
+		if (instrumentType.getType().isEmpty()) {
+			throw new EmptyStringException("Instrument type cannot be blank");
+		}
+		instrumentType.setManufacturer(instrumentType.getManufacturer().trim());
+		if (instrumentType.getManufacturer().isEmpty()) {
+			throw new EmptyStringException("Manufacturer name cannot be blank");
+		}
+		
 		instrumentTypeDao.update(instrumentType);
 		return instrumentType;
 	}

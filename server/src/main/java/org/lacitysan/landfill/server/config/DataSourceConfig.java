@@ -11,6 +11,7 @@ import org.lacitysan.landfill.server.persistence.entity.instantaneous.Instantane
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
+import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedImeData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
@@ -63,6 +64,9 @@ public class DataSourceConfig {
 		return new LocalSessionFactoryBuilder(getDataSource())
 				.addAnnotatedClasses(
 
+						// System
+						ApplicationSetting.class,
+						
 						// Instantaneous
 						ImeData.class,
 						ImeNumber.class,

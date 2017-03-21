@@ -12,10 +12,13 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.lacitysan.landfill.server.config.appvars.AppVarService;
 import org.lacitysan.landfill.server.config.constant.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -25,16 +28,20 @@ import io.jsonwebtoken.SignatureAlgorithm;
 /**
  * @author Alvin Quach
  */
-public class TokenAuthenticationUtil {
+@Service
+public class TokenAuthenticationService {
+	
+	@Autowired
+	AppVarService appVarService;
 
 	/** Adds authentication info to response header. */
-	public static void addAuthentication(HttpServletResponse response, Authentication authentication) {
+	public void addAuthentication(HttpServletResponse response, Authentication authentication) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("principle", authentication.getPrincipal());
 		claims.put("roles", authentication.getAuthorities().stream().map(a -> a.getAuthority()).toArray());
 		String JWT = Jwts.builder()
 				.setClaims(claims)
-				.setExpiration(new Date(System.currentTimeMillis() + ApplicationConstant.TOKEN_EXPIRATION_TIME))
+				.setExpiration(new Date(System.currentTimeMillis() + appVarService.getTokenExpirationTime()))
 				.signWith(SignatureAlgorithm.HS512, ApplicationConstant.TOKEN_SECRET)
 				.compact();
 		response.addHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME, ApplicationConstant.HTTP_TOKEN_PREFIX + " " + JWT);
@@ -43,7 +50,7 @@ public class TokenAuthenticationUtil {
 	}
 	
 	/** Parses the JWT from incoming HTTP requests and generates an <code>AuthenticatedUser</code> object based on the parsed info. */
-	public static Authentication getAuthentication(HttpServletRequest request) {
+	public Authentication getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME);
 		if (token != null) {
 			try {
@@ -76,7 +83,7 @@ public class TokenAuthenticationUtil {
 	}
 
 	/** Converts a collection of user groups to a set of granted authorities. */
-	public static Set<GrantedAuthority> userGroupToAuthorities(Collection<UserGroup> userGroups) {
+	public Set<GrantedAuthority> userGroupToAuthorities(Collection<UserGroup> userGroups) {
 		return userGroups.stream()
 				.flatMap(g -> g.getUserRoles().stream())
 				.map(r -> new GrantedAuthorityImpl(r.name()))

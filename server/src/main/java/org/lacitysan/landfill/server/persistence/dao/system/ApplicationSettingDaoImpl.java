@@ -6,11 +6,13 @@ import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alvin Quach
  */
+@Repository
 public class ApplicationSettingDaoImpl implements ApplicationSettingDao {
 
 	@Autowired
@@ -41,13 +43,16 @@ public class ApplicationSettingDaoImpl implements ApplicationSettingDao {
 	@Override
 	@Transactional
 	public ApplicationSetting set(ApplicationSetting applicationSetting) {
-		if (get(applicationSetting.getKey()) == null) {
+		ApplicationSetting existing = get(applicationSetting.getKey());
+		if (existing == null) {
 			hibernateTemplate.save(applicationSetting);
+			return applicationSetting;
 		}
 		else {
-			hibernateTemplate.update(applicationSetting);
+			existing.setValue(applicationSetting.getValue());
+			hibernateTemplate.update(existing);
+			return existing;
 		}
-		return applicationSetting;
 	}
 
 	@Override

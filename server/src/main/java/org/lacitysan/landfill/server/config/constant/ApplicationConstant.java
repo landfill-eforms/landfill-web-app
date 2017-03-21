@@ -1,7 +1,7 @@
 package org.lacitysan.landfill.server.config.constant;
 
 /**
- * Contains constants and other properties for classes that cannot read from <code>*.properties</code> files, and/or cannot be stored on the database.
+ * Contains constants and other properties for classes that cannot be read from <code>*.properties</code> files, and should not be changed by the end user.
  * @author Alvin Quach
  */
 public class ApplicationConstant {
@@ -25,23 +25,7 @@ public class ApplicationConstant {
 	
 	/** The secret for generated JWTs. */
 	public static final String TOKEN_SECRET = "secret";
-	
-	
-	// Long
-	
-	/** How long a generated JWT is valid for before expiring. */
-	public static final long TOKEN_EXPIRATION_TIME = 1000 * 60 * 60; // 60 Minutes
-	
-	
-	// Integer
-	/** Minimum length of a username when creating users or changing username. */
-	// TODO Save this as an application setting.
-	public static final int MINIMUM_USERNAME_LENGTH = 4;
-	
-	/** Minimum length of a password when creating users or changing password. */
-	// TODO Save this as an application setting.
-	public static final int MINIMUM_PASSWORD_LENGTH = 2;
-	
+
 	
 	// Boolean
 	/** Whether passwords are required to have at least one special character. Not yet implemented. */

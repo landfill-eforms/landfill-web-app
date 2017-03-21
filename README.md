@@ -1,5 +1,5 @@
 # Landfill e-Forms Web Application
-This project is very much still a work in progress.
+The Landfill e-Forms Web Application is developed with an Angular 2 front-end and a Java/Spring back-end, and is very much still a work in progress.
 ## Table of Contents
 * [Prerequisites](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#prerequisites)
   * [Front-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#front-end-server)
@@ -26,6 +26,7 @@ This section lists the prerequisites for each component of the web application s
 
 ### Database Management
 * Microsoft SQL Server Management Studio. Download from [here](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms).
+* Alternatively, DBeaver can be used. However, there appears to be some limitations with modifiying existing table columns.
 
 ## Environment Setup
 This section will help you set up the development environments for the first time. Each component will require its respective [prerequisites](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#prerequisites) to be installed.
@@ -69,4 +70,4 @@ To launch the front-end server from within Visual Studio Code:
 Note front-end server is set to listen on port 4200, so make sure that no other processes are listening on the same port number. The home page can then be accessed at <http://localhost:4200/>.
 ### Back-End Server
 
-Note back-end server is set to listen on port 8080, so make sure that no other processes are listening on the same port number.
+Note back-end server is set to listen on port 5000, so make sure that no other processes are listening on the same port number.

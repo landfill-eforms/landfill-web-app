@@ -46,7 +46,7 @@ public class UserService {
 		
 	}
 	
-	public User updateUsername(User user) {
+	public User changeUsername(User user) {
 		
 		// Check if username already exists.
 		if (userDao.getUserByUsername(user.getUsername()) != null) {

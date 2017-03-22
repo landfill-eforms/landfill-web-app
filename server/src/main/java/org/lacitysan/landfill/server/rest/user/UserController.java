@@ -42,8 +42,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/update/username", method=RequestMethod.POST)
-	public User updateUsername(@RequestBody User user) {
-		return userService.updateUsername(user);
+	public User changeUsername(@RequestBody User user) {
+		return userService.changeUsername(user);
 	}
 	
 	@RequestMapping(value="/update/password", method=RequestMethod.POST)

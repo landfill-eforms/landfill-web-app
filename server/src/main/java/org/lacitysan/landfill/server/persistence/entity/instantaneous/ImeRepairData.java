@@ -32,7 +32,7 @@ public class ImeRepairData {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
+	@JsonIgnoreProperties({"userGroups"})
 	@ManyToOne
 	@JoinColumn(name="UserFK")
 	private User user;

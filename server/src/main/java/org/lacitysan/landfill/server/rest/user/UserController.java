@@ -43,6 +43,11 @@ public class UserController {
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public User update(@RequestBody User user) {
+		User existing = userDao.getById(user.getId());
+		if (existing == null) {
+			return null;
+		}
+		user.setPassword(existing.getPassword());
 		userDao.update(user); // TODO Create method in service to update users.
 		return user;
 	}

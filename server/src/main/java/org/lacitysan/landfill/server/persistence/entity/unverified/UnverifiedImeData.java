@@ -36,7 +36,7 @@ public class UnverifiedImeData {
 	@JoinColumn(name="IMENumberFK")
 	private ImeNumber imeNumber;
 	
-	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
+	@JsonIgnoreProperties({"userGroups", "enabled"})
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;

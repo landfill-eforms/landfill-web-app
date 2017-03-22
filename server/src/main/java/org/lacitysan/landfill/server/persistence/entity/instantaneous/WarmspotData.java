@@ -49,7 +49,7 @@ public class WarmspotData {
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
 	
-	@JsonIgnoreProperties({"password", "userGroups", "enabled"})
+	@JsonIgnoreProperties({"userGroups"})
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")

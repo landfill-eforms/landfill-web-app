@@ -45,7 +45,7 @@ public class UnverifiedDataSet {
 	
 	private String filename;
 	
-	@JsonIgnoreProperties({"password", "userGroups", "enabled"})
+	@JsonIgnoreProperties({"userGroups", "enabled"})
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;
@@ -54,14 +54,14 @@ public class UnverifiedDataSet {
 	@Enumerated(EnumType.STRING)
 	private Site site;
 	
-	@JsonIgnoreProperties({"password", "userGroups", "enabled"})
+	@JsonIgnoreProperties({"userGroups", "enabled"})
 	@ManyToOne
 	@JoinColumn(name="UploadedByFK")
 	private User uploadedBy;
 	
 	private Timestamp uploadedDate;
 	
-	@JsonIgnoreProperties({"password", "userGroups", "enabled"})
+	@JsonIgnoreProperties({"userGroups", "enabled"})
 	@ManyToOne
 	@JoinColumn(name="ModifiedByFK")
 	private User modifiedBy;

@@ -63,12 +63,12 @@ public class UnverifiedInstantaneousData {
 	@NotNull
 	private Timestamp endTime;
 	
-	@JsonIgnoreProperties({"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"})
+	@JsonIgnoreProperties(value={"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"}, allowSetters=true)
 	@ManyToMany
 	@JoinTable(name="test.dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
-	@JsonIgnoreProperties({"unverifiedInstantaneousData", "instantaneousData"})
+	@JsonIgnoreProperties(value={"unverifiedInstantaneousData", "instantaneousData"}, allowSetters=true)
 	@ManyToMany
 	@JoinTable(name="test.dbo.UnverifiedInstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
 	private Set<WarmspotData> warmspotData = new HashSet<>();

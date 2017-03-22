@@ -67,11 +67,11 @@ public class ImeNumber implements Comparable<ImeNumber> {
 	@Enumerated(EnumType.STRING)
 	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();
 	
-	@JsonIgnoreProperties({"imeNumbers", "warmspotData", "instrument", "inspector"})
+	@JsonIgnoreProperties(value={"imeNumbers", "warmspotData", "instrument", "inspector"}, allowSetters=true)
 	@ManyToMany(mappedBy="imeNumbers")
 	private Set<InstantaneousData> instantaneousData = new HashSet<>();
 	
-	@JsonIgnoreProperties({"unverifiedDataSet", "imeNumbers", "warmspotData", "instrument"})
+	@JsonIgnoreProperties(value={"unverifiedDataSet", "imeNumbers", "warmspotData", "instrument"}, allowSetters=true)
 	@ManyToMany(mappedBy="imeNumbers")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
 	

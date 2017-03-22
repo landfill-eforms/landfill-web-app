@@ -29,26 +29,30 @@ export class UserGroupComponent implements OnInit {
 		console.log(this.userGroupId);
 		this.userGroupService.getById(this.userGroupId, 
 			(data) => {
-				console.log(data);
-				this.userGroup = data;
+				this.processLoadedData(data);
 				this.isDataLoaded = true;
-				this.selectedRoles = EnumUtils.convertToEnums(UserRole, this.userGroup.userRoles);
 			}
 		);
 	}
 
 	save() {
-		this.userGroup.userRoles = EnumUtils.convertToStrings(this.selectedRoles);
+		this.userGroup.userRoles = this.selectedRoles;
+		this.userGroup.users = null;
 		this.userGroupService.update(this.userGroup,
 			(data) => {
-				console.log(data);
+				this.processLoadedData(data);
 				this.snackBar.open("User group saved.", "OK", {duration: 2000});
+			},
+			(err) => {
+				this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 2000});
 			}
 		);
 	}
 
-	consoleLog() {
-		console.log(this.selectedRoles);
+	private processLoadedData(data) {
+		console.log(data);
+		this.userGroup = data;
+		this.selectedRoles = EnumUtils.convertToEnums(UserRole, this.userGroup.userRoles);
 	}
 
 }

@@ -52,9 +52,9 @@
 			</div>
 		</div>
 	</md-card-content>
-	<md-card-actions>
-		<button md-button (click)="openNewUserGroupDialog()">
-			NEW GROUP
-		</button>
-	</md-card-actions>
 </md-card>
+<div class="fab-action-button-container">
+	<button md-fab (click)="openNewUserGroupDialog()" mdTooltip="Create User Group" mdTooltipPosition="above">
+		<md-icon>add</md-icon>
+	</button>
+</div>

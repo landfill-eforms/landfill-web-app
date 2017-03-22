@@ -46,23 +46,23 @@ public class UserGroup {
 	private String description;
 	
 	// TODO Find a better way to implement/retrieve 'modified by' and 'created by' info.
-	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
+	@JsonIgnoreProperties({"userGroups", "enabled"})
 	@ManyToOne
 	@JoinColumn(name="CreatedByFK")
 	private User createdBy;
 	
 	private Timestamp createdDate;
 	
-	@JsonIgnoreProperties({"password", "userGroups", "enabled", "person"})
+	@JsonIgnoreProperties({"userGroups", "enabled"})
 	@ManyToOne
 	@JoinColumn(name="ModifiedByFK")
 	private User modifiedBy;
 	
 	private Timestamp modifiedDate;
 	
-	@JsonIgnoreProperties({"userGroups"})
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
 	@ManyToMany(mappedBy="userGroups")
-	private Set<User> users;
+	private Set<User> users = new HashSet<>();
 	
 	@ElementCollection(targetClass=UserRole.class)
 	@JoinTable(name="test.dbo.UserGroupsXRefUserRoles", joinColumns=@JoinColumn(name="UserGroupFK"))

@@ -1,5 +1,8 @@
 package org.lacitysan.landfill.server.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 import org.lacitysan.landfill.server.security.filters.TokenAuthenticationFilter;
 import org.lacitysan.landfill.server.security.filters.TokenLoginFilter;
@@ -7,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -50,6 +56,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**");
 			}
+//			@Override
+//			public void configureMessageConverters(List<HttpMessageConverter<?>> converters){
+//			    List<MediaType> supportedMediaTypes = new ArrayList<>();
+//			    supportedMediaTypes.add(MediaType.APPLICATION_JSON);
+//			    supportedMediaTypes.add(MediaType.TEXT_PLAIN);
+//			    MappingJackson2HttpMessageConverter converter=new MappingJackson2HttpMessageConverter();
+//			    converter.setObjectMapper(new HibernateAwareObjectMapper());
+//			    converter.setPrettyPrint(true);
+//			    converter.setSupportedMediaTypes(supportedMediaTypes);
+//			    converters.add(converter);
+//			    super.configureMessageConverters(converters);
+//			}
 		};
 	}
 	

@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -37,10 +38,10 @@ public class User {
 	private String username;
 	
 	@NotNull
-	//@JsonProperty(access=Access.WRITE_ONLY)
+	@JsonIgnore
 	private String password;
 
-	@JsonIgnoreProperties({"users", "createdBy", "createdDate", "modifiedBy", "modifiedDate"})
+	@JsonIgnoreProperties(value={"users", "createdBy", "modifiedBy"}, allowSetters=true)
 	@ManyToMany
 	@JoinTable(name="test.dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
 	private Set<UserGroup> userGroups = new HashSet<>();

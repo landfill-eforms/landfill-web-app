@@ -48,7 +48,7 @@ public class InstantaneousData {
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
 	
-	@JsonIgnoreProperties({"password", "userGroups", "enabled"})
+	@JsonIgnoreProperties({"userGroups"})
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;

@@ -21,7 +21,7 @@
 			</md-select>
 			<md-select [(ngModel)]="instrument.site" placeholder="Assigned Site" class="md-select-row" style="width:100%">
 				<md-option [value]="null">
-					<i>Not Assigned</i>0
+					<i>Not Assigned</i>
 				</md-option>
 				<md-option *ngFor="let site of sites" [value]="site.constantName">
 					{{site.name}}

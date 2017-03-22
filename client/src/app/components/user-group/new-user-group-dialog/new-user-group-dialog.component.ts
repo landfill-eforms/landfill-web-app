@@ -2,6 +2,7 @@ import { UserGroup } from './../../../model/server/persistence/entity/user/user-
 import { UserGroupService } from './../../../services/user/user-group.service';
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from "@angular/material";
+import { MdSnackBar } from '@angular/material';
 
 @Component({
 	selector: 'app-new-user-group-dialog',
@@ -13,7 +14,8 @@ export class NewUserGroupDialogComponent implements OnInit {
 	userGroup:UserGroup;
 
 	constructor(
-		public dialogRef:MdDialogRef<NewUserGroupDialogComponent>,
+		private dialogRef:MdDialogRef<NewUserGroupDialogComponent>,
+		private snackBar:MdSnackBar,
 		private userGroupService:UserGroupService
 	) {}
 
@@ -27,6 +29,9 @@ export class NewUserGroupDialogComponent implements OnInit {
 			(data) => {
 				console.log(data);
 				this.dialogRef.close(data);
+			},
+			(err) => {
+				this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 2000});
 			}
 		);
 	}

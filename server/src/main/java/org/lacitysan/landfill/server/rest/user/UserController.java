@@ -41,15 +41,34 @@ public class UserController {
 		return user;
 	}
 	
-	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public User update(@RequestBody User user) {
-		User existing = userDao.getById(user.getId());
-		if (existing == null) {
-			return null;
-		}
-		user.setPassword(existing.getPassword());
-		userDao.update(user); // TODO Create method in service to update users.
-		return user;
+	@RequestMapping(value="/update/username", method=RequestMethod.POST)
+	public User updateUsername(@RequestBody User user) {
+		return userService.updateUsername(user);
+	}
+	
+	@RequestMapping(value="/update/password", method=RequestMethod.POST)
+	public User changePassword(@RequestBody User user) {
+		return userService.changePassword(user);
+	}
+	
+	@RequestMapping(value="/update/profile", method=RequestMethod.POST)
+	public User updateProfile(@RequestBody User user) {
+		return userService.updateProfile(user);
+	}
+	
+	@RequestMapping(value="/update/employee-id", method=RequestMethod.POST)
+	public User updateEmployeeId(@RequestBody User user) {
+		return userService.updateEmployeeId(user);
+	}
+	
+	@RequestMapping(value="/update/status", method=RequestMethod.POST)
+	public User updateStatus(@RequestBody User user) {
+		return userService.updateStatus(user);
+	}
+	
+	@RequestMapping(value="/update/user-groups", method=RequestMethod.POST)
+	public User updateUserGroups(@RequestBody User user) {
+		return userService.updateUserGroups(user);
 	}
 	
 	@RestSecurity({UserRole.SUPER_ADMIN})

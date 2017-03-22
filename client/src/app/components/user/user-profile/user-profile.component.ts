@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
 	}
 
 	save() {
-		this.userService.update(this.user,
+		this.userService.updateProfile(this.user,
 			(data) => {
 				this.snackBar.open("User saved.", "OK", {duration: 2000});
 				console.log(data);

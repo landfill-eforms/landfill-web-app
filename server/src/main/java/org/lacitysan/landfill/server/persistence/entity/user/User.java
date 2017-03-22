@@ -16,10 +16,11 @@ import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 /**
  * @author Alvin Quach
@@ -38,7 +39,7 @@ public class User {
 	private String username;
 	
 	@NotNull
-	@JsonIgnore
+	@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
 
 	@JsonIgnoreProperties(value={"users", "createdBy", "modifiedBy"}, allowSetters=true)

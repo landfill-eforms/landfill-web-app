@@ -26,19 +26,94 @@ public class UserService {
 	
 	public User create(User user) {
 		
-		// Check if username is valid.
+		// Check if username already exists.
+		if (userDao.getUserByUsername(user.getUsername()) != null) {
+			// TODO Throw username already exists exception.
+		}
+		
+		// Check if username is valid
 		validateUsername(user.getUsername(), true);
 		
 		// Check if password is valid.
 		validatePassword(user.getPassword(), true);
+		
+		// Encode password.
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		user.setEnabled(true);
-		
 		userDao.create(user);
-		
 		return user;
 		
+	}
+	
+	public User updateUsername(User user) {
+		
+		// Check if username already exists.
+		if (userDao.getUserByUsername(user.getUsername()) != null) {
+			// TODO Throw username already exists exception.
+		}
+		
+		// Check if username is valid
+		validateUsername(user.getUsername(), true);
+		
+		// Update existing user.
+		User existing = userDao.getById(user.getId());
+		if (existing == null) {
+			// TODO Throw user ID not found exception.
+		}
+		existing.setUsername(user.getUsername());
+		return userDao.update(existing);
+		
+	}
+	
+	public User changePassword(User user) {
+		User existing = userDao.getById(user.getId());
+		if (existing == null) {
+			// TODO Throw user ID not found exception.
+		}
+		validatePassword(user.getPassword(), true);
+		existing.setPassword(passwordEncoder.encode(user.getPassword()));
+		return userDao.update(existing);
+	}
+	
+	public User updateProfile(User user) {
+		User existing = userDao.getById(user.getId());
+		if (existing == null) {
+			// TODO Throw user ID not found exception.
+		}
+		existing.setFirstname(user.getFirstname());
+		existing.setMiddlename(user.getMiddlename());
+		existing.setLastname(user.getLastname());
+		existing.setEmailAddress(user.getEmailAddress());
+		return userDao.update(existing);
+	}
+	
+	public User updateEmployeeId(User user) {
+		User existing = userDao.getById(user.getId());
+		if (existing == null) {
+			// TODO Throw user ID not found exception.
+		}
+		existing.setEmployeeId(user.getEmployeeId());
+		return userDao.update(existing);
+	}
+	
+	public User updateStatus(User user) {
+		User existing = userDao.getById(user.getId());
+		if (existing == null) {
+			// TODO Throw user ID not found exception.
+		}
+		existing.setEnabled(user.getEnabled());
+		return userDao.update(existing);
+	}
+	
+	public User updateUserGroups(User user) {
+		User existing = userDao.getById(user.getId());
+		if (existing == null) {
+			// TODO Throw user ID not found exception.
+		}
+		// TODO Check if current user has privileges to assign some restricted roles (ie. Admin).
+		existing.setUserGroups(user.getUserGroups());
+		return userDao.update(existing);
 	}
 	
 	/**
@@ -48,7 +123,7 @@ public class UserService {
 	 * @return True if the username is valid, false otherwise.
 	 */
 	public boolean validateUsername(String username, boolean throwException) {
-		if (username.length() < applicationVariableService.getUsernameMinLength()) {
+		if (username == null || username.length() < applicationVariableService.getUsernameMinLength()) {
 			if (throwException) {
 				throw new InvalidUsernameException("Username must be at least " + applicationVariableService.getUsernameMinLength() + " characters long.");
 			}
@@ -70,13 +145,18 @@ public class UserService {
 	 * @return True if the password is valid, false otherwise.
 	 */
 	public boolean validatePassword(String password, boolean throwException) {
-		if (password.length() < applicationVariableService.getPasswordMinLength()) {
+		if (password == null || password.length() < applicationVariableService.getPasswordMinLength()) {
 			if (throwException) {
 				throw new InvalidPasswordException("Password must be at least " + applicationVariableService.getPasswordMinLength() + " characters long.");
 			}
 			return false;
 		}
-		// TODO Add ability to check if password contains special characters.
+		if (applicationVariableService.getPasswordEnforceSpecialChar() && password.matches("^[a-zA-Z0-9]*$")) {
+			if (throwException) {
+				throw new InvalidPasswordException("Password must contain at least one special (non-alphanumeric) character.");
+			}
+			return false;
+		}
 		return true;
 	}
 	

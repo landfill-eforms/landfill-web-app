@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.service.verification.model;
+package org.lacitysan.landfill.server.service.unverified.model;
 
 import java.util.HashSet;
 import java.util.Set;

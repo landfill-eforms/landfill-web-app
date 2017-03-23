@@ -10,7 +10,7 @@ import { AuthService } from './../../../services/auth/auth.service';
 export class LoginComponent {
 
 	readonly backgroundUrl:string = environment.assetsUrl + "/images/login-background.jpg";
-	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-outline.PNG";
+	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-lite.png";
 
 	credentials:{username:string, password:string} = {
 		username: "",

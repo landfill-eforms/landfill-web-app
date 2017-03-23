@@ -5,19 +5,47 @@
 	height: 100%;
 }
 
-.logo-container {
-	text-align: center;
-	padding: 100px 0 50px 0;
-	img {
-		width: 300px;
-	}
+.fake-padding {
+	height: calc(50% - 320px); // Good balance
 }
 
 .card-container {
 	text-align: center;
 }
 
+.login-card {
+	padding: 32px;
+	opacity: 0.91;
+}
+
+.logo-container {
+	text-align: center;
+	img {
+		width: 300px;
+	}
+}
+
+.subtitle {
+    font-size: 0.86rem;
+    padding-bottom: 32px;
+    letter-spacing: .25rem;
+    line-height: 1.337rem;
+    font-weight: 500;
+    color: #00A6DD;
+	text-align: right;
+	padding-right: 66px; // TODO Calculate this
+	position: relative;
+	top: -4px;
+}
+
 .login-button {
 	width: 100%;
 	margin: 16px 0;
+}
+
+.app-info {
+    text-align: left;
+    font-size: 0.69rem;
+    font-weight: 300;
+    padding: 8px;
 }

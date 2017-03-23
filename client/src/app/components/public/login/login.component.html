@@ -1,13 +1,15 @@
 <div class="background" [ngStyle]="{'background-image': 'url(' + backgroundUrl + ')'}">
-	<div class="logo-container">
-		<img [src]="logoUrl" style="opacity:0.69;">
-	</div>
+	<div class="fake-padding"></div>
 	<div class="card-container flex-container" fxLayout="row" fxLayoutAlign="center center">
-		<md-card fxFlex="400px" style="padding:32px 24px;">
+		<md-card fxFlex="500px" class="login-card">
 			<md-card-content>
+				<div class="logo-container">
+					<img [src]="logoUrl">
+				</div>
+				<div class="subtitle">LANDFILL e-FORMS</div>
 				<div>
 					<md-input-container style="width:100%">
-						<input [(ngModel)]="credentials.username" mdInput placeholder="Username">
+						<input [(ngModel)]="credentials.username" mdInput placeholder="Username" autofocus>
 					</md-input-container>
 				</div>
 				<div>
@@ -17,6 +19,9 @@
 				</div>
 				<button md-raised-button color="warn" class="login-button" (click)="login()">LOGIN</button>
 			</md-card-content>
+			<md-card-footer>
+				<div class="app-info">Version: 0.0.8-SNAPSHOT</div>
+			</md-card-footer>
 		</md-card>
 	</div>
 </div>

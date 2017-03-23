@@ -40,12 +40,12 @@ public class TokenAuthenticationService {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("principle", authentication.getPrincipal());
 		claims.put("permissions", authentication.getAuthorities().stream().map(a -> a.getAuthority()).toArray());
-		String JWT = Jwts.builder()
+		String jwt = Jwts.builder()
 				.setClaims(claims)
 				.setExpiration(new Date(System.currentTimeMillis() + applicationVariableService.getTokenExpirationTime()))
 				.signWith(SignatureAlgorithm.HS512, ApplicationConstant.TOKEN_SECRET)
 				.compact();
-		response.addHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME, ApplicationConstant.HTTP_TOKEN_PREFIX + " " + JWT);
+		response.addHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME, ApplicationConstant.HTTP_TOKEN_PREFIX + " " + jwt);
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Expose-Headers", "Authorization");
 	}

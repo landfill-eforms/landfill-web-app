@@ -41,10 +41,10 @@ export class UserGroupComponent implements OnInit {
 		this.userGroupService.update(this.userGroup,
 			(data) => {
 				this.processLoadedData(data);
-				this.snackBar.open("User group saved.", "OK", {duration: 2000});
+				this.snackBar.open("User group saved.", "OK", {duration: 3000});
 			},
 			(err) => {
-				this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 2000});
+				this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
 			}
 		);
 	}

@@ -28,8 +28,11 @@ export class UserProfileComponent implements OnInit {
 	save() {
 		this.userService.updateProfile(this.user,
 			(data) => {
-				this.snackBar.open("User saved.", "OK", {duration: 2000});
+				this.snackBar.open("User saved.", "OK", {duration: 3000});
 				console.log(data);
+			},
+			(err) => {
+				this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
 			}
 		);
 	}

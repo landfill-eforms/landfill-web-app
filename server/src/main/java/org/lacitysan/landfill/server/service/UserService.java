@@ -2,6 +2,7 @@ package org.lacitysan.landfill.server.service;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
+import org.lacitysan.landfill.server.exception.user.InvalidEmailException;
 import org.lacitysan.landfill.server.exception.user.InvalidPasswordException;
 import org.lacitysan.landfill.server.exception.user.InvalidUsernameException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
@@ -38,6 +39,9 @@ public class UserService {
 		
 		// Encode password.
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		// Check if email address is valid.
+		validateEmail(user.getEmailAddress(), true);
 		
 		user.setEnabled(true);
 		userDao.create(user);
@@ -81,7 +85,9 @@ public class UserService {
 		existing.setFirstname(user.getFirstname());
 		existing.setMiddlename(user.getMiddlename());
 		existing.setLastname(user.getLastname());
-		existing.setEmailAddress(user.getEmailAddress());
+		if (validateEmail(user.getEmailAddress(), true)) {
+			existing.setEmailAddress(user.getEmailAddress());
+		}
 		return userDao.update(existing);
 	}
 	
@@ -151,6 +157,25 @@ public class UserService {
 		if (applicationVariableService.getPasswordEnforceSpecialChar() && password.matches("^[a-zA-Z0-9]*$")) {
 			if (throwException) {
 				throw new InvalidPasswordException("Password must contain at least one special (non-alphanumeric) character.");
+			}
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean validateEmail(String email, boolean throwException) {
+		
+		// TODO Make email a required field (?)
+		if (email == null) {
+			return false;
+		}
+		
+		// TODO Implement this using regex (?)
+		int atCharIndex = email.indexOf('@');
+		int dotCharIndex = email.lastIndexOf('.');
+		if (atCharIndex < 0 || dotCharIndex < 0 || atCharIndex > dotCharIndex) {
+			if (throwException) {
+				throw new InvalidEmailException("Invalid email address.");
 			}
 			return false;
 		}

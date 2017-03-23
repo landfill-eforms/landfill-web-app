@@ -5,10 +5,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.lacitysan.landfill.server.persistence.enums.UserRole;
+import org.lacitysan.landfill.server.persistence.enums.UserPermission;
 
 /**
- * Specifies which <code>UserRole</code> can access the methods in annotated controller.
+ * Specifies which <code>UserPermission</code> can access the methods in annotated controller.
  * Can be overridden on a per-method basis by annotating the method with <code>RestSecurity</code>.
  * @author Alvin Quach
  */
@@ -16,7 +16,7 @@ import org.lacitysan.landfill.server.persistence.enums.UserRole;
 @Target(ElementType.TYPE)
 public @interface RestControllerSecurity {
 
-	/** List of user role that can access the resources in the annotated controller. */
-	UserRole[] value() default {};
+	/** List of user permission that can access the resources in the annotated controller. */
+	UserPermission[] value() default {};
 	
 }

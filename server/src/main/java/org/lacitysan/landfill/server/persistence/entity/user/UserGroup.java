@@ -21,7 +21,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.persistence.enums.UserRole;
+import org.lacitysan.landfill.server.persistence.enums.UserPermission;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -64,11 +64,11 @@ public class UserGroup {
 	@ManyToMany(mappedBy="userGroups")
 	private Set<User> users = new HashSet<>();
 	
-	@ElementCollection(targetClass=UserRole.class)
-	@JoinTable(name="test.dbo.UserGroupsXRefUserRoles", joinColumns=@JoinColumn(name="UserGroupFK"))
-	@Column(name="UserRoleString")
+	@ElementCollection(targetClass=UserPermission.class)
+	@JoinTable(name="test.dbo.UserGroupsXRefUserPermissions", joinColumns=@JoinColumn(name="UserGroupFK"))
+	@Column(name="UserPermissionString")
 	@Enumerated(EnumType.STRING)
-	private Set<UserRole> userRoles = new HashSet<>();
+	private Set<UserPermission> userPermissions = new HashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -102,12 +102,12 @@ public class UserGroup {
 		this.users = users;
 	}
 
-	public Set<UserRole> getUserRoles() {
-		return userRoles;
+	public Set<UserPermission> getUserPermissions() {
+		return userPermissions;
 	}
 
-	public void setUserRoles(Set<UserRole> userRoles) {
-		this.userRoles = userRoles;
+	public void setUserPermissions(Set<UserPermission> userPermissions) {
+		this.userPermissions = userPermissions;
 	}
 
 	public User getCreatedBy() {

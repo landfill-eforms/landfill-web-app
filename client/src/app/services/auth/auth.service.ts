@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { RestrictedRouteBase } from './../../app.routing';
 import { environment } from './../../../environments/environment';
-import { UserRole } from './../../model/server/persistence/enums/user-role.enum';
+import { UserPermission } from './../../model/server/persistence/enums/user-permission.enum';
 
 @Injectable()
 export class AuthService {
@@ -26,8 +26,8 @@ export class AuthService {
 		return this.jwtHelper.isTokenExpired(this.getToken());
 	}
 
-	getUserRoles():UserRole[] {
-		let result = JSON.parse(sessionStorage.getItem("user_roles"));
+	getUserPermissions():UserPermission[] {
+		let result = JSON.parse(sessionStorage.getItem("user_permissions"));
 		if (Array.isArray(result)) {
 			return result;
 		}
@@ -50,7 +50,7 @@ export class AuthService {
 					this.jwtHelper.getTokenExpirationDate(jwtToken)
 				);
 				sessionStorage.setItem("id_token", jwtToken);
-				sessionStorage.setItem("user_roles", JSON.stringify(this.parseUserRoles(jwtToken)));
+				sessionStorage.setItem("user_permissions", JSON.stringify(this.parseUserPermissions(jwtToken)));
 				this.router.navigate(['/' + RestrictedRouteBase]);
 			},
 			(error:any) => {
@@ -63,32 +63,32 @@ export class AuthService {
 		this.router.navigate(['/login']);
 	}
 
-	canAccess(requiredRoles:any[]) {
-		if (!requiredRoles) {
+	canAccess(requiredPermissions:any[]) {
+		if (!requiredPermissions) {
 			return true;
 		}
 		// TODO Change this to not use ordinal.
-		let userRoles:number[] = this.getUserRoles().map(r => r.ordinal);
-		if (userRoles.indexOf(0) > -1 || userRoles.indexOf(1) > -1) {
+		let userPermissions:number[] = this.getUserPermissions().map(r => r.ordinal);
+		if (userPermissions.indexOf(0) > -1 || userPermissions.indexOf(1) > -1) {
 			return true;
 		}
-		for (let i = 0; i < requiredRoles.length; i++) {
-			if (userRoles.indexOf(requiredRoles[i].ordinal) > -1) {
+		for (let i = 0; i < requiredPermissions.length; i++) {
+			if (userPermissions.indexOf(requiredPermissions[i].ordinal) > -1) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private parseUserRoles(jwtToken:string):UserRole[] {
+	private parseUserPermissions(jwtToken:string):UserPermission[] {
 		let claims:any = this.jwtHelper.decodeToken(jwtToken);
-		let roles = claims["roles"];
-		if (roles && Array.isArray(roles)) {
-			let result:UserRole[] = [];
-			for (let i = 0; i < roles.length; i++) {
-				let role:UserRole = UserRole[roles[i]];
-				if (role) {
-					result.push(role);
+		let permissions = claims["permissions"];
+		if (permissions && Array.isArray(permissions)) {
+			let result:UserPermission[] = [];
+			for (let i = 0; i < permissions.length; i++) {
+				let permission:UserPermission = UserPermission[permissions[i]];
+				if (permission) {
+					result.push(permission);
 				}
 			}
 			return result;

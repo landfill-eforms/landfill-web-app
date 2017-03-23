@@ -18,7 +18,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
 		userGroup.getUsers().forEach(user -> {
 			Hibernate.initialize(user);
 		});
-		Hibernate.initialize(userGroup.getUserRoles());
+		Hibernate.initialize(userGroup.getUserPermissions());
 		return userGroup;
 	}
 	

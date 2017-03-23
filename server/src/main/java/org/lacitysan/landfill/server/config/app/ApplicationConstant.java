@@ -21,8 +21,8 @@ public class ApplicationConstant {
 	/** The path to the server's REST resources. */
 	public static final String RESOURCE_PATH = "rest";
 	
-	/** String representation of the super admin user role. */
-	public static final String SUPER_ADMIN_ROLE_NAME = "SUPER_ADMIN";
+	/** String representation of the super admin user permission. */
+	public static final String SUPER_ADMIN_PERMISSION_NAME = "SUPER_ADMIN";
 	
 	/** The secret for generated JWTs. */
 	public static final String TOKEN_SECRET = "secret";

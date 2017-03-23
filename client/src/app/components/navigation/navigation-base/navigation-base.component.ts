@@ -4,7 +4,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { Route, Router } from '@angular/router';
 import { RestrictedRoutes, DefinedRoutes } from './../../../app.routing';
 import { AuthService } from './../../../services/auth/auth.service';
-import { UserRole } from './../../../model/server/persistence/enums/user-role.enum';
+import { UserPermission } from './../../../model/server/persistence/enums/user-permission.enum';
 
 @Component({
 	selector: 'app-navigation-base',
@@ -233,13 +233,13 @@ export class NavigationBaseComponent implements OnInit {
 			let section:NavRouteSection = this.sections[i];
 			for (let j = 0; j < section.links.length; j++) {
 				let link = section.links[j];
-				link.visible = !link.route.data || this.authService.canAccess(link.route.data["roles"]);
+				link.visible = !link.route.data || this.authService.canAccess(link.route.data["permissions"]);
 				console.log(link.route.path, link.visible);
 			}
 		}
 		for (let i = 0; i < this.tempLinks.length; i++) {
 			let link = this.tempLinks[i];
-			link.visible = !link.route.data || this.authService.canAccess(link.route.data["roles"]);
+			link.visible = !link.route.data || this.authService.canAccess(link.route.data["permissions"]);
 		}
 	}
 

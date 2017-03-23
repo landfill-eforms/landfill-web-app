@@ -49,11 +49,11 @@ public class RestSecurityAspect {
 			throw new AccessDeniedException("Authentication error.");
 		}
 
-		// Get user roles from the Authentication.
-		Set<String> userRoles = auth.getAuthorities().stream().map(g -> g.getAuthority()).collect(Collectors.toSet());
+		// Get user permissions from the Authentication.
+		Set<String> userPermissions = auth.getAuthorities().stream().map(g -> g.getAuthority()).collect(Collectors.toSet());
 
 		// If the user is the super admin, then allow access.
-		if (userRoles.contains(ApplicationConstant.SUPER_ADMIN_ROLE_NAME)) {
+		if (userPermissions.contains(ApplicationConstant.SUPER_ADMIN_PERMISSION_NAME)) {
 			if (DEBUG) printSuccess("User is the super admin.");
 			return;
 		}
@@ -78,48 +78,48 @@ public class RestSecurityAspect {
 		// Get the @RestSecurity annotation from the method. Traverses super methods if @RestSecurity cannot be found on the given method itself.
 		RestSecurity restSecurity = AnnotationUtils.findAnnotation(method, RestSecurity.class);
 		
-		// The set of roles allowed to access the method as defined by the method's @RestSecurity and/or the controller's @RestControllerSecurity.
-		Set<String> allowedRoles = new HashSet<>();
+		// The set of permissions allowed to access the method as defined by the method's @RestSecurity and/or the controller's @RestControllerSecurity.
+		Set<String> allowedPermissions = new HashSet<>();
 
-		// Get the set of roles allowed to access the method from its @RestSecurty, and add it to the allowedRoles set.
+		// Get the set of permissions allowed to access the method from its @RestSecurty, and add it to the allowedPermissions set.
 		if (restSecurity != null) {
-			allowedRoles.addAll(Arrays.asList(restSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
+			allowedPermissions.addAll(Arrays.asList(restSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
 		}
 
 		else if (DEBUG && restSecurity == null) System.out.println("No RestSecurity was found for the method.");
 
-		// Get the RestSecurityMode from the @RestSecurity. If no roles were defined by the @RestSecurity (or if it was null), then the rest security mode will default to APPEND.
-		RestSecurityMode restSecurityMode = (allowedRoles.isEmpty() ? RestSecurityMode.APPEND : restSecurity.mode());
+		// Get the RestSecurityMode from the @RestSecurity. If no permissions were defined by the @RestSecurity (or if it was null), then the rest security mode will default to APPEND.
+		RestSecurityMode restSecurityMode = (allowedPermissions.isEmpty() ? RestSecurityMode.APPEND : restSecurity.mode());
 
-		// If the RestSecurityMode is APPEND, then an additional set of roles will have to be retrieved from the controller's @RestControllerSecurity.
+		// If the RestSecurityMode is APPEND, then an additional set of permissions will have to be retrieved from the controller's @RestControllerSecurity.
 		if (restSecurityMode == RestSecurityMode.APPEND) {
 
 			// Get the @RestControllerSecurity from the controller. Traverses super classes if @RestControllerSecurity cannot be found on the given class itself.
 			RestControllerSecurity restControllerSecurity = AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), RestControllerSecurity.class);
 
-			// Get the set of roles allowed to access the method from the @RestControllerSecurty and add the roles to the allowedRoles set.
+			// Get the set of permissions allowed to access the method from the @RestControllerSecurty and add the permissions to the allowedPermissions set.
 			if (restControllerSecurity != null) {
-				allowedRoles.addAll(Arrays.asList(restControllerSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
+				allowedPermissions.addAll(Arrays.asList(restControllerSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
 			}
 
 			else if (DEBUG) System.out.println("No RestControllerSecurity was found for the controller.");
 		}
 
-		// If the allowedRoles set is empty, then everyone with a valid Authentication is allowed to access the resource.
-		if (allowedRoles.isEmpty()) {
-			if (DEBUG) printSuccess("No specific roles are required to access this resource.");
+		// If the allowedPermissions set is empty, then everyone with a valid Authentication is allowed to access the resource.
+		if (allowedPermissions.isEmpty()) {
+			if (DEBUG) printSuccess("No specific permissions are required to access this resource.");
 			return;
 		}
 
-		// If any of the user's roles match a role from the allowedRoles set, then allow access.
-		if (allowedRoles.removeAll(userRoles)) {
-			if (DEBUG) printSuccess("User has at least one of the required role(s).");
+		// If any of the user's permissions match a permission from the allowedPermissions set, then allow access.
+		if (allowedPermissions.removeAll(userPermissions)) {
+			if (DEBUG) printSuccess("User has at least one of the required permission(s).");
 			return;
 		}
 
-		// Deny access if none of the roles match.
+		// Deny access if none of the permissions match.
 		else {
-			if (DEBUG) printDenied("User does not have any of the required roles(s).");
+			if (DEBUG) printDenied("User does not have any of the required permissions(s).");
 			throw new AccessDeniedException(ACCESS_DENIED_MESSAGE);
 		}
 

@@ -1,7 +1,7 @@
 import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
 import { MdSnackBar } from '@angular/material';
 import { EnumUtils } from './../../../utils/enum.utils';
-import { UserRole } from './../../../model/server/persistence/enums/user-role.enum';
+import { UserPermission } from './../../../model/server/persistence/enums/user-permission.enum';
 import { UserGroupService } from './../../../services/user/user-group.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ export class UserGroupComponent implements OnInit {
 	isDataLoaded:boolean;
 	userGroupId:string;
 	userGroup:UserGroup = new UserGroup();
-	selectedRoles:UserRole[];
+	selectedPermissions:UserPermission[];
 
 	constructor(
 		private userGroupService:UserGroupService,
@@ -36,7 +36,7 @@ export class UserGroupComponent implements OnInit {
 	}
 
 	save() {
-		this.userGroup.userRoles = this.selectedRoles;
+		this.userGroup.userPermissions = this.selectedPermissions;
 		this.userGroup.users = null;
 		this.userGroupService.update(this.userGroup,
 			(data) => {
@@ -52,7 +52,7 @@ export class UserGroupComponent implements OnInit {
 	private processLoadedData(data) {
 		console.log(data);
 		this.userGroup = data;
-		this.selectedRoles = EnumUtils.convertToEnums(UserRole, this.userGroup.userRoles);
+		this.selectedPermissions = EnumUtils.convertToEnums(UserPermission, this.userGroup.userPermissions);
 	}
 
 }

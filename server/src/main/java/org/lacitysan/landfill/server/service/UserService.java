@@ -111,7 +111,7 @@ public class UserService {
 		if (existing == null) {
 			// TODO Throw user ID not found exception.
 		}
-		// TODO Check if current user has privileges to assign some restricted roles (ie. Admin).
+		// TODO Check if current user has privileges to assign some restricted permissions (ie. Admin).
 		existing.setUserGroups(user.getUserGroups());
 		return userDao.update(existing);
 	}

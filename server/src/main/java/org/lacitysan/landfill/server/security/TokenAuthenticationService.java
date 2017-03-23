@@ -38,7 +38,7 @@ public class TokenAuthenticationService {
 	public void addAuthentication(HttpServletResponse response, Authentication authentication) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("principle", authentication.getPrincipal());
-		claims.put("roles", authentication.getAuthorities().stream().map(a -> a.getAuthority()).toArray());
+		claims.put("permissions", authentication.getAuthorities().stream().map(a -> a.getAuthority()).toArray());
 		String JWT = Jwts.builder()
 				.setClaims(claims)
 				.setExpiration(new Date(System.currentTimeMillis() + applicationVariableService.getTokenExpirationTime()))
@@ -60,7 +60,7 @@ public class TokenAuthenticationService {
 						.parseClaimsJws(token)
 						.getBody();
 				Object principle = claims.get("principle");
-				Object roles = claims.get("roles");
+				Object permissions = claims.get("permissions");
 				if (principle != null && principle instanceof Map) {
 					Object id = ((Map<?, ?>)principle).get("id");
 					Object username = ((Map<?, ?>)principle).get("username");
@@ -68,9 +68,9 @@ public class TokenAuthenticationService {
 						return null;
 					}
 					List<GrantedAuthority> authorities = new ArrayList<>(); 
-					if (roles != null && roles instanceof List) {
-						for (Object role : (List<?>)roles) {
-							authorities.add(new GrantedAuthorityImpl(role.toString()));
+					if (permissions != null && permissions instanceof List) {
+						for (Object permission : (List<?>)permissions) {
+							authorities.add(new GrantedAuthorityImpl(permission.toString()));
 						}
 					}
 					return new AuthenticatedUser(Integer.parseInt(id.toString()), username.toString(), authorities);
@@ -85,7 +85,7 @@ public class TokenAuthenticationService {
 	/** Converts a collection of user groups to a set of granted authorities. */
 	public Set<GrantedAuthority> userGroupToAuthorities(Collection<UserGroup> userGroups) {
 		return userGroups.stream()
-				.flatMap(g -> g.getUserRoles().stream())
+				.flatMap(g -> g.getUserPermissions().stream())
 				.map(r -> new GrantedAuthorityImpl(r.name()))
 				.collect(Collectors.toSet());
 	}

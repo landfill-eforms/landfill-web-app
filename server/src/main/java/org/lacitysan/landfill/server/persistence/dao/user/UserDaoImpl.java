@@ -33,7 +33,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 	
 	@Override
 	public User initialize(User user) {
-		user.getUserGroups().forEach(userGroup -> Hibernate.initialize(userGroup.getUserRoles()));
+		user.getUserGroups().forEach(userGroup -> Hibernate.initialize(userGroup.getUserPermissions()));
 		return user;
 	}
 

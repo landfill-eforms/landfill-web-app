@@ -1,5 +1,5 @@
 import { NewUserGroupDialogComponent } from './new-user-group-dialog/new-user-group-dialog.component';
-import { UserRoleSelectorComponent } from './user-role-selector/user-role-selector.component';
+import { UserPermissionSelectorComponent } from './user-permission-selector/user-permission-selector.component';
 import { UserGroupComponent } from './user-group/user-group.component';
 import { UserGroupsComponent } from './user-group-list/user-group-list.component';
 import { NgModule } from '@angular/core';
@@ -13,7 +13,7 @@ import { CommonModule } from '../common/common.module'
     declarations: [
 		UserGroupsComponent,
 		UserGroupComponent,
-		UserRoleSelectorComponent,
+		UserPermissionSelectorComponent,
         NewUserGroupDialogComponent
 	]
 })

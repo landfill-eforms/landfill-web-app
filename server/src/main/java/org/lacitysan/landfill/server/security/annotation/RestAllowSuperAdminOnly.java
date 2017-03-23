@@ -5,7 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Specifies that the annotated method can only be accessed by the super admin account,
- * regardless of what other roles are specified by the <code>@RestControllerSecurity</code>
+ * regardless of what other permissions are specified by the <code>@RestControllerSecurity</code>
  * and <code>@RestSecurity</code> annotations.
  * @author Alvin Quach
  */

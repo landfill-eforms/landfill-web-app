@@ -1,5 +1,6 @@
 package org.lacitysan.landfill.server.service;
 
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
 import org.lacitysan.landfill.server.exception.user.InvalidPasswordException;
 import org.lacitysan.landfill.server.exception.user.InvalidUsernameException;
@@ -26,13 +27,11 @@ public class UserService {
 	
 	public User create(User user) {
 		
-		// Check if username already exists.
-		if (userDao.getUserByUsername(user.getUsername()) != null) {
-			// TODO Throw username already exists exception.
-		}
-		
-		// Check if username is valid
+		// Check if username is valid.
 		validateUsername(user.getUsername(), true);
+		
+		// Check if username already exists.
+		checkIfUsernameExists(user.getUsername(), true);
 		
 		// Check if password is valid.
 		validatePassword(user.getPassword(), true);
@@ -48,13 +47,11 @@ public class UserService {
 	
 	public User changeUsername(User user) {
 		
-		// Check if username already exists.
-		if (userDao.getUserByUsername(user.getUsername()) != null) {
-			// TODO Throw username already exists exception.
-		}
-		
-		// Check if username is valid
+		// Check if username is valid.
 		validateUsername(user.getUsername(), true);
+		
+		// Check if username already exists.
+		checkIfUsernameExists(user.getUsername(), true);
 		
 		// Update existing user.
 		User existing = userDao.getById(user.getId());
@@ -122,7 +119,7 @@ public class UserService {
 	 * @param throwException Whether to throw an exception if the username is not valid.
 	 * @return True if the username is valid, false otherwise.
 	 */
-	public boolean validateUsername(String username, boolean throwException) {
+	private boolean validateUsername(String username, boolean throwException) {
 		if (username == null || username.length() < applicationVariableService.getUsernameMinLength()) {
 			if (throwException) {
 				throw new InvalidUsernameException("Username must be at least " + applicationVariableService.getUsernameMinLength() + " characters long.");
@@ -144,7 +141,7 @@ public class UserService {
 	 * @param throwException Whether to throw an exception if the password is not valid.
 	 * @return True if the password is valid, false otherwise.
 	 */
-	public boolean validatePassword(String password, boolean throwException) {
+	private boolean validatePassword(String password, boolean throwException) {
 		if (password == null || password.length() < applicationVariableService.getPasswordMinLength()) {
 			if (throwException) {
 				throw new InvalidPasswordException("Password must be at least " + applicationVariableService.getPasswordMinLength() + " characters long.");
@@ -158,6 +155,17 @@ public class UserService {
 			return false;
 		}
 		return true;
+	}
+	
+	/** Assumes username is not null. */
+	private boolean checkIfUsernameExists(String username, boolean throwException) {
+		if (username.equalsIgnoreCase(ApplicationConstant.SUPER_ADMIN_USERNAME) || userDao.getUserByUsername(username) != null) {
+			if (throwException) {
+				// TODO Throw username already exists exception.
+			}
+			return true;
+		}
+		return false;
 	}
 	
 }

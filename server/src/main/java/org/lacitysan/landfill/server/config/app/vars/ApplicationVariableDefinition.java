@@ -24,7 +24,10 @@ public enum ApplicationVariableDefinition {
 	PASSWORD_MAX_LENGTH (ApplicationVariableType.INTEGER, 64),
 	
 	/** Whether passwords are required to have at least one special character. */
-	PASSWORD_ENFORCE_SPECIAL_CHAR (ApplicationVariableType.BOOLEAN, false);
+	PASSWORD_ENFORCE_SPECIAL_CHAR (ApplicationVariableType.BOOLEAN, false),
+	
+	/** The BCrypt hashed password for the super admin account. */
+	SUPER_ADMIN_PASSWORD (ApplicationVariableType.STRING, "$2a$10$zL28TqhA.FHAsVj/52krq.mt.nEoDxUkpPoyMYxYo1ne9GINO4t12");
 	
 	private ApplicationVariableType type;
 	private String defaultValue;

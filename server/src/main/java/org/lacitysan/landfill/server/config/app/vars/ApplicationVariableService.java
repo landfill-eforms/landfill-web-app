@@ -58,6 +58,11 @@ public class ApplicationVariableService {
 		return getBoolean(ApplicationVariableDefinition.PASSWORD_ENFORCE_SPECIAL_CHAR);
 	}
 	
+	/** The BCrypt hashed password for the super admin account. */
+	public String getSuperAdminPassword() {
+		return getString(ApplicationVariableDefinition.SUPER_ADMIN_PASSWORD);
+	}
+	
 	public Map<String, ApplicationVariableSerialization> update(Map<String, ApplicationVariableSerialization> map) {
 		for (ApplicationVariableDefinition appVar : ApplicationVariableDefinition.values()) {
 			ApplicationVariableSerialization updatedVar = map.get(appVar.name());
@@ -96,6 +101,15 @@ public class ApplicationVariableService {
 		}
 	}
 	
+	private String getString(ApplicationVariableDefinition appVar) {
+		String result = resolveString(appVar.getValue(), false);
+		if (result == null) {
+			result = resolveString(appVar.getDefaultValue(), true);
+			set(appVar.name(), result.toString());
+		}
+		return result;
+	}
+	
 	private int getInteger(ApplicationVariableDefinition appVar) {
 		Integer result = resolveInteger(appVar.getValue(), false);
 		if (result == null) {
@@ -130,6 +144,16 @@ public class ApplicationVariableService {
 			set(appVar.name(), result.toString());
 		}
 		return result;
+	}
+	
+	private String resolveString(Object value, boolean returnDefaultValue) {
+		if (value != null) {
+			return value.toString();
+		}
+		if (returnDefaultValue) {
+			return "";
+		}
+		return null;
 	}
 	
 	private Integer resolveInteger(Object value, boolean returnDefaultValue) {

@@ -24,6 +24,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 
 /**
  * @author Alvin Quach
@@ -75,8 +76,12 @@ public class TokenAuthenticationService {
 					}
 					return new AuthenticatedUser(Integer.parseInt(id.toString()), username.toString(), authorities);
 				}
-			} catch (ExpiredJwtException e) {
-				System.out.println("ExpiredJwtException: Token " + token + " is expired.");
+			} 
+			catch (ExpiredJwtException e) {
+				System.out.println("Authentication failed: The following token has expired:\n\t" + token);
+			} 
+			catch (SignatureException e) {
+				System.out.println("Authentication failed: The following token has invalid signature:\n\t" + token);
 			}
 		}
 		return null;

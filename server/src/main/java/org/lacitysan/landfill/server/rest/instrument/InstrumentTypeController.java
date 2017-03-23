@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.rest.instrument;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentTypeDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;

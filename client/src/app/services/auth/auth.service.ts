@@ -67,6 +67,7 @@ export class AuthService {
 		if (!requiredRoles) {
 			return true;
 		}
+		// TODO Change this to not use ordinal.
 		let userRoles:number[] = this.getUserRoles().map(r => r.ordinal);
 		if (userRoles.indexOf(0) > -1 || userRoles.indexOf(1) > -1) {
 			return true;

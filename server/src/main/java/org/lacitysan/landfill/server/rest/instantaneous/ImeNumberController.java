@@ -2,7 +2,7 @@ package org.lacitysan.landfill.server.rest.instantaneous;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.service.ImeService;

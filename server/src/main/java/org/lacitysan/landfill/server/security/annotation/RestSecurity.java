@@ -10,7 +10,7 @@ import org.lacitysan.landfill.server.persistence.enums.UserRole;
 /**
  * Specifies which <code>UserRole</code> can access the annotated method.
  * By default, the roles specified by this annotation will override any roles specified by the 
- * controller's <code>RestControllerSecurity</code>.
+ * controller's <code>@RestControllerSecurity</code> annotation.
  * @author Alvin Quach
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -20,11 +20,7 @@ public @interface RestSecurity {
 	/** List of user role that can access the annotated resource. */
 	UserRole[] value() default {};
 
-	/** 
-	 * (Optional) If set to <code>true</code>, then the roles specified in this <code>RestSecurity</code>
-	 * will append to instead of overriding the roles specified in the controller's 
-	 * <code>RestControllerSecurity</code> (if exists) for the method.
-	 */
+	/** (Optional) Modifies the REST security behavior for the annotated resource. */
 	RestSecurityMode mode() default RestSecurityMode.OVERRIDE;
 	
 }

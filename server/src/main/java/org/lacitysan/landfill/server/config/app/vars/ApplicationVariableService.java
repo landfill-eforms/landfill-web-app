@@ -1,10 +1,10 @@
-package org.lacitysan.landfill.server.config.appvars;
+package org.lacitysan.landfill.server.config.app.vars;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.lacitysan.landfill.server.config.appvars.model.ApplicationVariableSerialization;
+import org.lacitysan.landfill.server.config.app.vars.model.ApplicationVariableSerialization;
 import org.lacitysan.landfill.server.persistence.dao.system.ApplicationSettingDao;
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
 import org.springframework.beans.factory.annotation.Autowired;

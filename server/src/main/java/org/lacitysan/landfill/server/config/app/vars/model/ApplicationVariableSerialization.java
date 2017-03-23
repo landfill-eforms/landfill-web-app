@@ -1,6 +1,6 @@
-package org.lacitysan.landfill.server.config.appvars.model;
+package org.lacitysan.landfill.server.config.app.vars.model;
 
-import org.lacitysan.landfill.server.config.appvars.ApplicationVariableDefinition;
+import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableDefinition;
 
 /**
  * Don't know what to name this class.

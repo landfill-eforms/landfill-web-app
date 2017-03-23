@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.rest.file;
 
-import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

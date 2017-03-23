@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.security.filters.TokenAuthenticationFilter;
 import org.lacitysan.landfill.server.security.filters.TokenLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;

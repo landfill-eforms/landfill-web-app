@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  */
 public enum UserRole {
 	
-	SUPER_ADMIN						("Super Admin", "Super Admin"),
+//	SUPER_ADMIN						("Super Admin", "Super Admin"),
 	ADMIN							("Admin", "Admin"),
 	CREATE_USERS					("Create Users", UserRoleCategory.USERS, "Create", "User can create new users."),
 	DEACTIVATE_USERS				("Deactivate Users", UserRoleCategory.USERS, "Deactivate", "User can deactive other non-admin users."),

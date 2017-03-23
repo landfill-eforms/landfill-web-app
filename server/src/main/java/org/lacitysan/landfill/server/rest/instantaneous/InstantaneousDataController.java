@@ -2,11 +2,10 @@ package org.lacitysan.landfill.server.rest.instantaneous;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.InstantaneousDataDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.enums.UserRole;
-import org.lacitysan.landfill.server.security.annotation.RestSecurity;
+import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,28 +33,28 @@ public class InstantaneousDataController {
 		return instantaneousDataDao.getBySiteAndDate(siteName, start, end);
 	}
 	
-	@RestSecurity({UserRole.SUPER_ADMIN})
+	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public InstantaneousData create(@RequestBody InstantaneousData instantaneousData) {
 		instantaneousDataDao.create(instantaneousData);
 		return instantaneousData;
 	}
 	
-	@RestSecurity({UserRole.SUPER_ADMIN})
+	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public InstantaneousData update(@RequestBody InstantaneousData instantaneousData) {
 		instantaneousDataDao.update(instantaneousData);
 		return instantaneousData;
 	}
 
-	@RestSecurity({UserRole.SUPER_ADMIN})
+	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public InstantaneousData delete(@RequestBody InstantaneousData instantaneousData) {
 		instantaneousDataDao.delete(instantaneousData);
 		return instantaneousData;
 	}
 	
-	@RestSecurity({UserRole.SUPER_ADMIN})
+	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public InstantaneousData deleteById(@PathVariable String id) {
 		try {

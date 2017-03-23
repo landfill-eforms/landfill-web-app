@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.service;
 
-import org.lacitysan.landfill.server.config.appvars.ApplicationVariableService;
+import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
 import org.lacitysan.landfill.server.exception.user.InvalidPasswordException;
 import org.lacitysan.landfill.server.exception.user.InvalidUsernameException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;

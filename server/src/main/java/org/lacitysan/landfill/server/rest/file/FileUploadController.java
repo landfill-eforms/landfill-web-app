@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.rest.file;
 
-import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.service.mobile.MobileDataDeserializer;
 import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;
 import org.springframework.beans.factory.annotation.Autowired;

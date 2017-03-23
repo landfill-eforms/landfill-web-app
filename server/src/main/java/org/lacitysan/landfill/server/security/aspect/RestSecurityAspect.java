@@ -10,7 +10,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.lacitysan.landfill.server.persistence.enums.UserRole;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
 import org.lacitysan.landfill.server.security.annotation.RestControllerSecurity;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.security.annotation.RestSecurityMode;
@@ -30,6 +31,9 @@ public class RestSecurityAspect {
 
 	/** Whether to print debug messages. */
 	private static final boolean DEBUG = true;
+	
+	/** The generic message to include in the response when the user does not have access to the resource. */
+	private static final String ACCESS_DENIED_MESSAGE = "You are not authorized to access this resource.";
 
 	@Before("execution(* org.lacitysan.landfill.server.rest..*(..))")
 	public void before(JoinPoint joinPoint) throws AccessDeniedException {
@@ -48,20 +52,34 @@ public class RestSecurityAspect {
 		// Get user roles from the Authentication.
 		Set<String> userRoles = auth.getAuthorities().stream().map(g -> g.getAuthority()).collect(Collectors.toSet());
 
-		// If the user is a super admin, then allow access.
-		if (userRoles.contains(UserRole.SUPER_ADMIN.getName())) {
-			if (DEBUG) printSuccess("User is a super admin.");
+		// If the user is the super admin, then allow access.
+		if (userRoles.contains(ApplicationConstant.SUPER_ADMIN_ROLE_NAME)) {
+			if (DEBUG) printSuccess("User is the super admin.");
 			return;
 		}
-
-		// The set of roles allowed to access the method as defined by the method's @RestSecurity and/or the controller's @RestControllerSecurity.
-		Set<String> allowedRoles = new HashSet<>();
+		
+		// At this point, it has been determined that the user is not the super admin.
+		
+		// Check if the class is only accessible by the super admin.
+		if (AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), RestAllowSuperAdminOnly.class) != null) {
+			if (DEBUG) printDenied("This controller can only be accessed by the super admin.");
+			throw new AccessDeniedException(ACCESS_DENIED_MESSAGE);
+		}
 
 		// Get the method that is being called.
 		Method method = ((MethodSignature)joinPoint.getSignature()).getMethod();
 
+		// Check if the method is only accessible by the super admin.
+		if (AnnotationUtils.findAnnotation(method, RestAllowSuperAdminOnly.class) != null) {
+			if (DEBUG) printDenied("This method can only be accessed by the super admin.");
+			throw new AccessDeniedException(ACCESS_DENIED_MESSAGE);
+		}
+		
 		// Get the @RestSecurity annotation from the method. Traverses super methods if @RestSecurity cannot be found on the given method itself.
 		RestSecurity restSecurity = AnnotationUtils.findAnnotation(method, RestSecurity.class);
+		
+		// The set of roles allowed to access the method as defined by the method's @RestSecurity and/or the controller's @RestControllerSecurity.
+		Set<String> allowedRoles = new HashSet<>();
 
 		// Get the set of roles allowed to access the method from its @RestSecurty, and add it to the allowedRoles set.
 		if (restSecurity != null) {
@@ -102,11 +120,11 @@ public class RestSecurityAspect {
 		// Deny access if none of the roles match.
 		else {
 			if (DEBUG) printDenied("User does not have any of the required roles(s).");
-			throw new AccessDeniedException("You are not authorized to access this resource.");
+			throw new AccessDeniedException(ACCESS_DENIED_MESSAGE);
 		}
 
 	}
-
+	
 	/** Prints the start of the debug message */
 	private void printStart(String methodName, String className) {
 		System.out.println("*****REST SECURITY ASPECT*****");

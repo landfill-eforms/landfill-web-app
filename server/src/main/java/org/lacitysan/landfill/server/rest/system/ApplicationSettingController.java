@@ -2,9 +2,9 @@ package org.lacitysan.landfill.server.rest.system;
 
 import java.util.Map;
 
-import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
-import org.lacitysan.landfill.server.config.appvars.ApplicationVariableService;
-import org.lacitysan.landfill.server.config.appvars.model.ApplicationVariableSerialization;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
+import org.lacitysan.landfill.server.config.app.vars.model.ApplicationVariableSerialization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

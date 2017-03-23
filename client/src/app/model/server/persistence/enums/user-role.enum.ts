@@ -4,7 +4,6 @@
  */
 export class UserRole {
 
-	static readonly SUPER_ADMIN:UserRole = new UserRole(0, "SUPER_ADMIN", "Super Admin", null, null, "Super Admin");
 	static readonly ADMIN:UserRole = new UserRole(1, "ADMIN", "Admin", null, null, "Admin");
 	static readonly CREATE_USERS:UserRole = new UserRole(2, "CREATE_USERS", "Create Users", "Users", "Create", "User can create new users.");
 	static readonly DEACTIVATE_USERS:UserRole = new UserRole(3, "DEACTIVATE_USERS", "Deactivate Users", "Users", "Deactivate", "User can deactive other non-admin users.");
@@ -44,7 +43,6 @@ export class UserRole {
 
 	static values():UserRole[] {
 		return [
-			UserRole.SUPER_ADMIN,
 			UserRole.ADMIN,
 			UserRole.CREATE_USERS,
 			UserRole.DEACTIVATE_USERS,

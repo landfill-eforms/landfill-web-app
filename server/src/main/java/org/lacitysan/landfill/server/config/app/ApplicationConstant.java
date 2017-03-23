@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.config.appconsts;
+package org.lacitysan.landfill.server.config.app;
 
 /**
  * Contains constants and other properties for classes that cannot be read from <code>*.properties</code> files, and should not be changed by the end user.
@@ -21,8 +21,10 @@ public class ApplicationConstant {
 	/** The path to the server's REST resources. */
 	public static final String RESOURCE_PATH = "rest";
 	
+	/** String representation of the super admin user role. */
+	public static final String SUPER_ADMIN_ROLE_NAME = "SUPER_ADMIN";
+	
 	/** The secret for generated JWTs. */
 	public static final String TOKEN_SECRET = "secret";
-
 	
 }

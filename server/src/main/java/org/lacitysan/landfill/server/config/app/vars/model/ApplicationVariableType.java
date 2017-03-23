@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.config.appvars.model;
+package org.lacitysan.landfill.server.config.app.vars.model;
 
 /**
  * The data type of the value stored in an <code>ApplicationSetting</code> key value pair.

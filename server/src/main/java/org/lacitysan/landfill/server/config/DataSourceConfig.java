@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.config;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
-import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeRepairData;

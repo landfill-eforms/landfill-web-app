@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
-import org.lacitysan.landfill.server.config.appvars.ApplicationVariableService;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

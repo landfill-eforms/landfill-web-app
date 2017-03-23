@@ -2,11 +2,10 @@ package org.lacitysan.landfill.server.rest.user;
 
 import java.util.List;
 
-import org.lacitysan.landfill.server.config.appconsts.ApplicationConstant;
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
-import org.lacitysan.landfill.server.persistence.enums.UserRole;
-import org.lacitysan.landfill.server.security.annotation.RestSecurity;
+import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
 import org.lacitysan.landfill.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,14 +70,14 @@ public class UserController {
 		return userService.updateUserGroups(user);
 	}
 	
-	@RestSecurity({UserRole.SUPER_ADMIN})
+	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public User delete(@RequestBody User user) {
 		userDao.delete(user);
 		return user;
 	}
 	
-	@RestSecurity({UserRole.SUPER_ADMIN})
+	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public User deleteById(@PathVariable String id) {
 		try {

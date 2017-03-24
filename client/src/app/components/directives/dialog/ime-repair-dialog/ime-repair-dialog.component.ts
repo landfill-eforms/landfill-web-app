@@ -27,7 +27,7 @@ export class ImeRepairDialogComponent {
 			this.data.soil = false;
 		}
 		if (!this.data.water) {
-			this.data.soil = false;
+			this.data.water = false;
 		}
 		this.dialogRef.close(this.data);
 	}

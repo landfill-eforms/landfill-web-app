@@ -57,7 +57,7 @@ public class DataVerificationService {
 		
 		// *** All data should be verified and good to go by this point.
 		
-		//unverifiedDataSetDao.delete(unverifiedDataSet);
+		unverifiedDataSetDao.delete(unverifiedDataSet);
 		
 		for (InstantaneousData instantaneousData : result.getInstantaneousData()) {
 			
@@ -139,9 +139,10 @@ public class DataVerificationService {
 				if (warmspot.getMonitoringPoint().getSite() != site) {
 					return null;
 				}
-				if (warmspot.getInstrument() == null) {
-					return null;
-				}
+				// TODO Re-enable this check.
+//				if (warmspot.getInstrument() == null) {
+//					return null;
+//				}
 				
 			}
 			

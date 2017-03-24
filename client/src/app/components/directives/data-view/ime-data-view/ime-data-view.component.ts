@@ -76,10 +76,6 @@ export class ImeDataViewComponent implements OnChanges, OnInit {
 		dialogConfig.width = '640px';
 		//dialogConfig.height = '480px';
 		let dialogRef:MdDialogRef<ImeRepairDialogComponent> = this.dialog.open(ImeRepairDialogComponent, dialogConfig);
-		if (!data.imeRepairData) {
-			data.imeRepairData = new ImeRepairData();
-		}
-		dialogRef.componentInstance.data = data.imeRepairData;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				console.log(result);

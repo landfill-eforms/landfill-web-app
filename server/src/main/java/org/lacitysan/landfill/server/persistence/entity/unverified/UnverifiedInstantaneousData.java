@@ -73,7 +73,7 @@ public class UnverifiedInstantaneousData {
 	@JoinTable(name="test.dbo.UnverifiedInstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
 	private Set<WarmspotData> warmspotData = new HashSet<>();
 	
-	@JsonIgnoreProperties({"unverifiedInstantaneousData"})
+	//@JsonIgnoreProperties({"unverifiedInstantaneousData"})
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="UnverifiedDataSetFK", nullable=false)

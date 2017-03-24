@@ -26,7 +26,7 @@ export class AuthService {
 		return this.jwtHelper.isTokenExpired(this.getToken());
 	}
 
-	getUserPermissions():UserPermission[] {
+	getUserPermissions():string[] {
 		let result = JSON.parse(sessionStorage.getItem("user_permissions"));
 		if (Array.isArray(result)) {
 			return result;
@@ -64,34 +64,43 @@ export class AuthService {
 	}
 
 	canAccess(requiredPermissions:any[]) {
-		if (!requiredPermissions) {
+		if (!requiredPermissions || requiredPermissions.length == 0) {
 			return true;
 		}
-		// TODO Change this to not use ordinal.
-		let userPermissions:number[] = this.getUserPermissions().map(r => r.ordinal);
-		if (userPermissions.indexOf(0) > -1 || userPermissions.indexOf(1) > -1) {
+		if (this.isSuperAdmin) {
 			return true;
 		}
-		for (let i = 0; i < requiredPermissions.length; i++) {
-			if (userPermissions.indexOf(requiredPermissions[i].ordinal) > -1) {
-				return true;
-			}
-		}
+		// TODO FIX THIS
+		// if (requiredPermissions.)
+		// let userPermissions:string[] = this.getUserPermissions();
+		// if (userPermissions.indexOf(0) > -1 || userPermissions.indexOf(1) > -1) {
+		// 	return true;
+		// }
+		// for (let i = 0; i < requiredPermissions.length; i++) {
+		// 	if (userPermissions.indexOf(requiredPermissions[i].ordinal) > -1) {
+		// 		return true;
+		// 	}
+		// }
 		return false;
 	}
 
-	private parseUserPermissions(jwtToken:string):UserPermission[] {
+	isSuperAdmin():boolean {
+		return this.getUserPermissions().indexOf("SUPER_ADMIN") < 0;
+	}
+
+	private parseUserPermissions(jwtToken:string):string[] {
 		let claims:any = this.jwtHelper.decodeToken(jwtToken);
 		let permissions = claims["permissions"];
 		if (permissions && Array.isArray(permissions)) {
-			let result:UserPermission[] = [];
-			for (let i = 0; i < permissions.length; i++) {
-				let permission:UserPermission = UserPermission[permissions[i]];
-				if (permission) {
-					result.push(permission);
-				}
-			}
-			return result;
+			// let result:UserPermission[] = [];
+			// for (let i = 0; i < permissions.length; i++) {
+			// 	let permission:UserPermission = UserPermission[permissions[i]];
+			// 	if (permission) {
+			// 		result.push(permission);
+			// 	}
+			// }
+			// return result;
+			return permissions;
 		}
 		return [];
 	}

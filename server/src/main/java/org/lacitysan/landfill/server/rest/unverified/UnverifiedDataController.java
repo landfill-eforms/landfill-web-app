@@ -6,6 +6,9 @@ import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
+import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.unverified.DataVerificationService;
 import org.lacitysan.landfill.server.service.unverified.model.VerifiedDataSet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +31,13 @@ public class UnverifiedDataController {
 	@Autowired
 	DataVerificationService dataVerificationService;
 	
+	@RestSecurity({UserPermission.VIEW_UNVERIFIED_DATA_SET_LIST})
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<UnverifiedDataSet> getAll() {
 		return unverifiedDataSetDao.getAll();
 	}
 	
+	@RestSecurity({UserPermission.VIEW_UNVERIFIED_DATA_SET})
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public UnverifiedDataSet getById(@PathVariable String id) {
 		try {
@@ -43,6 +48,7 @@ public class UnverifiedDataController {
 		}
 	}
 	
+	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public UnverifiedDataSet create(@RequestBody UnverifiedDataSet dataSet) {
 		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
@@ -52,6 +58,7 @@ public class UnverifiedDataController {
 		return dataSet;
 	}
 	
+	@RestSecurity({UserPermission.EDIT_UNVERIFIED_DATA_SET})
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public UnverifiedDataSet update(@RequestBody UnverifiedDataSet dataSet) {
 		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
@@ -63,6 +70,7 @@ public class UnverifiedDataController {
 	
 	// TODO Create a method for deleting data sets.
 	
+	@RestSecurity({UserPermission.COMMIT_UNVERIFIED_DATA_SET})
 	@RequestMapping(value="/commit", method=RequestMethod.POST)
 	public Object commit(@RequestBody UnverifiedDataSet dataSet) {
 		VerifiedDataSet verifiedDataSet = dataVerificationService.verifyAndCommit(dataSet);

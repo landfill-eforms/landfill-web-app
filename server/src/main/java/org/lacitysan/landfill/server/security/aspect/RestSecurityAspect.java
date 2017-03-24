@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.persistence.enums.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
 import org.lacitysan.landfill.server.security.annotation.RestControllerSecurity;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
@@ -73,6 +74,12 @@ public class RestSecurityAspect {
 		if (AnnotationUtils.findAnnotation(method, RestAllowSuperAdminOnly.class) != null) {
 			if (DEBUG) printDenied("This method can only be accessed by the super admin.");
 			throw new AccessDeniedException(ACCESS_DENIED_MESSAGE);
+		}
+		
+		// If the controller/method is not restricted to the super admin, then allow access if the user is an regular admin.
+		if (userPermissions.contains(UserPermission.ADMIN)) {
+			if (DEBUG) printSuccess("User is an admin.");
+			return;
 		}
 		
 		// Get the @RestSecurity annotation from the method. Traverses super methods if @RestSecurity cannot be found on the given method itself.

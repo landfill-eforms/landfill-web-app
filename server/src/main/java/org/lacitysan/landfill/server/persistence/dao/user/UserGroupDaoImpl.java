@@ -12,14 +12,18 @@ import org.springframework.stereotype.Repository;
 public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements UserGroupDao {
 
 	@Override
-	public UserGroup initialize(UserGroup userGroup) {
-		Hibernate.initialize(userGroup.getCreatedBy());
-		Hibernate.initialize(userGroup.getModifiedBy());
-		userGroup.getUsers().forEach(user -> {
-			Hibernate.initialize(user);
-		});
-		Hibernate.initialize(userGroup.getUserPermissions());
-		return userGroup;
+	public UserGroup initialize(Object entity) {
+		if (entity instanceof UserGroup) {
+			UserGroup userGroup = (UserGroup)entity;
+			Hibernate.initialize(userGroup.getCreatedBy());
+			Hibernate.initialize(userGroup.getModifiedBy());
+			userGroup.getUsers().forEach(user -> {
+				Hibernate.initialize(user);
+			});
+			Hibernate.initialize(userGroup.getUserPermissions());
+			return userGroup;
+		}
+		return null;
 	}
-	
+
 }

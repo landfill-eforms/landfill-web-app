@@ -3,9 +3,9 @@ package org.lacitysan.landfill.server.rest.instrument;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
+import org.lacitysan.landfill.server.service.instrument.InstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +22,9 @@ public class InstrumentController {
 	
 	@Autowired
 	InstrumentDao instrumentDao;
+	
+	@Autowired
+	InstrumentService instrumentService;
 	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<Instrument> getAll() {
@@ -40,27 +43,13 @@ public class InstrumentController {
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public Instrument create(@RequestBody Instrument instrument) {
-		
-		// TODO Move this to a service.
-		instrument.setSerialNumber(instrument.getSerialNumber().trim());
-		if (instrument.getSerialNumber().isEmpty()) {
-			throw new EmptyStringException("Serial number cannot be blank.");
-		}
-		
-		instrumentDao.create(instrument);
+		instrumentService.create(instrument);
 		return instrument;
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public Instrument update(@RequestBody Instrument instrument) {
-		
-		// TODO Move this to a service.
-		instrument.setSerialNumber(instrument.getSerialNumber().trim());
-		if (instrument.getSerialNumber().isEmpty()) {
-			throw new EmptyStringException("Serial number cannot be blank.");
-		}
-		
-		instrumentDao.update(instrument);
+		instrumentService.update(instrument);
 		return instrument;
 	}
 	

@@ -52,7 +52,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 			if (password == null || !passwordEncoder.matches(password, applicationVariableService.getSuperAdminPassword())) {
 				throw new BadCredentialsException("Invalid Password"); // TODO Change this to "Invalid user or password"
 			}
-			result = new AuthenticatedUser(null, ApplicationConstant.SUPER_ADMIN_USERNAME, Arrays.asList(new GrantedAuthority[] {new GrantedAuthorityImpl(ApplicationConstant.SUPER_ADMIN_PERMISSION_NAME)}));
+			result = new AuthenticatedUser(-1, ApplicationConstant.SUPER_ADMIN_USERNAME, Arrays.asList(new GrantedAuthority[] {new GrantedAuthorityImpl(ApplicationConstant.SUPER_ADMIN_PERMISSION_NAME)}));
 		}
 		
 		// If the user is attempting to log in with a normal user account.

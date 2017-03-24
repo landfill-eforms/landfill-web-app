@@ -3,6 +3,7 @@ package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
@@ -44,7 +45,7 @@ public class InstantaneousDataDaoImpl extends AbstractDaoImpl<InstantaneousData>
 					.add(Restrictions.le("monitoringPoint", monitoringPoints[range.getMax()]))
 					.list());
 		}
-		result.forEach(data -> initialize(data));
+		result.stream().map(data -> initialize(data)).filter(data -> data != null).collect(Collectors.toList());
 		return result;
 	}
 
@@ -67,18 +68,22 @@ public class InstantaneousDataDaoImpl extends AbstractDaoImpl<InstantaneousData>
 			}
 			result.addAll(criteria.list());
 		}
-		result.forEach(data -> initialize(data));
+		result.stream().map(data -> initialize(data)).filter(data -> data != null).collect(Collectors.toList());
 		return result;
 	}
 
-	
-	public InstantaneousData initialize(InstantaneousData instantaneousData) {
-		Hibernate.initialize(instantaneousData.getInstrument());
-		Hibernate.initialize(instantaneousData.getMonitoringPoint());
-		Hibernate.initialize(instantaneousData.getInspector());
-		instantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
-		instantaneousData.getWarmspotData().forEach(warmspot -> Hibernate.initialize(warmspot));
-		return instantaneousData;
+	@Override
+	public InstantaneousData initialize(Object entity) {
+		if (entity instanceof InstantaneousData) {
+			InstantaneousData instantaneousData = (InstantaneousData)entity;
+			Hibernate.initialize(instantaneousData.getInstrument());
+			Hibernate.initialize(instantaneousData.getMonitoringPoint());
+			Hibernate.initialize(instantaneousData.getInspector());
+			instantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
+			instantaneousData.getWarmspotData().forEach(warmspot -> Hibernate.initialize(warmspot));
+			return instantaneousData;
+		}
+		return null;
 	}
 
 }

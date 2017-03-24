@@ -11,8 +11,11 @@ import org.springframework.stereotype.Repository;
 public class UnverifiedImeDataDaoImpl extends AbstractDaoImpl<UnverifiedImeData> implements UnverifiedImeDataDao {
 
 	@Override
-	public UnverifiedImeData initialize(UnverifiedImeData unverifiedImeData) {
-		return unverifiedImeData;
+	public UnverifiedImeData initialize(Object entity) {
+		if (entity instanceof UnverifiedImeData) {
+			return (UnverifiedImeData)entity;
+		}
+		return null;
 	}
 
 	

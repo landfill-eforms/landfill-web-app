@@ -1,13 +1,18 @@
 package org.lacitysan.landfill.server.service;
 
+import java.util.Map;
+
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
+import org.lacitysan.landfill.server.exception.AlreadyExistsException;
 import org.lacitysan.landfill.server.exception.user.InvalidEmailException;
 import org.lacitysan.landfill.server.exception.user.InvalidPasswordException;
 import org.lacitysan.landfill.server.exception.user.InvalidUsernameException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,13 +31,33 @@ public class UserService {
 	@Autowired
 	ApplicationVariableService applicationVariableService;
 	
+	/** 
+	 * Gets the current user based on authentication stored in the security context holder.
+	 * Super admin account will return null.
+	 * @return
+	 */
+	public User getCurrentUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null ) {
+			return null;
+		}
+		Object principle = authentication.getPrincipal();
+		if (principle instanceof Map) {
+			Integer id = (Integer)((Map<?, ?>)principle).get("id");
+			if (id != null && id >= 0) {
+				return userDao.getById(id);
+			}
+		}
+		return null;
+	}
+	
 	public User create(User user) {
 		
 		// Check if username is valid.
 		validateUsername(user.getUsername(), true);
 		
 		// Check if username already exists.
-		checkIfUsernameExists(user.getUsername(), true);
+		checkIfUsernameExists(user.getUsername(), user.getId(), true);
 		
 		// Check if password is valid.
 		validatePassword(user.getPassword(), true);
@@ -55,7 +80,7 @@ public class UserService {
 		validateUsername(user.getUsername(), true);
 		
 		// Check if username already exists.
-		checkIfUsernameExists(user.getUsername(), true);
+		checkIfUsernameExists(user.getUsername(), user.getId(), true);
 		
 		// Update existing user.
 		User existing = userDao.getById(user.getId());
@@ -183,14 +208,17 @@ public class UserService {
 	}
 	
 	/** Assumes username is not null. */
-	private boolean checkIfUsernameExists(String username, boolean throwException) {
-		if (username.equalsIgnoreCase(ApplicationConstant.SUPER_ADMIN_USERNAME) || userDao.getUserByUsername(username) != null) {
-			if (throwException) {
-				// TODO Throw username already exists exception.
+	private boolean checkIfUsernameExists(String username, Integer ignoreId, boolean throwException) {
+		if (!username.equalsIgnoreCase(ApplicationConstant.SUPER_ADMIN_USERNAME)) {
+			User existing = userDao.getUserByUsername(username);
+			if (existing == null || existing.getId().equals(ignoreId)) {
+				return false;
 			}
-			return true;
 		}
-		return false;
+		if (throwException) {
+			throw new AlreadyExistsException("Username '" + username + "' already exists.");
+		}
+		return true;
 	}
 	
 }

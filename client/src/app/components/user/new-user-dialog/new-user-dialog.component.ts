@@ -40,9 +40,10 @@ export class NewUserDialogComponent implements OnInit {
 		this.userService.create(this.user, 
 			(data) => {
 				console.log(data);
+				this.dialogRef.close(data);
 			},
 			(err) => {
-				this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 2000});
+				this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
 			}
 		);
 	}

@@ -2,6 +2,7 @@ package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
@@ -34,7 +35,7 @@ public class ImeNumberDaoImpl extends AbstractDaoImpl<ImeNumber> implements ImeN
 					.createCriteria(ImeNumber.class)
 					.add(Restrictions.eq("site", Site.valueOf(siteName)))
 					.list();
-			result.forEach(imeNumber -> initialize(imeNumber));
+			result.stream().map(imeNumber -> initialize(imeNumber)).filter(imeNumber -> imeNumber != null).collect(Collectors.toList());
 			return result;
 		}
 		return null;
@@ -51,7 +52,7 @@ public class ImeNumberDaoImpl extends AbstractDaoImpl<ImeNumber> implements ImeN
 					.add(Restrictions.eq("site", site))
 					.add(Restrictions.eq("dateCode", dateCode))
 					.list();
-			result.forEach(imeNumber -> initialize(imeNumber));
+			result.stream().map(imeNumber -> initialize(imeNumber)).filter(imeNumber -> imeNumber != null).collect(Collectors.toList());
 			return result;
 		}
 		return null;
@@ -67,9 +68,7 @@ public class ImeNumberDaoImpl extends AbstractDaoImpl<ImeNumber> implements ImeN
 					.add(Restrictions.eq("dateCode", imeNumber.getDateCode()))
 					.add(Restrictions.eq("sequence", imeNumber.getSequence()))
 					.uniqueResult();
-			if (result instanceof ImeNumber) {
-				return initialize((ImeNumber)result);
-			}
+			return initialize(result);
 		}
 		return null;
 	}
@@ -87,16 +86,21 @@ public class ImeNumberDaoImpl extends AbstractDaoImpl<ImeNumber> implements ImeN
 		return imeNumber;
 	}
 
-	public ImeNumber initialize(ImeNumber imeNumber) {
-		Hibernate.initialize(imeNumber.getMonitoringPoints());
-		imeNumber.getInstantaneousData().forEach(instantaneousData -> {
-			Hibernate.initialize(instantaneousData);
-		});
-		imeNumber.getUnverifiedInstantaneousData().forEach(unverifiedInstantaneousData -> {
-			Hibernate.initialize(unverifiedInstantaneousData);
-		});
-		Hibernate.initialize(imeNumber.getImeData());
-		return imeNumber;
+	@Override
+	public ImeNumber initialize(Object entity) {
+		if (entity instanceof ImeNumber) {
+			ImeNumber imeNumber = (ImeNumber)entity;
+			Hibernate.initialize(imeNumber.getMonitoringPoints());
+			imeNumber.getInstantaneousData().forEach(instantaneousData -> {
+				Hibernate.initialize(instantaneousData);
+			});
+			imeNumber.getUnverifiedInstantaneousData().forEach(unverifiedInstantaneousData -> {
+				Hibernate.initialize(unverifiedInstantaneousData);
+			});
+			Hibernate.initialize(imeNumber.getImeData());
+			return imeNumber;
+		}
+		return null;
 	}
 
 }

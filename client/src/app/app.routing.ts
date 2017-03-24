@@ -144,7 +144,7 @@ export class DefinedRoutes {
 	}
 
 	static readonly EXCEEDENCE_REPORT:Route = {
-		path: 'exceedence-report',
+		path: 'exceedance-report',
 		component: ImeReportComponent
 	}
 

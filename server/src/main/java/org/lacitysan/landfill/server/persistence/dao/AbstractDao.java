@@ -18,6 +18,6 @@ public interface AbstractDao<T> {
 
 	T delete(T entity);
 	
-	T initialize(T entity);
+	T initialize(Object entity);
 
 }

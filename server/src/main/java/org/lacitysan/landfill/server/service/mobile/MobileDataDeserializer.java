@@ -26,12 +26,12 @@ import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.lacitysan.landfill.server.service.ImeService;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
+import org.lacitysan.landfill.server.service.UserService;
 import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;
 import org.lacitysan.landfill.server.service.mobile.model.MobileImeData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileInstantaneousData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileWarmspotData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -52,6 +52,9 @@ public class MobileDataDeserializer {
 	
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+	UserService userService;
 	
 	@Autowired
 	ImeService imeService;
@@ -222,17 +225,7 @@ public class MobileDataDeserializer {
 		}
 		
 		// *** If it got to this point in the code, then that means there was no 'errors' with the mobile data.
-		
-		// Get the current user from the security context holder, so we can update the 'modified by' and/or the 'created by' fields.
-		User currentUser = new User();
-		Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (principle instanceof Map) {
-			Integer id = (Integer)((Map<?, ?>)principle).get("id");
-			if (id != null) {
-				currentUser.setId(id);
-			}
-		}
-		
+				
 		Set<UnverifiedDataSet> result = resultMap.values().stream().map(map -> map.values()).flatMap(values -> values.stream()).collect(Collectors.toSet());
 		
 		// Insert IME numbers into database.
@@ -255,7 +248,7 @@ public class MobileDataDeserializer {
 		
 		// Insert unverified data sets into the database.
 		for (UnverifiedDataSet unverifiedDataSet : result) {
-			unverifiedDataSet.setUploadedBy(currentUser);
+			unverifiedDataSet.setUploadedBy(userService.getCurrentUser());
 			unverifiedDataSet.setUploadedDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 			unverifiedDataSet.setFilename(mobileDataContainer.getFilename());
 			Object id = unverifiedDataSetDao.create(unverifiedDataSet);

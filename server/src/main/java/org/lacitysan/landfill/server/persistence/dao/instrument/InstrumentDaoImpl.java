@@ -1,15 +1,13 @@
 package org.lacitysan.landfill.server.persistence.dao.instrument;
 
-import java.util.List;
-
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
+import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alvin Quach
@@ -21,36 +19,25 @@ public class InstrumentDaoImpl extends AbstractDaoImpl<Instrument> implements In
 	HibernateTemplate hibernateTemplate;
 	
 	@Override
-	@Transactional
-	public Instrument getById(Integer id) {
+	public Instrument getByTypeAndSerialNumber(InstrumentType instrumentType, String serialNumber) {
 		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(Instrument.class)
-				.add(Restrictions.idEq(id))
+				.add(Restrictions.eq("instrumentType", instrumentType))
+				.add(Restrictions.eq("serialNumber", serialNumber).ignoreCase()) // The ignoreCase() is not actually needed when working with SQL Server.
 				.uniqueResult();
-		if (result instanceof Instrument) {
-			Instrument instrument = (Instrument)result;
-			return initialize(instrument);
+		return initialize(result);
+	}
+	
+	@Override
+	public Instrument initialize(Object entity) {
+		if (entity instanceof Instrument) {
+			Instrument instrument = (Instrument)entity;
+			Hibernate.initialize(instrument.getInstrumentType());
+			Hibernate.initialize(instrument.getInstrumentStatus());
+			Hibernate.initialize(instrument.getSite());
+			return instrument;
 		}
 		return null;
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<Instrument> getAll() {
-		List<Instrument> result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(Instrument.class)
-				.list();
-		result.forEach(instrument -> initialize(instrument));
-		return result;
-	}
-	
-	@Override
-	public Instrument initialize(Instrument instrument) {
-		Hibernate.initialize(instrument.getInstrumentType());
-		Hibernate.initialize(instrument.getInstrumentStatus());
-		Hibernate.initialize(instrument.getSite());
-		return instrument;
 	}
 	
 }

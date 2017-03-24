@@ -2,6 +2,7 @@ package org.lacitysan.landfill.server.persistence.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public T getById(Integer id) {
@@ -26,7 +26,7 @@ public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
 				.add(Restrictions.idEq(id))
 				.uniqueResult();
 		if (result != null) {
-			return initialize((T)result);
+			return initialize(result);
 		}
 		return null;
 	}
@@ -38,7 +38,7 @@ public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
 		List<T> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(getGenericClass())
 				.list();
-		result.forEach(entity -> initialize(entity));
+		result.stream().map(e -> initialize(e)).filter(e -> e != null).collect(Collectors.toList());
 		return result;
 	}
 	

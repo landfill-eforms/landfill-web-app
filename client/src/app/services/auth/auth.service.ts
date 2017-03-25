@@ -63,29 +63,47 @@ export class AuthService {
 		this.router.navigate(['/login']);
 	}
 
-	canAccess(requiredPermissions:any[]) {
-		if (!requiredPermissions || requiredPermissions.length == 0) {
+	canAccess(permissions:UserPermission[]) {
+
+		// If there were no required permissions specified, then allow access.
+		if (!permissions || permissions.length == 0) {
 			return true;
 		}
-		if (this.isSuperAdmin) {
+
+		// Get string array of current user's permissions.
+		let userPermissions:string[] = this.getUserPermissions();
+
+		// If the current user is the super admin, then allow access.
+		if (userPermissions.indexOf("SUPER_ADMIN") > -1) {
 			return true;
 		}
-		// TODO FIX THIS
-		// if (requiredPermissions.)
-		// let userPermissions:string[] = this.getUserPermissions();
-		// if (userPermissions.indexOf(0) > -1 || userPermissions.indexOf(1) > -1) {
-		// 	return true;
-		// }
-		// for (let i = 0; i < requiredPermissions.length; i++) {
-		// 	if (userPermissions.indexOf(requiredPermissions[i].ordinal) > -1) {
-		// 		return true;
-		// 	}
-		// }
+
+		// *** At this point, it is determined that the user is not the super admin.
+
+		// Convert array of UserPermission into array of strings.
+		let requiredPermissions:string[] = permissions.map(p => p.constantName);
+
+		// If the only the super admin can access the route, then deny access.
+		if (requiredPermissions.length == 1 && requiredPermissions[0] == "SUPER_ADMIN") {
+			return false;
+		}
+
+		// If the user is an admin, then allow access.
+		if (userPermissions.indexOf(UserPermission.ADMIN.constantName) > -1) {
+			return true;
+		}
+
+		// Check if the user has at least one of the required permission.
+		for (let i = 0; i < requiredPermissions.length; i++) {
+			if (userPermissions.indexOf(requiredPermissions[i]) > -1) {
+				return true;
+			}
+		}
 		return false;
 	}
 
 	isSuperAdmin():boolean {
-		return this.getUserPermissions().indexOf("SUPER_ADMIN") < 0;
+		return this.getUserPermissions().indexOf("SUPER_ADMIN") > -1;
 	}
 
 	private parseUserPermissions(jwtToken:string):string[] {

@@ -67,11 +67,19 @@ export class DefinedRoutes {
 	static readonly USER_LIST:Route = {
 		path: 'user-list',
 		component: UserListComponent,
+		canActivate: [AuthGuard],
+		data: {permissions: [
+			UserPermission.VIEW_USER_LIST
+		]}
 	}
 
 	static readonly USER:Route = {
 		path: 'user/:username',
 		component: UserBaseComponent,
+		canActivate: [AuthGuard],
+		data: {permissions: [
+			UserPermission.EDIT_USER_PROFILES
+		]}
 	}
 
 	static readonly NEW_USER:Route = {

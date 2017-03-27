@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { RestrictedRouteBase } from './../../app.routing';
 import { environment } from './../../../environments/environment';
-import { UserPermission } from './../../model/server/persistence/enums/user-permission.enum';
+import { UserPermission, UserPermissions } from './../../model/server/persistence/enums/user-permission.enum';
 
 @Injectable()
 export class AuthService {
@@ -56,6 +56,8 @@ export class AuthService {
 			(error:any) => {
 				this.snackBar.open(JSON.parse(error.text()).message, "OK", {duration: 2000});
 			});
+
+			console.log(UserPermissions);
 	}
 
 	logout() {

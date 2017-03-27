@@ -62,7 +62,7 @@ public class MobileDataDeserializer {
 	@Autowired
 	MonitoringPointService monitoringPointService;
 	
-	public Set<UnverifiedDataSet> deserializeData(MobileDataContainer mobileDataContainer) throws ParseException {
+	public Set<UnverifiedDataSet> deserializeData(MobileDataContainer mobileDataContainer) {
 		
 		// Store a map of users by their usernames.
 		Map<String, User> userMap = new HashMap<>();

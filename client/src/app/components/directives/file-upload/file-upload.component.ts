@@ -50,6 +50,9 @@ export class FileUploadComponent {
                     this.router.navigate(['/app/unverified-data-set-list/' + data.id]); 
                     this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
 
+                },
+                (err) => {
+                    this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
                 }
             );
         }

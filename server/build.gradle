@@ -43,6 +43,7 @@ ext {
 	jacksonVersion = '2.8.7'
 	jjwtVersion = '0.7.0'
 	aspectjVersion = '1.8.9'
+	pdfboxVersion = '2.0.5'
 }
 
 dependencies {
@@ -60,6 +61,7 @@ dependencies {
 	compile('com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:' + jacksonVersion)
 	compile('io.jsonwebtoken:jjwt:' + jjwtVersion)
 	compile('org.aspectj:aspectjweaver:' + aspectjVersion)
+	compile('org.apache.pdfbox:pdfbox:' + pdfboxVersion)
 	
 	compile files('lib/sqljdbc42.jar')
 	

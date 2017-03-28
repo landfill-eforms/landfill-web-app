@@ -14,7 +14,7 @@ import { UserGroupsComponent } from './components/user-group/user-group-list/use
 import { Route, Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from "@angular/core";
 import { AuthGuard } from "./services/auth/authguard";
-import { UserPermission, UserPermissions } from './model/server/persistence/enums/user-permission.enum';
+import { UserPermission, AOTUserPermission } from './model/server/persistence/enums/user-permission.enum';
 import { LoginComponent } from './components/public/login/login.component';
 import { ForbiddenComponent } from './components/public/forbidden/forbidden.component';
 import { NavigationBaseComponent } from './components/navigation/navigation-base/navigation-base.component';
@@ -69,7 +69,7 @@ export class DefinedRoutes {
 		component: UserListComponent,
 		canActivate: [AuthGuard],
 		data: {permissions: [
-			UserPermissions.VIEW_USER_LIST // IS THIS THE FIX?
+			AOTUserPermission.VIEW_USER_LIST // IS THIS THE FIX?
 		]}
 	}
 
@@ -78,7 +78,7 @@ export class DefinedRoutes {
 		component: UserBaseComponent,
 		canActivate: [AuthGuard],
 		data: {permissions: [
-			UserPermissions.EDIT_USER_PROFILES
+			AOTUserPermission.EDIT_USER_PROFILES
 		]}
 	}
 

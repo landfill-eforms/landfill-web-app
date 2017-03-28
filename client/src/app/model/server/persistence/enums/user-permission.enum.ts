@@ -88,12 +88,7 @@ export class UserPermission {
 
 // IS THIS THE FIX?
 
-export interface IUserPermissions {
-	VIEW_USER_LIST: UserPermission;
-	EDIT_USER_PROFILES: UserPermission;
-}
-
-export const UserPermissions : IUserPermissions = {
+export const AOTUserPermission = {
 	VIEW_USER_LIST: UserPermission["VIEW_USER_LIST"],
 	EDIT_USER_PROFILES: UserPermission["EDIT_USER_PROFILES"]
 }

@@ -1,5 +1,5 @@
 # Landfill e-Forms Web Application
-The Landfill e-Forms Web Application is developed with an Angular 2 front-end and a Java/Spring back-end, and is very much still a work in progress.
+The Landfill e-Forms Web Application is developed with an Angular 4 front-end and a Java/Spring back-end, and is very much still a work in progress.
 ## Table of Contents
 * [Prerequisites](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#prerequisites)
   * [Front-End Server](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#front-end-server)

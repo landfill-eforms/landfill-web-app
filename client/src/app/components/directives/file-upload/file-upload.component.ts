@@ -1,7 +1,7 @@
 import { MdSnackBar } from '@angular/material';
+import { FileUploadService } from './../../../services/file/file-upload.service';
 import { Router } from '@angular/router';
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
-import { FileUploadService } from './../../../services/file/file-upload.service';
 
 
 // Source: http://stackoverflow.com/questions/36352405/file-upload-with-angular2-to-rest-api/39862337#39862337
@@ -13,6 +13,7 @@ import { FileUploadService } from './../../../services/file/file-upload.service'
 export class FileUploadComponent {
 
     @Input() multiple:boolean = false;
+    @Input() uploadRestUrl:string;
     @ViewChild('fileInput') el:ElementRef;
 
     selectedFileNames:string[] = [];
@@ -20,8 +21,8 @@ export class FileUploadComponent {
     constructor(
         private router:Router,
         private snackBar:MdSnackBar,
-		private fileUploadService:FileUploadService
-		) {}
+        private fileUploadService:FileUploadService
+        ) {}
 
     fileSelected() {
         let inputEl:HTMLInputElement = this.el.nativeElement;
@@ -42,14 +43,14 @@ export class FileUploadComponent {
             for (let i = 0; i < fileCount; i++) {
                 formData.append('file', inputEl.files.item(i));
             }
-			this.fileUploadService.testUpload(formData, 
+            this.fileUploadService.upload("mobile", formData,
                 (data) => {
                     console.log(data);
 
                     // TODO Move these somewhere else.
                     this.router.navigate(['/app/unverified-data-set-list/' + data.id]); 
                     this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
-
+                    
                 },
                 (err) => {
                     this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});

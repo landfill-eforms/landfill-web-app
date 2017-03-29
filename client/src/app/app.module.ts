@@ -1,3 +1,4 @@
+import { MobileModule } from './components/mobile/mobile.module';
 import { NewInstrumentDialogComponent } from './components/instrument/dialog/new-instrument-dialog/new-instrument-dialog.component';
 import { NewInstrumentTypeDialogComponent } from './components/instrument/dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
 import { InstrumentTypeService } from './services/instrument/instrument-type.service';
@@ -36,7 +37,6 @@ import { NavigationModule } from './components/navigation/navigation.module'
 import { DirectivesModule } from './components/directives/directives.module';
 import { UserModule } from './components/user/user.module';
 import { UserGroupModule } from './components/user-group/user-group.module';
-import { TestModule } from './components/test/test.module';
 import { FileUploadService } from './services/file/file-upload.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -60,11 +60,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		DirectivesModule,
 		InstantaneousModule,
 		InstrumentModule,
+		MobileModule,
 		UserModule,
 		UserGroupModule,
 		UnverifiedDataModule,
 		ReportModule,
-		TestModule,
 	],
 	entryComponents: [
 		NewUserDialogComponent,

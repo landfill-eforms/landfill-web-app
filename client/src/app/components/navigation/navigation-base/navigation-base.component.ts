@@ -146,7 +146,7 @@ export class NavigationBaseComponent implements OnInit {
 		name: "Data Transfer",
 		links: [
 			{
-				route: DefinedRoutes.INSTANTANEOUS_UPLOAD,
+				route: DefinedRoutes.MOBILE_UPLOAD,
 				icon: 'file_upload',
 				label: 'Upload From Mobile',
 				visible: false
@@ -191,7 +191,7 @@ export class NavigationBaseComponent implements OnInit {
 			visible: false
 		},
 		{
-			route: DefinedRoutes.INSTANTANEOUS_UPLOAD,
+			route: DefinedRoutes.MOBILE_UPLOAD,
 			icon: 'file_upload',
 			label: 'Upload From Mobile',
 			visible: false

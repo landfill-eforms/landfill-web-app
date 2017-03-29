@@ -1,7 +1,7 @@
 <div class="component">
     <h3>Upload Data From Mobile App</h3>
     <div>
-        <app-file-upload #fileUpload (change)="fileUpload.fileSelected()"></app-file-upload>
+        <app-file-upload #fileUpload (change)="fileUpload.fileSelected()" [uploadRestUrl]="'mobile'"></app-file-upload>
     </div>
     <div style="margin-top:16px;">
         <button md-raised-button color="accent" (click)="fileUpload.upload()">UPLOAD</button>

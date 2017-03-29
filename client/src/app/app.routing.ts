@@ -1,3 +1,4 @@
+import { MobileUploadComponent } from './components/mobile/mobile-upload/mobile-upload.component';
 import { InstrumentTypeComponent } from './components/instrument/instrument-type/instrument-type.component';
 import { InstrumentTypeListComponent } from './components/instrument/instrument-type-list/instrument-type-list.component';
 import { InstrumentComponent } from './components/instrument/instrument/instrument.component';
@@ -18,7 +19,6 @@ import { UserPermission, AOTUserPermission } from './model/server/persistence/en
 import { LoginComponent } from './components/public/login/login.component';
 import { ForbiddenComponent } from './components/public/forbidden/forbidden.component';
 import { NavigationBaseComponent } from './components/navigation/navigation-base/navigation-base.component';
-import { InstantaneousUploadTestComponent } from './components/test/instantaneous-upload-test/instantaneous-upload-test.component';
 import { UserOverviewComponent } from './components/user/user-overview/user-overview.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { UserBaseComponent } from './components/user/user-base/user-base.component';
@@ -157,9 +157,9 @@ export class DefinedRoutes {
 	}
 
 	///// DATA SYNC ROUTES /////
-	static readonly INSTANTANEOUS_UPLOAD:Route = {
-		path: 'instantaneous-upload',
-		component: InstantaneousUploadTestComponent
+	static readonly MOBILE_UPLOAD:Route = {
+		path: 'mobile-upload',
+		component: MobileUploadComponent
 	}
 
 }
@@ -217,7 +217,7 @@ export const RestrictedRoutes:Routes = [
 			DefinedRoutes.REPORTS,
 			DefinedRoutes.INSTANTANEOUS_REPORT,
 			DefinedRoutes.EXCEEDENCE_REPORT,
-			DefinedRoutes.INSTANTANEOUS_UPLOAD,
+			DefinedRoutes.MOBILE_UPLOAD,
 			...StatusRoutes,
 			...UserRoutes,
 		]

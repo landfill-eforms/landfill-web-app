@@ -38,6 +38,7 @@ import { UserModule } from './components/user/user.module';
 import { UserGroupModule } from './components/user-group/user-group.module';
 import { TestModule } from './components/test/test.module';
 import { FileUploadService } from './services/file/file-upload.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
 	declarations: [
@@ -51,6 +52,7 @@ import { FileUploadService } from './services/file/file-upload.service';
 		// RouterModule,
 		//MaterialModule.forRoot(),
 		//AppRoutes,
+		BrowserAnimationsModule,
 		CommonModule,
 		Routing,
 		PublicModule,

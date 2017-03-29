@@ -16,7 +16,7 @@ The Landfill e-Forms Web Application is developed with an Angular 4 front-end a
 ## Prerequisites
 This section lists the prerequisites for each component of the web application separately. You will only need the prereqs for the component(s) that you want to work on or run.
 ### Front-End Server
-* Currently, Node 4 or higher together with npm 3 or higher is required. However, Node 6.9 or higher may be required in future versions of the project, and is thus recommended. Download both Node and npm from [here](https://nodejs.org/en/download/). For Linux users, Node can be installed via [package manager](https://nodejs.org/en/download/package-manager/), and npm can be similarly installed.
+* Node 6.9 or higher together with npm 3 or higher is required. Download both Node and npm from [here](https://nodejs.org/en/download/). For Linux users, Node can be installed via [package manager](https://nodejs.org/en/download/package-manager/), and npm can be similarly installed.
 * Angular-CLI (installation instructions [below](https://github.com/landfill-eforms/landfill-web-app/blob/development/README.md#installing-angular-cli)).
 * Visual Studio Code, or another TypeScript editor. Download VS Code from [here](https://code.visualstudio.com/).
 

@@ -11,7 +11,7 @@ html {
     }
 }
 
-// Navbar + Sidenav
+/*********** Navbar + Sidenav ***********/
 md-sidenav-container {
     background: #EEE !important;
     top: $navbar-height !important;
@@ -19,9 +19,11 @@ md-sidenav-container {
         box-shadow: 3px 0 6px rgba(0,0,0,0.24) !important;
     }
 }
+
 md-toolbar-row {
     height: $navbar-height !important;
 }
+
 .navbar-shadow {
     width: 100%;
     height: $navbar-height;
@@ -32,9 +34,11 @@ md-toolbar-row {
     z-index: 999;
     pointer-events: none;
 }
+
 .mat-sidenav-content {
   transform: initial !important;
 }
+/***************************************/
 
 a {
     color: #2196F3;

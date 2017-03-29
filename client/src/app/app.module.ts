@@ -52,7 +52,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		// RouterModule,
 		//MaterialModule.forRoot(),
 		//AppRoutes,
-		BrowserAnimationsModule,
+		BrowserAnimationsModule, // This required to use angular/material@2.0.0-beta.2 with Angular 4.
 		CommonModule,
 		Routing,
 		PublicModule,

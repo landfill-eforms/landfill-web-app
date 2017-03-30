@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.service;
+package org.lacitysan.landfill.server.service.user;
 
 import java.util.Map;
 

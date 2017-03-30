@@ -31,7 +31,7 @@ public class UnverifiedDataController {
 	@Autowired
 	DataVerificationService dataVerificationService;
 	
-	@RestSecurity({UserPermission.VIEW_UNVERIFIED_DATA_SET_LIST})
+	@RestSecurity({UserPermission.VIEW_UNVERIFIED_DATA_SETS})
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<UnverifiedDataSet> getAll() {
 		return unverifiedDataSetDao.getAll();

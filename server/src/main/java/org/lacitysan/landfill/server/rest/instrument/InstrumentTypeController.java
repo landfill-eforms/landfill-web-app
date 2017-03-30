@@ -6,6 +6,8 @@ import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentTypeDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
+import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,15 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(ApplicationConstant.RESOURCE_PATH + "/instrument-type")
 @RestController
 public class InstrumentTypeController {
-	
+
 	@Autowired
 	InstrumentTypeDao instrumentTypeDao;
-	
+
+	@RestSecurity(UserPermission.VIEW_INSTRUMENT_TYPES)
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<InstrumentType> getAll() {
 		return instrumentTypeDao.getAll();
 	}
-	
+
+	@RestSecurity(UserPermission.VIEW_INSTRUMENT_TYPES)
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public InstrumentType getById(@PathVariable String id) {
 		try {
@@ -37,10 +41,11 @@ public class InstrumentTypeController {
 			return null;
 		}
 	}
-	
+
+	@RestSecurity(UserPermission.CREATE_INSTRUMENT_TYPES)
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public InstrumentType create(@RequestBody InstrumentType instrumentType) {
-		
+
 		// TODO Move this to a service.
 		instrumentType.setType(instrumentType.getType().trim());
 		if (instrumentType.getType().isEmpty()) {
@@ -50,14 +55,15 @@ public class InstrumentTypeController {
 		if (instrumentType.getManufacturer().isEmpty()) {
 			throw new EmptyStringException("Manufacturer name cannot be blank");
 		}
-		
+
 		instrumentTypeDao.create(instrumentType);
 		return instrumentType;
 	}
-	
+
+	@RestSecurity(UserPermission.EDIT_INSTRUMENT_TYPES)
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public InstrumentType update(@RequestBody InstrumentType instrumentType) {
-		
+
 		// TODO Move this to a service.
 		instrumentType.setType(instrumentType.getType().trim());
 		if (instrumentType.getType().isEmpty()) {
@@ -67,17 +73,19 @@ public class InstrumentTypeController {
 		if (instrumentType.getManufacturer().isEmpty()) {
 			throw new EmptyStringException("Manufacturer name cannot be blank");
 		}
-		
+
 		instrumentTypeDao.update(instrumentType);
 		return instrumentType;
 	}
-	
+
+	@RestSecurity(UserPermission.DELETE_INSTRUMENT_TYPES)
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public InstrumentType delete(@RequestBody InstrumentType instrumentType) {
 		instrumentTypeDao.delete(instrumentType);
 		return instrumentType;
 	}
-	
+
+	@RestSecurity(UserPermission.DELETE_INSTRUMENT_TYPES)
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public InstrumentType deleteById(@PathVariable String id) {
 		try {

@@ -69,7 +69,7 @@ export class DefinedRoutes {
 		component: UserListComponent,
 		canActivate: [AuthGuard],
 		data: {permissions: [
-			AOTUserPermission.VIEW_USER
+			AOTUserPermission.VIEW_USERS
 		]}
 	}
 

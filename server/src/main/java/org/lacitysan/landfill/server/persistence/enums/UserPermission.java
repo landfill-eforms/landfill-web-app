@@ -15,14 +15,17 @@ public enum UserPermission {
 	/** Admin */
 	ADMIN ("Admin", "Admin"),
 
-	/** User can view the list of users. */
-	VIEW_USER ("User can view the list of users.", Category.USERS, "View List", "User can view the list of users."),
+	/** User can view existing users. */
+	VIEW_USERS ("User can view existing users.", Category.USERS, "View List", "User can view existing users."),
 
 	/** User can create new users. */
 	CREATE_USERS ("User can create new users.", Category.USERS, "Create", "User can create new users."),
 
+	/** User can reactivate other non-admin user accounts. */
+	ENABLE_USERS ("User can reactivate other non-admin user accounts.", Category.USERS, "Enable Account", "User can reactivate other non-admin user accounts."),
+
 	/** User can deactivate other non-admin user accounts. */
-	DEACTIVATE_USERS ("User can deactivate other non-admin user accounts.", Category.USERS, "Deactivate", "User can deactivate other non-admin user accounts."),
+	DISABLE_USERS ("User can deactivate other non-admin user accounts.", Category.USERS, "Disable Account", "User can deactivate other non-admin user accounts."),
 
 	/** User can reset the passwords of other non-admin users. */
 	RESET_USER_PASSWORDS ("User can reset the passwords of other non-admin users.", Category.USERS, "Reset Password", "User can reset the passwords of other non-admin users."),
@@ -39,8 +42,8 @@ public enum UserPermission {
 	/** User can assign user groups to non-admin users. */
 	ASSIGN_USER_GROUPS ("User can assign user groups to non-admin users.", Category.USERS, "Assign Groups", "User can assign user groups to non-admin users."),
 
-	/** User can view the list of user groups. */
-	VIEW_USER_GROUP_LIST ("User can view the list of user groups.", Category.USER_GROUPS, "View List", "User can view the list of user groups."),
+	/** User can view existing user groups. */
+	VIEW_USER_GROUPS ("User can view existing user groups.", Category.USER_GROUPS, "View List", "User can view existing user groups."),
 
 	/** User can create new user groups. */
 	CREATE_USER_GROUPS ("User can create new user groups.", Category.USER_GROUPS, "Create", "User can create new user groups."),
@@ -51,8 +54,8 @@ public enum UserPermission {
 	/** User can add/remove roles and rename existing user groups. */
 	EDIT_USER_GROUPS ("User can add/remove roles and rename existing user groups.", Category.USER_GROUPS, "Edit", "User can add/remove roles and rename existing user groups."),
 
-	/** User can view the list of equipment. */
-	VIEW_INSTRUMENT_LIST ("User can view the list of equipment.", Category.EQUIPMENT, "View List", "User can view the list of equipment."),
+	/** User can view existing equipment. */
+	VIEW_INSTRUMENTS ("User can view existing equipment.", Category.EQUIPMENT, "View List", "User can view existing equipment."),
 
 	/** User can add new equipment entries. */
 	CREATE_INSTRUMENTS ("User can add new equipment entries.", Category.EQUIPMENT, "Create", "User can add new equipment entries."),
@@ -60,8 +63,8 @@ public enum UserPermission {
 	/** User can edit existing equipment entries. */
 	EDIT_INSTRUMENTS ("User can edit existing equipment entries.", Category.EQUIPMENT, "Edit", "User can edit existing equipment entries."),
 
-	/** User can view the list of equipment types. */
-	VIEW_INSTRUMENT_TYPE_LIST ("User can view the list of equipment types.", Category.EQUIPMENT_TYPE, "View List", "User can view the list of equipment types."),
+	/** User can view existing equipment types. */
+	VIEW_INSTRUMENT_TYPES ("User can view existing equipment types.", Category.EQUIPMENT_TYPE, "View List", "User can view existing equipment types."),
 
 	/** User can add new equipment types. */
 	CREATE_INSTRUMENT_TYPES ("User can add new equipment types.", Category.EQUIPMENT_TYPE, "Create", "User can add new equipment types."),
@@ -78,8 +81,8 @@ public enum UserPermission {
 	/** User can download data for transfer to the mobile applications. */
 	DOWNLOAD_MOBILE_DATA ("User can download data for transfer to the mobile applications.", Category.MOBILE_APP_SYNC, "Download", "User can download data for transfer to the mobile applications."),
 
-	/** User can view the list of unverified data sets. */
-	VIEW_UNVERIFIED_DATA_SET_LIST ("User can view the list of unverified data sets.", Category.UNVERIFIED_DATA, "View List", "User can view the list of unverified data sets."),
+	/** User can view existing unverified data sets. */
+	VIEW_UNVERIFIED_DATA_SETS ("User can view existing unverified data sets.", Category.UNVERIFIED_DATA, "View List", "User can view existing unverified data sets."),
 
 	/** User can view the details of an unverified data set. <i>Subject to change</i> */
 	VIEW_UNVERIFIED_DATA_SET ("User can view the details of an unverified data set.", Category.UNVERIFIED_DATA, "View Sets", "User can view the details of an unverified data set."),

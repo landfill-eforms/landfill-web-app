@@ -5,6 +5,8 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
+import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.instrument.InstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,11 +28,13 @@ public class InstrumentController {
 	@Autowired
 	InstrumentService instrumentService;
 	
+	@RestSecurity(UserPermission.VIEW_INSTRUMENTS)
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<Instrument> getAll() {
 		return instrumentDao.getAll();
 	}
 	
+	@RestSecurity(UserPermission.VIEW_INSTRUMENTS)
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public Instrument getById(@PathVariable String id) {
 		try {
@@ -41,18 +45,21 @@ public class InstrumentController {
 		}
 	}
 	
+	@RestSecurity(UserPermission.CREATE_INSTRUMENTS)
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public Instrument create(@RequestBody Instrument instrument) {
 		instrumentService.create(instrument);
 		return instrument;
 	}
 	
+	@RestSecurity(UserPermission.EDIT_INSTRUMENTS)
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public Instrument update(@RequestBody Instrument instrument) {
 		instrumentService.update(instrument);
 		return instrument;
 	}
 	
+	// TODO Forgot to create permission to delete instruments.
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public Instrument delete(@RequestBody Instrument instrument) {
 		instrumentDao.delete(instrument);

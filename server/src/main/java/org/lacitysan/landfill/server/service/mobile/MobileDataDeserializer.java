@@ -26,11 +26,11 @@ import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.lacitysan.landfill.server.service.ImeService;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
-import org.lacitysan.landfill.server.service.UserService;
 import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;
 import org.lacitysan.landfill.server.service.mobile.model.MobileImeData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileInstantaneousData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileWarmspotData;
+import org.lacitysan.landfill.server.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

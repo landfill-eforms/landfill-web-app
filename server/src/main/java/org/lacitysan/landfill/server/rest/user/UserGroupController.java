@@ -6,6 +6,8 @@ import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserGroupDao;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
+import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +25,13 @@ public class UserGroupController {
 	@Autowired
 	UserGroupDao userGroupDao;
 	
+	@RestSecurity(UserPermission.VIEW_USER_GROUPS)
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<UserGroup> getAll() {
 		return userGroupDao.getAll();
 	}
 	
+	@RestSecurity(UserPermission.VIEW_USER_GROUPS)
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public UserGroup getById(@PathVariable String id) {
 		try {
@@ -38,6 +42,7 @@ public class UserGroupController {
 		}
 	}
 	
+	@RestSecurity(UserPermission.CREATE_USER_GROUPS)
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public UserGroup create(@RequestBody UserGroup userGroup) {
 		
@@ -51,6 +56,7 @@ public class UserGroupController {
 		return userGroup;
 	}
 	
+	@RestSecurity(UserPermission.EDIT_USER_GROUPS)
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public UserGroup update(@RequestBody UserGroup userGroup) {
 		
@@ -64,12 +70,14 @@ public class UserGroupController {
 		return userGroup;
 	}
 	
+	@RestSecurity(UserPermission.DELETE_USER_GROUPS)
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public UserGroup delete(@RequestBody UserGroup userGroup) {
 		userGroupDao.delete(userGroup);
 		return userGroup;
 	}
 	
+	@RestSecurity(UserPermission.DELETE_USER_GROUPS)
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public UserGroup deleteById(@PathVariable String id) {
 		try {

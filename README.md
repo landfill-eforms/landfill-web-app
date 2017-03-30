@@ -41,7 +41,7 @@ After this step, you should see the contents of the `landfill-web-app/client` fo
 If your machine does not have Angular-CLI installed, you will need to install it. You can skip this step if Angular-CLI is already installed.
 
 1. Open the Visual Studio Code built in console by pressing `CTRL+~`.
-2. Run the command `npm install -g angular-cli` to install Angular-CLI.
+2. Run the command `npm install -g @angular/cli` to install Angular-CLI.
 
 Angular-CLI may take a few miniutes to download.
 #### Installing npm Dependencies

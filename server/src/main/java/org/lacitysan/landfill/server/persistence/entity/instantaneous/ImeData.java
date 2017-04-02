@@ -1,6 +1,8 @@
 package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -55,10 +57,10 @@ public class ImeData {
 	@NotNull
 	private String description;
 	
-	@OneToOne
+	@JsonIgnoreProperties({"imeData"})
 	@Cascade(CascadeType.ALL)
-	@JoinColumn(name="IMERepairFK")
-	private ImeRepairData imeRepairData;
+	@OneToMany(mappedBy="imeData")
+	private Set<ImeRepairData> imeRepairData = new HashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -108,11 +110,11 @@ public class ImeData {
 		this.description = description;
 	}
 
-	public ImeRepairData getImeRepairData() {
+	public Set<ImeRepairData> getImeRepairData() {
 		return imeRepairData;
 	}
 
-	public void setImeRepairData(ImeRepairData imeRepairData) {
+	public void setImeRepairData(Set<ImeRepairData> imeRepairData) {
 		this.imeRepairData = imeRepairData;
 	}
 

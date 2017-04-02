@@ -13,5 +13,5 @@ export class ImeData {
 	methaneLevel:number;
 	dateTime:number;
 	description:string;
-	imeRepairData:ImeRepairData;
+	imeRepairData:ImeRepairData[];
 }

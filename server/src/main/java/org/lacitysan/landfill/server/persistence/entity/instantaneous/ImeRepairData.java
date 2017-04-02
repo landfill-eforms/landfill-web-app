@@ -51,6 +51,12 @@ public class ImeRepairData {
 	
 	@NotNull
 	private String crew;
+	
+	@JsonIgnoreProperties({"imeRepairData"})
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name="IMEFK")
+	private ImeData imeData;
 
 	public Integer getId() {
 		return id;
@@ -106,6 +112,14 @@ public class ImeRepairData {
 
 	public void setCrew(String crew) {
 		this.crew = crew;
+	}
+
+	public ImeData getImeData() {
+		return imeData;
+	}
+
+	public void setImeData(ImeData imeData) {
+		this.imeData = imeData;
 	}
 	
 }

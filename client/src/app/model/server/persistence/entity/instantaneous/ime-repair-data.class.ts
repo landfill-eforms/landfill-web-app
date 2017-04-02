@@ -1,4 +1,5 @@
 import { User } from '../user/user.class';
+import { ImeData } from './ime-data.class';
 
 /**
  * This class was automatically generated from ImeRepairData.java using typescript-gen.
@@ -12,4 +13,5 @@ export class ImeRepairData {
 	soil:boolean;
 	description:string;
 	crew:string;
+	imeData:ImeData;
 }

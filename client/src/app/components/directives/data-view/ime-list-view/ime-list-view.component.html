@@ -1,38 +1,38 @@
-<div *ngIf="data.length > 0" class="list-table">
-	<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+<div *ngIf="data.length > 0" class="data-table">
+	<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 		<div class="truncate flex-item" fxFlex (click)="sortBy('ime')">
-			<span class="list-table-header-label-sortable">IME#</span>
-			<md-icon class="list-table-header-sort" [ngClass]="{
-				'list-table-header-sort-reverse':sort.reversed,
-				'list-table-header-sort-inactive':sort.current !== 'ime'}">
+			<span class="data-table-header-label-sortable">IME#</span>
+			<md-icon class="data-table-header-sort" [ngClass]="{
+				'data-table-header-sort-reverse':sort.reversed,
+				'data-table-header-sort-inactive':sort.current !== 'ime'}">
 				arrow_downward</md-icon>
 		</div>
 		<div class="truncate flex-item" fxFlex (click)="sortBy('date')">
-			<span class="list-table-header-label-sortable">Discovery Date</span>
-			<md-icon class="list-table-header-sort" [ngClass]="{
-				'list-table-header-sort-reverse':sort.reversed,
-				'list-table-header-sort-inactive':sort.current !== 'date'}">
+			<span class="data-table-header-label-sortable">Discovery Date</span>
+			<md-icon class="data-table-header-sort" [ngClass]="{
+				'data-table-header-sort-reverse':sort.reversed,
+				'data-table-header-sort-inactive':sort.current !== 'date'}">
 				arrow_downward</md-icon>
 		</div>
 		<div class="truncate flex-item" fxFlex (click)="sortBy('initMethaneLevel')">
-			<span class="list-table-header-label-sortable">Initial Reading</span>
-			<md-icon class="list-table-header-sort" [ngClass]="{
-				'list-table-header-sort-reverse':sort.reversed,
-				'list-table-header-sort-inactive':sort.current !== 'initMethaneLevel'}">
+			<span class="data-table-header-label-sortable">Initial Reading</span>
+			<md-icon class="data-table-header-sort" [ngClass]="{
+				'data-table-header-sort-reverse':sort.reversed,
+				'data-table-header-sort-inactive':sort.current !== 'initMethaneLevel'}">
 				arrow_downward</md-icon>
 		</div>
 		<div class="truncate flex-item" fxFlex (click)="sortBy('lastMethaneLevel')">
-			<span class="list-table-header-label-sortable">Latest Reading</span>
-			<md-icon class="list-table-header-sort" [ngClass]="{
-				'list-table-header-sort-reverse':sort.reversed,
-				'list-table-header-sort-inactive':sort.current !== 'lastMethaneLevel'}">
+			<span class="data-table-header-label-sortable">Latest Reading</span>
+			<md-icon class="data-table-header-sort" [ngClass]="{
+				'data-table-header-sort-reverse':sort.reversed,
+				'data-table-header-sort-inactive':sort.current !== 'lastMethaneLevel'}">
 				arrow_downward</md-icon>
 		</div>
 		<div class="truncate flex-item" fxFlex="100px" style="text-align:center;">
-			<span class="list-table-header-label">Status</span>
+			<span class="data-table-header-label">Status</span>
 		</div>
 	</div>
-	<div *ngFor="let ime of data; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+	<div *ngFor="let ime of data; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
 		<div class="truncate flex-item" fxFlex>
 			<a *ngIf="edit" [routerLink]="'../ime-number/' + ime.imeNumber">
 				{{ime.imeNumber}}

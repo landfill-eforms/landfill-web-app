@@ -102,34 +102,34 @@ a {
     padding-bottom: 13px;
 }
 
-.list-table {
+.data-table {
     padding: 16px;
 }
 
-.list-table-super-header-row {
+.data-table-super-header-row {
     text-align: center;
     font-weight: bold;
     height: 31px;
 }
 
-.list-table-header-row {
+.data-table-header-row {
     text-align: left;
     font-weight: bold;
     height: 41px;
     border-bottom: solid 1px #DDD;
 }
 
-.list-table-header-label {
+.data-table-header-label {
     position: relative;
     top: 11px;
 }
 
-.list-table-header-label-sortable {
+.data-table-header-label-sortable {
     pointer-events: all;
     cursor: pointer;
 }
 
-.list-table-header-sort {
+.data-table-header-sort {
     position: relative;
     top: 6px;
     transition: transform 0.2s ease-in-out;
@@ -137,35 +137,35 @@ a {
     cursor: pointer;
 }
 
-.list-table-header-sort-reverse {
+.data-table-header-sort-reverse {
     transform: rotate(-180deg);
 }
 
-.list-table-header-sort-inactive {
+.data-table-header-sort-inactive {
     visibility: hidden;
     transform: rotate(-90deg);
 }
 
-.list-table-row {
+.data-table-row {
     height: 54px;
     padding-top: 18px;
     background: #F7F7F7;
     transition: background 0.1s linear;
 }
 
-.list-table-odd-row {
+.data-table-odd-row {
     background: #FFF;
 }
 
-// .list-table-row:hover {
+// .data-table-row:hover {
 //     background: #E7E7E7;
 // }
 
-// .list-table-odd-row:hover {
+// .data-table-odd-row:hover {
 //     background: #EEE;
 // }
 
-.list-table-icon-button {
+.data-table-icon-button {
     margin-top: -4px;
     cursor: pointer;
 }

@@ -48,43 +48,43 @@
 					<md-spinner class="loading-indicator-spinner"></md-spinner>
 					<div class="loading-indicator-message">Loading...</div>
 				</div>
-				<div *ngIf="isDataLoaded && dataSet.unverifiedInstantaneousData.length > 0" class="list-table">
-					<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+				<div *ngIf="isDataLoaded && dataSet.unverifiedInstantaneousData.length > 0" class="data-table">
+					<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 						<div class="truncate flex-item" fxFlex (click)="sortByGrid()">
-							<span class="list-table-header-label-sortable">Grid</span>
-							<md-icon class="list-table-header-sort" [ngClass]="{
-								'list-table-header-sort-reverse':sort.reversed,
-								'list-table-header-sort-inactive':sort.current !== 'grid'}">
+							<span class="data-table-header-label-sortable">Grid</span>
+							<md-icon class="data-table-header-sort" [ngClass]="{
+								'data-table-header-sort-reverse':sort.reversed,
+								'data-table-header-sort-inactive':sort.current !== 'grid'}">
 								arrow_downward</md-icon>
 						</div>
 						<div class="truncate flex-item" fxFlex>
-							<span class="list-table-header-label">Start</span>
+							<span class="data-table-header-label">Start</span>
 						</div>
 						<div class="truncate flex-item" fxFlex>
-							<span class="list-table-header-label">End</span>
+							<span class="data-table-header-label">End</span>
 						</div>
 						<div class="truncate flex-item" fxFlex>
-							<span class="list-table-header-label">Instrument</span>
+							<span class="data-table-header-label">Instrument</span>
 						</div>
 						<div class="truncate flex-item" fxFlex (click)="sortByMethaneLevel()">
-							<span class="list-table-header-label-sortable">Reading (ppm)</span>
-							<md-icon class="list-table-header-sort" [ngClass]="{
-								'list-table-header-sort-reverse':sort.reversed,
-								'list-table-header-sort-inactive':sort.current !== 'methaneLevel'}">
+							<span class="data-table-header-label-sortable">Reading (ppm)</span>
+							<md-icon class="data-table-header-sort" [ngClass]="{
+								'data-table-header-sort-reverse':sort.reversed,
+								'data-table-header-sort-inactive':sort.current !== 'methaneLevel'}">
 								arrow_downward</md-icon>
 						</div>
 						<div class="truncate flex-item" fxFlex="150px" (click)="sortByIme()">
-							<span class="list-table-header-label-sortable">IME#</span>
-							<md-icon class="list-table-header-sort" [ngClass]="{
-								'list-table-header-sort-reverse':sort.reversed,
-								'list-table-header-sort-inactive':sort.current !== 'ime'}">
+							<span class="data-table-header-label-sortable">IME#</span>
+							<md-icon class="data-table-header-sort" [ngClass]="{
+								'data-table-header-sort-reverse':sort.reversed,
+								'data-table-header-sort-inactive':sort.current !== 'ime'}">
 								arrow_downward</md-icon>
 						</div>
 						<div class="truncate flex-item" fxFlex="150px">
-							<span class="list-table-header-label"></span>
+							<span class="data-table-header-label"></span>
 						</div>
 					</div>
-					<div *ngFor="let inst of dataSet.unverifiedInstantaneousData; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+					<div *ngFor="let inst of dataSet.unverifiedInstantaneousData; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
 						<div class="truncate flex-item" fxFlex>{{inst.monitoringPoint.name}}</div>
 						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(inst.startTime)}}</div>
 						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(inst.endTime)}}</div>
@@ -98,8 +98,8 @@
 						<div class="truncate flex-item" fxFlex>{{inst.methaneLevel / 100}}</div>
 						<div class="truncate flex-item" fxFlex="150px">
 							{{inst.imeNumbers && inst.imeNumbers.length > 0 ? (inst.imeNumbers.length > 1 ? 'Multiple' : inst.imeNumbers[0].imeNumber) : ''}}
-							<!--<md-icon *ngIf="inst.methaneLevel >= 50000" (click)="openAssignImeNumberDialog(inst)" mdTooltip="Change" mdTooltipPosition="after" class="list-table-icon-button" color="accent">{{inst.imeNumber ? 'sync' : 'add'}}</md-icon>
-							<md-icon *ngIf="inst.methaneLevel < 50000 && inst.imeNumber" mdTooltip="Remove" mdTooltipPosition="after" class="list-table-icon-button" color="warn">remove</md-icon>-->
+							<!--<md-icon *ngIf="inst.methaneLevel >= 50000" (click)="openAssignImeNumberDialog(inst)" mdTooltip="Change" mdTooltipPosition="after" class="data-table-icon-button" color="accent">{{inst.imeNumber ? 'sync' : 'add'}}</md-icon>
+							<md-icon *ngIf="inst.methaneLevel < 50000 && inst.imeNumber" mdTooltip="Remove" mdTooltipPosition="after" class="data-table-icon-button" color="warn">remove</md-icon>-->
 						</div>
 						<div class="flex-item" fxFlex="150px">
 							<button md-raised-button *ngIf="inst.methaneLevel >= 50000" (click)="openAssignImeNumberDialog(inst)" style="margin-top:-18px;">{{inst.imeNumbers && inst.imeNumbers.length > 0 ? 'CHANGE IME#' : 'ADD IME#'}}</button>

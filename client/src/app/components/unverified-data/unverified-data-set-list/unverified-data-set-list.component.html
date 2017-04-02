@@ -5,51 +5,51 @@
 			<md-spinner class="loading-indicator-spinner"></md-spinner>
 			<div class="loading-indicator-message">Loading Data...</div>
 		</div>
-		<div *ngIf="isDataLoaded" class="list-table">
-			<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+		<div *ngIf="isDataLoaded" class="data-table">
+			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 				<div class="truncate flex-item" fxFlex (click)="sortBy('site')">
-					<span class="list-table-header-label-sortable">Site</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'site'}">
+					<span class="data-table-header-label-sortable">Site</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'site'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('uploadedBy')">
-					<span class="list-table-header-label-sortable">Uploaded By</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'uploadedBy'}">
+					<span class="data-table-header-label-sortable">Uploaded By</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'uploadedBy'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('uploadedDate')">
-					<span class="list-table-header-label-sortable">Upload Date</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'uploadedDate'}">
+					<span class="data-table-header-label-sortable">Upload Date</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'uploadedDate'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('modifiedBy')">
-					<span class="list-table-header-label-sortable">Modified By</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'modifiedBy'}">
+					<span class="data-table-header-label-sortable">Modified By</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'modifiedBy'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('modifiedDate')">
-					<span class="list-table-header-label-sortable">Modified Date</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'modifiedDate'}">
+					<span class="data-table-header-label-sortable">Modified Date</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'modifiedDate'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex>
-					<span class="list-table-header-label">Filename</span>
+					<span class="data-table-header-label">Filename</span>
 				</div>
 				<div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
-					<span class="list-table-header-label">Edit</span>
+					<span class="data-table-header-label">Edit</span>
 				</div>
 			</div>
-			<div *ngFor="let dataSet of dataSets; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+			<div *ngFor="let dataSet of dataSets; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
 				<div class="truncate flex-item" fxFlex>
 					{{dataSet.site.name}}
 				</div>

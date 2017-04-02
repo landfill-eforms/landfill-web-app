@@ -1,69 +1,69 @@
 <md-card class="section-multiple flex-item" fxFlex>
 	<md-card-content>
 		<div class="section-title">Equipment List</div>
-		<div *ngIf="isDataLoaded" class="list-table">
-			<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+		<div *ngIf="isDataLoaded" class="data-table">
+			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 				<div class="truncate flex-item" fxFlex (click)="sortBy('serialNumber')">
-					<span class="list-table-header-label-sortable">Serial Number</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'serialNumber'}">
+					<span class="data-table-header-label-sortable">Serial Number</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'serialNumber'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('instrumentType')">
-					<span class="list-table-header-label-sortable">Equipment Type</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'instrumentType'}">
+					<span class="data-table-header-label-sortable">Equipment Type</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'instrumentType'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('instrumentStatus')">
-					<span class="list-table-header-label-sortable">Status</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'instrumentStatus'}">
+					<span class="data-table-header-label-sortable">Status</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'instrumentStatus'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('serviceDueDate')">
-					<span class="list-table-header-label-sortable">Service Due Date</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'serviceDueDate'}">
+					<span class="data-table-header-label-sortable">Service Due Date</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'serviceDueDate'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('lastServiceDate')">
-					<span class="list-table-header-label-sortable">Last Service Date</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'lastServiceDate'}">
+					<span class="data-table-header-label-sortable">Last Service Date</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'lastServiceDate'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('purchaseDate')">
-					<span class="list-table-header-label-sortable">Purchased Date</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'purchaseDate'}">
+					<span class="data-table-header-label-sortable">Purchased Date</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'purchaseDate'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('site')">
-					<span class="list-table-header-label-sortable">Assigned Site</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'site'}">
+					<span class="data-table-header-label-sortable">Assigned Site</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'site'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('inventoryNumber')">
-					<span class="list-table-header-label-sortable">City Inventory No.</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'inventoryNumber'}">
+					<span class="data-table-header-label-sortable">City Inventory No.</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'inventoryNumber'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex="25">
-					<span class="list-table-header-label">Description</span>
+					<span class="data-table-header-label">Description</span>
 				</div>
 			</div>
-			<div *ngFor="let instrument of instruments; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+			<div *ngFor="let instrument of instruments; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
 				<div class="truncate flex-item" fxFlex>
 					<a [routerLink]="'../instrument/' + instrument.id" routerLikeActive="active">
 						{{instrument.serialNumber}}

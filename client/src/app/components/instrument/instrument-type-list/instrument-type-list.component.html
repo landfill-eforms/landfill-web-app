@@ -5,54 +5,54 @@
 			<md-spinner class="loading-indicator-spinner"></md-spinner>
 			<div class="loading-indicator-message">{{loadingMessage}}</div>
 		</div>
-		<div *ngIf="isDataLoaded" class="list-table">
-			<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+		<div *ngIf="isDataLoaded" class="data-table">
+			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 				<div class="truncate flex-item" fxFlex (click)="sortBy('type')">
-					<span class="list-table-header-label-sortable">Equipment Type</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'type'}">
+					<span class="data-table-header-label-sortable">Equipment Type</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'type'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('manufacturer')">
-					<span class="list-table-header-label-sortable">Manufacturer</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'manufacturer'}">
+					<span class="data-table-header-label-sortable">Manufacturer</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'manufacturer'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex="25">
-					<span class="list-table-header-label">Description</span>
+					<span class="data-table-header-label">Description</span>
 				</div>
 				<div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="list-table-header-label">Inst./Intg.</span>
+					<span class="data-table-header-label">Inst./Intg.</span>
 				</div>
                 <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="list-table-header-label">Probe/Gas</span>
+					<span class="data-table-header-label">Probe/Gas</span>
 				</div>
                 <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="list-table-header-label">CH<sub>4</sub> %</span>
+					<span class="data-table-header-label">CH<sub>4</sub> %</span>
 				</div>
                 <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="list-table-header-label">CH<sub>4</sub> ppm</span>
+					<span class="data-table-header-label">CH<sub>4</sub> ppm</span>
 				</div>
                 <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="list-table-header-label">H<sub>2</sub>S ppm</span>
+					<span class="data-table-header-label">H<sub>2</sub>S ppm</span>
 				</div>
                 <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="list-table-header-label">O<sub>2</sub> %</span>
+					<span class="data-table-header-label">O<sub>2</sub> %</span>
 				</div>
                 <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="list-table-header-label">CO<sub>2</sub> %</span>
+					<span class="data-table-header-label">CO<sub>2</sub> %</span>
 				</div>
                 <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="list-table-header-label">N<sub>2</sub> %</span>
+					<span class="data-table-header-label">N<sub>2</sub> %</span>
 				</div>
                 <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="list-table-header-label">Pressure</span>
+					<span class="data-table-header-label">Pressure</span>
 				</div>
 			</div>
-			<div *ngFor="let type of instrumentTypeList; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+			<div *ngFor="let type of instrumentTypeList; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
 				<div class="truncate flex-item" fxFlex>
 					<a [routerLink]="'../instrument-type/' + type.id" routerLikeActive="active">
 						{{type.type}}

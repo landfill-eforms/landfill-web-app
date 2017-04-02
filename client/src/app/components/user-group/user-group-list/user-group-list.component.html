@@ -5,30 +5,30 @@
 			<md-spinner class="loading-indicator-spinner"></md-spinner>
 			<div class="loading-indicator-message">{{loadingMessage}}</div>
 		</div>
-		<div *ngIf="isDataLoaded" class="list-table">
-			<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+		<div *ngIf="isDataLoaded" class="data-table">
+			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 				<div class="truncate flex-item" fxFlex (click)="sortByGroupName()">
-					<span class="list-table-header-label-sortable">Group Name</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'name'}">
+					<span class="data-table-header-label-sortable">Group Name</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'name'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex="100px" (click)="sortByUserCount()">
-					<span class="list-table-header-label-sortable">Users</span>
-					<md-icon class="list-table-header-sort" [ngClass]="{
-						'list-table-header-sort-reverse':sort.reversed,
-						'list-table-header-sort-inactive':sort.current !== 'users'}">
+					<span class="data-table-header-label-sortable">Users</span>
+					<md-icon class="data-table-header-sort" [ngClass]="{
+						'data-table-header-sort-reverse':sort.reversed,
+						'data-table-header-sort-inactive':sort.current !== 'users'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex="60">
-					<span class="list-table-header-label">Description</span>
+					<span class="data-table-header-label">Description</span>
 				</div>
 				<div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
-					<span class="list-table-header-label">Delete</span>
+					<span class="data-table-header-label">Delete</span>
 				</div>
 			</div>
-			<div *ngFor="let group of userGroups; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+			<div *ngFor="let group of userGroups; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
 				<div class="truncate flex-item" fxFlex>
 					<a [routerLink]="'../user-group/' + group.id">
 						{{group.name}}

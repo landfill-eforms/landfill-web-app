@@ -1,54 +1,54 @@
-<div *ngIf="data" class="list-table">
-	<div class="unselectable list-table-super-header-row flex-container" fxLayout="row">
+<div *ngIf="data" class="data-table">
+	<div class="unselectable data-table-super-header-row flex-container" fxLayout="row">
 		<div class="truncate flex-item" fxFlex>
-            <span class="list-table-header-label">Inspection Report</span>
+            <span class="data-table-header-label">Inspection Report</span>
         </div>
 		<div class="truncate flex-item" fxFlex="10"></div>
 		<div class="truncate flex-item" fxFlex>
-            <span class="list-table-header-label">Repair Crew Report</span>
+            <span class="data-table-header-label">Repair Crew Report</span>
         </div>
 	</div>
-	<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+	<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 		<div class="flex-item flex-container" fxFlex fxLayout="row">
 			<div class="truncate flex-item" fxFlex="12">
-				<span class="list-table-header-label">Date</span>
+				<span class="data-table-header-label">Date</span>
 			</div>
 			<div class="truncate flex-item" fxFlex="8">
-				<span class="list-table-header-label">Time</span>
+				<span class="data-table-header-label">Time</span>
 			</div>
 			<div class="truncate flex-item" fxFlex="50">
-				<span class="list-table-header-label">Description</span>
+				<span class="data-table-header-label">Description</span>
 			</div>
 			<div class="truncate flex-item" fxFlex>
-				<span class="list-table-header-label">Inspector</span>
+				<span class="data-table-header-label">Inspector</span>
 			</div>
 			<div class="truncate flex-item" fxFlex>
-				<span class="list-table-header-label">Value</span>
+				<span class="data-table-header-label">Value</span>
 			</div>
 		</div>
 		<div class="truncate flex-item" fxFlex="10"></div>
 		<div class="flex-item flex-container" fxFlex fxLayout="row">
 			<div class="truncate flex-item" fxFlex="48px">
-				<span class="list-table-header-label">Soil</span>
+				<span class="data-table-header-label">Soil</span>
 			</div>
 			<div class="truncate flex-item" fxFlex="48px">
-				<span class="list-table-header-label">Water</span>
+				<span class="data-table-header-label">Water</span>
 			</div>
 			<div class="truncate flex-item" fxFlex="50">
-				<span class="list-table-header-label">Description of Repair</span>
+				<span class="data-table-header-label">Description of Repair</span>
 			</div>
 			<div class="truncate flex-item" fxFlex>
-				<span class="list-table-header-label">Crew</span>
+				<span class="data-table-header-label">Crew</span>
 			</div>
 			<div class="truncate flex-item" fxFlex="12">
-				<span class="list-table-header-label">Date</span>
+				<span class="data-table-header-label">Date</span>
 			</div>
 			<div class="truncate flex-item" fxFlex="8">
-				<span class="list-table-header-label">Time</span>
+				<span class="data-table-header-label">Time</span>
 			</div>
 		</div>
 	</div>
-	<div *ngFor="let asdf of data; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+	<div *ngFor="let asdf of data; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
 		<div class="flex-item flex-container" fxFlex fxLayout="row">
 			<div class="truncate flex-item" fxFlex="12">
 				{{dateTimeUtils.getDate(asdf.dateTime)}}
@@ -91,7 +91,7 @@
             <md-icon (click)="openNewRepairDialog(asdf)" mdTooltip="Add Repair Data" mdTooltipPosition="after" style="color:#07F;cursor:pointer;">add</md-icon>
 		</div>
 	</div>
-	<div *ngIf="edit && isUsersLoaded" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': data.length % 2 != 0}">
+	<div *ngIf="edit && isUsersLoaded" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': data.length % 2 != 0}">
 		<div class="flex-item" fxFlex style="text-align:center;">
             <md-icon *ngIf="data.length == 0 || data[data.length - 1].imeRepairData" (click)="openNewRecheckDialog()" mdTooltip="Add New Record" mdTooltipPosition="after" style="color:#07F;cursor:pointer;">add</md-icon>
         </div>

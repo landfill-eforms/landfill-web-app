@@ -55,27 +55,27 @@
 					<div *ngIf="!instrumentType.instruments || instrumentType.instruments.length == 0">
 						<i>No records.</i>
 					</div>
-					<div *ngIf="instrumentType.instruments && instrumentType.instruments.length > 0" class="list-table">
-						<div class="unselectable list-table-header-row flex-container" fxLayout="row">
+					<div *ngIf="instrumentType.instruments && instrumentType.instruments.length > 0" class="data-table">
+						<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 							<div class="truncate flex-item" fxFlex (click)="sortBy('serialNumber')">
-								<span class="list-table-header-label-sortable">Serial Number</span>
-								<md-icon class="list-table-header-sort" [ngClass]="{
-									'list-table-header-sort-reverse':sort.reversed,
-									'list-table-header-sort-inactive':sort.current !== 'serialNumber'}">
+								<span class="data-table-header-label-sortable">Serial Number</span>
+								<md-icon class="data-table-header-sort" [ngClass]="{
+									'data-table-header-sort-reverse':sort.reversed,
+									'data-table-header-sort-inactive':sort.current !== 'serialNumber'}">
 									arrow_downward</md-icon>
 							</div>
 							<div class="truncate flex-item" fxFlex (click)="sortBy('instrumentStatus')">
-								<span class="list-table-header-label-sortable">Status</span>
-								<md-icon class="list-table-header-sort" [ngClass]="{
-									'list-table-header-sort-reverse':sort.reversed,
-									'list-table-header-sort-inactive':sort.current !== 'instrumentStatus'}">
+								<span class="data-table-header-label-sortable">Status</span>
+								<md-icon class="data-table-header-sort" [ngClass]="{
+									'data-table-header-sort-reverse':sort.reversed,
+									'data-table-header-sort-inactive':sort.current !== 'instrumentStatus'}">
 									arrow_downward</md-icon>
 							</div>
 							<div class="truncate flex-item" fxFlex="40">
-								<span class="list-table-header-label">Description</span>
+								<span class="data-table-header-label">Description</span>
 							</div>
 						</div>
-						<div *ngFor="let instrument of instrumentType.instruments; let isOdd = odd" class="list-table-row flex-container" fxLayout="row" [ngClass]="{'list-table-odd-row': isOdd}">
+						<div *ngFor="let instrument of instrumentType.instruments; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
 							<div class="truncate flex-item" fxFlex>
 								<a [routerLink]="'../../instrument/' + instrument.id" routerLikeActive="active">
 									{{instrument.serialNumber}}

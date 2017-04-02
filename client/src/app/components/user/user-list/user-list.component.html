@@ -57,30 +57,39 @@
 					<span class="data-table-header-label">Active</span>
 				</div>
 			</div>
-			<div *ngFor="let user of users" class="data-table-row flex-container" fxLayout="row">
-				<div class="data-table-first-column truncate flex-item" fxFlex="10">
-					<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
-						{{user.username}}
-					</a>
-				</div>
-				<div class="data-table-column truncate flex-item" fxFlex="13">
-					{{stringUtils.formatUserName(user)}}
-				</div>
-				<div class="data-table-column truncate flex-item" fxFlex>
-					{{user.emailAddress}}
-				</div>
-				<div class="data-table-column truncate flex-item" fxFlex="13">
-					{{user.employeeId}}
-				</div>
-				<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">
-					<md-icon *ngIf="user.enabled" style="color:#0D0;margin-top:-4px;">check</md-icon>
-					<md-icon *ngIf="!user.enabled" style="color:#D00;margin-top:-4px;">close</md-icon>
+			<div *ngFor="let user of users; let idx = index">
+				<div *ngIf="idx >= (pagination.currentPage - 1) * pagination.displayedRows && idx < pagination.currentPage * pagination.displayedRows"
+					class="data-table-row flex-container" 
+					fxLayout="row">
+					<div class="data-table-first-column truncate flex-item" fxFlex="10">
+						<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
+							{{user.username}}
+						</a>
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex="13">
+						{{stringUtils.formatUserName(user)}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{user.emailAddress}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex="13">
+						{{user.employeeId}}
+					</div>
+					<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">
+						<md-icon *ngIf="user.enabled" style="color:#0D0;margin-top:-4px;">check</md-icon>
+						<md-icon *ngIf="!user.enabled" style="color:#D00;margin-top:-4px;">close</md-icon>
+					</div>
 				</div>
 			</div>
-			<app-pagination></app-pagination>
+			<app-pagination [pagination]="pagination" 
+				[totalRows]="users.length" 
+				[showPageSelector]="true" 
+				[showFirstLastPage]="true">
+			</app-pagination>
 		</div>
 	</md-card-content>
 </md-card>
+<div>{{pagination.displayedRows}}</div>
 <div class="fab-action-button-container">
 	<button md-fab (click)="openNewUserDialog()" mdTooltip="New User" mdTooltipPosition="above">
 		<md-icon>add</md-icon>

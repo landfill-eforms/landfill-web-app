@@ -40,6 +40,32 @@ md-toolbar-row {
 }
 /***************************************/
 
+
+/*********** Pagination Stuff ***********/
+.pagination-numeric-selector {
+	.mat-select-trigger {
+		min-width: 64px !important;
+		max-width: 64px;
+        .mat-select-value {
+            .mat-select-value-text {
+                font-size: 12px;
+                color: rgba(0,0,0,0.54);
+                font-weight: 500;
+                width: 40px;
+                text-align: right;
+            }
+        }
+        .mat-select-arrow {
+            position: relative;
+            right: 4px;
+        }
+        .mat-select-underline {
+            display: none;
+        }
+	}
+}
+/***************************************/
+
 a {
     color: #2196F3;
     text-decoration: none;
@@ -123,17 +149,16 @@ a {
     font-weight: 500;
     height: 56px;
     text-align: left;
+    padding-top: 16px;
     border-bottom: solid 1px #E0E0E0;
 }
 
 .data-table-header-label {
     position: relative;
-    top: 21px;
+    top: 4.7px;
 }
 
 .data-table-header-label-sortable {
-    position: relative;
-    top: 16px;
     pointer-events: all;
     cursor: pointer;
 }
@@ -148,7 +173,7 @@ a {
     height: 16px !important;
     width: 16px !important;
     position: relative;
-    top: 19px;
+    top: 4.7px;
     transition: transform 0.2s ease-in-out;
     pointer-events: all;
     cursor: pointer;

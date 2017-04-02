@@ -9,16 +9,16 @@
 			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 				<div class="truncate flex-item" fxFlex (click)="sortBy('type')">
 					<span class="data-table-header-label-sortable">Equipment Type</span>
-					<md-icon class="data-table-header-sort" [ngClass]="{
-						'data-table-header-sort-reverse':sort.reversed,
-						'data-table-header-sort-inactive':sort.current !== 'type'}">
+					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+						'data-table-header-sort-arrow-reverse':sort.reversed,
+						'data-table-header-sort-arrow-inactive':sort.current !== 'type'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex (click)="sortBy('manufacturer')">
 					<span class="data-table-header-label-sortable">Manufacturer</span>
-					<md-icon class="data-table-header-sort" [ngClass]="{
-						'data-table-header-sort-reverse':sort.reversed,
-						'data-table-header-sort-inactive':sort.current !== 'manufacturer'}">
+					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+						'data-table-header-sort-arrow-reverse':sort.reversed,
+						'data-table-header-sort-arrow-inactive':sort.current !== 'manufacturer'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex="25">

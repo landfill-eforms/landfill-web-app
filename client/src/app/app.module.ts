@@ -1,3 +1,4 @@
+import { PaginationComponent } from './components/directives/pagination/pagination.component';
 import { MobileModule } from './components/mobile/mobile.module';
 import { NewInstrumentDialogComponent } from './components/instrument/dialog/new-instrument-dialog/new-instrument-dialog.component';
 import { NewInstrumentTypeDialogComponent } from './components/instrument/dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
@@ -74,6 +75,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		ImeRepairDialogComponent,
 		NewInstrumentDialogComponent,
 		NewInstrumentTypeDialogComponent,
+		PaginationComponent
 	],
 	providers: [
 		//AppRouterProviders,

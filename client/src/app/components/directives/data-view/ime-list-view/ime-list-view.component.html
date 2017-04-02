@@ -2,30 +2,30 @@
 	<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 		<div class="truncate flex-item" fxFlex (click)="sortBy('ime')">
 			<span class="data-table-header-label-sortable">IME#</span>
-			<md-icon class="data-table-header-sort" [ngClass]="{
-				'data-table-header-sort-reverse':sort.reversed,
-				'data-table-header-sort-inactive':sort.current !== 'ime'}">
+			<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+				'data-table-header-sort-arrow-reverse':sort.reversed,
+				'data-table-header-sort-arrow-inactive':sort.current !== 'ime'}">
 				arrow_downward</md-icon>
 		</div>
 		<div class="truncate flex-item" fxFlex (click)="sortBy('date')">
 			<span class="data-table-header-label-sortable">Discovery Date</span>
-			<md-icon class="data-table-header-sort" [ngClass]="{
-				'data-table-header-sort-reverse':sort.reversed,
-				'data-table-header-sort-inactive':sort.current !== 'date'}">
+			<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+				'data-table-header-sort-arrow-reverse':sort.reversed,
+				'data-table-header-sort-arrow-inactive':sort.current !== 'date'}">
 				arrow_downward</md-icon>
 		</div>
 		<div class="truncate flex-item" fxFlex (click)="sortBy('initMethaneLevel')">
 			<span class="data-table-header-label-sortable">Initial Reading</span>
-			<md-icon class="data-table-header-sort" [ngClass]="{
-				'data-table-header-sort-reverse':sort.reversed,
-				'data-table-header-sort-inactive':sort.current !== 'initMethaneLevel'}">
+			<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+				'data-table-header-sort-arrow-reverse':sort.reversed,
+				'data-table-header-sort-arrow-inactive':sort.current !== 'initMethaneLevel'}">
 				arrow_downward</md-icon>
 		</div>
 		<div class="truncate flex-item" fxFlex (click)="sortBy('lastMethaneLevel')">
 			<span class="data-table-header-label-sortable">Latest Reading</span>
-			<md-icon class="data-table-header-sort" [ngClass]="{
-				'data-table-header-sort-reverse':sort.reversed,
-				'data-table-header-sort-inactive':sort.current !== 'lastMethaneLevel'}">
+			<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+				'data-table-header-sort-arrow-reverse':sort.reversed,
+				'data-table-header-sort-arrow-inactive':sort.current !== 'lastMethaneLevel'}">
 				arrow_downward</md-icon>
 		</div>
 		<div class="truncate flex-item" fxFlex="100px" style="text-align:center;">

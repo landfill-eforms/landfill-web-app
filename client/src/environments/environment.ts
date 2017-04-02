@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const serverUrl:string = "http://lef-backend.us-west-2.elasticbeanstalk.com";
-//export const serverUrl:string = "http://localhost:5000";
+// export const serverUrl:string = "http://localhost:5000";
 
 export const environment = {
   production: false,

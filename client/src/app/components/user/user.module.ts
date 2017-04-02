@@ -1,3 +1,4 @@
+import { DirectivesModule } from './../directives/directives.module';
 import { UserGroupSelectorComponent } from './user-group-selector/user-group-selector.component';
 import { NewUserDialogComponent } from './new-user-dialog/new-user-dialog.component';
 import { NgModule } from '@angular/core';
@@ -9,7 +10,8 @@ import { UserOverviewComponent } from './user-overview/user-overview.component';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        DirectivesModule
     ],
     providers: [],
     declarations: [

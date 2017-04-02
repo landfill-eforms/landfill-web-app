@@ -52,9 +52,9 @@
 					<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 						<div class="truncate flex-item" fxFlex (click)="sortByGrid()">
 							<span class="data-table-header-label-sortable">Grid</span>
-							<md-icon class="data-table-header-sort" [ngClass]="{
-								'data-table-header-sort-reverse':sort.reversed,
-								'data-table-header-sort-inactive':sort.current !== 'grid'}">
+							<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+								'data-table-header-sort-arrow-reverse':sort.reversed,
+								'data-table-header-sort-arrow-inactive':sort.current !== 'grid'}">
 								arrow_downward</md-icon>
 						</div>
 						<div class="truncate flex-item" fxFlex>
@@ -68,16 +68,16 @@
 						</div>
 						<div class="truncate flex-item" fxFlex (click)="sortByMethaneLevel()">
 							<span class="data-table-header-label-sortable">Reading (ppm)</span>
-							<md-icon class="data-table-header-sort" [ngClass]="{
-								'data-table-header-sort-reverse':sort.reversed,
-								'data-table-header-sort-inactive':sort.current !== 'methaneLevel'}">
+							<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+								'data-table-header-sort-arrow-reverse':sort.reversed,
+								'data-table-header-sort-arrow-inactive':sort.current !== 'methaneLevel'}">
 								arrow_downward</md-icon>
 						</div>
 						<div class="truncate flex-item" fxFlex="150px" (click)="sortByIme()">
 							<span class="data-table-header-label-sortable">IME#</span>
-							<md-icon class="data-table-header-sort" [ngClass]="{
-								'data-table-header-sort-reverse':sort.reversed,
-								'data-table-header-sort-inactive':sort.current !== 'ime'}">
+							<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+								'data-table-header-sort-arrow-reverse':sort.reversed,
+								'data-table-header-sort-arrow-inactive':sort.current !== 'ime'}">
 								arrow_downward</md-icon>
 						</div>
 						<div class="truncate flex-item" fxFlex="150px">

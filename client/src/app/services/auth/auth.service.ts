@@ -56,8 +56,6 @@ export class AuthService {
 			(error:any) => {
 				this.snackBar.open(JSON.parse(error.text()).message, "OK", {duration: 2000});
 			});
-
-			console.log(Object.keys(AOTUserPermission));
 	}
 
 	logout() {

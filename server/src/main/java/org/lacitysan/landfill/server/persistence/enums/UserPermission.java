@@ -63,6 +63,9 @@ public enum UserPermission {
 	/** User can edit existing equipment entries. */
 	EDIT_INSTRUMENTS ("User can edit existing equipment entries.", Category.EQUIPMENT, "Edit", "User can edit existing equipment entries."),
 
+	/** User can delete existing equipment entries. */
+	DELETE_INSTRUMENTS ("User can delete existing equipment entries.", Category.EQUIPMENT, "Delete", "User can delete existing equipment entries."),
+
 	/** User can view existing equipment types. */
 	VIEW_INSTRUMENT_TYPES ("User can view existing equipment types.", Category.EQUIPMENT_TYPE, "View List", "User can view existing equipment types."),
 

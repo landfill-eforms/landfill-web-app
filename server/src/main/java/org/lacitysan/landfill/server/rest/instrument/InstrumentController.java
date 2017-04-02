@@ -59,13 +59,14 @@ public class InstrumentController {
 		return instrument;
 	}
 	
-	// TODO Forgot to create permission to delete instruments.
+	@RestSecurity(UserPermission.DELETE_INSTRUMENTS)
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public Instrument delete(@RequestBody Instrument instrument) {
 		instrumentDao.delete(instrument);
 		return instrument;
 	}
 	
+	@RestSecurity(UserPermission.DELETE_INSTRUMENTS)
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public Instrument deleteById(@PathVariable String id) {
 		try {

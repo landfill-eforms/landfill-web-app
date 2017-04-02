@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.exception.FileProcessingException;
+import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.mobile.MobileDataDeserializer;
 import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ public class FileUploadController {
 	@Autowired
 	MobileDataDeserializer mobileDataDeserializer;
 
+	@RestSecurity(UserPermission.UPLOAD_MOBILE_DATA)
 	@RequestMapping(value="/mobile", method=RequestMethod.POST)
 	public Object uploadMobileData(@RequestBody MultipartFile file) {
 		try {

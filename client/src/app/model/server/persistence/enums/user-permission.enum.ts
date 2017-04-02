@@ -21,22 +21,23 @@ export class UserPermission {
 	static readonly VIEW_INSTRUMENTS:UserPermission = new UserPermission(14, "VIEW_INSTRUMENTS", "User can view existing equipment.", "Equipment", "View List", "User can view existing equipment.");
 	static readonly CREATE_INSTRUMENTS:UserPermission = new UserPermission(15, "CREATE_INSTRUMENTS", "User can add new equipment entries.", "Equipment", "Create", "User can add new equipment entries.");
 	static readonly EDIT_INSTRUMENTS:UserPermission = new UserPermission(16, "EDIT_INSTRUMENTS", "User can edit existing equipment entries.", "Equipment", "Edit", "User can edit existing equipment entries.");
-	static readonly VIEW_INSTRUMENT_TYPES:UserPermission = new UserPermission(17, "VIEW_INSTRUMENT_TYPES", "User can view existing equipment types.", "Equipment Type", "View List", "User can view existing equipment types.");
-	static readonly CREATE_INSTRUMENT_TYPES:UserPermission = new UserPermission(18, "CREATE_INSTRUMENT_TYPES", "User can add new equipment types.", "Equipment Type", "Create", "User can add new equipment types.");
-	static readonly EDIT_INSTRUMENT_TYPES:UserPermission = new UserPermission(19, "EDIT_INSTRUMENT_TYPES", "User can edit existing equipment types.", "Equipment Type", "Edit", "User can edit existing equipment types.");
-	static readonly DELETE_INSTRUMENT_TYPES:UserPermission = new UserPermission(20, "DELETE_INSTRUMENT_TYPES", "User can delete existing equipment types.", "Equipment Type", "Delete", "User can delete existing equipment types.");
-	static readonly UPLOAD_MOBILE_DATA:UserPermission = new UserPermission(21, "UPLOAD_MOBILE_DATA", "User can upload data form the mobile application.", "Mobile App Sync", "Upload", "User can upload data form the mobile application.");
-	static readonly DOWNLOAD_MOBILE_DATA:UserPermission = new UserPermission(22, "DOWNLOAD_MOBILE_DATA", "User can download data for transfer to the mobile applications.", "Mobile App Sync", "Download", "User can download data for transfer to the mobile applications.");
-	static readonly VIEW_UNVERIFIED_DATA_SETS:UserPermission = new UserPermission(23, "VIEW_UNVERIFIED_DATA_SETS", "User can view existing unverified data sets.", "Unverified Data", "View List", "User can view existing unverified data sets.");
-	static readonly VIEW_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(24, "VIEW_UNVERIFIED_DATA_SET", "User can view the details of an unverified data set.", "Unverified Data", "View Sets", "User can view the details of an unverified data set.");
-	static readonly EDIT_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(25, "EDIT_UNVERIFIED_DATA_SET", "User can edit and save the details of an unverified data set.", "Unverified Data", "Edit Sets", "User can edit and save the details of an unverified data set.");
-	static readonly DELETE_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(26, "DELETE_UNVERIFIED_DATA_SET", "User can delete entire unverified data sets.", "Unverified Data", "Delete Sets", "User can delete entire unverified data sets.");
-	static readonly DELETE_UNVERIFIED_DATA:UserPermission = new UserPermission(27, "DELETE_UNVERIFIED_DATA", "User can delete individual data entries in an unverified data set.", "Unverified Data", "Delete Data", "User can delete individual data entries in an unverified data set.");
-	static readonly COMMIT_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(28, "COMMIT_UNVERIFIED_DATA_SET", "User can commit unverified data sets.", "Unverified Data", "Commit Set", "User can commit unverified data sets.");
-	static readonly GENERATE_REPORTS:UserPermission = new UserPermission(29, "GENERATE_REPORTS", "User can generate reports.", "Reports", "Generate", "User can generate reports.");
-	static readonly EMAIL_GENERATED_REPORT:UserPermission = new UserPermission(30, "EMAIL_GENERATED_REPORT", "", "Reports", "", "");
-	static readonly VIEW_VERIFIED_DATA:UserPermission = new UserPermission(31, "VIEW_VERIFIED_DATA", "User can view list of verified data", "Web App", "View List", "User can view list of verified data");
-	static readonly QUERY_VERIFIED_DATA_SET:UserPermission = new UserPermission(32, "QUERY_VERIFIED_DATA_SET", "User can find data by specific fields", "Web App", "Query List", "User can find data by specific fields");
+	static readonly DELETE_INSTRUMENTS:UserPermission = new UserPermission(17, "DELETE_INSTRUMENTS", "User can delete existing equipment entries.", "Equipment", "Delete", "User can delete existing equipment entries.");
+	static readonly VIEW_INSTRUMENT_TYPES:UserPermission = new UserPermission(18, "VIEW_INSTRUMENT_TYPES", "User can view existing equipment types.", "Equipment Type", "View List", "User can view existing equipment types.");
+	static readonly CREATE_INSTRUMENT_TYPES:UserPermission = new UserPermission(19, "CREATE_INSTRUMENT_TYPES", "User can add new equipment types.", "Equipment Type", "Create", "User can add new equipment types.");
+	static readonly EDIT_INSTRUMENT_TYPES:UserPermission = new UserPermission(20, "EDIT_INSTRUMENT_TYPES", "User can edit existing equipment types.", "Equipment Type", "Edit", "User can edit existing equipment types.");
+	static readonly DELETE_INSTRUMENT_TYPES:UserPermission = new UserPermission(21, "DELETE_INSTRUMENT_TYPES", "User can delete existing equipment types.", "Equipment Type", "Delete", "User can delete existing equipment types.");
+	static readonly UPLOAD_MOBILE_DATA:UserPermission = new UserPermission(22, "UPLOAD_MOBILE_DATA", "User can upload data form the mobile application.", "Mobile App Sync", "Upload", "User can upload data form the mobile application.");
+	static readonly DOWNLOAD_MOBILE_DATA:UserPermission = new UserPermission(23, "DOWNLOAD_MOBILE_DATA", "User can download data for transfer to the mobile applications.", "Mobile App Sync", "Download", "User can download data for transfer to the mobile applications.");
+	static readonly VIEW_UNVERIFIED_DATA_SETS:UserPermission = new UserPermission(24, "VIEW_UNVERIFIED_DATA_SETS", "User can view existing unverified data sets.", "Unverified Data", "View List", "User can view existing unverified data sets.");
+	static readonly VIEW_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(25, "VIEW_UNVERIFIED_DATA_SET", "User can view the details of an unverified data set.", "Unverified Data", "View Sets", "User can view the details of an unverified data set.");
+	static readonly EDIT_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(26, "EDIT_UNVERIFIED_DATA_SET", "User can edit and save the details of an unverified data set.", "Unverified Data", "Edit Sets", "User can edit and save the details of an unverified data set.");
+	static readonly DELETE_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(27, "DELETE_UNVERIFIED_DATA_SET", "User can delete entire unverified data sets.", "Unverified Data", "Delete Sets", "User can delete entire unverified data sets.");
+	static readonly DELETE_UNVERIFIED_DATA:UserPermission = new UserPermission(28, "DELETE_UNVERIFIED_DATA", "User can delete individual data entries in an unverified data set.", "Unverified Data", "Delete Data", "User can delete individual data entries in an unverified data set.");
+	static readonly COMMIT_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(29, "COMMIT_UNVERIFIED_DATA_SET", "User can commit unverified data sets.", "Unverified Data", "Commit Set", "User can commit unverified data sets.");
+	static readonly GENERATE_REPORTS:UserPermission = new UserPermission(30, "GENERATE_REPORTS", "User can generate reports.", "Reports", "Generate", "User can generate reports.");
+	static readonly EMAIL_GENERATED_REPORT:UserPermission = new UserPermission(31, "EMAIL_GENERATED_REPORT", "", "Reports", "", "");
+	static readonly VIEW_VERIFIED_DATA:UserPermission = new UserPermission(32, "VIEW_VERIFIED_DATA", "User can view list of verified data", "Web App", "View List", "User can view list of verified data");
+	static readonly QUERY_VERIFIED_DATA_SET:UserPermission = new UserPermission(33, "QUERY_VERIFIED_DATA_SET", "User can find data by specific fields", "Web App", "Query List", "User can find data by specific fields");
 
 	readonly ordinal:number;
 	readonly constantName:string;
@@ -73,6 +74,7 @@ export class UserPermission {
 			UserPermission.VIEW_INSTRUMENTS,
 			UserPermission.CREATE_INSTRUMENTS,
 			UserPermission.EDIT_INSTRUMENTS,
+			UserPermission.DELETE_INSTRUMENTS,
 			UserPermission.VIEW_INSTRUMENT_TYPES,
 			UserPermission.CREATE_INSTRUMENT_TYPES,
 			UserPermission.EDIT_INSTRUMENT_TYPES,
@@ -113,6 +115,7 @@ export const AOTUserPermission = {
 	VIEW_INSTRUMENTS: UserPermission["VIEW_INSTRUMENTS"],
 	CREATE_INSTRUMENTS: UserPermission["CREATE_INSTRUMENTS"],
 	EDIT_INSTRUMENTS: UserPermission["EDIT_INSTRUMENTS"],
+	DELETE_INSTRUMENTS: UserPermission["DELETE_INSTRUMENTS"],
 	VIEW_INSTRUMENT_TYPES: UserPermission["VIEW_INSTRUMENT_TYPES"],
 	CREATE_INSTRUMENT_TYPES: UserPermission["CREATE_INSTRUMENT_TYPES"],
 	EDIT_INSTRUMENT_TYPES: UserPermission["EDIT_INSTRUMENT_TYPES"],

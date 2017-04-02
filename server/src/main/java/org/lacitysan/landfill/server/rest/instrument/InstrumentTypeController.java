@@ -49,11 +49,11 @@ public class InstrumentTypeController {
 		// TODO Move this to a service.
 		instrumentType.setType(instrumentType.getType().trim());
 		if (instrumentType.getType().isEmpty()) {
-			throw new EmptyStringException("Instrument type cannot be blank");
+			throw new EmptyStringException("Instrument type cannot be blank.");
 		}
 		instrumentType.setManufacturer(instrumentType.getManufacturer().trim());
 		if (instrumentType.getManufacturer().isEmpty()) {
-			throw new EmptyStringException("Manufacturer name cannot be blank");
+			throw new EmptyStringException("Manufacturer name cannot be blank.");
 		}
 
 		instrumentTypeDao.create(instrumentType);
@@ -67,11 +67,11 @@ public class InstrumentTypeController {
 		// TODO Move this to a service.
 		instrumentType.setType(instrumentType.getType().trim());
 		if (instrumentType.getType().isEmpty()) {
-			throw new EmptyStringException("Instrument type cannot be blank");
+			throw new EmptyStringException("Instrument type cannot be blank.");
 		}
 		instrumentType.setManufacturer(instrumentType.getManufacturer().trim());
 		if (instrumentType.getManufacturer().isEmpty()) {
-			throw new EmptyStringException("Manufacturer name cannot be blank");
+			throw new EmptyStringException("Manufacturer name cannot be blank.");
 		}
 
 		instrumentTypeDao.update(instrumentType);

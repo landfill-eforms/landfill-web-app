@@ -28,19 +28,25 @@
 		*ngIf="showFirstLastPage" 
 		(click)="firstPage()" 
 		class="pagination-nav-button flex-item" 
-		fxFlex="24px">
+		fxFlex="24px"
+		mdTooltip="First" 
+		mdTooltipPosition="above">
 		<md-icon class="pagination-nav-button-icon">first_page</md-icon>
 	</button>
 	<button md-icon-button 
 		(click)="prevPage()" 
 		class="pagination-nav-button flex-item" 
-		fxFlex="24px">
+		fxFlex="24px"
+		mdTooltip="Previous" 
+		mdTooltipPosition="above">
 		<md-icon class="pagination-nav-button-icon">navigate_before</md-icon>
 	</button>
 	<button md-icon-button 
 		(click)="nextPage()" 
 		class="pagination-nav-button flex-item" 
-		fxFlex="24px">
+		fxFlex="24px"
+		mdTooltip="Next" 
+		mdTooltipPosition="above">
 		<md-icon class="pagination-nav-button-icon">navigate_next</md-icon>
 	</button>
 	<button md-icon-button 
@@ -48,7 +54,9 @@
 		(click)="lastPage()" 
 		class="pagination-nav-button flex-item" 
 		[ngStyle]="{'margin-right': extraPadding + 14 + 'px'}" 
-		fxFlex="24px">
+		fxFlex="24px"
+		mdTooltip="Last" 
+		mdTooltipPosition="above">
 		<md-icon class="pagination-nav-button-icon">last_page</md-icon>
 	</button>
 </div>

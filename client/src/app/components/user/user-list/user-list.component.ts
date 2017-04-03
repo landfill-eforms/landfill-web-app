@@ -3,7 +3,7 @@ import { StringUtils } from './../../../utils/string.utils';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { NewUserDialogComponent } from './../new-user-dialog/new-user-dialog.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from './../../../services/user/user.service';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/material";
 
@@ -13,6 +13,9 @@ import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/mate
 	styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+
+	@ViewChild('sideinfo') sideInfo:any;
+	@ViewChild('hello') dataTableScrollableArea:ElementRef;
 
 	stringUtils = StringUtils;
 
@@ -43,6 +46,9 @@ export class UserListComponent implements OnInit {
 
 	pagination:Pagination = new Pagination();
 
+	sideInfoOpen:boolean = false;
+	scrollArea:Element;
+
 	constructor(
 		private userService:UserService,
 		private dialog:MdDialog,
@@ -52,6 +58,7 @@ export class UserListComponent implements OnInit {
 	ngOnInit() {
 		this.loadingMessage = "Loading Users...";
 		this.loadUsers();
+		
 	}
 
 	loadUsers() {
@@ -79,6 +86,31 @@ export class UserListComponent implements OnInit {
 
 	sortBy(sortBy:string) {
 		SortUtils.sortAndUpdate(this.sort, sortBy, this.users, this.sortProperties[sortBy]);
+	}
+
+	toggleSideInfo() {
+		if (this.sideInfoOpen) {
+			this.sideInfo.close();
+			this.sideInfoOpen = false;
+		}
+		else {
+			this.sideInfo.open();
+			this.sideInfoOpen = true;
+		}
+	}
+
+	dataTableHeaderLeftMargin():string {
+		console.log("HELLO");
+		if (!this.dataTableScrollableArea) {
+			return "0px";
+		}
+		let element:any = this.dataTableScrollableArea.nativeElement;
+		if (element.offsetHeight < element.scrollHeight || element.offsetWidth < element.scrollWidth) {
+			return "17px"
+		}
+		else {
+			return "0px"
+		}
 	}
 
 }

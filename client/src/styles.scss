@@ -12,7 +12,7 @@ html {
 }
 
 /*********** Navbar + Sidenav ***********/
-md-sidenav-container {
+.primary-sidenav-container {
     background: #EEE !important;
     top: $navbar-height !important;
     .mat-sidenav-opened {
@@ -136,9 +136,18 @@ a {
     padding-bottom: 13px;
 }
 
-.data-table {
-    //padding: 16px 0;
-    //margin: 0 -24px;
+.data-table-scrollable {
+    height: calc(100% - 56px);
+    .data-table-header-row {
+        padding-right: 17px;
+        -webkit-padding-end: 0px; // Remove padding for webkit browsers.
+    }
+}
+
+.data-table-scrollable-area {
+    max-height: calc(100% - 56px);
+    overflow-y: scroll; // Non-webkit browsers will always have scroll bar visible.
+    overflow-y: overlay; // Only for webkit browsers;
 }
 
 .data-table-super-header-row {
@@ -207,22 +216,28 @@ a {
     margin-right: 24px;
 }
 
-.data-table-row {
+.data-table-row:first-child {
+    .data-table-row-content {
+        border-top-width: 0;
+    }
+}
+
+.data-table-row-content {
     font-size: 13px;
     color: rgba(0,0,0,0.87);
-    border-bottom: 1px solid #E0E0E0;
     font-weight: 400;
     height: 48px;
     padding-top: 16px;
     background: #FFF;
+    border-top: 1px solid #E0E0E0;
     transition: background 0.1s linear;
 }
 
-.data-table-row:hover {
+.data-table-row-content:hover {
     background: #EEEEEE;
 }
 
-.data-table-row-active {
+.data-table-row-content-active {
     background: #F5F5F5;
 }
 

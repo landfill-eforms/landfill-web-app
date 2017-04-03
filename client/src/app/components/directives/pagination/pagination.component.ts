@@ -28,7 +28,7 @@ export class PaginationComponent implements OnChanges {
         this.updateRange();
 	}
 
-    private validate() {
+    validate() {
         if (this.pagination.currentPage < 1) {
             this.pagination.currentPage = 1;
         }
@@ -38,40 +38,40 @@ export class PaginationComponent implements OnChanges {
         }
     }
 
-    private updateRange() {
+    updateRange() {
         let pageMax = this.pagination.currentPage * this.pagination.displayedRows;
         this.displayedRange.max = pageMax > this.totalRows ? this.totalRows : pageMax;
         this.displayedRange.min = (this.pagination.currentPage - 1) * this.pagination.displayedRows + 1;
         this.availablePagesSelection = this.generateAvaliablePagesArray();
     }
 
-    private generateAvaliablePagesArray():number[] {
+    generateAvaliablePagesArray():number[] {
         let pageCount = ~~(this.totalRows / this.pagination.displayedRows) + 1;
         return Array(pageCount).fill(0).map((x,i) => i + 1);
     }
 
-    private changeDisplayedRows() {
+    changeDisplayedRows() {
         this.validate();
         this.updateRange();
     }
 
-    private changeCurrentPage() {
+    changeCurrentPage() {
         this.validate();
     }
 
-    private firstPage() {
+    firstPage() {
         this.pagination.currentPage = 1;
         this.updateRange();
     }
 
-    private prevPage() {
+    prevPage() {
         if (this.pagination.currentPage > 1) {
             this.pagination.currentPage--;
             this.updateRange();
         }
     }
 
-    private nextPage() {
+    nextPage() {
         let pageCount = ~~(this.totalRows / this.pagination.displayedRows) + 1;
         if (this.pagination.currentPage < pageCount) {
             this.pagination.currentPage++;
@@ -79,7 +79,7 @@ export class PaginationComponent implements OnChanges {
         }
     }
 
-    private lastPage() {
+    lastPage() {
         this.pagination.currentPage = ~~(this.totalRows / this.pagination.displayedRows) + 1;
         this.updateRange();
     }

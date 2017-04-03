@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-pagination',
@@ -8,10 +8,12 @@ import { Component, Input, OnChanges } from '@angular/core';
 export class PaginationComponent implements OnChanges {
 
     @Input() pagination:Pagination = new Pagination();
-    @Input() totalRows:number = 0;
+    // @Input() totalRows:number = 0;
     @Input() extraPadding:number = 0;
     @Input() showPageSelector:boolean = false;
     @Input() showFirstLastPage:boolean = false;
+
+    @Output() changed = new EventEmitter();
 
     readonly displayedRange:{min:number, max:number} = {
         min: 1,
@@ -32,7 +34,7 @@ export class PaginationComponent implements OnChanges {
         if (this.pagination.currentPage < 1) {
             this.pagination.currentPage = 1;
         }
-        let pageCount = ~~(this.totalRows / this.pagination.displayedRows) + 1;
+        let pageCount = ~~(this.pagination.totalRows / this.pagination.displayedRows) + 1;
         if (this.pagination.currentPage > pageCount) {
             this.pagination.currentPage = pageCount;
         }
@@ -40,13 +42,14 @@ export class PaginationComponent implements OnChanges {
 
     updateRange() {
         let pageMax = this.pagination.currentPage * this.pagination.displayedRows;
-        this.displayedRange.max = pageMax > this.totalRows ? this.totalRows : pageMax;
+        this.displayedRange.max = pageMax > this.pagination.totalRows ? this.pagination.totalRows : pageMax;
         this.displayedRange.min = (this.pagination.currentPage - 1) * this.pagination.displayedRows + 1;
         this.availablePagesSelection = this.generateAvaliablePagesArray();
+        this.changed.emit();
     }
 
     generateAvaliablePagesArray():number[] {
-        let pageCount = ~~(this.totalRows / this.pagination.displayedRows) + 1;
+        let pageCount = ~~(this.pagination.totalRows / this.pagination.displayedRows) + 1;
         return Array(pageCount).fill(0).map((x,i) => i + 1);
     }
 
@@ -57,6 +60,7 @@ export class PaginationComponent implements OnChanges {
 
     changeCurrentPage() {
         this.validate();
+        this.updateRange();
     }
 
     firstPage() {
@@ -72,7 +76,7 @@ export class PaginationComponent implements OnChanges {
     }
 
     nextPage() {
-        let pageCount = ~~(this.totalRows / this.pagination.displayedRows) + 1;
+        let pageCount = ~~(this.pagination.totalRows / this.pagination.displayedRows) + 1;
         if (this.pagination.currentPage < pageCount) {
             this.pagination.currentPage++;
             this.updateRange();
@@ -80,7 +84,7 @@ export class PaginationComponent implements OnChanges {
     }
 
     lastPage() {
-        this.pagination.currentPage = ~~(this.totalRows / this.pagination.displayedRows) + 1;
+        this.pagination.currentPage = ~~(this.pagination.totalRows / this.pagination.displayedRows) + 1;
         this.updateRange();
     }
 
@@ -89,4 +93,5 @@ export class PaginationComponent implements OnChanges {
 export class Pagination {
     displayedRows:number = 10;
     currentPage:number = 1;
+    totalRows:number = 0;
 }

@@ -15,13 +15,12 @@ import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/mate
 export class UserListComponent implements OnInit {
 
 	@ViewChild('sideinfo') sideInfo:any;
-	@ViewChild('hello') dataTableScrollableArea:ElementRef;
 
 	stringUtils = StringUtils;
 
 	isDataLoaded:boolean;
 	loadingMessage:string;
-	users:User[];
+	users:User[] = [];
 	
 	sort:Sort = {
 		current: "id",
@@ -44,10 +43,11 @@ export class UserListComponent implements OnInit {
 		]
 	}
 
+	filterResultCount:number = 0;
 	pagination:Pagination = new Pagination();
+	filteredUsers:User[] = [];
 
 	sideInfoOpen:boolean = false;
-	scrollArea:Element;
 
 	constructor(
 		private userService:UserService,
@@ -99,17 +99,22 @@ export class UserListComponent implements OnInit {
 		}
 	}
 
-	dataTableHeaderLeftMargin():string {
-		console.log("HELLO");
-		if (!this.dataTableScrollableArea) {
-			return "0px";
+	applyFilters() {
+
+		if (this.filteredUsers.length !=0) {
+			this.filteredUsers = [];
 		}
-		let element:any = this.dataTableScrollableArea.nativeElement;
-		if (element.offsetHeight < element.scrollHeight || element.offsetWidth < element.scrollWidth) {
-			return "17px"
-		}
-		else {
-			return "0px"
+
+		// TODO Search filters
+		this.pagination.totalRows = this.users.length;
+
+		// Pagination filters
+		let filtered:User[] = this.users.filter((x, i) => {
+			return i >= (this.pagination.currentPage - 1) * this.pagination.displayedRows && i < this.pagination.currentPage * this.pagination.displayedRows;
+		});
+
+		for (let a of filtered) {
+			this.filteredUsers.push(a);
 		}
 	}
 

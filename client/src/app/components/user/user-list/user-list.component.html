@@ -66,9 +66,9 @@
 						<span class="data-table-header-label">Active</span>
 					</div>
 				</div>
-				<div #hello class="data-table-scrollable-area">
-					<div *ngFor="let user of users; let idx = index" class="data-table-row">
-						<div *ngIf="idx >= (pagination.currentPage - 1) * pagination.displayedRows && idx < pagination.currentPage * pagination.displayedRows"
+				<div class="data-table-scrollable-area">
+					<div *ngFor="let user of filteredUsers; let idx = index" class="data-table-row">
+						<div 
 							class="data-table-row-content" flex-container 
 							fxLayout="row">
 							<div class="data-table-first-column truncate flex-item" fxFlex="10">
@@ -93,9 +93,9 @@
 					</div>
 				</div>
 				<app-pagination [pagination]="pagination" 
-					[totalRows]="users.length" 
 					[showPageSelector]="true" 
-					[showFirstLastPage]="true">
+					[showFirstLastPage]="true"
+					(changed)="applyFilters()">
 				</app-pagination>
 			</div>
 		</div>

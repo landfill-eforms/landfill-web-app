@@ -1,67 +1,95 @@
 <md-card class="section-single">
-	<md-card-content>
+	<md-card-title>
 		<div class="section-title">Manage Users</div>
+	</md-card-title>
+	<md-card-content>
 		<div *ngIf="!isDataLoaded" class="loading-indicator-container">
 			<md-spinner class="loading-indicator-spinner"></md-spinner>
 			<div class="loading-indicator-message">{{loadingMessage}}</div>
 		</div>
 		<div *ngIf="isDataLoaded" class="data-table">
 			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-				<div class="truncate flex-item" fxFlex (click)="sortBy('username')">
-					<span class="data-table-header-label-sortable">Username</span>
-					<md-icon class="data-table-header-sort" [ngClass]="{
-						'data-table-header-sort-reverse':sort.reversed,
-						'data-table-header-sort-inactive':sort.current !== 'username'}">
-						arrow_downward</md-icon>
+				<div class="data-table-first-column truncate flex-item" fxFlex="10" (click)="sortBy('username')">
+					<span class="data-table-header-label-sortable" [ngClass]="{
+						'data-table-header-label-sorted':sort.current == 'username'}">
+						Username
+					</span>
+					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+						'data-table-header-sort-arrow-reverse':sort.reversed,
+						'data-table-header-sort-arrow-inactive':sort.current !== 'username'}">
+						arrow_downward
+					</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="25" (click)="sortBy('name')">
-					<span class="data-table-header-label-sortable">Name</span>
-					<md-icon class="data-table-header-sort" [ngClass]="{
-						'data-table-header-sort-reverse':sort.reversed,
-						'data-table-header-sort-inactive':sort.current !== 'name'}">
-						arrow_downward</md-icon>
+				<div class="data-table-column truncate flex-item" fxFlex="13" (click)="sortBy('name')">
+					<span class="data-table-header-label-sortable" [ngClass]="{
+						'data-table-header-label-sorted':sort.current == 'name'}">
+						Name
+					</span>
+					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+						'data-table-header-sort-arrow-reverse':sort.reversed,
+						'data-table-header-sort-arrow-inactive':sort.current !== 'name'}">
+						arrow_downward
+					</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="25" (click)="sortBy('emailAddress')">
-					<span class="data-table-header-label-sortable">Email</span>
-					<md-icon class="data-table-header-sort" [ngClass]="{
-						'data-table-header-sort-reverse':sort.reversed,
-						'data-table-header-sort-inactive':sort.current !== 'emailAddress'}">
-						arrow_downward</md-icon>
+				<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('emailAddress')">
+					<span class="data-table-header-label-sortable" [ngClass]="{
+						'data-table-header-label-sorted':sort.current == 'emailAddress'}">
+						Email
+					</span>
+					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+						'data-table-header-sort-arrow-reverse':sort.reversed,
+						'data-table-header-sort-arrow-inactive':sort.current !== 'emailAddress'}">
+						arrow_downward
+					</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="25" (click)="sortBy('employeeId')">
-					<span class="data-table-header-label-sortable">Employee ID</span>
-					<md-icon class="data-table-header-sort" [ngClass]="{
-						'data-table-header-sort-reverse':sort.reversed,
-						'data-table-header-sort-inactive':sort.current !== 'employeeId'}">
-						arrow_downward</md-icon>
+				<div class="data-table-column truncate flex-item" fxFlex="13" (click)="sortBy('employeeId')">
+					<span class="data-table-header-label-sortable" [ngClass]="{
+						'data-table-header-label-sorted':sort.current == 'employeeId'}">
+						Employee ID
+					</span>
+					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+						'data-table-header-sort-arrow-reverse':sort.reversed,
+						'data-table-header-sort-arrow-inactive':sort.current !== 'employeeId'}">
+						arrow_downward
+					</md-icon>
 				</div>
-				<div class="truncate flex-item" fxFlex="50px" style="text-align:center;">
+				<div class="data-table-last-column truncate flex-item" fxFlex="40px" style="text-align:center;">
 					<span class="data-table-header-label">Active</span>
 				</div>
 			</div>
-			<div *ngFor="let user of users; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
-				<div class="truncate flex-item" fxFlex>
-					<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
-						{{user.username}}
-					</a>
-				</div>
-				<div class="truncate flex-item" fxFlex="25">
-					{{stringUtils.formatUserName(user)}}
-				</div>
-				<div class="truncate flex-item" fxFlex="25">
-					{{user.emailAddress}}
-				</div>
-				<div class="truncate flex-item" fxFlex="25">
-					{{user.employeeId}}
-				</div>
-				<div class="flex-item" fxFlex="50px" style="text-align:center;">
-					<md-icon *ngIf="user.enabled" style="color:#0D0;">check</md-icon>
-					<md-icon *ngIf="!user.enabled" style="color:#D00;">close</md-icon>
+			<div *ngFor="let user of users; let idx = index">
+				<div *ngIf="idx >= (pagination.currentPage - 1) * pagination.displayedRows && idx < pagination.currentPage * pagination.displayedRows"
+					class="data-table-row flex-container" 
+					fxLayout="row">
+					<div class="data-table-first-column truncate flex-item" fxFlex="10">
+						<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
+							{{user.username}}
+						</a>
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex="13">
+						{{stringUtils.formatUserName(user)}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{user.emailAddress}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex="13">
+						{{user.employeeId}}
+					</div>
+					<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">
+						<md-icon *ngIf="user.enabled" style="color:#0D0;margin-top:-4px;">check</md-icon>
+						<md-icon *ngIf="!user.enabled" style="color:#D00;margin-top:-4px;">close</md-icon>
+					</div>
 				</div>
 			</div>
+			<app-pagination [pagination]="pagination" 
+				[totalRows]="users.length" 
+				[showPageSelector]="true" 
+				[showFirstLastPage]="true">
+			</app-pagination>
 		</div>
 	</md-card-content>
 </md-card>
+<div>{{pagination.displayedRows}}</div>
 <div class="fab-action-button-container">
 	<button md-fab (click)="openNewUserDialog()" mdTooltip="New User" mdTooltipPosition="above">
 		<md-icon>add</md-icon>

@@ -1,3 +1,4 @@
+import { PaginationComponent } from './pagination/pagination.component';
 import { ImeRepairDialogComponent } from './dialog/ime-repair-dialog/ime-repair-dialog.component';
 import { ImeRecheckDialogComponent } from './dialog/ime-recheck-dialog/ime-recheck-dialog.component';
 import { ImeDataViewComponent } from './data-view/ime-data-view/ime-data-view.component';
@@ -18,7 +19,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		ImeListViewComponent,
 		ImeDataViewComponent,
 		ImeRecheckDialogComponent,
-		ImeRepairDialogComponent
+		ImeRepairDialogComponent,
+		PaginationComponent
 	],
 	exports: [
 		FileUploadComponent,
@@ -26,7 +28,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		ImeListViewComponent,
 		ImeDataViewComponent,
 		ImeRecheckDialogComponent,
-		ImeRepairDialogComponent
+		ImeRepairDialogComponent,
+		PaginationComponent
 	]
 })
 

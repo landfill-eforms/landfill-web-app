@@ -2,9 +2,9 @@
     <div class="unselectable data-table-header-row flex-container" fxLayout="row">
         <div class="truncate flex-item" fxFlex (click)="sortBy('date')">
             <span class="data-table-header-label-sortable">Date</span>
-            <md-icon class="data-table-header-sort" [ngClass]="{
-                'data-table-header-sort-reverse':sort.reversed,
-                'data-table-header-sort-inactive':sort.current !== 'date'}">
+            <md-icon class="data-table-header-sort-arrow" [ngClass]="{
+                'data-table-header-sort-arrow-reverse':sort.reversed,
+                'data-table-header-sort-arrow-inactive':sort.current !== 'date'}">
                 arrow_downward</md-icon>
         </div>
         <div class="truncate flex-item" fxFlex>
@@ -12,16 +12,16 @@
         </div>
         <div class="truncate flex-item" fxFlex (click)="sortBy('inspector')">
             <span class="data-table-header-label-sortable">Inspector</span>
-            <md-icon class="data-table-header-sort" [ngClass]="{
-                'data-table-header-sort-reverse':sort.reversed,
-                'data-table-header-sort-inactive':sort.current !== 'inspector'}">
+            <md-icon class="data-table-header-sort-arrow" [ngClass]="{
+                'data-table-header-sort-arrow-reverse':sort.reversed,
+                'data-table-header-sort-arrow-inactive':sort.current !== 'inspector'}">
                 arrow_downward</md-icon>
         </div>
         <div class="truncate flex-item" fxFlex (click)="sortBy('grid')">
             <span class="data-table-header-label-sortable">Grid</span>
-            <md-icon class="data-table-header-sort" [ngClass]="{
-                'data-table-header-sort-reverse':sort.reversed,
-                'data-table-header-sort-inactive':sort.current !== 'grid'}">
+            <md-icon class="data-table-header-sort-arrow" [ngClass]="{
+                'data-table-header-sort-arrow-reverse':sort.reversed,
+                'data-table-header-sort-arrow-inactive':sort.current !== 'grid'}">
                 arrow_downward</md-icon>
         </div>
         <div class="truncate flex-item" fxFlex>
@@ -35,16 +35,16 @@
         </div>
         <div class="truncate flex-item" fxFlex (click)="sortBy('methaneLevel')">
             <span class="data-table-header-label-sortable">Reading (ppm)</span>
-            <md-icon class="data-table-header-sort" [ngClass]="{
-                'data-table-header-sort-reverse':sort.reversed,
-                'data-table-header-sort-inactive':sort.current !== 'methaneLevel'}">
+            <md-icon class="data-table-header-sort-arrow" [ngClass]="{
+                'data-table-header-sort-arrow-reverse':sort.reversed,
+                'data-table-header-sort-arrow-inactive':sort.current !== 'methaneLevel'}">
                 arrow_downward</md-icon>
         </div>
         <div class="truncate flex-item" fxFlex (click)="sortBy('ime')">
             <span class="data-table-header-label-sortable">IME#</span>
-            <md-icon class="data-table-header-sort" [ngClass]="{
-                'data-table-header-sort-reverse':sort.reversed,
-                'data-table-header-sort-inactive':sort.current !== 'ime'}">
+            <md-icon class="data-table-header-sort-arrow" [ngClass]="{
+                'data-table-header-sort-arrow-reverse':sort.reversed,
+                'data-table-header-sort-arrow-inactive':sort.current !== 'ime'}">
                 arrow_downward</md-icon>
         </div>
     </div>

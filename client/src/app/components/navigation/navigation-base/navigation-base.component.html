@@ -5,7 +5,7 @@
 				<md-icon>menu</md-icon>
 			</button>
 		</div>
-		<div class="logo-container flex-item" fxFlex routerLink="dashboard" routerLikeActive="active">
+		<div class="logo-container flex-item" fxFlex>
 			<a routerLink="dashboard" routerLikeActive="active">
 				<img [src]="logoUrl">
 			</a>
@@ -17,7 +17,7 @@
 	<div class="navbar-shadow"></div>
 </md-toolbar>
 <md-sidenav-container fullscreen>
-	<md-sidenav #sidenav mode="side" opened="true" class="sidenav-contents">
+	<md-sidenav #sidenav mode="over" opened="false" class="sidenav-contents">
 		<div >
 			<div class="nav-logo">
 				<div>

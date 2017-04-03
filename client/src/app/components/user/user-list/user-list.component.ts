@@ -1,3 +1,4 @@
+import { Pagination } from './../../directives/pagination/pagination.component';
 import { StringUtils } from './../../../utils/string.utils';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
@@ -39,6 +40,8 @@ export class UserListComponent implements OnInit {
 			"employeeId"
 		]
 	}
+
+	pagination:Pagination = new Pagination();
 
 	constructor(
 		private userService:UserService,

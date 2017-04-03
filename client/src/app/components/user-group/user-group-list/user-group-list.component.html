@@ -9,16 +9,16 @@
 			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 				<div class="truncate flex-item" fxFlex (click)="sortByGroupName()">
 					<span class="data-table-header-label-sortable">Group Name</span>
-					<md-icon class="data-table-header-sort" [ngClass]="{
-						'data-table-header-sort-reverse':sort.reversed,
-						'data-table-header-sort-inactive':sort.current !== 'name'}">
+					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+						'data-table-header-sort-arrow-reverse':sort.reversed,
+						'data-table-header-sort-arrow-inactive':sort.current !== 'name'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex="100px" (click)="sortByUserCount()">
 					<span class="data-table-header-label-sortable">Users</span>
-					<md-icon class="data-table-header-sort" [ngClass]="{
-						'data-table-header-sort-reverse':sort.reversed,
-						'data-table-header-sort-inactive':sort.current !== 'users'}">
+					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+						'data-table-header-sort-arrow-reverse':sort.reversed,
+						'data-table-header-sort-arrow-inactive':sort.current !== 'users'}">
 						arrow_downward</md-icon>
 				</div>
 				<div class="truncate flex-item" fxFlex="60">

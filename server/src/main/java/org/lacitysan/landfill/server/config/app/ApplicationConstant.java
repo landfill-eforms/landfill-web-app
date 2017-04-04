@@ -27,7 +27,7 @@ public class ApplicationConstant {
 	/** The username of the super admin account. */
 	public static final String SUPER_ADMIN_USERNAME = "admin";
 	
-	/** The secret for generated JWTs. */
-	public static final String TOKEN_SECRET = "secret";
+	/** The length of the randomly generated secret for JWTs. */
+	public static final Integer TOKEN_SECRET_LENGTH = 16;
 	
 }

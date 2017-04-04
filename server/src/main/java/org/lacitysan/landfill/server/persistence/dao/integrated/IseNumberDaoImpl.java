@@ -1,5 +1,6 @@
 package org.lacitysan.landfill.server.persistence.dao.integrated;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,8 +13,13 @@ import org.lacitysan.landfill.server.persistence.entity.integrated.IseNumber;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author Alvin Quach
+ */
+@Repository
 public class IseNumberDaoImpl extends AbstractDaoImpl<IseNumber> implements IseNumberDao {
 
 	@Autowired

@@ -24,6 +24,12 @@ html {
     }
 }
 
+.sideinfo-container {
+    .mat-sidenav-opened {
+        box-shadow: 0 0 7px rgba(0,0,0,0.24) !important;
+    }
+}
+
 md-toolbar-row {
     height: $navbar-height !important;
 }
@@ -41,6 +47,10 @@ md-toolbar-row {
 
 .mat-sidenav-content {
   transform: initial !important;
+}
+
+.mat-sidenav-container {
+    background-color: #FFF !important;
 }
 /***************************************/
 

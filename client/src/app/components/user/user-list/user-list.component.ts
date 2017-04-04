@@ -55,6 +55,7 @@ export class UserListComponent implements OnInit {
 	paginatedUsers:User[] = [];
 
 	showSideInfo:boolean = false;
+	selectedUser:User;
 
 	constructor(
 		private userService:UserService,
@@ -98,17 +99,6 @@ export class UserListComponent implements OnInit {
 		this.applyFilters();
 	}
 
-	toggleSideInfo() {
-		if (this.showSideInfo) {
-			this.sideInfo.close();
-			this.showSideInfo = false;
-		}
-		else {
-			this.sideInfo.open();
-			this.showSideInfo = true;
-		}
-	}
-
 	toggleFilters() {
 		if (this.showFilters) {
 			this.showFilters = false;
@@ -145,6 +135,29 @@ export class UserListComponent implements OnInit {
 		this.paginatedUsers = this.filteredUsers.filter((o, i) => {
 			return i >= (this.paginfo.currentPage - 1) * this.paginfo.displayedRows && i < this.paginfo.currentPage * this.paginfo.displayedRows;
 		});
+	}
+
+	toggleSideInfo() {
+		if (this.showSideInfo) {
+			this.sideInfo.close();
+			this.showSideInfo = false;
+		}
+		else {
+			this.sideInfo.open();
+			this.showSideInfo = true;
+		}
+	}
+
+	selectUser(user:User) {
+		if (!this.selectedUser) {
+			this.sideInfo.open();
+			this.showSideInfo = true;
+		}
+		this.selectedUser = user;
+	}
+
+	deselectUser() {
+		this.selectedUser = null;
 	}
 
 }

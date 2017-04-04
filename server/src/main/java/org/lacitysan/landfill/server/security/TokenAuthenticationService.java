@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,19 @@ public class TokenAuthenticationService {
 	
 	@Autowired
 	ApplicationVariableService applicationVariableService;
+	
+	private String secret;
+	
+	public TokenAuthenticationService() {
+		String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; // Possible characters.
+        char[] secret = new char[ApplicationConstant.TOKEN_SECRET_LENGTH];
+        Random rng = new Random();
+        for (int i = 0; i < secret.length; i++) {
+        	secret[i] = chars.charAt(rng.nextInt(chars.length()));
+        }
+        this.secret = new String(secret);
+        System.out.println("JWT Secret: " + this.secret);
+	}
 
 	/** Adds authentication info to response header. */
 	public void addAuthentication(HttpServletResponse response, Authentication authentication) {
@@ -43,7 +57,7 @@ public class TokenAuthenticationService {
 		String jwt = Jwts.builder()
 				.setClaims(claims)
 				.setExpiration(new Date(System.currentTimeMillis() + applicationVariableService.getTokenExpirationTime()))
-				.signWith(SignatureAlgorithm.HS512, ApplicationConstant.TOKEN_SECRET)
+				.signWith(SignatureAlgorithm.HS512, secret)
 				.compact();
 		response.addHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME, ApplicationConstant.HTTP_TOKEN_PREFIX + " " + jwt);
 		response.addHeader("Access-Control-Allow-Origin", "*");
@@ -57,7 +71,7 @@ public class TokenAuthenticationService {
 			try {
 				token = token.replace(ApplicationConstant.HTTP_TOKEN_PREFIX + " ", "");
 				Claims claims = Jwts.parser()
-						.setSigningKey(ApplicationConstant.TOKEN_SECRET)
+						.setSigningKey(secret)
 						.parseClaimsJws(token)
 						.getBody();
 				Object principle = claims.get("principle");

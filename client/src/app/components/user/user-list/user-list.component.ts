@@ -1,4 +1,4 @@
-import { Pagination } from './../../directives/pagination/pagination.component';
+import { Paginfo, PaginationComponent } from './../../directives/pagination/pagination.component';
 import { StringUtils } from './../../../utils/string.utils';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
@@ -15,13 +15,14 @@ import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/mate
 export class UserListComponent implements OnInit {
 
 	@ViewChild('sideinfo') sideInfo:any;
+	@ViewChild('pagination') pagination:PaginationComponent;
 
 	stringUtils = StringUtils;
 
 	isDataLoaded:boolean;
 	loadingMessage:string;
 	users:User[] = [];
-	
+
 	sort:Sort = {
 		current: "id",
 		reversed: false
@@ -43,11 +44,17 @@ export class UserListComponent implements OnInit {
 		]
 	}
 
-	filterResultCount:number = 0;
-	pagination:Pagination = new Pagination();
+	showFilters:boolean = false;
+	filteredRowsCount:number = 0;
 	filteredUsers:User[] = [];
+	filters:{text:string} = {
+		text: ""
+	};
 
-	sideInfoOpen:boolean = false;
+	paginfo:Paginfo = new Paginfo();
+	paginatedUsers:User[] = [];
+
+	showSideInfo:boolean = false;
 
 	constructor(
 		private userService:UserService,
@@ -65,6 +72,8 @@ export class UserListComponent implements OnInit {
 		this.userService.getAll((data) => {
 			console.log(data);
 			this.users = data;
+			this.applyFilters();
+			this.paginfo.totalRows = this.users.length;
 			this.isDataLoaded = true;
 		});
 	}
@@ -86,36 +95,56 @@ export class UserListComponent implements OnInit {
 
 	sortBy(sortBy:string) {
 		SortUtils.sortAndUpdate(this.sort, sortBy, this.users, this.sortProperties[sortBy]);
+		this.applyFilters();
 	}
 
 	toggleSideInfo() {
-		if (this.sideInfoOpen) {
+		if (this.showSideInfo) {
 			this.sideInfo.close();
-			this.sideInfoOpen = false;
+			this.showSideInfo = false;
 		}
 		else {
 			this.sideInfo.open();
-			this.sideInfoOpen = true;
+			this.showSideInfo = true;
+		}
+	}
+
+	toggleFilters() {
+		if (this.showFilters) {
+			this.showFilters = false;
+			this.resetFilters();
+		}
+		else {
+			this.showFilters = true;
 		}
 	}
 
 	applyFilters() {
-
-		if (this.filteredUsers.length !=0) {
-			this.filteredUsers = [];
-		}
-
-		// TODO Search filters
-		this.pagination.totalRows = this.users.length;
-
-		// Pagination filters
-		let filtered:User[] = this.users.filter((x, i) => {
-			return i >= (this.pagination.currentPage - 1) * this.pagination.displayedRows && i < this.pagination.currentPage * this.pagination.displayedRows;
+		this.filteredUsers = this.users.filter(o => {
+			if (!this.filters.text) {
+				return true;
+			}
+			let search:RegExp = new RegExp(this.filters.text, 'i');
+			// console.log(search, o.username, search.test(o.username))
+			return search.test(o.username) || search.test(o.firstname) || search.test(o.lastname) || search.test(o.emailAddress) || search.test(o.employeeId);
 		});
 
-		for (let a of filtered) {
-			this.filteredUsers.push(a);
+		this.paginfo.totalRows = this.filteredUsers.length;
+		if (this.pagination) {
+			this.pagination.update();
 		}
+		this.applyPagination();
+	}
+
+	resetFilters() {
+		this.filters.text = "";
+		this.applyFilters();
+	}
+
+	applyPagination() {
+		this.paginatedUsers = this.filteredUsers.filter((o, i) => {
+			return i >= (this.paginfo.currentPage - 1) * this.paginfo.displayedRows && i < this.paginfo.currentPage * this.paginfo.displayedRows;
+		});
 	}
 
 }

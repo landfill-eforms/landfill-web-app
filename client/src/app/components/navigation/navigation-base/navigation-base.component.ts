@@ -13,7 +13,7 @@ import { UserPermission } from './../../../model/server/persistence/enums/user-p
 })
 export class NavigationBaseComponent implements OnInit {
 
-	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-outline.PNG";
+	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-lite.png";
 	readonly citySealUrl:string = environment.assetsUrl + "/images/la-seal.svg";
 
 	readonly homeSection:NavRouteSection = {
@@ -222,6 +222,9 @@ export class NavigationBaseComponent implements OnInit {
 		},
 	];
 
+	userName:string;
+	userEmail:string;
+
 	constructor (
 		private router:Router,
 		private http:Http,
@@ -229,6 +232,21 @@ export class NavigationBaseComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		let principle:any = this.authService.getPrinciple();
+		if (principle) {
+			if (principle["id"] < 0) {
+				this.userName = "Super Admin"
+			}
+			else {
+				let middlename = principle["middlename"];
+				let mInitial:string = " ";
+				if (typeof middlename == "string") {
+					mInitial = middlename ? " " + middlename.charAt(0) + ". " : " ";
+				}
+				this.userName = principle["firstname"] + mInitial + principle["lastname"];
+				this.userEmail = principle["emailAddress"];
+			}
+		}
 		for (let i = 0; i < this.sections.length; i++) {
 			let section:NavRouteSection = this.sections[i];
 			for (let j = 0; j < section.links.length; j++) {

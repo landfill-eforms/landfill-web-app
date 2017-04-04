@@ -7,7 +7,7 @@ import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core
 })
 export class PaginationComponent implements OnChanges {
 
-    @Input() pagination:Pagination = new Pagination();
+    @Input() paginfo:Paginfo = new Paginfo();
     // @Input() totalRows:number = 0;
     @Input() extraPadding:number = 0;
     @Input() showPageSelector:boolean = false;
@@ -27,70 +27,77 @@ export class PaginationComponent implements OnChanges {
 	ngOnChanges() {
         console.log("Pagination change detected.");
         this.validate();
-        this.updateRange();
+        this.update();
 	}
 
     validate() {
-        if (this.pagination.currentPage < 1) {
-            this.pagination.currentPage = 1;
-        }
-        let pageCount = ~~(this.pagination.totalRows / this.pagination.displayedRows) + 1;
-        if (this.pagination.currentPage > pageCount) {
-            this.pagination.currentPage = pageCount;
-        }
+        
     }
 
-    updateRange() {
-        let pageMax = this.pagination.currentPage * this.pagination.displayedRows;
-        this.displayedRange.max = pageMax > this.pagination.totalRows ? this.pagination.totalRows : pageMax;
-        this.displayedRange.min = (this.pagination.currentPage - 1) * this.pagination.displayedRows + 1;
+    update() {
+
+        // Make sure selected page is valid.
+        if (this.paginfo.currentPage < 1) {
+            this.paginfo.currentPage = 1;
+        }
+        let pageCount = ~~(this.paginfo.totalRows / this.paginfo.displayedRows) + 1;
+        if (this.paginfo.currentPage > pageCount) {
+            this.paginfo.currentPage = pageCount;
+        }
+
+        // Update the displayed range.
+        let pageMax = this.paginfo.currentPage * this.paginfo.displayedRows;
+        this.displayedRange.max = pageMax > this.paginfo.totalRows ? this.paginfo.totalRows : pageMax;
+        this.displayedRange.min = (this.paginfo.currentPage - 1) * this.paginfo.displayedRows + 1;
         this.availablePagesSelection = this.generateAvaliablePagesArray();
+
+        // Emit event through the changed emitter.
         this.changed.emit();
     }
 
     generateAvaliablePagesArray():number[] {
-        let pageCount = ~~(this.pagination.totalRows / this.pagination.displayedRows) + 1;
+        let pageCount = ~~(this.paginfo.totalRows / this.paginfo.displayedRows) + 1;
         return Array(pageCount).fill(0).map((x,i) => i + 1);
     }
 
     changeDisplayedRows() {
         this.validate();
-        this.updateRange();
+        this.update();
     }
 
     changeCurrentPage() {
         this.validate();
-        this.updateRange();
+        this.update();
     }
 
     firstPage() {
-        this.pagination.currentPage = 1;
-        this.updateRange();
+        this.paginfo.currentPage = 1;
+        this.update();
     }
 
     prevPage() {
-        if (this.pagination.currentPage > 1) {
-            this.pagination.currentPage--;
-            this.updateRange();
+        if (this.paginfo.currentPage > 1) {
+            this.paginfo.currentPage--;
+            this.update();
         }
     }
 
     nextPage() {
-        let pageCount = ~~(this.pagination.totalRows / this.pagination.displayedRows) + 1;
-        if (this.pagination.currentPage < pageCount) {
-            this.pagination.currentPage++;
-            this.updateRange();
+        let pageCount = ~~(this.paginfo.totalRows / this.paginfo.displayedRows) + 1;
+        if (this.paginfo.currentPage < pageCount) {
+            this.paginfo.currentPage++;
+            this.update();
         }
     }
 
     lastPage() {
-        this.pagination.currentPage = ~~(this.pagination.totalRows / this.pagination.displayedRows) + 1;
-        this.updateRange();
+        this.paginfo.currentPage = ~~(this.paginfo.totalRows / this.paginfo.displayedRows) + 1;
+        this.update();
     }
 
 }
 
-export class Pagination {
+export class Paginfo {
     displayedRows:number = 10;
     currentPage:number = 1;
     totalRows:number = 0;

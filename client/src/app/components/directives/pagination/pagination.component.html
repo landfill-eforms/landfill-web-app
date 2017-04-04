@@ -4,7 +4,7 @@
 		Page:
 	</div>
 	<md-select *ngIf="showPageSelector"
-		[(ngModel)]="pagination.currentPage" 
+		[(ngModel)]="paginfo.currentPage" 
 		(change)="changeCurrentPage()"
 		class="pagination-numeric-selector flex-item" 
 		fxFlex="64px"
@@ -15,14 +15,14 @@
 	<div class="flex-item" fxFlex="83px" style="margin-left:32px;">
 		Rows per page:
 	</div>
-	<md-select [(ngModel)]="pagination.displayedRows" 
+	<md-select [(ngModel)]="paginfo.displayedRows" 
 		(change)="changeDisplayedRows()"
 		class="pagination-numeric-selector flex-item" 
 		fxFlex="64px">
 		<md-option *ngFor="let i of displayedRowsSelection" [value]="i">{{i}}</md-option>
 	</md-select>
 	<div class="flex-item" style="margin:0 32px;" fxFlex="80px">
-		{{displayedRange.min}}-{{displayedRange.max}} of {{pagination.totalRows}}
+		{{displayedRange.min}}-{{displayedRange.max}} of {{paginfo.totalRows}}
 	</div>
 	<button md-icon-button 
 		*ngIf="showFirstLastPage" 

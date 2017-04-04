@@ -7,6 +7,7 @@
 		margin-left: 16px;
 		img {
 			height: 56px;
+			margin-top: 4px;
 		}
 	}
 }
@@ -14,17 +15,31 @@
 .sidenav-contents {
 	width: 250px;
 }
-.nav-logo-text{
-	padding: 10px 0 20px 20px;
+
+.nav-subtitle{
+	height: 64px;
+	padding: 8px 0 16px 16px;
+	.nav-subtitle-name {
+		font-size: 14px;
+		font-weight: 500;
+		color: #FFF;
+	}
+	.nav-subtitle-email {
+		font-size: 14px;
+		font-weight: 400px;
+		color: #FFF;
+	}
 }
+
 .nav-logo{
 	background: linear-gradient(90deg, rebeccapurple, mediumorchid);
+	border-bottom: solid 1px rgba(0,0,0,0.12);
+	margin-bottom: 8px;
 }
 
 .la-logo{
-	
-	padding: 50px 0 10px 20px;
-	width: 100px;	
+	width: 86px;
+    padding: 16px 0 4px 16px;	
 }
 
 .sidenav-section {
@@ -41,8 +56,10 @@
 
 .sidenav-link {
 	outline: none;
-	height: 50px;
-	color: #555;
+	height: 48px;
+	color: rgba(0,0,0,0.87);
+	font-size: 14px;
+	font-weight: 500;
 	background: white;
 	border-bottom: solid 1px lightgray;
 	cursor: pointer;
@@ -58,5 +75,6 @@
 }
 
 .sidenav-link-icon {
-	text-align: center;
+	color: rgba(0,0,0,0.54);
+	padding-left: 16px;
 }

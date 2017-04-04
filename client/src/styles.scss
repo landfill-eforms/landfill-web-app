@@ -150,6 +150,10 @@ a {
     overflow-y: overlay; // Only for webkit browsers;
 }
 
+.data-table-filter-container {
+    height: 64px;
+}
+
 .data-table-super-header-row {
     text-align: center;
     font-weight: bold;
@@ -163,7 +167,7 @@ a {
     height: 56px;
     text-align: left;
     padding-top: 16px;
-    border-bottom: solid 1px #E0E0E0;
+    border-bottom: solid 1px rgba(0,0,0,0.12);
 }
 
 .data-table-header-label {
@@ -229,7 +233,7 @@ a {
     height: 48px;
     padding-top: 16px;
     background: #FFF;
-    border-top: 1px solid #E0E0E0;
+    border-top: solid 1px rgba(0,0,0,0.12);
     transition: background 0.1s linear;
 }
 
@@ -260,7 +264,14 @@ a {
     text-align: center;
 }
 
-.fab-action-button-container {
+.fab-top-container {
+    position: relative;
+    top: 100px;
+    left: 48px;
+    height: 0;
+}
+
+.fab-bottom-container {
     position: fixed;
     bottom: 32px;
     right: 32px;

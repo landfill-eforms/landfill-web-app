@@ -9,7 +9,7 @@
 				<div class="subtitle unselectable">LANDFILL e-FORMS</div>
 				<div>
 					<md-input-container style="width:100%">
-						<input [(ngModel)]="credentials.username" mdInput placeholder="Username" autofocus>
+						<input [(ngModel)]="credentials.username" mdInput placeholder="Username" (keyup.enter)="login()" autofocus>
 					</md-input-container>
 				</div>
 				<div>

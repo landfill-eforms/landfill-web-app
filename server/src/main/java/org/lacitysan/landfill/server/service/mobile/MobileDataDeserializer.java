@@ -21,11 +21,11 @@ import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotDa
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
-import org.lacitysan.landfill.server.persistence.enums.ImeNumberStatus;
+import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.Site;
-import org.lacitysan.landfill.server.service.ImeService;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
+import org.lacitysan.landfill.server.service.instantaneous.ImeService;
 import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;
 import org.lacitysan.landfill.server.service.mobile.model.MobileImeData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileInstantaneousData;
@@ -111,7 +111,7 @@ public class MobileDataDeserializer {
 			imeNumber.setSequence(sequence);
 			
 			// Set the status of the IME number as unverified.
-			imeNumber.setStatus(ImeNumberStatus.UNVERIFIED);
+			imeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
 			
 			// Create initial IME data entry based on imported info.
 			ImeData imeData = new ImeData();
@@ -157,7 +157,7 @@ public class MobileDataDeserializer {
 					if (newImeNumber != null) {
 						short sequence = imeService.getNextSequence(newImeNumber.getSite(), newImeNumber.getDateCode(), false);
 						newImeNumber.setSequence(sequence);
-						newImeNumber.setStatus(ImeNumberStatus.UNVERIFIED);
+						newImeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
 						imeNumberMap.put(newImeNumber, mobileInstantaneousData.getImeNumber());
 						imeNumber = newImeNumber;
 					}

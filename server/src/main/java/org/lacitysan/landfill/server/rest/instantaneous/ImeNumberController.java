@@ -5,7 +5,7 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.service.ImeService;
+import org.lacitysan.landfill.server.service.instantaneous.ImeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

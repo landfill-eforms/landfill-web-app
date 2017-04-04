@@ -4,15 +4,15 @@ import org.lacitysan.landfill.server.json.LandfillEnumDeserializer;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-public enum ImeNumberStatus {
+public enum ExceedanceStatus {
 	
 	UNVERIFIED,
 	ACTIVE,
 	CLOSED;
 	
 	@JsonCreator
-	public static ImeNumberStatus deserialize(Object object) {
-		return LandfillEnumDeserializer.deserialize(ImeNumberStatus.class, object);
+	public static ExceedanceStatus deserialize(Object object) {
+		return LandfillEnumDeserializer.deserialize(ExceedanceStatus.class, object);
 	}
 	
 }

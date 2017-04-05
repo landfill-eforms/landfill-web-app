@@ -33,16 +33,18 @@ import io.jsonwebtoken.SignatureException;
  */
 @Service
 public class TokenAuthenticationService {
-	
+
 	@Autowired
 	ApplicationVariableService applicationVariableService;
-	
+
 	private byte[] secret;
-	
+
 	public TokenAuthenticationService() {
-        secret = new byte[ApplicationConstant.TOKEN_SECRET_LENGTH / 8];
-        new Random().nextBytes(secret);
-        System.out.println("JWT Secret: " + new Base64().encodeToString(secret));
+		secret = new byte[ApplicationConstant.TOKEN_SECRET_LENGTH / 8];
+		new Random().nextBytes(secret);
+		if (ApplicationConstant.DEBUG) {
+			System.out.println("DEBUG:\tGenerated JWT Secret: " + new Base64().encodeToString(secret));
+		}
 	}
 
 	/** Adds authentication info to response header. */
@@ -59,7 +61,7 @@ public class TokenAuthenticationService {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Expose-Headers", "Authorization");
 	}
-	
+
 	/** Parses the JWT from incoming HTTP requests and generates an <code>AuthenticatedUser</code> object based on the parsed info. */
 	public Authentication getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME);
@@ -88,10 +90,14 @@ public class TokenAuthenticationService {
 				}
 			} 
 			catch (ExpiredJwtException e) {
-				System.out.println("Authentication failed: The following token has expired:\n\t" + token);
+				if (ApplicationConstant.DEBUG) {
+					System.out.println("DEBUG:\tAuthentication failed: The following token has expired:\n\t" + token);
+				}
 			} 
 			catch (SignatureException e) {
-				System.out.println("Authentication failed: The following token has invalid signature:\n\t" + token);
+				if (ApplicationConstant.DEBUG) {
+					System.out.println("DEBUG:\tAuthentication failed: The following token has invalid signature:\n\t" + token);
+				}
 			}
 		}
 		return null;

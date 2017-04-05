@@ -4,12 +4,17 @@ import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Alvin Quach
+ */
 @Repository
-public class ProbeDataImpl extends AbstractDaoImpl<ProbeData> implements ProbeDataDao{
+public class ProbeDataImpl extends AbstractDaoImpl<ProbeData> implements ProbeDataDao {
 
 	@Override
 	public ProbeData initialize(Object entity) {
-		// TODO Auto-generated method stub
+		if (entity instanceof ProbeData) {
+			return (ProbeData)entity;
+		}
 		return null;
 	}
 

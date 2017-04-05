@@ -6,6 +6,9 @@ package org.lacitysan.landfill.server.config.app;
  */
 public class ApplicationConstant {
 	
+	/** Whether to print debug messages to the console. */
+	public static final Boolean DEBUG = true;
+	
 	/** The name of the server's SQL database. */
 	public static final String DATABASE_NAME = "test";
 	

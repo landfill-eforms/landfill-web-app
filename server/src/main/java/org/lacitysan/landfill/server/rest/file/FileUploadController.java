@@ -33,7 +33,9 @@ public class FileUploadController {
 	@RequestMapping(value="/mobile", method=RequestMethod.POST)
 	public Object uploadMobileData(@RequestBody MultipartFile file) {
 		try {
-			System.out.println("FILE SIZE: " + file.getSize());
+			if (ApplicationConstant.DEBUG) {
+				System.out.println("FILE SIZE: " + file.getSize());
+			}
 			ObjectMapper mapper = new ObjectMapper();
 			MobileDataContainer rawData = mapper.readValue(file.getBytes(), new TypeReference<MobileDataContainer>(){});
 			rawData.setFilename(file.getOriginalFilename());

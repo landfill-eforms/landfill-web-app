@@ -44,6 +44,7 @@ ext {
 	jjwtVersion = '0.7.0'
 	aspectjVersion = '1.8.9'
 	pdfboxVersion = '2.0.5'
+	javaxMailVersion = '1.5.6'
 }
 
 dependencies {
@@ -62,6 +63,7 @@ dependencies {
 	compile('io.jsonwebtoken:jjwt:' + jjwtVersion)
 	compile('org.aspectj:aspectjweaver:' + aspectjVersion)
 	compile('org.apache.pdfbox:pdfbox:' + pdfboxVersion)
+	compile('com.sun.mail:javax.mail:' + javaxMailVersion)
 	
 	compile files('lib/sqljdbc42.jar')
 	

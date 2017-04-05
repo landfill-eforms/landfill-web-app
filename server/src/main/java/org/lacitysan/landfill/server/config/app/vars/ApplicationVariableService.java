@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.config.app.vars.model.ApplicationVariableSerialization;
 import org.lacitysan.landfill.server.persistence.dao.system.ApplicationSettingDao;
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
@@ -17,8 +18,6 @@ import org.springframework.stereotype.Service;
 @SuppressWarnings("unused")
 @Service
 public class ApplicationVariableService {
-	
-	private static final boolean DEBUG = true;
 	
 	private final ApplicationSettingDao applicationSettingDao;
 
@@ -71,7 +70,9 @@ public class ApplicationVariableService {
 			}
 			if (!appVar.getValue().equals(updatedVar.getValue().toString())) {
 				set(appVar.name(), updatedVar.getValue().toString());
-				if (DEBUG) System.out.println("Application variable '" + appVar.name() + "' has been updated to '" + appVar.getDefaultValue().toString() + "'.");
+				if (ApplicationConstant.DEBUG) {
+					System.out.println("DEBUG:\tApplication variable '" + appVar.name() + "' has been updated to '" + appVar.getDefaultValue().toString() + "'.");
+				}
 			}
 		}
 		loadFromDatabase();
@@ -95,7 +96,9 @@ public class ApplicationVariableService {
 					.orElse(null);
 			if (loadedVar == null) {
 				loadedVar = set(appVar.name(), appVar.getDefaultValue().toString()); 
-				if (DEBUG) System.out.println("Application variable '" + appVar.name() + "' was not found; setting to default value of '" + appVar.getDefaultValue().toString() + "'.");
+				if (ApplicationConstant.DEBUG) {
+					System.out.println("DEBUG:\tApplication variable '" + appVar.name() + "' was not found; setting to default value of '" + appVar.getDefaultValue().toString() + "'.");
+				}
 			}
 			appVar.setValue(loadedVar.getValue());
 		}

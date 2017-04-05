@@ -48,10 +48,10 @@ public class IntegratedData {
 	private User inspector;
 	
 	@NotNull
-	private Integer bagNumber;
+	private Short bagNumber;
 	
 	@NotNull
-	private Integer volume;
+	private Short volume;
 	
 	@NotNull
 	private Short barometricPressure;
@@ -97,19 +97,19 @@ public class IntegratedData {
 		this.inspector = inspector;
 	}
 
-	public Integer getBagNumber() {
+	public Short getBagNumber() {
 		return bagNumber;
 	}
 
-	public void setBagNumber(Integer bagNumber) {
+	public void setBagNumber(Short bagNumber) {
 		this.bagNumber = bagNumber;
 	}
 
-	public Integer getVolume() {
+	public Short getVolume() {
 		return volume;
 	}
 
-	public void setVolume(Integer volume) {
+	public void setVolume(Short volume) {
 		this.volume = volume;
 	}
 

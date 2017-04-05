@@ -2,6 +2,7 @@ package org.lacitysan.landfill.server.service.email;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -13,6 +14,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.service.email.model.EmailRecipient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -39,15 +42,47 @@ public class EmailService {
 	
 	@Value("${mail.smtp.password}")
 	private String password;
-
-	public void sendTestEmail() {
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", auth);
-		props.put("mail.smtp.starttls.enable", startTlsEnable);
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", port);
-
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+	
+	public void sendEmail(Collection<EmailRecipient> recipients, String subject, String body) {
+		
+		Properties properties = new Properties();
+		properties.put("mail.smtp.auth", auth);
+		properties.put("mail.smtp.starttls.enable", startTlsEnable);
+		properties.put("mail.smtp.host", host);
+		properties.put("mail.smtp.port", port);
+		
+		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+		
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username, "Landfill e-Forms"));
+			for (EmailRecipient recipient : recipients) {
+				message.addRecipient(recipient.getType(), new InternetAddress(recipient.getEmailAddress(), recipient.getName()));
+			}
+			message.setSubject(subject);
+			message.setText(body);
+			Transport.send(message);
+			if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tEmail Sent.");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void sendHourlyTestEmail() {
+		
+		Properties properties = new Properties();
+		properties.put("mail.smtp.auth", auth);
+		properties.put("mail.smtp.starttls.enable", startTlsEnable);
+		properties.put("mail.smtp.host", host);
+		properties.put("mail.smtp.port", port);
+		
+		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
 			}
@@ -62,9 +97,10 @@ public class EmailService {
 			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("alvinquach91@gmail.com", "Alvin Quach"));
 			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("ow.chris.t@gmail.com", "Chris Ow"));
 			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("3s.grantkang@gmail.com", "Grant Kang"));
-			msg.setSubject("Testing123");
-			msg.setText("This is a test. Sorry for the spam.\n" + Calendar.getInstance().getTimeInMillis());
+			msg.setSubject("Hourly Email Test");
+			msg.setText("This is a test. You should be receiving this email every hour. Sorry for the spam.\n" + Calendar.getInstance().getTimeInMillis());
 			Transport.send(msg);
+			if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tEmail Sent.");
 		} catch (AddressException e) {
 			e.printStackTrace();
 		} catch (MessagingException e) {
@@ -72,6 +108,7 @@ public class EmailService {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 

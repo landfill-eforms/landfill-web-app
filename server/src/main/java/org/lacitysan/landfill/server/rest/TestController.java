@@ -16,7 +16,7 @@ public class TestController {
 	
 	@RequestMapping(value="/email", method=RequestMethod.GET)
 	public void sendEmail() {
-		emailService.sendTestEmail();
+		emailService.sendHourlyTestEmail();
 	}
 		
 }

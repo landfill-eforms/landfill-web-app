@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -39,12 +40,13 @@ public class IntegratedData {
 	
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
-	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();
+	private MonitoringPoint monitoringPoints;
 	
 	@Column(name="InstrumentFK")
 	private Instrument instrument;
 	
 	@JsonIgnoreProperties({"userGroups", "enabled"})
+	@ManyToOne
 	@Column(name="InspectorFK")
 	private User inspector;
 	
@@ -55,7 +57,7 @@ public class IntegratedData {
 	private Integer volume;
 	
 	@NotNull
-	private Integer barometricPressure;
+	private Short barometricPressure;
 	
 	@NotNull
 	private Integer methaneLevel;
@@ -74,11 +76,11 @@ public class IntegratedData {
 		this.id = id;
 	}
 
-	public Set<MonitoringPoint> getMonitoringPoints() {
+	public MonitoringPoint getMonitoringPoints() {
 		return monitoringPoints;
 	}
 
-	public void setMonitoringPoints(Set<MonitoringPoint> monitoringPoints) {
+	public void setMonitoringPoints(MonitoringPoint monitoringPoints) {
 		this.monitoringPoints = monitoringPoints;
 	}
 
@@ -114,11 +116,11 @@ public class IntegratedData {
 		this.volume = volume;
 	}
 
-	public Integer getBarometricPressure() {
+	public Short getBarometricPressure() {
 		return barometricPressure;
 	}
 
-	public void setBarometricPressure(Integer barometricPressure) {
+	public void setBarometricPressure(Short barometricPressure) {
 		this.barometricPressure = barometricPressure;
 	}
 

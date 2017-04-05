@@ -17,9 +17,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
 			UserGroup userGroup = (UserGroup)entity;
 			Hibernate.initialize(userGroup.getCreatedBy());
 			Hibernate.initialize(userGroup.getModifiedBy());
-			userGroup.getUsers().forEach(user -> {
-				Hibernate.initialize(user);
-			});
+			userGroup.getUsers().forEach(user -> Hibernate.initialize(user));
 			Hibernate.initialize(userGroup.getUserPermissions());
 			return userGroup;
 		}

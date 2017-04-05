@@ -2,14 +2,19 @@ package org.lacitysan.landfill.server.service.scheduled;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.mail.Message;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
+import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.lacitysan.landfill.server.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,10 +27,10 @@ import org.springframework.stereotype.Service;
 @Service
 @EnableScheduling
 public class SchedulerService {
-	
+
 	@Autowired
 	EmailService emailService;
-	
+
 	@Scheduled(fixedRate=60000)
 	public void test() {
 		Calendar now = new GregorianCalendar();
@@ -45,10 +50,19 @@ public class SchedulerService {
 			emailService.sendEmail(recipients, "15 Minute Email Test", "This is a test. You should be receiving this email every 15 minutes before 6:00 AM. Sorry for the spam.\n" + now.getTimeInMillis());
 		}
 	}
-	
-    @Bean
-    public TaskScheduler poolScheduler() {
-        return new ThreadPoolTaskScheduler();
-    }
+
+	@Bean
+	public TaskScheduler poolScheduler() {
+		return new ThreadPoolTaskScheduler();
+	}
+
+	public Set<EmailRecipient> generateRecipientSet(Collection<UserGroup> userGroups, Collection<EmailRecipient> recipients) {
+		Set<EmailRecipient> result = new TreeSet<>();
+		result.addAll(userGroups.stream()
+				.flatMap(userGroup -> userGroup.getUsers().stream())
+				.map(user -> new EmailRecipient(Message.RecipientType.TO, user.getEmailAddress(), user.getFirstname() + " " + user.getLastname()))
+				.collect(Collectors.toList()));
+		return result;
+	}
 
 }

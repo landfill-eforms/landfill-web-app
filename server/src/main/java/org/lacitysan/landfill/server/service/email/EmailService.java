@@ -114,6 +114,35 @@ public class EmailService {
 		}
 		
 	}
-
+	
+	/** 
+	 * Compares two email addresses. 
+	 * Assumes both email addresses are valid.
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public boolean compareEmailAddresses(String a, String b) {
+		return stripEmailAddress(a).equals(stripEmailAddress(b));
+	}
+	
+	/**
+	 * Simplifies the input email address.
+	 * Gets rid of uninterpreted characters.
+	 * @param emailAddress
+	 * @return
+	 */
+	private String stripEmailAddress(String emailAddress) {
+		String[] split = emailAddress.toLowerCase().split("@");
+		if (split.length != 2) {
+			return emailAddress; // Invalid email address.
+		}
+		split[0] = split[0].replaceAll("\\.", "");
+		int plusIndex = split[0].indexOf('+');
+		if (plusIndex > -1) {
+			split[0] = split[0].substring(0, plusIndex);
+		}
+		return split[0] + "@" + split[1];
+	}
 
 }

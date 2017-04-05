@@ -49,5 +49,45 @@ public class ScheduledReport {
 	@ManyToMany
 	@JoinTable(name=ApplicationConstant.DATABASE_NAME + ".dbo.ScheduledReportsXRefEmailRecipients", joinColumns=@JoinColumn(name="ScheduledReportFK"), inverseJoinColumns=@JoinColumn(name="EmailRecipientFK"))
 	private Set<EmailRecipient> recipients = new HashSet<>();
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	public Set<UserGroup> getUserGroups() {
+		return userGroups;
+	}
+
+	public void setUserGroups(Set<UserGroup> userGroups) {
+		this.userGroups = userGroups;
+	}
+
+	public Set<EmailRecipient> getRecipients() {
+		return recipients;
+	}
+
+	public void setRecipients(Set<EmailRecipient> recipients) {
+		this.recipients = recipients;
+	}
 	
 }

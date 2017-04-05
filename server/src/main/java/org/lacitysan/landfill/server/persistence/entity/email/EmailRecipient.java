@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.EmailRecipients")
 @JsonInclude(Include.NON_NULL)
-public class EmailRecipient {
+public class EmailRecipient implements Comparable<EmailRecipient> {
 	
 	@Id
 	@Column(name="EmailRecipientPK")
@@ -80,6 +80,23 @@ public class EmailRecipient {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public int compareTo(EmailRecipient o) {
+		if (type == o.getType()) {
+			if (name.equalsIgnoreCase(o.getName())) {
+				return emailAddress.compareTo(o.getEmailAddress());
+			}
+			return name.compareToIgnoreCase(o.getName());
+		}
+		if (type == RecipientType.TO) {
+			return 1;
+		}
+		if (type == RecipientType.BCC) {
+			return o.getType() == RecipientType.TO ? -1 : 1;
+		}
+		return -1;
 	}
 
 }

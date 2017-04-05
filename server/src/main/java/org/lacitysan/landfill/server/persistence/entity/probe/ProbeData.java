@@ -13,16 +13,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-//TODO Allen plz implement this.
-
+/**
+ * @author Allen Huang
+ * @author Alvin Quach
+ */
 @Entity
+@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.ProbeData")
 @JsonInclude(Include.NON_NULL)
 public class ProbeData {
 	
@@ -31,11 +36,12 @@ public class ProbeData {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	// Allen plz fix
 	@ElementCollection(targetClass=MonitoringPoint.class)
 	@JoinTable(name="test.dbo.ProbeDataXRefInspectors", joinColumns=@JoinColumn(name="ProbeFK"))
-	@Column(name="MonitoringPoIntegerString")
+	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
-	private Set<MonitoringPoint> monitoringPoIntegers = new HashSet<>();
+	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();
 	
 	@NotNull
 	private Integer methaneLevel;
@@ -62,12 +68,12 @@ public class ProbeData {
 		this.id = id;
 	}
 
-	public Set<MonitoringPoint> getMonitoringPoIntegers() {
-		return monitoringPoIntegers;
+	public Set<MonitoringPoint> getMonitoringPoints() {
+		return monitoringPoints;
 	}
 
-	public void setMonitoringPoIntegers(Set<MonitoringPoint> monitoringPoIntegers) {
-		this.monitoringPoIntegers = monitoringPoIntegers;
+	public void setMonitoringPoints(Set<MonitoringPoint> monitoringPoints) {
+		this.monitoringPoints = monitoringPoints;
 	}
 
 	public Integer getMethaneLevel() {

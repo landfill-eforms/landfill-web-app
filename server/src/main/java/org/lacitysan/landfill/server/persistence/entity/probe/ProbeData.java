@@ -36,12 +36,9 @@ public class ProbeData {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	// Allen plz fix
-	@ElementCollection(targetClass=MonitoringPoint.class)
-	@JoinTable(name="test.dbo.ProbeDataXRefInspectors", joinColumns=@JoinColumn(name="ProbeFK"))
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
-	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();
+	private MonitoringPoint monitoringPoints;
 	
 	@NotNull
 	private Integer methaneLevel;
@@ -52,7 +49,7 @@ public class ProbeData {
 	@NotNull
 	private String description;
 	
-	private Integer barometricPressure;
+	private Short barometricPressure;
 	
 	@NotNull
 	private boolean accessible;
@@ -68,11 +65,11 @@ public class ProbeData {
 		this.id = id;
 	}
 
-	public Set<MonitoringPoint> getMonitoringPoints() {
+	public MonitoringPoint getMonitoringPoints() {
 		return monitoringPoints;
 	}
 
-	public void setMonitoringPoints(Set<MonitoringPoint> monitoringPoints) {
+	public void setMonitoringPoints(MonitoringPoint monitoringPoints) {
 		this.monitoringPoints = monitoringPoints;
 	}
 
@@ -100,11 +97,11 @@ public class ProbeData {
 		this.description = description;
 	}
 
-	public Integer getBarometricPressure() {
+	public Short getBarometricPressure() {
 		return barometricPressure;
 	}
 
-	public void setBarometricPressure(Integer barometricPressure) {
+	public void setBarometricPressure(Short barometricPressure) {
 		this.barometricPressure = barometricPressure;
 	}
 

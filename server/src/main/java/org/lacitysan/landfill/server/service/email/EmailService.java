@@ -56,9 +56,14 @@ public class EmailService {
 		try {
 			Message msg = new MimeMessage(session);
 			msg.setFrom(new InternetAddress("landfill.notifications@gmail.com", "Landfill e-Forms"));
-			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("alvinthingy@gmail.com", "Alvin Quach"));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress("alvinthingy@gmail.com", "Alvin Quach"));
+			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("aaleman11@gmail.com", "Alfredo Aleman"));
+			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("ligerx000@gmail.com", "Allen Ma"));
+			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("alvinquach91@gmail.com", "Alvin Quach"));
+			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("ow.chris.t@gmail.com", "Chris Ow"));
+			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("3s.grantkang@gmail.com", "Grant Kang"));
 			msg.setSubject("Testing123");
-			msg.setText("This is a test. " + Calendar.getInstance().getTimeInMillis());
+			msg.setText("This is a test. Sorry for the spam.\n" + Calendar.getInstance().getTimeInMillis());
 			Transport.send(msg);
 		} catch (AddressException e) {
 			e.printStackTrace();

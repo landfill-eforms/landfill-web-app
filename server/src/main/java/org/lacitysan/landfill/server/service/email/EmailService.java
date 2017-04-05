@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.service.email;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -12,6 +13,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,17 +21,35 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EmailService {
+	
+	@Value("${mail.smtp.auth}")
+	private Boolean auth;
+	
+	@Value("${mail.smtp.starttls.enable}")
+	private Boolean startTlsEnable;
+	
+	@Value("${mail.smtp.host}")
+	private String host;
+	
+	@Value("${mail.smtp.port}")
+	private Integer port;
+	
+	@Value("${mail.smtp.username}")
+	private String username;
+	
+	@Value("${mail.smtp.password}")
+	private String password;
 
 	public void sendTestEmail() {
 		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.auth", auth);
+		props.put("mail.smtp.starttls.enable", startTlsEnable);
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", port);
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("landfill.notifications@gmail.com", "emailtest");
+				return new PasswordAuthentication(username, password);
 			}
 		});
 
@@ -38,7 +58,7 @@ public class EmailService {
 			msg.setFrom(new InternetAddress("landfill.notifications@gmail.com", "Landfill e-Forms"));
 			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("alvinthingy@gmail.com", "Alvin Quach"));
 			msg.setSubject("Testing123");
-			msg.setText("This is a test");
+			msg.setText("This is a test. " + Calendar.getInstance().getTimeInMillis());
 			Transport.send(msg);
 		} catch (AddressException e) {
 			e.printStackTrace();

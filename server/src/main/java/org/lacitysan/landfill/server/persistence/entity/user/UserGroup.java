@@ -65,7 +65,7 @@ public class UserGroup {
 	private Set<User> users = new HashSet<>();
 	
 	@ElementCollection(targetClass=UserPermission.class)
-	@JoinTable(name="test.dbo.UserGroupsXRefUserPermissions", joinColumns=@JoinColumn(name="UserGroupFK"))
+	@JoinTable(name=ApplicationConstant.DATABASE_NAME + ".dbo.UserGroupsXRefUserPermissions", joinColumns=@JoinColumn(name="UserGroupFK"))
 	@Column(name="UserPermissionString")
 	@Enumerated(EnumType.STRING)
 	private Set<UserPermission> userPermissions = new HashSet<>();

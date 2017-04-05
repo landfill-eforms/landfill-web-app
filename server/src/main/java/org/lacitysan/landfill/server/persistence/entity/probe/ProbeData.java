@@ -44,7 +44,7 @@ public class ProbeData {
 	
 	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
 	@ManyToMany
-	@JoinTable(name="test.dbo.ProbeDataXRefInspectors", joinColumns=@JoinColumn(name="ProbeFK"), inverseJoinColumns=@JoinColumn(name="InspectorFK"))
+	@JoinTable(name=ApplicationConstant.DATABASE_NAME + ".dbo.ProbeDataXRefInspectors", joinColumns=@JoinColumn(name="ProbeFK"), inverseJoinColumns=@JoinColumn(name="InspectorFK"))
 	private Set<User> inspectors = new HashSet<>();
 	
 	@NotNull

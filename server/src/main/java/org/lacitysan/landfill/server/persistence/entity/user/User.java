@@ -42,9 +42,9 @@ public class User {
 	@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
 
-	@JsonIgnoreProperties(value={"users", "createdBy", "modifiedBy"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"users", "createdBy", "modifiedBy", "scheduledReports"}, allowSetters=true)
 	@ManyToMany
-	@JoinTable(name="test.dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
+	@JoinTable(name=ApplicationConstant.DATABASE_NAME + ".dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
 	private Set<UserGroup> userGroups = new HashSet<>();
 	
 	private String firstname;

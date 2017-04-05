@@ -1,14 +1,39 @@
-package org.lacitysan.landfill.server.service.email.model;
+package org.lacitysan.landfill.server.persistence.entity.email;
 
 import javax.mail.Message.RecipientType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * @author Alvin Quach
  */
+@Entity
+@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.EmailRecipients")
+@JsonInclude(Include.NON_NULL)
 public class EmailRecipient {
-
+	
+	@Id
+	@Column(name="EmailRecipientPK")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	@NotNull
 	private RecipientType type;
+	
+	@NotNull
 	private String emailAddress;
+	
+	@NotNull
 	private String name;
 
 	public EmailRecipient() {}
@@ -23,6 +48,14 @@ public class EmailRecipient {
 		this.type = type;
 		this.emailAddress = emailAddress;
 		this.name = name;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public RecipientType getType() {

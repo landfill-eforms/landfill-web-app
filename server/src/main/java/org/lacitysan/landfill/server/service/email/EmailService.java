@@ -15,7 +15,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.service.email.model.EmailRecipient;
+import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +44,8 @@ public class EmailService {
 	private String password;
 	
 	public void sendEmail(Collection<EmailRecipient> recipients, String subject, String body) {
+		
+		if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tAttempting to Send Email.");
 		
 		Properties properties = new Properties();
 		properties.put("mail.smtp.auth", auth);
@@ -75,6 +77,8 @@ public class EmailService {
 	}
 	
 	public void sendHourlyTestEmail() {
+		
+		if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tAttempting to Send Email.");
 		
 		Properties properties = new Properties();
 		properties.put("mail.smtp.auth", auth);

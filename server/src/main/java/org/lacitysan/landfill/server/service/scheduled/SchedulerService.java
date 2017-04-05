@@ -1,14 +1,16 @@
-package org.lacitysan.landfill.server.service.scheduler;
+package org.lacitysan.landfill.server.service.scheduled;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.mail.Message;
 
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
 import org.lacitysan.landfill.server.service.email.EmailService;
-import org.lacitysan.landfill.server.service.email.model.EmailRecipient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.TaskScheduler;
@@ -26,8 +28,9 @@ public class SchedulerService {
 	
 	@Scheduled(fixedRate=60000)
 	public void test() {
-//		System.out.println(Calendar.getInstance().getTimeInMillis());
 		Calendar now = new GregorianCalendar();
+		now.setTimeZone(TimeZone.getTimeZone("PST"));
+		if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\t" + now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE));
 		if (now.get(Calendar.MINUTE) == 0) {
 			emailService.sendHourlyTestEmail();
 		}

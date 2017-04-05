@@ -62,7 +62,7 @@ public class ImeNumber implements Comparable<ImeNumber> {
 	private ExceedanceStatus status;
 	
 	@ElementCollection(targetClass=MonitoringPoint.class)
-	@JoinTable(name="test.dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
+	@JoinTable(name=ApplicationConstant.DATABASE_NAME + ".dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
 	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();

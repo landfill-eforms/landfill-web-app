@@ -32,7 +32,7 @@ public class ProbeData {
 	
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
-	private MonitoringPoint monitoringPoints;
+	private MonitoringPoint monitoringPoint;
 	
 	@NotNull
 	private Integer methaneLevel;
@@ -59,12 +59,12 @@ public class ProbeData {
 		this.id = id;
 	}
 
-	public MonitoringPoint getMonitoringPoints() {
-		return monitoringPoints;
+	public MonitoringPoint getMonitoringPoint() {
+		return monitoringPoint;
 	}
 
-	public void setMonitoringPoints(MonitoringPoint monitoringPoints) {
-		this.monitoringPoints = monitoringPoints;
+	public void setMonitoringPoint(MonitoringPoint monitoringPoint) {
+		this.monitoringPoint = monitoringPoint;
 	}
 
 	public Integer getMethaneLevel() {

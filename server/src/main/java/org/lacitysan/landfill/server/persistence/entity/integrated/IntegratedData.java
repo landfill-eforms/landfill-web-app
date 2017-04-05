@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -39,12 +40,13 @@ public class IntegratedData {
 	@Enumerated(EnumType.STRING)
 	private MonitoringPoint monitoringPoints;
 	
-	@Column(name="InstrumentFK")
+	@ManyToOne
+	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
 	
-	@JsonIgnoreProperties({"userGroups", "enabled"})
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
 	@ManyToOne
-	@Column(name="InspectorFK")
+	@JoinColumn(name="InspectorFK")
 	private User inspector;
 	
 	@NotNull

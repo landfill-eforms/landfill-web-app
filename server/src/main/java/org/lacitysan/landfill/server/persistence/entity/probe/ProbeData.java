@@ -1,5 +1,8 @@
 package org.lacitysan.landfill.server.persistence.entity.probe;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,12 +10,17 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -33,6 +41,11 @@ public class ProbeData {
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
 	private MonitoringPoint monitoringPoint;
+	
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@ManyToMany
+	@JoinTable(name="test.dbo.ProbeDataXRefInspectors", joinColumns=@JoinColumn(name="ProbeFK"), inverseJoinColumns=@JoinColumn(name="InspectorFK"))
+	private Set<User> inspectors = new HashSet<>();
 	
 	@NotNull
 	private Integer methaneLevel;
@@ -65,6 +78,14 @@ public class ProbeData {
 
 	public void setMonitoringPoint(MonitoringPoint monitoringPoint) {
 		this.monitoringPoint = monitoringPoint;
+	}
+
+	public Set<User> getInspectors() {
+		return inspectors;
+	}
+
+	public void setInspectors(Set<User> inspectors) {
+		this.inspectors = inspectors;
 	}
 
 	public Integer getMethaneLevel() {

@@ -29,9 +29,6 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class RestSecurityAspect {
-
-	/** Whether to print debug messages. */
-	private static final boolean DEBUG = true;
 	
 	/** The generic message to include in the response when the user does not have access to the resource. */
 	private static final String ACCESS_DENIED_MESSAGE = "You are not authorized to access this resource.";
@@ -39,14 +36,14 @@ public class RestSecurityAspect {
 	@Before("execution(* org.lacitysan.landfill.server.rest..*(..))")
 	public void before(JoinPoint joinPoint) throws AccessDeniedException {
 
-		if (DEBUG) printStart(joinPoint.getSignature().getName(), joinPoint.getTarget().getClass().getName());
+		if (ApplicationConstant.DEBUG) printStart(joinPoint.getSignature().getName(), joinPoint.getTarget().getClass().getName());
 
 		// Get the Authentication from the security context holder.
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		// If no Authentication was found, then deny access.
 		if (auth == null) {
-			if (DEBUG) printDenied("Authentication could not be retrived from SecurityContextHolder.");
+			if (ApplicationConstant.DEBUG) printDenied("Authentication could not be retrived from SecurityContextHolder.");
 			throw new AccessDeniedException("Authentication error.");
 		}
 
@@ -55,7 +52,7 @@ public class RestSecurityAspect {
 
 		// If the user is the super admin, then allow access.
 		if (userPermissions.contains(ApplicationConstant.SUPER_ADMIN_PERMISSION_NAME)) {
-			if (DEBUG) printSuccess("User is the super admin.");
+			if (ApplicationConstant.DEBUG) printSuccess("User is the super admin.");
 			return;
 		}
 		
@@ -63,7 +60,7 @@ public class RestSecurityAspect {
 		
 		// Check if the class is only accessible by the super admin.
 		if (AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), RestAllowSuperAdminOnly.class) != null) {
-			if (DEBUG) printDenied("This controller can only be accessed by the super admin.");
+			if (ApplicationConstant.DEBUG) printDenied("This controller can only be accessed by the super admin.");
 			throw new AccessDeniedException(ACCESS_DENIED_MESSAGE);
 		}
 
@@ -72,13 +69,13 @@ public class RestSecurityAspect {
 
 		// Check if the method is only accessible by the super admin.
 		if (AnnotationUtils.findAnnotation(method, RestAllowSuperAdminOnly.class) != null) {
-			if (DEBUG) printDenied("This method can only be accessed by the super admin.");
+			if (ApplicationConstant.DEBUG) printDenied("This method can only be accessed by the super admin.");
 			throw new AccessDeniedException(ACCESS_DENIED_MESSAGE);
 		}
 		
 		// If the controller/method is not restricted to the super admin, then allow access if the user is an regular admin.
 		if (userPermissions.contains(UserPermission.ADMIN)) {
-			if (DEBUG) printSuccess("User is an admin.");
+			if (ApplicationConstant.DEBUG) printSuccess("User is an admin.");
 			return;
 		}
 		
@@ -93,7 +90,7 @@ public class RestSecurityAspect {
 			allowedPermissions.addAll(Arrays.asList(restSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
 		}
 
-		else if (DEBUG && restSecurity == null) System.out.println("No RestSecurity was found for the method.");
+		else if (ApplicationConstant.DEBUG && restSecurity == null) printSuccess("No RestSecurity was found for the method.");
 
 		// Get the RestSecurityMode from the @RestSecurity. If no permissions were defined by the @RestSecurity (or if it was null), then the rest security mode will default to APPEND.
 		RestSecurityMode restSecurityMode = (allowedPermissions.isEmpty() ? RestSecurityMode.APPEND : restSecurity.mode());
@@ -109,24 +106,24 @@ public class RestSecurityAspect {
 				allowedPermissions.addAll(Arrays.asList(restControllerSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
 			}
 
-			else if (DEBUG) System.out.println("No RestControllerSecurity was found for the controller.");
+			else if (ApplicationConstant.DEBUG) printSuccess("No RestControllerSecurity was found for the controller.");
 		}
 
 		// If the allowedPermissions set is empty, then everyone with a valid Authentication is allowed to access the resource.
 		if (allowedPermissions.isEmpty()) {
-			if (DEBUG) printSuccess("No specific permissions are required to access this resource.");
+			if (ApplicationConstant.DEBUG) printSuccess("No specific permissions are required to access this resource.");
 			return;
 		}
 
 		// If any of the user's permissions match a permission from the allowedPermissions set, then allow access.
 		if (allowedPermissions.removeAll(userPermissions)) {
-			if (DEBUG) printSuccess("User has at least one of the required permission(s).");
+			if (ApplicationConstant.DEBUG) printSuccess("User has at least one of the required permission(s).");
 			return;
 		}
 
 		// Deny access if none of the permissions match.
 		else {
-			if (DEBUG) printDenied("User does not have any of the required permissions(s).");
+			if (ApplicationConstant.DEBUG) printDenied("User does not have any of the required permissions(s).");
 			throw new AccessDeniedException(ACCESS_DENIED_MESSAGE);
 		}
 
@@ -134,20 +131,18 @@ public class RestSecurityAspect {
 	
 	/** Prints the start of the debug message */
 	private void printStart(String methodName, String className) {
-		System.out.println("*****REST SECURITY ASPECT*****");
-		System.out.println("Hijacked '" + methodName + "()' from '" + className + "'.");
+		System.out.println("DEBUG:\tRest Security Aspect:");
+		System.out.println("\tHijacked '" + methodName + "()' from '" + className + "'.");
 	}
 
 	/** Prints the end of the debug message if access was denied. */
 	private void printDenied(String message) {
-		System.out.println("Access Denied: " + message);
-		System.out.println("******************************");
+		System.out.println("\tAccess Denied: " + message);
 	}
 
 	/** Prints the end of the debug message if access was granted. */
 	private void printSuccess(String message) {
-		System.out.println("Access Granted: " + message);
-		System.out.println("******************************");
+		System.out.println("\tAccess Granted: " + message);
 	}
 
 }

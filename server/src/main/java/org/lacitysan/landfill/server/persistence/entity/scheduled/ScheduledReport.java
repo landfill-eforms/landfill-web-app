@@ -14,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 
@@ -26,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.ScheduledReports")
+@Table(name="dbo.ScheduledReports")
 @JsonInclude(Include.NON_NULL)
 public class ScheduledReport {
 	
@@ -43,11 +42,11 @@ public class ScheduledReport {
 	
 	@JsonIgnoreProperties(value={"users", "createdBy", "modifiedBy", "scheduledReports"}, allowSetters=true)
 	@ManyToMany
-	@JoinTable(name=ApplicationConstant.DATABASE_NAME + ".dbo.ScheduledReportsXRefEmailRecipients", joinColumns=@JoinColumn(name="ScheduledReportFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
+	@JoinTable(name="dbo.ScheduledReportsXRefEmailRecipients", joinColumns=@JoinColumn(name="ScheduledReportFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
 	private Set<UserGroup> userGroups = new HashSet<>();
 	
 	@ManyToMany
-	@JoinTable(name=ApplicationConstant.DATABASE_NAME + ".dbo.ScheduledReportsXRefEmailRecipients", joinColumns=@JoinColumn(name="ScheduledReportFK"), inverseJoinColumns=@JoinColumn(name="EmailRecipientFK"))
+	@JoinTable(name="dbo.ScheduledReportsXRefEmailRecipients", joinColumns=@JoinColumn(name="ScheduledReportFK"), inverseJoinColumns=@JoinColumn(name="EmailRecipientFK"))
 	private Set<EmailRecipient> recipients = new HashSet<>();
 
 	public Integer getId() {

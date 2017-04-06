@@ -20,7 +20,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
@@ -34,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.UnverifiedInstantaneousData")
+@Table(name="dbo.UnverifiedInstantaneousData")
 @JsonInclude(Include.NON_NULL)
 public class UnverifiedInstantaneousData {
 	
@@ -65,12 +64,12 @@ public class UnverifiedInstantaneousData {
 	
 	@JsonIgnoreProperties(value={"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"}, allowSetters=true)
 	@ManyToMany
-	@JoinTable(name=ApplicationConstant.DATABASE_NAME + ".dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
+	@JoinTable(name="dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
 	@JsonIgnoreProperties(value={"unverifiedInstantaneousData", "instantaneousData"}, allowSetters=true)
 	@ManyToMany
-	@JoinTable(name=ApplicationConstant.DATABASE_NAME + ".dbo.UnverifiedInstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
+	@JoinTable(name="dbo.UnverifiedInstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
 	private Set<WarmspotData> warmspotData = new HashSet<>();
 	
 	//@JsonIgnoreProperties({"unverifiedInstantaneousData"})

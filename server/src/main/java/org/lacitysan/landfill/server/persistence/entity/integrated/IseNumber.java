@@ -20,7 +20,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.Site;
@@ -34,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.ISENumbers")
+@Table(name="dbo.ISENumbers")
 @JsonInclude(Include.NON_NULL)
 public class IseNumber implements Comparable<IseNumber> {
 	
@@ -60,7 +59,7 @@ public class IseNumber implements Comparable<IseNumber> {
 	private ExceedanceStatus status;
 	
 	@ElementCollection(targetClass=MonitoringPoint.class)
-	@JoinTable(name=ApplicationConstant.DATABASE_NAME + ".dbo.ISENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="ISENumberFK"))
+	@JoinTable(name="dbo.ISENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="ISENumberFK"))
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
 	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();

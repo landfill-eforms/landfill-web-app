@@ -13,26 +13,23 @@ import java.util.stream.Collectors;
 import javax.mail.Message;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.persistence.dao.scheduled.ScheduledReportDao;
 import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.lacitysan.landfill.server.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 
 @Service
-@EnableScheduling
-public class SchedulerService {
+public class ScheduledTaskService {
 
 	@Autowired
+	ScheduledReportDao scheduledReportDao;
+	
+	@Autowired
 	EmailService emailService;
-
-	@Scheduled(fixedRate=60000)
-	public void test() {
+	
+	public void runScheduledTasks() {
 		Calendar now = new GregorianCalendar();
 		now.setTimeZone(TimeZone.getTimeZone("PST"));
 		if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\t" + now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE));
@@ -50,11 +47,8 @@ public class SchedulerService {
 			emailService.sendEmail(recipients, "15 Minute Email Test", "This is a test. You should be receiving this email every 15 minutes before 6:00 AM. Sorry for the spam.\n" + now.getTimeInMillis());
 		}
 	}
-
-	@Bean
-	public TaskScheduler poolScheduler() {
-		return new ThreadPoolTaskScheduler();
-	}
+	
+//	public
 
 	public Set<EmailRecipient> generateRecipientSet(Collection<UserGroup> userGroups, Collection<EmailRecipient> recipients) {
 		Set<EmailRecipient> result = new TreeSet<>();
@@ -62,6 +56,21 @@ public class SchedulerService {
 				.flatMap(userGroup -> userGroup.getUsers().stream())
 				.map(user -> new EmailRecipient(Message.RecipientType.TO, user.getEmailAddress(), user.getFirstname() + " " + user.getLastname()))
 				.collect(Collectors.toList()));
+		for (EmailRecipient recipient : recipients) {
+			boolean exists = false;
+			for (EmailRecipient existing : result) {
+				if (emailService.compareEmailAddresses(recipient.getEmailAddress(), existing.getEmailAddress())) {
+					existing.setType(recipient.getType());
+					existing.setName(recipient.getName());
+					existing.setEmailAddress(recipient.getEmailAddress());
+					exists = true;
+					break;
+				}
+			}
+			if (!exists) {
+				result.add(recipient);
+			}
+		}
 		return result;
 	}
 

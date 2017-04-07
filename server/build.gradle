@@ -48,6 +48,12 @@ ext {
 }
 
 dependencies {
+	compile group: 'org.apache.poi', name: 'poi', version: '3.15'
+	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
+	compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '3.15'
+	compile group: 'com.github.dhorions', name: 'boxable', version: '1.5-RC'
+	compile group: 'org.slf4j', name: 'slf4j-nop', version: '1.7.25'
+	
 	compile('org.springframework.boot:spring-boot-starter-data-rest:' + springBootVersion)
 	compile('org.springframework.security:spring-security-web:' + springSecurityVersion)
 	compile('org.springframework.security:spring-security-config:' + springSecurityVersion)

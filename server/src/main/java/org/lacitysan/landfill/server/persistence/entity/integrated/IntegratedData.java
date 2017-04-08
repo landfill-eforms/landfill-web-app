@@ -38,7 +38,7 @@ public class IntegratedData {
 	
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
-	private MonitoringPoint monitoringPoints;
+	private MonitoringPoint monitoringPoint;
 	
 	@ManyToOne
 	@JoinColumn(name="InstrumentFK")
@@ -75,12 +75,12 @@ public class IntegratedData {
 		this.id = id;
 	}
 
-	public MonitoringPoint getMonitoringPoints() {
-		return monitoringPoints;
+	public MonitoringPoint getMonitoringPoint() {
+		return monitoringPoint;
 	}
 
-	public void setMonitoringPoints(MonitoringPoint monitoringPoints) {
-		this.monitoringPoints = monitoringPoints;
+	public void setMonitoringPoint(MonitoringPoint monitoringPoint) {
+		this.monitoringPoint = monitoringPoint;
 	}
 
 	public Instrument getInstrument() {

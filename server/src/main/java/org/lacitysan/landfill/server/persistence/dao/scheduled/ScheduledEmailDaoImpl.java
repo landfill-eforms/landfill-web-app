@@ -16,7 +16,6 @@ public class ScheduledEmailDaoImpl extends AbstractDaoImpl<ScheduledEmail> imple
 		if (entity instanceof ScheduledEmail) {
 			ScheduledEmail scheduledEmail = (ScheduledEmail)entity;
 			Hibernate.initialize(scheduledEmail.getSchedule());
-			System.out.println(scheduledEmail.getSchedule().getOffset());
 			Hibernate.initialize(scheduledEmail.getRecipients());
 			scheduledEmail.getUserGroups().forEach(userGroup -> Hibernate.initialize(userGroup.getUserPermissions()));
 			return scheduledEmail;

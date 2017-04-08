@@ -19,6 +19,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
+import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledEmail;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.lacitysan.landfill.server.persistence.enums.EmailRecipientType;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,6 +48,10 @@ public class EmailService {
 	
 	@Value("${mail.smtp.password}")
 	private String password;
+	
+	public void sendEmail(ScheduledEmail scheduledEmail) {
+		sendEmail(generateRecipientSet(scheduledEmail.getUserGroups(), scheduledEmail.getRecipients()), scheduledEmail.getSubject(), scheduledEmail.getBody());
+	}
 	
 	public void sendEmail(Collection<EmailRecipient> recipients, String subject, String body) {
 		

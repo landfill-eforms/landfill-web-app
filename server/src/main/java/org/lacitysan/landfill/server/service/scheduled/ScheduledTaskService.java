@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.service.scheduled;
 
-import java.time.DayOfWeek;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -28,40 +28,33 @@ public class ScheduledTaskService {
 	EmailService emailService;
 
 	public void runScheduledTasks() {
+		LocalDateTime now = LocalDateTime.now();
+		if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tChecking for scheduled tasks at " + now);
 		List<ScheduledEmail> scheduledEmails = scheduledEmailDao.getAll();
 		if (scheduledEmails.isEmpty()) {
+			if (ApplicationConstant.DEBUG) System.out.println("\tNo scheduled tasks.");
 			return;
 		}
-		Calendar now = new GregorianCalendar();
-		if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\t" + now);
-		scheduledEmails.parallelStream().forEach(scheduledEmail -> {
+		if (ApplicationConstant.DEBUG) System.out.println("\tLoaded " + scheduledEmails.size() + " scheduled tasks from database.");
+		scheduledEmails.stream()
+		.filter(scheduledEmail -> {
+			Schedule schedule = scheduledEmail.getSchedule();
+			boolean taskDue = isTaskDue(schedule, now);
+			if (ApplicationConstant.DEBUG) printTaskInfo(schedule, taskDue); 
+			return taskDue;
+		})
+		.parallel()
+		.forEach(scheduledEmail -> {
 			Schedule schedule = scheduledEmail.getSchedule();
 			Calendar offset = new GregorianCalendar();
 			offset.setTime(schedule.getOffset());
+			emailService.sendEmail(scheduledEmail);
 			if (schedule.getRecurrence() == ScheduleRecurrence.SINGLE) {
-				if (now.after(offset)) {
-					// TODO Send email here.
-					schedule.setActive(false);
-					// TODO Save schedule status.
-				}
+				schedule.setActive(false);
 			}
-			else if (schedule.getRecurrence() == ScheduleRecurrence.MINUTELY) {
-				if ((now.get(Calendar.MINUTE) - offset.get(Calendar.MINUTE)) % schedule.getFrequency() == 0) {
-					// TODO Send email here.
-				}
-			}
-			else if (schedule.getRecurrence() == ScheduleRecurrence.HOURLY) {
-				if ((now.get(Calendar.HOUR_OF_DAY) - offset.get(Calendar.HOUR_OF_DAY)) % schedule.getFrequency() == 0 && now.get(Calendar.MINUTE) == offset.get(Calendar.MINUTE)) {
-					// TODO Send email here.
-				}
-			}
+			schedule.setLastOccurrence(Timestamp.from(now.atZone(ZoneId.systemDefault()).toInstant()));
+			scheduledEmailDao.update(scheduledEmail);
 		});
-
-		if (now.get(Calendar.MINUTE) == 0) {
-			//			emailService.sendHourlyTestEmail();
-		}
-		if (now.get(Calendar.HOUR_OF_DAY) < 6 && now.get(Calendar.MINUTE) % 15 == 0) {
-		}
 	}
 
 	public boolean isTaskDue(Schedule schedule, LocalDateTime now) {
@@ -142,6 +135,18 @@ public class ScheduledTaskService {
 		return false;
 	}
 
-
+	public void printTaskInfo(Schedule schedule, boolean run) {
+		System.out.println("DEBUG:\tScheduled task:");
+		System.out.println("\tOffset = " + schedule.getOffset());
+		System.out.println("\tFrequency = " + schedule.getFrequency());
+		System.out.println("\tRecurrence = " + schedule.getRecurrence());
+		System.out.println("\tPeriodBoundary = " + schedule.getPeriodBoundary());
+		if (run) {
+			System.out.println("\tThis task will run right now.");
+		}
+		else {
+			System.out.println("\tThis task will not run right now.");
+		}
+	}
 
 }

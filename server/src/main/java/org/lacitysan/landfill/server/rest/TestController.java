@@ -1,8 +1,8 @@
 package org.lacitysan.landfill.server.rest;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +12,7 @@ import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.Schedule;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledReport;
 import org.lacitysan.landfill.server.persistence.enums.EmailRecipientType;
+import org.lacitysan.landfill.server.persistence.enums.SchedulePeriodBoundary;
 import org.lacitysan.landfill.server.persistence.enums.ScheduleRecurrence;
 import org.lacitysan.landfill.server.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,18 +37,14 @@ public class TestController {
 	}
 	
 	@RequestMapping(value="/hello/{freq}", method=RequestMethod.GET)
-	public void hello(@PathVariable Integer freq) {
+	public Object hello(@PathVariable Integer freq) {
 		ScheduledReport asdf = new ScheduledReport();
 		asdf.setSchedule(new Schedule());
 		asdf.getSchedule().setRecurrence(ScheduleRecurrence.MINUTELY);
-		Calendar time = new GregorianCalendar();
-		time.clear();
-		time.set(2017, 3, 7, 0, 0);
-		Timestamp timestamp = (new Timestamp(time.getTime().getTime()));
-		System.out.println(timestamp.getTime());
-		asdf.getSchedule().setOffset(timestamp);
+		asdf.getSchedule().setOffset(Timestamp.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 		asdf.getSchedule().setFrequency(freq);
-		asdf.getSchedule().setActive(false);
+		asdf.getSchedule().setActive(true);
+		asdf.getSchedule().setPeriodBoundary(SchedulePeriodBoundary.UNDEFINED);
 		asdf.setSubject(freq + " Minute Test Test");
 		asdf.setBody("You should be receiving this email every " + freq + " minutes.\nSorry for the spam.");
 		asdf.setJoo(69);
@@ -62,7 +59,7 @@ public class TestController {
 			r.setScheduledEmail(asdf);
 		}
 		asdf.setRecipients(recipients);
-		scheduledEmailDao.create(asdf);
+		return scheduledEmailDao.create(asdf);
 	}
 	
 	@RequestMapping(value="/hi", method=RequestMethod.GET)

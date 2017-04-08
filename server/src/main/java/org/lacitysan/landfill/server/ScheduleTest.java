@@ -16,7 +16,7 @@ public class ScheduleTest {
 	
 	private static ScheduledTaskService scheduledTaskService = new ScheduledTaskService();
 	
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		
 		LocalDateTime now = LocalDateTime.of(2017, 6, 30, 9, 0);
 		
@@ -53,7 +53,7 @@ public class ScheduleTest {
 			shit(s, now);
 		}
 		
-	}
+	}*/
 	
 	private static void shit(Schedule schedule, LocalDateTime now) {
 		System.out.println("Scheduled task:");

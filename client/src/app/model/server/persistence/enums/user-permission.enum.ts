@@ -35,9 +35,8 @@ export class UserPermission {
 	static readonly DELETE_UNVERIFIED_DATA:UserPermission = new UserPermission(28, "DELETE_UNVERIFIED_DATA", "User can delete individual data entries in an unverified data set.", "Unverified Data", "Delete Data", "User can delete individual data entries in an unverified data set.");
 	static readonly COMMIT_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(29, "COMMIT_UNVERIFIED_DATA_SET", "User can commit unverified data sets.", "Unverified Data", "Commit Set", "User can commit unverified data sets.");
 	static readonly GENERATE_REPORTS:UserPermission = new UserPermission(30, "GENERATE_REPORTS", "User can generate reports.", "Reports", "Generate", "User can generate reports.");
-	static readonly EMAIL_GENERATED_REPORT:UserPermission = new UserPermission(31, "EMAIL_GENERATED_REPORT", "", "Reports", "", "");
-	static readonly VIEW_VERIFIED_DATA:UserPermission = new UserPermission(32, "VIEW_VERIFIED_DATA", "User can view list of verified data", "Web App", "View List", "User can view list of verified data");
-	static readonly QUERY_VERIFIED_DATA_SET:UserPermission = new UserPermission(33, "QUERY_VERIFIED_DATA_SET", "User can find data by specific fields", "Web App", "Query List", "User can find data by specific fields");
+	static readonly SCHEDULE_EMAIL_REPORTS:UserPermission = new UserPermission(31, "SCHEDULE_EMAIL_REPORTS", "User can schedule automated email reports.", "Schedule", "Reports", "User can schedule automated email reports.");
+	static readonly SCHEDULE_EMAIL_NOTIFICATIONS:UserPermission = new UserPermission(32, "SCHEDULE_EMAIL_NOTIFICATIONS", "User can schedule automated email notifcations.", "Schedule", "Notifications", "User can schedule automated email notifcations.");
 
 	readonly ordinal:number;
 	readonly constantName:string;
@@ -88,9 +87,8 @@ export class UserPermission {
 			UserPermission.DELETE_UNVERIFIED_DATA,
 			UserPermission.COMMIT_UNVERIFIED_DATA_SET,
 			UserPermission.GENERATE_REPORTS,
-			UserPermission.EMAIL_GENERATED_REPORT,
-			UserPermission.VIEW_VERIFIED_DATA,
-			UserPermission.QUERY_VERIFIED_DATA_SET
+			UserPermission.SCHEDULE_EMAIL_REPORTS,
+			UserPermission.SCHEDULE_EMAIL_NOTIFICATIONS
 		];
 	}
 
@@ -129,7 +127,6 @@ export const AOTUserPermission = {
 	DELETE_UNVERIFIED_DATA: UserPermission["DELETE_UNVERIFIED_DATA"],
 	COMMIT_UNVERIFIED_DATA_SET: UserPermission["COMMIT_UNVERIFIED_DATA_SET"],
 	GENERATE_REPORTS: UserPermission["GENERATE_REPORTS"],
-	EMAIL_GENERATED_REPORT: UserPermission["EMAIL_GENERATED_REPORT"],
-	VIEW_VERIFIED_DATA: UserPermission["VIEW_VERIFIED_DATA"],
-	QUERY_VERIFIED_DATA_SET: UserPermission["QUERY_VERIFIED_DATA_SET"]
+	SCHEDULE_EMAIL_REPORTS: UserPermission["SCHEDULE_EMAIL_REPORTS"],
+	SCHEDULE_EMAIL_NOTIFICATIONS: UserPermission["SCHEDULE_EMAIL_NOTIFICATIONS"]
 }

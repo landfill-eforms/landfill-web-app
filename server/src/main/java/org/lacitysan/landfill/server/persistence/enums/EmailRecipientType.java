@@ -5,6 +5,7 @@ import javax.mail.Message.RecipientType;
 import org.lacitysan.landfill.server.json.LandfillEnumDeserializer;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public enum EmailRecipientType {
 	
@@ -12,6 +13,7 @@ public enum EmailRecipientType {
 	CC	(RecipientType.CC),
 	BCC	(RecipientType.BCC);
 	
+	@JsonIgnore
 	private RecipientType javaxRecipientType;
 	
 	private EmailRecipientType(RecipientType javaxRecipientType) {

@@ -126,9 +126,11 @@ a {
 }
 
 .section-title {
-    font-weight: normal;
-    font-size: 1.337rem;
-    padding: 24px;
+    font-weight: 400;
+    font-size: 24px;
+    padding: 72px 0px 0 120px;
+    height: 160px;
+    color: white;
 }
 
 .section-subtitle {
@@ -277,7 +279,7 @@ a {
 .fab-top-container {
     position: relative;
     top: 100px;
-    left: 48px;
+    left: 32px;
     height: 0;
 }
 

@@ -16,7 +16,7 @@ apply plugin: 'org.springframework.boot'
 
 jar {
 	baseName = 'server'
-	version = '0.0.11-SNAPSHOT'
+	version = '0.0.16-SNAPSHOT'
 }
 
 // Uncomment the following lines to build project as WAR instead of JAR.
@@ -24,7 +24,7 @@ jar {
 apply plugin: 'war'
 war {
 	baseName = 'server'
-	version = '0.0.11-SNAPSHOT'
+	version = '0.0.16-SNAPSHOT'
 }
 */
 
@@ -43,7 +43,9 @@ ext {
 	jacksonVersion = '2.8.7'
 	jjwtVersion = '0.7.0'
 	aspectjVersion = '1.8.9'
+	poiVersion = '3.16-beta2'
 	pdfboxVersion = '2.0.5'
+	javaxMailVersion = '1.5.6'
 }
 
 dependencies {
@@ -61,7 +63,10 @@ dependencies {
 	compile('com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:' + jacksonVersion)
 	compile('io.jsonwebtoken:jjwt:' + jjwtVersion)
 	compile('org.aspectj:aspectjweaver:' + aspectjVersion)
+	compile('org.apache.poi:poi:' + poiVersion)
+	compile('org.apache.poi:poi-ooxml:' + poiVersion)
 	compile('org.apache.pdfbox:pdfbox:' + pdfboxVersion)
+	compile('com.sun.mail:javax.mail:' + javaxMailVersion)
 	
 	compile files('lib/sqljdbc42.jar')
 	

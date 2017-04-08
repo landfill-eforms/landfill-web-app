@@ -39,20 +39,17 @@ public class ImeDataController {
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public ImeData create(@RequestBody ImeData imeData) {
-		imeNumbersDao.create(imeData);
-		return imeData;
+		return imeNumbersDao.create(imeData);
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public ImeData update(@RequestBody ImeData imeData) {
-		imeNumbersDao.update(imeData);
-		return imeData;
+		return imeNumbersDao.update(imeData);
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public ImeData delete(@RequestBody ImeData imeData) {
-		imeNumbersDao.delete(imeData);
-		return imeData;
+		return imeNumbersDao.delete(imeData);
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)

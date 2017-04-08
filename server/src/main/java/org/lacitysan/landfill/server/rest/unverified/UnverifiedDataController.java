@@ -51,21 +51,21 @@ public class UnverifiedDataController {
 	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public UnverifiedDataSet create(@RequestBody UnverifiedDataSet dataSet) {
+		// TODO Create a service for this.
 		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
 			data.setUnverifiedDataSet(dataSet);
 		}
-		unverifiedDataSetDao.create(dataSet);
-		return dataSet;
+		return unverifiedDataSetDao.create(dataSet);
 	}
 	
 	@RestSecurity({UserPermission.EDIT_UNVERIFIED_DATA_SET})
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public UnverifiedDataSet update(@RequestBody UnverifiedDataSet dataSet) {
+		// TODO Create a service for this.
 		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
 			data.setUnverifiedDataSet(dataSet);
 		}
-		unverifiedDataSetDao.update(dataSet);
-		return dataSet;
+		return unverifiedDataSetDao.update(dataSet);
 	}
 	
 	// TODO Create a method for deleting data sets.

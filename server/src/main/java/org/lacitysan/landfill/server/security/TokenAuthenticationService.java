@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
@@ -32,21 +33,18 @@ import io.jsonwebtoken.SignatureException;
  */
 @Service
 public class TokenAuthenticationService {
-	
+
 	@Autowired
 	ApplicationVariableService applicationVariableService;
-	
-	private String secret;
-	
+
+	private byte[] secret;
+
 	public TokenAuthenticationService() {
-		String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; // Possible characters.
-        char[] secret = new char[ApplicationConstant.TOKEN_SECRET_LENGTH];
-        Random rng = new Random();
-        for (int i = 0; i < secret.length; i++) {
-        	secret[i] = chars.charAt(rng.nextInt(chars.length()));
-        }
-        this.secret = new String(secret);
-        System.out.println("JWT Secret: " + this.secret);
+		secret = new byte[ApplicationConstant.TOKEN_SECRET_LENGTH / 8];
+		new Random().nextBytes(secret);
+		if (ApplicationConstant.DEBUG) {
+			System.out.println("DEBUG:\tGenerated JWT Secret: " + new Base64().encodeToString(secret));
+		}
 	}
 
 	/** Adds authentication info to response header. */
@@ -57,13 +55,13 @@ public class TokenAuthenticationService {
 		String jwt = Jwts.builder()
 				.setClaims(claims)
 				.setExpiration(new Date(System.currentTimeMillis() + applicationVariableService.getTokenExpirationTime()))
-				.signWith(SignatureAlgorithm.HS512, secret)
+				.signWith(SignatureAlgorithm.HS512, "secret")
 				.compact();
 		response.addHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME, ApplicationConstant.HTTP_TOKEN_PREFIX + " " + jwt);
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Expose-Headers", "Authorization");
 	}
-	
+
 	/** Parses the JWT from incoming HTTP requests and generates an <code>AuthenticatedUser</code> object based on the parsed info. */
 	public Authentication getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME);
@@ -71,7 +69,7 @@ public class TokenAuthenticationService {
 			try {
 				token = token.replace(ApplicationConstant.HTTP_TOKEN_PREFIX + " ", "");
 				Claims claims = Jwts.parser()
-						.setSigningKey(secret)
+						.setSigningKey("secret")
 						.parseClaimsJws(token)
 						.getBody();
 				Object principle = claims.get("principle");
@@ -92,10 +90,14 @@ public class TokenAuthenticationService {
 				}
 			} 
 			catch (ExpiredJwtException e) {
-				System.out.println("Authentication failed: The following token has expired:\n\t" + token);
+				if (ApplicationConstant.DEBUG) {
+					System.out.println("DEBUG:\tAuthentication failed: The following token has expired:\n\t" + token);
+				}
 			} 
 			catch (SignatureException e) {
-				System.out.println("Authentication failed: The following token has invalid signature:\n\t" + token);
+				if (ApplicationConstant.DEBUG) {
+					System.out.println("DEBUG:\tAuthentication failed: The following token has invalid signature:\n\t" + token);
+				}
 			}
 		}
 		return null;

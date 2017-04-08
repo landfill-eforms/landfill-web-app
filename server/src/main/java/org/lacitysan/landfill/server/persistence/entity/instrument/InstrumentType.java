@@ -12,15 +12,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.InstrumentTypes")
+@Table(name="dbo.InstrumentTypes")
 public class InstrumentType {
 	
 	@Id

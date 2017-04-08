@@ -5,7 +5,7 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.service.ImeService;
+import org.lacitysan.landfill.server.service.instantaneous.ImeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,20 +44,17 @@ public class ImeNumberController {
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public ImeNumber create(@RequestBody ImeNumber imeNumber) {
-		imeNumbersDao.create(imeNumber);
-		return imeNumber;
+		return imeNumbersDao.create(imeNumber);
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public ImeNumber update(@RequestBody ImeNumber imeNumber) {
-		imeNumbersDao.update(imeNumber);
-		return imeNumber;
+		return imeNumbersDao.update(imeNumber);
 	}
 
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public ImeNumber delete(@RequestBody ImeNumber imeNumber) {
-		imeNumbersDao.delete(imeNumber);
-		return imeNumber;
+		return imeNumbersDao.delete(imeNumber);
 	}
 
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)

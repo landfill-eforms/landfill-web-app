@@ -10,7 +10,7 @@ import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotDa
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
-import org.lacitysan.landfill.server.persistence.enums.ImeNumberStatus;
+import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.lacitysan.landfill.server.service.unverified.model.VerifiedDataSet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,8 +73,8 @@ public class DataVerificationService {
 			
 			// Update IME Number verified status.
 			for (ImeNumber imeNumber : instantaneousData.getImeNumbers()) {
-				if (imeNumber.getStatus() == ImeNumberStatus.UNVERIFIED) {
-					imeNumber.setStatus(ImeNumberStatus.ACTIVE);
+				if (imeNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
+					imeNumber.setStatus(ExceedanceStatus.ACTIVE);
 					imeNumberDao.update(imeNumber);
 				}
 			}

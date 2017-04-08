@@ -40,8 +40,7 @@ public class UserController {
 	@RestSecurity(UserPermission.CREATE_USERS)
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public User create(@RequestBody User user) {
-		userService.create(user);
-		return user;
+		return userService.create(user);
 	}
 
 	@RestSecurity(UserPermission.RESET_USER_USERNAMES)
@@ -83,8 +82,7 @@ public class UserController {
 	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public User delete(@RequestBody User user) {
-		userDao.delete(user);
-		return user;
+		return userDao.delete(user);
 	}
 
 	@RestAllowSuperAdminOnly

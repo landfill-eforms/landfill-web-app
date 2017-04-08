@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPointType;
 import org.lacitysan.landfill.server.persistence.enums.Site;
@@ -121,7 +122,7 @@ public class MonitoringPointService {
 				}
 				else if (rangeActive) {
 					result.add(new IntegerRange(rangeStart, rangeEnd));
-					System.out.println("Range found at (" + rangeStart + ", " + rangeEnd + ").");
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tRange found at (" + rangeStart + ", " + rangeEnd + ").");
 					rangeActive = false;
 				}
 			}

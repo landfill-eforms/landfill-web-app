@@ -6,8 +6,8 @@ package org.lacitysan.landfill.server.config.app;
  */
 public class ApplicationConstant {
 	
-	/** The name of the server's SQL database. */
-	public static final String DATABASE_NAME = "test";
+	/** Whether to print debug messages to the console. */
+	public static final Boolean DEBUG = true;
 	
 	/** The name of the HTTP header field that contains the JWT. */
 	public static final String HTTP_TOKEN_HEADER_NAME = "Authorization";
@@ -27,7 +27,7 @@ public class ApplicationConstant {
 	/** The username of the super admin account. */
 	public static final String SUPER_ADMIN_USERNAME = "admin";
 	
-	/** The length of the randomly generated secret for JWTs. */
-	public static final Integer TOKEN_SECRET_LENGTH = 16;
+	/** The length in bits of the randomly generated secret for JWTs. */
+	public static final Integer TOKEN_SECRET_LENGTH = 512;
 	
 }

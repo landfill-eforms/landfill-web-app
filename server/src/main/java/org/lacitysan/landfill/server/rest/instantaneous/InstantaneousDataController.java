@@ -36,22 +36,19 @@ public class InstantaneousDataController {
 	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public InstantaneousData create(@RequestBody InstantaneousData instantaneousData) {
-		instantaneousDataDao.create(instantaneousData);
-		return instantaneousData;
+		return instantaneousDataDao.create(instantaneousData);
 	}
 	
 	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public InstantaneousData update(@RequestBody InstantaneousData instantaneousData) {
-		instantaneousDataDao.update(instantaneousData);
-		return instantaneousData;
+		return instantaneousDataDao.update(instantaneousData);
 	}
 
 	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public InstantaneousData delete(@RequestBody InstantaneousData instantaneousData) {
-		instantaneousDataDao.delete(instantaneousData);
-		return instantaneousData;
+		return instantaneousDataDao.delete(instantaneousData);
 	}
 	
 	@RestAllowSuperAdminOnly

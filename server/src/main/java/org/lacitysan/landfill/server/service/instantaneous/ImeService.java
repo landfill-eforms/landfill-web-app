@@ -1,12 +1,13 @@
-package org.lacitysan.landfill.server.service;
+package org.lacitysan.landfill.server.service.instantaneous;
 
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.persistence.enums.ImeNumberStatus;
+import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.Site;
+import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +74,7 @@ public class ImeService {
 		
 		short last = 1;
 		for (ImeNumber imeNumber : existing) {
-			if (verifiedOnly && imeNumber.getStatus() == ImeNumberStatus.UNVERIFIED) {
+			if (verifiedOnly && imeNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
 				continue;
 			}
 			if (imeNumber.getSequence() > last) {

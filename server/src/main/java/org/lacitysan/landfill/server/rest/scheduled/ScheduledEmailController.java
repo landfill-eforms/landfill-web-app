@@ -5,6 +5,12 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.scheduled.ScheduledEmailDao;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledEmail;
+import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledNotification;
+import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledReport;
+import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.security.annotation.RestControllerSecurity;
+import org.lacitysan.landfill.server.security.annotation.RestSecurity;
+import org.lacitysan.landfill.server.security.annotation.RestSecurityMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * TODO Create user permissions for scheduled events.
  * @author Alvin Quach
  */
+@RestControllerSecurity({UserPermission.SCHEDULE_EMAIL_REPORTS, UserPermission.SCHEDULE_EMAIL_NOTIFICATIONS})
 @RequestMapping(ApplicationConstant.RESOURCE_PATH + "/schedule/email")
 @RestController
 public class ScheduledEmailController {
@@ -26,6 +32,18 @@ public class ScheduledEmailController {
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<ScheduledEmail> getAll() {
 		return scheduledEmailDao.getAll();
+	}
+	
+	@RestSecurity(value=UserPermission.SCHEDULE_EMAIL_REPORTS, mode=RestSecurityMode.OVERRIDE)
+	@RequestMapping(value="/list/all", method=RequestMethod.GET)
+	public List<ScheduledReport> getAllScheduledReports() {
+		return scheduledEmailDao.getAllScheduledReports();
+	}
+	
+	@RestSecurity(value=UserPermission.SCHEDULE_EMAIL_NOTIFICATIONS, mode=RestSecurityMode.OVERRIDE)
+	@RequestMapping(value="/list/all", method=RequestMethod.GET)
+	public List<ScheduledNotification> getScheduledNotifications() {
+		return scheduledEmailDao.getAllScheduledNotifications();
 	}
 
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)

@@ -105,14 +105,11 @@ public enum UserPermission {
 	/** User can generate reports. <i>Do we need separate permissions for each type of reports?</i> */
 	GENERATE_REPORTS ("User can generate reports.", Category.REPORTS, "Generate", "User can generate reports."),
 
-	/**  */
-	EMAIL_GENERATED_REPORT ("", Category.REPORTS, "", ""),
+	/** User can schedule automated email reports. */
+	SCHEDULE_EMAIL_REPORTS ("User can schedule automated email reports.", Category.SCHEDULE, "Reports", "User can schedule automated email reports."),
 
-	/** User can view list of verified data */
-	VIEW_VERIFIED_DATA ("User can view list of verified data", Category.WEB_APP, "View List", "User can view list of verified data"),
-
-	/** User can find data by specific fields */
-	QUERY_VERIFIED_DATA_SET ("User can find data by specific fields", Category.WEB_APP, "Query List", "User can find data by specific fields");
+	/** User can schedule automated email notifcations. */
+	SCHEDULE_EMAIL_NOTIFICATIONS ("User can schedule automated email notifcations.", Category.SCHEDULE, "Notifications", "User can schedule automated email notifcations.");
 
 	private String name;
 	private String category;
@@ -157,10 +154,10 @@ public enum UserPermission {
 		protected final static String EQUIPMENT_TYPE = "Equipment Type";
 		protected final static String MOBILE_APP_SYNC = "Mobile App Sync";
 		protected final static String REPORTS = "Reports";
+		protected final static String SCHEDULE = "Schedule";
 		protected final static String UNVERIFIED_DATA = "Unverified Data";
 		protected final static String USERS = "Users";
 		protected final static String USER_GROUPS = "User Groups";
-		protected final static String WEB_APP = "Web App";
 	}
 
 }

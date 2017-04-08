@@ -35,13 +35,13 @@ public class ScheduledEmailController {
 	}
 	
 	@RestSecurity(value=UserPermission.SCHEDULE_EMAIL_REPORTS, mode=RestSecurityMode.OVERRIDE)
-	@RequestMapping(value="/list/all", method=RequestMethod.GET)
+	@RequestMapping(value="/list/all/reports", method=RequestMethod.GET)
 	public List<ScheduledReport> getAllScheduledReports() {
 		return scheduledEmailDao.getAllScheduledReports();
 	}
 	
 	@RestSecurity(value=UserPermission.SCHEDULE_EMAIL_NOTIFICATIONS, mode=RestSecurityMode.OVERRIDE)
-	@RequestMapping(value="/list/all", method=RequestMethod.GET)
+	@RequestMapping(value="/list/all/notifications", method=RequestMethod.GET)
 	public List<ScheduledNotification> getScheduledNotifications() {
 		return scheduledEmailDao.getAllScheduledNotifications();
 	}

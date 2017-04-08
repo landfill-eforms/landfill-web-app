@@ -7,6 +7,7 @@ import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -71,7 +72,12 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 				throw new BadCredentialsException("Invalid Password"); // TODO Change this to "Invalid user or password"
 			}
 			
-			result = new AuthenticatedUser(user, tokenAuthenticationService.userGroupToAuthorities(user.getUserGroups()));
+			// Check if user is deactivated.
+			if (!user.getEnabled()) {
+				throw new AccessDeniedException("This account has been deactivated.");
+			}
+			
+			result = new AuthenticatedUser(user.getId(), user.getUsername(), tokenAuthenticationService.userGroupToAuthorities(user.getUserGroups()));
 		}
 		
 		return result;

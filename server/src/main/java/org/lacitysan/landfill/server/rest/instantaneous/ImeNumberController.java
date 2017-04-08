@@ -44,20 +44,17 @@ public class ImeNumberController {
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public ImeNumber create(@RequestBody ImeNumber imeNumber) {
-		imeNumbersDao.create(imeNumber);
-		return imeNumber;
+		return imeNumbersDao.create(imeNumber);
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public ImeNumber update(@RequestBody ImeNumber imeNumber) {
-		imeNumbersDao.update(imeNumber);
-		return imeNumber;
+		return imeNumbersDao.update(imeNumber);
 	}
 
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public ImeNumber delete(@RequestBody ImeNumber imeNumber) {
-		imeNumbersDao.delete(imeNumber);
-		return imeNumber;
+		return imeNumbersDao.delete(imeNumber);
 	}
 
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)

@@ -52,8 +52,7 @@ public class UserGroupController {
 			throw new EmptyStringException("User group name cannot be blank.");
 		}
 		
-		userGroupDao.create(userGroup);
-		return userGroup;
+		return userGroupDao.create(userGroup);
 	}
 	
 	@RestSecurity(UserPermission.EDIT_USER_GROUPS)
@@ -66,8 +65,7 @@ public class UserGroupController {
 			throw new EmptyStringException("User group name cannot be blank.");
 		}
 		
-		userGroupDao.update(userGroup);
-		return userGroup;
+		return userGroupDao.update(userGroup);
 	}
 	
 	@RestSecurity(UserPermission.DELETE_USER_GROUPS)

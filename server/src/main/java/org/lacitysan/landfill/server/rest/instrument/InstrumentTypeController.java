@@ -56,8 +56,7 @@ public class InstrumentTypeController {
 			throw new EmptyStringException("Manufacturer name cannot be blank.");
 		}
 
-		instrumentTypeDao.create(instrumentType);
-		return instrumentType;
+		return instrumentTypeDao.create(instrumentType);
 	}
 
 	@RestSecurity(UserPermission.EDIT_INSTRUMENT_TYPES)
@@ -74,15 +73,14 @@ public class InstrumentTypeController {
 			throw new EmptyStringException("Manufacturer name cannot be blank.");
 		}
 
-		instrumentTypeDao.update(instrumentType);
-		return instrumentType;
+		return instrumentTypeDao.update(instrumentType);
 	}
 
 	@RestSecurity(UserPermission.DELETE_INSTRUMENT_TYPES)
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public InstrumentType delete(@RequestBody InstrumentType instrumentType) {
-		instrumentTypeDao.delete(instrumentType);
-		return instrumentType;
+		if (instrumentType == null) return null;
+		return instrumentTypeDao.delete(instrumentType);
 	}
 
 	@RestSecurity(UserPermission.DELETE_INSTRUMENT_TYPES)

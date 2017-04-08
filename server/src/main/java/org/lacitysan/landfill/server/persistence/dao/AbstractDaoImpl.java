@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
 	
 	@Autowired
-	HibernateTemplate hibernateTemplate;
+	protected HibernateTemplate hibernateTemplate;
 	
 	@Override
 	@Transactional

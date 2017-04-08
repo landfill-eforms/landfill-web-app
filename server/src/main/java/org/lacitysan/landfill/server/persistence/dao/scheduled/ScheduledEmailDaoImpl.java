@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ScheduledEmailDaoImpl extends AbstractDaoImpl<ScheduledEmail> implements ScheduledEmailDao {
 	
 	@SuppressWarnings("unchecked")
+	@Override
 	@Transactional
 	public List<ScheduledReport> getAllScheduledReports() {
 		List<ScheduledReport> result = hibernateTemplate.getSessionFactory().getCurrentSession()
@@ -28,6 +29,7 @@ public class ScheduledEmailDaoImpl extends AbstractDaoImpl<ScheduledEmail> imple
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Override
 	@Transactional
 	public List<ScheduledNotification> getAllScheduledNotifications() {
 		List<ScheduledNotification> result = hibernateTemplate.getSessionFactory().getCurrentSession()

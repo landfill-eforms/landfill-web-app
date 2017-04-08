@@ -45,14 +45,19 @@ public class User {
 	@JoinTable(name="dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
 	private Set<UserGroup> userGroups = new HashSet<>();
 	
+	@NotNull
 	private String firstname;
 	
+	@NotNull
 	private String middlename;
 	
+	@NotNull
 	private String lastname;
 	
+	@NotNull
 	private String emailAddress;
 	
+	@NotNull
 	private String employeeId;
 	
 	@NotNull

@@ -4,6 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -16,6 +19,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
+import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
+import org.lacitysan.landfill.server.persistence.enums.EmailRecipientType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +68,7 @@ public class EmailService {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(username, "Landfill e-Forms"));
 			for (EmailRecipient recipient : recipients) {
-				message.addRecipient(recipient.getType(), new InternetAddress(recipient.getEmailAddress(), recipient.getName()));
+				message.addRecipient(recipient.getRecipientType().getJavaxRecipientType(), new InternetAddress(recipient.getEmailAddress(), recipient.getName()));
 			}
 			message.setSubject(subject);
 			message.setText(body);
@@ -113,6 +118,30 @@ public class EmailService {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public Set<EmailRecipient> generateRecipientSet(Collection<UserGroup> userGroups, Collection<EmailRecipient> recipients) {
+		Set<EmailRecipient> result = new TreeSet<>();
+		result.addAll(userGroups.stream()
+				.flatMap(userGroup -> userGroup.getUsers().stream())
+				.map(user -> new EmailRecipient(EmailRecipientType.TO, user.getEmailAddress(), user.getFirstname() + " " + user.getLastname()))
+				.collect(Collectors.toList()));
+		for (EmailRecipient recipient : recipients) {
+			boolean exists = false;
+			for (EmailRecipient existing : result) {
+				if (compareEmailAddresses(recipient.getEmailAddress(), existing.getEmailAddress())) {
+					existing.setRecipientType(recipient.getRecipientType());
+					existing.setName(recipient.getName());
+					existing.setEmailAddress(recipient.getEmailAddress());
+					exists = true;
+					break;
+				}
+			}
+			if (!exists) {
+				result.add(recipient);
+			}
+		}
+		return result;
 	}
 	
 	/** 

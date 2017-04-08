@@ -16,7 +16,8 @@ import org.lacitysan.landfill.server.persistence.entity.integrated.IseData;
 import org.lacitysan.landfill.server.persistence.entity.integrated.IseNumber;
 import org.lacitysan.landfill.server.persistence.entity.integrated.IseRepairData;
 import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
-import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledNotification;
+import org.lacitysan.landfill.server.persistence.entity.scheduled.Schedule;
+import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledEmail;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledReport;
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
@@ -97,7 +98,8 @@ public class DataSourceConfig {
 						ProbeData.class,
 						
 						// Scheduled
-						ScheduledNotification.class,
+						Schedule.class,
+						ScheduledEmail.class,
 						ScheduledReport.class,
 						
 						// Unverified

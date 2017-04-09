@@ -1,3 +1,4 @@
+import { InputUtils, InputStatus } from './../../../utils/input.utils';
 import { Paginfo, PaginationComponent } from './../../directives/pagination/pagination.component';
 import { StringUtils } from './../../../utils/string.utils';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
@@ -50,6 +51,10 @@ export class UserListComponent implements OnInit {
 	filters:{text:string} = {
 		text: ""
 	};
+	textFilterStatus:InputStatus = {
+		valid: true,
+		errorMessage: ""
+	}
 
 	paginfo:Paginfo = new Paginfo();
 	paginatedUsers:User[] = [];
@@ -110,12 +115,22 @@ export class UserListComponent implements OnInit {
 	}
 
 	applyFilters() {
+
+		// Validate the text search string.
+		InputUtils.isAlphanumeric(this.filters.text, this.textFilterStatus);
+
+		// If the text search string is invalid, then return.
+		if (!this.textFilterStatus.valid) {
+			return;
+		}
+
+		console.log(this.textFilterStatus);
+
 		this.filteredUsers = this.users.filter(o => {
 			if (!this.filters.text) {
 				return true;
 			}
 			let search:RegExp = new RegExp(this.filters.text, 'i');
-			// console.log(search, o.username, search.test(o.username))
 			return search.test(o.username) || search.test(o.firstname) || search.test(o.lastname) || search.test(o.emailAddress) || search.test(o.employeeId);
 		});
 

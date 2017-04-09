@@ -16,8 +16,8 @@
 				<md-icon>add</md-icon>
 			</button>
 		</div>
-		<div class="flex-container" fxLayout="row" fxLayoutAlign="space-between start" style="background-color:rebeccapurple;height:128px">
-			<div class="section-title flex-item" fxFlex>Manage Users</div>
+		<div class="sub-navbar flex-container" fxLayout="row" fxLayoutAlign="space-between start">
+			<div class="sub-navbar-title flex-item" fxFlex>Manage Users</div>
 			<button md-icon-button 
 				(click)="toggleSideInfo()" 
 				class="flex-item" 
@@ -34,7 +34,11 @@
 		<div *ngIf="isDataLoaded" class="data-table-scrollable">
 			<div class="data-table-filter-container flex-container" fxLayout="row" fxLayoutAlign="end center">
 				<div class="flex-item" fxFlex="152px"></div>
-				<md-input-container *ngIf="showFilters" class="flex-item" fxFlex>
+				<md-input-container *ngIf="showFilters" 
+					[hintLabel]="textFilterStatus.errorMessage" 
+					class="flex-item" 
+					fxFlex
+					[ngClass]="{'mat-input-container-error':!textFilterStatus.valid}">
 					<input mdInput placeholder="Search" [(ngModel)]="filters.text" (ngModelChange)="applyFilters()">
 				</md-input-container>
 				<button md-icon-button 

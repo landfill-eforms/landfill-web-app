@@ -1,13 +1,68 @@
-<md-card class="section-single">
-	<md-card-title>
-		<div class="section-title">Manage Users</div>
-	</md-card-title>
-	<md-card-content>
+<md-sidenav-container  class="sideinfo-container" fullscreen>
+	<md-sidenav #sideinfo mode="side" align="end" (opened)="showSideInfo" class="sidenav-contents">
+		<div class="sideinfo-header">
+			<div class="sideinfo-header-title">
+				User Info
+			</div>
+			<div *ngIf="selectedUser" class="sideinfo-header-subtitle">
+				{{selectedUser.firstname}} {{selectedUser.lastname}}
+			</div>
+		</div>
+		<div *ngIf="!selectedUser">
+			Select a user to view their details.
+		</div>
+		<div *ngIf="selectedUser">
+			{{selectedUser.username}}
+		</div>
+	</md-sidenav>
+	<div style="height:calc(100% - 193px);">
+		<div class="fab-top-container">
+			<button md-fab (click)="openNewUserDialog()" mdTooltip="New User" mdTooltipPosition="below">
+				<md-icon>add</md-icon>
+			</button>
+		</div>
+		<div class="sub-navbar flex-container" fxLayout="row" fxLayoutAlign="space-between start">
+			<div class="sub-navbar-title flex-item" fxFlex>Manage Users</div>
+			<button md-icon-button 
+				(click)="toggleSideInfo()" 
+				class="flex-item" 
+				fxFlex="40px" 
+				[mdTooltip]="showSideInfo ? 'Hide Details' : 'Show Details'" 
+				mdTooltipPosition="before">
+				<md-icon>{{showSideInfo ? 'chevron_right' : 'chevron_left'}}</md-icon>
+			</button>
+		</div>
 		<div *ngIf="!isDataLoaded" class="loading-indicator-container">
 			<md-spinner class="loading-indicator-spinner"></md-spinner>
 			<div class="loading-indicator-message">{{loadingMessage}}</div>
 		</div>
-		<div *ngIf="isDataLoaded" class="data-table">
+		<div *ngIf="isDataLoaded" class="data-table-scrollable">
+			<div class="data-table-filter-container flex-container" fxLayout="row" fxLayoutAlign="end center">
+				<div class="flex-item" fxFlex="152px"></div>
+				<md-input-container *ngIf="showFilters" 
+					[hintLabel]="textFilterStatus.errorMessage" 
+					class="flex-item" 
+					fxFlex
+					[ngClass]="{'mat-input-container-error':!textFilterStatus.valid}">
+					<input mdInput placeholder="Search" [(ngModel)]="filters.text" (ngModelChange)="applyFilters()">
+				</md-input-container>
+				<button md-icon-button 
+					(click)="toggleFilters()" 
+					class="flex-item" 
+					fxFlex="40px"
+					mdTooltip="Filter" 
+					mdTooltipPosition="below">
+					<md-icon>filter_list</md-icon>
+				</button>
+				<button md-icon-button 
+					(click)="toggleSideInfo()" 
+					class="flex-item" 
+					fxFlex="40px" 
+					[mdTooltip]="showSideInfo ? 'Hide Details' : 'Show Details'" 
+					mdTooltipPosition="below">
+					<md-icon>{{showSideInfo ? 'chevron_right' : 'chevron_left'}}</md-icon>
+				</button>
+			</div>
 			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 				<div class="data-table-first-column truncate flex-item" fxFlex="10" (click)="sortBy('username')">
 					<span class="data-table-header-label-sortable" [ngClass]="{
@@ -57,41 +112,39 @@
 					<span class="data-table-header-label">Active</span>
 				</div>
 			</div>
-			<div *ngFor="let user of users; let idx = index">
-				<div *ngIf="idx >= (pagination.currentPage - 1) * pagination.displayedRows && idx < pagination.currentPage * pagination.displayedRows"
-					class="data-table-row flex-container" 
-					fxLayout="row">
-					<div class="data-table-first-column truncate flex-item" fxFlex="10">
-						<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
-							{{user.username}}
-						</a>
-					</div>
-					<div class="data-table-column truncate flex-item" fxFlex="13">
-						{{stringUtils.formatUserName(user)}}
-					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
-						{{user.emailAddress}}
-					</div>
-					<div class="data-table-column truncate flex-item" fxFlex="13">
-						{{user.employeeId}}
-					</div>
-					<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">
-						<md-icon *ngIf="user.enabled" style="color:#0D0;margin-top:-4px;">check</md-icon>
-						<md-icon *ngIf="!user.enabled" style="color:#D00;margin-top:-4px;">close</md-icon>
+			<div class="data-table-scrollable-area">
+				<div *ngFor="let user of paginatedUsers; let idx = index" class="data-table-row">
+					<div class="data-table-row-content flex-container" 
+						fxLayout="row" 
+						(click)="selectUser(user)"
+						[ngClass]="{'data-table-row-content-active': user === selectedUser}">
+						<div class="data-table-first-column truncate flex-item" fxFlex="10">
+							<a [routerLink]="'../user/' + user.username" routerLikeActive="active">
+								{{user.username}}
+							</a>
+						</div>
+						<div class="data-table-column truncate flex-item" fxFlex="13">
+							{{stringUtils.formatUserName(user)}}
+						</div>
+						<div class="data-table-column truncate flex-item" fxFlex>
+							{{user.emailAddress}}
+						</div>
+						<div class="data-table-column truncate flex-item" fxFlex="13">
+							{{user.employeeId}}
+						</div>
+						<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">
+							<md-icon *ngIf="user.enabled" style="color:#0D0;margin-top:-4px;">check</md-icon>
+							<md-icon *ngIf="!user.enabled" style="color:#D00;margin-top:-4px;">close</md-icon>
+						</div>
 					</div>
 				</div>
 			</div>
-			<app-pagination [pagination]="pagination" 
-				[totalRows]="users.length" 
+			<app-pagination #pagination
+				[paginfo]="paginfo"
 				[showPageSelector]="true" 
-				[showFirstLastPage]="true">
+				[showFirstLastPage]="true"
+				(changed)="applyPagination()">
 			</app-pagination>
 		</div>
-	</md-card-content>
-</md-card>
-<div>{{pagination.displayedRows}}</div>
-<div class="fab-action-button-container">
-	<button md-fab (click)="openNewUserDialog()" mdTooltip="New User" mdTooltipPosition="above">
-		<md-icon>add</md-icon>
-	</button>
-</div>
+	</div>
+</md-sidenav-container>

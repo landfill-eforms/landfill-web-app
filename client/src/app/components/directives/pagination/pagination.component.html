@@ -4,7 +4,7 @@
 		Page:
 	</div>
 	<md-select *ngIf="showPageSelector"
-		[(ngModel)]="pagination.currentPage" 
+		[(ngModel)]="paginfo.currentPage" 
 		(change)="changeCurrentPage()"
 		class="pagination-numeric-selector flex-item" 
 		fxFlex="64px"
@@ -15,32 +15,38 @@
 	<div class="flex-item" fxFlex="83px" style="margin-left:32px;">
 		Rows per page:
 	</div>
-	<md-select [(ngModel)]="pagination.displayedRows" 
+	<md-select [(ngModel)]="paginfo.displayedRows" 
 		(change)="changeDisplayedRows()"
 		class="pagination-numeric-selector flex-item" 
 		fxFlex="64px">
 		<md-option *ngFor="let i of displayedRowsSelection" [value]="i">{{i}}</md-option>
 	</md-select>
 	<div class="flex-item" style="margin:0 32px;" fxFlex="80px">
-		{{displayedRange.min}}-{{displayedRange.max}} of {{totalRows}}
+		{{displayedRange.min}}-{{displayedRange.max}} of {{paginfo.totalRows}}
 	</div>
 	<button md-icon-button 
 		*ngIf="showFirstLastPage" 
 		(click)="firstPage()" 
 		class="pagination-nav-button flex-item" 
-		fxFlex="24px">
+		fxFlex="24px"
+		mdTooltip="First" 
+		mdTooltipPosition="above">
 		<md-icon class="pagination-nav-button-icon">first_page</md-icon>
 	</button>
 	<button md-icon-button 
 		(click)="prevPage()" 
 		class="pagination-nav-button flex-item" 
-		fxFlex="24px">
+		fxFlex="24px"
+		mdTooltip="Previous" 
+		mdTooltipPosition="above">
 		<md-icon class="pagination-nav-button-icon">navigate_before</md-icon>
 	</button>
 	<button md-icon-button 
 		(click)="nextPage()" 
 		class="pagination-nav-button flex-item" 
-		fxFlex="24px">
+		fxFlex="24px"
+		mdTooltip="Next" 
+		mdTooltipPosition="above">
 		<md-icon class="pagination-nav-button-icon">navigate_next</md-icon>
 	</button>
 	<button md-icon-button 
@@ -48,7 +54,9 @@
 		(click)="lastPage()" 
 		class="pagination-nav-button flex-item" 
 		[ngStyle]="{'margin-right': extraPadding + 14 + 'px'}" 
-		fxFlex="24px">
+		fxFlex="24px"
+		mdTooltip="Last" 
+		mdTooltipPosition="above">
 		<md-icon class="pagination-nav-button-icon">last_page</md-icon>
 	</button>
 </div>

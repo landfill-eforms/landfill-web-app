@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -17,12 +18,23 @@ public class AuthenticatedUser implements Authentication {
 	
 	private Integer id;
 	private String username;
+	private Map<String, Object> details = new HashMap<>();
 	private Collection<? extends GrantedAuthority> authorities;
 
 	AuthenticatedUser(Integer id, String username, Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.authorities = authorities;
+	}
+	
+	AuthenticatedUser(User user, Collection<? extends GrantedAuthority> authorities) {
+		this.id = user.getId();
+		this.username = user.getUsername();
+		this.authorities = authorities;
+		this.details.put("firstname", user.getFirstname());
+		this.details.put("middlename", user.getMiddlename());
+		this.details.put("lastname", user.getLastname());
+		this.details.put("emailAddress", user.getEmailAddress());
 	}
 
 	@Override
@@ -37,7 +49,7 @@ public class AuthenticatedUser implements Authentication {
 
 	@Override
 	public Object getDetails() {
-		return null;
+		return details;
 	}
 
 	@Override
@@ -45,6 +57,9 @@ public class AuthenticatedUser implements Authentication {
 		Map<String, Object> principle = new HashMap<>();
 		principle.put("id", id);
 		principle.put("username", username);
+		for (String key : details.keySet()) {
+			principle.put(key, details.get(key));
+		}
 		return principle;
 	}
 

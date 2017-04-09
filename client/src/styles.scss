@@ -1,4 +1,4 @@
-@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+@import 'app/app-theme.scss';
 
 $navbar-height: 64px;
 
@@ -12,7 +12,7 @@ html {
 }
 
 /*********** Navbar + Sidenav ***********/
-md-sidenav-container {
+.primary-sidenav-container {
     background: #EEE !important;
     top: $navbar-height !important;
     .mat-sidenav-opened {
@@ -28,19 +28,27 @@ md-toolbar-row {
     height: $navbar-height !important;
 }
 
+.mat-toolbar {
+    background: mat-color($app-primary, darker) !important;
+}
+
 .navbar-shadow {
     width: 100%;
     height: $navbar-height;
     position: absolute;
     top: 0;
     left: 0;
-    box-shadow: 0 0 6.9px rgba(0,0,0,0.69);
+    box-shadow: 0 0 6.9px rgba(0,0,0,0.54);
     z-index: 999;
     pointer-events: none;
 }
 
 .mat-sidenav-content {
   transform: initial !important;
+}
+
+.mat-sidenav-container {
+    background-color: #FFF !important;
 }
 /***************************************/
 
@@ -71,12 +79,28 @@ md-toolbar-row {
 /***************************************/
 
 a {
-    color: #2196F3;
+    color: mat-color($app-primary, 500);
     text-decoration: none;
 }
 
 .md-input-full-width {
     width: 100%;
+}
+
+.mat-input-container-error {
+    .mat-input-underline {
+        border: none;
+        border-top: 2px solid mat-color($app-warn);
+    }
+    .mat-hint {
+        color: mat-color($app-warn);
+    }
+    .mat-input-ripple {
+        background-color: rgba(0,0,0,0) !important;
+    }
+    .mat-input-placeholder {
+        color: mat-color($app-warn);
+    }
 }
 
 .unselectable {
@@ -99,6 +123,48 @@ a {
     padding: 0 16px;
 }
 
+.sub-navbar {
+    background-color: mat-color($app-primary); 
+    height: 128px;
+    box-shadow: 0 0 6.9px rgba(0,0,0,0.54);
+}
+
+.sub-navbar-title {
+    font-weight: 400;
+    font-size: 28px;
+    padding: 64px 0px 0 120px;
+    color: #FFF
+}
+
+/********** Info Sidebar Stuff **********/
+.sideinfo-container {
+    .mat-sidenav-content {
+        box-shadow: 0 0 7px rgba(0,0,0,0.24) !important;
+        z-index: 9001;
+    }
+    .sidenav-contents {
+        background: #EEE;
+    }
+}
+
+.sideinfo-header {
+    background-color: mat-color($app-primary, 600); 
+    height: 128px;
+}
+
+.sideinfo-header-title {
+    color: #FFF;
+    font-size: 16px;
+    padding: 64px 0 4px 24px;
+}
+
+.sideinfo-header-subtitle {
+    color: rgba(255,255,255,0.54);
+    font-size: 14px;
+    padding-left: 24px;
+}
+/***************************************/
+
 .section-single {
     margin: 24px;
     padding: 0 !important;
@@ -116,8 +182,9 @@ a {
 }
 
 .section-title {
+    font-weight: 400;
     font-weight: normal;
-    font-size: 1.337rem;
+    font-size: 20px;
     padding: 24px;
 }
 
@@ -136,9 +203,22 @@ a {
     padding-bottom: 13px;
 }
 
-.data-table {
-    //padding: 16px 0;
-    //margin: 0 -24px;
+.data-table-scrollable {
+    height: calc(100% - 56px);
+    .data-table-header-row {
+        padding-right: 17px;
+        -webkit-padding-end: 0px; // Remove padding for webkit browsers.
+    }
+}
+
+.data-table-scrollable-area {
+    max-height: calc(100% - 56px);
+    overflow-y: scroll; // Non-webkit browsers will always have scroll bar visible.
+    overflow-y: overlay; // Only for webkit browsers;
+}
+
+.data-table-filter-container {
+    height: 64px;
 }
 
 .data-table-super-header-row {
@@ -154,7 +234,7 @@ a {
     height: 56px;
     text-align: left;
     padding-top: 16px;
-    border-bottom: solid 1px #E0E0E0;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
 }
 
 .data-table-header-label {
@@ -207,22 +287,28 @@ a {
     margin-right: 24px;
 }
 
-.data-table-row {
+.data-table-row:first-child {
+    .data-table-row-content {
+        border-top-width: 0;
+    }
+}
+
+.data-table-row-content {
     font-size: 13px;
     color: rgba(0,0,0,0.87);
-    border-bottom: 1px solid #E0E0E0;
     font-weight: 400;
     height: 48px;
     padding-top: 16px;
     background: #FFF;
+    border-top: 1px solid rgba(0,0,0,0.12);
     transition: background 0.1s linear;
 }
 
-.data-table-row:hover {
+.data-table-row-content:hover {
     background: #EEEEEE;
 }
 
-.data-table-row-active {
+.data-table-row-content-active {
     background: #F5F5F5;
 }
 
@@ -245,7 +331,14 @@ a {
     text-align: center;
 }
 
-.fab-action-button-container {
+.fab-top-container {
+    position: relative;
+    top: 100px;
+    left: 32px;
+    height: 0;
+}
+
+.fab-bottom-container {
     position: fixed;
     bottom: 32px;
     right: 32px;

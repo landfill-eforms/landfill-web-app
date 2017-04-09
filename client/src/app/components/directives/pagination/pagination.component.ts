@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-pagination',
@@ -7,11 +7,13 @@ import { Component, Input, OnChanges } from '@angular/core';
 })
 export class PaginationComponent implements OnChanges {
 
-    @Input() pagination:Pagination = new Pagination();
-    @Input() totalRows:number = 0;
+    @Input() paginfo:Paginfo = new Paginfo();
+    // @Input() totalRows:number = 0;
     @Input() extraPadding:number = 0;
     @Input() showPageSelector:boolean = false;
     @Input() showFirstLastPage:boolean = false;
+
+    @Output() changed = new EventEmitter();
 
     readonly displayedRange:{min:number, max:number} = {
         min: 1,
@@ -25,68 +27,78 @@ export class PaginationComponent implements OnChanges {
 	ngOnChanges() {
         console.log("Pagination change detected.");
         this.validate();
-        this.updateRange();
+        this.update();
 	}
 
-    private validate() {
-        if (this.pagination.currentPage < 1) {
-            this.pagination.currentPage = 1;
-        }
-        let pageCount = ~~(this.totalRows / this.pagination.displayedRows) + 1;
-        if (this.pagination.currentPage > pageCount) {
-            this.pagination.currentPage = pageCount;
-        }
+    validate() {
+        
     }
 
-    private updateRange() {
-        let pageMax = this.pagination.currentPage * this.pagination.displayedRows;
-        this.displayedRange.max = pageMax > this.totalRows ? this.totalRows : pageMax;
-        this.displayedRange.min = (this.pagination.currentPage - 1) * this.pagination.displayedRows + 1;
+    update() {
+
+        // Make sure selected page is valid.
+        if (this.paginfo.currentPage < 1) {
+            this.paginfo.currentPage = 1;
+        }
+        let pageCount = ~~(this.paginfo.totalRows / this.paginfo.displayedRows) + 1;
+        if (this.paginfo.currentPage > pageCount) {
+            this.paginfo.currentPage = pageCount;
+        }
+
+        // Update the displayed range.
+        let pageMax = this.paginfo.currentPage * this.paginfo.displayedRows;
+        this.displayedRange.max = pageMax > this.paginfo.totalRows ? this.paginfo.totalRows : pageMax;
+        this.displayedRange.min = (this.paginfo.currentPage - 1) * this.paginfo.displayedRows + 1;
         this.availablePagesSelection = this.generateAvaliablePagesArray();
+
+        // Emit event through the changed emitter.
+        this.changed.emit();
     }
 
-    private generateAvaliablePagesArray():number[] {
-        let pageCount = ~~(this.totalRows / this.pagination.displayedRows) + 1;
+    generateAvaliablePagesArray():number[] {
+        let pageCount = ~~(this.paginfo.totalRows / this.paginfo.displayedRows) + 1;
         return Array(pageCount).fill(0).map((x,i) => i + 1);
     }
 
-    private changeDisplayedRows() {
+    changeDisplayedRows() {
         this.validate();
-        this.updateRange();
+        this.update();
     }
 
-    private changeCurrentPage() {
+    changeCurrentPage() {
         this.validate();
+        this.update();
     }
 
-    private firstPage() {
-        this.pagination.currentPage = 1;
-        this.updateRange();
+    firstPage() {
+        this.paginfo.currentPage = 1;
+        this.update();
     }
 
-    private prevPage() {
-        if (this.pagination.currentPage > 1) {
-            this.pagination.currentPage--;
-            this.updateRange();
+    prevPage() {
+        if (this.paginfo.currentPage > 1) {
+            this.paginfo.currentPage--;
+            this.update();
         }
     }
 
-    private nextPage() {
-        let pageCount = ~~(this.totalRows / this.pagination.displayedRows) + 1;
-        if (this.pagination.currentPage < pageCount) {
-            this.pagination.currentPage++;
-            this.updateRange();
+    nextPage() {
+        let pageCount = ~~(this.paginfo.totalRows / this.paginfo.displayedRows) + 1;
+        if (this.paginfo.currentPage < pageCount) {
+            this.paginfo.currentPage++;
+            this.update();
         }
     }
 
-    private lastPage() {
-        this.pagination.currentPage = ~~(this.totalRows / this.pagination.displayedRows) + 1;
-        this.updateRange();
+    lastPage() {
+        this.paginfo.currentPage = ~~(this.paginfo.totalRows / this.paginfo.displayedRows) + 1;
+        this.update();
     }
 
 }
 
-export class Pagination {
+export class Paginfo {
     displayedRows:number = 10;
     currentPage:number = 1;
+    totalRows:number = 0;
 }

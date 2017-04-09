@@ -44,11 +44,8 @@ export class AuthService {
 			(response:Response) => {
 				let jwtToken:string = response.headers.get("Authorization").replace("Bearer ", "");
 				console.log("JWT Token:", jwtToken);
-				console.log(
-					"Decoded Token",
-					this.jwtHelper.decodeToken(jwtToken),
-					this.jwtHelper.getTokenExpirationDate(jwtToken)
-				);
+				console.log("Decoded Token:", this.jwtHelper.decodeToken(jwtToken));
+				console.log("Token Expiration:", this.jwtHelper.getTokenExpirationDate(jwtToken));
 				sessionStorage.setItem("id_token", jwtToken);
 				sessionStorage.setItem("user_permissions", JSON.stringify(this.parseUserPermissions(jwtToken)));
 				this.router.navigate(['/' + RestrictedRouteBase]);
@@ -104,6 +101,14 @@ export class AuthService {
 
 	isSuperAdmin():boolean {
 		return this.getUserPermissions().indexOf("SUPER_ADMIN") > -1;
+	}
+
+	getPrinciple():any {
+		let token:any = this.jwtHelper.decodeToken(sessionStorage.getItem('id_token'));
+		if (!token || !token.principle) {
+			return null;
+		}
+		return token.principle;
 	}
 
 	private parseUserPermissions(jwtToken:string):string[] {

@@ -1,3 +1,5 @@
+@import '../../../app-theme.scss';
+
 .toolbar-content {
 	width: 100%;
 }
@@ -7,6 +9,7 @@
 		margin-left: 16px;
 		img {
 			height: 56px;
+			margin-top: 4px;
 		}
 	}
 }
@@ -14,17 +17,31 @@
 .sidenav-contents {
 	width: 250px;
 }
-.nav-logo-text{
-	padding: 10px 0 20px 20px;
-}
-.nav-logo{
-	background: linear-gradient(90deg, rebeccapurple, mediumorchid);
+
+.nav-subtitle {
+	height: 64px;
+	padding: 8px 0 16px 16px;
+	.nav-subtitle-name {
+		font-size: 14px;
+		font-weight: 500;
+		color: #FFF;
+	}
+	.nav-subtitle-email {
+		font-size: 14px;
+		font-weight: 400px;
+		color: #FFF;
+	}
 }
 
-.la-logo{
-	
-	padding: 50px 0 10px 20px;
-	width: 100px;	
+.nav-logo {
+	background: linear-gradient(90deg, mat-color($app-primary, 800), mat-color($app-primary, 400));
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+	margin-bottom: 8px;
+}
+
+.la-logo {
+	width: 86px;
+    padding: 16px 0 4px 16px;
 }
 
 .sidenav-section {
@@ -41,10 +58,12 @@
 
 .sidenav-link {
 	outline: none;
-	height: 50px;
-	color: #555;
+	height: 48px;
+	color: rgba(0,0,0,0.87);
+	font-size: 14px;
+	font-weight: 500;
 	background: white;
-	border-bottom: solid 1px lightgray;
+	border-bottom: 1px solid lightgray;
 	cursor: pointer;
 }
 
@@ -53,10 +72,11 @@
 }
 
 .sidenav-link-active, .sidenav-link-active:hover {
-	background: #FFD740;
+	background: mat-color($app-accent);
 	font-weight: bold;
 }
 
 .sidenav-link-icon {
-	text-align: center;
+	color: rgba(0,0,0,0.54);
+	padding-left: 16px;
 }

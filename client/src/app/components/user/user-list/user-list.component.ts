@@ -117,7 +117,7 @@ export class UserListComponent implements OnInit {
 	applyFilters() {
 
 		// Validate the text search string.
-		InputUtils.isAlphanumeric(this.filters.text, this.textFilterStatus);
+		InputUtils.isAlphanumeric(this.filters.text, this.textFilterStatus, "Cannot have special characters in search.");
 
 		// If the text search string is invalid, then return.
 		if (!this.textFilterStatus.valid) {

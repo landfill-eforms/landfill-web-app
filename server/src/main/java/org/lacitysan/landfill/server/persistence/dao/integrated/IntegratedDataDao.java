@@ -1,8 +1,14 @@
 package org.lacitysan.landfill.server.persistence.dao.integrated;
 
-import org.lacitysan.landfill.server.persistence.dao.AbstractDao;
-import org.lacitysan.landfill.server.persistence.entity.integrated.IseData;
+import java.util.List;
 
-public interface IntegratedDataDao extends AbstractDao<IseData> {
+import org.lacitysan.landfill.server.persistence.dao.AbstractDao;
+import org.lacitysan.landfill.server.persistence.entity.integrated.IntegratedData;
+
+public interface IntegratedDataDao extends AbstractDao<IntegratedData> {
+
+	List<IntegratedData> getBySite(String siteName);
+
+	List<IntegratedData> getBySiteAndDate(String siteName, Long start, Long end);
 
 }

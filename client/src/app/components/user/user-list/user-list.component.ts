@@ -169,6 +169,7 @@ export class UserListComponent implements OnInit {
 			this.showSideInfo = true;
 		}
 		this.selectedUser = user;
+		console.log(this.selectedUser);
 	}
 
 	deselectUser() {

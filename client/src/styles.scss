@@ -1,4 +1,4 @@
-@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+@import 'app/app-theme.scss';
 
 $navbar-height: 64px;
 
@@ -34,13 +34,17 @@ md-toolbar-row {
     height: $navbar-height !important;
 }
 
+.mat-toolbar {
+    background: mat-color($app-primary, darker) !important;
+}
+
 .navbar-shadow {
     width: 100%;
     height: $navbar-height;
     position: absolute;
     top: 0;
     left: 0;
-    box-shadow: 0 0 6.9px rgba(0,0,0,0.69);
+    box-shadow: 0 0 6.9px rgba(0,0,0,0.54);
     z-index: 999;
     pointer-events: none;
 }
@@ -81,7 +85,7 @@ md-toolbar-row {
 /***************************************/
 
 a {
-    color: #2196F3;
+    color: mat-color($app-primary, 500);
     text-decoration: none;
 }
 
@@ -92,16 +96,16 @@ a {
 .mat-input-container-error {
     .mat-input-underline {
         border: none;
-        border-top: 2px solid red;
+        border-top: 2px solid mat-color($app-warn);
     }
     .mat-hint {
-        color: red;
+        color: mat-color($app-warn);
     }
     .mat-input-ripple {
         background-color: rgba(0,0,0,0) !important;
     }
     .mat-input-placeholder {
-        color: red;
+        color: mat-color($app-warn);
     }
 }
 
@@ -126,7 +130,9 @@ a {
 }
 
 .sub-navbar {
-background-color:rebeccapurple;height:128px;
+    background-color: mat-color($app-primary); 
+    height: 128px;
+    box-shadow: 0 0 6.9px rgba(0,0,0,0.54);
 }
 
 .sub-navbar-title {
@@ -134,7 +140,24 @@ background-color:rebeccapurple;height:128px;
     font-size: 24px;
     padding: 72px 0px 0 120px;
     height: 160px;
-    color: white;
+    color: #FFF
+}
+
+.sideinfo-header {
+    background-color: mat-color($app-primary, 600); 
+    height: 128px;
+}
+
+.sideinfo-header-title {
+    color: #FFF;
+    font-size: 16px;
+    padding: 72px 0 0 24px;
+}
+
+.sideinfo-header-subtitle {
+    color: rgba(255,255,255,0.54);
+    font-size: 14px;
+    padding-left: 24px;
 }
 
 .section-single {

@@ -77,7 +77,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 				throw new DeactivatedUserException("This account has been deactivated.");
 			}
 			
-			result = new AuthenticatedUser(user.getId(), user.getUsername(), tokenAuthenticationService.userGroupToAuthorities(user.getUserGroups()));
+			result = new AuthenticatedUser(user, tokenAuthenticationService.userGroupToAuthorities(user.getUserGroups())); 
 		}
 		
 		return result;

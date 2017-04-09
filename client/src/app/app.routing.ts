@@ -15,7 +15,7 @@ import { UserGroupsComponent } from './components/user-group/user-group-list/use
 import { Route, Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from "@angular/core";
 import { AuthGuard } from "./services/auth/authguard";
-import { UserPermission, AOTUserPermission } from './model/server/persistence/enums/user-permission.enum';
+import { UserPermission } from './model/server/persistence/enums/user-permission.enum';
 import { LoginComponent } from './components/public/login/login.component';
 import { ForbiddenComponent } from './components/public/forbidden/forbidden.component';
 import { NavigationBaseComponent } from './components/navigation/navigation-base/navigation-base.component';
@@ -69,7 +69,7 @@ export class DefinedRoutes {
 		component: UserListComponent,
 		canActivate: [AuthGuard],
 		data: {permissions: [
-			AOTUserPermission.VIEW_USERS
+			UserPermission.VIEW_USERS
 		]}
 	}
 
@@ -78,7 +78,7 @@ export class DefinedRoutes {
 		component: UserBaseComponent,
 		canActivate: [AuthGuard],
 		data: {permissions: [
-			AOTUserPermission.EDIT_USER_PROFILES
+			//AOTUserPermission.EDIT_USER_PROFILES
 		]}
 	}
 
@@ -100,7 +100,7 @@ export class DefinedRoutes {
 	///// INSTRUMENT ROUTES /////
 	static readonly INSTRUMENT_LIST:Route = {
 		path: 'instrument-list',
-		component: InstrumentListComponent
+		component: InstrumentListComponent,
 	}
 
 	static readonly INSTRUMENT:Route = {

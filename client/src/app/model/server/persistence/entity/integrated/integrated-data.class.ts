@@ -8,7 +8,7 @@ import { User } from '../user/user.class';
  */
 export class IntegratedData {
 	id:number;
-	monitoringPoints:MonitoringPoint;
+	monitoringPoint:MonitoringPoint;
 	instrument:Instrument;
 	inspector:User;
 	bagNumber:number;

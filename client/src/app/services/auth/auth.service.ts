@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { RestrictedRouteBase } from './../../app.routing';
 import { environment } from './../../../environments/environment';
-import { UserPermission, AOTUserPermission } from './../../model/server/persistence/enums/user-permission.enum';
+import { UserPermission } from './../../model/server/persistence/enums/user-permission.enum';
 
 @Injectable()
 export class AuthService {
@@ -78,6 +78,7 @@ export class AuthService {
 		// *** At this point, it is determined that the user is not the super admin.
 
 		// Convert array of UserPermission into array of strings.
+		console.log(permissions);
 		let requiredPermissions:string[] = permissions.map(p => p.constantName);
 
 		// If the only the super admin can access the route, then deny access.

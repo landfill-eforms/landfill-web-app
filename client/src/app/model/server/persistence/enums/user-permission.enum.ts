@@ -1,42 +1,307 @@
 /**
  * This enum was automatically generated from UserPermission.java using typescript-gen.
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
+ * This enum includes a fix for the Ahead-of-Time (AoT) compile bug which prevents compilation if a constructor has to be called within a static variable from a different class.
+ * As a result, this enum doesn't have a constructor, and its constants are declared directly instead of through a constructor.
  */
 export class UserPermission {
 
-	static readonly ADMIN:UserPermission = new UserPermission(0, "ADMIN", "Admin", null, null, "Admin");
-	static readonly VIEW_USERS:UserPermission = new UserPermission(1, "VIEW_USERS", "User can view existing users.", "Users", "View List", "User can view existing users.");
-	static readonly CREATE_USERS:UserPermission = new UserPermission(2, "CREATE_USERS", "User can create new users.", "Users", "Create", "User can create new users.");
-	static readonly ENABLE_USERS:UserPermission = new UserPermission(3, "ENABLE_USERS", "User can reactivate other non-admin user accounts.", "Users", "Enable Account", "User can reactivate other non-admin user accounts.");
-	static readonly DISABLE_USERS:UserPermission = new UserPermission(4, "DISABLE_USERS", "User can deactivate other non-admin user accounts.", "Users", "Disable Account", "User can deactivate other non-admin user accounts.");
-	static readonly RESET_USER_PASSWORDS:UserPermission = new UserPermission(5, "RESET_USER_PASSWORDS", "User can reset the passwords of other non-admin users.", "Users", "Reset Password", "User can reset the passwords of other non-admin users.");
-	static readonly RESET_USER_USERNAMES:UserPermission = new UserPermission(6, "RESET_USER_USERNAMES", "User can reset the usernames of other non-admin users.", "Users", "Reset Username", "User can reset the usernames of other non-admin users.");
-	static readonly EDIT_USER_PROFILES:UserPermission = new UserPermission(7, "EDIT_USER_PROFILES", "User can edit the profiles of other non-admin users.", "Users", "Edit Profile", "User can edit the profiles of other non-admin users.");
-	static readonly ASSIGN_EMPLOYEE_ID:UserPermission = new UserPermission(8, "ASSIGN_EMPLOYEE_ID", "User can change the employee ID associated with non-admin user accounts.", "Users", "Assign Employee ID", "User can change the employee ID associated with non-admin user accounts.");
-	static readonly ASSIGN_USER_GROUPS:UserPermission = new UserPermission(9, "ASSIGN_USER_GROUPS", "User can assign user groups to non-admin users.", "Users", "Assign Groups", "User can assign user groups to non-admin users.");
-	static readonly VIEW_USER_GROUPS:UserPermission = new UserPermission(10, "VIEW_USER_GROUPS", "User can view existing user groups.", "User Groups", "View List", "User can view existing user groups.");
-	static readonly CREATE_USER_GROUPS:UserPermission = new UserPermission(11, "CREATE_USER_GROUPS", "User can create new user groups.", "User Groups", "Create", "User can create new user groups.");
-	static readonly DELETE_USER_GROUPS:UserPermission = new UserPermission(12, "DELETE_USER_GROUPS", "User can delete existing user groups.", "User Groups", "Delete", "User can delete existing user groups.");
-	static readonly EDIT_USER_GROUPS:UserPermission = new UserPermission(13, "EDIT_USER_GROUPS", "User can add/remove roles and rename existing user groups.", "User Groups", "Edit", "User can add/remove roles and rename existing user groups.");
-	static readonly VIEW_INSTRUMENTS:UserPermission = new UserPermission(14, "VIEW_INSTRUMENTS", "User can view existing equipment.", "Equipment", "View List", "User can view existing equipment.");
-	static readonly CREATE_INSTRUMENTS:UserPermission = new UserPermission(15, "CREATE_INSTRUMENTS", "User can add new equipment entries.", "Equipment", "Create", "User can add new equipment entries.");
-	static readonly EDIT_INSTRUMENTS:UserPermission = new UserPermission(16, "EDIT_INSTRUMENTS", "User can edit existing equipment entries.", "Equipment", "Edit", "User can edit existing equipment entries.");
-	static readonly DELETE_INSTRUMENTS:UserPermission = new UserPermission(17, "DELETE_INSTRUMENTS", "User can delete existing equipment entries.", "Equipment", "Delete", "User can delete existing equipment entries.");
-	static readonly VIEW_INSTRUMENT_TYPES:UserPermission = new UserPermission(18, "VIEW_INSTRUMENT_TYPES", "User can view existing equipment types.", "Equipment Type", "View List", "User can view existing equipment types.");
-	static readonly CREATE_INSTRUMENT_TYPES:UserPermission = new UserPermission(19, "CREATE_INSTRUMENT_TYPES", "User can add new equipment types.", "Equipment Type", "Create", "User can add new equipment types.");
-	static readonly EDIT_INSTRUMENT_TYPES:UserPermission = new UserPermission(20, "EDIT_INSTRUMENT_TYPES", "User can edit existing equipment types.", "Equipment Type", "Edit", "User can edit existing equipment types.");
-	static readonly DELETE_INSTRUMENT_TYPES:UserPermission = new UserPermission(21, "DELETE_INSTRUMENT_TYPES", "User can delete existing equipment types.", "Equipment Type", "Delete", "User can delete existing equipment types.");
-	static readonly UPLOAD_MOBILE_DATA:UserPermission = new UserPermission(22, "UPLOAD_MOBILE_DATA", "User can upload data form the mobile application.", "Mobile App Sync", "Upload", "User can upload data form the mobile application.");
-	static readonly DOWNLOAD_MOBILE_DATA:UserPermission = new UserPermission(23, "DOWNLOAD_MOBILE_DATA", "User can download data for transfer to the mobile applications.", "Mobile App Sync", "Download", "User can download data for transfer to the mobile applications.");
-	static readonly VIEW_UNVERIFIED_DATA_SETS:UserPermission = new UserPermission(24, "VIEW_UNVERIFIED_DATA_SETS", "User can view existing unverified data sets.", "Unverified Data", "View List", "User can view existing unverified data sets.");
-	static readonly VIEW_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(25, "VIEW_UNVERIFIED_DATA_SET", "User can view the details of an unverified data set.", "Unverified Data", "View Sets", "User can view the details of an unverified data set.");
-	static readonly EDIT_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(26, "EDIT_UNVERIFIED_DATA_SET", "User can edit and save the details of an unverified data set.", "Unverified Data", "Edit Sets", "User can edit and save the details of an unverified data set.");
-	static readonly DELETE_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(27, "DELETE_UNVERIFIED_DATA_SET", "User can delete entire unverified data sets.", "Unverified Data", "Delete Sets", "User can delete entire unverified data sets.");
-	static readonly DELETE_UNVERIFIED_DATA:UserPermission = new UserPermission(28, "DELETE_UNVERIFIED_DATA", "User can delete individual data entries in an unverified data set.", "Unverified Data", "Delete Data", "User can delete individual data entries in an unverified data set.");
-	static readonly COMMIT_UNVERIFIED_DATA_SET:UserPermission = new UserPermission(29, "COMMIT_UNVERIFIED_DATA_SET", "User can commit unverified data sets.", "Unverified Data", "Commit Set", "User can commit unverified data sets.");
-	static readonly GENERATE_REPORTS:UserPermission = new UserPermission(30, "GENERATE_REPORTS", "User can generate reports.", "Reports", "Generate", "User can generate reports.");
-	static readonly SCHEDULE_EMAIL_REPORTS:UserPermission = new UserPermission(31, "SCHEDULE_EMAIL_REPORTS", "User can schedule automated email reports.", "Schedule", "Reports", "User can schedule automated email reports.");
-	static readonly SCHEDULE_EMAIL_NOTIFICATIONS:UserPermission = new UserPermission(32, "SCHEDULE_EMAIL_NOTIFICATIONS", "User can schedule automated email notifcations.", "Schedule", "Notifications", "User can schedule automated email notifcations.");
+	static readonly ADMIN:UserPermission = {
+		ordinal: 0,
+		constantName: "ADMIN",
+		name: "Admin",
+		category: null,
+		categoryAction: null,
+		description: "Admin"
+	};
+
+	static readonly VIEW_USERS:UserPermission = {
+		ordinal: 1,
+		constantName: "VIEW_USERS",
+		name: "View Users",
+		category: "Users",
+		categoryAction: "View List",
+		description: "User can view existing users."
+	};
+
+	static readonly CREATE_USERS:UserPermission = {
+		ordinal: 2,
+		constantName: "CREATE_USERS",
+		name: "Create Users",
+		category: "Users",
+		categoryAction: "Create",
+		description: "User can create new users."
+	};
+
+	static readonly ENABLE_USERS:UserPermission = {
+		ordinal: 3,
+		constantName: "ENABLE_USERS",
+		name: "Enable Users",
+		category: "Users",
+		categoryAction: "Enable Account",
+		description: "User can reactivate other non-admin user accounts."
+	};
+
+	static readonly DISABLE_USERS:UserPermission = {
+		ordinal: 4,
+		constantName: "DISABLE_USERS",
+		name: "Disable Users",
+		category: "Users",
+		categoryAction: "Disable Account",
+		description: "User can deactivate other non-admin user accounts."
+	};
+
+	static readonly RESET_USER_PASSWORDS:UserPermission = {
+		ordinal: 5,
+		constantName: "RESET_USER_PASSWORDS",
+		name: "Reset User Passwords",
+		category: "Users",
+		categoryAction: "Reset Password",
+		description: "User can reset the passwords of other non-admin users."
+	};
+
+	static readonly RESET_USER_USERNAMES:UserPermission = {
+		ordinal: 6,
+		constantName: "RESET_USER_USERNAMES",
+		name: "Reset User Usernames",
+		category: "Users",
+		categoryAction: "Reset Username",
+		description: "User can reset the usernames of other non-admin users."
+	};
+
+	static readonly EDIT_USER_PROFILES:UserPermission = {
+		ordinal: 7,
+		constantName: "EDIT_USER_PROFILES",
+		name: "Edit User Profiles",
+		category: "Users",
+		categoryAction: "Edit Profile",
+		description: "User can edit the profiles of other non-admin users."
+	};
+
+	static readonly ASSIGN_EMPLOYEE_ID:UserPermission = {
+		ordinal: 8,
+		constantName: "ASSIGN_EMPLOYEE_ID",
+		name: "Assign Employee Id",
+		category: "Users",
+		categoryAction: "Assign Employee ID",
+		description: "User can change the employee ID associated with non-admin user accounts."
+	};
+
+	static readonly ASSIGN_USER_GROUPS:UserPermission = {
+		ordinal: 9,
+		constantName: "ASSIGN_USER_GROUPS",
+		name: "Assign User Groups",
+		category: "Users",
+		categoryAction: "Assign Groups",
+		description: "User can assign user groups to non-admin users."
+	};
+
+	static readonly VIEW_USER_GROUPS:UserPermission = {
+		ordinal: 10,
+		constantName: "VIEW_USER_GROUPS",
+		name: "View User Groups",
+		category: "User Groups",
+		categoryAction: "View List",
+		description: "User can view existing user groups."
+	};
+
+	static readonly CREATE_USER_GROUPS:UserPermission = {
+		ordinal: 11,
+		constantName: "CREATE_USER_GROUPS",
+		name: "Create User Groups",
+		category: "User Groups",
+		categoryAction: "Create",
+		description: "User can create new user groups."
+	};
+
+	static readonly DELETE_USER_GROUPS:UserPermission = {
+		ordinal: 12,
+		constantName: "DELETE_USER_GROUPS",
+		name: "Delete User Groups",
+		category: "User Groups",
+		categoryAction: "Delete",
+		description: "User can delete existing user groups."
+	};
+
+	static readonly EDIT_USER_GROUPS:UserPermission = {
+		ordinal: 13,
+		constantName: "EDIT_USER_GROUPS",
+		name: "Edit User Groups",
+		category: "User Groups",
+		categoryAction: "Edit",
+		description: "User can add/remove roles and rename existing user groups."
+	};
+
+	static readonly VIEW_INSTRUMENTS:UserPermission = {
+		ordinal: 14,
+		constantName: "VIEW_INSTRUMENTS",
+		name: "View Instruments",
+		category: "Equipment",
+		categoryAction: "View List",
+		description: "User can view existing equipment."
+	};
+
+	static readonly CREATE_INSTRUMENTS:UserPermission = {
+		ordinal: 15,
+		constantName: "CREATE_INSTRUMENTS",
+		name: "Create Instruments",
+		category: "Equipment",
+		categoryAction: "Create",
+		description: "User can add new equipment entries."
+	};
+
+	static readonly EDIT_INSTRUMENTS:UserPermission = {
+		ordinal: 16,
+		constantName: "EDIT_INSTRUMENTS",
+		name: "Edit Instruments",
+		category: "Equipment",
+		categoryAction: "Edit",
+		description: "User can edit existing equipment entries."
+	};
+
+	static readonly DELETE_INSTRUMENTS:UserPermission = {
+		ordinal: 17,
+		constantName: "DELETE_INSTRUMENTS",
+		name: "Delete Instruments",
+		category: "Equipment",
+		categoryAction: "Delete",
+		description: "User can delete existing equipment entries."
+	};
+
+	static readonly VIEW_INSTRUMENT_TYPES:UserPermission = {
+		ordinal: 18,
+		constantName: "VIEW_INSTRUMENT_TYPES",
+		name: "View Instrument Types",
+		category: "Equipment Type",
+		categoryAction: "View List",
+		description: "User can view existing equipment types."
+	};
+
+	static readonly CREATE_INSTRUMENT_TYPES:UserPermission = {
+		ordinal: 19,
+		constantName: "CREATE_INSTRUMENT_TYPES",
+		name: "Create Instrument Types",
+		category: "Equipment Type",
+		categoryAction: "Create",
+		description: "User can add new equipment types."
+	};
+
+	static readonly EDIT_INSTRUMENT_TYPES:UserPermission = {
+		ordinal: 20,
+		constantName: "EDIT_INSTRUMENT_TYPES",
+		name: "Edit Instrument Types",
+		category: "Equipment Type",
+		categoryAction: "Edit",
+		description: "User can edit existing equipment types."
+	};
+
+	static readonly DELETE_INSTRUMENT_TYPES:UserPermission = {
+		ordinal: 21,
+		constantName: "DELETE_INSTRUMENT_TYPES",
+		name: "Delete Instrument Types",
+		category: "Equipment Type",
+		categoryAction: "Delete",
+		description: "User can delete existing equipment types."
+	};
+
+	static readonly UPLOAD_MOBILE_DATA:UserPermission = {
+		ordinal: 22,
+		constantName: "UPLOAD_MOBILE_DATA",
+		name: "Upload Mobile Data",
+		category: "Mobile App Sync",
+		categoryAction: "Upload",
+		description: "User can upload data form the mobile application."
+	};
+
+	static readonly DOWNLOAD_MOBILE_DATA:UserPermission = {
+		ordinal: 23,
+		constantName: "DOWNLOAD_MOBILE_DATA",
+		name: "Download Mobile Data",
+		category: "Mobile App Sync",
+		categoryAction: "Download",
+		description: "User can download data for transfer to the mobile applications."
+	};
+
+	static readonly VIEW_UNVERIFIED_DATA_SETS:UserPermission = {
+		ordinal: 24,
+		constantName: "VIEW_UNVERIFIED_DATA_SETS",
+		name: "View Unverified Data Sets",
+		category: "Unverified Data",
+		categoryAction: "View List",
+		description: "User can view existing unverified data sets."
+	};
+
+	static readonly VIEW_UNVERIFIED_DATA_SET:UserPermission = {
+		ordinal: 25,
+		constantName: "VIEW_UNVERIFIED_DATA_SET",
+		name: "View Unverified Data Set",
+		category: "Unverified Data",
+		categoryAction: "View Sets",
+		description: "User can view the details of an unverified data set."
+	};
+
+	static readonly EDIT_UNVERIFIED_DATA_SET:UserPermission = {
+		ordinal: 26,
+		constantName: "EDIT_UNVERIFIED_DATA_SET",
+		name: "Edit Unverified Data Set",
+		category: "Unverified Data",
+		categoryAction: "Edit Sets",
+		description: "User can edit and save the details of an unverified data set."
+	};
+
+	static readonly DELETE_UNVERIFIED_DATA_SET:UserPermission = {
+		ordinal: 27,
+		constantName: "DELETE_UNVERIFIED_DATA_SET",
+		name: "Delete Unverified Data Set",
+		category: "Unverified Data",
+		categoryAction: "Delete Sets",
+		description: "User can delete entire unverified data sets."
+	};
+
+	static readonly DELETE_UNVERIFIED_DATA:UserPermission = {
+		ordinal: 28,
+		constantName: "DELETE_UNVERIFIED_DATA",
+		name: "Delete Unverified Data",
+		category: "Unverified Data",
+		categoryAction: "Delete Data",
+		description: "User can delete individual data entries in an unverified data set."
+	};
+
+	static readonly COMMIT_UNVERIFIED_DATA_SET:UserPermission = {
+		ordinal: 29,
+		constantName: "COMMIT_UNVERIFIED_DATA_SET",
+		name: "Commit Unverified Data Set",
+		category: "Unverified Data",
+		categoryAction: "Commit Set",
+		description: "User can commit unverified data sets."
+	};
+
+	static readonly GENERATE_REPORTS:UserPermission = {
+		ordinal: 30,
+		constantName: "GENERATE_REPORTS",
+		name: "Generate Reports",
+		category: "Reports",
+		categoryAction: "Generate",
+		description: "User can generate reports."
+	};
+
+	static readonly SCHEDULE_EMAIL_REPORTS:UserPermission = {
+		ordinal: 31,
+		constantName: "SCHEDULE_EMAIL_REPORTS",
+		name: "Schedule Email Reports",
+		category: "Schedule",
+		categoryAction: "Reports",
+		description: "User can schedule automated email reports."
+	};
+
+	static readonly SCHEDULE_EMAIL_NOTIFICATIONS:UserPermission = {
+		ordinal: 32,
+		constantName: "SCHEDULE_EMAIL_NOTIFICATIONS",
+		name: "Schedule Email Notifications",
+		category: "Schedule",
+		categoryAction: "Notifications",
+		description: "User can schedule automated email notifcations."
+	};
 
 	readonly ordinal:number;
 	readonly constantName:string;
@@ -44,15 +309,6 @@ export class UserPermission {
 	readonly category:string;
 	readonly categoryAction:string;
 	readonly description:string;
-
-	private constructor(ordinal:number, constantName:string, name:string, category:string, categoryAction:string, description:string) {
-		this.ordinal = ordinal;
-		this.constantName = constantName;
-		this.name = name;
-		this.category = category;
-		this.categoryAction = categoryAction;
-		this.description = description;
-	}
 
 	static values():UserPermission[] {
 		return [
@@ -92,41 +348,4 @@ export class UserPermission {
 		];
 	}
 
-}
-
-/** Temporary fix for an issue with angular-cli's Ahead-of-Time (AoT) compilation. */
-export const AOTUserPermission = {
-	ADMIN: UserPermission["ADMIN"],
-	VIEW_USERS: UserPermission["VIEW_USERS"],
-	CREATE_USERS: UserPermission["CREATE_USERS"],
-	ENABLE_USERS: UserPermission["ENABLE_USERS"],
-	DISABLE_USERS: UserPermission["DISABLE_USERS"],
-	RESET_USER_PASSWORDS: UserPermission["RESET_USER_PASSWORDS"],
-	RESET_USER_USERNAMES: UserPermission["RESET_USER_USERNAMES"],
-	EDIT_USER_PROFILES: UserPermission["EDIT_USER_PROFILES"],
-	ASSIGN_EMPLOYEE_ID: UserPermission["ASSIGN_EMPLOYEE_ID"],
-	ASSIGN_USER_GROUPS: UserPermission["ASSIGN_USER_GROUPS"],
-	VIEW_USER_GROUPS: UserPermission["VIEW_USER_GROUPS"],
-	CREATE_USER_GROUPS: UserPermission["CREATE_USER_GROUPS"],
-	DELETE_USER_GROUPS: UserPermission["DELETE_USER_GROUPS"],
-	EDIT_USER_GROUPS: UserPermission["EDIT_USER_GROUPS"],
-	VIEW_INSTRUMENTS: UserPermission["VIEW_INSTRUMENTS"],
-	CREATE_INSTRUMENTS: UserPermission["CREATE_INSTRUMENTS"],
-	EDIT_INSTRUMENTS: UserPermission["EDIT_INSTRUMENTS"],
-	DELETE_INSTRUMENTS: UserPermission["DELETE_INSTRUMENTS"],
-	VIEW_INSTRUMENT_TYPES: UserPermission["VIEW_INSTRUMENT_TYPES"],
-	CREATE_INSTRUMENT_TYPES: UserPermission["CREATE_INSTRUMENT_TYPES"],
-	EDIT_INSTRUMENT_TYPES: UserPermission["EDIT_INSTRUMENT_TYPES"],
-	DELETE_INSTRUMENT_TYPES: UserPermission["DELETE_INSTRUMENT_TYPES"],
-	UPLOAD_MOBILE_DATA: UserPermission["UPLOAD_MOBILE_DATA"],
-	DOWNLOAD_MOBILE_DATA: UserPermission["DOWNLOAD_MOBILE_DATA"],
-	VIEW_UNVERIFIED_DATA_SETS: UserPermission["VIEW_UNVERIFIED_DATA_SETS"],
-	VIEW_UNVERIFIED_DATA_SET: UserPermission["VIEW_UNVERIFIED_DATA_SET"],
-	EDIT_UNVERIFIED_DATA_SET: UserPermission["EDIT_UNVERIFIED_DATA_SET"],
-	DELETE_UNVERIFIED_DATA_SET: UserPermission["DELETE_UNVERIFIED_DATA_SET"],
-	DELETE_UNVERIFIED_DATA: UserPermission["DELETE_UNVERIFIED_DATA"],
-	COMMIT_UNVERIFIED_DATA_SET: UserPermission["COMMIT_UNVERIFIED_DATA_SET"],
-	GENERATE_REPORTS: UserPermission["GENERATE_REPORTS"],
-	SCHEDULE_EMAIL_REPORTS: UserPermission["SCHEDULE_EMAIL_REPORTS"],
-	SCHEDULE_EMAIL_NOTIFICATIONS: UserPermission["SCHEDULE_EMAIL_NOTIFICATIONS"]
 }

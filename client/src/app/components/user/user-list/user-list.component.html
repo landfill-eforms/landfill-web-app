@@ -1,7 +1,12 @@
 <md-sidenav-container  class="sideinfo-container" fullscreen>
 	<md-sidenav #sideinfo mode="side" align="end" (opened)="showSideInfo" class="sidenav-contents">
-		<div style="height:128px;background-color:purple;">
-			User Info
+		<div class="sideinfo-header">
+			<div class="sideinfo-header-title">
+				User Info
+			</div>
+			<div *ngIf="selectedUser" class="sideinfo-header-subtitle">
+				{{selectedUser.firstname}} {{selectedUser.lastname}}
+			</div>
 		</div>
 		<div *ngIf="!selectedUser">
 			Select a user to view their details.

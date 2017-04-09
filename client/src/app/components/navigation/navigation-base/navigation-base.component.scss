@@ -1,3 +1,5 @@
+@import '../../../app-theme.scss';
+
 .toolbar-content {
 	width: 100%;
 }
@@ -16,7 +18,7 @@
 	width: 250px;
 }
 
-.nav-subtitle{
+.nav-subtitle {
 	height: 64px;
 	padding: 8px 0 16px 16px;
 	.nav-subtitle-name {
@@ -31,15 +33,15 @@
 	}
 }
 
-.nav-logo{
-	background: linear-gradient(90deg, rebeccapurple, mediumorchid);
+.nav-logo {
+	background: linear-gradient(90deg, mat-color($app-primary, 800), mat-color($app-primary, 400));
 	border-bottom: 1px solid rgba(0,0,0,0.12);
 	margin-bottom: 8px;
 }
 
-.la-logo{
+.la-logo {
 	width: 86px;
-    padding: 16px 0 4px 16px;	
+    padding: 16px 0 4px 16px;
 }
 
 .sidenav-section {
@@ -70,7 +72,7 @@
 }
 
 .sidenav-link-active, .sidenav-link-active:hover {
-	background: #FFD740;
+	background: mat-color($app-accent);
 	font-weight: bold;
 }
 

@@ -13,7 +13,7 @@ import { UserPermission } from './../../../model/server/persistence/enums/user-p
 })
 export class NavigationBaseComponent implements OnInit {
 
-	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-lite.png";
+	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-lite-bright.png";
 	readonly citySealUrl:string = environment.assetsUrl + "/images/la-seal.svg";
 
 	readonly homeSection:NavRouteSection = {

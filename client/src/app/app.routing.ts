@@ -55,7 +55,7 @@ export class DefinedRoutes {
 
 	static readonly PLACEHOLDER:Route = {
 		path: 'coming-soon',
-		component: ComingSoonComponent
+		component: ComingSoonComponent,
 	}
 
 	static readonly DASHBOARD:Route = {
@@ -65,16 +65,19 @@ export class DefinedRoutes {
 
 	///// USER ROUTES /////
 	static readonly USER_LIST:Route = {
-		path: 'user-list',
+		path: 'users',
 		component: UserListComponent,
 		canActivate: [AuthGuard],
-		data: {permissions: [
-			UserPermission.VIEW_USERS
-		]}
+		data: {
+			name: "Users",
+			permissions: [
+				UserPermission.VIEW_USERS
+			]
+		}
 	}
 
 	static readonly USER:Route = {
-		path: 'user/:username',
+		path: 'users/:username',
 		component: UserBaseComponent,
 		canActivate: [AuthGuard],
 		data: {permissions: [

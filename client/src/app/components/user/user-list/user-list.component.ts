@@ -7,6 +7,7 @@ import { NewUserDialogComponent } from './../new-user-dialog/new-user-dialog.com
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from './../../../services/user/user.service';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/material";
+import { Title } from '@angular/platform-browser';
 
 @Component({
 	selector: 'app-users',
@@ -71,7 +72,6 @@ export class UserListComponent implements OnInit {
 	ngOnInit() {
 		this.loadingMessage = "Loading Users...";
 		this.loadUsers();
-		
 	}
 
 	loadUsers() {

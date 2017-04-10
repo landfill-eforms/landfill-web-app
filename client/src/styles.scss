@@ -1,6 +1,6 @@
 @import 'app/app-theme.scss';
 
-$navbar-height: 64px;
+$navbar-height: 128px;
 
 html {
     font-family: Roboto, sans-serif;
@@ -11,10 +11,23 @@ html {
     }
 }
 
-/*********** Navbar + Sidenav ***********/
-.primary-sidenav-container {
+a {
+    color: mat-color($app-primary, 500);
+    text-decoration: none;
+}
+
+.mat-sidenav-content {
+  transform: initial !important;
+  overflow: hidden;
+}
+
+.mat-sidenav-container {
+    background-color: #FFF !important;
+}
+
+.navdrawer-container {
     background: #EEE !important;
-    top: $navbar-height !important;
+    // top: $navbar-height !important;
     .mat-sidenav-opened {
         box-shadow: 3px 0 6px rgba(0,0,0,0.24) !important;
     }
@@ -22,6 +35,34 @@ html {
         background-color: rgba(0,0,0,0.6) !important;
         opacity: 0.48;
     }
+}
+
+.sideinfo-container {
+    // top: $navbar-height !important;
+    .mat-sidenav-content {
+        box-shadow: 0 0 7px rgba(0,0,0,0.24) !important;
+        z-index: 9001;
+    }
+    .sidenav-contents {
+        background: #EEE;
+    }
+}
+
+.sideinfo-header {
+    background-color: mat-color($app-primary, 600); 
+    height: 128px;
+}
+
+.sideinfo-header-title {
+    color: #FFF;
+    font-size: 16px;
+    padding: 64px 0 4px 24px;
+}
+
+.sideinfo-header-subtitle {
+    color: rgba(255,255,255,0.54);
+    font-size: 14px;
+    padding-left: 24px;
 }
 
 md-toolbar-row {
@@ -43,17 +84,12 @@ md-toolbar-row {
     pointer-events: none;
 }
 
-.mat-sidenav-content {
-  transform: initial !important;
+.main-content {
+    height: calc(100% - #{$navbar-height});
+    overflow: auto;
+    overflow: overlay;
 }
 
-.mat-sidenav-container {
-    background-color: #FFF !important;
-}
-/***************************************/
-
-
-/*********** Pagination Stuff ***********/
 .pagination-numeric-selector {
 	.mat-select-trigger {
 		min-width: 64px !important;
@@ -75,12 +111,6 @@ md-toolbar-row {
             display: none;
         }
 	}
-}
-/***************************************/
-
-a {
-    color: mat-color($app-primary, 500);
-    text-decoration: none;
 }
 
 .md-input-full-width {
@@ -136,34 +166,7 @@ a {
     color: #FFF
 }
 
-/********** Info Sidebar Stuff **********/
-.sideinfo-container {
-    .mat-sidenav-content {
-        box-shadow: 0 0 7px rgba(0,0,0,0.24) !important;
-        z-index: 9001;
-    }
-    .sidenav-contents {
-        background: #EEE;
-    }
-}
 
-.sideinfo-header {
-    background-color: mat-color($app-primary, 600); 
-    height: 128px;
-}
-
-.sideinfo-header-title {
-    color: #FFF;
-    font-size: 16px;
-    padding: 64px 0 4px 24px;
-}
-
-.sideinfo-header-subtitle {
-    color: rgba(255,255,255,0.54);
-    font-size: 14px;
-    padding-left: 24px;
-}
-/***************************************/
 
 .section-single {
     margin: 24px;

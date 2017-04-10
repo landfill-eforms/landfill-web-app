@@ -1,0 +1,47 @@
+<div>
+	<div class="navdrawer-logo unselectable">
+		<div>
+			<picture>				
+				<img class="la-logo" [src]="citySealUrl"/>			
+			</picture>
+		</div>
+		<div class="navdrawer-subtitle flex-container" fxLayout="column" fxLayoutAlign="space-around start">
+			<div class="navdrawer-subtitle-name flex-item">{{userName}}</div>
+			<div class="navdrawer-subtitle-email flex-item">{{userEmail}}</div>
+		</div>
+	<!--</div>
+		<div class="navdrawer-section-header">
+			{{section.name}}
+		</div>
+		<div *ngFor="let link of section.links">
+			<div *ngIf="link.visible" 
+				[routerLink]="link.route.path" 
+				routerLinkActive="navdrawer-link-active" 
+				class="navdrawer-link flex-container"
+				fxLayout="row"
+				fxLayoutAlign=" center">
+				<md-icon class="navdrawer-link-icon flex-item" fxFlex="64px">{{link.icon}}</md-icon>
+				<div class="flex-item" fxFlex>{{link.label}}</div>
+			</div>
+		</div>-->
+	</div>
+
+
+
+	<!-- TEMPORARY -->
+	<div *ngFor="let link of tempLinks">
+		<div *ngIf="link.visible" 
+			[routerLink]="link.route.path" 
+			routerLinkActive="navdrawer-link-active" 
+			class="navdrawer-link flex-container"
+			fxLayout="row"
+			fxLayoutAlign=" center"
+			style="border-bottom: solid 0px lightgray;">
+			<md-icon class="navdrawer-link-icon flex-item" fxFlex="72px">{{link.icon}}</md-icon>
+			<div class="flex-item" fxFlex>{{link.label}}</div>
+		</div>
+	</div>
+
+
+
+</div>

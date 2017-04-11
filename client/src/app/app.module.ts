@@ -1,3 +1,4 @@
+import { TitleService } from './services/app/title.service';
 import { PaginationComponent } from './components/directives/pagination/pagination.component';
 import { MobileModule } from './components/mobile/mobile.module';
 import { NewInstrumentDialogComponent } from './components/instrument/dialog/new-instrument-dialog/new-instrument-dialog.component';
@@ -90,6 +91,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		InstantaneousDataService,
 		InstrumentService,
 		InstrumentTypeService,
+		TitleService,
 		UnverifiedDataService,
 		UserGroupService,
 		UserService

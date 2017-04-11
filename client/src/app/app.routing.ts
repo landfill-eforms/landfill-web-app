@@ -80,9 +80,11 @@ export class DefinedRoutes {
 		path: 'users/:username',
 		component: UserBaseComponent,
 		canActivate: [AuthGuard],
-		data: {permissions: [
-			//AOTUserPermission.EDIT_USER_PROFILES
-		]}
+		data: {
+			permissions: [
+				UserPermission.VIEW_USERS
+			]
+		}
 	}
 
 	static readonly NEW_USER:Route = {

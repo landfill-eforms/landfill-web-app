@@ -19,8 +19,7 @@ export class NavigationSideinfoComponent implements OnInit {
 	private isOpened:boolean;
 	private currentDirective:ComponentRef<AbstractSideinfoComponent>;
 	
-	public ready:boolean = false;
-	public disabled:boolean = false;
+	private disabled:boolean = true;
 	public title:string;
 	public subtitle:string;
 
@@ -28,8 +27,7 @@ export class NavigationSideinfoComponent implements OnInit {
 
 	ngOnInit() {
 		this.navigationService.setSideinfoComponent(this);
-		this.forceClose(); // Start with info sidenav closed.
-		this.ready = true;
+		this.disable(); // Start with info sidenav closed.
 	}
 
 	getDirective():AbstractSideinfoComponent {
@@ -50,10 +48,26 @@ export class NavigationSideinfoComponent implements OnInit {
 		let component = factory.create(injector);
 		this.directiveRef.clear();
 		this.directiveRef.insert(component.hostView);
+		this.destroyCurrent();
+		this.currentDirective = component;
+		this.title = component.instance.title;
+	}
+
+	isDisabled() {
+		return this.disabled;
+	}
+
+	disable() {
+		this.disabled = true;
+		this.close();
+		this.destroyCurrent();
+	}
+
+
+	private destroyCurrent() {
 		if (this.currentDirective) {
 			this.currentDirective.destroy();
 		}
-		this.currentDirective = component;
 	}
 
 	close() {
@@ -61,21 +75,14 @@ export class NavigationSideinfoComponent implements OnInit {
 		this.isOpened = false;
 	}
 
+	/** 
+	 * Opens the info sidenav. 
+	 * Will automatically enable the info sidenav if it's disabled. 
+	 */
 	open() {
 		this.disabled = false;
 		this.sidenav.open();
 		this.isOpened = true;
-	}
-
-	forceClose() {
-		this.disabled = true;
-		this.close();
-		this.currentDirective = null;
-		this.ready = false;
-	}
-
-	test() {
-		return this.navigationService.test;
 	}
 
 	isOpen():boolean {

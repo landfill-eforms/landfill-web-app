@@ -2,5 +2,12 @@
 	Select a user to view their details.
 </div>
 <div *ngIf="user">
-	{{user.username}}
+	<md-tab-group>
+		<md-tab label="Details">
+			{{user.username}}
+		</md-tab>
+		<md-tab label="Activity">
+			{{user.emailAddress}}
+		</md-tab>
+	</md-tab-group>
 </div>

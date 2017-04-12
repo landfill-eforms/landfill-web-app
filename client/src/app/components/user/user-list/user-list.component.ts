@@ -92,7 +92,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 				icon: "add",
 				tooltip: "New User"
 			});
-			navigationService.getSideinfoComponent().title = "User Info";
 			navigationService.getSideinfoComponent().setDirective(UserListSideinfoComponent, {user: null});
 	}
 

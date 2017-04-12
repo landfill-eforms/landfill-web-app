@@ -12,7 +12,7 @@ export class DashboardComponent {
 
 	constructor(private titleService:TitleService, private navigationService:NavigationService) {
 		titleService.setTitle("Dashboard");
-		navigationService.getSideinfoComponent().forceClose();
+		navigationService.getSideinfoComponent().disable();
 		navigationService.getNavbarComponent().resetFabInfo();
 		navigationService.getNavbarComponent().expanded = false;
 	}

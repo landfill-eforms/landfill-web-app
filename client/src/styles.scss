@@ -41,8 +41,9 @@ a {
 .sideinfo-container {
     // top: $navbar-height !important;
     .mat-sidenav-content {
+        overflow: hidden;
         box-shadow: 0 0 7px rgba(0,0,0,0.24) !important;
-        z-index: 9001;
+        z-index: 1;
     }
 }
 
@@ -226,8 +227,11 @@ md-toolbar-row {
     overflow-y: overlay; // Only for webkit browsers;
 }
 
-.data-table-filter-container {
+.data-table-filter-container-row {
     height: 64px;
+    .data-table-filter-container {
+        padding-top: 16px;
+    }
 }
 
 .data-table-super-header-row {

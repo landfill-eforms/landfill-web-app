@@ -16,8 +16,7 @@ export class UserListSideinfoComponent extends AbstractSideinfoComponent {
 
 	constructor(
 		private navigationService:NavigationService) {
-			super();
-			
+			super("User Info");
 	}
 
 	getData():any {

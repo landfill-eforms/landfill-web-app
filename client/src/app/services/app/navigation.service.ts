@@ -13,8 +13,6 @@ export class NavigationService {
 
 	public isNavbarExpanded:boolean = false;
 
-	public test:string = "HELLO!"
-
 	constructor(
 		private titleService:TitleService, 
 		private router:Router) {
@@ -67,7 +65,7 @@ export class NavigationService {
 	}
 
 	isSideinfoDisabled():boolean {
-		return this.getSideinfoComponent() && this.getSideinfoComponent().disabled;
+		return this.getSideinfoComponent() && this.getSideinfoComponent().isDisabled();
 	}
 
 }

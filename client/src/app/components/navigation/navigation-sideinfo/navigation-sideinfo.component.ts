@@ -1,5 +1,5 @@
-import { UserListSideinfoComponent } from './../../directives/sideinfo-directives/user-list-sideinfo/user-list-sideinfo.component';
-import { AbstractSideinfoComponent } from './../../directives/sideinfo-directives/abstract-sideinfo-component/abstract-sideinfo.component';
+import { UserListSideinfoComponent } from './../../user/user-list-sideinfo/user-list-sideinfo.component';
+import { AbstractSideinfoComponent } from './../../../model/client/abstract-sideinfo.component';
 import { MdSidenav } from '@angular/material';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { Component, OnInit, Input, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, ReflectiveInjector, ComponentRef } from '@angular/core';

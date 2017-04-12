@@ -1,3 +1,4 @@
+import { UserListSideinfoComponent } from './user-list-sideinfo/user-list-sideinfo.component';
 import { DirectivesModule } from './../directives/directives.module';
 import { UserGroupSelectorComponent } from './user-group-selector/user-group-selector.component';
 import { NewUserDialogComponent } from './new-user-dialog/new-user-dialog.component';
@@ -20,7 +21,8 @@ import { UserOverviewComponent } from './user-overview/user-overview.component';
         UserOverviewComponent,
 		UserProfileComponent,
         UserGroupSelectorComponent,
-        NewUserDialogComponent
+        NewUserDialogComponent,
+        UserListSideinfoComponent
     ]
 })
 

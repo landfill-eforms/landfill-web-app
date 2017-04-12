@@ -1,4 +1,3 @@
-import { UserListSideinfoComponent } from './sideinfo-directives/user-list-sideinfo/user-list-sideinfo.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ImeRepairDialogComponent } from './dialogs/ime-repair-dialog/ime-repair-dialog.component';
 import { ImeRecheckDialogComponent } from './dialogs/ime-recheck-dialog/ime-recheck-dialog.component';
@@ -22,7 +21,6 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		ImeRecheckDialogComponent,
 		ImeRepairDialogComponent,
 		PaginationComponent,
-		UserListSideinfoComponent
 	],
 	exports: [
 		FileUploadComponent,
@@ -32,7 +30,6 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		ImeRecheckDialogComponent,
 		ImeRepairDialogComponent,
 		PaginationComponent,
-		UserListSideinfoComponent
 	]
 })
 

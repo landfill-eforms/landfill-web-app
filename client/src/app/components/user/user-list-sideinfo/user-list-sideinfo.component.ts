@@ -1,6 +1,7 @@
-import { AbstractSideinfoComponent } from './../abstract-sideinfo-component/abstract-sideinfo.component';
-import { NavigationService } from './../../../../services/app/navigation.service';
-import { User } from './../../../../model/server/persistence/entity/user/user.class';
+import { User } from './../../../model/server/persistence/entity/user/user.class';
+import { NavigationService } from './../../../services/app/navigation.service';
+import { AbstractSideinfoComponent } from './../../../model/client/abstract-sideinfo.component';
+
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({

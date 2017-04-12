@@ -1,4 +1,4 @@
-import { UserListSideinfoComponent } from './../../directives/sideinfo-directives/user-list-sideinfo/user-list-sideinfo.component';
+import { UserListSideinfoComponent } from './../user-list-sideinfo/user-list-sideinfo.component';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { InputUtils, InputStatus } from './../../../utils/input.utils';
 import { Paginfo, PaginationComponent } from './../../directives/pagination/pagination.component';
@@ -78,7 +78,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 				tooltip: "New User"
 			});
 			navigationService.getSideinfoComponent().title = "User Info";
-			navigationService.getSideinfoComponent().setDirective(UserListSideinfoComponent, {user:null, test:"asdfjkl;"});
+			navigationService.getSideinfoComponent().setDirective(UserListSideinfoComponent, {user: null});
 	}
 
 	ngOnInit() {

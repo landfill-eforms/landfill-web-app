@@ -125,6 +125,10 @@ md-toolbar-row {
     width: 100%;
 }
 
+.mat-input-container-inline {
+    margin: 0 8px;    
+}
+
 .mat-input-container-error {
     .mat-input-underline {
         border: none;
@@ -138,6 +142,20 @@ md-toolbar-row {
     }
     .mat-input-placeholder {
         color: mat-color($app-warn);
+    }
+}
+
+.mat-select-row {
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.mat-select-inline {
+    padding: 0 8px;
+    position: relative;
+    bottom: 3px; // Tested on Chrome. Might be different on other browsers.
+    .mat-select-placeholder {
+        top: -18px !important;
     }
 }
 
@@ -192,11 +210,6 @@ md-toolbar-row {
 
 .section-form-container {
     padding: 24px 16px 16px 16px;
-}
-
-.md-select-row {
-    padding-top: 13px;
-    padding-bottom: 13px;
 }
 
 .data-table-scrollable {

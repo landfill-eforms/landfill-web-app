@@ -89,7 +89,7 @@
 						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(inst.startTime)}}</div>
 						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(inst.endTime)}}</div>
 						<div class="flex-item" fxFlex  style="margin-top:-20px;">
-							<md-select [(ngModel)]="inst.instrument.id" (ngModelChange)="unverifiedDataService.checkForErrors(dataSet)" placeholder="Instrument" class="md-select-row">
+							<md-select [(ngModel)]="inst.instrument.id" (ngModelChange)="unverifiedDataService.checkForErrors(dataSet)" placeholder="Instrument" class="mat-select-row">
 								<md-option *ngFor="let instrument of instruments" [value]="instrument.id">
 									{{instrument.serialNumber}}
 								</md-option>

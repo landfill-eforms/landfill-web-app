@@ -53,13 +53,28 @@ export class UserListComponent implements OnInit, OnDestroy {
 	showFilters:boolean = false;
 	filteredRowsCount:number = 0;
 	filteredUsers:User[] = [];
-	filters:{text:string} = {
-		text: ""
+	filters:{text:string, status:number} = {
+		text: "",
+		status: 0
 	};
 	textFilterStatus:InputStatus = {
 		valid: true,
 		errorMessage: ""
 	}
+	statusFilterChoices:{value:number, label:string}[] = [
+		{
+			value: 0,
+			label: "Any"
+		},
+		{
+			value: 1,
+			label: "Enabled"
+		},
+		{
+			value: 2,
+			label: "Disabled"
+		}
+	]
 
 	paginfo:Paginfo = new Paginfo();
 	paginatedUsers:User[] = [];
@@ -152,11 +167,19 @@ export class UserListComponent implements OnInit, OnDestroy {
 		console.log(this.textFilterStatus);
 
 		this.filteredUsers = this.users.filter(o => {
-			if (!this.filters.text) {
-				return true;
+			let textMatch:boolean = true;
+			if (this.filters.text) {
+				let search:RegExp = new RegExp(this.filters.text, 'i');
+				textMatch = search.test(o.username) || search.test(o.firstname) || search.test(o.lastname) || search.test(o.emailAddress) || search.test(o.employeeId);
 			}
-			let search:RegExp = new RegExp(this.filters.text, 'i');
-			return search.test(o.username) || search.test(o.firstname) || search.test(o.lastname) || search.test(o.emailAddress) || search.test(o.employeeId);
+			let statusMatch:boolean = true;
+			if (this.filters.status == 1) {
+				statusMatch = o.enabled;
+			}
+			else if (this.filters.status == 2) {
+				statusMatch = !o.enabled;
+			}
+			return textMatch && statusMatch;
 		});
 
 		this.paginfo.totalRows = this.filteredUsers.length;
@@ -168,6 +191,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
 	resetFilters() {
 		this.filters.text = "";
+		this.filters.status = 0;
 		this.applyFilters();
 	}
 
@@ -194,7 +218,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 			this.showSideInfo = true;
 		}
 		this.selectedUser = user;
-		this.navigationService.getSideinfoComponent().subtitle = this.selectedUser.firstname + " " + this.selectedUser.lastname; 
+		this.navigationService.getSideinfoComponent().subtitle = this.selectedUser.firstname + " " + this.selectedUser.middlename + " " + this.selectedUser.lastname; 
 		this.navigationService.getSideinfoComponent().getDirective().setData(this.selectedUser);
 	}
 

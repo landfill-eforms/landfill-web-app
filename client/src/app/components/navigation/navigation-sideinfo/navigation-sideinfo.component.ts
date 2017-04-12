@@ -48,6 +48,7 @@ export class NavigationSideinfoComponent implements OnInit {
 		let injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.directiveRef.parentInjector);
 		let factory = this.resolver.resolveComponentFactory<AbstractSideinfoComponent>(directiveType);
 		let component = factory.create(injector);
+		this.directiveRef.clear();
 		this.directiveRef.insert(component.hostView);
 		if (this.currentDirective) {
 			this.currentDirective.destroy();

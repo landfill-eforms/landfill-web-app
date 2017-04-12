@@ -1,6 +1,7 @@
 @import 'app/app-theme.scss';
 
-$navbar-height: 128px;
+$navbar-height: 64px;
+$navbar-expanded-height: 128px;
 
 html {
     font-family: Roboto, sans-serif;
@@ -43,8 +44,14 @@ a {
         box-shadow: 0 0 7px rgba(0,0,0,0.24) !important;
         z-index: 9001;
     }
-    .sidenav-contents {
-        background: #EEE;
+}
+
+.sideinfo-force-close {
+    .mat-sidenav-content {
+        transition: none !important;
+    }
+    .sideinfo-contents {
+        transition: none !important;
     }
 }
 
@@ -65,29 +72,30 @@ a {
     padding-left: 24px;
 }
 
+.navbar {
+    box-shadow: 0 0 6.9px rgba(0,0,0,0.54);
+}
+
 md-toolbar-row {
+    transition: height 0.2s ease-in-out;
     height: $navbar-height !important;
 }
 
-.mat-toolbar {
-    background: mat-color($app-primary, darker) !important;
+.navbar-expanded {
+    md-toolbar-row {
+        height: $navbar-expanded-height !important;
+    }
 }
 
-.navbar-shadow {
-    width: 100%;
-    height: $navbar-height;
-    position: absolute;
-    top: 0;
-    left: 0;
-    box-shadow: 0 0 6.9px rgba(0,0,0,0.54);
-    z-index: 999;
-    pointer-events: none;
+.mat-toolbar {
+    background: mat-color($app-primary) !important;
 }
 
 .main-content {
-    height: calc(100% - #{$navbar-height});
-    overflow: auto;
-    overflow: overlay;
+    height: calc(100% - #{$navbar-expanded-height});
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-y: overlay;
 }
 
 .pagination-numeric-selector {
@@ -153,21 +161,6 @@ md-toolbar-row {
     padding: 0 16px;
 }
 
-.sub-navbar {
-    background-color: mat-color($app-primary); 
-    height: 128px;
-    box-shadow: 0 0 6.9px rgba(0,0,0,0.54);
-}
-
-.sub-navbar-title {
-    font-weight: 400;
-    font-size: 28px;
-    padding: 64px 0px 0 120px;
-    color: #FFF
-}
-
-
-
 .section-single {
     margin: 24px;
     padding: 0 !important;
@@ -207,7 +200,7 @@ md-toolbar-row {
 }
 
 .data-table-scrollable {
-    height: calc(100% - 56px);
+    height: 100%;
     .data-table-header-row {
         padding-right: 17px;
         -webkit-padding-end: 0px; // Remove padding for webkit browsers.
@@ -336,7 +329,7 @@ md-toolbar-row {
 
 .fab-top-container {
     position: relative;
-    top: 100px;
+    top: -28px;
     left: 32px;
     height: 0;
 }

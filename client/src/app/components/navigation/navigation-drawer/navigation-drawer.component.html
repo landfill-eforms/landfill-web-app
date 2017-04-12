@@ -35,11 +35,18 @@
 			routerLinkActive="navdrawer-link-active" 
 			class="navdrawer-link flex-container"
 			fxLayout="row"
-			fxLayoutAlign=" center"
-			style="border-bottom: solid 0px lightgray;">
+			fxLayoutAlign=" center">
 			<md-icon class="navdrawer-link-icon flex-item" fxFlex="72px">{{link.icon}}</md-icon>
 			<div class="flex-item" fxFlex>{{link.label}}</div>
 		</div>
+	</div>
+
+	<div class="navdrawer-link flex-container"
+		(click) = "logout()"
+		fxLayout="row"
+		fxLayoutAlign=" center">
+		<md-icon class="navdrawer-link-icon flex-item" fxFlex="72px">exit_to_app</md-icon>
+		<div class="flex-item" fxFlex>Logout</div>
 	</div>
 
 

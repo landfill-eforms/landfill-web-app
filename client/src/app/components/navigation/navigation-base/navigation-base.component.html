@@ -1,24 +1,11 @@
 
 <md-sidenav-container fullscreen class="navdrawer-container">
 	<md-sidenav #navdrawer mode="side" opened="true" class="navdrawer-contents">
-		<app-navigation-drawer></app-navigation-drawer>
+		<app-navigation-drawer [sidenav]="navdrawer"></app-navigation-drawer>
 	</md-sidenav>
-	<md-sidenav-container  class="sideinfo-container" fullscreen>
-		<md-sidenav #sideinfo mode="side" align="end" opened="true" class="navdrawer-contents">
-			<div class="sideinfo-header">
-				<div class="sideinfo-header-title">
-					User Info
-				</div>
-				<div *ngIf="selectedUser" class="sideinfo-header-subtitle">
-					{{selectedUser.firstname}} {{selectedUser.lastname}}
-				</div>
-			</div>
-			<div *ngIf="!selectedUser">
-				Select a user to view their details.
-			</div>
-			<div *ngIf="selectedUser">
-				{{selectedUser.username}}
-			</div>
+	<md-sidenav-container class="sideinfo-container" fullscreen [ngClass]="{'sideinfo-force-close':navigationService.isSideinfoDisabled()}">
+		<md-sidenav #sideinfo mode="side" align="end" opened="true" class="sideinfo-contents">
+			<app-navigation-sideinfo [sidenav]="sideinfo"></app-navigation-sideinfo>
 		</md-sidenav>
 		<app-navigation-toolbar [navdrawer]="navdrawer"></app-navigation-toolbar>
 		<div class="main-content">

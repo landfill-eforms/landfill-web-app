@@ -1,5 +1,19 @@
-.toolbar-content {
+.navbar-content {
+	height: 64px;
 	width: 100%;
+	position: absolute;
+	top: 0;
+}
+
+.navbar-hamburger {
+	color: #FFF;
+}
+
+.navbar-title {
+	color: #FFF;
+	margin-left: 24px;
+	// font-size: 18px;
+	// font-weight: 400
 }
 
 .logo-container {

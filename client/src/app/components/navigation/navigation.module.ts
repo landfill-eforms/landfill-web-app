@@ -1,3 +1,5 @@
+import { DirectivesModule } from './../directives/directives.module';
+import { NavigationSideinfoComponent } from './navigation-sideinfo/navigation-sideinfo.component';
 import { NavigationToolbarComponent } from './navigation-toolbar/navigation-toolbar.component';
 import { NavigationDrawerComponent } from './navigation-drawer/navigation-drawer.component';
 import { NgModule } from '@angular/core';
@@ -6,13 +8,15 @@ import { NavigationBaseComponent } from './navigation-base/navigation-base.compo
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        DirectivesModule
     ],
     providers: [],
     declarations: [
         NavigationBaseComponent,
         NavigationDrawerComponent,
-        NavigationToolbarComponent
+        NavigationToolbarComponent,
+        NavigationSideinfoComponent
     ]
 })
 

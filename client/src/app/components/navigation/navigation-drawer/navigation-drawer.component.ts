@@ -1,10 +1,11 @@
 import { environment } from './../../../../environments/environment';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Route, Router } from '@angular/router';
 import { RestrictedRoutes, DefinedRoutes } from './../../../app.routing';
 import { AuthService } from './../../../services/auth/auth.service';
 import { UserPermission } from './../../../model/server/persistence/enums/user-permission.enum';
+import { MdSidenav } from '@angular/material';
 
 @Component({
 	selector: 'app-navigation-drawer',
@@ -13,7 +14,9 @@ import { UserPermission } from './../../../model/server/persistence/enums/user-p
 })
 export class NavigationDrawerComponent implements OnInit {
 
-readonly citySealUrl:string = environment.assetsUrl + "/images/la-seal.svg";
+	@Input() sidenav:MdSidenav;
+
+	readonly citySealUrl:string = environment.assetsUrl + "/images/la-seal.svg";
 
 	readonly homeSection:NavRouteSection = {
 		name: "Home",
@@ -258,6 +261,10 @@ readonly citySealUrl:string = environment.assetsUrl + "/images/la-seal.svg";
 			let link = this.tempLinks[i];
 			link.visible = !link.route.data || this.authService.canAccess(link.route.data["permissions"]);
 		}
+	}
+
+	logout() {
+		this.authService.logout();
 	}
 
 }

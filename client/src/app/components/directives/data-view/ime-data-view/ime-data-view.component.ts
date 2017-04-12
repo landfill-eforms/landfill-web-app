@@ -1,10 +1,10 @@
 import { ImeRepairData } from './../../../../model/server/persistence/entity/instantaneous/ime-repair-data.class';
-import { ImeRepairDialogComponent } from './../../dialog/ime-repair-dialog/ime-repair-dialog.component';
+import { ImeRepairDialogComponent } from './../../dialogs/ime-repair-dialog/ime-repair-dialog.component';
 import { User } from './../../../../model/server/persistence/entity/user/user.class';
 import { UserService } from './../../../../services/user/user.service';
 import { DateTimeUtils } from './../../../../utils/date-time.utils';
 import { StringUtils } from './../../../../utils/string.utils';
-import { ImeRecheckDialogComponent } from './../../dialog/ime-recheck-dialog/ime-recheck-dialog.component';
+import { ImeRecheckDialogComponent } from './../../dialogs/ime-recheck-dialog/ime-recheck-dialog.component';
 import { SortUtils } from './../../../../utils/sort.utils';
 import { MdDialog } from '@angular/material';
 import { MdDialogRef } from '@angular/material';

@@ -1,23 +1,27 @@
+import { UserListSideinfoComponent } from './../../directives/sideinfo-directives/user-list-sideinfo/user-list-sideinfo.component';
+import { NavigationService } from './../../../services/app/navigation.service';
 import { InputUtils, InputStatus } from './../../../utils/input.utils';
 import { Paginfo, PaginationComponent } from './../../directives/pagination/pagination.component';
 import { StringUtils } from './../../../utils/string.utils';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { NewUserDialogComponent } from './../new-user-dialog/new-user-dialog.component';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from './../../../services/user/user.service';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/material";
 import { Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-	selector: 'app-users',
+	selector: 'app-user-list',
 	templateUrl: './user-list.component.html',
 	styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
 
-	@ViewChild('sideinfo') sideInfo:any;
 	@ViewChild('pagination') pagination:PaginationComponent;
+
+	fabActionSubscriber:Subscription;
 
 	stringUtils = StringUtils;
 
@@ -66,12 +70,33 @@ export class UserListComponent implements OnInit {
 	constructor(
 		private userService:UserService,
 		private dialog:MdDialog,
-		private snackBar:MdSnackBar
-	) {}
+		private snackBar:MdSnackBar,
+		private navigationService:NavigationService) {
+			navigationService.getNavbarComponent().expanded = true;
+			navigationService.getNavbarComponent().setFabInfo({
+				icon: "add",
+				tooltip: "New User"
+			});
+			navigationService.getSideinfoComponent().title = "User Info";
+			navigationService.getSideinfoComponent().setDirective(UserListSideinfoComponent, {user:null, test:"asdfjkl;"});
+	}
 
 	ngOnInit() {
+		this.fabActionSubscriber = this.navigationService
+			.getNavbarComponent()
+			.fabActionSource
+			.asObservable()
+			.subscribe((event) => {
+				if (event instanceof MouseEvent) {
+					this.openNewUserDialog();
+				}
+			});
 		this.loadingMessage = "Loading Users...";
 		this.loadUsers();
+	}
+
+	ngOnDestroy() {
+		this.fabActionSubscriber.unsubscribe();
 	}
 
 	loadUsers() {
@@ -154,26 +179,31 @@ export class UserListComponent implements OnInit {
 
 	toggleSideInfo() {
 		if (this.showSideInfo) {
-			this.sideInfo.close();
+			this.navigationService.getSideinfoComponent().close();
 			this.showSideInfo = false;
 		}
 		else {
-			this.sideInfo.open();
+			this.navigationService.getSideinfoComponent().open();
 			this.showSideInfo = true;
 		}
 	}
 
 	selectUser(user:User) {
 		if (!this.selectedUser) {
-			this.sideInfo.open();
+			this.navigationService.getSideinfoComponent().open();
 			this.showSideInfo = true;
 		}
 		this.selectedUser = user;
-		console.log(this.selectedUser);
+		this.navigationService.getSideinfoComponent().subtitle = this.selectedUser.firstname + " " + this.selectedUser.lastname; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(this.selectedUser);
 	}
 
 	deselectUser() {
 		this.selectedUser = null;
+	}
+
+	fabAction(event:any) {
+		this.openNewUserDialog();
 	}
 
 }

@@ -1,3 +1,5 @@
+import { NavigationService } from './../../services/app/navigation.service';
+import { AppConstant } from './../../app.constant';
 import { TitleService } from './../../services/app/title.service';
 import { Component } from '@angular/core';
 
@@ -8,8 +10,11 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
 
-	constructor(private titleService:TitleService) {
+	constructor(private titleService:TitleService, private navigationService:NavigationService) {
 		titleService.setTitle("Dashboard");
+		navigationService.getSideinfoComponent().forceClose();
+		navigationService.getNavbarComponent().resetFabInfo();
+		navigationService.getNavbarComponent().expanded = false;
 	}
 	
 }

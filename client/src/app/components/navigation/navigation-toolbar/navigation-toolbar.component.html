@@ -1,18 +1,22 @@
-<md-toolbar>
-	<div class="toolbar-content flex-container" fxLayout="row" fxLayoutAlign="space-between center">
-		<div class="flex-item" fxFlex="40px">
+<md-toolbar class="navbar" [ngClass]="{'navbar-expanded':expanded}">
+	<div class="navbar-content flex-container" fxLayout="row" fxLayoutAlign="space-between center">
+		<div class="navbar-hamburger flex-item" fxFlex="40px">
 			<button md-icon-button (click)="action()">
 				<md-icon>menu</md-icon>
 			</button>
 		</div>
-		<div class="logo-container flex-item" fxFlex>
+		<!--<div class="logo-container flex-item" fxFlex>
 			<a routerLink="dashboard" routerLikeActive="active">
 				<img [src]="logoUrl">
 			</a>
-		</div>
-		<div class="flex-item" fxFlex="100px">
-			<button md-raised-button color="accent" (click)="logout()">LOGOUT</button>
+		</div>-->
+		<div class="navbar-title flex-item" fxFlex>
+			{{title}}
 		</div>
 	</div>
-	<!--<div class="navbar-shadow"></div>-->
 </md-toolbar>
+<div class="fab-top-container" *ngIf="fabInfo">
+	<button md-fab (click)="fabAction($event)" mdTooltip="New User" mdTooltipPosition="below">
+		<md-icon>add</md-icon>
+	</button>
+</div>

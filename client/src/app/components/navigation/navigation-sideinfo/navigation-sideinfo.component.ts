@@ -37,10 +37,13 @@ export class NavigationSideinfoComponent implements OnInit {
 	}
 
 	setDirective(directiveType, fields:any) {
-		// this.currentDirective = directive;
-		this.ready = true;
-
-		let inputProviders = Object.keys(fields).map((key) => {return {provide: key, useValue: fields[key]};});
+		// Reference: http://blog.rangle.io/dynamically-creating-components-with-angular-2/
+		let inputProviders = Object.keys(fields).map((key) => {
+			return {
+				provide: key, 
+				useValue: fields[key]
+			};
+		});
     	let resolvedInputs = ReflectiveInjector.resolve(inputProviders);
 		let injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.directiveRef.parentInjector);
 		let factory = this.resolver.resolveComponentFactory<AbstractSideinfoComponent>(directiveType);
@@ -50,7 +53,6 @@ export class NavigationSideinfoComponent implements OnInit {
 			this.currentDirective.destroy();
 		}
 		this.currentDirective = component;
-		console.log(this.currentDirective);
 	}
 
 	close() {

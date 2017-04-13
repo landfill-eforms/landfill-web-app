@@ -8,11 +8,12 @@ import { User } from '../user/user.class';
 export class ProbeData {
 	id:number;
 	monitoringPoint:MonitoringPoint;
-	inspectors:User[];
+	date:number;
 	methaneLevel:number;
 	pressureLevel:number;
 	description:string;
 	barometricPressure:number;
 	accessible:boolean;
 	verified:boolean;
+	inspectors:User[];
 }

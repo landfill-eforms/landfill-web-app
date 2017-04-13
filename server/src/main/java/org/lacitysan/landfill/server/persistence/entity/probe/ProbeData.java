@@ -1,5 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.probe;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,12 +42,8 @@ public class ProbeData {
 	@Enumerated(EnumType.STRING)
 	private MonitoringPoint monitoringPoint;
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
-	@ManyToMany
-	@JoinTable(name="dbo.ProbeDataXRefInspectors", joinColumns=@JoinColumn(name="ProbeFK"), inverseJoinColumns=@JoinColumn(name="InspectorFK"))
-	private Set<User> inspectors = new HashSet<>();
-	
-	// TODO Add date field.
+	@NotNull
+	private Date date;
 	
 	@NotNull
 	private Integer methaneLevel;
@@ -65,6 +62,11 @@ public class ProbeData {
 	@NotNull
 	private Boolean verified;
 	
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@ManyToMany
+	@JoinTable(name="dbo.ProbeDataXRefInspectors", joinColumns=@JoinColumn(name="ProbeFK"), inverseJoinColumns=@JoinColumn(name="InspectorFK"))
+	private Set<User> inspectors = new HashSet<>();
+
 	public Integer getId() {
 		return id;
 	}
@@ -81,12 +83,12 @@ public class ProbeData {
 		this.monitoringPoint = monitoringPoint;
 	}
 
-	public Set<User> getInspectors() {
-		return inspectors;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setInspectors(Set<User> inspectors) {
-		this.inspectors = inspectors;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Integer getMethaneLevel() {
@@ -121,20 +123,28 @@ public class ProbeData {
 		this.barometricPressure = barometricPressure;
 	}
 
-	public boolean isAccessible() {
+	public Boolean getAccessible() {
 		return accessible;
 	}
 
-	public void setAccessible(boolean accessible) {
+	public void setAccessible(Boolean accessible) {
 		this.accessible = accessible;
 	}
 
-	public boolean isVerified() {
+	public Boolean getVerified() {
 		return verified;
 	}
 
-	public void setVerified(boolean verified) {
+	public void setVerified(Boolean verified) {
 		this.verified = verified;
+	}
+
+	public Set<User> getInspectors() {
+		return inspectors;
+	}
+
+	public void setInspectors(Set<User> inspectors) {
+		this.inspectors = inspectors;
 	}
 
 }

@@ -53,6 +53,9 @@ public class UserService {
 	
 	public User create(User user) {
 		
+		// Replace any null values with the appropriate values.
+		intializeNullFields(user);
+		
 		// Check if username is valid.
 		validateUsername(user.getUsername(), true);
 		
@@ -103,6 +106,7 @@ public class UserService {
 	}
 	
 	public User updateProfile(User user) {
+		intializeNullFields(user);
 		User existing = userDao.getById(user.getId());
 		if (existing == null) {
 			// TODO Throw user ID not found exception.
@@ -117,6 +121,7 @@ public class UserService {
 	}
 	
 	public User updateEmployeeId(User user) {
+		intializeNullFields(user); // Remove this if validation for employee ID is implemented.
 		User existing = userDao.getById(user.getId());
 		if (existing == null) {
 			// TODO Throw user ID not found exception.
@@ -219,6 +224,34 @@ public class UserService {
 			throw new AlreadyExistsException("Username '" + username + "' already exists.");
 		}
 		return true;
+	}
+	
+	/** Replaces null primitive wrapper fields with the appropriate non-null value. */
+	private void intializeNullFields(User user) {
+		if (user.getUsername() == null) {
+			user.setUsername("");
+		}
+		if (user.getPassword() == null) {
+			user.setPassword("");
+		}
+		if (user.getFirstname() == null) {
+			user.setFirstname("");
+		}
+		if (user.getMiddlename() == null) {
+			user.setMiddlename("");
+		}
+		if (user.getLastname() == null) {
+			user.setLastname("");
+		}
+		if (user.getEmailAddress() == null) {
+			user.setEmailAddress("");
+		}
+		if (user.getEmployeeId() == null) {
+			user.setEmployeeId("");
+		}
+		if (user.getEnabled() == null) {
+			user.setEnabled(false);
+		}
 	}
 	
 }

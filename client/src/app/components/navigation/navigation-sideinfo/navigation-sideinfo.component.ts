@@ -1,3 +1,4 @@
+import { UserGroupListSideinfoComponent } from './../../user-group/user-group-list-sideinfo/user-group-list-sideinfo.component';
 import { UserListSideinfoComponent } from './../../user/user-list-sideinfo/user-list-sideinfo.component';
 import { AbstractSideinfoComponent } from './../../../model/client/abstract-sideinfo.component';
 import { MdSidenav } from '@angular/material';
@@ -8,7 +9,10 @@ import { Component, OnInit, Input, ElementRef, ViewChild, ViewContainerRef, Comp
 	selector: 'app-navigation-sideinfo',
 	templateUrl: './navigation-sideinfo.component.html',
 	styleUrls: ['./navigation-sideinfo.component.scss'],
-	entryComponents: [UserListSideinfoComponent]
+	entryComponents: [
+		UserListSideinfoComponent,
+		UserGroupListSideinfoComponent
+	]
 })
 export class NavigationSideinfoComponent implements OnInit {
 

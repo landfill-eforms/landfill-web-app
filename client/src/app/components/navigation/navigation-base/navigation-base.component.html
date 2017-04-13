@@ -3,7 +3,7 @@
 	<md-sidenav #navdrawer mode="side" opened="true" class="navdrawer-contents">
 		<app-navigation-drawer [sidenav]="navdrawer"></app-navigation-drawer>
 	</md-sidenav>
-	<md-sidenav-container class="sideinfo-container" fullscreen [ngClass]="{'sideinfo-force-close':navigationService.isSideinfoDisabled()}">
+	<md-sidenav-container class="sideinfo-container" fullscreen [ngClass]="{'sideinfo-force-close':isSideinfoDisabled()}">
 		<md-sidenav #sideinfo mode="side" align="end" opened="true" class="sideinfo-contents">
 			<app-navigation-sideinfo [sidenav]="sideinfo"></app-navigation-sideinfo>
 		</md-sidenav>

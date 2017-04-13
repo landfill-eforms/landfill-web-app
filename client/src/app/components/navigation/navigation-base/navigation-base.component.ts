@@ -12,4 +12,8 @@ export class NavigationBaseComponent {
 		
 	}
 
+	isSideinfoDisabled():boolean {
+		return this.navigationService.isSideinfoDisabled();
+	}
+
 }

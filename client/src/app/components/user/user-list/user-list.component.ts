@@ -60,7 +60,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 	textFilterStatus:InputStatus = {
 		valid: true,
 		errorMessage: ""
-	}
+	};
 	statusFilterChoices:{value:number, label:string}[] = [
 		{
 			value: 0,
@@ -74,7 +74,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 			value: 2,
 			label: "Disabled"
 		}
-	]
+	];
 
 	paginfo:Paginfo = new Paginfo();
 	paginatedUsers:User[] = [];
@@ -88,19 +88,20 @@ export class UserListComponent implements OnInit, OnDestroy {
 		private snackBar:MdSnackBar,
 		private navigationService:NavigationService) {
 			navigationService.getNavbarComponent().expanded = true;
-			navigationService.getNavbarComponent().setFabInfo({
-				icon: "add",
-				tooltip: "New User"
-			});
 			navigationService.getSideinfoComponent().setDirective(UserListSideinfoComponent, {user: null});
 	}
 
 	ngOnInit() {
+		this.navigationService.getNavbarComponent().setFabInfo({
+				icon: "add",
+				tooltip: "New User"
+			});
 		this.fabActionSubscriber = this.navigationService
 			.getNavbarComponent()
-			.fabActionSource
+			.getFabActionSource()
 			.asObservable()
 			.subscribe((event) => {
+				console.log(event)
 				if (event instanceof MouseEvent) {
 					this.openNewUserDialog();
 				}
@@ -110,6 +111,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
+		this.navigationService.getSideinfoComponent().disable();
+		this.navigationService.getNavbarComponent().resetFabInfo();
+		this.navigationService.getNavbarComponent().resetFabActionSource();
 		this.fabActionSubscriber.unsubscribe();
 	}
 
@@ -162,8 +166,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 		if (!this.textFilterStatus.valid) {
 			return;
 		}
-
-		console.log(this.textFilterStatus);
 
 		this.filteredUsers = this.users.filter(o => {
 			let textMatch:boolean = true;
@@ -223,10 +225,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 
 	deselectUser() {
 		this.selectedUser = null;
-	}
-
-	fabAction(event:any) {
-		this.openNewUserDialog();
 	}
 
 }

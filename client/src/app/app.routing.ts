@@ -11,7 +11,7 @@ import { UnverifiedDataSetComponent } from './components/unverified-data/unverif
 import { UnverifiedDataSetsComponent } from './components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
 import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
 import { UserGroupComponent } from './components/user-group/user-group/user-group.component';
-import { UserGroupsComponent } from './components/user-group/user-group-list/user-group-list.component';
+import { UserGroupListComponent } from './components/user-group/user-group-list/user-group-list.component';
 import { Route, Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from "@angular/core";
 import { AuthGuard } from "./services/auth/authguard";
@@ -93,12 +93,19 @@ export class DefinedRoutes {
 	}
 
 	static readonly USER_GROUP_LIST:Route = {
-		path: 'user-group-list',
-		component: UserGroupsComponent,
+		path: 'user-groups',
+		component: UserGroupListComponent,
+		canActivate: [AuthGuard],
+		data: {
+			name: "User Groups",
+			permissions: [
+				UserPermission.VIEW_USER_GROUPS
+			]
+		}
 	}
 
 	static readonly USER_GROUP:Route = {
-		path: 'user-group/:id',
+		path: 'user-groups/:id',
 		component: UserGroupComponent,
 	}
 

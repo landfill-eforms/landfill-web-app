@@ -15,7 +15,7 @@ export class NavigationToolbarComponent implements OnInit {
 
 	@Input() navdrawer;
 
-	fabActionSource:BehaviorSubject<any> = new BehaviorSubject({});
+	private fabActionSource:BehaviorSubject<any> = new BehaviorSubject({});
 	fabInfo:FabInfo;
 
 	expanded:boolean = false;
@@ -35,6 +35,16 @@ export class NavigationToolbarComponent implements OnInit {
 
 	}
 
+	getFabActionSource():BehaviorSubject<any> {
+		return this.fabActionSource;
+	}
+
+	// Does this cause a memory leak?
+	resetFabActionSource() {
+		this.fabActionSource.complete();
+		this.fabActionSource = new BehaviorSubject({});
+	}
+
 	setFabInfo(info:FabInfo) {
 		this.fabInfo = info;
 	}
@@ -45,6 +55,7 @@ export class NavigationToolbarComponent implements OnInit {
 
 	fabAction(event:any) {
 		this.fabActionSource.next(event);
+		this.fabActionSource.complete();
 	}
 
 	action() {

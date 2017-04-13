@@ -3,10 +3,10 @@ package org.lacitysan.landfill.server.service.mobile.model;
 /**
  * @author Alvin Quach
  */
-public class MobileImeData {
+public class MobileIseData {
 
 	private String mId;
-	private String mImeNumber;
+	private String mIseNumber;
 	private String mLocation;
 	private String mGridId;
 	private String mDate;
@@ -22,12 +22,12 @@ public class MobileImeData {
 		this.mId = mId;
 	}
 
-	public String getmImeNumber() {
-		return mImeNumber;
+	public String getmIseNumber() {
+		return mIseNumber;
 	}
 
-	public void setmImeNumber(String mImeNumber) {
-		this.mImeNumber = mImeNumber;
+	public void setmIseNumber(String mIseNumber) {
+		this.mIseNumber = mIseNumber;
 	}
 
 	public String getmLocation() {

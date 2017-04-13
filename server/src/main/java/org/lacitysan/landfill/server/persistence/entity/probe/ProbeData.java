@@ -46,6 +46,8 @@ public class ProbeData {
 	@JoinTable(name="dbo.ProbeDataXRefInspectors", joinColumns=@JoinColumn(name="ProbeFK"), inverseJoinColumns=@JoinColumn(name="InspectorFK"))
 	private Set<User> inspectors = new HashSet<>();
 	
+	// TODO Add date field.
+	
 	@NotNull
 	private Integer methaneLevel;
 	
@@ -58,10 +60,10 @@ public class ProbeData {
 	private Short barometricPressure;
 	
 	@NotNull
-	private boolean accessible;
+	private Boolean accessible;
 	
 	@NotNull
-	private boolean verified;
+	private Boolean verified;
 	
 	public Integer getId() {
 		return id;

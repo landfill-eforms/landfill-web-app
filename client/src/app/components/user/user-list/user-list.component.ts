@@ -1,22 +1,27 @@
+import { UserListSideinfoComponent } from './../user-list-sideinfo/user-list-sideinfo.component';
+import { NavigationService } from './../../../services/app/navigation.service';
 import { InputUtils, InputStatus } from './../../../utils/input.utils';
 import { Paginfo, PaginationComponent } from './../../directives/pagination/pagination.component';
 import { StringUtils } from './../../../utils/string.utils';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { NewUserDialogComponent } from './../new-user-dialog/new-user-dialog.component';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from './../../../services/user/user.service';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/material";
+import { Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-	selector: 'app-users',
+	selector: 'app-user-list',
 	templateUrl: './user-list.component.html',
 	styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
 
-	@ViewChild('sideinfo') sideInfo:any;
 	@ViewChild('pagination') pagination:PaginationComponent;
+
+	fabActionSubscriber:Subscription;
 
 	stringUtils = StringUtils;
 
@@ -48,13 +53,28 @@ export class UserListComponent implements OnInit {
 	showFilters:boolean = false;
 	filteredRowsCount:number = 0;
 	filteredUsers:User[] = [];
-	filters:{text:string} = {
-		text: ""
+	filters:{text:string, status:number} = {
+		text: "",
+		status: 0
 	};
 	textFilterStatus:InputStatus = {
 		valid: true,
 		errorMessage: ""
-	}
+	};
+	statusFilterChoices:{value:number, label:string}[] = [
+		{
+			value: 0,
+			label: "Any"
+		},
+		{
+			value: 1,
+			label: "Enabled"
+		},
+		{
+			value: 2,
+			label: "Disabled"
+		}
+	];
 
 	paginfo:Paginfo = new Paginfo();
 	paginatedUsers:User[] = [];
@@ -65,13 +85,36 @@ export class UserListComponent implements OnInit {
 	constructor(
 		private userService:UserService,
 		private dialog:MdDialog,
-		private snackBar:MdSnackBar
-	) {}
+		private snackBar:MdSnackBar,
+		private navigationService:NavigationService) {
+			navigationService.getNavbarComponent().expanded = true;
+			navigationService.getSideinfoComponent().setDirective(UserListSideinfoComponent, {user: null});
+	}
 
 	ngOnInit() {
+		this.navigationService.getNavbarComponent().setFabInfo({
+				icon: "add",
+				tooltip: "New User"
+			});
+		this.fabActionSubscriber = this.navigationService
+			.getNavbarComponent()
+			.getFabActionSource()
+			.asObservable()
+			.subscribe((event) => {
+				console.log(event)
+				if (event instanceof MouseEvent) {
+					this.openNewUserDialog();
+				}
+			});
 		this.loadingMessage = "Loading Users...";
 		this.loadUsers();
-		
+	}
+
+	ngOnDestroy() {
+		this.navigationService.getSideinfoComponent().disable();
+		this.navigationService.getNavbarComponent().resetFabInfo();
+		this.navigationService.getNavbarComponent().resetFabActionSource();
+		this.fabActionSubscriber.unsubscribe();
 	}
 
 	loadUsers() {
@@ -124,14 +167,20 @@ export class UserListComponent implements OnInit {
 			return;
 		}
 
-		console.log(this.textFilterStatus);
-
 		this.filteredUsers = this.users.filter(o => {
-			if (!this.filters.text) {
-				return true;
+			let textMatch:boolean = true;
+			if (this.filters.text) {
+				let search:RegExp = new RegExp(this.filters.text, 'i');
+				textMatch = search.test(o.username) || search.test(o.firstname) || search.test(o.lastname) || search.test(o.emailAddress) || search.test(o.employeeId);
 			}
-			let search:RegExp = new RegExp(this.filters.text, 'i');
-			return search.test(o.username) || search.test(o.firstname) || search.test(o.lastname) || search.test(o.emailAddress) || search.test(o.employeeId);
+			let statusMatch:boolean = true;
+			if (this.filters.status == 1) {
+				statusMatch = o.enabled;
+			}
+			else if (this.filters.status == 2) {
+				statusMatch = !o.enabled;
+			}
+			return textMatch && statusMatch;
 		});
 
 		this.paginfo.totalRows = this.filteredUsers.length;
@@ -143,6 +192,7 @@ export class UserListComponent implements OnInit {
 
 	resetFilters() {
 		this.filters.text = "";
+		this.filters.status = 0;
 		this.applyFilters();
 	}
 
@@ -154,22 +204,23 @@ export class UserListComponent implements OnInit {
 
 	toggleSideInfo() {
 		if (this.showSideInfo) {
-			this.sideInfo.close();
+			this.navigationService.getSideinfoComponent().close();
 			this.showSideInfo = false;
 		}
 		else {
-			this.sideInfo.open();
+			this.navigationService.getSideinfoComponent().open();
 			this.showSideInfo = true;
 		}
 	}
 
 	selectUser(user:User) {
 		if (!this.selectedUser) {
-			this.sideInfo.open();
+			this.navigationService.getSideinfoComponent().open();
 			this.showSideInfo = true;
 		}
 		this.selectedUser = user;
-		console.log(this.selectedUser);
+		this.navigationService.getSideinfoComponent().subtitle = this.selectedUser.firstname + " " + this.selectedUser.middlename + " " + this.selectedUser.lastname; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(this.selectedUser);
 	}
 
 	deselectUser() {

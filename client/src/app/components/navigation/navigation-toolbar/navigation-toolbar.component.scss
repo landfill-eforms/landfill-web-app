@@ -1,0 +1,29 @@
+.navbar-content {
+	height: 64px;
+	width: 100%;
+	position: absolute;
+	top: 0;
+}
+
+.navbar-hamburger {
+	color: #FFF;
+}
+
+.navbar-title {
+	color: #FFF;
+	margin-left: 24px;
+
+	// Does not follow material guidelines, but looks better.
+	// font-size: 18px;
+	font-weight: 400
+}
+
+.logo-container {
+	a {
+		margin-left: 16px;
+		img {
+			height: 56px;
+			margin-top: 4px;
+		}
+	}
+}

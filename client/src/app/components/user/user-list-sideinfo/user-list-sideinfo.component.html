@@ -1,0 +1,103 @@
+<div *ngIf="!user">
+	Select a user to view their details.
+</div>
+<div *ngIf="user" style="height:calc(100% - 128px);">
+	<md-tab-group style="height:100%;">
+		<md-tab label="Details">
+			<div  class="sideinfo-sections-container">
+				<div class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						Account
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Username
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{user.username}}
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Password
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							********
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Status
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{user.enabled ? 'Enabled' : 'Disabled'}}
+						</div>
+					</div>
+				</div>
+				<div class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						Profile
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							First Name
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{user.firstname}}
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Middle Name
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{user.middlename}}
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Last Name
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{user.lastname}}
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Email
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{user.emailAddress}}
+						</div>
+					</div>
+				</div>
+				<div class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						Groups
+					</div>
+					<div *ngFor="let group of user.userGroups" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+						<a [routerLink]="'user-groups/' + group.id">{{group.name}}</a>
+					</div>
+				</div>
+				<div class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						Employee
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Employee ID
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{user.employeeId}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</md-tab>
+		<md-tab label="Activity">
+			<div style="padding:16px;">
+				Coming Soon
+			</div>
+		</md-tab>
+	</md-tab-group>
+</div>

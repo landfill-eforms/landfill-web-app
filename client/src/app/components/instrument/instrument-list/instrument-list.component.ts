@@ -1,5 +1,5 @@
-import { InstrumentTypeService } from './../../../services/instrument/instrument-type.service';
 import { NewInstrumentDialogComponent } from './../dialog/new-instrument-dialog/new-instrument-dialog.component';
+import { InstrumentTypeService } from './../../../services/instrument/instrument-type.service';
 import { InstrumentType } from './../../../model/server/persistence/entity/instrument/instrument-type.class';
 import { MdDialog, MdSnackBar, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { InstrumentService } from './../../../services/instrument/instrument.service';

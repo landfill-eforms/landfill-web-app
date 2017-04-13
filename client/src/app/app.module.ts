@@ -1,7 +1,9 @@
+import { NewInstrumentTypeDialogComponent } from './components/instrument/dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
+import { NewInstrumentDialogComponent } from './components/instrument/dialog/new-instrument-dialog/new-instrument-dialog.component';
+import { NavigationService } from './services/app/navigation.service';
+import { TitleService } from './services/app/title.service';
 import { PaginationComponent } from './components/directives/pagination/pagination.component';
 import { MobileModule } from './components/mobile/mobile.module';
-import { NewInstrumentDialogComponent } from './components/instrument/dialog/new-instrument-dialog/new-instrument-dialog.component';
-import { NewInstrumentTypeDialogComponent } from './components/instrument/dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
 import { InstrumentTypeService } from './services/instrument/instrument-type.service';
 import { InstrumentModule } from './components/instrument/instrument.module';
 import { UnverifiedDataService } from './services/unverified/unverified-data-set.service';
@@ -11,8 +13,8 @@ import { InstrumentService } from './services/instrument/instrument.service';
 import { InstantaneousDataService } from './services/instantaneous/instantaneous-data.service';
 import { ImeNumberService } from './services/instantaneous/ime-number.service';
 import { ImeDataService } from './services/instantaneous/ime-data.service';
-import { ImeRepairDialogComponent } from './components/directives/dialog/ime-repair-dialog/ime-repair-dialog.component';
-import { ImeRecheckDialogComponent } from './components/directives/dialog/ime-recheck-dialog/ime-recheck-dialog.component';
+import { ImeRepairDialogComponent } from './components/directives/dialogs/ime-repair-dialog/ime-repair-dialog.component';
+import { ImeRecheckDialogComponent } from './components/directives/dialogs/ime-recheck-dialog/ime-recheck-dialog.component';
 import { CommonModule } from './components/common/common.module';
 import { AssignImeNumberDialogComponent } from './components/unverified-data/assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataModule } from './components/unverified-data/unverified-data.module';
@@ -90,6 +92,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		InstantaneousDataService,
 		InstrumentService,
 		InstrumentTypeService,
+		NavigationService,
+		TitleService,
 		UnverifiedDataService,
 		UserGroupService,
 		UserService

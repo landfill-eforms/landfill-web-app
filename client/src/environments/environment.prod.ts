@@ -1,8 +1,8 @@
-export const serverUrl:string = "http://lef-backend.us-west-2.elasticbeanstalk.com";
+import { AppConstant } from './../app/app.constant';
 
 export const environment = {
   production: false,
-  loginUrl: serverUrl + "/login",
-  resourceUrl: serverUrl + "/rest",
+  loginUrl: AppConstant.RESOURCE_SERVER + "/login",
+  resourceUrl: AppConstant.RESOURCE_SERVER + "/rest",
   assetsUrl: "/assets"
 };

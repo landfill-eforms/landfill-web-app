@@ -15,6 +15,7 @@ html {
 a {
     color: mat-color($app-primary, 500);
     text-decoration: none;
+    cursor: pointer;
 }
 
 .mat-sidenav-content {

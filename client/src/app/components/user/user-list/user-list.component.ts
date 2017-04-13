@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserListSideinfoComponent } from './../user-list-sideinfo/user-list-sideinfo.component';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { InputUtils, InputStatus } from './../../../utils/input.utils';
@@ -83,6 +84,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 	selectedUser:User;
 
 	constructor(
+		private router:Router,
+		private activatedRoute:ActivatedRoute,
 		private userService:UserService,
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
@@ -225,6 +228,10 @@ export class UserListComponent implements OnInit, OnDestroy {
 
 	deselectUser() {
 		this.selectedUser = null;
+	}
+
+	navigateToUser(user:User) {
+		this.router.navigate([user.username], {relativeTo: this.activatedRoute});
 	}
 
 }

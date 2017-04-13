@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserGroupListSideinfoComponent } from './../user-group-list-sideinfo/user-group-list-sideinfo.component';
 import { Paginfo, PaginationComponent } from './../../directives/pagination/pagination.component';
 import { InputStatus, InputUtils } from './../../../utils/input.utils';
@@ -64,6 +65,8 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 	selectedUserGroup:UserGroup;
 
 	constructor(
+		private router:Router,
+		private activatedRoute:ActivatedRoute,
 		private userGroupService:UserGroupService,
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
@@ -210,5 +213,8 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 		this.selectedUserGroup = null;
 	}
 
+	navigateToUserGroup(userGroup:UserGroup) {
+		this.router.navigate([userGroup.id], {relativeTo: this.activatedRoute});
+	}
 
 }

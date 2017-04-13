@@ -33,7 +33,7 @@
 			</button>
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-			<div class="data-table-first-column truncate flex-item" fxFlex="50" (click)="sortBy('name')">
+			<div class="data-table-first-column truncate flex-item" fxFlex="13.37" (click)="sortBy('name')">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'name'}">
 					Group Name
@@ -55,7 +55,7 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex="50">
+			<div class="data-table-column truncate flex-item" fxFlex="69">
 				<span class="data-table-header-label">Description</span>
 			</div>
 			<div class="data-table-last-column truncate flex-item" fxFlex="40px" style="text-align:center;">
@@ -67,16 +67,17 @@
 				<div class="data-table-row-content flex-container" 
 					fxLayout="row" 
 					(click)="selectUserGroup(group)"
+					(dblclick)="navigateToUserGroup(group)"
 					[ngClass]="{'data-table-row-content-active': group === selectedUserGroup}">
-					<div class="data-table-first-column truncate flex-item" fxFlex="50">
-						<a [routerLink]="group.id" routerLikeActive="active">
+					<div class="data-table-first-column truncate flex-item" fxFlex="13.37">
+						<a (click)="navigateToUserGroup(group)">
 							{{group.name}}
 						</a>
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex="69px">
 						{{group.users.length}}
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex="50">
+					<div class="data-table-column truncate flex-item" fxFlex="69">
 						{{group.description}}
 					</div>
 					<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">

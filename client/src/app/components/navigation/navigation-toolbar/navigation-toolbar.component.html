@@ -16,7 +16,7 @@
 	</div>
 </md-toolbar>
 <div class="fab-top-container" *ngIf="fabInfo">
-	<button md-fab (click)="fabAction($event)" mdTooltip="New User" mdTooltipPosition="below">
-		<md-icon>add</md-icon>
+	<button md-fab (click)="fabAction($event)" [mdTooltip]="fabInfo.tooltip" mdTooltipPosition="below">
+		<md-icon>{{fabInfo.icon}}</md-icon>
 	</button>
 </div>

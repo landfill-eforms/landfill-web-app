@@ -1,11 +1,12 @@
 import { MonitoringPoint } from '../../enums/monitoring-point.enum';
 import { User } from '../user/user.class';
+import { UnverifiedDataSet } from './unverified-data-set.class';
 
 /**
- * This class was automatically generated from ProbeData.java using typescript-gen.
+ * This class was automatically generated from UnverifiedProbeData.java using typescript-gen.
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
-export class ProbeData {
+export class UnverifiedProbeData {
 	id:number;
 	monitoringPoint:MonitoringPoint;
 	date:number;
@@ -15,4 +16,5 @@ export class ProbeData {
 	barometricPressure:number;
 	accessible:boolean;
 	inspectors:User[];
+	unverifiedDataSet:UnverifiedDataSet;
 }

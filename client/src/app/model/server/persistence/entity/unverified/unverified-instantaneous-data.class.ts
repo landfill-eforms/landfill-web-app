@@ -1,8 +1,8 @@
-import { WarmspotData } from '../instantaneous/warmspot-data.class';
-import { UnverifiedDataSet } from './unverified-data-set.class';
 import { Instrument } from '../instrument/instrument.class';
-import { ImeNumber } from '../instantaneous/ime-number.class';
 import { MonitoringPoint } from '../../enums/monitoring-point.enum';
+import { UnverifiedDataSet } from './unverified-data-set.class';
+import { UnverifiedWarmspotData } from './unverified-warmspot-data.class';
+import { ImeNumber } from '../instantaneous/ime-number.class';
 
 /**
  * This class was automatically generated from UnverifiedInstantaneousData.java using typescript-gen.
@@ -17,6 +17,6 @@ export class UnverifiedInstantaneousData {
 	startTime:number;
 	endTime:number;
 	imeNumbers:ImeNumber[];
-	warmspotData:WarmspotData[];
 	unverifiedDataSet:UnverifiedDataSet;
+	unverifiedWarmspotData:UnverifiedWarmspotData;
 }

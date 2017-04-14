@@ -1,5 +1,5 @@
-import { InstrumentType } from './instrument-type.class';
 import { InstrumentStatus } from '../../enums/instrument-status.enum';
+import { InstrumentType } from './instrument-type.class';
 import { Site } from '../../enums/site.enum';
 
 /**

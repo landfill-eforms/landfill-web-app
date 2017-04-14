@@ -1,5 +1,5 @@
-import { User } from './user.class';
 import { UserPermission } from '../../enums/user-permission.enum';
+import { User } from './user.class';
 
 /**
  * This class was automatically generated from UserGroup.java using typescript-gen.

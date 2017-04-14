@@ -1,5 +1,5 @@
-import { IseData } from './ise-data.class';
 import { ExceedanceStatus } from '../../enums/exceedance-status.enum';
+import { IseData } from './ise-data.class';
 import { Site } from '../../enums/site.enum';
 import { MonitoringPoint } from '../../enums/monitoring-point.enum';
 

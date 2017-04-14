@@ -1,8 +1,7 @@
-import { User } from '../user/user.class';
-import { InstantaneousData } from './instantaneous-data.class';
 import { Instrument } from '../instrument/instrument.class';
-import { UnverifiedInstantaneousData } from '../unverified/unverified-instantaneous-data.class';
+import { InstantaneousData } from './instantaneous-data.class';
 import { MonitoringPoint } from '../../enums/monitoring-point.enum';
+import { User } from '../user/user.class';
 
 /**
  * This class was automatically generated from WarmspotData.java using typescript-gen.
@@ -18,6 +17,4 @@ export class WarmspotData {
 	description:string;
 	size:string;
 	instantaneousData:InstantaneousData[];
-	unverifiedInstantaneousData:UnverifiedInstantaneousData[];
-	verified:boolean;
 }

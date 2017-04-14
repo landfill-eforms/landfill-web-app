@@ -1,6 +1,6 @@
 import { User } from '../user/user.class';
-import { ImeNumber } from './ime-number.class';
 import { ImeRepairData } from './ime-repair-data.class';
+import { ImeNumber } from './ime-number.class';
 
 /**
  * This class was automatically generated from ImeData.java using typescript-gen.

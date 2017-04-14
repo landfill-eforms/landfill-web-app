@@ -25,6 +25,7 @@ export class NavigationToolbarComponent implements OnInit {
 	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-lite-bright.png";
 
 	constructor (
+		private authService:AuthService,
 		private router:Router,
 		private route:ActivatedRoute,
 		private navigationService:NavigationService) {
@@ -60,6 +61,10 @@ export class NavigationToolbarComponent implements OnInit {
 
 	action() {
 		this.navdrawer.toggle();
+	}
+
+	logout() {
+		this.authService.logout();
 	}
 	
 }

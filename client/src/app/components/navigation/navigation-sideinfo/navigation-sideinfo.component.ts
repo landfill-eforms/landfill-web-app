@@ -1,3 +1,4 @@
+import { UnverifiedDataSetListSideinfoComponent } from './../../unverified-data/unverified-data-set-list-sideinfo/unverified-data-set-list-sideinfo.component';
 import { InstrumentListSideinfoComponent } from './../../instrument/instrument-list-sideinfo/instrument-list-sideinfo.component';
 import { InstrumentTypeListSideinfoComponent } from './../../instrument/instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
 import { UserGroupListSideinfoComponent } from './../../user-group/user-group-list-sideinfo/user-group-list-sideinfo.component';
@@ -15,7 +16,8 @@ import { Component, OnInit, Input, ElementRef, ViewChild, ViewContainerRef, Comp
 		UserListSideinfoComponent,
 		UserGroupListSideinfoComponent,
 		InstrumentListSideinfoComponent,
-		InstrumentTypeListSideinfoComponent
+		InstrumentTypeListSideinfoComponent,
+		UnverifiedDataSetListSideinfoComponent
 	]
 })
 export class NavigationSideinfoComponent implements OnInit {

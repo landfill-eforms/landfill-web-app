@@ -56,7 +56,7 @@ public class ImeData {
 	@NotNull
 	private String description;
 	
-	@JsonIgnoreProperties({"imeData"})
+	@JsonIgnoreProperties(value={"imeData"}, allowSetters=true)
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="imeData")
 	private Set<ImeRepairData> imeRepairData = new HashSet<>();

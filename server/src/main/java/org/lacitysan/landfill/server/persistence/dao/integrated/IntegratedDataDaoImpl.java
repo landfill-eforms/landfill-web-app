@@ -59,8 +59,8 @@ public class IntegratedDataDaoImpl extends AbstractDaoImpl<IntegratedData> imple
 		for (IntegerRange range : monitoringPointService.getRanges(MonitoringPointType.GRID, Site.valueOf(siteName))) {
 			Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
 					.createCriteria(IntegratedData.class)
-					.add(Restrictions.ge("monitoringPoint", monitoringPoints[range.getMin()]))
-					.add(Restrictions.le("monitoringPoint", monitoringPoints[range.getMax()]));
+					.add(Restrictions.ge("monitoringPoint", monitoringPoints[range.getMin()]));
+					//.add(Restrictions.le("monitoringPoint", monitoringPoints[range.getMax()]));
 			if (start >= 0) {
 				criteria.add(Restrictions.ge("startTime", new Date(start)));
 			}

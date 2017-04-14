@@ -158,13 +158,25 @@ export class DefinedRoutes {
 
 	///// UNVERIFIED DATA ROUTES /////
 	static readonly UNVERIFIED_DATA_SET_LIST:Route = {
-		path: 'unverified-data-set-list',
-		component: UnverifiedDataSetsComponent
+		path: 'unverified-data-sets',
+		component: UnverifiedDataSetsComponent,
+		data: {
+			name: "Unverified Data",
+			permissions: [
+				UserPermission.VIEW_UNVERIFIED_DATA_SETS
+			]
+		}
 	}
 
 	static readonly UNVERIFIED_DATA_SET:Route = {
-		path: 'unverified-data-set/:id',
-		component: UnverifiedDataSetComponent
+		path: 'unverified-data-sets/:id',
+		component: UnverifiedDataSetComponent,
+		data: {
+			name: "Unverified Data",
+			permissions: [
+				UserPermission.VIEW_UNVERIFIED_DATA_SET
+			]
+		}
 	}
 
 	///// INSTANTANEOUS ROUTES /////

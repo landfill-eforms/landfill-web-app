@@ -1,6 +1,9 @@
 export class DateTimeUtils {
 
     static getDate(datetime:number):string {
+        if (datetime == null) {
+            return "";
+        }
         let date:Date = new Date(datetime);
         return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
     }

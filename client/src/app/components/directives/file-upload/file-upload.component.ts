@@ -48,7 +48,7 @@ export class FileUploadComponent {
                     console.log(data);
 
                     // TODO Move these somewhere else.
-                    this.router.navigate(['/app/unverified-data-set-list/' + data.id]); 
+                    this.router.navigate(['/app/unverified-data-sets']); 
                     this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
                     
                 },

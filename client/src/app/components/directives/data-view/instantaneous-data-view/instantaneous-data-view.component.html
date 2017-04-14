@@ -57,6 +57,10 @@
         <div class="truncate flex-item" fxFlex>{{dateTimeUtils.getTime(inst.endTime)}}</div>
         <div class="truncate flex-item" fxFlex>{{inst.instrument.serialNumber}}</div>
         <div class="truncate flex-item" fxFlex>{{inst.methaneLevel / 100}}</div>
-        <div class="truncate flex-item" fxFlex>{{inst.imeNumber ? inst.imeNumber.imeNumber : ''}}</div>
+        <div class="truncate flex-item" fxFlex>
+            <div *ngIf="inst.imeNumbers">
+                <span *ngFor="let ime of inst.imeNumbers">{{ime.imeNumber}} </span>
+            </div>
+        </div>
     </div>
 </div>

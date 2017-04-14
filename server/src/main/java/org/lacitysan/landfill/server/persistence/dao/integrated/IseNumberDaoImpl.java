@@ -129,7 +129,11 @@ public class IseNumberDaoImpl extends AbstractDaoImpl<IseNumber> implements IseN
 		if (entity instanceof IseNumber) {
 			IseNumber iseNumber = (IseNumber)entity;
 			Hibernate.initialize(iseNumber.getMonitoringPoints());
-			Hibernate.initialize(iseNumber.getIseData());
+			iseNumber.getIseData().forEach(iseData -> {
+				iseData.getIseRepairData().forEach(iseRepairData -> {
+					Hibernate.initialize(iseRepairData.getUser());
+				});
+			});
 			return iseNumber;
 		}
 		return null;

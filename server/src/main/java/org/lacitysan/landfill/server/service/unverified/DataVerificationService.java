@@ -4,12 +4,18 @@ import java.sql.Date;
 
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.InstantaneousDataDao;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.WarmspotDataDao;
+import org.lacitysan.landfill.server.persistence.dao.integrated.IntegratedDataDao;
+import org.lacitysan.landfill.server.persistence.dao.probe.ProbeDataDao;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
+import org.lacitysan.landfill.server.persistence.entity.integrated.IntegratedData;
+import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedProbeData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.Site;
@@ -31,10 +37,16 @@ public class DataVerificationService {
 	InstantaneousDataDao instantaneousDataDao;
 	
 	@Autowired
-	ImeService imeService;
+	IntegratedDataDao integrateDataDao;
+	
+	@Autowired
+	ProbeDataDao probeDataDao;
 	
 	@Autowired
 	WarmspotDataDao warmspotDataDao;
+	
+	@Autowired
+	ImeService imeService;
 	
 	public VerifiedDataSet verifyAndCommit(UnverifiedDataSet unverifiedDataSet) {
 		
@@ -57,13 +69,31 @@ public class DataVerificationService {
 			result.getInstantaneousData().add(instantaneousData);
 		}
 		
+		// Go through all the unverified integrated data points.
+		for (UnverifiedIntegratedData unverifiedIntegratedData : unverifiedDataSet.getUnverifiedIntegratedData()) {
+			IntegratedData integratedData = verifyIntegratedData(unverifiedIntegratedData, site, inspector);
+			if (integratedData == null) {
+				// TODO Throw an exception instead of returning null.
+				return null;
+			}
+			result.getIntegratedData().add(integratedData);
+		}
+		
+		// Go through all the unverified probe data points.
+		for (UnverifiedProbeData unverifiedProbeData : unverifiedDataSet.getUnverifiedProbeData()) {
+			ProbeData probeData = verifyProbeData(unverifiedProbeData);
+			if (probeData == null) {
+				// TODO Throw an exception instead of returning null.
+				return null;
+			}
+			result.getProbeData().add(probeData);
+		}
+		
 		// *** All data should be verified and good to go by this point.
 		
 		unverifiedDataSetDao.delete(unverifiedDataSet);
 		
 		for (InstantaneousData instantaneousData : result.getInstantaneousData()) {
-			
-			Object id;
 			
 			// Update IME Number verified status.
 			for (ImeNumber imeNumber : instantaneousData.getImeNumbers()) {
@@ -73,10 +103,16 @@ public class DataVerificationService {
 			}
 			
 			// Insert verified instantaneous data into database.
-			id = instantaneousDataDao.create(instantaneousData);
-			if (id instanceof Integer) {
-				instantaneousData.setId((Integer)id);
-			}
+			instantaneousDataDao.create(instantaneousData);
+
+		}
+		
+		for (IntegratedData integratedData : result.getIntegratedData()) {
+			integrateDataDao.create(integratedData);
+		}
+		
+		for (ProbeData probeData : result.getProbeData()) {
+			probeDataDao.create(probeData);
 		}
 		
 		return result;
@@ -116,6 +152,7 @@ public class DataVerificationService {
 				if (imeNumber.getSite() != site) {
 					return null;
 				}
+				instantaneousData.getImeNumbers().add(imeNumber);
 			}
 			
 			// TODO Add code to transfer the set of IME Number over.
@@ -156,6 +193,55 @@ public class DataVerificationService {
 		instantaneousData.setMethaneLevel(unverifiedInstantaneousData.getMethaneLevel());
 			
 		return instantaneousData;
+	}
+	
+	public IntegratedData verifyIntegratedData(UnverifiedIntegratedData unverifiedIntegratedData, Site site, User inspector) {
+		
+		// Check if the grid of each data point belongs to the correct site.
+		if (unverifiedIntegratedData.getMonitoringPoint().getSite() != site) {
+			return null;
+		}
+		
+		if (unverifiedIntegratedData.getInstrument() == null) {
+			return null;
+		}
+		
+		// Get the barometric pressure from the unverified data point, and check if its value is valid.
+		Short barometricPressure = unverifiedIntegratedData.getBarometricPressure();
+		if (barometricPressure == null || barometricPressure < 2950 || barometricPressure > 3050) {
+			return null;
+		}
+		
+		// Create new integrated data object and populate its fields with the data from the unverified data point.
+		IntegratedData integratedData = new IntegratedData();
+		integratedData.setInspector(inspector);
+		integratedData.setBarometricPressure(barometricPressure);
+		integratedData.setStartTime(unverifiedIntegratedData.getStartTime());
+		integratedData.setEndTime(unverifiedIntegratedData.getEndTime());
+		integratedData.setInstrument(unverifiedIntegratedData.getInstrument());
+		integratedData.setMonitoringPoint(unverifiedIntegratedData.getMonitoringPoint());
+		integratedData.setMethaneLevel(unverifiedIntegratedData.getMethaneLevel());
+		integratedData.setBagNumber(unverifiedIntegratedData.getBagNumber());
+		integratedData.setVolume(unverifiedIntegratedData.getVolume());
+		
+		return integratedData;
+	}
+	
+	public ProbeData verifyProbeData(UnverifiedProbeData unverifiedProbeData) {
+		Short barometricPressure = unverifiedProbeData.getBarometricPressure();
+		if (barometricPressure == null || barometricPressure < 2950 || barometricPressure > 3050) {
+			return null;
+		}
+		ProbeData probeData = new ProbeData();
+		probeData.setAccessible(unverifiedProbeData.getAccessible());
+		probeData.setBarometricPressure(unverifiedProbeData.getBarometricPressure());
+		probeData.setDate(unverifiedProbeData.getDate());
+		probeData.setDescription(unverifiedProbeData.getDescription());
+		probeData.setInspectors(unverifiedProbeData.getInspectors());
+		probeData.setMethaneLevel(unverifiedProbeData.getMethaneLevel());
+		probeData.setMonitoringPoint(unverifiedProbeData.getMonitoringPoint());
+		probeData.setPressureLevel(unverifiedProbeData.getPressureLevel());
+		return probeData;
 	}
 
 }

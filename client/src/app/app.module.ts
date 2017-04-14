@@ -1,3 +1,6 @@
+import { IseNumberService } from './services/integrated/ise-number.service';
+import { IntegratedDataService } from './services/integrated/integrated-data.service';
+import { WarmspotDataService } from './services/instantaneous/warmspot-data.service';
 import { NewInstrumentTypeDialogComponent } from './components/instrument/dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
 import { NewInstrumentDialogComponent } from './components/instrument/dialog/new-instrument-dialog/new-instrument-dialog.component';
 import { NavigationService } from './services/app/navigation.service';
@@ -90,13 +93,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		ImeDataService,
 		ImeNumberService,
 		InstantaneousDataService,
+		IntegratedDataService,
 		InstrumentService,
 		InstrumentTypeService,
+		IseNumberService,
 		NavigationService,
 		TitleService,
 		UnverifiedDataService,
 		UserGroupService,
-		UserService
+		UserService,
+		WarmspotDataService
 	],
 	bootstrap: [AppComponent]
 })

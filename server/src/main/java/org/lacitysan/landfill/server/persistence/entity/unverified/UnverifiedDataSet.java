@@ -67,17 +67,17 @@ public class UnverifiedDataSet {
 	
 	private Timestamp modifiedDate;
 	
-	@JsonIgnoreProperties({"unverifiedDataSet"})
+	@JsonIgnoreProperties("unverifiedDataSet")
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
 	
-	@JsonIgnoreProperties({"unverifiedDataSet"})
+	@JsonIgnoreProperties("unverifiedDataSet")
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
 	private Set<UnverifiedIntegratedData> unverifiedIntegratedData = new HashSet<>();
 	
-	@JsonIgnoreProperties({"unverifiedDataSet"})
+	@JsonIgnoreProperties("unverifiedDataSet")
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
 	private Set<UnverifiedProbeData> unverifiedProbeData = new HashSet<>();

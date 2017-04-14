@@ -67,6 +67,7 @@ public class UnverifiedInstantaneousData {
 	@JoinTable(name="dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
+	@JsonIgnoreProperties("unverifiedInstantaneousData")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="UnverifiedDataSetFK", nullable=false)

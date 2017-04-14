@@ -134,7 +134,11 @@ public class ImeNumberDaoImpl extends AbstractDaoImpl<ImeNumber> implements ImeN
 			imeNumber.getUnverifiedInstantaneousData().forEach(unverifiedInstantaneousData -> {
 				Hibernate.initialize(unverifiedInstantaneousData);
 			});
-			Hibernate.initialize(imeNumber.getImeData());
+			imeNumber.getImeData().forEach(imeData -> {
+				imeData.getImeRepairData().forEach(imeRepairData -> {
+					Hibernate.initialize(imeRepairData.getUser());
+				});
+			});
 			return imeNumber;
 		}
 		return null;

@@ -51,6 +51,7 @@ export class UnverifiedDataService {
 	checkForErrors(dataSet:UnverifiedDataSet):UnverifiedDataSet {
 		let dataSetErrors:string[] = [];
 		let instantaneousErrors:string[] = [];
+		let integratedErrors:string[] = [];
 		for (let i = 0; i < dataSet.unverifiedInstantaneousData.length; i++) {
 			let data = dataSet.unverifiedInstantaneousData[i];
 			if (data.monitoringPoint.site != dataSet.site) {
@@ -62,17 +63,31 @@ export class UnverifiedDataService {
 			if (data.methaneLevel < 50000 && (data.imeNumbers && data.imeNumbers.length > 0)) {
 				instantaneousErrors.push("The instantaneous reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " should not have an IME number.");
 			}
-			if (!data.instrument) {
+			if (!data.instrument || !data.instrument.id) {
 				instantaneousErrors.push("The instantaneous reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an instrument specified.");
 			}
 			if (!data.barometricPressure) {
 				instantaneousErrors.push("The instantaneous reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an barometric pressure reading.");
 			}
 		}
+		for (let i = 0; i < dataSet.unverifiedIntegratedData.length; i++) {
+			let data = dataSet.unverifiedIntegratedData[i];
+			if (data.monitoringPoint.site != dataSet.site) {
+				integratedErrors.push("The integrated reading of " + data.methaneLevel / 100 + "ppm has a grid on the wrong site (" + data.monitoringPoint.site.name + ")!");
+			}
+			if (!data.instrument || !data.instrument.id) {
+				integratedErrors.push("The integrated reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an instrument specified.");
+			}
+			if (!data.barometricPressure) {
+				integratedErrors.push("The integrated reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an barometric pressure reading.");
+			}
+		}
 		dataSet.errors = {
 			dataSet: dataSetErrors,
-			instantaneous: instantaneousErrors
+			instantaneous: instantaneousErrors,
+			integrated: integratedErrors
 		}
+		console.log(dataSet);
 		return dataSet;
 	}
 

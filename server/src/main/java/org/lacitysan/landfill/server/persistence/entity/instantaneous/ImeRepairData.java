@@ -51,7 +51,7 @@ public class ImeRepairData {
 	@NotNull
 	private String crew;
 	
-	@JsonIgnoreProperties({"imeRepairData"})
+	@JsonIgnoreProperties(value={"imeRepairData"}, allowSetters=true)
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="IMEFK")

@@ -7,7 +7,7 @@ public class MobileWarmspotData {
     private String mGridId;
     private String mDate;
     private String mDescription;
-    private Double mEstimatedSize;
+    private String mEstimatedSize;
     private String mInspectorFullName;
     private String mInspectorUserName;
     private Double mMaxMethaneReading;
@@ -53,14 +53,14 @@ public class MobileWarmspotData {
 		this.mDescription = mDescription;
 	}
 	
-	public Double getmEstimatedSize() {
+	public String getmEstimatedSize() {
 		return mEstimatedSize;
 	}
-	
-	public void setmEstimatedSize(Double mEstimatedSize) {
+
+	public void setmEstimatedSize(String mEstimatedSize) {
 		this.mEstimatedSize = mEstimatedSize;
 	}
-	
+
 	public String getmInspectorFullName() {
 		return mInspectorFullName;
 	}

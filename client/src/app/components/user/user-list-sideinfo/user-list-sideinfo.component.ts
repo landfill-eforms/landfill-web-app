@@ -1,8 +1,7 @@
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { AbstractSideinfoComponent } from './../../../model/client/abstract-sideinfo.component';
-
-import { Component, OnInit, AfterViewInit, Input, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-user-list-sideinfo',
@@ -14,7 +13,7 @@ export class UserListSideinfoComponent extends AbstractSideinfoComponent {
 
 	constructor(
 		private navigationService:NavigationService) {
-			super("User Details");
+			super("User");
 	}
 
 	getData():any {

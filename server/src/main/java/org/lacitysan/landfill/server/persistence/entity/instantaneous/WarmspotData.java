@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.instantaneous;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,13 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 
@@ -44,6 +43,7 @@ public class WarmspotData {
 	@Enumerated(EnumType.STRING)
 	private MonitoringPoint monitoringPoint;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
@@ -55,10 +55,10 @@ public class WarmspotData {
 	private User inspector;
 	
 	@NotNull
-	private int methaneLevel;	
+	private Integer methaneLevel;	
 	
 	@NotNull
-	private Timestamp date;
+	private Date date;
 	
 	@NotNull
 	private String description;
@@ -67,16 +67,9 @@ public class WarmspotData {
 	private String size;
 	
 	@JsonIgnoreProperties({"warmspotData", "imeNumbers"})
-	@ManyToMany(mappedBy="warmspotData")
+	@OneToMany(mappedBy="warmspotData")
 	private Set<InstantaneousData> instantaneousData = new HashSet<>();
 	
-	@JsonIgnoreProperties({"warmspotData", "imeNumbers", "unverifiedDataSet"})
-	@ManyToMany(mappedBy="warmspotData")
-	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
-	
-	@NotNull
-	private Boolean verified;
-
 	public Integer getId() {
 		return id;
 	}
@@ -109,19 +102,19 @@ public class WarmspotData {
 		this.inspector = inspector;
 	}
 
-	public int getMethaneLevel() {
+	public Integer getMethaneLevel() {
 		return methaneLevel;
 	}
 
-	public void setMethaneLevel(int methaneLevel) {
+	public void setMethaneLevel(Integer methaneLevel) {
 		this.methaneLevel = methaneLevel;
 	}
 
-	public Timestamp getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Timestamp date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -149,20 +142,4 @@ public class WarmspotData {
 		this.instantaneousData = instantaneousData;
 	}
 
-	public Set<UnverifiedInstantaneousData> getUnverifiedInstantaneousData() {
-		return unverifiedInstantaneousData;
-	}
-
-	public void setUnverifiedInstantaneousData(Set<UnverifiedInstantaneousData> unverifiedInstantaneousData) {
-		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
-	}
-
-	public Boolean getVerified() {
-		return verified;
-	}
-
-	public void setVerified(Boolean verified) {
-		this.verified = verified;
-	}
-	
 }

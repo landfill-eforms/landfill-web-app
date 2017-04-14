@@ -47,4 +47,36 @@ export class InstrumentTypeService {
 			);
 	}
 
+	generateApplicableTestsList(instrumentType:InstrumentType):string[] {
+		let result:string[] = [];
+		if (instrumentType.instantaneous) {
+			result.push("Instantaneous/Integerated");
+		}
+		if (instrumentType.probe) {
+			result.push("Probe/Gas Wells");
+		}
+		if (instrumentType.methanePercent) {
+			result.push("Methane Percentage");
+		}
+		if (instrumentType.methanePpm) {
+			result.push("Methane ppm");
+		}
+		if (instrumentType.hydrogenSulfidePpm) {
+			result.push("Hydrogen Sulfide ppm");
+		}
+		if (instrumentType.oxygenPercent) {
+			result.push("Oxygen Percentage");
+		}
+		if (instrumentType.carbonDioxidePercent) {
+			result.push("Carbon Dioxide Percentage");
+		}
+		if (instrumentType.nitrogenPercent) {
+			result.push("Nitrogen Percentage");
+		}
+		if (instrumentType.pressure) {
+			result.push("Pressure");
+		}
+		return result;
+	}
+
 }

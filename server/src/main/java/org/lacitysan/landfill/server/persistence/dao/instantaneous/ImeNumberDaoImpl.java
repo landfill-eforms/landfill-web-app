@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -51,6 +52,42 @@ public class ImeNumberDaoImpl extends AbstractDaoImpl<ImeNumber> implements ImeN
 					.createCriteria(ImeNumber.class)
 					.add(Restrictions.eq("site", site))
 					.add(Restrictions.eq("dateCode", dateCode))
+					.list();
+			result.stream().map(imeNumber -> initialize(imeNumber)).filter(imeNumber -> imeNumber != null).collect(Collectors.toList());
+			return result;
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<ImeNumber> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode) {
+		List<ImeNumber> result = new ArrayList<>();
+		if (site != null) {
+			result = hibernateTemplate.getSessionFactory().getCurrentSession()
+					.createCriteria(ImeNumber.class)
+					.add(Restrictions.eq("site", site))
+					.add(Restrictions.eq("dateCode", dateCode))
+					.add(Restrictions.eq("status", ExceedanceStatus.UNVERIFIED))
+					.list();
+			result.stream().map(imeNumber -> initialize(imeNumber)).filter(imeNumber -> imeNumber != null).collect(Collectors.toList());
+			return result;
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<ImeNumber> getVerifiedBySiteAndDateCode(Site site, Integer dateCode) {
+		List<ImeNumber> result = new ArrayList<>();
+		if (site != null) {
+			result = hibernateTemplate.getSessionFactory().getCurrentSession()
+					.createCriteria(ImeNumber.class)
+					.add(Restrictions.eq("site", site))
+					.add(Restrictions.eq("dateCode", dateCode))
+					.add(Restrictions.ne("status", ExceedanceStatus.UNVERIFIED))
 					.list();
 			result.stream().map(imeNumber -> initialize(imeNumber)).filter(imeNumber -> imeNumber != null).collect(Collectors.toList());
 			return result;

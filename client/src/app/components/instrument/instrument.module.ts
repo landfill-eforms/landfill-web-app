@@ -1,3 +1,5 @@
+import { InstrumentListSideinfoComponent } from './instrument-list-sideinfo/instrument-list-sideinfo.component';
+import { InstrumentTypeListSideinfoComponent } from './instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
 import { NewInstrumentTypeDialogComponent } from './dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
 import { NewInstrumentDialogComponent } from './dialog/new-instrument-dialog/new-instrument-dialog.component';
 import { InstrumentComponent } from './instrument/instrument.component';
@@ -20,7 +22,9 @@ import { CommonModule } from './../common/common.module';
 		InstrumentListComponent,
 		InstrumentComponent,
 		InstrumentTypeListComponent,
-		InstrumentTypeComponent
+		InstrumentTypeComponent,
+		InstrumentListSideinfoComponent,
+		InstrumentTypeListSideinfoComponent
 	]
 })
 

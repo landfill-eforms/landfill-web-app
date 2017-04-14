@@ -1,9 +1,9 @@
-<div *ngIf="!userGroup">
+<div *ngIf="!instrumentType">
 	<div style="padding:16px;">
-		Select a user group to view its details.
+		Select an equipment type to view its details.
 	</div>
 </div>
-<div *ngIf="userGroup" style="height:calc(100% - 128px);">
+<div *ngIf="instrumentType" style="height:calc(100% - 128px);">
 	<md-tab-group style="height:100%;">
 		<md-tab label="Details">
 			<div  class="sideinfo-sections-container">
@@ -13,10 +13,18 @@
 					</div>
 					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Name
+							Type
 						</div>
 						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{userGroup.name}}
+							{{instrumentType.type}}
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Manufacturer
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{instrumentType.manufacturer}}
 						</div>
 					</div>
 					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
@@ -41,24 +49,24 @@
 						Description
 					</div>
 					<div class="sideinfo-section-data-paragraph" style="width:256px;">
-						{{userGroup.description}}
+						{{instrumentType.description}}
 					</div>
 				</div>
 				<div class="sideinfo-section">
 					<div class="sideinfo-section-header">
-						Permissions
+						Instruments
 					</div>
-					<div *ngFor="let permission of userGroup.userPermissions" class="sideinfo-section-data-list-item truncate" style="width:256px;">
-						{{permission}}
+					<div *ngFor="let instrument of instrumentType.instruments" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+						<!-- TODO Sort the serial numbers. -->
+						<a [routerLink]="'instruments/' + instrument.id">{{instrument.serialNumber}}</a>
 					</div>
 				</div>
 				<div class="sideinfo-section">
 					<div class="sideinfo-section-header">
-						Members
+						Applicable Tests
 					</div>
-					<div *ngFor="let user of userGroup.users" class="sideinfo-section-data-list-item truncate" style="width:256px;">
-						<!-- TODO Sort the users. -->
-						<a [routerLink]="'users/' + user.username">{{user.firstname}} {{user.middlename}} {{user.lastname}}</a>
+					<div *ngFor="let test of tests" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+						{{test}}
 					</div>
 				</div>
 			</div>

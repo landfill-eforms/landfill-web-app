@@ -70,7 +70,7 @@
 					(dblclick)="navigateToUserGroup(group)"
 					[ngClass]="{'data-table-row-content-active': group === selectedUserGroup}">
 					<div class="data-table-first-column truncate flex-item" fxFlex="13.37">
-						<a (click)="navigateToUserGroup(group)">
+						<a [routerLink]="group.id">
 							{{group.name}}
 						</a>
 					</div>

@@ -77,9 +77,9 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.navigationService.getNavbarComponent().setFabInfo({
-				icon: "add",
-				tooltip: "New User Group"
-			});
+			icon: "add",
+			tooltip: "New User Group"
+		});
 		this.fabActionSubscriber = this.navigationService
 			.getNavbarComponent()
 			.getFabActionSource()
@@ -106,6 +106,7 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 			this.userGroups = data;
 			this.applyFilters();
 			this.paginfo.totalRows = this.userGroups.length;
+			this.navigationService.getSideinfoComponent().open();
 			this.isDataLoaded = true;
 		});
 	}

@@ -1,3 +1,5 @@
+import { InstrumentListSideinfoComponent } from './../../instrument/instrument-list-sideinfo/instrument-list-sideinfo.component';
+import { InstrumentTypeListSideinfoComponent } from './../../instrument/instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
 import { UserGroupListSideinfoComponent } from './../../user-group/user-group-list-sideinfo/user-group-list-sideinfo.component';
 import { UserListSideinfoComponent } from './../../user/user-list-sideinfo/user-list-sideinfo.component';
 import { AbstractSideinfoComponent } from './../../../model/client/abstract-sideinfo.component';
@@ -11,7 +13,9 @@ import { Component, OnInit, Input, ElementRef, ViewChild, ViewContainerRef, Comp
 	styleUrls: ['./navigation-sideinfo.component.scss'],
 	entryComponents: [
 		UserListSideinfoComponent,
-		UserGroupListSideinfoComponent
+		UserGroupListSideinfoComponent,
+		InstrumentListSideinfoComponent,
+		InstrumentTypeListSideinfoComponent
 	]
 })
 export class NavigationSideinfoComponent implements OnInit {

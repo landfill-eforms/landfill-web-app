@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
@@ -70,9 +72,10 @@ public class InstantaneousData {
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
 	@JsonIgnoreProperties({"instantaneousData", "unverifiedInstantaneousData", "inspector", "instrument"})
-	@ManyToMany
-	@JoinTable(name="dbo.InstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
-	private Set<WarmspotData> warmspotData = new HashSet<>();
+	@ManyToOne
+	@JoinColumn(name="WarmspotFK")
+	@Cascade(CascadeType.ALL)
+	private WarmspotData warmspotData;
 
 	public Integer getId() {
 		return id;
@@ -146,11 +149,11 @@ public class InstantaneousData {
 		this.imeNumbers = imeNumbers;
 	}
 
-	public Set<WarmspotData> getWarmspotData() {
+	public WarmspotData getWarmspotData() {
 		return warmspotData;
 	}
 
-	public void setWarmspotData(Set<WarmspotData> warmspotData) {
+	public void setWarmspotData(WarmspotData warmspotData) {
 		this.warmspotData = warmspotData;
 	}
 

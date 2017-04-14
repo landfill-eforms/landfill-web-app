@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,9 +17,9 @@ import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSe
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
@@ -71,9 +70,6 @@ public class MobileDataDeserializer {
 		// Store a map of imported IME numbers. The value stored for each IME number is its original imported IME number string, if exists.
 		Map<ImeNumber, String> imeNumberMap = new HashMap<>();
 		
-		// Store a shit of all the warmspot data...
-		Set<WarmspotData> warmspotDataSet = new HashSet<>();
-		
 		// Fucking want to chop my dick off.
 		for (MobileImeData mobileImeData : mobileDataContainer.getmImeDatas()) {
 			
@@ -106,10 +102,6 @@ public class MobileDataDeserializer {
 			if (imeNumber == null) {
 				continue;
 			}
-			
-			// Get next IME sequence number based on site and date code.
-			short sequence = imeService.getNextSequence(imeNumber.getSite(), imeNumber.getDateCode(), false);
-			imeNumber.setSequence(sequence);
 			
 			// Set the status of the IME number as unverified.
 			imeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
@@ -196,33 +188,28 @@ public class MobileDataDeserializer {
 		}
 		
 		for (MobileWarmspotData mobileWarmspotData : mobileDataContainer.getmWarmSpotDatas()) {
-			WarmspotData warmspotData = new WarmspotData();
-			warmspotData.setMethaneLevel((int)(mobileWarmspotData.getmMaxMethaneReading() * 100));
+			UnverifiedWarmspotData warmspotData = new UnverifiedWarmspotData();
 			warmspotData.setDescription(mobileWarmspotData.getmDescription());
 			warmspotData.setSize(String.valueOf(mobileWarmspotData.getmEstimatedSize()));
-			warmspotData.setDate(parseDate(mobileWarmspotData.getmDate()));
 			User user = getUser(userMap, mobileWarmspotData.getmInspectorUserName());
 			if (user == null || !resultMap.containsKey(user)) {
 				continue;
 			}
-			warmspotData.setInspector(user);
-			warmspotData.setVerified(false);
 			Site site = monitoringPointService.getSiteByName(mobileWarmspotData.getmLocation());
 			MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(site, mobileWarmspotData.getmGridId());
 			if (grid == null) {
 				if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGridId() + " in " + mobileWarmspotData.getmLocation() + " not found.");
 				return null;
 			}
-			warmspotData.setMonitoringPoint(grid);
 			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), site);
+			
+			// TODO Consider reversing the loops.
 			for (UnverifiedInstantaneousData unverifiedInstantaneousData : unverifiedDataSet.getUnverifiedInstantaneousData()) {
-				if (unverifiedInstantaneousData.getMethaneLevel().equals(warmspotData.getMethaneLevel())) {
-					warmspotData.getUnverifiedInstantaneousData().add(unverifiedInstantaneousData);
-					unverifiedInstantaneousData.getWarmspotData().add(warmspotData);
+				if (unverifiedInstantaneousData.getMethaneLevel() == (int)(mobileWarmspotData.getmMaxMethaneReading() * 100)) {
+					unverifiedInstantaneousData.setUnverifiedWarmspotData(warmspotData);
 					break;
 				}
 			}
-			warmspotDataSet.add(warmspotData);
 		}
 		
 		// *** If it got to this point in the code, then that means there was no 'errors' with the mobile data.
@@ -232,19 +219,8 @@ public class MobileDataDeserializer {
 		// Insert IME numbers into database.
 		for (ImeNumber imeNumber : imeNumberMap.keySet()) {
 			// TODO Update 'modified by' field.
-			Object id = imeNumberDao.create(imeNumber);
-			if (id instanceof Integer) {
-				imeNumber.setId((Integer)id);
-			}
-		}
-		
-		// Insert warmspot entries into database.
-		for (WarmspotData warmspotData : warmspotDataSet) {
-			// TODO Update 'modified by' field.
-			Object id = warmspotDataDao.create(warmspotData);
-			if (id instanceof Integer) {
-				warmspotData.setId((Integer)id);
-			}
+			imeService.createUnverified(imeNumber);
+
 		}
 		
 		// Insert unverified data sets into the database.
@@ -252,10 +228,7 @@ public class MobileDataDeserializer {
 			unverifiedDataSet.setUploadedBy(userService.getCurrentUser());
 			unverifiedDataSet.setUploadedDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 			unverifiedDataSet.setFilename(mobileDataContainer.getFilename());
-			Object id = unverifiedDataSetDao.create(unverifiedDataSet);
-			if (id instanceof Integer) {
-				unverifiedDataSet.setId((Integer)id);
-			}
+			unverifiedDataSetDao.create(unverifiedDataSet);
 		}
 		
 		// Return the set of results.

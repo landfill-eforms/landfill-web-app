@@ -1,104 +1,174 @@
-<md-card class="section-multiple flex-item" fxFlex>
-	<md-card-content>
-		<div class="section-title">Equipment List</div>
-		<div *ngIf="isDataLoaded" class="data-table">
-			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-				<div class="truncate flex-item" fxFlex (click)="sortBy('serialNumber')">
-					<span class="data-table-header-label-sortable">Serial Number</span>
-					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-						'data-table-header-sort-arrow-reverse':sort.reversed,
-						'data-table-header-sort-arrow-inactive':sort.current !== 'serialNumber'}">
-						arrow_downward</md-icon>
-				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortBy('instrumentType')">
-					<span class="data-table-header-label-sortable">Equipment Type</span>
-					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-						'data-table-header-sort-arrow-reverse':sort.reversed,
-						'data-table-header-sort-arrow-inactive':sort.current !== 'instrumentType'}">
-						arrow_downward</md-icon>
-				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortBy('instrumentStatus')">
-					<span class="data-table-header-label-sortable">Status</span>
-					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-						'data-table-header-sort-arrow-reverse':sort.reversed,
-						'data-table-header-sort-arrow-inactive':sort.current !== 'instrumentStatus'}">
-						arrow_downward</md-icon>
-				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortBy('serviceDueDate')">
-					<span class="data-table-header-label-sortable">Service Due Date</span>
-					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-						'data-table-header-sort-arrow-reverse':sort.reversed,
-						'data-table-header-sort-arrow-inactive':sort.current !== 'serviceDueDate'}">
-						arrow_downward</md-icon>
-				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortBy('lastServiceDate')">
-					<span class="data-table-header-label-sortable">Last Service Date</span>
-					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-						'data-table-header-sort-arrow-reverse':sort.reversed,
-						'data-table-header-sort-arrow-inactive':sort.current !== 'lastServiceDate'}">
-						arrow_downward</md-icon>
-				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortBy('purchaseDate')">
-					<span class="data-table-header-label-sortable">Purchased Date</span>
-					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-						'data-table-header-sort-arrow-reverse':sort.reversed,
-						'data-table-header-sort-arrow-inactive':sort.current !== 'purchaseDate'}">
-						arrow_downward</md-icon>
-				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortBy('site')">
-					<span class="data-table-header-label-sortable">Assigned Site</span>
-					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-						'data-table-header-sort-arrow-reverse':sort.reversed,
-						'data-table-header-sort-arrow-inactive':sort.current !== 'site'}">
-						arrow_downward</md-icon>
-				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortBy('inventoryNumber')">
-					<span class="data-table-header-label-sortable">City Inventory No.</span>
-					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-						'data-table-header-sort-arrow-reverse':sort.reversed,
-						'data-table-header-sort-arrow-inactive':sort.current !== 'inventoryNumber'}">
-						arrow_downward</md-icon>
-				</div>
-				<div class="truncate flex-item" fxFlex="25">
-					<span class="data-table-header-label">Description</span>
-				</div>
+<div style="height:calc(100% - 121px);"> <!-- Browser dependent. Test on multiple browserGroups before setting this value. -->
+	<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+		<md-spinner class="loading-indicator-spinner"></md-spinner>
+		<div class="loading-indicator-message">{{loadingMessage}}</div>
+	</div>
+	<div *ngIf="isDataLoaded" class="data-table-scrollable">
+		<div class="data-table-filter-container-row flex-container" fxLayout="row" fxLayoutAlign="end center">
+			<div *ngIf="showFilters" class="data-table-filter-container flex-item flex-container" fxFlex fxLayout="row" fxLayoutAlign="end center">
+				<div class="flex-item" fxFlex="152px"></div>
+				<md-input-container *ngIf="showFilters" 
+					[hintLabel]="textFilterStatus.errorMessage" 
+					class="mat-input-container-inline flex-item" 
+					fxFlex
+					[ngClass]="{'mat-input-container-error':!textFilterStatus.valid}">
+					<input mdInput placeholder="Search" [(ngModel)]="filters.text" (ngModelChange)="applyFilters()">
+				</md-input-container>
 			</div>
-			<div *ngFor="let instrument of instruments; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
-				<div class="truncate flex-item" fxFlex>
-					<a [routerLink]="'../instrument/' + instrument.id" routerLikeActive="active">
-						{{instrument.serialNumber}}
-					</a>
-				</div>
-				<div class="truncate flex-item" fxFlex>
-					{{instrument.instrumentType.type}}
-				</div>
-				<div class="truncate flex-item" fxFlex>
-					{{instrument.instrumentStatus}}
-				</div>
-				<div class="truncate flex-item" fxFlex>
-					{{instrument.serviceDueDate}}
-				</div>
-				<div class="truncate flex-item" fxFlex>
-					{{instrument.lastServiceDate}}
-				</div>
-				<div class="truncate flex-item" fxFlex>
-					{{instrument.purchaseDate}}
-				</div>
-				<div class="truncate flex-item" fxFlex>
-					{{instrument.site}}
-				</div>
-				<div class="truncate flex-item" fxFlex>
-					{{instrument.inventoryNumber}}
-				</div>
-				<div class="truncate flex-item" fxFlex="25">
-					{{instrument.description}}
+			<button md-icon-button 
+				(click)="toggleFilters()" 
+				class="flex-item" 
+				fxFlex="40px"
+				mdTooltip="Filter" 
+				mdTooltipPosition="below">
+				<md-icon>filter_list</md-icon>
+			</button>
+			<button md-icon-button 
+				(click)="toggleSideInfo()" 
+				class="flex-item" 
+				fxFlex="40px" 
+				[mdTooltip]="showSideInfo ? 'Hide Details' : 'Show Details'" 
+				mdTooltipPosition="below">
+				<md-icon>{{showSideInfo ? 'chevron_right' : 'chevron_left'}}</md-icon>
+			</button>
+		</div>
+		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('serialNumber')">
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'serialNumber'}">
+					Serial Number
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse':sort.reversed,
+					'data-table-header-sort-arrow-inactive':sort.current !== 'serialNumber'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('instrumentType')">
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'instrumentType'}">
+					Equipment Type
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse':sort.reversed,
+					'data-table-header-sort-arrow-inactive':sort.current !== 'instrumentType'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('instrumentStatus')">
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'instrumentStatus'}">
+					Status
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse':sort.reversed,
+					'data-table-header-sort-arrow-inactive':sort.current !== 'instrumentStatus'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('serviceDueDate')">
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'serviceDueDate'}">
+					Next Service
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse':sort.reversed,
+					'data-table-header-sort-arrow-inactive':sort.current !== 'serviceDueDate'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('lastServiceDate')">
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'lastServiceDate'}">
+					Last Service
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse':sort.reversed,
+					'data-table-header-sort-arrow-inactive':sort.current !== 'lastServiceDate'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('purchaseDate')">
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'purchaseDate'}">
+					Purchased
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse':sort.reversed,
+					'data-table-header-sort-arrow-inactive':sort.current !== 'purchaseDate'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('site')">
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'site'}">
+					Assign. Site
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse':sort.reversed,
+					'data-table-header-sort-arrow-inactive':sort.current !== 'site'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('inventoryNumber')">
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'inventoryNumber'}">
+					Inventory No.
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse':sort.reversed,
+					'data-table-header-sort-arrow-inactive':sort.current !== 'inventoryNumber'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-last-column truncate flex-item" fxFlex="20">
+				<span class="data-table-header-label">Description</span>
+			</div>
+		</div>
+		<div class="data-table-scrollable-area">
+			<div *ngFor="let instrument of paginatedInstruments; let idx = index" class="data-table-row">
+				<div class="data-table-row-content flex-container" 
+					fxLayout="row" 
+					(click)="selectInstrument(instrument)"
+					(dblclick)="navigateToInstrument(instrument)"
+					[ngClass]="{'data-table-row-content-active': instrument === selectedInstrument}">
+					<div class="data-table-first-column truncate flex-item" fxFlex>
+						<a [routerLink]="'../instrument/' + instrument.id" routerLikeActive="active">
+							{{instrument.serialNumber}}
+						</a>
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{instrument.instrumentType.type}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{instrument.instrumentStatus}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{instrument.serviceDueDate}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{instrument.lastServiceDate}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{instrument.purchaseDate}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{instrument.site}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{instrument.inventoryNumber}}
+					</div>
+					<div class="data-table-last-column truncate flex-item" fxFlex="20">
+						{{instrument.description}}
+					</div>
 				</div>
 			</div>
 		</div>
-	</md-card-content>
-</md-card>
-<div class="fab-bottom-container">
-	<button md-fab (click)="openNewInstrumentDialog()" mdTooltip="Create Equipment Type" mdTooltipPosition="above">
-		<md-icon>add</md-icon>
-	</button>
+		<app-pagination #pagination
+			[paginfo]="paginfo"
+			[showPageSelector]="true" 
+			[showFirstLastPage]="true"
+			(changed)="applyPagination()">
+		</app-pagination>
+	</div>
 </div>

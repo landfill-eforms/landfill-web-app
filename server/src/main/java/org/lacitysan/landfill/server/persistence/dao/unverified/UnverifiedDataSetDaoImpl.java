@@ -24,10 +24,10 @@ public class UnverifiedDataSetDaoImpl extends AbstractDaoImpl<UnverifiedDataSet>
 			if (unverifiedDataSet.getModifiedBy() != null) {
 				Hibernate.initialize(unverifiedDataSet.getModifiedBy());
 			}
-			unverifiedDataSet.getUnverifiedInstantaneousData().forEach(instantaneousData -> {
-				Hibernate.initialize(instantaneousData.getInstrument());
-				instantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
-				instantaneousData.getWarmspotData().forEach(warmspot -> Hibernate.initialize(warmspot));
+			unverifiedDataSet.getUnverifiedInstantaneousData().forEach(unverifiedInstantaneousData -> {
+				Hibernate.initialize(unverifiedInstantaneousData.getInstrument());
+				Hibernate.initialize(unverifiedInstantaneousData.getUnverifiedWarmspotData());
+				unverifiedInstantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
 			});
 			return unverifiedDataSet;
 		}

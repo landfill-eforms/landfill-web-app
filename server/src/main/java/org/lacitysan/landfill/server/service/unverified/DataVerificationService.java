@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.service.unverified;
 
-import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
+import java.sql.Date;
+
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.InstantaneousDataDao;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.WarmspotDataDao;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
@@ -12,6 +13,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIns
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.Site;
+import org.lacitysan.landfill.server.service.instantaneous.ImeService;
 import org.lacitysan.landfill.server.service.unverified.model.VerifiedDataSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,7 @@ public class DataVerificationService {
 	InstantaneousDataDao instantaneousDataDao;
 	
 	@Autowired
-	ImeNumberDao imeNumberDao;
+	ImeService imeService;
 	
 	@Autowired
 	WarmspotDataDao warmspotDataDao;
@@ -63,19 +65,10 @@ public class DataVerificationService {
 			
 			Object id;
 			
-			// Update warmspot verified status.
-			for (WarmspotData warmspotData : instantaneousData.getWarmspotData()) {
-				if (!warmspotData.getVerified()) {
-					warmspotData.setVerified(true);
-					warmspotDataDao.update(warmspotData);
-				}
-			}
-			
 			// Update IME Number verified status.
 			for (ImeNumber imeNumber : instantaneousData.getImeNumbers()) {
 				if (imeNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
-					imeNumber.setStatus(ExceedanceStatus.ACTIVE);
-					imeNumberDao.update(imeNumber);
+					imeService.verify(imeNumber);
 				}
 			}
 			
@@ -107,6 +100,9 @@ public class DataVerificationService {
 			return null;
 		}
 		
+		// Create new instantaneous data object and populate its fields with the data from the unverified data point.
+		InstantaneousData instantaneousData = new InstantaneousData();
+		
 		// If the data point is supposed to be a hotspot.
 		if (unverifiedInstantaneousData.getMethaneLevel() >= 50000) { 
 			
@@ -130,32 +126,27 @@ public class DataVerificationService {
 		else if (unverifiedInstantaneousData.getMethaneLevel() >= 20000) {
 			
 			// If the data point is a warmspot, but doesn't contain any warmspot data...
-			if (unverifiedInstantaneousData.getWarmspotData() == null || unverifiedInstantaneousData.getWarmspotData().isEmpty()) {
+			if (unverifiedInstantaneousData.getUnverifiedWarmspotData() == null) {
 				return null; 
 			}
 			
-			// Validate each of the warmspots that are associated with the data point.
-			for (WarmspotData warmspot : unverifiedInstantaneousData.getWarmspotData()) {
-				if (warmspot.getMonitoringPoint().getSite() != site) {
-					return null;
-				}
-				// TODO Re-enable this check.
-//				if (warmspot.getInstrument() == null) {
-//					return null;
-//				}
-				
-			}
+			WarmspotData warmspotData = new WarmspotData();
+			warmspotData.setMonitoringPoint(unverifiedInstantaneousData.getMonitoringPoint());
+			warmspotData.setInstrument(unverifiedInstantaneousData.getInstrument());
+			warmspotData.setInspector(inspector);
+			warmspotData.setMethaneLevel(unverifiedInstantaneousData.getMethaneLevel());
+			warmspotData.setDate(new Date(unverifiedInstantaneousData.getStartTime().getTime()));
+			warmspotData.setDescription(unverifiedInstantaneousData.getUnverifiedWarmspotData().getDescription());
+			warmspotData.setSize(unverifiedInstantaneousData.getUnverifiedWarmspotData().getSize());
+			instantaneousData.setWarmspotData(warmspotData);
 			
 		}
 		
-		// If the data point is neither a warmspot nor a hotspot, then they shouldnt have any IME Numbers or warmspots.
-		else if (!(unverifiedInstantaneousData.getImeNumbers() == null || unverifiedInstantaneousData.getImeNumbers().isEmpty()) && !(unverifiedInstantaneousData.getWarmspotData() == null || unverifiedInstantaneousData.getWarmspotData().isEmpty())) {
+		// If the data point is neither a warmspot nor a hotspot, then they shouldn't have any IME Numbers or warmspots.
+		else if ((unverifiedInstantaneousData.getImeNumbers() != null && !unverifiedInstantaneousData.getImeNumbers().isEmpty()) || unverifiedInstantaneousData.getUnverifiedWarmspotData() != null) {
 			return null;
 		}
 		
-		// Create new instantaneous data object and populate its fields with the data from the unverified data point.
-		InstantaneousData instantaneousData = new InstantaneousData();
-//		instantaneousData.setId(0); // The IDs of the new instantaneous data points need to be 0 for the auto increment to work.
 		instantaneousData.setInspector(inspector);
 		instantaneousData.setBarometricPressure(barometricPressure);
 		instantaneousData.setStartTime(unverifiedInstantaneousData.getStartTime());

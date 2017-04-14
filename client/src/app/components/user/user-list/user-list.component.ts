@@ -96,9 +96,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.navigationService.getNavbarComponent().setFabInfo({
-				icon: "add",
-				tooltip: "New User"
-			});
+			icon: "add",
+			tooltip: "New User"
+		});
 		this.fabActionSubscriber = this.navigationService
 			.getNavbarComponent()
 			.getFabActionSource()
@@ -126,6 +126,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 			this.users = data;
 			this.applyFilters();
 			this.paginfo.totalRows = this.users.length;
+			this.navigationService.getSideinfoComponent().open();
 			this.isDataLoaded = true;
 		});
 	}

@@ -352,6 +352,12 @@ md-toolbar-row {
     margin-right: 24px;
 }
 
+.data-table-column-condensed {
+    // NOTE: Does not follow material design guidelines.
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
 .data-table-row:first-child {
     .data-table-row-content {
         border-top-width: 0;
@@ -375,6 +381,15 @@ md-toolbar-row {
 
 .data-table-row-content-active {
     background: #F5F5F5;
+}
+
+.data-table-icon {
+    margin-top: -4px;
+}
+
+.data-table-icon-checkmark {
+    margin-top: -4px;
+    color: #0D0
 }
 
 .data-table-icon-button {

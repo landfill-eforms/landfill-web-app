@@ -111,23 +111,49 @@ export class DefinedRoutes {
 
 	///// INSTRUMENT ROUTES /////
 	static readonly INSTRUMENT_LIST:Route = {
-		path: 'instrument-list',
+		path: 'equipment',
 		component: InstrumentListComponent,
+		canActivate: [AuthGuard],
+		data: {
+			name: "Equipment",
+			permissions: [
+				UserPermission.VIEW_INSTRUMENTS
+			]
+		}
 	}
 
 	static readonly INSTRUMENT:Route = {
-		path: 'instrument/:id',
-		component: InstrumentComponent
+		path: 'equipment/:id',
+		component: InstrumentComponent,
+		canActivate: [AuthGuard],
+		data: {
+			permissions: [
+				UserPermission.VIEW_INSTRUMENTS
+			]
+		}
 	}
 
 	static readonly INSTRUMENT_TYPE_LIST:Route = {
-		path: 'instrument-type-list',
-		component: InstrumentTypeListComponent
+		path: 'equipment-types',
+		component: InstrumentTypeListComponent,
+		canActivate: [AuthGuard],
+		data: {
+			name: "Equipment Types",
+			permissions: [
+				UserPermission.VIEW_INSTRUMENT_TYPES
+			]
+		}
 	}
 
 	static readonly INSTRUMENT_TYPE:Route = {
-		path: 'instrument-type/:id',
-		component: InstrumentTypeComponent
+		path: 'equipment-types/:id',
+		component: InstrumentTypeComponent,
+		canActivate: [AuthGuard],
+		data: {
+			permissions: [
+				UserPermission.VIEW_INSTRUMENT_TYPES
+			]
+		}
 	}
 
 	///// UNVERIFIED DATA ROUTES /////

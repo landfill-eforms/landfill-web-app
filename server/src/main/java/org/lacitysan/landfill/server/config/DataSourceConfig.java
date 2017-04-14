@@ -22,8 +22,8 @@ import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledNotif
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledReport;
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedImeData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Value;
@@ -106,8 +106,8 @@ public class DataSourceConfig {
 						
 						// Unverified
 						UnverifiedDataSet.class,
-						UnverifiedImeData.class,
 						UnverifiedInstantaneousData.class,
+						UnverifiedWarmspotData.class,
 
 						// User
 						User.class,

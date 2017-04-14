@@ -79,8 +79,8 @@ public class InstantaneousDataDaoImpl extends AbstractDaoImpl<InstantaneousData>
 			Hibernate.initialize(instantaneousData.getInstrument());
 			Hibernate.initialize(instantaneousData.getMonitoringPoint());
 			Hibernate.initialize(instantaneousData.getInspector());
+			Hibernate.initialize(instantaneousData.getWarmspotData());
 			instantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
-			instantaneousData.getWarmspotData().forEach(warmspot -> Hibernate.initialize(warmspot));
 			return instantaneousData;
 		}
 		return null;

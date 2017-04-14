@@ -1,8 +1,7 @@
 import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { AbstractSideinfoComponent } from './../../../model/client/abstract-sideinfo.component';
-
-import { Component, OnInit, AfterViewInit, Input, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-user-group-list-sideinfo',
@@ -14,7 +13,7 @@ export class UserGroupListSideinfoComponent extends AbstractSideinfoComponent {
 
 	constructor(
 		private navigationService:NavigationService) {
-			super("User Group Details");
+			super("User Group");
 	}
 
 	getData():any {
@@ -23,7 +22,6 @@ export class UserGroupListSideinfoComponent extends AbstractSideinfoComponent {
 
 	setData(data:any) {
 		this.userGroup = data;
-		console.log("WTF???", this.userGroup);
 	}
 	
 }

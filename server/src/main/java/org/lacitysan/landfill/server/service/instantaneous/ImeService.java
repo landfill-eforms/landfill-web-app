@@ -1,7 +1,9 @@
 package org.lacitysan.landfill.server.service.instantaneous;
 
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
@@ -23,6 +25,68 @@ public class ImeService {
 	
 	@Autowired
 	MonitoringPointService monitoringPointService;
+	
+	public ImeNumber createUnverified(ImeNumber imeNumber) {
+		
+		// Use TreeSet to store existing unverified IME numbers so that they are in order by sequence number.
+		Set<ImeNumber> existingImeNumbers = new TreeSet<>(); 
+		existingImeNumbers.addAll(imeNumberDao.getUnverifiedBySiteAndDateCode(imeNumber.getSite(), imeNumber.getDateCode()));
+		
+		short i = 1;
+		for (ImeNumber existingImeNumber : existingImeNumbers) {
+			if (existingImeNumber.getSequence() > i) {
+				break;
+			}
+			i++;
+		}
+		imeNumber.setSequence(i);
+		imeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
+		return imeNumberDao.create(imeNumber);
+		
+	}
+	
+	// TODO Change this to work with a batch of IME numbers at once for more efficiency.
+	public ImeNumber verify(ImeNumber imeNumber) {
+		
+		if (imeNumber.getStatus() != ExceedanceStatus.UNVERIFIED) {
+			return imeNumber;
+		}
+		else {
+			imeNumber.setStatus(ExceedanceStatus.ACTIVE);
+		}
+		
+		short originalSequence = imeNumber.getSequence();
+
+		List<ImeNumber> existingImeNumbers = imeNumberDao.getVerifiedBySiteAndDateCode(imeNumber.getSite(), imeNumber.getDateCode()).stream().sorted().collect(Collectors.toList());
+
+		boolean shift = false;
+		short i = 1;
+		for (ImeNumber existingImeNumber : existingImeNumbers) {
+			if (existingImeNumber.getSequence() > i) {
+				break;
+			}
+			else if (existingImeNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
+				shift = true;
+				break;
+			}
+			i++;
+		}
+		imeNumber.setSequence(i);
+		imeNumberDao.update(imeNumber);
+		
+		if (shift) {
+			for (int j = originalSequence - 1; j > i; j--) {
+				ImeNumber existingImeNumber = existingImeNumbers.get(j - 1);
+				if (existingImeNumber.getSequence() < originalSequence) {
+					existingImeNumber.setSequence((short)(existingImeNumber.getSequence() + 1));
+					imeNumberDao.update(existingImeNumber);
+				}
+			}
+		}
+
+		return imeNumber;
+		
+	}
 
 	/**
 	 * Generates a formatted string representation of an IME number, based on the IME number's site, date, and sequence number.

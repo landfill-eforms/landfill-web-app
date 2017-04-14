@@ -94,7 +94,7 @@
 					(dblclick)="navigateToUser(user)"
 					[ngClass]="{'data-table-row-content-active': user === selectedUser}">
 					<div class="data-table-first-column truncate flex-item" fxFlex="10">
-						<a (click)="navigateToUser(user)">
+						<a [routerLink]="user.username">
 							{{user.username}}
 						</a>
 					</div>

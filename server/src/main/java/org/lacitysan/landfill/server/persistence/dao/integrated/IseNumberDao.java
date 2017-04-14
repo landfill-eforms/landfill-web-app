@@ -12,6 +12,10 @@ public interface IseNumberDao extends AbstractDao<IseNumber> {
 
 	List<IseNumber> getBySiteAndDateCode(Site site, Integer dateCode);
 
+	List<IseNumber> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode);
+
+	List<IseNumber> getVerifiedBySiteAndDateCode(Site site, Integer dateCode);
+	
 	IseNumber getByIseNumber(IseNumber iseNumber);
 
 }

@@ -65,13 +65,28 @@ public class MonitoringPointService {
 	
 	/**
 	 * Finds a grid by its site and grid ID.
-	 * @param siteName The grids <code>Site</code> enum value.
+	 * @param siteName The grid's <code>Site</code> enum value.
 	 * @param gridId The case-insensitive ID or name of the grid.
 	 * @return A grid-type <code>MonitoringPoint</code> that matches the input parameters, or <code>null</code> if no suitable grid was found. 
 	 */
 	public MonitoringPoint getGridBySiteNameAndId(Site site, String gridId) {
 		for (MonitoringPoint point : MonitoringPoint.values()) {
 			if (point.getSite() == site && point.getType() == MonitoringPointType.GRID && point.getName().equalsIgnoreCase(gridId)) {
+				return point;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Finds a probe by its site and probe ID.
+	 * @param siteName The probe's <code>Site</code> enum value.
+	 * @param probeId The case-insensitive ID or name of the probe.
+	 * @return A probe-type <code>MonitoringPoint</code> that matches the input parameters, or <code>null</code> if no suitable probe was found. 
+	 */
+	public MonitoringPoint getProbeBySiteNameAndId(Site site, String probeId) {
+		for (MonitoringPoint point : MonitoringPoint.values()) {
+			if (point.getSite() == site && point.getType() == MonitoringPointType.PROBE && point.getName().equalsIgnoreCase(probeId)) {
 				return point;
 			}
 		}

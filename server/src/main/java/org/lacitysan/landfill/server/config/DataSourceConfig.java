@@ -23,6 +23,8 @@ import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledRepor
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedProbeData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
@@ -107,6 +109,8 @@ public class DataSourceConfig {
 						// Unverified
 						UnverifiedDataSet.class,
 						UnverifiedInstantaneousData.class,
+						UnverifiedIntegratedData.class,
+						UnverifiedProbeData.class,
 						UnverifiedWarmspotData.class,
 
 						// User

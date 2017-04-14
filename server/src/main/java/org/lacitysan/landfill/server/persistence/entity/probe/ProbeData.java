@@ -54,13 +54,11 @@ public class ProbeData {
 	@NotNull
 	private String description;
 	
+	@NotNull
 	private Short barometricPressure;
 	
 	@NotNull
 	private Boolean accessible;
-	
-	@NotNull
-	private Boolean verified;
 	
 	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
 	@ManyToMany
@@ -129,14 +127,6 @@ public class ProbeData {
 
 	public void setAccessible(Boolean accessible) {
 		this.accessible = accessible;
-	}
-
-	public Boolean getVerified() {
-		return verified;
-	}
-
-	public void setVerified(Boolean verified) {
-		this.verified = verified;
 	}
 
 	public Set<User> getInspectors() {

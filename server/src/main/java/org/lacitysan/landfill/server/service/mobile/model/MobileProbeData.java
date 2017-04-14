@@ -5,22 +5,22 @@ package org.lacitysan.landfill.server.service.mobile.model;
  */
 public class MobileProbeData {
 
-	private String mBarometricPressure;
+	private Double mBarometricPressure;
 	private String mDate;
 	private String mId;
 	private String mInspectorName;
 	private String mInspectorUserName;
 	private String mLocation;
-	private String mMethanePercentage;
+	private Double mMethanePercentage;
 	private String mProbeNumber;
 	private String mRemarks;
-	private String mWaterPressure;
+	private Double mWaterPressure;
 
-	public String getmBarometricPressure() {
+	public Double getmBarometricPressure() {
 		return mBarometricPressure;
 	}
 
-	public void setmBarometricPressure(String mBarometricPressure) {
+	public void setmBarometricPressure(Double mBarometricPressure) {
 		this.mBarometricPressure = mBarometricPressure;
 	}
 
@@ -64,11 +64,11 @@ public class MobileProbeData {
 		this.mLocation = mLocation;
 	}
 
-	public String getmMethanePercentage() {
+	public Double getmMethanePercentage() {
 		return mMethanePercentage;
 	}
 
-	public void setmMethanePercentage(String mMethanePercentage) {
+	public void setmMethanePercentage(Double mMethanePercentage) {
 		this.mMethanePercentage = mMethanePercentage;
 	}
 
@@ -88,11 +88,11 @@ public class MobileProbeData {
 		this.mRemarks = mRemarks;
 	}
 
-	public String getmWaterPressure() {
+	public Double getmWaterPressure() {
 		return mWaterPressure;
 	}
 
-	public void setmWaterPressure(String mWaterPressure) {
+	public void setmWaterPressure(Double mWaterPressure) {
 		this.mWaterPressure = mWaterPressure;
 	}
 

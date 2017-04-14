@@ -10,12 +10,12 @@ public interface ImeNumberDao extends AbstractDao<ImeNumber> {
 
 	List<ImeNumber> getBySiteName(String siteName);
 
-	ImeNumber getByImeNumber(ImeNumber imeNumber);
-	
 	List<ImeNumber> getBySiteAndDateCode(Site site, Integer dateCode);
 	
 	List<ImeNumber> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode);
 	
 	List<ImeNumber> getVerifiedBySiteAndDateCode(Site site, Integer dateCode);
+	
+	ImeNumber getByImeNumber(ImeNumber imeNumber);
 
 }

@@ -1,6 +1,8 @@
 package org.lacitysan.landfill.server.persistence.entity.unverified;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,15 +12,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -26,41 +31,41 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Alvin Quach
  */
 @Entity
-@Table(name="dbo.UnverifiedIntegratedData")
+@Table(name="dbo.UnverifiedProbeData")
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedIntegratedData {
+public class UnverifiedProbeData {
 
 	@Id
-	@Column(name="UnverifiedIntegratedPK")
+	@Column(name="UnverifiedProbePK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
 	private MonitoringPoint monitoringPoint;
 	
-	@ManyToOne
-	@JoinColumn(name="InstrumentFK")
-	private Instrument instrument;
-	
 	@NotNull
-	private Short bagNumber;
-	
-	@NotNull
-	private Short volume;
-	
-	@NotNull
-	private Short barometricPressure;
+	private Date date;
 	
 	@NotNull
 	private Integer methaneLevel;
 	
 	@NotNull
-	private Timestamp startTime;
+	private Integer pressureLevel;
 	
 	@NotNull
-	private Timestamp endTime;
+	private String description;
+	
+	@NotNull
+	private Short barometricPressure;
+	
+	@NotNull
+	private Boolean accessible;
+	
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@ManyToMany
+	@JoinTable(name="dbo.UnverifiedProbeDataXRefInspectors", joinColumns=@JoinColumn(name="UnverifiedProbeFK"), inverseJoinColumns=@JoinColumn(name="InspectorFK"))
+	private Set<User> inspectors = new HashSet<>();
 	
 	@NotNull
 	@ManyToOne
@@ -84,36 +89,12 @@ public class UnverifiedIntegratedData {
 		this.monitoringPoint = monitoringPoint;
 	}
 
-	public Instrument getInstrument() {
-		return instrument;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setInstrument(Instrument instrument) {
-		this.instrument = instrument;
-	}
-
-	public Short getBagNumber() {
-		return bagNumber;
-	}
-
-	public void setBagNumber(Short bagNumber) {
-		this.bagNumber = bagNumber;
-	}
-
-	public Short getVolume() {
-		return volume;
-	}
-
-	public void setVolume(Short volume) {
-		this.volume = volume;
-	}
-
-	public Short getBarometricPressure() {
-		return barometricPressure;
-	}
-
-	public void setBarometricPressure(Short barometricPressure) {
-		this.barometricPressure = barometricPressure;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Integer getMethaneLevel() {
@@ -124,20 +105,44 @@ public class UnverifiedIntegratedData {
 		this.methaneLevel = methaneLevel;
 	}
 
-	public Timestamp getStartTime() {
-		return startTime;
+	public Integer getPressureLevel() {
+		return pressureLevel;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
+	public void setPressureLevel(Integer pressureLevel) {
+		this.pressureLevel = pressureLevel;
 	}
 
-	public Timestamp getEndTime() {
-		return endTime;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setEndTime(Timestamp endTime) {
-		this.endTime = endTime;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Short getBarometricPressure() {
+		return barometricPressure;
+	}
+
+	public void setBarometricPressure(Short barometricPressure) {
+		this.barometricPressure = barometricPressure;
+	}
+
+	public Boolean getAccessible() {
+		return accessible;
+	}
+
+	public void setAccessible(Boolean accessible) {
+		this.accessible = accessible;
+	}
+
+	public Set<User> getInspectors() {
+		return inspectors;
+	}
+
+	public void setInspectors(Set<User> inspectors) {
+		this.inspectors = inspectors;
 	}
 
 	public UnverifiedDataSet getUnverifiedDataSet() {

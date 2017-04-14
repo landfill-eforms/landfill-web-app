@@ -72,6 +72,16 @@ public class UnverifiedDataSet {
 	@OneToMany(mappedBy="unverifiedDataSet")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
 	
+	@JsonIgnoreProperties({"unverifiedDataSet"})
+	@Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy="unverifiedDataSet")
+	private Set<UnverifiedIntegratedData> unverifiedIntegratedData = new HashSet<>();
+	
+	@JsonIgnoreProperties({"unverifiedDataSet"})
+	@Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy="unverifiedDataSet")
+	private Set<UnverifiedProbeData> unverifiedProbeData = new HashSet<>();
+	
 	@Transient
 	private Map<String, List<String>> errors = new HashMap<>();
 
@@ -147,6 +157,22 @@ public class UnverifiedDataSet {
 
 	public void setUnverifiedInstantaneousData(Set<UnverifiedInstantaneousData> unverifiedInstantaneousData) {
 		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
+	}
+	
+	public Set<UnverifiedIntegratedData> getUnverifiedIntegratedData() {
+		return unverifiedIntegratedData;
+	}
+
+	public void setUnverifiedIntegratedData(Set<UnverifiedIntegratedData> unverifiedIntegratedData) {
+		this.unverifiedIntegratedData = unverifiedIntegratedData;
+	}
+
+	public Set<UnverifiedProbeData> getUnverifiedProbeData() {
+		return unverifiedProbeData;
+	}
+
+	public void setUnverifiedProbeData(Set<UnverifiedProbeData> unverifiedProbeData) {
+		this.unverifiedProbeData = unverifiedProbeData;
 	}
 
 	public Map<String, List<String>> getErrors() {

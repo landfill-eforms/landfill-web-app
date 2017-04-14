@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.integrated.IseData;
 import org.lacitysan.landfill.server.persistence.entity.integrated.IseNumber;
+import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.Site;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -54,6 +55,42 @@ public class IseNumberDaoImpl extends AbstractDaoImpl<IseNumber> implements IseN
 					.add(Restrictions.eq("dateCode", dateCode))
 					.list();
 			result.stream().map(iseNumber -> initialize(iseNumber)).filter(iseNumber -> iseNumber != null).collect(Collectors.toList());
+			return result;
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<IseNumber> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode) {
+		List<IseNumber> result = new ArrayList<>();
+		if (site != null) {
+			result = hibernateTemplate.getSessionFactory().getCurrentSession()
+					.createCriteria(IseNumber.class)
+					.add(Restrictions.eq("site", site))
+					.add(Restrictions.eq("dateCode", dateCode))
+					.add(Restrictions.eq("status", ExceedanceStatus.UNVERIFIED))
+					.list();
+			result.stream().map(imeNumber -> initialize(imeNumber)).filter(imeNumber -> imeNumber != null).collect(Collectors.toList());
+			return result;
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<IseNumber> getVerifiedBySiteAndDateCode(Site site, Integer dateCode) {
+		List<IseNumber> result = new ArrayList<>();
+		if (site != null) {
+			result = hibernateTemplate.getSessionFactory().getCurrentSession()
+					.createCriteria(IseNumber.class)
+					.add(Restrictions.eq("site", site))
+					.add(Restrictions.eq("dateCode", dateCode))
+					.add(Restrictions.ne("status", ExceedanceStatus.UNVERIFIED))
+					.list();
+			result.stream().map(imeNumber -> initialize(imeNumber)).filter(imeNumber -> imeNumber != null).collect(Collectors.toList());
 			return result;
 		}
 		return null;

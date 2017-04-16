@@ -4,17 +4,23 @@
  */
 export class EmailRecipientType {
 
-	static readonly TO:EmailRecipientType = new EmailRecipientType(0, "TO");
-	static readonly CC:EmailRecipientType = new EmailRecipientType(1, "CC");
-	static readonly BCC:EmailRecipientType = new EmailRecipientType(2, "BCC");
+	static readonly TO:EmailRecipientType = {
+		ordinal: 0,
+		constantName: "TO"
+	};
+
+	static readonly CC:EmailRecipientType = {
+		ordinal: 1,
+		constantName: "CC"
+	};
+
+	static readonly BCC:EmailRecipientType = {
+		ordinal: 2,
+		constantName: "BCC"
+	};
 
 	readonly ordinal:number;
 	readonly constantName:string;
-
-	private constructor(ordinal:number, constantName:string) {
-		this.ordinal = ordinal;
-		this.constantName = constantName;
-	}
 
 	static values():EmailRecipientType[] {
 		return [

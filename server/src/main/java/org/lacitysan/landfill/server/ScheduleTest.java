@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.lacitysan.landfill.server.persistence.entity.scheduled.Schedule;
-import org.lacitysan.landfill.server.persistence.enums.SchedulePeriodBoundary;
-import org.lacitysan.landfill.server.persistence.enums.ScheduleRecurrence;
+import org.lacitysan.landfill.server.persistence.enums.scheduled.SchedulePeriodBoundary;
+import org.lacitysan.landfill.server.persistence.enums.scheduled.ScheduleRecurrence;
 import org.lacitysan.landfill.server.service.scheduled.ScheduledTaskService;
 
 public class ScheduleTest {

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { RestrictedRouteBase } from './../../app.routing';
 import { environment } from './../../../environments/environment';
-import { UserPermission } from './../../model/server/persistence/enums/user-permission.enum';
+import { UserPermission } from './../../model/server/persistence/enums/user/user-permission.enum';
 
 @Injectable()
 export class AuthService {

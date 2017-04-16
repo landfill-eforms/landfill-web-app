@@ -1,4 +1,4 @@
-import { EmailRecipientType } from '../../enums/email-recipient-type.enum';
+import { EmailRecipientType } from '../../enums/email/email-recipient-type.enum';
 import { ScheduledEmail } from '../scheduled/scheduled-email.class';
 
 /**

@@ -12,8 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.persistence.enums.SchedulePeriodBoundary;
-import org.lacitysan.landfill.server.persistence.enums.ScheduleRecurrence;
+import org.lacitysan.landfill.server.persistence.enums.scheduled.SchedulePeriodBoundary;
+import org.lacitysan.landfill.server.persistence.enums.scheduled.ScheduleRecurrence;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

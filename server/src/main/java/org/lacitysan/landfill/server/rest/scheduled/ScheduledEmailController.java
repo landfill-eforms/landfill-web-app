@@ -7,7 +7,7 @@ import org.lacitysan.landfill.server.persistence.dao.scheduled.ScheduledEmailDao
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledEmail;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledNotification;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledReport;
-import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestControllerSecurity;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.security.annotation.RestSecurityMode;

@@ -17,8 +17,8 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIns
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedProbeData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
-import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
-import org.lacitysan.landfill.server.persistence.enums.Site;
+import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
+import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.service.instantaneous.ImeService;
 import org.lacitysan.landfill.server.service.unverified.model.VerifiedDataSet;
 import org.springframework.beans.factory.annotation.Autowired;

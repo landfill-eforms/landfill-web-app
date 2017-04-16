@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledEmail;
-import org.lacitysan.landfill.server.persistence.enums.EmailRecipientType;
+import org.lacitysan.landfill.server.persistence.enums.email.EmailRecipientType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

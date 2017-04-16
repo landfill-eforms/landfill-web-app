@@ -1,6 +1,6 @@
 import { Instrument } from '../instrument/instrument.class';
 import { WarmspotData } from './warmspot-data.class';
-import { MonitoringPoint } from '../../enums/monitoring-point.enum';
+import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 import { User } from '../user/user.class';
 import { ImeNumber } from './ime-number.class';
 

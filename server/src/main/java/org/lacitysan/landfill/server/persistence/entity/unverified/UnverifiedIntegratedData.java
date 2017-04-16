@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
-import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

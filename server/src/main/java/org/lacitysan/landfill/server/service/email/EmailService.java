@@ -21,7 +21,7 @@ import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledEmail;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
-import org.lacitysan.landfill.server.persistence.enums.EmailRecipientType;
+import org.lacitysan.landfill.server.persistence.enums.email.EmailRecipientType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

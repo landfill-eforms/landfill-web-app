@@ -1,5 +1,5 @@
-import { Site } from './../../../../model/server/persistence/enums/site.enum';
-import { InstrumentStatus } from './../../../../model/server/persistence/enums/instrument-status.enum';
+import { Site } from './../../../../model/server/persistence/enums/location/site.enum';
+import { InstrumentStatus } from './../../../../model/server/persistence/enums/instrument/instrument-status.enum';
 import { InstrumentType } from './../../../../model/server/persistence/entity/instrument/instrument-type.class';
 import { Instrument } from './../../../../model/server/persistence/entity/instrument/instrument.class';
 import { InstrumentService } from './../../../../services/instrument/instrument.service';

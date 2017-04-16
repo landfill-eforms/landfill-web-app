@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
-import org.lacitysan.landfill.server.persistence.enums.MonitoringPointType;
-import org.lacitysan.landfill.server.persistence.enums.Site;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPointType;
+import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.util.model.IntegerRange;
 import org.springframework.stereotype.Service;
 

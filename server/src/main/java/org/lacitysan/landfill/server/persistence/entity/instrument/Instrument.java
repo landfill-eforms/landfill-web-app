@@ -14,8 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.persistence.enums.InstrumentStatus;
-import org.lacitysan.landfill.server.persistence.enums.Site;
+import org.lacitysan.landfill.server.persistence.enums.instrument.InstrumentStatus;
+import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,5 +1,5 @@
-import { SchedulePeriodBoundary } from '../../enums/schedule-period-boundary.enum';
-import { ScheduleRecurrence } from '../../enums/schedule-recurrence.enum';
+import { SchedulePeriodBoundary } from '../../enums/scheduled/schedule-period-boundary.enum';
+import { ScheduleRecurrence } from '../../enums/scheduled/schedule-recurrence.enum';
 
 /**
  * This class was automatically generated from Schedule.java using typescript-gen.

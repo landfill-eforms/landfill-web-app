@@ -1,7 +1,7 @@
-import { ExceedanceStatus } from '../../enums/exceedance-status.enum';
+import { ExceedanceStatus } from '../../enums/exceedance/exceedance-status.enum';
 import { InstantaneousData } from './instantaneous-data.class';
-import { Site } from '../../enums/site.enum';
-import { MonitoringPoint } from '../../enums/monitoring-point.enum';
+import { Site } from '../../enums/location/site.enum';
+import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 import { UnverifiedInstantaneousData } from '../unverified/unverified-instantaneous-data.class';
 import { ImeData } from './ime-data.class';
 

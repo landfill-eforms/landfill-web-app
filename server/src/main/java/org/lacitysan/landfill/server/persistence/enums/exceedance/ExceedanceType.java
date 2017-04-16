@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.persistence.enums;
+package org.lacitysan.landfill.server.persistence.enums.exceedance;
 
 import org.lacitysan.landfill.server.json.LandfillEnumDeserializer;
 

@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
-import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

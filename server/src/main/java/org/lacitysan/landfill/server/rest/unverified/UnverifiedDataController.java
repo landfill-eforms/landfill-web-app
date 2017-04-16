@@ -8,7 +8,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDat
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedProbeData;
-import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.unverified.DataVerificationService;

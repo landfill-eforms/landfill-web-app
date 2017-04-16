@@ -11,9 +11,9 @@ import org.lacitysan.landfill.server.persistence.dao.scheduled.ScheduledEmailDao
 import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.Schedule;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledReport;
-import org.lacitysan.landfill.server.persistence.enums.EmailRecipientType;
-import org.lacitysan.landfill.server.persistence.enums.SchedulePeriodBoundary;
-import org.lacitysan.landfill.server.persistence.enums.ScheduleRecurrence;
+import org.lacitysan.landfill.server.persistence.enums.email.EmailRecipientType;
+import org.lacitysan.landfill.server.persistence.enums.scheduled.SchedulePeriodBoundary;
+import org.lacitysan.landfill.server.persistence.enums.scheduled.ScheduleRecurrence;
 import org.lacitysan.landfill.server.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

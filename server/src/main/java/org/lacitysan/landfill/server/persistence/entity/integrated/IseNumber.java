@@ -20,9 +20,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
-import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
-import org.lacitysan.landfill.server.persistence.enums.Site;
+import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
+import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.service.integrated.IseService;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

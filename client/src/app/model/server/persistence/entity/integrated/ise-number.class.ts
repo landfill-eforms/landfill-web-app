@@ -1,7 +1,7 @@
-import { ExceedanceStatus } from '../../enums/exceedance-status.enum';
+import { ExceedanceStatus } from '../../enums/exceedance/exceedance-status.enum';
 import { IseData } from './ise-data.class';
-import { Site } from '../../enums/site.enum';
-import { MonitoringPoint } from '../../enums/monitoring-point.enum';
+import { Site } from '../../enums/location/site.enum';
+import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 
 /**
  * This class was automatically generated from IseNumber.java using typescript-gen.

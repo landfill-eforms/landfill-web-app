@@ -5,7 +5,7 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
-import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.instrument.InstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;

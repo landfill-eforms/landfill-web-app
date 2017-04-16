@@ -4,17 +4,23 @@
  */
 export class ExceedanceStatus {
 
-	static readonly UNVERIFIED:ExceedanceStatus = new ExceedanceStatus(0, "UNVERIFIED");
-	static readonly ACTIVE:ExceedanceStatus = new ExceedanceStatus(1, "ACTIVE");
-	static readonly CLOSED:ExceedanceStatus = new ExceedanceStatus(2, "CLOSED");
+	static readonly UNVERIFIED:ExceedanceStatus = {
+		ordinal: 0,
+		constantName: "UNVERIFIED"
+	};
+
+	static readonly ACTIVE:ExceedanceStatus = {
+		ordinal: 1,
+		constantName: "ACTIVE"
+	};
+
+	static readonly CLOSED:ExceedanceStatus = {
+		ordinal: 2,
+		constantName: "CLOSED"
+	};
 
 	readonly ordinal:number;
 	readonly constantName:string;
-
-	private constructor(ordinal:number, constantName:string) {
-		this.ordinal = ordinal;
-		this.constantName = constantName;
-	}
 
 	static values():ExceedanceStatus[] {
 		return [

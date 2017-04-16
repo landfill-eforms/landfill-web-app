@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
-import org.lacitysan.landfill.server.persistence.enums.Site;
+import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
+import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -15,7 +15,7 @@ import { UserGroupListComponent } from './components/user-group/user-group-list/
 import { Route, Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from "@angular/core";
 import { AuthGuard } from "./services/auth/authguard";
-import { UserPermission } from './model/server/persistence/enums/user-permission.enum';
+import { UserPermission } from './model/server/persistence/enums/user/user-permission.enum';
 import { LoginComponent } from './components/public/login/login.component';
 import { ForbiddenComponent } from './components/public/forbidden/forbidden.component';
 import { NavigationBaseComponent } from './components/navigation/navigation-base/navigation-base.component';

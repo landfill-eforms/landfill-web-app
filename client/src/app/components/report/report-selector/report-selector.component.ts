@@ -8,7 +8,7 @@ import { ImeNumber } from './../../../model/server/persistence/entity/instantane
 import { IntegratedData } from './../../../model/server/persistence/entity/integrated/integrated-data.class';
 import { InstantaneousData } from './../../../model/server/persistence/entity/instantaneous/instantaneous-data.class';
 import { InstantaneousDataService } from './../../../services/instantaneous/instantaneous-data.service';
-import { Site } from './../../../model/server/persistence/enums/site.enum';
+import { Site } from './../../../model/server/persistence/enums/location/site.enum';
 import { Component } from '@angular/core';
 
 @Component({

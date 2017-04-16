@@ -1,5 +1,5 @@
 import { IseNumber } from './../../model/server/persistence/entity/integrated/ise-number.class';
-import { Site } from './../../model/server/persistence/enums/site.enum';
+import { Site } from './../../model/server/persistence/enums/location/site.enum';
 import { Response } from '@angular/http';
 import { environment } from './../../../environments/environment';
 import { AuthHttp } from 'angular2-jwt';

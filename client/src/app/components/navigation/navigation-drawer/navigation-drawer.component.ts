@@ -4,7 +4,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { Route, Router } from '@angular/router';
 import { RestrictedRoutes, DefinedRoutes } from './../../../app.routing';
 import { AuthService } from './../../../services/auth/auth.service';
-import { UserPermission } from './../../../model/server/persistence/enums/user-permission.enum';
+import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
 import { MdSidenav } from '@angular/material';
 
 @Component({

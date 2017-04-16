@@ -1,5 +1,5 @@
 import { Instrument } from '../instrument/instrument.class';
-import { MonitoringPoint } from '../../enums/monitoring-point.enum';
+import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 import { User } from '../user/user.class';
 
 /**

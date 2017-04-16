@@ -1,5 +1,5 @@
-import { ExceedanceStatus } from './../../../model/server/persistence/enums/exceedance-status.enum';
-import { Site } from './../../../model/server/persistence/enums/site.enum';
+import { ExceedanceStatus } from './../../../model/server/persistence/enums/exceedance/exceedance-status.enum';
+import { Site } from './../../../model/server/persistence/enums/location/site.enum';
 import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
 import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';

@@ -1,5 +1,5 @@
 import { SortUtils } from './../../../utils/sort.utils';
-import { UserPermission } from './../../../model/server/persistence/enums/user-permission.enum';
+import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
 import { Component, OnChanges, Input } from '@angular/core';
 
 @Component({

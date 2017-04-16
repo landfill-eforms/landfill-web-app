@@ -1,5 +1,5 @@
 import { IntegratedData } from './../../model/server/persistence/entity/integrated/integrated-data.class';
-import { MonitoringPoint } from './../../model/server/persistence/enums/monitoring-point.enum';
+import { MonitoringPoint } from './../../model/server/persistence/enums/location/monitoring-point.enum';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';

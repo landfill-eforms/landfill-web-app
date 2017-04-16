@@ -27,9 +27,9 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInt
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedProbeData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
-import org.lacitysan.landfill.server.persistence.enums.ExceedanceStatus;
-import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
-import org.lacitysan.landfill.server.persistence.enums.Site;
+import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
+import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.lacitysan.landfill.server.service.instantaneous.ImeService;
 import org.lacitysan.landfill.server.service.integrated.IseService;

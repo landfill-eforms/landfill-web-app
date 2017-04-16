@@ -1,7 +1,7 @@
 import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
 import { MdSnackBar } from '@angular/material';
 import { EnumUtils } from './../../../utils/enum.utils';
-import { UserPermission } from './../../../model/server/persistence/enums/user-permission.enum';
+import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
 import { UserGroupService } from './../../../services/user/user-group.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';

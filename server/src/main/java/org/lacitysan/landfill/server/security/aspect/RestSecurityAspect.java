@@ -11,7 +11,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
 import org.lacitysan.landfill.server.security.annotation.RestControllerSecurity;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;

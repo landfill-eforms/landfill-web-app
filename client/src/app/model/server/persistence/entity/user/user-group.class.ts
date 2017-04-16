@@ -1,4 +1,4 @@
-import { UserPermission } from '../../enums/user-permission.enum';
+import { UserPermission } from '../../enums/user/user-permission.enum';
 import { User } from './user.class';
 
 /**

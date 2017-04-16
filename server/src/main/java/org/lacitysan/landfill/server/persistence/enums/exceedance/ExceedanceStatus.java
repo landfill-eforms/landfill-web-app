@@ -4,6 +4,9 @@ import org.lacitysan.landfill.server.json.LandfillEnumDeserializer;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+/**
+ * @author Alvin Quach
+ */
 public enum ExceedanceStatus {
 	
 	UNVERIFIED,

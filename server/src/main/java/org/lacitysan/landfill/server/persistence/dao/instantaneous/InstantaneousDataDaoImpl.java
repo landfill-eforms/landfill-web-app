@@ -45,8 +45,8 @@ public class InstantaneousDataDaoImpl extends AbstractDaoImpl<InstantaneousData>
 	public List<InstantaneousData> getBySiteAndDate(Site site, Long start, Long end) {
 		List<?> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(InstantaneousData.class)
-				.add(Restrictions.ge("startTime", start))
-				.add(Restrictions.lt("endTime", DateTimeUtils.addDay(end)))
+				.add(Restrictions.ge("startTime", DateTimeUtils.longToSqlDate(start)))
+				.add(Restrictions.lt("endTime", DateTimeUtils.longToSqlDate(DateTimeUtils.addDay(end))))
 				.list();
 		return result.stream()
 				.map(e -> checkType(e))

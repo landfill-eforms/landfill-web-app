@@ -1,18 +1,9 @@
 package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
-import org.hibernate.criterion.Restrictions;
-import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
+import org.lacitysan.landfill.server.persistence.dao.exceedance.ServiceEmissionsExceedanceNumberDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
-import org.lacitysan.landfill.server.persistence.enums.location.Site;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,84 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  */
 @Repository
-public class ImeNumberDaoImpl extends AbstractDaoImpl<ImeNumber> implements ImeNumberDao {
+public class ImeNumberDaoImpl extends ServiceEmissionsExceedanceNumberDaoImpl<ImeNumber> implements ImeNumberDao {
 
-	@Autowired
-	HibernateTemplate hibernateTemplate;
-
-	@Override
-	@Transactional
-	public List<ImeNumber> getBySiteAndDateCode(Site site, Integer dateCode) {
-		if (site == null) {
-			return null;
-		}
-		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(ImeNumber.class)
-				.add(Restrictions.eq("site", site));
-		if (dateCode != null) {
-			criteria.add(Restrictions.eq("dateCode", dateCode));
-		}
-		List<?> result = criteria.list();
-		return result.stream()
-				.map(e -> initialize(checkType(e)))
-				.filter(e -> e != null)
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	@Transactional
-	public List<ImeNumber> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode) {
-		if (site == null) {
-			return null;
-		}
-		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(ImeNumber.class)
-				.add(Restrictions.eq("status", ExceedanceStatus.UNVERIFIED))
-				.add(Restrictions.eq("site", site));
-		if (dateCode != null) {
-			criteria.add(Restrictions.eq("dateCode", dateCode));
-		}
-		List<?> result = criteria.list();
-		return result.stream()
-				.map(e -> initialize(checkType(e)))
-				.filter(e -> e != null)
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	@Transactional
-	public List<ImeNumber> getVerifiedBySiteAndDateCode(Site site, Integer dateCode) {
-		if (site == null) {
-			return null;
-		}
-		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(ImeNumber.class)
-				.add(Restrictions.ne("status", ExceedanceStatus.UNVERIFIED))
-				.add(Restrictions.eq("site", site));
-		if (dateCode != null) {
-			criteria.add(Restrictions.eq("dateCode", dateCode));
-		}
-		List<?> result = criteria.list();
-		return result.stream()
-				.map(e -> initialize(checkType(e)))
-				.filter(e -> e != null)
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	@Transactional
-	public ImeNumber getByImeNumber(ImeNumber imeNumber) {
-		if (imeNumber == null) {
-			return null;
-		}
-		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(ImeNumber.class)
-				.add(Restrictions.eq("site", imeNumber.getSite()))
-				.add(Restrictions.eq("dateCode", imeNumber.getDateCode()))
-				.add(Restrictions.eq("sequence", imeNumber.getSequence()))
-				.uniqueResult();
-		return initialize(checkType(result));
-	}
+	//	@Autowired
+	//	HibernateTemplate hibernateTemplate;
 
 	@Override
 	@Transactional
@@ -110,6 +27,11 @@ public class ImeNumberDaoImpl extends AbstractDaoImpl<ImeNumber> implements ImeN
 
 		hibernateTemplate.update(imeNumber);
 		return imeNumber;
+	}
+
+	@Override
+	public ImeNumber getByImeNumber(ImeNumber imeNumber) {
+		return getByExceedanceNumber(imeNumber);
 	}
 
 	@Override

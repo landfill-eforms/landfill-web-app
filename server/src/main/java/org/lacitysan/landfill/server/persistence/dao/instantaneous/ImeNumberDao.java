@@ -1,18 +1,9 @@
 package org.lacitysan.landfill.server.persistence.dao.instantaneous;
 
-import java.util.List;
-
-import org.lacitysan.landfill.server.persistence.dao.AbstractDao;
+import org.lacitysan.landfill.server.persistence.dao.exceedance.ServiceEmissionsExceedanceNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
-public interface ImeNumberDao extends AbstractDao<ImeNumber> {
-
-	List<ImeNumber> getBySiteAndDateCode(Site site, Integer dateCode);
-
-	List<ImeNumber> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode);
-
-	List<ImeNumber> getVerifiedBySiteAndDateCode(Site site, Integer dateCode);
+public interface ImeNumberDao extends ServiceEmissionsExceedanceNumberDao<ImeNumber> {
 
 	ImeNumber getByImeNumber(ImeNumber imeNumber);
 

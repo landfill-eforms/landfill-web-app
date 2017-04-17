@@ -6,6 +6,7 @@ import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.integrated.IntegratedDataDao;
 import org.lacitysan.landfill.server.persistence.entity.integrated.IntegratedData;
 import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
+import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,16 +25,20 @@ public class IntegratedDataController {
 	@Autowired
 	IntegratedDataDao integratedDataDao;
 	
+	// TODO Delete this.
+	@Autowired
+	MonitoringPointService monitoringPointService;
+	
 	@RequestMapping(value="/{siteName}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<IntegratedData> getBySite(@PathVariable String siteName) {
-		return integratedDataDao.getBySite(siteName);
+		return integratedDataDao.getBySite(monitoringPointService.getSiteByName(siteName));
 	}
 	
 	@RequestMapping(value="/{siteName}/{start}/{end}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<IntegratedData> getBySiteAndDate(@PathVariable String siteName, @PathVariable Long start, @PathVariable Long end) {
-		return integratedDataDao.getBySiteAndDate(siteName, start, end);
+		return integratedDataDao.getBySiteAndDate(monitoringPointService.getSiteByName(siteName), start, end);
 	}
 	
 	@RestAllowSuperAdminOnly

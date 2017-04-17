@@ -50,7 +50,6 @@ ext {
 
 dependencies {
 	compile group: 'com.github.dhorions', name: 'boxable', version: '1.5-RC'
-	//compile group: 'org.slf4j', name: 'slf4j-nop', version: '1.7.25'
 	
 	compile('org.springframework.boot:spring-boot-starter-data-rest:' + springBootVersion)
 	compile('org.springframework.security:spring-security-web:' + springSecurityVersion)

@@ -25,7 +25,7 @@ public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
 				.createCriteria(getGenericClass())
 				.add(Restrictions.idEq(id))
 				.uniqueResult();
-		return checkType(result);
+		return initialize(checkType(result));
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
 		return null;
 	}
 
-	private Class<?> getGenericClass() {
+	protected Class<?> getGenericClass() {
 		return (Class<?>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 

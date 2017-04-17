@@ -2,8 +2,6 @@ package org.lacitysan.landfill.server.service.mobile;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -41,6 +39,7 @@ import org.lacitysan.landfill.server.service.mobile.model.MobileIseData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileProbeData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileWarmspotData;
 import org.lacitysan.landfill.server.service.user.UserService;
+import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -104,7 +103,7 @@ public class MobileDataDeserializer {
 				}
 				
 				// Get date and format it into the date code.
-				Timestamp date = parseDate(mobileImeData.getmDate());
+				Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileImeData.getmDate());
 				if (date == null) {
 					continue;
 				}
@@ -128,7 +127,7 @@ public class MobileDataDeserializer {
 			// Create initial IME data entry based on imported info.
 			ImeData imeData = new ImeData();
 			//imeData.setId(0);
-			imeData.setDateTime(parseDate(mobileImeData.getmDate()));
+			imeData.setDateTime(DateTimeUtils.mobileDateToTimestamp(mobileImeData.getmDate()));
 			imeData.setDescription(mobileImeData.getmDescription());
 			imeData.setMethaneLevel((int)(mobileImeData.getmMethaneReading() * 100));
 			imeData.setInspector(getUser(userMap, mobileImeData.getmInspectorUserName()));
@@ -164,8 +163,9 @@ public class MobileDataDeserializer {
 				if (imeNumber == null) {
 					ImeNumber newImeNumber = imeService.getImeNumberFromString(mobileInstantaneousData.getImeNumber());
 					if (newImeNumber != null) {
-						short sequence = imeService.getNextSequence(newImeNumber.getSite(), newImeNumber.getDateCode(), false);
-						newImeNumber.setSequence(sequence);
+						// We dont need this.
+						//short sequence = imeService.getNextSequence(newImeNumber.getSite(), newImeNumber.getDateCode(), false);
+						// newImeNumber.setSequence(sequence);
 						newImeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
 						imeNumberMap.put(newImeNumber, mobileInstantaneousData.getImeNumber());
 						imeNumber = newImeNumber;
@@ -177,8 +177,8 @@ public class MobileDataDeserializer {
 				}
 			}
 			unverifiedInstantaneousData.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
-			unverifiedInstantaneousData.setStartTime(parseDate(mobileInstantaneousData.getmStartDate()));
-			unverifiedInstantaneousData.setEndTime(parseDate(mobileInstantaneousData.getmEndDate()));
+			unverifiedInstantaneousData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate()));
+			unverifiedInstantaneousData.setEndTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmEndDate()));
 			
 			// Set barometric pressure
 			if (mobileInstantaneousData.getmBarometricPressure() != null) {
@@ -243,7 +243,7 @@ public class MobileDataDeserializer {
 				}
 				
 				// Get date and format it into the date code.
-				Timestamp date = parseDate(mobileIseData.getmDate());
+				Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileIseData.getmDate());
 				if (date == null) {
 					continue;
 				}
@@ -267,7 +267,7 @@ public class MobileDataDeserializer {
 			// Create initial IME data entry based on imported info.
 			IseData imeData = new IseData();
 			//imeData.setId(0);
-			imeData.setDateTime(parseDate(mobileIseData.getmDate()));
+			imeData.setDateTime(DateTimeUtils.mobileDateToTimestamp(mobileIseData.getmDate()));
 			imeData.setDescription(mobileIseData.getmDescription());
 			imeData.setMethaneLevel((int)(mobileIseData.getmMethaneReading() * 100));
 			imeData.setInspector(getUser(userMap, mobileIseData.getmInspectorUserName()));
@@ -296,8 +296,8 @@ public class MobileDataDeserializer {
 			unverifiedIntegratedData.setBagNumber(mobileIntegratedData.getmBagNumber().shortValue());
 			unverifiedIntegratedData.setVolume(mobileIntegratedData.getmVolumeReading().shortValue());
 			unverifiedIntegratedData.setMethaneLevel((int)(mobileIntegratedData.getmMethaneReading() * 100));
-			unverifiedIntegratedData.setStartTime(parseDate(mobileIntegratedData.getmStartDate()));
-			unverifiedIntegratedData.setEndTime(parseDate(mobileIntegratedData.getmEndDate()));
+			unverifiedIntegratedData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileIntegratedData.getmStartDate()));
+			unverifiedIntegratedData.setEndTime(DateTimeUtils.mobileDateToTimestamp(mobileIntegratedData.getmEndDate()));
 			
 			// Set barometric pressure
 			if (mobileIntegratedData.getmBarometricPressure() != null) {
@@ -337,7 +337,7 @@ public class MobileDataDeserializer {
 				unverifiedProbeData.setMonitoringPoint(probe);
 			}
 			
-			unverifiedProbeData.setDate(new Date(parseDate(mobileProbeData.getmDate()).getTime()));
+			unverifiedProbeData.setDate(new Date(DateTimeUtils.mobileDateToTimestamp(mobileProbeData.getmDate()).getTime()));
 			unverifiedProbeData.setMethaneLevel((int)(mobileProbeData.getmMethanePercentage() * 100));
 			unverifiedProbeData.setPressureLevel((int)(mobileProbeData.getmWaterPressure() * 100));
 			unverifiedProbeData.setDescription(mobileProbeData.getmRemarks());
@@ -412,15 +412,6 @@ public class MobileDataDeserializer {
 		}
 		userMap.put(username, user);
 		return user;
-	}
-	
-	private Timestamp parseDate(String mobileDate) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
-		try {
-			return new Timestamp(dateFormat.parse(mobileDate).getTime());
-		} catch (ParseException e) {
-			return null;
-		}
 	}
 
 }

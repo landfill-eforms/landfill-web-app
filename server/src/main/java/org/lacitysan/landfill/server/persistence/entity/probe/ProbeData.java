@@ -54,6 +54,7 @@ public class ProbeData {
 	@NotNull
 	private String description;
 	
+
 	@NotNull
 	private Short barometricPressure;
 	
@@ -138,3 +139,16 @@ public class ProbeData {
 	}
 
 }
+
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+	private MonitoringPoint monitoringPoint;
+	public MonitoringPoint getMonitoringPoint() {
+		return monitoringPoint;
+	public void setMonitoringPoint(MonitoringPoint monitoringPoint) {
+		this.monitoringPoint = monitoringPoint;

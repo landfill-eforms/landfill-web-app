@@ -8,14 +8,12 @@ import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
 public interface ImeNumberDao extends AbstractDao<ImeNumber> {
 
-	List<ImeNumber> getBySiteName(String siteName);
-
 	List<ImeNumber> getBySiteAndDateCode(Site site, Integer dateCode);
-	
+
 	List<ImeNumber> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode);
-	
+
 	List<ImeNumber> getVerifiedBySiteAndDateCode(Site site, Integer dateCode);
-	
+
 	ImeNumber getByImeNumber(ImeNumber imeNumber);
 
 }

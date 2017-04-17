@@ -5,6 +5,7 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.integrated.IseNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.integrated.IseNumber;
+import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.lacitysan.landfill.server.service.integrated.IseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,10 @@ public class IseNumberController {
 	@Autowired
 	IseService iseService;
 	
+	// TODO Delete this.
+	@Autowired
+	MonitoringPointService monitoringPointService;
+	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<IseNumber> getAll() {
 		return iseNumbersDao.getAll();
@@ -33,7 +38,7 @@ public class IseNumberController {
 	
 	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
 	public List<IseNumber> getBySite(@PathVariable String siteName) {
-		return iseNumbersDao.getBySiteName(siteName);
+		return iseNumbersDao.getBySiteAndDateCode(monitoringPointService.getSiteByName(siteName), null);
 	}
 	
 	@RequestMapping(value="/unique/iseNumber/{iseNumber}", method=RequestMethod.GET)

@@ -12,17 +12,16 @@ import org.springframework.stereotype.Repository;
 public class WarmspotDataDaoImpl extends AbstractDaoImpl<WarmspotData> implements WarmspotDataDao {
 
 	@Override
-	public WarmspotData initialize(Object entity) {
-		if (entity instanceof WarmspotDataDaoImpl) {
-			WarmspotData warmspotData = (WarmspotData)entity;
-			Hibernate.initialize(warmspotData.getInspector());
-			warmspotData.getInstantaneousData().forEach(instantaneousData -> {
-				Hibernate.initialize(instantaneousData.getInstrument());
-				Hibernate.initialize(instantaneousData.getInspector());
-			});
-			return warmspotData;
+	public WarmspotData initialize(WarmspotData warmspotData) {
+		if (warmspotData == null) {
+			return null;
 		}
-		return null;
+		Hibernate.initialize(warmspotData.getInspector());
+		warmspotData.getInstantaneousData().forEach(instantaneousData -> {
+			Hibernate.initialize(instantaneousData.getInstrument());
+			Hibernate.initialize(instantaneousData.getInspector());
+		});
+		return warmspotData;
 	}
 
 }

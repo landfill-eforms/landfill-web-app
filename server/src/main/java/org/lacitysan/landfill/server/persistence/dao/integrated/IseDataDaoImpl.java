@@ -5,17 +5,18 @@ import org.lacitysan.landfill.server.persistence.entity.integrated.IseData;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author Allen Huang
+ * @author Alvin Quach
  */
 @Repository
 public class IseDataDaoImpl extends AbstractDaoImpl<IseData> implements IseDataDao {
 
 	@Override
-	public IseData initialize(Object entity) {
-		if (entity instanceof IseData) {
-			return (IseData)entity;
+	public IseData initialize(IseData iseData) {
+		if (iseData == null) {
+			return null;
 		}
-		return null;
+		// TODO Implement this.
+		return iseData;
 	}
-
+	
 }

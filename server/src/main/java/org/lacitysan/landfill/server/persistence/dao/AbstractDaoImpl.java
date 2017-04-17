@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @param <T>
  */
 public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
-	
+
 	@Autowired
 	protected HibernateTemplate hibernateTemplate;
-	
+
 	@Override
 	@Transactional
 	public T getById(Integer id) {
@@ -25,23 +25,21 @@ public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
 				.createCriteria(getGenericClass())
 				.add(Restrictions.idEq(id))
 				.uniqueResult();
-		if (result != null) {
-			return initialize(result);
-		}
-		return null;
+		return checkType(result);
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	@Transactional
 	public List<T> getAll() {
-		List<T> result = hibernateTemplate.getSessionFactory().getCurrentSession()
+		List<?> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(getGenericClass())
 				.list();
-		result.stream().map(e -> initialize(e)).filter(e -> e != null).collect(Collectors.toList());
-		return result;
+		return result.stream()
+				.map(e -> initialize(checkType(e)))
+				.filter(e -> e != null)
+				.collect(Collectors.toList());
 	}
-	
+
 	@Override
 	@Transactional
 	public T create(T entity) {
@@ -62,7 +60,15 @@ public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
 		hibernateTemplate.delete(entity);
 		return entity;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	protected T checkType(Object entity) {
+		if (getGenericClass().isInstance(entity)) {
+			return (T)entity;
+		}
+		return null;
+	}
+
 	private Class<?> getGenericClass() {
 		return (Class<?>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}

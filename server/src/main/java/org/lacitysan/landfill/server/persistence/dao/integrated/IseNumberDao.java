@@ -8,8 +8,6 @@ import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
 public interface IseNumberDao extends AbstractDao<IseNumber> {
 
-	List<IseNumber> getBySiteName(String siteName);
-
 	List<IseNumber> getBySiteAndDateCode(Site site, Integer dateCode);
 
 	List<IseNumber> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode);

@@ -5,6 +5,7 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.service.MonitoringPointService;
 import org.lacitysan.landfill.server.service.instantaneous.ImeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,10 @@ public class ImeNumberController {
 	@Autowired
 	ImeService imeService;
 	
+	// TODO Delete this.
+	@Autowired
+	MonitoringPointService monitoringPointService;
+	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<ImeNumber> getAll() {
 		return imeNumbersDao.getAll();
@@ -33,7 +38,7 @@ public class ImeNumberController {
 	
 	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
 	public List<ImeNumber> getBySite(@PathVariable String siteName) {
-		return imeNumbersDao.getBySiteName(siteName);
+		return imeNumbersDao.getBySiteAndDateCode(monitoringPointService.getSiteByName(siteName), null);
 	}
 	
 	@RequestMapping(value="/unique/imeNumber/{imeNumber}", method=RequestMethod.GET)

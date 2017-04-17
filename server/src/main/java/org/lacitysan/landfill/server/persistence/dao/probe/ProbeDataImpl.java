@@ -12,13 +12,12 @@ import org.springframework.stereotype.Repository;
 public class ProbeDataImpl extends AbstractDaoImpl<ProbeData> implements ProbeDataDao {
 
 	@Override
-	public ProbeData initialize(Object entity) {
-		if (entity instanceof ProbeData) {
-			ProbeData probeData = (ProbeData)entity;
-			probeData.getInspectors().forEach(inspector -> Hibernate.initialize(inspector));
-			return probeData;
+	public ProbeData initialize(ProbeData probeData) {
+		if (probeData == null) {
+			return null;
 		}
-		return null;
+		probeData.getInspectors().forEach(inspector -> Hibernate.initialize(inspector));
+		return probeData;
 	}
 
 }

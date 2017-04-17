@@ -37,5 +37,15 @@ public class DateTimeUtils {
 			return null; // Return null if there was an issue parsing the input string.
 		}
 	}
+	
+	/** Adds a day to the given millisecond long value. */
+	public static long addDay(long date) {
+		return addDays(date, 1);
+	}
+	
+	/** Adds a specified number of days to the given millisecond long value. */
+	public static long addDays(long date, int days) {
+		return date + 1000 * 60 * 60 * 24 * days;
+	}
 
 }

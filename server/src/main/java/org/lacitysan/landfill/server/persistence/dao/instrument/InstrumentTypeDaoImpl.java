@@ -12,17 +12,16 @@ import org.springframework.stereotype.Repository;
 public class InstrumentTypeDaoImpl extends AbstractDaoImpl<InstrumentType> implements InstrumentTypeDao {
 
 	@Override
-	public InstrumentType initialize(Object entity) {
-		if (entity instanceof InstrumentType) {
-			InstrumentType instrumentType = (InstrumentType)entity;
-			instrumentType.getInstruments().forEach(instrument -> {
-				Hibernate.initialize(instrument.getInstrumentType());
-				Hibernate.initialize(instrument.getInstrumentStatus());
-				Hibernate.initialize(instrument.getSite());
-			});
-			return instrumentType;
+	public InstrumentType initialize(InstrumentType instrumentType) {
+		if (instrumentType == null) {
+			return null;
 		}
-		return null;
+		instrumentType.getInstruments().forEach(instrument -> {
+			Hibernate.initialize(instrument.getInstrumentType());
+			Hibernate.initialize(instrument.getInstrumentStatus());
+			Hibernate.initialize(instrument.getSite());
+		});
+		return instrumentType;
 	}
 
 }

@@ -1,10 +1,9 @@
 package org.lacitysan.landfill.server.persistence.dao.integrated;
 
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
@@ -25,118 +24,106 @@ public class IseNumberDaoImpl extends AbstractDaoImpl<IseNumber> implements IseN
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<IseNumber> getBySiteName(String siteName) {
-		List<IseNumber> result = new ArrayList<>();
-		Site site = Site.valueOf(siteName);
-		if (site != null) {
-			result = hibernateTemplate.getSessionFactory().getCurrentSession()
-					.createCriteria(IseNumber.class)
-					.add(Restrictions.eq("site", Site.valueOf(siteName)))
-					.list();
-			result.stream().map(iseNumber -> initialize(iseNumber)).filter(iseNumber -> iseNumber != null).collect(Collectors.toList());
-			return result;
-		}
-		return null;
-	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	@Transactional
 	public List<IseNumber> getBySiteAndDateCode(Site site, Integer dateCode) {
-		List<IseNumber> result = new ArrayList<>();
-		if (site != null) {
-			result = hibernateTemplate.getSessionFactory().getCurrentSession()
-					.createCriteria(IseNumber.class)
-					.add(Restrictions.eq("site", site))
-					.add(Restrictions.eq("dateCode", dateCode))
-					.list();
-			result.stream().map(iseNumber -> initialize(iseNumber)).filter(iseNumber -> iseNumber != null).collect(Collectors.toList());
-			return result;
+		if (site == null) {
+			return null;
 		}
-		return null;
+		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(IseNumber.class)
+				.add(Restrictions.eq("site", site));
+		if (dateCode != null) {
+			criteria.add(Restrictions.eq("dateCode", dateCode));
+		}
+		List<?> result = criteria.list();
+		return result.stream()
+				.map(e -> initialize(checkType(e)))
+				.filter(e -> e != null)
+				.collect(Collectors.toList());
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	@Transactional
 	public List<IseNumber> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode) {
-		List<IseNumber> result = new ArrayList<>();
-		if (site != null) {
-			result = hibernateTemplate.getSessionFactory().getCurrentSession()
-					.createCriteria(IseNumber.class)
-					.add(Restrictions.eq("site", site))
-					.add(Restrictions.eq("dateCode", dateCode))
-					.add(Restrictions.eq("status", ExceedanceStatus.UNVERIFIED))
-					.list();
-			result.stream().map(imeNumber -> initialize(imeNumber)).filter(imeNumber -> imeNumber != null).collect(Collectors.toList());
-			return result;
+		if (site == null) {
+			return null;
 		}
-		return null;
+		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(IseNumber.class)
+				.add(Restrictions.eq("status", ExceedanceStatus.UNVERIFIED))
+				.add(Restrictions.eq("site", site));
+		if (dateCode != null) {
+			criteria.add(Restrictions.eq("dateCode", dateCode));
+		}
+		List<?> result = criteria.list();
+		return result.stream()
+				.map(e -> initialize(checkType(e)))
+				.filter(e -> e != null)
+				.collect(Collectors.toList());
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	@Transactional
 	public List<IseNumber> getVerifiedBySiteAndDateCode(Site site, Integer dateCode) {
-		List<IseNumber> result = new ArrayList<>();
-		if (site != null) {
-			result = hibernateTemplate.getSessionFactory().getCurrentSession()
-					.createCriteria(IseNumber.class)
-					.add(Restrictions.eq("site", site))
-					.add(Restrictions.eq("dateCode", dateCode))
-					.add(Restrictions.ne("status", ExceedanceStatus.UNVERIFIED))
-					.list();
-			result.stream().map(imeNumber -> initialize(imeNumber)).filter(imeNumber -> imeNumber != null).collect(Collectors.toList());
-			return result;
+		if (site == null) {
+			return null;
 		}
-		return null;
+		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(IseNumber.class)
+				.add(Restrictions.ne("status", ExceedanceStatus.UNVERIFIED))
+				.add(Restrictions.eq("site", site));
+		if (dateCode != null) {
+			criteria.add(Restrictions.eq("dateCode", dateCode));
+		}
+		List<?> result = criteria.list();
+		return result.stream()
+				.map(e -> initialize(checkType(e)))
+				.filter(e -> e != null)
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	@Transactional
 	public IseNumber getByIseNumber(IseNumber iseNumber) {
-		if (iseNumber != null) {
-			Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
-					.createCriteria(IseNumber.class)
-					.add(Restrictions.eq("site", iseNumber.getSite()))
-					.add(Restrictions.eq("dateCode", iseNumber.getDateCode()))
-					.add(Restrictions.eq("sequence", iseNumber.getSequence()))
-					.uniqueResult();
-			return initialize(result);
+		if (iseNumber == null) {
+			return null;
 		}
-		return null;
+		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(IseNumber.class)
+				.add(Restrictions.eq("site", iseNumber.getSite()))
+				.add(Restrictions.eq("dateCode", iseNumber.getDateCode()))
+				.add(Restrictions.eq("sequence", iseNumber.getSequence()))
+				.uniqueResult();
+		return initialize(checkType(result));
 	}
 
 	@Override
 	@Transactional
 	public IseNumber update(IseNumber iseNumber) {
-		
+
 		// TODO MOVE THIS
 		for (IseData data : iseNumber.getIseData()) {
 			data.setIseNumber(iseNumber);
 		}
-		
+
 		hibernateTemplate.update(iseNumber);
 		return iseNumber;
 	}
 
 	@Override
-	public IseNumber initialize(Object entity) {
-		if (entity instanceof IseNumber) {
-			IseNumber iseNumber = (IseNumber)entity;
-			Hibernate.initialize(iseNumber.getMonitoringPoints());
-			iseNumber.getIseData().forEach(iseData -> {
-				iseData.getIseRepairData().forEach(iseRepairData -> {
-					Hibernate.initialize(iseRepairData.getUser());
-				});
-			});
-			return iseNumber;
+	public IseNumber initialize(IseNumber iseNumber) {
+		if (iseNumber == null) {
+			return null;
 		}
-		return null;
+		Hibernate.initialize(iseNumber.getMonitoringPoints());
+		iseNumber.getIseData().forEach(iseData -> {
+			iseData.getIseRepairData().forEach(imeRepairData -> {
+				Hibernate.initialize(imeRepairData.getUser());
+			});
+		});
+		return iseNumber;
 	}
-	
+
 }

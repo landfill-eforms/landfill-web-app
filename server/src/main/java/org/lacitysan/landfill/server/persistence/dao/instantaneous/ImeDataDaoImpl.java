@@ -11,11 +11,12 @@ import org.springframework.stereotype.Repository;
 public class ImeDataDaoImpl extends AbstractDaoImpl<ImeData> implements ImeDataDao {
 
 	@Override
-	public ImeData initialize(Object entity) {
-		if (entity instanceof ImeData) {
-			return (ImeData)entity;
+	public ImeData initialize(ImeData imeData) {
+		if (imeData == null) {
+			return null;
 		}
-		return null;
+		// TODO Implement this.
+		return imeData;
 	}
 	
 }

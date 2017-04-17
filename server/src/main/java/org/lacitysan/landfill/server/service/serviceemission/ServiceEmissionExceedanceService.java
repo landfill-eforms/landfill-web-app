@@ -6,8 +6,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import org.lacitysan.landfill.server.persistence.dao.serviceemission.ServiceEmissionsExceedanceNumberDao;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionsExceedanceNumber;
+import org.lacitysan.landfill.server.persistence.dao.serviceemission.ServiceEmissionExceedanceNumberDao;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionExceedanceNumber;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @param <T> The type of the service emissions exceedance number (ie. <code>IMENumber</code>).
  * @author Alvin Quach
  */
-public abstract class ServiceEmissionsExceedanceService<T extends ServiceEmissionsExceedanceNumber> {
+public abstract class ServiceEmissionExceedanceService<T extends ServiceEmissionExceedanceNumber> {
 	
 	@Autowired
 	MonitoringPointService monitoringPointService;
@@ -121,7 +121,7 @@ public abstract class ServiceEmissionsExceedanceService<T extends ServiceEmissio
 		}
 	}
 	
-	abstract protected ServiceEmissionsExceedanceNumberDao<T> getCrudRepository();
+	abstract protected ServiceEmissionExceedanceNumberDao<T> getCrudRepository();
 	
 	@SuppressWarnings("unchecked")
 	private T instantiateExceedanceNumber() {

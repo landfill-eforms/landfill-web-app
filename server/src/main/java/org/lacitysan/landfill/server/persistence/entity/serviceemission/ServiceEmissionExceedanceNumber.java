@@ -23,7 +23,7 @@ import org.lacitysan.landfill.server.persistence.enums.location.Site;
  * @author Alvin Quach
  */
 @MappedSuperclass
-public abstract class ServiceEmissionsExceedanceNumber implements Comparable<ServiceEmissionsExceedanceNumber> {
+public abstract class ServiceEmissionExceedanceNumber implements Comparable<ServiceEmissionExceedanceNumber> {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -102,7 +102,7 @@ public abstract class ServiceEmissionsExceedanceNumber implements Comparable<Ser
 	abstract public String toString();
 
 	@Override
-	public int compareTo(ServiceEmissionsExceedanceNumber o) {
+	public int compareTo(ServiceEmissionExceedanceNumber o) {
 		if (this.site != o.getSite()) {
 			return this.site.compareTo(o.getSite());
 		}

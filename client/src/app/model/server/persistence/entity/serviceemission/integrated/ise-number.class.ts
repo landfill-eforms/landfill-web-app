@@ -1,11 +1,11 @@
 import { IseData } from './ise-data.class';
-import { ServiceEmissionsExceedanceNumber } from '../service-emissions-exceedance-number.class';
+import { ServiceEmissionExceedanceNumber } from '../service-emission-exceedance-number.class';
 
 /**
  * This class was automatically generated from IseNumber.java using typescript-gen.
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
-export class IseNumber extends ServiceEmissionsExceedanceNumber {
+export class IseNumber extends ServiceEmissionExceedanceNumber {
 	iseData:IseData[];
 	iseNumber:string;
 }

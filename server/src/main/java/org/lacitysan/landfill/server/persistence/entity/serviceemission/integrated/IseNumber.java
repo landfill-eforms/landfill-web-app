@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionsExceedanceNumber;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionExceedanceNumber;
 import org.lacitysan.landfill.server.service.serviceemission.integrated.IseService;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @AttributeOverride(name="id", column=@Column(name="ISENumberPK"))
 @AssociationOverride(name="monitoringPoints", joinTable=@JoinTable(name="dbo.ISENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="ISENumberFK")))
 @JsonInclude(Include.NON_NULL)
-public class IseNumber extends ServiceEmissionsExceedanceNumber {
+public class IseNumber extends ServiceEmissionExceedanceNumber {
 	
 	@JsonIgnoreProperties("iseNumber")
 	@Cascade(CascadeType.ALL)

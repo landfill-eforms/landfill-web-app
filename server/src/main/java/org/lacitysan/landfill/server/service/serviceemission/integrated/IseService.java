@@ -1,9 +1,9 @@
 package org.lacitysan.landfill.server.service.serviceemission.integrated;
 
-import org.lacitysan.landfill.server.persistence.dao.serviceemission.ServiceEmissionsExceedanceNumberDao;
+import org.lacitysan.landfill.server.persistence.dao.serviceemission.ServiceEmissionExceedanceNumberDao;
 import org.lacitysan.landfill.server.persistence.dao.serviceemission.integrated.IseNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseNumber;
-import org.lacitysan.landfill.server.service.serviceemission.ServiceEmissionsExceedanceService;
+import org.lacitysan.landfill.server.service.serviceemission.ServiceEmissionExceedanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @author Alvin Quach
  */
 @Service
-public class IseService extends ServiceEmissionsExceedanceService<IseNumber> {
+public class IseService extends ServiceEmissionExceedanceService<IseNumber> {
 
 	@Autowired
 	IseNumberDao iseNumberDao;	
@@ -39,7 +39,7 @@ public class IseService extends ServiceEmissionsExceedanceService<IseNumber> {
 	}
 	
 	@Override
-	protected ServiceEmissionsExceedanceNumberDao<IseNumber> getCrudRepository() {
+	protected ServiceEmissionExceedanceNumberDao<IseNumber> getCrudRepository() {
 		return iseNumberDao;
 	}
 

@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionsExceedanceNumber;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionExceedanceNumber;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeService;
 
@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @AttributeOverride(name="id", column=@Column(name="IMENumberPK"))
 @AssociationOverride(name="monitoringPoints", joinTable=@JoinTable(name="dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK")))
 @JsonInclude(Include.NON_NULL)
-public class ImeNumber extends ServiceEmissionsExceedanceNumber {
+public class ImeNumber extends ServiceEmissionExceedanceNumber {
 	
 	@JsonIgnoreProperties(value={"imeNumbers", "warmspotData", "instrument", "inspector"}, allowSetters=true)
 	@ManyToMany(mappedBy="imeNumbers")

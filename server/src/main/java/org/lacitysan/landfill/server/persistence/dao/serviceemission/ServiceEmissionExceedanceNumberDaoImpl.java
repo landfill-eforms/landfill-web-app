@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionsExceedanceNumber;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionExceedanceNumber;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Alvin Quach
  * @param <T>
  */
-public abstract class ServiceEmissionsExceedanceNumberDaoImpl<T extends ServiceEmissionsExceedanceNumber> extends AbstractDaoImpl<T> implements ServiceEmissionsExceedanceNumberDao<T> {
+public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEmissionExceedanceNumber> extends AbstractDaoImpl<T> implements ServiceEmissionExceedanceNumberDao<T> {
 
 	@Override
 	@Transactional

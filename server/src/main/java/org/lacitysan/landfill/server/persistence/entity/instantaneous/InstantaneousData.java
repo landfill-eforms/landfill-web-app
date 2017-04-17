@@ -27,6 +27,8 @@ import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Alvin Quach
@@ -44,12 +46,13 @@ public class InstantaneousData {
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
 	private MonitoringPoint monitoringPoint;
-		
+	
+	@JsonIgnoreProperties("instrumentType")
 	@ManyToOne
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
 	
-	@JsonIgnoreProperties({"userGroups"})
+	@JsonIgnoreProperties("userGroups")
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;

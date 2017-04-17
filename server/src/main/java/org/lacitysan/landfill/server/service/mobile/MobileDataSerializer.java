@@ -1,6 +1,6 @@
 package org.lacitysan.landfill.server.service.mobile;
 
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileInstantaneousData;
 import org.springframework.stereotype.Service;
 

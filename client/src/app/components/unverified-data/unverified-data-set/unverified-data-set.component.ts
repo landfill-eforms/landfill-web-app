@@ -3,7 +3,7 @@ import { UnverifiedIntegratedData } from './../../../model/server/persistence/en
 import { Instrument } from './../../../model/server/persistence/entity/instrument/instrument.class';
 import { InstrumentService } from './../../../services/instrument/instrument.service';
 import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
-import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumber } from './../../../model/server/persistence/entity/serviceemission/instantaneous/ime-number.class';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';
 import { AssignImeNumberDialogComponent } from './../assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { MdDialogRef } from '@angular/material';

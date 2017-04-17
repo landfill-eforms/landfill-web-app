@@ -3,10 +3,10 @@ package org.lacitysan.landfill.server.service.unverified.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
-import org.lacitysan.landfill.server.persistence.entity.integrated.IntegratedData;
 import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.WarmspotData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IntegratedData;
 
 /**
  * @author Alvin Quach

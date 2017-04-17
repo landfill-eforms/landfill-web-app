@@ -1,4 +1,4 @@
-import { ImeNumber } from './../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumber } from './../../model/server/persistence/entity/serviceemission/instantaneous/ime-number.class';
 import { Site } from './../../model/server/persistence/enums/location/site.enum';
 import { Response } from '@angular/http';
 import { environment } from './../../../environments/environment';

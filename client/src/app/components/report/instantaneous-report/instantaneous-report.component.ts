@@ -1,5 +1,5 @@
 import { StringUtils } from './../../../utils/string.utils';
-import { InstantaneousData } from './../../../model/server/persistence/entity/instantaneous/instantaneous-data.class';
+import { InstantaneousData } from './../../../model/server/persistence/entity/serviceemission/instantaneous/instantaneous-data.class';
 import { Site } from './../../../model/server/persistence/enums/location/site.enum';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { InstantaneousDataService } from './../../../services/instantaneous/instantaneous-data.service';

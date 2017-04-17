@@ -1,8 +1,8 @@
-import { Instrument } from '../instrument/instrument.class';
-import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 import { UnverifiedDataSet } from './unverified-data-set.class';
+import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
+import { Instrument } from '../instrument/instrument.class';
 import { UnverifiedWarmspotData } from './unverified-warmspot-data.class';
-import { ImeNumber } from '../instantaneous/ime-number.class';
+import { ImeNumber } from '../serviceemission/instantaneous/ime-number.class';
 
 /**
  * This class was automatically generated from UnverifiedInstantaneousData.java using typescript-gen.

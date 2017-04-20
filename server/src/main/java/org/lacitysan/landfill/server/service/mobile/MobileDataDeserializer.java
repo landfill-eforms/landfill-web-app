@@ -265,14 +265,14 @@ public class MobileDataDeserializer {
 			iseNumber.setStatus(ExceedanceStatus.UNVERIFIED);
 			
 			// Create initial IME data entry based on imported info.
-			IseData imeData = new IseData();
-			//imeData.setId(0);
-			imeData.setDateTime(DateTimeUtils.mobileDateToTimestamp(mobileIseData.getmDate()));
-			imeData.setDescription(mobileIseData.getmDescription());
-			imeData.setMethaneLevel((int)(mobileIseData.getmMethaneReading() * 100));
-			imeData.setInspector(getUser(userMap, mobileIseData.getmInspectorUserName()));
-			imeData.setIseNumber(iseNumber);
-			iseNumber.getIseData().add(imeData);
+			IseData iseData = new IseData();
+			//iseData.setId(0);
+			iseData.setDateTime(DateTimeUtils.mobileDateToTimestamp(mobileIseData.getmDate()));
+			iseData.setDescription(mobileIseData.getmDescription());
+			iseData.setMethaneLevel((int)(mobileIseData.getmMethaneReading() * 100));
+			iseData.setInspector(getUser(userMap, mobileIseData.getmInspectorUserName()));
+			iseData.setIseNumber(iseNumber);
+			iseNumber.getIseData().add(iseData);
 			
 			// Add the IME number to the set of IME numbers.
 			iseNumberSet.add(iseNumber);

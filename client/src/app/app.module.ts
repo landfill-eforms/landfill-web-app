@@ -15,7 +15,6 @@ import { UserGroupService } from './services/user/user-group.service';
 import { InstrumentService } from './services/instrument/instrument.service';
 import { InstantaneousDataService } from './services/instantaneous/instantaneous-data.service';
 import { ImeNumberService } from './services/instantaneous/ime-number.service';
-import { ImeDataService } from './services/instantaneous/ime-data.service';
 import { ImeRepairDialogComponent } from './components/directives/dialogs/ime-repair-dialog/ime-repair-dialog.component';
 import { ImeRecheckDialogComponent } from './components/directives/dialogs/ime-recheck-dialog/ime-recheck-dialog.component';
 import { CommonModule } from './components/common/common.module';
@@ -90,7 +89,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		AuthGuard,
 		AuthService,
 		FileUploadService,
-		ImeDataService,
 		ImeNumberService,
 		InstantaneousDataService,
 		IntegratedDataService,

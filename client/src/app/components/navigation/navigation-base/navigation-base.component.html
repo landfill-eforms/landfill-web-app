@@ -1,69 +1,15 @@
-<md-toolbar color="primary">
-	<div class="toolbar-content flex-container" fxLayout="row" fxLayoutAlign="space-between center">
-		<div class="flex-item" fxFlex="40px">
-			<button md-icon-button (click)="sidenav.toggle()">
-				<md-icon>menu</md-icon>
-			</button>
-		</div>
-		<div class="logo-container flex-item" fxFlex>
-			<a routerLink="dashboard" routerLikeActive="active">
-				<img [src]="logoUrl">
-			</a>
-		</div>
-		<div class="flex-item" fxFlex="100px">
-			<button md-raised-button color="warn" (click)="logout()">LOGOUT</button>
-		</div>
-	</div>
-	<div class="navbar-shadow"></div>
-</md-toolbar>
-<md-sidenav-container fullscreen>
-	<md-sidenav #sidenav mode="over" opened="false" class="sidenav-contents">
-		<div >
-			<div class="nav-logo">
-				<div>
-					<picture >				
-						<img class="la-logo" [src]="citySealUrl"/>			
-					</picture>
-				</div>
-				<div class="nav-logo-text">
-					<font color="white">Bureau of Sanitation</font>	
-				</div>
-			<!--</div>
-				<div class="sidenav-section-header">
-					{{section.name}}
-				</div>
-				<div *ngFor="let link of section.links">
-					<div *ngIf="link.visible" 
-						[routerLink]="link.route.path" 
-						routerLinkActive="sidenav-link-active" 
-						class="sidenav-link flex-container"
-						fxLayout="row"
-						fxLayoutAlign=" center">
-						<md-icon class="sidenav-link-icon flex-item" fxFlex="64px">{{link.icon}}</md-icon>
-						<div class="flex-item" fxFlex>{{link.label}}</div>
-					</div>
-				</div>-->
-			</div>
 
-
-
-			<!-- TEMPORARY -->
-			<div *ngFor="let link of tempLinks">
-				<div *ngIf="link.visible" 
-					[routerLink]="link.route.path" 
-					routerLinkActive="sidenav-link-active" 
-					class="sidenav-link flex-container"
-					fxLayout="row"
-					fxLayoutAlign=" center"
-					style="border-bottom: solid 0px lightgray;">
-					<md-icon class="sidenav-link-icon flex-item" fxFlex="64px">{{link.icon}}</md-icon>
-					<div class="flex-item" fxFlex>{{link.label}}</div>
-				</div>
-			</div>
-
-
-
-		</div>
+<md-sidenav-container fullscreen class="navdrawer-container">
+	<md-sidenav #navdrawer mode="over" opened="false" class="navdrawer-contents">
+		<app-navigation-drawer [sidenav]="navdrawer"></app-navigation-drawer>
 	</md-sidenav>
-	<router-outlet></router-outlet>
+	<md-sidenav-container class="sideinfo-container" fullscreen [ngClass]="{'sideinfo-force-close':isSideinfoDisabled()}">
+		<md-sidenav #sideinfo mode="side" align="end" opened="true" class="sideinfo-contents">
+			<app-navigation-sideinfo [sidenav]="sideinfo"></app-navigation-sideinfo>
+		</md-sidenav>
+		<app-navigation-toolbar [navdrawer]="navdrawer"></app-navigation-toolbar>
+		<div class="main-content">
+			<router-outlet></router-outlet>
+		</div>
+	</md-sidenav-container>
 </md-sidenav-container>

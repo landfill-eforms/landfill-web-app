@@ -4,6 +4,7 @@
 	font-weight: 500;
 	height: 56px;
 	text-align: right;
+	border-top: 1px solid rgba(0,0,0,0.12);
 }
 
 .pagination-nav-button {
@@ -14,5 +15,5 @@
 
 .pagination-nav-button-icon {
 	position: relative;
-	top: -10px;
+	top: -9px; // Different for all browsers...
 }

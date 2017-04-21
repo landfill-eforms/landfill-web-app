@@ -1,0 +1,80 @@
+<div *ngIf="!instrumentType">
+	<div style="padding:16px;">
+		Select an equipment type to view its details.
+	</div>
+</div>
+<div *ngIf="instrumentType" style="height:calc(100% - 128px);">
+	<md-tab-group style="height:100%;">
+		<md-tab label="Details">
+			<div  class="sideinfo-sections-container">
+				<div class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						General
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Type
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{instrumentType.type}}
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Manufacturer
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{instrumentType.manufacturer}}
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Date Created
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							Coming Soon
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Last Modified
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							Coming Soon
+						</div>
+					</div>
+				</div>
+				<div class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						Description
+					</div>
+					<div class="sideinfo-section-data-paragraph" style="width:256px;">
+						{{instrumentType.description}}
+					</div>
+				</div>
+				<div class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						Instruments
+					</div>
+					<div *ngFor="let instrument of instrumentType.instruments" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+						<!-- TODO Sort the serial numbers. -->
+						<a [routerLink]="'instruments/' + instrument.id">{{instrument.serialNumber}}</a>
+					</div>
+				</div>
+				<div class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						Applicable Tests
+					</div>
+					<div *ngFor="let test of tests" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+						{{test}}
+					</div>
+				</div>
+			</div>
+		</md-tab>
+		<md-tab label="Activity">
+			<div style="padding:16px;">
+				Coming Soon
+			</div>
+		</md-tab>
+	</md-tab-group>
+</div>

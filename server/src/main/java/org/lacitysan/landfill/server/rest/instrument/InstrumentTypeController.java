@@ -6,7 +6,7 @@ import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentTypeDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
-import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,8 +56,7 @@ public class InstrumentTypeController {
 			throw new EmptyStringException("Manufacturer name cannot be blank.");
 		}
 
-		instrumentTypeDao.create(instrumentType);
-		return instrumentType;
+		return instrumentTypeDao.create(instrumentType);
 	}
 
 	@RestSecurity(UserPermission.EDIT_INSTRUMENT_TYPES)
@@ -74,15 +73,14 @@ public class InstrumentTypeController {
 			throw new EmptyStringException("Manufacturer name cannot be blank.");
 		}
 
-		instrumentTypeDao.update(instrumentType);
-		return instrumentType;
+		return instrumentTypeDao.update(instrumentType);
 	}
 
 	@RestSecurity(UserPermission.DELETE_INSTRUMENT_TYPES)
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public InstrumentType delete(@RequestBody InstrumentType instrumentType) {
-		instrumentTypeDao.delete(instrumentType);
-		return instrumentType;
+		if (instrumentType == null) return null;
+		return instrumentTypeDao.delete(instrumentType);
 	}
 
 	@RestSecurity(UserPermission.DELETE_INSTRUMENT_TYPES)

@@ -20,8 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -31,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.UserGroups")
+@Table(name="dbo.UserGroups")
 @JsonInclude(Include.NON_NULL)
 public class UserGroup {
 	
@@ -65,7 +64,7 @@ public class UserGroup {
 	private Set<User> users = new HashSet<>();
 	
 	@ElementCollection(targetClass=UserPermission.class)
-	@JoinTable(name="test.dbo.UserGroupsXRefUserPermissions", joinColumns=@JoinColumn(name="UserGroupFK"))
+	@JoinTable(name="dbo.UserGroupsXRefUserPermissions", joinColumns=@JoinColumn(name="UserGroupFK"))
 	@Column(name="UserPermissionString")
 	@Enumerated(EnumType.STRING)
 	private Set<UserPermission> userPermissions = new HashSet<>();

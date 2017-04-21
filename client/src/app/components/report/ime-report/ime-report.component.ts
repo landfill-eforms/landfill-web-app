@@ -1,4 +1,4 @@
-import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumber } from './../../../model/server/persistence/entity/serviceemission/instantaneous/ime-number.class';
 import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
 import { Component, OnInit } from '@angular/core';
 

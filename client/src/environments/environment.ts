@@ -1,14 +1,12 @@
+import { AppConstant } from './../app/app.constant';
 // The file contents for the current environment will overwrite these during build.
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
-export const serverUrl:string = "http://lef-backend.us-west-2.elasticbeanstalk.com";
-// export const serverUrl:string = "http://localhost:5000";
-
 export const environment = {
   production: false,
-  loginUrl: serverUrl + "/login",
-  resourceUrl: serverUrl + "/rest",
+  loginUrl: AppConstant.RESOURCE_SERVER + "/login",
+  resourceUrl: AppConstant.RESOURCE_SERVER + "/rest",
   assetsUrl: "/src/assets"
 };

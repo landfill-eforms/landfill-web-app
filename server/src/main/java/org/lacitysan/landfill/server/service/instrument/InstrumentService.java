@@ -18,12 +18,14 @@ public class InstrumentService {
 	InstrumentDao instrumentDao;
 	
 	public Instrument create(Instrument instrument) {
+		if (instrument == null) return null;
 		validateSerialNumber(instrument.getSerialNumber(), true);
 		checkIfInstrumentExists(instrument, true);
 		return instrumentDao.create(instrument);
 	}
 	
 	public Instrument update(Instrument instrument) {
+		if (instrument == null) return null;
 		validateSerialNumber(instrument.getSerialNumber(), true);
 		checkIfInstrumentExists(instrument, true);
 		return instrumentDao.update(instrument);

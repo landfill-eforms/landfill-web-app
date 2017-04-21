@@ -6,14 +6,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-
 /**
  * Key value pair for application settings.
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.ApplicationSettings")
+@Table(name="dbo.ApplicationSettings")
 public class ApplicationSetting {
 	
 	@Id

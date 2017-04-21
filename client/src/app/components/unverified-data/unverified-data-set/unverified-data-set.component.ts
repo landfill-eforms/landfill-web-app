@@ -1,7 +1,9 @@
+import { UnverifiedProbeData } from './../../../model/server/persistence/entity/unverified/unverified-probe-data.class';
+import { UnverifiedIntegratedData } from './../../../model/server/persistence/entity/unverified/unverified-integrated-data.class';
 import { Instrument } from './../../../model/server/persistence/entity/instrument/instrument.class';
 import { InstrumentService } from './../../../services/instrument/instrument.service';
 import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
-import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumber } from './../../../model/server/persistence/entity/serviceemission/instantaneous/ime-number.class';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';
 import { AssignImeNumberDialogComponent } from './../assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { MdDialogRef } from '@angular/material';
@@ -9,8 +11,8 @@ import { MdDialog, MdDialogConfig } from '@angular/material';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { StringUtils } from './../../../utils/string.utils';
 import { EnumUtils } from './../../../utils/enum.utils';
-import { Site } from './../../../model/server/persistence/enums/site.enum';
-import { MonitoringPoint } from './../../../model/server/persistence/enums/monitoring-point.enum';
+import { Site } from './../../../model/server/persistence/enums/location/site.enum';
+import { MonitoringPoint } from './../../../model/server/persistence/enums/location/monitoring-point.enum';
 import { MdSnackBar } from '@angular/material';
 import { UnverifiedDataService } from './../../../services/unverified/unverified-data-set.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -50,7 +52,6 @@ export class UnverifiedDataSetComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		console.log("HELLO?????");
 		this.dataSetId = this.activatedRoute.params['_value']['id'];
 		
 		this.unverifiedDataService.getById(this.dataSetId,
@@ -59,6 +60,11 @@ export class UnverifiedDataSetComponent implements OnInit {
 				for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
 					if (!this.dataSet.unverifiedInstantaneousData[i].instrument) {
 						this.dataSet.unverifiedInstantaneousData[i].instrument = <any>{}; // LOLOLOL
+					}
+				}
+				for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
+					if (!this.dataSet.unverifiedIntegratedData[i].instrument) {
+						this.dataSet.unverifiedIntegratedData[i].instrument = <any>{}; // LOLOLOL
 					}
 				}
 				this.sortByGrid();
@@ -72,6 +78,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 						console.log(this.existingImeNumbers);
 						this.instrumentService.getAll((data) => {
 							this.instruments = data;
+							// this.instruments = data.filter(o => o.instrumentType.probe || o.instrumentType.instantaneous); // TODO Do this properly.
 							this.isDataLoaded = true;
 						});
 					}
@@ -95,6 +102,14 @@ export class UnverifiedDataSetComponent implements OnInit {
 				this.barometricPressure = unverifiedInstantaneousData["barometricPressure"] / 100;
 			}
 
+		}
+		for (let i = 0; i < data.unverifiedIntegratedData.length; i++) {
+			let unverifiedIntegratedData:any = data.unverifiedIntegratedData[i];
+			unverifiedIntegratedData["monitoringPoint"] = EnumUtils.convertToEnum(MonitoringPoint, unverifiedIntegratedData["monitoringPoint"]);
+		}
+		for (let i = 0; i < data.unverifiedProbeData.length; i++) {
+			let unverifiedProbeData:any = data.unverifiedProbeData[i];
+			unverifiedProbeData["monitoringPoint"] = EnumUtils.convertToEnum(MonitoringPoint, unverifiedProbeData["monitoringPoint"]);
 		}
 		return this.unverifiedDataService.checkForErrors(data);
 	}
@@ -127,6 +142,16 @@ export class UnverifiedDataSetComponent implements OnInit {
 				this.dataSet.unverifiedInstantaneousData[i].barometricPressure = this.barometricPressure * 100;
 			}
 		}
+		for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
+			if (this.barometricPressure) {
+				this.dataSet.unverifiedIntegratedData[i].barometricPressure = this.barometricPressure * 100;
+			}
+		}
+		for (let i = 0; i < this.dataSet.unverifiedProbeData.length; i++) {
+			if (this.barometricPressure) {
+				this.dataSet.unverifiedProbeData[i].barometricPressure = this.barometricPressure * 100;
+			}
+		}
 		this.unverifiedDataService.checkForErrors(this.dataSet);
 	}
 
@@ -135,6 +160,14 @@ export class UnverifiedDataSetComponent implements OnInit {
 		for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
 			let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
 			unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
+		}
+		for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
+			let unverifiedIntegratedData:UnverifiedIntegratedData =  this.dataSet.unverifiedIntegratedData[i];
+			unverifiedIntegratedData.monitoringPoint = EnumUtils.convertToString(unverifiedIntegratedData.monitoringPoint);
+		}
+		for (let i = 0; i < this.dataSet.unverifiedProbeData.length; i++) {
+			let unverifiedProbeData:UnverifiedProbeData =  this.dataSet.unverifiedProbeData[i];
+			unverifiedProbeData.monitoringPoint = EnumUtils.convertToString(unverifiedProbeData.monitoringPoint);
 		}
 		console.log(this.dataSet);
 		this.unverifiedDataService.update(this.dataSet, 
@@ -156,6 +189,14 @@ export class UnverifiedDataSetComponent implements OnInit {
 		for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
 			let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
 			unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
+		}
+		for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
+			let unverifiedIntegratedData:UnverifiedIntegratedData =  this.dataSet.unverifiedIntegratedData[i];
+			unverifiedIntegratedData.monitoringPoint = EnumUtils.convertToString(unverifiedIntegratedData.monitoringPoint);
+		}
+		for (let i = 0; i < this.dataSet.unverifiedProbeData.length; i++) {
+			let unverifiedProbeData:UnverifiedProbeData =  this.dataSet.unverifiedProbeData[i];
+			unverifiedProbeData.monitoringPoint = EnumUtils.convertToString(unverifiedProbeData.monitoringPoint);
 		}
 		this.unverifiedDataService.commit(this.dataSet,
 			(data) => {

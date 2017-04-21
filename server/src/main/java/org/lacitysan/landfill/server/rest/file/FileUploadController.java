@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.exception.FileProcessingException;
-import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.mobile.MobileDataDeserializer;
 import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;

@@ -3,18 +3,29 @@ package org.lacitysan.landfill.server.config;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeData;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeRepairData;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
+import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
+import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
+import org.lacitysan.landfill.server.persistence.entity.scheduled.Schedule;
+import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledEmail;
+import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledNotification;
+import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledReport;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeRepairData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.WarmspotData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IntegratedData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseNumber;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseRepairData;
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedImeData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedProbeData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,9 +52,8 @@ public class DataSourceConfig {
 	@Value("${spring.datasource.url}")
 	private String serverName;
 
-	//	Database name is now defined in ApplicationProperty
-	//	@Value("${spring.datasource.name}")
-	//	private String databaseName;
+	@Value("${spring.datasource.name}")
+	private String databaseName;
 
 	@Value("${spring.datasource.username}")
 	private String username;
@@ -67,6 +77,9 @@ public class DataSourceConfig {
 						// System
 						ApplicationSetting.class,
 						
+						// Email
+						EmailRecipient.class,
+
 						// Instantaneous
 						ImeData.class,
 						ImeNumber.class,
@@ -78,10 +91,27 @@ public class DataSourceConfig {
 						Instrument.class,
 						InstrumentType.class,
 
+						// Integrated
+						IntegratedData.class,
+						IseData.class,
+						IseNumber.class,
+						IseRepairData.class,
+						
+						// Probe
+						ProbeData.class,
+						
+						// Scheduled
+						Schedule.class,
+						ScheduledEmail.class,
+						ScheduledNotification.class,
+						ScheduledReport.class,
+						
 						// Unverified
 						UnverifiedDataSet.class,
-						UnverifiedImeData.class,
 						UnverifiedInstantaneousData.class,
+						UnverifiedIntegratedData.class,
+						UnverifiedProbeData.class,
+						UnverifiedWarmspotData.class,
 
 						// User
 						User.class,
@@ -96,7 +126,7 @@ public class DataSourceConfig {
 		HikariConfig dataSource = new HikariConfig();
 		dataSource.setDataSourceClassName(className);
 		dataSource.addDataSourceProperty("serverName", serverName);
-		dataSource.addDataSourceProperty("databaseName", ApplicationConstant.DATABASE_NAME);
+		dataSource.addDataSourceProperty("databaseName", databaseName);
 		dataSource.setUsername(username);
 		dataSource.setPassword(password);
 		dataSource.setInitializationFailFast(initializationFailFast);

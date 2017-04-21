@@ -1,11 +1,188 @@
 <md-card class="section-single">
 	<md-card-content>
 		<div class="section-title">Reports</div>
-		<div style="padding: 16px">
-			<button md-raised-button routerLink="../instantaneous-report" style="width:150px">INSTANTANEOUS</button>
+		<div>
+			<div style="font-weight:500;padding:16px 0 8px 0;">Type</div>
+			<div>
+				<md-radio-group class="example-radio-group" [(ngModel)]="reportType">
+					<md-radio-button [value]="1" style="margin:4px 8px;">
+						Instantaneous
+					</md-radio-button>
+					<md-radio-button [value]="2" style="margin:4px 8px;">
+						Warmspot
+					</md-radio-button>
+					<md-radio-button [value]="3" style="margin:4px 8px;">
+						Integrated
+					</md-radio-button>
+					<md-radio-button [value]="4" style="margin:4px 8px;">
+						Probe
+					</md-radio-button>
+					<md-radio-button [value]="5" style="margin:4px 8px;">
+						Exceedance
+					</md-radio-button>
+				</md-radio-group>
+			</div>
 		</div>
-		<div style="padding: 16px">
-			<button md-raised-button routerLink="../exceedance-report" style="width:150px">EXCEEDANCE</button>
+		<div *ngIf="reportType > 0">
+			<div class="flex-container" fxLayout="row" style="padding-top:32px;">
+				<md-select [(ngModel)]="location" placeholder="Location" class="flex-item" fxFlex="200px">
+					<md-option *ngFor="let location of locations" [value]="location">
+						{{location.name}}
+					</md-option>
+				</md-select>
+				<div class="flex-item" fxFlex="24px"></div>
+				<md-select *ngIf="reportType == 5"  [(ngModel)]="exceedanceType" placeholder="Exceedance Type" class="flex-item" fxFlex="200px">
+					<md-option *ngFor="let type of exceedanceTypes" [value]="type.value">
+						{{type.label}}
+					</md-option>
+				</md-select>
+			</div>
+			<div style="font-weight:500;padding:32px 0 8px 0;">Date Range</div>
+			<div>
+				<span>From</span>
+				<input type="date" (change)="onStartDateChange($event)">
+				<span style="padding-left:8px;">To</span>
+				<input type="date" (change)="onEndDateChange($event)">
+			</div>
+			<div style="margin:32px 0">
+				<button (click)="test()">GO</button>
+			</div>
+		</div>
+		<div *ngIf="dataLoaded == 1">
+			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Date</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Barom.</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Inspector</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Grid</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Start</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">End</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Instrument</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Reading</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">IME#</span>
+				</div>
+			</div>
+			<div *ngFor="let data of instantaneousData" class="data-table-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex>{{dateTimeUtils.getDate(data.startTime)}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.barometricPressure / 100}}</div>
+				<div class="truncate flex-item" fxFlex>{{stringUtils.formatUserName(data.inspector)}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.monitoringPoint.name}}</div>
+				<div class="truncate flex-item" fxFlex>{{dateTimeUtils.getTime(data.startTime)}}</div>
+				<div class="truncate flex-item" fxFlex>{{dateTimeUtils.getTime(data.endTime)}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.instrument.serialNumber}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.methaneLevel / 100}}</div>
+				<div class="truncate flex-item" fxFlex>
+					<div *ngIf="data.imeNumbers">
+						<span *ngFor="let ime of data.imeNumbers">{{ime.imeNumber}} </span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="dataLoaded == 2">
+
+		</div>
+		<div *ngIf="dataLoaded == 3">
+			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Date</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Barom.</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Inspector</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Grid</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Start</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">End</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Instrument</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Reading</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Bag Number</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Volume</span>
+				</div>
+			</div>
+			<div *ngFor="let data of integratedData" class="data-table-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex>{{dateTimeUtils.getDate(data.startTime)}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.barometricPressure / 100}}</div>
+				<div class="truncate flex-item" fxFlex>{{stringUtils.formatUserName(data.inspector)}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.monitoringPoint.name}}</div>
+				<div class="truncate flex-item" fxFlex>{{dateTimeUtils.getTime(data.startTime)}}</div>
+				<div class="truncate flex-item" fxFlex>{{dateTimeUtils.getTime(data.endTime)}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.instrument.serialNumber}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.methaneLevel / 100}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.bagNumber}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.volume}}</div>
+			</div>
+		</div>
+		<div *ngIf="dataLoaded == 4">
+
+		</div>
+		<div *ngIf="dataLoaded == 5">
+			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Date</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Landfill</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Exceedance Type</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">IME#/Probe</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Grid/Depth</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Repair Description</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Initial ppmv</span>
+				</div>
+				<div class="truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Recheck</span>
+				</div>
+			</div>
+			<div *ngFor="let data of exceedanceData" class="data-table-row flex-container" fxLayout="row">
+				<div class="truncate flex-item" fxFlex>{{dateTimeUtils.getDate(data.startTime)}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.landfill}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.type}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.number}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.grid}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.repairDesc}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.init}}</div>
+				<div class="truncate flex-item" fxFlex>{{data.recheck}}</div>
+			</div>
 		</div>
 	</md-card-content>
 </md-card>

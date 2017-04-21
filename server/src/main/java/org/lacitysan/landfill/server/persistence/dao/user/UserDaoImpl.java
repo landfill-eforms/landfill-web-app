@@ -25,20 +25,13 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 				.createCriteria(User.class)
 				.add(Restrictions.eq("username", username).ignoreCase()) // The ignoreCase() is not actually needed when working with SQL Server.
 				.uniqueResult();
-		if (result instanceof User) {
-			return initialize((User)result);
-		}
-		return null;
+		return initialize(checkType(result));
 	}
-	
+
 	@Override
-	public User initialize(Object entity) {
-		if (entity instanceof User) {
-			User user = (User)entity;
-			user.getUserGroups().forEach(userGroup -> Hibernate.initialize(userGroup.getUserPermissions()));
-			return user;
-		}
-		return null;
+	public User initialize(User user) {
+		user.getUserGroups().forEach(userGroup -> Hibernate.initialize(userGroup.getUserPermissions()));
+		return user;
 	}
 
 }

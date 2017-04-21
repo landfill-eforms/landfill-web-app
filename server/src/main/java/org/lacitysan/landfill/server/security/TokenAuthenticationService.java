@@ -55,7 +55,7 @@ public class TokenAuthenticationService {
 		String jwt = Jwts.builder()
 				.setClaims(claims)
 				.setExpiration(new Date(System.currentTimeMillis() + applicationVariableService.getTokenExpirationTime()))
-				.signWith(SignatureAlgorithm.HS512, secret)
+				.signWith(SignatureAlgorithm.HS512, "secret")
 				.compact();
 		response.addHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME, ApplicationConstant.HTTP_TOKEN_PREFIX + " " + jwt);
 		response.addHeader("Access-Control-Allow-Origin", "*");
@@ -69,7 +69,7 @@ public class TokenAuthenticationService {
 			try {
 				token = token.replace(ApplicationConstant.HTTP_TOKEN_PREFIX + " ", "");
 				Claims claims = Jwts.parser()
-						.setSigningKey(secret)
+						.setSigningKey("secret")
 						.parseClaimsJws(token)
 						.getBody();
 				Object principle = claims.get("principle");

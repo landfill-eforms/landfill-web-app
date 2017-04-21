@@ -1,6 +1,6 @@
 import { DateTimeUtils } from './../../../../utils/date-time.utils';
 import { Sort, SortUtils } from './../../../../utils/sort.utils';
-import { ImeNumber } from './../../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ImeNumber } from './../../../../model/server/persistence/entity/serviceemission/instantaneous/ime-number.class';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 

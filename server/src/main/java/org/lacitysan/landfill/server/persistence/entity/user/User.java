@@ -14,8 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -26,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.Users")
+@Table(name="dbo.Users")
 @JsonInclude(Include.NON_NULL)
 public class User {
 	
@@ -42,19 +40,24 @@ public class User {
 	@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
 
-	@JsonIgnoreProperties(value={"users", "createdBy", "modifiedBy"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"users", "createdBy", "modifiedBy", "scheduledReports"}, allowSetters=true)
 	@ManyToMany
-	@JoinTable(name="test.dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
+	@JoinTable(name="dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
 	private Set<UserGroup> userGroups = new HashSet<>();
 	
+	@NotNull
 	private String firstname;
 	
+	@NotNull
 	private String middlename;
 	
+	@NotNull
 	private String lastname;
 	
+	@NotNull
 	private String emailAddress;
 	
+	@NotNull
 	private String employeeId;
 	
 	@NotNull

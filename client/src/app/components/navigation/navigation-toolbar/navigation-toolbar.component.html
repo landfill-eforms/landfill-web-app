@@ -1,0 +1,38 @@
+<md-toolbar class="navbar" [ngClass]="{'navbar-expanded':expanded}">
+	<div class="navbar-content flex-container" fxLayout="row" fxLayoutAlign="space-between center">
+		<div class="navbar-hamburger flex-item" fxFlex="40px">
+			<button md-icon-button (click)="action()">
+				<md-icon>menu</md-icon>
+			</button>
+		</div>
+		<!--<div class="logo-container flex-item" fxFlex>
+			<a routerLink="dashboard" routerLikeActive="active">
+				<img [src]="logoUrl">
+			</a>
+		</div>-->
+		<div class="navbar-title flex-item" fxFlex>
+			{{title}}
+		</div>
+		<div class="navbar-hamburger flex-item" fxFlex="64px">
+			<button md-icon-button [mdMenuTriggerFor]="menu">
+				<md-icon>more_vert</md-icon>
+			</button>
+		</div>
+	</div>
+	<md-menu #menu="mdMenu">
+		<button md-menu-item>
+			<md-icon>person_pin</md-icon>
+			<span>Profile</span>
+		</button>
+		<button md-menu-item (click)="logout()">
+			<md-icon>exit_to_app</md-icon>
+			<span>Logout</span>
+		</button>
+	</md-menu>
+</md-toolbar>
+<div class="fab-top-container" *ngIf="fabInfo">
+	<button md-fab (click)="fabAction($event)" [mdTooltip]="fabInfo.tooltip" mdTooltipPosition="below">
+		<md-icon>{{fabInfo.icon}}</md-icon>
+	</button>
+</div>
+

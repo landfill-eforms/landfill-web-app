@@ -22,9 +22,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
-import org.lacitysan.landfill.server.persistence.enums.Site;
+import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -34,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.UnverifiedDataSets")
+@Table(name="dbo.UnverifiedDataSets")
 @JsonInclude(Include.NON_NULL)
 public class UnverifiedDataSet {
 	
@@ -68,10 +67,20 @@ public class UnverifiedDataSet {
 	
 	private Timestamp modifiedDate;
 	
-	@JsonIgnoreProperties({"unverifiedDataSet"})
+	@JsonIgnoreProperties("unverifiedDataSet")
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
+	
+	@JsonIgnoreProperties("unverifiedDataSet")
+	@Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy="unverifiedDataSet")
+	private Set<UnverifiedIntegratedData> unverifiedIntegratedData = new HashSet<>();
+	
+	@JsonIgnoreProperties("unverifiedDataSet")
+	@Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy="unverifiedDataSet")
+	private Set<UnverifiedProbeData> unverifiedProbeData = new HashSet<>();
 	
 	@Transient
 	private Map<String, List<String>> errors = new HashMap<>();
@@ -148,6 +157,22 @@ public class UnverifiedDataSet {
 
 	public void setUnverifiedInstantaneousData(Set<UnverifiedInstantaneousData> unverifiedInstantaneousData) {
 		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
+	}
+	
+	public Set<UnverifiedIntegratedData> getUnverifiedIntegratedData() {
+		return unverifiedIntegratedData;
+	}
+
+	public void setUnverifiedIntegratedData(Set<UnverifiedIntegratedData> unverifiedIntegratedData) {
+		this.unverifiedIntegratedData = unverifiedIntegratedData;
+	}
+
+	public Set<UnverifiedProbeData> getUnverifiedProbeData() {
+		return unverifiedProbeData;
+	}
+
+	public void setUnverifiedProbeData(Set<UnverifiedProbeData> unverifiedProbeData) {
+		this.unverifiedProbeData = unverifiedProbeData;
 	}
 
 	public Map<String, List<String>> getErrors() {

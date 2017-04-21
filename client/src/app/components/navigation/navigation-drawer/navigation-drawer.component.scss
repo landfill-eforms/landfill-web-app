@@ -1,0 +1,64 @@
+@import '../../../app-theme.scss';
+
+.navdrawer-subtitle {
+	height: 64px;
+	padding: 8px 0 16px 16px;
+	.navdrawer-subtitle-name {
+		font-size: 14px;
+		font-weight: 500;
+		color: #FFF;
+	}
+	.navdrawer-subtitle-email {
+		font-size: 14px;
+		font-weight: 400px;
+		color: #FFF;
+	}
+}
+
+.navdrawer-logo {
+	background: linear-gradient(90deg, mat-color($app-primary, 800), mat-color($app-primary, 400));
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+	margin-bottom: 8px;
+}
+
+.la-logo {
+	width: 86px;
+    padding: 16px 0 4px 16px;
+}
+
+.navdrawer-section {
+
+}
+
+.navdrawer-section-header {
+	color: #fff;
+    background: #999;
+    font-size: 0.8rem;
+    padding: 3px 20px;
+	text-transform: uppercase;
+}
+
+.navdrawer-link {
+	outline: none;
+	height: 48px;
+	color: rgba(0,0,0,0.87);
+	font-size: 14px;
+	font-weight: 500;
+	background: white;
+	// border-bottom: 1px solid lightgray;
+	cursor: pointer;
+}
+
+.navdrawer-link:hover {
+	background: #EEE;
+}
+
+.navdrawer-link-active, .navdrawer-link-active:hover {
+	background: mat-color($app-accent);
+	font-weight: bold;
+}
+
+.navdrawer-link-icon {
+	color: rgba(0,0,0,0.54);
+	padding-left: 16px;
+}

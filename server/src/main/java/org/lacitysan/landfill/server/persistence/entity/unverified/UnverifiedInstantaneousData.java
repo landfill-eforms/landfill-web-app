@@ -15,16 +15,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.persistence.entity.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
-import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -34,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Alvin Quach
  */
 @Entity
-@Table(name=ApplicationConstant.DATABASE_NAME + ".dbo.UnverifiedInstantaneousData")
+@Table(name="dbo.UnverifiedInstantaneousData")
 @JsonInclude(Include.NON_NULL)
 public class UnverifiedInstantaneousData {
 	
@@ -65,20 +64,20 @@ public class UnverifiedInstantaneousData {
 	
 	@JsonIgnoreProperties(value={"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"}, allowSetters=true)
 	@ManyToMany
-	@JoinTable(name="test.dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
+	@JoinTable(name="dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
-	@JsonIgnoreProperties(value={"unverifiedInstantaneousData", "instantaneousData"}, allowSetters=true)
-	@ManyToMany
-	@JoinTable(name="test.dbo.UnverifiedInstantaneousDataXRefWarmspotData", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="WarmspotFK"))
-	private Set<WarmspotData> warmspotData = new HashSet<>();
-	
-	//@JsonIgnoreProperties({"unverifiedInstantaneousData"})
+	@JsonIgnoreProperties("unverifiedInstantaneousData")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="UnverifiedDataSetFK", nullable=false)
 	@Cascade(CascadeType.ALL)
 	private UnverifiedDataSet unverifiedDataSet;
+	
+	@OneToOne
+	@JoinColumn(name="UnverifiedWarmspotFK")
+	@Cascade(CascadeType.ALL)
+	private UnverifiedWarmspotData unverifiedWarmspotData;
 	
 	public Integer getId() {
 		return id;
@@ -144,20 +143,20 @@ public class UnverifiedInstantaneousData {
 		this.imeNumbers = imeNumbers;
 	}
 
-	public Set<WarmspotData> getWarmspotData() {
-		return warmspotData;
-	}
-
-	public void setWarmspotData(Set<WarmspotData> warmspotData) {
-		this.warmspotData = warmspotData;
-	}
-
 	public UnverifiedDataSet getUnverifiedDataSet() {
 		return unverifiedDataSet;
 	}
 
 	public void setUnverifiedDataSet(UnverifiedDataSet unverifiedDataSet) {
 		this.unverifiedDataSet = unverifiedDataSet;
+	}
+
+	public UnverifiedWarmspotData getUnverifiedWarmspotData() {
+		return unverifiedWarmspotData;
+	}
+
+	public void setUnverifiedWarmspotData(UnverifiedWarmspotData unverifiedWarmspotData) {
+		this.unverifiedWarmspotData = unverifiedWarmspotData;
 	}
 	
 }

@@ -1,16 +1,13 @@
 package org.lacitysan.landfill.server.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.persistence.enums.MonitoringPoint;
-import org.lacitysan.landfill.server.persistence.enums.MonitoringPointType;
-import org.lacitysan.landfill.server.persistence.enums.Site;
-import org.lacitysan.landfill.server.util.model.IntegerRange;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPointType;
+import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.springframework.stereotype.Service;
 
 /**
@@ -65,7 +62,7 @@ public class MonitoringPointService {
 	
 	/**
 	 * Finds a grid by its site and grid ID.
-	 * @param siteName The grids <code>Site</code> enum value.
+	 * @param siteName The grid's <code>Site</code> enum value.
 	 * @param gridId The case-insensitive ID or name of the grid.
 	 * @return A grid-type <code>MonitoringPoint</code> that matches the input parameters, or <code>null</code> if no suitable grid was found. 
 	 */
@@ -77,57 +74,20 @@ public class MonitoringPointService {
 		}
 		return null;
 	}
-
-	/**
-	 * Finds a random monitoring point that matches the parameters.
-	 * @param type The type of monitoring point to search for.
-	 * @param sites The sites to search for.
-	 * @return A random <code>MonitoringPoint</code> that matches the input parameters, or <code>null</code> if no suitable monitoring point was found.  
-	 */
-	public MonitoringPoint getRandom(MonitoringPointType type, Site... sites) {
-		List<IntegerRange> ranges = getRanges(type, sites);
-		for (int i = 0; i < ranges.size(); i++) {
-			if (i < ranges.size() - 1 && Math.random() > 1.0 / ranges.size()) {
-				continue;
-			}
-			IntegerRange range = ranges.get(i);
-			double index =  Math.random() * (range.getMax() - range.getMin()) + range.getMin();
-			return MonitoringPoint.values()[(int)index];
-		}
-		return null;
-	}
 	
 	/**
-	 * Searches the <code>MonitoringPoint</code> enum and returns the ordinal ranges of the values that match the parameters.
-	 * @param type The type of monitoring point to search for.
-	 * @param sites The sites to search for.
-	 * @return A list containing the ranges of the enum value ordinals that fulfilled the input parameters. 
+	 * Finds a probe by its site and probe ID.
+	 * @param siteName The probe's <code>Site</code> enum value.
+	 * @param probeId The case-insensitive ID or name of the probe.
+	 * @return A probe-type <code>MonitoringPoint</code> that matches the input parameters, or <code>null</code> if no suitable probe was found. 
 	 */
-	public List<IntegerRange> getRanges(MonitoringPointType type, Site... sites) {
-		List<IntegerRange> result = new ArrayList<>();
-		if (sites.length > 0 && type != null) {
-			int rangeStart = -1;
-			int rangeEnd = -1;
-			boolean rangeActive = false;
-			List<Site> siteList = Arrays.asList(sites);
-			for (MonitoringPoint monitoringPoint : MonitoringPoint.values()) {
-				if (type == monitoringPoint.getType() && siteList.contains(monitoringPoint.getSite())) {
-					if (rangeActive) {
-						rangeEnd++;
-					}
-					else {
-						rangeEnd = rangeStart = monitoringPoint.ordinal();
-						rangeActive = true;
-					}
-				}
-				else if (rangeActive) {
-					result.add(new IntegerRange(rangeStart, rangeEnd));
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tRange found at (" + rangeStart + ", " + rangeEnd + ").");
-					rangeActive = false;
-				}
+	public MonitoringPoint getProbeBySiteNameAndId(Site site, String probeId) {
+		for (MonitoringPoint point : MonitoringPoint.values()) {
+			if (point.getSite() == site && point.getType() == MonitoringPointType.PROBE && point.getName().equalsIgnoreCase(probeId)) {
+				return point;
 			}
 		}
-		return result;
+		return null;
 	}
 	
 	/**
@@ -147,6 +107,17 @@ public class MonitoringPointService {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * Returns a string that can be used to query database fields containing <code>MonitoringPoint</code> constant names by a specific site and monitoring point type.
+	 * An example of a <code>MonitoringPoint</code> constant name is <code>LC_GRID_69</code>, where <code>LC</code> is the site's short name, <code>GRID</code> is the monitoring point type, and <code>69</code> is the monitoring point name.
+	 * @param site The monitoring point's site.
+	 * @param type The monitoring point's type.
+	 * @return A string in the format of the site's short name, followed by an underscore, followed by the monitoring point type (ie. <code>LC_GRID</code>).
+	 */
+	public String getSiteAndTypeQueryString(Site site, MonitoringPointType type) {
+		return site.getShortName() + "_" + type.getName();
 	}
 
 }

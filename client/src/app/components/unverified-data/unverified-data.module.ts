@@ -1,3 +1,5 @@
+import { UnverifiedDataSetListSideinfoComponent } from './unverified-data-set-list-sideinfo/unverified-data-set-list-sideinfo.component';
+import { DirectivesModule } from './../directives/directives.module';
 import { AssignImeNumberDialogComponent } from './assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataSetComponent } from './unverified-data-set/unverified-data-set.component';
 import { NgModule } from '@angular/core';
@@ -6,13 +8,15 @@ import { UnverifiedDataSetsComponent } from './unverified-data-set-list/unverifi
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        DirectivesModule
     ],
     providers: [],
     declarations: [
 		AssignImeNumberDialogComponent,
 		UnverifiedDataSetsComponent,
-		UnverifiedDataSetComponent
+		UnverifiedDataSetComponent,
+        UnverifiedDataSetListSideinfoComponent
 	]
 })
 

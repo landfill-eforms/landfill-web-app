@@ -1,0 +1,55 @@
+<div *ngIf="!unverifiedDataSet">
+	<div style="padding:16px;">
+		Select a user group to view its details.
+	</div>
+</div>
+<div *ngIf="unverifiedDataSet" style="height:calc(100% - 128px);">
+	<md-tab-group style="height:100%;">
+		<md-tab label="Details">
+			<div  class="sideinfo-sections-container">
+				<div class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						General
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Filename
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{unverifiedDataSet.filename}}
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Date Created
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{unverifiedDataSet.uploadedDate ? DateTimeUtils.getDate(unverifiedDataSet.uploadedDate) : ''}}
+						</div>
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Last Modified
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{unverifiedDataSet.uploadedBy ? DateTimeUtils.getDate(unverifiedDataSet.uploadedBy) : ''}}
+						</div>
+					</div>
+				</div>
+				<div class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						Filename
+					</div>
+					<div class="sideinfo-section-data-paragraph" style="width:256px;">
+						{{unverifiedDataSet.filename}}
+					</div>
+				</div>
+			</div>
+		</md-tab>
+		<md-tab label="Activity">
+			<div style="padding:16px;">
+				Coming Soon
+			</div>
+		</md-tab>
+	</md-tab-group>
+</div>

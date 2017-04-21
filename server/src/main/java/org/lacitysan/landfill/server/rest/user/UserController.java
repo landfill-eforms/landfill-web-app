@@ -5,7 +5,7 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
-import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.user.UserService;
@@ -40,8 +40,7 @@ public class UserController {
 	@RestSecurity(UserPermission.CREATE_USERS)
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public User create(@RequestBody User user) {
-		userService.create(user);
-		return user;
+		return userService.create(user);
 	}
 
 	@RestSecurity(UserPermission.RESET_USER_USERNAMES)
@@ -83,8 +82,7 @@ public class UserController {
 	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public User delete(@RequestBody User user) {
-		userDao.delete(user);
-		return user;
+		return userDao.delete(user);
 	}
 
 	@RestAllowSuperAdminOnly

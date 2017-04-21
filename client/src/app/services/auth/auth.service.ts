@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { RestrictedRouteBase } from './../../app.routing';
 import { environment } from './../../../environments/environment';
-import { UserPermission, AOTUserPermission } from './../../model/server/persistence/enums/user-permission.enum';
+import { UserPermission } from './../../model/server/persistence/enums/user/user-permission.enum';
 
 @Injectable()
 export class AuthService {
@@ -44,11 +44,8 @@ export class AuthService {
 			(response:Response) => {
 				let jwtToken:string = response.headers.get("Authorization").replace("Bearer ", "");
 				console.log("JWT Token:", jwtToken);
-				console.log(
-					"Decoded Token",
-					this.jwtHelper.decodeToken(jwtToken),
-					this.jwtHelper.getTokenExpirationDate(jwtToken)
-				);
+				console.log("Decoded Token:", this.jwtHelper.decodeToken(jwtToken));
+				console.log("Token Expiration:", this.jwtHelper.getTokenExpirationDate(jwtToken));
 				sessionStorage.setItem("id_token", jwtToken);
 				sessionStorage.setItem("user_permissions", JSON.stringify(this.parseUserPermissions(jwtToken)));
 				this.router.navigate(['/' + RestrictedRouteBase]);
@@ -81,6 +78,7 @@ export class AuthService {
 		// *** At this point, it is determined that the user is not the super admin.
 
 		// Convert array of UserPermission into array of strings.
+		console.log(permissions);
 		let requiredPermissions:string[] = permissions.map(p => p.constantName);
 
 		// If the only the super admin can access the route, then deny access.
@@ -104,6 +102,14 @@ export class AuthService {
 
 	isSuperAdmin():boolean {
 		return this.getUserPermissions().indexOf("SUPER_ADMIN") > -1;
+	}
+
+	getPrinciple():any {
+		let token:any = this.jwtHelper.decodeToken(sessionStorage.getItem('id_token'));
+		if (!token || !token.principle) {
+			return null;
+		}
+		return token.principle;
 	}
 
 	private parseUserPermissions(jwtToken:string):string[] {

@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.lacitysan.landfill.server.service.report.model.ReportedExceedance;
 
 import be.quodlibet.boxable.BaseTable;
 import be.quodlibet.boxable.datatable.*;
@@ -25,6 +26,7 @@ import be.quodlibet.boxable.datatable.*;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
 public class ReportExport {
+	
 	public void exportReport() throws IOException{
 
 		final String fileName = "C:/Users/Allen/Desktop/pdfxlamples/User Permissions.xlsx";
@@ -170,6 +172,12 @@ public class ReportExport {
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	public void nameThisMethodSomething(List<ReportedExceedance> data) {
+		
+		// TODO Allen implement this.
+		
 	}
 
 }

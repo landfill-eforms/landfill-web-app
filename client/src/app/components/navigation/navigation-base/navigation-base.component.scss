@@ -1,62 +1,10 @@
-.toolbar-content {
-	width: 100%;
-}
+@import '../../../app-theme.scss';
 
-.logo-container {
-	a {
-		margin-left: 16px;
-		img {
-			height: 56px;
-		}
-	}
-}
-
-.sidenav-contents {
+.navdrawer-contents {
 	width: 250px;
 }
-.nav-logo-text{
-	padding: 10px 0 20px 20px;
-}
-.nav-logo{
-	background: linear-gradient(90deg, rebeccapurple, mediumorchid);
-}
 
-.la-logo{
-	
-	padding: 50px 0 10px 20px;
-	width: 100px;	
-}
-
-.sidenav-section {
-
-}
-
-.sidenav-section-header {
-	color: #fff;
-    background: #999;
-    font-size: 0.8rem;
-    padding: 3px 20px;
-	text-transform: uppercase;
-}
-
-.sidenav-link {
-	outline: none;
-	height: 50px;
-	color: #555;
-	background: white;
-	border-bottom: solid 1px lightgray;
-	cursor: pointer;
-}
-
-.sidenav-link:hover {
-	background: #EEE;
-}
-
-.sidenav-link-active, .sidenav-link-active:hover {
-	background: #FFD740;
-	font-weight: bold;
-}
-
-.sidenav-link-icon {
-	text-align: center;
+.sideinfo-contents {
+	background: #F7F7F7 !important;
+	width: 320px; // TODO Make this dynamic.
 }

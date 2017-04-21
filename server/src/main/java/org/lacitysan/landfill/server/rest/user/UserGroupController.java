@@ -6,7 +6,7 @@ import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserGroupDao;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
-import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,8 +52,7 @@ public class UserGroupController {
 			throw new EmptyStringException("User group name cannot be blank.");
 		}
 		
-		userGroupDao.create(userGroup);
-		return userGroup;
+		return userGroupDao.create(userGroup);
 	}
 	
 	@RestSecurity(UserPermission.EDIT_USER_GROUPS)
@@ -66,8 +65,7 @@ public class UserGroupController {
 			throw new EmptyStringException("User group name cannot be blank.");
 		}
 		
-		userGroupDao.update(userGroup);
-		return userGroup;
+		return userGroupDao.update(userGroup);
 	}
 	
 	@RestSecurity(UserPermission.DELETE_USER_GROUPS)

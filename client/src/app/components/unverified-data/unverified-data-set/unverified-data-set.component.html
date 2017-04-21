@@ -2,7 +2,7 @@
 	<div class="section-title">Verify Data</div>
 	<div class="flex-container" fxLayout="column">
 		<md-card class="section-multiple flex-item" fxFlex>
-			<md-card-content *ngIf="isDataLoaded" >
+			<md-card-content *ngIf="isDataLoaded">
 				<div class="section-title">Data Information</div>
 				<div class="section-form-container flex-container" fxLayout="row">
 					<div class="flex-item" fxFlex>
@@ -23,7 +23,7 @@
 				</div>
 			</md-card-content>
 		</md-card>
-		<md-card class="section-multiple flex-item" fxFlex>
+		<md-card class="section-multiple flex-item" fxFlex style="padding:32px;">
 			<md-card-content>
 				<div class="section-title">Errors</div>
 				<div *ngIf="isDataLoaded">
@@ -37,6 +37,9 @@
 						<div *ngFor="let error of dataSet.errors.instantaneous" class="error-item">
 							{{error}}
 						</div>
+						<div *ngFor="let error of dataSet.errors.integrated" class="error-item">
+							{{error}}
+						</div>
 					</div>
 				</div>
 			</md-card-content>
@@ -48,7 +51,7 @@
 					<md-spinner class="loading-indicator-spinner"></md-spinner>
 					<div class="loading-indicator-message">Loading...</div>
 				</div>
-				<div *ngIf="isDataLoaded && dataSet.unverifiedInstantaneousData.length > 0" class="data-table">
+				<div *ngIf="isDataLoaded && dataSet.unverifiedInstantaneousData.length > 0" class="data-table" style="padding:32px">
 					<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 						<div class="truncate flex-item" fxFlex (click)="sortByGrid()">
 							<span class="data-table-header-label-sortable">Grid</span>
@@ -84,12 +87,12 @@
 							<span class="data-table-header-label"></span>
 						</div>
 					</div>
-					<div *ngFor="let inst of dataSet.unverifiedInstantaneousData; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
+					<div *ngFor="let inst of dataSet.unverifiedInstantaneousData" class="data-table-row flex-container" fxLayout="row" style="height:64px;padding-top:24px;">
 						<div class="truncate flex-item" fxFlex>{{inst.monitoringPoint.name}}</div>
 						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(inst.startTime)}}</div>
 						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(inst.endTime)}}</div>
 						<div class="flex-item" fxFlex  style="margin-top:-20px;">
-							<md-select [(ngModel)]="inst.instrument.id" (ngModelChange)="unverifiedDataService.checkForErrors(dataSet)" placeholder="Instrument" class="md-select-row">
+							<md-select [(ngModel)]="inst.instrument.id" (ngModelChange)="unverifiedDataService.checkForErrors(dataSet)" placeholder="Instrument" class="mat-select-row">
 								<md-option *ngFor="let instrument of instruments" [value]="instrument.id">
 									{{instrument.serialNumber}}
 								</md-option>
@@ -109,9 +112,85 @@
 				</div>
 			</md-card-content>
 		</md-card>
+		<md-card class="section-multiple flex-item" fxFlex>
+			<md-card-content *ngIf="isDataLoaded">
+				<div class="section-title">Integrated Data</div>
+				<div *ngIf="dataSet.unverifiedIntegratedData.length > 0" class="data-table" style="padding:32px">
+					<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Grid</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Start</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">End</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Instrument</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Reading (ppm)</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Bag Number</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Volume</span>
+						</div>
+					</div>
+					<div *ngFor="let int of dataSet.unverifiedIntegratedData" class="data-table-row flex-container" fxLayout="row" style="height:64px;padding-top:24px;">
+						<div class="truncate flex-item" fxFlex>{{int.monitoringPoint.name}}</div>
+						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(int.startTime)}}</div>
+						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(int.endTime)}}</div>
+						<div class="flex-item" fxFlex  style="margin-top:-20px;">
+							<md-select [(ngModel)]="int.instrument.id" (ngModelChange)="unverifiedDataService.checkForErrors(dataSet)" placeholder="Instrument" class="mat-select-row">
+								<md-option *ngFor="let instrument of instruments" [value]="instrument.id">
+									{{instrument.serialNumber}}
+								</md-option>
+							</md-select>
+						</div>
+						<div class="truncate flex-item" fxFlex>{{int.methaneLevel / 100}}</div>
+						<div class="truncate flex-item" fxFlex>{{int.bagNumber}}</div>
+						<div class="truncate flex-item" fxFlex>{{int.volume}}</div>
+					</div>
+				</div>
+			</md-card-content>
+		</md-card>
+		<md-card class="section-multiple flex-item" fxFlex>
+			<md-card-content *ngIf="isDataLoaded">
+				<div class="section-title">Probe Data</div>
+				<div *ngIf="dataSet.unverifiedProbeData.length > 0" class="data-table" style="padding:32px">
+					<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Grid</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Date</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Reading (ppm)</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Pressure</span>
+						</div>
+						<div class="truncate flex-item" fxFlex>
+							<span class="data-table-header-label">Description</span>
+						</div>
+					</div>
+					<div *ngFor="let probe of dataSet.unverifiedProbeData" class="data-table-row flex-container" fxLayout="row" style="height:64px;padding-top:24px;">
+						<div class="truncate flex-item" fxFlex>{{probe.monitoringPoint.name}}</div>
+						<div class="truncate flex-item" fxFlex>{{DateTimeUtils.getTime(probe.date)}}</div>
+						<div class="truncate flex-item" fxFlex>{{probe.methaneLevel / 100}}</div>
+						<div class="truncate flex-item" fxFlex>{{probe.pressureLevel}}</div>
+						<div class="truncate flex-item" fxFlex>{{probe.description}}</div>
+					</div>
+				</div>
+			</md-card-content>
+		</md-card>
 	</div>
 <div>
-<div class="fab-action-button-container">
+<div class="fab-bottom-container">
 	<button md-fab (click)="consoleLog()" mdTooltip="Console Log" mdTooltipPosition="above" class="fab-action-button">
 		<md-icon>assignment</md-icon>
 	</button>

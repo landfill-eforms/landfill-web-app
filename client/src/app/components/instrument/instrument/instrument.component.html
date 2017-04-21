@@ -9,17 +9,17 @@
 			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Serial Number" [(ngModel)]="instrument.serialNumber">
 			</md-input-container>
-			<md-select [(ngModel)]="instrument.instrumentType" placeholder="Equipment Type" class="md-select-row" style="width:100%">
+			<md-select [(ngModel)]="instrument.instrumentType" placeholder="Equipment Type" class="mat-select-row" style="width:100%">
 				<md-option *ngFor="let type of instrumentTypes" [value]="type">
 					{{type.type}}
 				</md-option>
 			</md-select>
-			<md-select [(ngModel)]="instrument.instrumentStatus" placeholder="Status" class="md-select-row" style="width:100%">
+			<md-select [(ngModel)]="instrument.instrumentStatus" placeholder="Status" class="mat-select-row" style="width:100%">
 				<md-option *ngFor="let status of instrumentStatus" [value]="status.constantName">
 					{{status.constantName}}
 				</md-option>
 			</md-select>
-			<md-select [(ngModel)]="instrument.site" placeholder="Assigned Site" class="md-select-row" style="width:100%">
+			<md-select [(ngModel)]="instrument.site" placeholder="Assigned Site" class="mat-select-row" style="width:100%">
 				<md-option [value]="null">
 					<i>Not Assigned</i>
 				</md-option>
@@ -36,7 +36,7 @@
 		</div>
 	</md-card-content>
 </md-card>
-<div class="fab-action-button-container">
+<div class="fab-bottom-container">
 	<button md-fab (click)="save()" mdTooltip="Save" mdTooltipPosition="above">
 		<md-icon>save</md-icon>
 	</button>

@@ -18,6 +18,11 @@ public interface AbstractDao<T> {
 
 	T delete(T entity);
 	
-	T initialize(Object entity);
+	/** 
+	 * Must be able to handle <code>null</code> inputs.
+	 * @param entity The entity to initialize.
+	 * @return The initialized entity (can be <code>null</code>).
+	 */
+	T initialize(T entity);
 
 }

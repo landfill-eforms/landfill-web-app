@@ -21,6 +21,7 @@ This section lists the prerequisites for each component of the web application s
 * Visual Studio Code, or another TypeScript editor. Download VS Code from [here](https://code.visualstudio.com/).
 
 ### Back-End Server
+* Java 8 (JDK or OpenJDK recommended).
 * Eclipse, or another Java IDE.
 * Gradle Buildship plugin for Eclipse, or the equivalent if using a different IDE. Installation instructions can be found [here](http://download.eclipse.org/buildship/updates/e46/releases/2.x/2.0.0.v20170111-1029/).
 

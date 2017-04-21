@@ -11,11 +11,11 @@ import { UnverifiedDataSetComponent } from './components/unverified-data/unverif
 import { UnverifiedDataSetsComponent } from './components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
 import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
 import { UserGroupComponent } from './components/user-group/user-group/user-group.component';
-import { UserGroupsComponent } from './components/user-group/user-group-list/user-group-list.component';
+import { UserGroupListComponent } from './components/user-group/user-group-list/user-group-list.component';
 import { Route, Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from "@angular/core";
 import { AuthGuard } from "./services/auth/authguard";
-import { UserPermission, AOTUserPermission } from './model/server/persistence/enums/user-permission.enum';
+import { UserPermission } from './model/server/persistence/enums/user/user-permission.enum';
 import { LoginComponent } from './components/public/login/login.component';
 import { ForbiddenComponent } from './components/public/forbidden/forbidden.component';
 import { NavigationBaseComponent } from './components/navigation/navigation-base/navigation-base.component';
@@ -55,7 +55,7 @@ export class DefinedRoutes {
 
 	static readonly PLACEHOLDER:Route = {
 		path: 'coming-soon',
-		component: ComingSoonComponent
+		component: ComingSoonComponent,
 	}
 
 	static readonly DASHBOARD:Route = {
@@ -65,21 +65,26 @@ export class DefinedRoutes {
 
 	///// USER ROUTES /////
 	static readonly USER_LIST:Route = {
-		path: 'user-list',
+		path: 'users',
 		component: UserListComponent,
 		canActivate: [AuthGuard],
-		data: {permissions: [
-			AOTUserPermission.VIEW_USERS
-		]}
+		data: {
+			name: "Users",
+			permissions: [
+				UserPermission.VIEW_USERS
+			]
+		}
 	}
 
 	static readonly USER:Route = {
-		path: 'user/:username',
+		path: 'users/:username',
 		component: UserBaseComponent,
 		canActivate: [AuthGuard],
-		data: {permissions: [
-			AOTUserPermission.EDIT_USER_PROFILES
-		]}
+		data: {
+			permissions: [
+				UserPermission.VIEW_USERS
+			]
+		}
 	}
 
 	static readonly NEW_USER:Route = {
@@ -88,45 +93,90 @@ export class DefinedRoutes {
 	}
 
 	static readonly USER_GROUP_LIST:Route = {
-		path: 'user-group-list',
-		component: UserGroupsComponent,
+		path: 'user-groups',
+		component: UserGroupListComponent,
+		canActivate: [AuthGuard],
+		data: {
+			name: "User Groups",
+			permissions: [
+				UserPermission.VIEW_USER_GROUPS
+			]
+		}
 	}
 
 	static readonly USER_GROUP:Route = {
-		path: 'user-group/:id',
+		path: 'user-groups/:id',
 		component: UserGroupComponent,
 	}
 
 	///// INSTRUMENT ROUTES /////
 	static readonly INSTRUMENT_LIST:Route = {
-		path: 'instrument-list',
-		component: InstrumentListComponent
+		path: 'equipment',
+		component: InstrumentListComponent,
+		canActivate: [AuthGuard],
+		data: {
+			name: "Equipment",
+			permissions: [
+				UserPermission.VIEW_INSTRUMENTS
+			]
+		}
 	}
 
 	static readonly INSTRUMENT:Route = {
-		path: 'instrument/:id',
-		component: InstrumentComponent
+		path: 'equipment/:id',
+		component: InstrumentComponent,
+		canActivate: [AuthGuard],
+		data: {
+			permissions: [
+				UserPermission.VIEW_INSTRUMENTS
+			]
+		}
 	}
 
 	static readonly INSTRUMENT_TYPE_LIST:Route = {
-		path: 'instrument-type-list',
-		component: InstrumentTypeListComponent
+		path: 'equipment-types',
+		component: InstrumentTypeListComponent,
+		canActivate: [AuthGuard],
+		data: {
+			name: "Equipment Types",
+			permissions: [
+				UserPermission.VIEW_INSTRUMENT_TYPES
+			]
+		}
 	}
 
 	static readonly INSTRUMENT_TYPE:Route = {
-		path: 'instrument-type/:id',
-		component: InstrumentTypeComponent
+		path: 'equipment-types/:id',
+		component: InstrumentTypeComponent,
+		canActivate: [AuthGuard],
+		data: {
+			permissions: [
+				UserPermission.VIEW_INSTRUMENT_TYPES
+			]
+		}
 	}
 
 	///// UNVERIFIED DATA ROUTES /////
 	static readonly UNVERIFIED_DATA_SET_LIST:Route = {
-		path: 'unverified-data-set-list',
-		component: UnverifiedDataSetsComponent
+		path: 'unverified-data-sets',
+		component: UnverifiedDataSetsComponent,
+		data: {
+			name: "Unverified Data",
+			permissions: [
+				UserPermission.VIEW_UNVERIFIED_DATA_SETS
+			]
+		}
 	}
 
 	static readonly UNVERIFIED_DATA_SET:Route = {
-		path: 'unverified-data-set/:id',
-		component: UnverifiedDataSetComponent
+		path: 'unverified-data-sets/:id',
+		component: UnverifiedDataSetComponent,
+		data: {
+			name: "Unverified Data",
+			permissions: [
+				UserPermission.VIEW_UNVERIFIED_DATA_SET
+			]
+		}
 	}
 
 	///// INSTANTANEOUS ROUTES /////

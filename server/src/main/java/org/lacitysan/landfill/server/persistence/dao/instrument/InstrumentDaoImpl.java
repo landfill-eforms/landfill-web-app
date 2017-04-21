@@ -17,7 +17,7 @@ public class InstrumentDaoImpl extends AbstractDaoImpl<Instrument> implements In
 
 	@Autowired
 	HibernateTemplate hibernateTemplate;
-	
+
 	@Override
 	public Instrument getByTypeAndSerialNumber(InstrumentType instrumentType, String serialNumber) {
 		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
@@ -25,19 +25,18 @@ public class InstrumentDaoImpl extends AbstractDaoImpl<Instrument> implements In
 				.add(Restrictions.eq("instrumentType", instrumentType))
 				.add(Restrictions.eq("serialNumber", serialNumber).ignoreCase()) // The ignoreCase() is not actually needed when working with SQL Server.
 				.uniqueResult();
-		return initialize(result);
+		return initialize(checkType(result));
 	}
-	
+
 	@Override
-	public Instrument initialize(Object entity) {
-		if (entity instanceof Instrument) {
-			Instrument instrument = (Instrument)entity;
-			Hibernate.initialize(instrument.getInstrumentType());
-			Hibernate.initialize(instrument.getInstrumentStatus());
-			Hibernate.initialize(instrument.getSite());
-			return instrument;
+	public Instrument initialize(Instrument instrument) {
+		if (instrument == null) {
+			return null;
 		}
-		return null;
+		Hibernate.initialize(instrument.getInstrumentType());
+		Hibernate.initialize(instrument.getInstrumentStatus());
+		Hibernate.initialize(instrument.getSite());
+		return instrument;
 	}
-	
+
 }

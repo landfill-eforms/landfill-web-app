@@ -1,6 +1,7 @@
-@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+@import 'app/app-theme.scss';
 
 $navbar-height: 64px;
+$navbar-expanded-height: 128px;
 
 html {
     font-family: Roboto, sans-serif;
@@ -11,11 +12,25 @@ html {
     }
 }
 
-/*********** Navbar + Sidenav ***********/
-md-sidenav-container {
-    background: #EEE !important;
-    top: $navbar-height !important;
+a {
+    color: mat-color($app-primary, 500);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mat-sidenav-content {
+  transform: initial !important;
+  overflow: hidden;
+}
+
+.mat-sidenav-container {
+    background-color: #FFF !important;
+}
+
+.navdrawer-container {
+    // top: $navbar-height !important;
     .mat-sidenav-opened {
+        overflow: hidden;
         box-shadow: 3px 0 6px rgba(0,0,0,0.24) !important;
     }
     .mat-sidenav-backdrop.mat-sidenav-shown {
@@ -24,28 +39,118 @@ md-sidenav-container {
     }
 }
 
+.sideinfo-container {
+    // top: $navbar-height !important;
+    .mat-sidenav-content {
+        overflow: hidden;
+        box-shadow: 0 0 7px rgba(0,0,0,0.24) !important;
+        z-index: 1;
+    }
+}
+
+.sideinfo-force-close {
+    .mat-sidenav-content {
+        transition: none !important;
+    }
+    .sideinfo-contents {
+        transition: none !important;
+    }
+}
+
+.sideinfo-header {
+    background-color: mat-color($app-primary, 600); 
+    height: 128px;
+}
+
+.sideinfo-header-title {
+    color: #FFF;
+    font-size: 16px;
+    padding: 64px 0 4px 24px;
+}
+
+.sideinfo-header-subtitle {
+    color: rgba(255,255,255,0.54);
+    font-size: 14px;
+    padding-left: 24px;
+}
+
+.sideinfo-sections-container {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-y: overlay;
+    .sideinfo-section:first-child {
+        border-top: none;
+    }
+}
+
+.sideinfo-section {
+    border-top: 1px solid rgba(0,0,0,0.12);
+    padding: 8px 32px 24px 32px;
+}
+
+.sideinfo-section-header {
+    line-height: 48px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.54);
+}
+
+.sideinfo-section-data-row {
+    height: 28px;
+}
+
+.sideinfo-section-data-key {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.87);
+}
+
+.sideinfo-section-data-value {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.54);
+}
+
+.sideinfo-section-data-list-item {
+    line-height: 28px;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.87);
+}
+
+.sideinfo-section-data-paragraph {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.87);
+}
+
+.navbar {
+    box-shadow: 0 0 6.9px rgba(0,0,0,0.54);
+}
+
 md-toolbar-row {
+    transition: height 0.2s ease-in-out;
     height: $navbar-height !important;
 }
 
-.navbar-shadow {
-    width: 100%;
-    height: $navbar-height;
-    position: absolute;
-    top: 0;
-    left: 0;
-    box-shadow: 0 0 6.9px rgba(0,0,0,0.69);
-    z-index: 999;
-    pointer-events: none;
+.navbar-expanded {
+    md-toolbar-row {
+        height: $navbar-expanded-height !important;
+    }
 }
 
-.mat-sidenav-content {
-  transform: initial !important;
+.mat-toolbar {
+    background: mat-color($app-primary) !important;
 }
-/***************************************/
 
+.main-content {
+    height: calc(100% - #{$navbar-expanded-height});
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-y: overlay;
+}
 
-/*********** Pagination Stuff ***********/
 .pagination-numeric-selector {
 	.mat-select-trigger {
 		min-width: 64px !important;
@@ -68,15 +173,43 @@ md-toolbar-row {
         }
 	}
 }
-/***************************************/
-
-a {
-    color: #2196F3;
-    text-decoration: none;
-}
 
 .md-input-full-width {
     width: 100%;
+}
+
+.mat-input-container-inline {
+    margin: 0 8px;    
+}
+
+.mat-input-container-error {
+    .mat-input-underline {
+        border: none;
+        border-top: 2px solid mat-color($app-warn);
+    }
+    .mat-hint {
+        color: mat-color($app-warn);
+    }
+    .mat-input-ripple {
+        background-color: rgba(0,0,0,0) !important;
+    }
+    .mat-input-placeholder {
+        color: mat-color($app-warn);
+    }
+}
+
+.mat-select-row {
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.mat-select-inline {
+    padding: 0 8px;
+    position: relative;
+    bottom: 3px; // Tested on Chrome. Might be different on other browsers.
+    .mat-select-placeholder {
+        top: -18px !important;
+    }
 }
 
 .unselectable {
@@ -101,12 +234,12 @@ a {
 
 .section-single {
     margin: 24px;
-    padding: 0 !important;
+    padding: 24px !important;
 }
 
 .section-multiple {
     margin: 12px;
-    padding: 0 !important;
+    padding: 24px !important;
 }
 
 .section-multiple-container {
@@ -116,9 +249,10 @@ a {
 }
 
 .section-title {
+    font-weight: 400;
     font-weight: normal;
-    font-size: 1.337rem;
-    padding: 24px;
+    font-size: 20px;
+    padding: 16px;
 }
 
 .section-subtitle {
@@ -131,14 +265,25 @@ a {
     padding: 24px 16px 16px 16px;
 }
 
-.md-select-row {
-    padding-top: 13px;
-    padding-bottom: 13px;
+.data-table-scrollable {
+    height: 100%;
+    .data-table-header-row {
+        padding-right: 17px;
+        -webkit-padding-end: 0px; // Remove padding for webkit browsers.
+    }
 }
 
-.data-table {
-    //padding: 16px 0;
-    //margin: 0 -24px;
+.data-table-scrollable-area {
+    max-height: calc(100% - 56px);
+    overflow-y: scroll; // Non-webkit browsers will always have scroll bar visible.
+    overflow-y: overlay; // Only for webkit browsers;
+}
+
+.data-table-filter-container-row {
+    height: 64px;
+    .data-table-filter-container {
+        padding-top: 16px;
+    }
 }
 
 .data-table-super-header-row {
@@ -154,7 +299,7 @@ a {
     height: 56px;
     text-align: left;
     padding-top: 16px;
-    border-bottom: solid 1px #E0E0E0;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
 }
 
 .data-table-header-label {
@@ -207,23 +352,44 @@ a {
     margin-right: 24px;
 }
 
-.data-table-row {
+.data-table-column-condensed {
+    // NOTE: Does not follow material design guidelines.
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.data-table-row:first-child {
+    .data-table-row-content {
+        border-top-width: 0;
+    }
+}
+
+.data-table-row-content {
     font-size: 13px;
     color: rgba(0,0,0,0.87);
-    border-bottom: 1px solid #E0E0E0;
     font-weight: 400;
     height: 48px;
     padding-top: 16px;
     background: #FFF;
+    border-top: 1px solid rgba(0,0,0,0.12);
     transition: background 0.1s linear;
 }
 
-.data-table-row:hover {
+.data-table-row-content:hover {
     background: #EEEEEE;
 }
 
-.data-table-row-active {
+.data-table-row-content-active {
     background: #F5F5F5;
+}
+
+.data-table-icon {
+    margin-top: -4px;
+}
+
+.data-table-icon-checkmark {
+    margin-top: -4px;
+    color: #0D0
 }
 
 .data-table-icon-button {
@@ -245,7 +411,14 @@ a {
     text-align: center;
 }
 
-.fab-action-button-container {
+.fab-top-container {
+    position: relative;
+    top: -28px;
+    left: 48px;
+    height: 0;
+}
+
+.fab-bottom-container {
     position: fixed;
     bottom: 32px;
     right: 32px;

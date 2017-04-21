@@ -1,6 +1,6 @@
-import { ImeNumberStatus } from './../../../model/server/persistence/enums/ime-number-status.enum';
-import { Site } from './../../../model/server/persistence/enums/site.enum';
-import { ImeNumber } from './../../../model/server/persistence/entity/instantaneous/ime-number.class';
+import { ExceedanceStatus } from './../../../model/server/persistence/enums/exceedance/exceedance-status.enum';
+import { Site } from './../../../model/server/persistence/enums/location/site.enum';
+import { ImeNumber } from './../../../model/server/persistence/entity/serviceemission/instantaneous/ime-number.class';
 import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';
 import { MdDialogRef } from '@angular/material';
@@ -34,7 +34,7 @@ export class AssignImeNumberDialogComponent {
 		imeNumber.site = <any>this.site.constantName;
 		imeNumber.dateCode = Number(this.action.newImeNumberString.substring(3, 7));  // TODO Make this better.
 		imeNumber.sequence = this.action.newSeries;
-		imeNumber.status = <any>ImeNumberStatus.UNVERIFIED.constantName;
+		imeNumber.status = <any>ExceedanceStatus.UNVERIFIED.constantName;
 		imeNumber.imeNumber = this.action.newImeNumberString;
 		this.imeNumberService.create(imeNumber, 
 			(data) => {

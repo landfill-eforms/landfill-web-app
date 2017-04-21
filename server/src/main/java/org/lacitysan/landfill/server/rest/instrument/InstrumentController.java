@@ -5,7 +5,7 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
-import org.lacitysan.landfill.server.persistence.enums.UserPermission;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.instrument.InstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,22 +48,20 @@ public class InstrumentController {
 	@RestSecurity(UserPermission.CREATE_INSTRUMENTS)
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public Instrument create(@RequestBody Instrument instrument) {
-		instrumentService.create(instrument);
-		return instrument;
+		return instrumentService.create(instrument);
 	}
 	
 	@RestSecurity(UserPermission.EDIT_INSTRUMENTS)
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public Instrument update(@RequestBody Instrument instrument) {
-		instrumentService.update(instrument);
-		return instrument;
+		return instrumentService.update(instrument);
 	}
 	
 	@RestSecurity(UserPermission.DELETE_INSTRUMENTS)
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public Instrument delete(@RequestBody Instrument instrument) {
-		instrumentDao.delete(instrument);
-		return instrument;
+		if (instrument == null) return null;
+		return instrumentDao.delete(instrument);
 	}
 	
 	@RestSecurity(UserPermission.DELETE_INSTRUMENTS)

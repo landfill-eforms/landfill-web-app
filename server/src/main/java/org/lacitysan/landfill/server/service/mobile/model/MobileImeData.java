@@ -1,15 +1,18 @@
 package org.lacitysan.landfill.server.service.mobile.model;
 
+/**
+ * @author Alvin Quach
+ */
 public class MobileImeData {
-	
+
 	private String mId;
-    private String mImeNumber;
-    private String mLocation;
-    private String mGridId;
-    private String mDate;
-    private String mDescription;
-    private String mInspectorUserName;
-    private Double mMethaneReading;
+	private String mImeNumber;
+	private String mLocation;
+	private String mGridId;
+	private String mDate;
+	private String mDescription;
+	private String mInspectorUserName;
+	private Double mMethaneReading;
 
 	public String getmId() {
 		return mId;

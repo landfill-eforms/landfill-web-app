@@ -1,102 +1,144 @@
-<md-card class="section-single">
-	<md-card-content>
-		<div class="section-title">Equipment Types</div>
-		<div *ngIf="!isDataLoaded" class="loading-indicator-container">
-			<md-spinner class="loading-indicator-spinner"></md-spinner>
-			<div class="loading-indicator-message">{{loadingMessage}}</div>
-		</div>
-		<div *ngIf="isDataLoaded" class="data-table">
-			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-				<div class="truncate flex-item" fxFlex (click)="sortBy('type')">
-					<span class="data-table-header-label-sortable">Equipment Type</span>
-					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-						'data-table-header-sort-arrow-reverse':sort.reversed,
-						'data-table-header-sort-arrow-inactive':sort.current !== 'type'}">
-						arrow_downward</md-icon>
-				</div>
-				<div class="truncate flex-item" fxFlex (click)="sortBy('manufacturer')">
-					<span class="data-table-header-label-sortable">Manufacturer</span>
-					<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-						'data-table-header-sort-arrow-reverse':sort.reversed,
-						'data-table-header-sort-arrow-inactive':sort.current !== 'manufacturer'}">
-						arrow_downward</md-icon>
-				</div>
-				<div class="truncate flex-item" fxFlex="25">
-					<span class="data-table-header-label">Description</span>
-				</div>
-				<div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="data-table-header-label">Inst./Intg.</span>
-				</div>
-                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="data-table-header-label">Probe/Gas</span>
-				</div>
-                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="data-table-header-label">CH<sub>4</sub> %</span>
-				</div>
-                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="data-table-header-label">CH<sub>4</sub> ppm</span>
-				</div>
-                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="data-table-header-label">H<sub>2</sub>S ppm</span>
-				</div>
-                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="data-table-header-label">O<sub>2</sub> %</span>
-				</div>
-                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="data-table-header-label">CO<sub>2</sub> %</span>
-				</div>
-                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="data-table-header-label">N<sub>2</sub> %</span>
-				</div>
-                <div class="truncate flex-item" fxFlex="86px" style="text-align:center;">
-					<span class="data-table-header-label">Pressure</span>
-				</div>
+<div style="height:calc(100% - 121px);"> <!-- Browser dependent. Test on multiple browserGroups before setting this value. -->
+	<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+		<md-spinner class="loading-indicator-spinner"></md-spinner>
+		<div class="loading-indicator-message">{{loadingMessage}}</div>
+	</div>
+	<div *ngIf="isDataLoaded" class="data-table-scrollable">
+		<div class="data-table-filter-container-row flex-container" fxLayout="row" fxLayoutAlign="end center">
+			<div *ngIf="showFilters" class="data-table-filter-container flex-item flex-container" fxFlex fxLayout="row" fxLayoutAlign="end center">
+				<div class="flex-item" fxFlex="152px"></div>
+				<md-input-container *ngIf="showFilters" 
+					[hintLabel]="textFilterStatus.errorMessage" 
+					class="mat-input-container-inline flex-item" 
+					fxFlex
+					[ngClass]="{'mat-input-container-error':!textFilterStatus.valid}">
+					<input mdInput placeholder="Search" [(ngModel)]="filters.text" (ngModelChange)="applyFilters()">
+				</md-input-container>
 			</div>
-			<div *ngFor="let type of instrumentTypeList; let isOdd = odd" class="data-table-row flex-container" fxLayout="row" [ngClass]="{'data-table-odd-row': isOdd}">
-				<div class="truncate flex-item" fxFlex>
-					<a [routerLink]="'../instrument-type/' + type.id" routerLikeActive="active">
-						{{type.type}}
-					</a>
-				</div>
-				<div class="truncate flex-item" fxFlex>
-					{{type.manufacturer}}
-				</div>
-				<div class="truncate flex-item" fxFlex="25">
-					{{type.description}}
-				</div>
-				<div class="flex-item" fxFlex="86px" style="text-align:center;">
-					<md-icon *ngIf="type.instantaneous" style="color:#0D0;">check</md-icon>
-				</div>
-                <div class="flex-item" fxFlex="86px" style="text-align:center;">
-					<md-icon *ngIf="type.probe" style="color:#0D0;">check</md-icon>
-				</div>
-                <div class="flex-item" fxFlex="86px" style="text-align:center;">
-					<md-icon *ngIf="type.methanePercent" style="color:#0D0;">check</md-icon>
-				</div>
-                <div class="flex-item" fxFlex="86px" style="text-align:center;">
-					<md-icon *ngIf="type.methanePpm" style="color:#0D0;">check</md-icon>
-				</div>
-                <div class="flex-item" fxFlex="86px" style="text-align:center;">
-					<md-icon *ngIf="type.hydrogenSulfidePpm" style="color:#0D0;">check</md-icon>
-				</div>
-                <div class="flex-item" fxFlex="86px" style="text-align:center;">
-					<md-icon *ngIf="type.oxygenPercent" style="color:#0D0;">check</md-icon>
-				</div>
-                <div class="flex-item" fxFlex="86px" style="text-align:center;">
-					<md-icon *ngIf="type.carbonDioxidePercent" style="color:#0D0;">check</md-icon>
-				</div>
-                <div class="flex-item" fxFlex="86px" style="text-align:center;">
-					<md-icon *ngIf="type.nitrogenPercent" style="color:#0D0;">check</md-icon>
-				</div>
-                <div class="flex-item" fxFlex="86px" style="text-align:center;">
-					<md-icon *ngIf="type.pressure" style="color:#0D0;">check</md-icon>
-				</div>
+			<button md-icon-button 
+				(click)="toggleFilters()" 
+				class="flex-item" 
+				fxFlex="40px"
+				mdTooltip="Filter" 
+				mdTooltipPosition="below">
+				<md-icon>filter_list</md-icon>
+			</button>
+			<button md-icon-button 
+				(click)="toggleSideInfo()" 
+				class="flex-item" 
+				fxFlex="40px" 
+				[mdTooltip]="showSideInfo ? 'Hide Details' : 'Show Details'" 
+				mdTooltipPosition="below">
+				<md-icon>{{showSideInfo ? 'chevron_right' : 'chevron_left'}}</md-icon>
+			</button>
+		</div>
+		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+			<div class="data-table-first-column truncate flex-item" fxFlex="10" (click)="sortBy('type')">
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'type'}">
+					Equipment Type
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse':sort.reversed,
+					'data-table-header-sort-arrow-inactive':sort.current !== 'type'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex="10" (click)="sortBy('manufacturer')">
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'manufacturer'}">
+					Manufacturer
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse':sort.reversed,
+					'data-table-header-sort-arrow-inactive':sort.current !== 'manufacturer'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex="50">
+				<span class="data-table-header-label">Description</span>
+			</div>
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+				<span class="data-table-header-label">Inst./Intg.</span>
+			</div>
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+				<span class="data-table-header-label">Probe/Gas</span>
+			</div>
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+				<span class="data-table-header-label">CH<sub>4</sub> %</span>
+			</div>
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+				<span class="data-table-header-label">CH<sub>4</sub> ppm</span>
+			</div>
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+				<span class="data-table-header-label">H<sub>2</sub>S ppm</span>
+			</div>
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+				<span class="data-table-header-label">O<sub>2</sub> %</span>
+			</div>
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+				<span class="data-table-header-label">CO<sub>2</sub> %</span>
+			</div>
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+				<span class="data-table-header-label">N<sub>2</sub> %</span>
+			</div>
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+				<span class="data-table-header-label">Pressure</span>
 			</div>
 		</div>
-	</md-card-content>
-</md-card>
-<div class="fab-action-button-container">
-	<button md-fab (click)="openNewInstrumentTypeDialog()" mdTooltip="Create Equipment Type" mdTooltipPosition="above">
-		<md-icon>add</md-icon>
-	</button>
+		<div class="data-table-scrollable-area">
+			<div *ngFor="let type of paginatedInstrumentTypes" class="data-table-row">
+				<div class="data-table-row-content flex-container" 
+					fxLayout="row" 
+					(click)="selectInstrumentType(type)"
+					(dblclick)="navigateToInstrumentType(type)"
+					[ngClass]="{'data-table-row-content-active': type === selectedInstrumentType}">
+					<div class="data-table-first-column truncate flex-item" fxFlex="10">
+						<a [routerLink]="type.id">
+							{{type.type}}
+						</a>
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex="10">
+						{{type.manufacturer}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex="50">
+						{{type.description}}
+					</div>
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+						<md-icon *ngIf="type.instantaneous" class="data-table-icon-checkmark">check</md-icon>
+					</div>
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+						<md-icon *ngIf="type.probe" class="data-table-icon-checkmark">check</md-icon>
+					</div>
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+						<md-icon *ngIf="type.methanePercent" class="data-table-icon-checkmark">check</md-icon>
+					</div>
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+						<md-icon *ngIf="type.methanePpm" class="data-table-icon-checkmark">check</md-icon>
+					</div>
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+						<md-icon *ngIf="type.hydrogenSulfidePpm" class="data-table-icon-checkmark">check</md-icon>
+					</div>
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+						<md-icon *ngIf="type.oxygenPercent" class="data-table-icon-checkmark">check</md-icon>
+					</div>
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+						<md-icon *ngIf="type.carbonDioxidePercent" class="data-table-icon-checkmark">check</md-icon>
+					</div>
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+						<md-icon *ngIf="type.nitrogenPercent" class="data-table-icon-checkmark">check</md-icon>
+					</div>
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+						<md-icon *ngIf="type.pressure" class="data-table-icon-checkmark">check</md-icon>
+					</div>
+				</div>
+			</div>
+		</div>
+		<app-pagination #pagination
+			[paginfo]="paginfo"
+			[showPageSelector]="true" 
+			[showFirstLastPage]="true"
+			(changed)="applyPagination()">
+		</app-pagination>
+	</div>
 </div>

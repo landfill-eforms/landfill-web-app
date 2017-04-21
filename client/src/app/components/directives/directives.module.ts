@@ -1,6 +1,6 @@
 import { PaginationComponent } from './pagination/pagination.component';
-import { ImeRepairDialogComponent } from './dialog/ime-repair-dialog/ime-repair-dialog.component';
-import { ImeRecheckDialogComponent } from './dialog/ime-recheck-dialog/ime-recheck-dialog.component';
+import { ImeRepairDialogComponent } from './dialogs/ime-repair-dialog/ime-repair-dialog.component';
+import { ImeRecheckDialogComponent } from './dialogs/ime-recheck-dialog/ime-recheck-dialog.component';
 import { ImeDataViewComponent } from './data-view/ime-data-view/ime-data-view.component';
 import { InstantaneousDataViewComponent } from './data-view/instantaneous-data-view/instantaneous-data-view.component';
 import { ImeListViewComponent } from './data-view/ime-list-view/ime-list-view.component';
@@ -20,7 +20,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		ImeDataViewComponent,
 		ImeRecheckDialogComponent,
 		ImeRepairDialogComponent,
-		PaginationComponent
+		PaginationComponent,
 	],
 	exports: [
 		FileUploadComponent,
@@ -29,7 +29,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		ImeDataViewComponent,
 		ImeRecheckDialogComponent,
 		ImeRepairDialogComponent,
-		PaginationComponent
+		PaginationComponent,
 	]
 })
 

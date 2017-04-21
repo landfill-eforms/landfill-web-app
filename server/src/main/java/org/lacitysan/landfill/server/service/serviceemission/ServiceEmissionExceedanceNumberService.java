@@ -18,10 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @param <T> The type of the service emissions exceedance number (ie. <code>IMENumber</code>).
  * @author Alvin Quach
  */
-public abstract class ServiceEmissionExceedanceService<T extends ServiceEmissionExceedanceNumber> {
+public abstract class ServiceEmissionExceedanceNumberService<T extends ServiceEmissionExceedanceNumber> {
 	
 	@Autowired
-	MonitoringPointService monitoringPointService;
+	protected MonitoringPointService monitoringPointService;
+	
+	abstract public List<T> getBySiteAndDateCode(String exceedanceNumber);
 	
 	public T createUnverified(T exceedanceNumber) {
 		
@@ -79,6 +81,8 @@ public abstract class ServiceEmissionExceedanceService<T extends ServiceEmission
 		}
 		return exceedanceNumber;
 	}
+	
+	abstract public T update(T exceedanceNumber);
 
 	/**
 	 * Generates a formatted string representation of a service emissions exceedance number, based on the exceedance number's site, date, and sequence number.
@@ -94,6 +98,7 @@ public abstract class ServiceEmissionExceedanceService<T extends ServiceEmission
 	 * Creates an object that extends <code>ServiceEmissionsExceedanceNumber</code> using the given service emissions exceedance number string.
 	 * The format of the input string must be AAyyMM-BB (dashes are optional), where AA is the short name of the site, yyMM is the date format, and BB is the sequence number.
 	 * If the input string is not valid, then <code>null</code> will be returned.
+	 * The status of returned exceedance number will be set to <code>UNVERIFIED</code> by default.
 	 * @param exceedanceNumber String representation of an service emissions exceedance number.
 	 * @return An object extending <code>ServiceEmissionsExceedanceNumber</code> based on the input service emissions exceedance number string, or <code>null</code> if the input string was not valid.
 	 */
@@ -114,6 +119,7 @@ public abstract class ServiceEmissionExceedanceService<T extends ServiceEmission
 			result.setSite(site);
 			result.setDateCode(dateCode);
 			result.setSequence(sequence);
+			result.setStatus(ExceedanceStatus.UNVERIFIED);
 			return result;
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

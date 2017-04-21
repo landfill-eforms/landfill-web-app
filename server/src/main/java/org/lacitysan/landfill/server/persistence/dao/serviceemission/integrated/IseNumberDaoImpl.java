@@ -2,7 +2,6 @@ package org.lacitysan.landfill.server.persistence.dao.serviceemission.integrated
 
 import org.hibernate.Hibernate;
 import org.lacitysan.landfill.server.persistence.dao.serviceemission.ServiceEmissionExceedanceNumberDaoImpl;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseData;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseNumber;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,18 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class IseNumberDaoImpl extends ServiceEmissionExceedanceNumberDaoImpl<IseNumber> implements IseNumberDao {
 
-	//	@Autowired
-	//	HibernateTemplate hibernateTemplate;
-
 	@Override
 	@Transactional
 	public IseNumber update(IseNumber iseNumber) {
-
-		// TODO MOVE THIS
-		for (IseData data : iseNumber.getIseData()) {
-			data.setIseNumber(iseNumber);
-		}
-
 		hibernateTemplate.update(iseNumber);
 		return iseNumber;
 	}

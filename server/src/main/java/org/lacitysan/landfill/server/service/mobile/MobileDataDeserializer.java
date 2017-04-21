@@ -36,8 +36,8 @@ import org.lacitysan.landfill.server.service.mobile.model.MobileIntegratedData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileIseData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileProbeData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileWarmspotData;
-import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeService;
-import org.lacitysan.landfill.server.service.serviceemission.integrated.IseService;
+import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeNumberService;
+import org.lacitysan.landfill.server.service.serviceemission.integrated.IseNumberService;
 import org.lacitysan.landfill.server.service.user.UserService;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,10 +66,10 @@ public class MobileDataDeserializer {
 	UserService userService;
 	
 	@Autowired
-	ImeService imeService;
+	ImeNumberService imeService;
 	
 	@Autowired
-	IseService iseService;
+	IseNumberService iseService;
 	
 	@Autowired
 	MonitoringPointService monitoringPointService;
@@ -82,10 +82,10 @@ public class MobileDataDeserializer {
 		// WTF???????????????
 		Map<User, Map<Site, UnverifiedDataSet>> resultMap = new HashMap<>();
 
-		// Store a map of imported IME numbers. The value stored for each IME number is its original imported IME number string, if exists.
-		Map<ImeNumber, String> imeNumberMap = new HashMap<>();
+		// Store a map of imported IME numbers.
+		Set<ImeNumber> imeNumberSet = new HashSet<>();
 		
-		// Store a map of imported IME numbers. The value stored for each IME number is its original imported IME number string, if exists.
+		// Store a set of imported IME numbers.
 		Set<IseNumber> iseNumberSet = new HashSet<>();
 		
 		// Fucking want to chop my dick off.
@@ -132,10 +132,12 @@ public class MobileDataDeserializer {
 			imeData.setMethaneLevel((int)(mobileImeData.getmMethaneReading() * 100));
 			imeData.setInspector(getUser(userMap, mobileImeData.getmInspectorUserName()));
 			imeData.setImeNumber(imeNumber);
+			
+			// Add the IME data entry to the IME number.
 			imeNumber.getImeData().add(imeData);
 			
 			// Add the IME number to the set of IME numbers.
-			imeNumberMap.put(imeNumber, imeNumberString);
+			imeNumberSet.add(imeNumber);
 		}
 		
 		// Process the instantaneous data entries.
@@ -154,8 +156,8 @@ public class MobileDataDeserializer {
 			}
 			if (mobileInstantaneousData.getImeNumber() != null && !mobileInstantaneousData.getImeNumber().isEmpty()) {
 				ImeNumber imeNumber = null;
-				for (ImeNumber existingImeNumber : imeNumberMap.keySet()) {
-					if (imeNumberMap.get(existingImeNumber).equals(mobileInstantaneousData.getImeNumber())) {
+				for (ImeNumber existingImeNumber : imeNumberSet) {
+					if (existingImeNumber.getImeNumber().equals(mobileInstantaneousData.getImeNumber())) {
 						imeNumber = existingImeNumber;
 						break;
 					}
@@ -163,11 +165,8 @@ public class MobileDataDeserializer {
 				if (imeNumber == null) {
 					ImeNumber newImeNumber = imeService.getImeNumberFromString(mobileInstantaneousData.getImeNumber());
 					if (newImeNumber != null) {
-						// We dont need this.
-						//short sequence = imeService.getNextSequence(newImeNumber.getSite(), newImeNumber.getDateCode(), false);
-						// newImeNumber.setSequence(sequence);
 						newImeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
-						imeNumberMap.put(newImeNumber, mobileInstantaneousData.getImeNumber());
+						imeNumberSet.add(newImeNumber);
 						imeNumber = newImeNumber;
 					}
 				}
@@ -369,7 +368,7 @@ public class MobileDataDeserializer {
 		Set<UnverifiedDataSet> result = resultMap.values().stream().map(map -> map.values()).flatMap(values -> values.stream()).collect(Collectors.toSet());
 		
 		// Insert IME numbers into database.
-		for (ImeNumber imeNumber : imeNumberMap.keySet()) {
+		for (ImeNumber imeNumber : imeNumberSet) {
 			// TODO Update 'modified by' field.
 			imeService.createUnverified(imeNumber);
 
@@ -413,5 +412,5 @@ public class MobileDataDeserializer {
 		userMap.put(username, user);
 		return user;
 	}
-
+	
 }

@@ -5,8 +5,7 @@ import java.util.List;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.serviceemission.integrated.IseNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseNumber;
-import org.lacitysan.landfill.server.service.MonitoringPointService;
-import org.lacitysan.landfill.server.service.serviceemission.integrated.IseService;
+import org.lacitysan.landfill.server.service.serviceemission.integrated.IseNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,44 +21,40 @@ import org.springframework.web.bind.annotation.RestController;
 public class IseNumberController {
 	
 	@Autowired
-	IseNumberDao iseNumbersDao;
+	IseNumberDao iseNumberDao;
 	
 	@Autowired
-	IseService iseService;
-	
-	// TODO Delete this.
-	@Autowired
-	MonitoringPointService monitoringPointService;
+	IseNumberService iseNumberService;
 	
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<IseNumber> getAll() {
-		return iseNumbersDao.getAll();
+		return iseNumberDao.getAll();
 	}
 	
 	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
 	public List<IseNumber> getBySite(@PathVariable String siteName) {
-		return iseNumbersDao.getBySiteAndDateCode(monitoringPointService.getSiteByName(siteName), null);
+		return iseNumberService.getBySiteAndDateCode(siteName);
 	}
 	
 	@RequestMapping(value="/unique/iseNumber/{iseNumber}", method=RequestMethod.GET)
 	public IseNumber getByIseNumber(@PathVariable String iseNumber) {
-		IseNumber temp = iseService.getIseNumberFromString(iseNumber);
-		return iseNumbersDao.getByIseNumber(temp);
+		IseNumber temp = iseNumberService.getIseNumberFromString(iseNumber);
+		return iseNumberDao.getByIseNumber(temp);
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public IseNumber create(@RequestBody IseNumber iseNumber) {
-		return iseNumbersDao.create(iseNumber);
+		return iseNumberService.createUnverified(iseNumber);
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public IseNumber update(@RequestBody IseNumber iseNumber) {
-		return iseNumbersDao.update(iseNumber);
+		return iseNumberService.update(iseNumber);
 	}
 
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public IseNumber delete(@RequestBody IseNumber iseNumber) {
-		return iseNumbersDao.delete(iseNumber);
+		return iseNumberDao.delete(iseNumber);
 	}
 
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)

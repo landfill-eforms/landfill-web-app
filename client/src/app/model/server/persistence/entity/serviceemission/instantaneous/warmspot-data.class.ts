@@ -1,7 +1,7 @@
-import { InstantaneousData } from './instantaneous-data.class';
-import { MonitoringPoint } from '../../../enums/location/monitoring-point.enum';
 import { Instrument } from '../../instrument/instrument.class';
+import { InstantaneousData } from './instantaneous-data.class';
 import { User } from '../../user/user.class';
+import { MonitoringPoint } from '../../../enums/location/monitoring-point.enum';
 
 /**
  * This class was automatically generated from WarmspotData.java using typescript-gen.

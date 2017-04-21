@@ -1,20 +1,18 @@
 import { Instrument } from '../instrument/instrument.class';
-import { UnverifiedDataSet } from './unverified-data-set.class';
+import { User } from '../user/user.class';
 import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 
 /**
- * This class was automatically generated from UnverifiedIntegratedData.java using typescript-gen.
+ * This class was automatically generated from ServiceEmissionData.java using typescript-gen.
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
-export class UnverifiedIntegratedData {
+export abstract class ServiceEmissionData {
 	id:number;
 	monitoringPoint:MonitoringPoint;
 	instrument:Instrument;
-	bagNumber:number;
-	volume:number;
+	inspector:User;
 	barometricPressure:number;
 	methaneLevel:number;
 	startTime:number;
 	endTime:number;
-	unverifiedDataSet:UnverifiedDataSet;
 }

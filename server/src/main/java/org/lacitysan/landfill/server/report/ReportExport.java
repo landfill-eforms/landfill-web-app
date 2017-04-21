@@ -174,9 +174,61 @@ public class ReportExport {
 	    }
 	}
 	
-	public void nameThisMethodSomething(List<ReportedExceedance> data) {
+	public void ExceedanceReport(List<ReportedExceedance> data) throws IOException {
 		
-		// TODO Allen implement this.
+		//----------------------------------------------------------------------------------------------------
+		PDDocument document = new PDDocument();		
+		PDDocumentInformation pdd = document.getDocumentInformation();
+		pdd.setAuthor("Allen Ma");
+		pdd.setTitle("Landfill report");
+		pdd.setCreator("Allen Ma");
+		
+		PDPage blankPage = new PDPage();
+		blankPage.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+		document.addPage( blankPage );	    
+	//----------------------------------------------------------------------------------------------------				
+        String text = "";	        
+        float margin = 10;
+        float tableWidth = blankPage.getMediaBox().getWidth() - (2 * margin);
+        float yStartNewPage = blankPage.getMediaBox().getHeight() - (2 * margin);
+        float yStart = yStartNewPage;
+        float bottomMargin = 20;
+        List<List> reportData = new ArrayList<>();
+        
+        ArrayList<String> header = new ArrayList<>();
+        header.add("Date");
+        header.add("Landfill");
+        header.add("Exceedance Type");
+        header.add("IME#/Probe");
+        header.add("Grid/Depth");
+        header.add("Repair Description");
+        header.add("Initial ppmv");
+        header.add("Recheck");	    
+        
+        reportData.add(header);
+        
+        for(int i = 0; i < data.size(); i++){
+        	ArrayList<String> info = new ArrayList<>();
+        	text = "" + data.get(i).getDate();
+        	info.add(text);
+        	info.add(data.get(i).getLandfill());
+        	info.add(data.get(i).getType());
+        	info.add(data.get(i).getIdentifier());
+        	info.add(data.get(i).getLocation());
+        	info.add(data.get(i).getRepair());
+        	info.add(data.get(i).getInitial());
+        	info.add(data.get(i).getRecheck());
+        	
+        	reportData.add(info);
+        }
+        
+        BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage, true, true);
+		DataTable tab = new DataTable(dataTable, blankPage);
+		tab.addListToTable(reportData, DataTable.HASHEADER);
+		dataTable.draw();
+		
+        document.save("C:/Users/Allen/Desktop/generatePDF/exceedTest.pdf");
+		document.close();
 		
 	}
 

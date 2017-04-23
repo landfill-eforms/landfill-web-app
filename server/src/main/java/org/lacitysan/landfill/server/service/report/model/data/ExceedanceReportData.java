@@ -1,36 +1,25 @@
 package org.lacitysan.landfill.server.service.report.model.data;
 
-import java.sql.Date;
-
 /**
  * Represents a single entry on an exceedance report.
  * @author Alvin Quach
- *
  */
 public class ExceedanceReportData {
 	
-	/** Only contains the date, not time. */
-	private Date date;
-	
+	private String date;
 	private String landfill;
-	
 	private String type;
-	
 	private String identifier;
-	
 	private String location;
-	
 	private String repair;
-	
 	private String initial;
-	
 	private String recheck;
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

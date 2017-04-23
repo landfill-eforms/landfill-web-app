@@ -12,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class ImeNumberDaoImpl extends ServiceEmissionExceedanceNumberDaoImpl<ImeNumber> implements ImeNumberDao {
 
-	//	@Autowired
-	//	HibernateTemplate hibernateTemplate;
-
 	@Override
 	@Transactional
 	public ImeNumber update(ImeNumber imeNumber) {

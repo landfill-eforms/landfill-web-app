@@ -89,5 +89,14 @@ public class DateTimeUtils {
 		return date + 1000 * 60 * 60 * 24 * days;
 	}
 	
+	/** Formats a long date value to <code>M/d/yyyy</code>. */
+	public static String formatSimpleDate(long date) {
+		return new SimpleDateFormat("M/d/yyyy").format(new Date(date));
+	}
+	
+	/** Formats a long date value to <code>H:m</code>. */
+	public static String formatSimpleTime(long date) {
+		return new SimpleDateFormat("H:m").format(new Date(date));
+	}
 
 }

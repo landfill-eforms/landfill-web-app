@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.service.serviceemission;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -19,18 +20,41 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Alvin Quach
  */
 public abstract class ServiceEmissionExceedanceNumberService<T extends ServiceEmissionExceedanceNumber> {
-	
+
 	@Autowired
 	protected MonitoringPointService monitoringPointService;
-	
+
+	/**
+	 * Converts a collection of exceedance numbers into a formatted string list.
+	 * Assumes that all the numbers in the collection have a common site and date code.
+	 * If there are multiple sites and/or date codes, the resulting string will be of no significance.
+	 * @param exceedanceNumbers The collection of exceedance numbers.
+	 * @return A formatted string list of exceedance numbers.
+	 */
+	public String stringifyCommonCollection(Collection<T> exceedanceNumbers) {
+		int i = 0;
+		StringBuilder sb = new StringBuilder();
+		for (T exceedanceNumber : exceedanceNumbers) {
+			if (i == 0) {
+				sb.append(getStringFromExceedanceNumber(exceedanceNumber));
+			}
+			else {
+				sb.append(", -")
+				.append(String.format("%02d", exceedanceNumber.getSequence()));
+			}
+			i++;
+		}
+		return sb.toString();
+	}
+
 	abstract public List<T> getBySiteAndDateCode(String exceedanceNumber);
-	
+
 	public T createUnverified(T exceedanceNumber) {
-		
+
 		// Use TreeSet to store existing unverified IME/ISE numbers so that they are in order by sequence number.
 		Set<T> existingSet = new TreeSet<>(); 
 		existingSet.addAll(getCrudRepository().getUnverifiedBySiteAndDateCode(exceedanceNumber.getSite(), exceedanceNumber.getDateCode()));
-		
+
 		short i = 1;
 		for (T existing : existingSet) {
 			if (existing.getSequence() > i) {
@@ -38,13 +62,13 @@ public abstract class ServiceEmissionExceedanceNumberService<T extends ServiceEm
 			}
 			i++;
 		}
-		
+
 		exceedanceNumber.setSequence(i);
 		exceedanceNumber.setStatus(ExceedanceStatus.UNVERIFIED);
 		return getCrudRepository().create(exceedanceNumber);
-		
+
 	}
-	
+
 	// TODO Change this to work with a batch of IME numbers at once for more efficiency.
 	public T verify(T exceedanceNumber) {
 		if (exceedanceNumber.getStatus() != ExceedanceStatus.UNVERIFIED) {
@@ -69,7 +93,7 @@ public abstract class ServiceEmissionExceedanceNumberService<T extends ServiceEm
 		}
 		exceedanceNumber.setSequence(i);
 		getCrudRepository().update(exceedanceNumber);
-		
+
 		if (shift) {
 			for (int j = originalSequence - 1; j > i; j--) {
 				T existingImeNumber = existingImeNumbers.get(j - 1);
@@ -81,7 +105,7 @@ public abstract class ServiceEmissionExceedanceNumberService<T extends ServiceEm
 		}
 		return exceedanceNumber;
 	}
-	
+
 	abstract public T update(T exceedanceNumber);
 
 	/**
@@ -126,9 +150,9 @@ public abstract class ServiceEmissionExceedanceNumberService<T extends ServiceEm
 			return null;
 		}
 	}
-	
+
 	abstract protected ServiceEmissionExceedanceNumberDao<T> getCrudRepository();
-	
+
 	@SuppressWarnings("unchecked")
 	private T instantiateExceedanceNumber() {
 		try {

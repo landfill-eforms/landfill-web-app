@@ -2,6 +2,7 @@ package org.lacitysan.landfill.server.persistence.entity.serviceemission.instant
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
@@ -45,7 +46,7 @@ public class ImeNumber extends ServiceEmissionExceedanceNumber {
 	@JsonIgnoreProperties("imeNumber")
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="imeNumber")
-	private Set<ImeData> imeData = new HashSet<>();
+	private Set<ImeData> imeData = new TreeSet<>();
 
 	@Transient
 	private String imeNumber;

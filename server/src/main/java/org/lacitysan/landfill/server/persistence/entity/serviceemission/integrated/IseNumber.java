@@ -1,7 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
@@ -35,7 +35,7 @@ public class IseNumber extends ServiceEmissionExceedanceNumber {
 	@JsonIgnoreProperties("iseNumber")
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="iseNumber")
-	private Set<IseData> iseData = new HashSet<>();
+	private Set<IseData> iseData = new TreeSet<>();
 
 	@Transient
 	private String iseNumber;

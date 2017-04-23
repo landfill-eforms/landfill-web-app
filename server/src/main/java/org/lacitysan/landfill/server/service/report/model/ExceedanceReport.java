@@ -1,8 +1,8 @@
 package org.lacitysan.landfill.server.service.report.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
 import org.lacitysan.landfill.server.service.report.model.data.ExceedanceReportData;
 
 /**
@@ -11,14 +11,15 @@ import org.lacitysan.landfill.server.service.report.model.data.ExceedanceReportD
  */
 public class ExceedanceReport extends Report {
 	
-	List<ExceedanceReportData> reportedExceedances = new ArrayList<>();
+	List<ExceedanceReportData> exceedanceReportData;
 
-	public List<ExceedanceReportData> getReportedExceedances() {
-		return reportedExceedances;
+	public ExceedanceReport(ReportQuery reportQuery, List<ExceedanceReportData> exceedanceReportData) {
+		super(reportQuery);
+		this.exceedanceReportData = exceedanceReportData;
 	}
 
-	public void setReportedExceedances(List<ExceedanceReportData> reportedExceedances) {
-		this.reportedExceedances = reportedExceedances;
+	public List<ExceedanceReportData> getExceedanceReportData() {
+		return exceedanceReportData;
 	}
 
 }

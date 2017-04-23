@@ -1,4 +1,4 @@
-package org.lacitysan.landfill.server.service.report.model;
+package org.lacitysan.landfill.server.service.report.model.data;
 
 import java.sql.Date;
 
@@ -7,7 +7,7 @@ import java.sql.Date;
  * @author Alvin Quach
  *
  */
-public class ReportedExceedance {
+public class ExceedanceReportData {
 	
 	/** Only contains the date, not time. */
 	private Date date;

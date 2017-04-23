@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.service.report;
 
 import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
+import org.lacitysan.landfill.server.persistence.enums.report.ReportType;
 import org.lacitysan.landfill.server.service.report.model.Report;
 
 /**
@@ -9,7 +10,11 @@ import org.lacitysan.landfill.server.service.report.model.Report;
 public class ReportService {
 
 	public Report generateReport(ReportQuery reportQuery) {
-		// TODO Implement this.
+
+		if (reportQuery.getReportType() == ReportType.INSTANTANEOUS) {
+			
+		}
+		
 		return null;
 	}
 	

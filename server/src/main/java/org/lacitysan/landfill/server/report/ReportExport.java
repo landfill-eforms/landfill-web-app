@@ -18,7 +18,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.lacitysan.landfill.server.service.report.model.ReportedExceedance;
+import org.lacitysan.landfill.server.service.report.model.data.ExceedanceReportData;
 
 import be.quodlibet.boxable.BaseTable;
 import be.quodlibet.boxable.datatable.*;
@@ -174,7 +174,7 @@ public class ReportExport {
 	    }
 	}
 	
-	public void nameThisMethodSomething(List<ReportedExceedance> data) {
+	public void nameThisMethodSomething(List<ExceedanceReportData> data) {
 		
 		// TODO Allen implement this.
 		

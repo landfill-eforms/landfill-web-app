@@ -23,7 +23,9 @@ import org.lacitysan.landfill.server.service.report.model.ReportedExceedance;
 import be.quodlibet.boxable.BaseTable;
 import be.quodlibet.boxable.datatable.*;
 
+
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 public class ReportExport {
 	
@@ -205,7 +207,7 @@ public class ReportExport {
         header.add("Initial ppmv");
         header.add("Recheck");	    
         
-        reportData.add(header);
+//        reportData.add(header);
         
         for(int i = 0; i < data.size(); i++){
         	ArrayList<String> info = new ArrayList<>();
@@ -223,13 +225,41 @@ public class ReportExport {
         }
         
         BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage, true, true);
-		DataTable tab = new DataTable(dataTable, blankPage);
-		tab.addListToTable(reportData, DataTable.HASHEADER);
+		
+       //Create Header row
+		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
+		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "EXCEEDANCE REPORT");			
+		cell.setFont(PDType1Font.HELVETICA_BOLD);
+		
+		
+		
+		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
+		cell = hea.createCell((100 / 9.0f) * 2, "" + header.get(0) );
+		for (int i = 1; i < header.size(); i++) {
+               cell = hea.createCell((100 / 9f), "" + header.get(i));
+            }		
+		cell.setFont(PDType1Font.HELVETICA_BOLD);
+		dataTable.addHeaderRow(hea); //derRow
+		
+		for (List info : reportData) {
+			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
+            
+        	cell = row.createCell((100 / 9.0f) * 2, "" + info.get(0) ); //3
+            for (int i = 1; i < info.size(); i++) {
+               cell = row.createCell((100 / 9f), "" + info.get(i));
+            }
+            
+            
+		}
 		dataTable.draw();
+        
+		System.out.println(document.getNumberOfPages());
+//        DataTable tab = new DataTable(dataTable, blankPage);
+//		tab.addListToTable(reportData, DataTable.HASHEADER);
+//		dataTable.draw();
 		
         document.save("C:/Users/Allen/Desktop/generatePDF/exceedTest.pdf");
 		document.close();
-		
 	}
 
 }

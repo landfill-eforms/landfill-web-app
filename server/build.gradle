@@ -43,6 +43,7 @@ ext {
 	jacksonVersion = '2.8.7'
 	jjwtVersion = '0.7.0'
 	aspectjVersion = '1.8.9'
+	commonsIoVersion = '2.5'
 	poiVersion = '3.16-beta2'
 	pdfboxVersion = '2.0.5'
 	javaxMailVersion = '1.5.6'
@@ -65,6 +66,7 @@ dependencies {
 	compile('com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:' + jacksonVersion)
 	compile('io.jsonwebtoken:jjwt:' + jjwtVersion)
 	compile('org.aspectj:aspectjweaver:' + aspectjVersion)
+	compile('commons-io:commons-io:' + commonsIoVersion)
 	compile('org.apache.poi:poi:' + poiVersion)
 	compile('org.apache.poi:poi-ooxml:' + poiVersion)
 	compile('org.apache.pdfbox:pdfbox:' + pdfboxVersion)

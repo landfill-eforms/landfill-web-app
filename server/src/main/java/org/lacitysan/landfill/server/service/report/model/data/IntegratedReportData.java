@@ -9,6 +9,8 @@ public class IntegratedReportData extends ServiceEmissionReportData {
 	private String bagNumber;
 	
 	private String volume;
+	
+	private String sampleId;
 
 	public String getBagNumber() {
 		return bagNumber;
@@ -24,6 +26,14 @@ public class IntegratedReportData extends ServiceEmissionReportData {
 
 	public void setVolume(String volume) {
 		this.volume = volume;
+	}
+
+	public String getSampleId() {
+		return sampleId;
+	}
+
+	public void setSampleId(String sampleId) {
+		this.sampleId = sampleId;
 	}
 
 }

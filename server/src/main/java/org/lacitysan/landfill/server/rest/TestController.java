@@ -1,5 +1,9 @@
 package org.lacitysan.landfill.server.rest;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
@@ -19,12 +23,13 @@ public class TestController {
 	ReportService reportService;
 	
 	@RequestMapping(value="/asdf", method=RequestMethod.GET)
-	public Report reportTest() {
+	public Report reportTest() throws ParseException {
 		ReportQuery reportQuery = new ReportQuery();
 		reportQuery.setReportType(ReportType.INSTANTANEOUS);
-		reportQuery.getSites().add(Site.LOPEZ);
-		//reportQuery.getSites().add(Site.BISHOPS);
-		//reportQuery.setStartDate(startDate);
+//		reportQuery.getSites().add(Site.LOPEZ);
+		reportQuery.getSites().add(Site.BISHOPS);
+		reportQuery.setStartDate(new Date(new SimpleDateFormat("M/d/yyyy").parse("4/15/2017").getTime()));
+		reportQuery.setEndDate(new Date(new SimpleDateFormat("M/d/yyyy").parse("4/16/2017").getTime()));
 		return reportService.generateReport(reportQuery);
 	}
 

@@ -25,6 +25,9 @@ public class IntegratedData extends ServiceEmissionData {
 	
 	@NotNull
 	private Short volume;
+	
+	@NotNull
+	private String sampleId;
 
 	public Short getBagNumber() {
 		return bagNumber;
@@ -40,6 +43,14 @@ public class IntegratedData extends ServiceEmissionData {
 
 	public void setVolume(Short volume) {
 		this.volume = volume;
+	}
+
+	public String getSampleId() {
+		return sampleId;
+	}
+
+	public void setSampleId(String sampleId) {
+		this.sampleId = sampleId;
 	}
 	
 }

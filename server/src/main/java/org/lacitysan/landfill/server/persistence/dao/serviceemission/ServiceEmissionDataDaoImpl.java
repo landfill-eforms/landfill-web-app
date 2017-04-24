@@ -1,5 +1,6 @@
 package org.lacitysan.landfill.server.persistence.dao.serviceemission;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,20 +16,10 @@ public abstract class ServiceEmissionDataDaoImpl<T extends ServiceEmissionData> 
 
 	@Override
 	@Transactional
-	public List<T> getBySite(Site site) {
-		List<?> result = hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createCriteria(getGenericClass())
-				.list();
-		return result.stream()
-				.map(e -> checkType(e))
-				.filter(e -> e != null && e.getMonitoringPoint().getSite() == site) // Filter by site.
-				.map(e -> initialize(e))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	@Transactional
 	public List<T> getBySiteAndDate(Site site, Long start, Long end) {
+		if (site == null) {
+			return new ArrayList<>();
+		}
 		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession().createCriteria(getGenericClass());
 		if (start != null) {
 			criteria.add(Restrictions.ge("startTime", DateTimeUtils.longToSqlDate(start)));
@@ -39,7 +30,7 @@ public abstract class ServiceEmissionDataDaoImpl<T extends ServiceEmissionData> 
 		List<?> result = criteria.list();
 		return result.stream()
 				.map(e -> checkType(e))
-				.filter(e -> e != null && e.getMonitoringPoint().getSite() == site) // Filter by site.
+				.filter(e -> e != null && e.getMonitoringPoint().getSite() == site) // Filter by sites.
 				.map(e -> initialize(e))
 				.collect(Collectors.toList());
 	}

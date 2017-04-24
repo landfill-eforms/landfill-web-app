@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.persistence.dao.serviceemission.ServiceEmissionExceedanceNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionExceedanceNumber;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionExceedanceRepairData;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.service.MonitoringPointService;
@@ -151,6 +152,8 @@ public abstract class ServiceEmissionExceedanceNumberService<T extends ServiceEm
 		}
 	}
 
+	abstract public ServiceEmissionExceedanceRepairData getLastRepair(T exceedanceNumber);
+	
 	abstract protected ServiceEmissionExceedanceNumberDao<T> getCrudRepository();
 
 	@SuppressWarnings("unchecked")

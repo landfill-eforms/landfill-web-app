@@ -32,7 +32,7 @@ public class InstantaneousDataController {
 	@RequestMapping(value="/{siteName}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<InstantaneousData> getBySite(@PathVariable String siteName) {
-		return instantaneousDataDao.getBySite(monitoringPointService.getSiteByName(siteName));
+		return instantaneousDataDao.getBySiteAndDate(monitoringPointService.getSiteByName(siteName), null, null);
 	}
 	
 	@RequestMapping(value="/{siteName}/{start}/{end}", method=RequestMethod.GET)

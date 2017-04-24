@@ -1,5 +1,6 @@
 package org.lacitysan.landfill.server.persistence.dao.serviceemission;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 	@Transactional
 	public List<T> getBySiteAndDateCode(Site site, Integer dateCode) {
 		if (site == null) {
-			return null;
+			return new ArrayList<>();
 		}
 		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(getGenericClass())
@@ -40,7 +41,7 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 	@Transactional
 	public List<T> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode) {
 		if (site == null) {
-			return null;
+			return new ArrayList<>();
 		}
 		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(getGenericClass())
@@ -60,7 +61,7 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 	@Transactional
 	public List<T> getVerifiedBySiteAndDateCode(Site site, Integer dateCode) {
 		if (site == null) {
-			return null;
+			return new ArrayList<>();
 		}
 		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(getGenericClass())

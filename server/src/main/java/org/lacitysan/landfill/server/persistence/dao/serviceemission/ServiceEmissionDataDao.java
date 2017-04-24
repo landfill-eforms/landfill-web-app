@@ -8,8 +8,6 @@ import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
 public interface ServiceEmissionDataDao<T extends ServiceEmissionData> extends AbstractDao<T> {
 
-	List<T> getBySite(Site site);
-
 	List<T> getBySiteAndDate(Site site, Long start, Long end);
 	
 }

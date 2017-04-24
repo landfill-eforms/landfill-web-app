@@ -11,7 +11,7 @@ public abstract class Report {
 	/** The query parameters used to generate this report. */
 	private ReportQuery reportQuery;
 	
-	Report(ReportQuery reportQuery) {
+	protected Report(ReportQuery reportQuery) {
 		this.reportQuery = reportQuery;
 	}
 

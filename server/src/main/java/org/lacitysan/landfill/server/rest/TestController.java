@@ -26,8 +26,8 @@ public class TestController {
 	public Report reportTest() throws ParseException {
 		ReportQuery reportQuery = new ReportQuery();
 		reportQuery.setReportType(ReportType.INSTANTANEOUS);
-//		reportQuery.getSites().add(Site.LOPEZ);
-		reportQuery.getSites().add(Site.BISHOPS);
+//		reportQuery.setSite(Site.LOPEZ);
+		reportQuery.setSite(Site.BISHOPS);
 		reportQuery.setStartDate(new Date(new SimpleDateFormat("M/d/yyyy").parse("4/15/2017").getTime()));
 		reportQuery.setEndDate(new Date(new SimpleDateFormat("M/d/yyyy").parse("4/16/2017").getTime()));
 		return reportService.generateReport(reportQuery);

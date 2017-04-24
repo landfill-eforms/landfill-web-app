@@ -6,6 +6,7 @@ import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
 import org.lacitysan.landfill.server.service.report.model.data.InstantaneousReportData;
 
 /**
+ * A generated integrated report.
  * @author Alvin Quach
  */
 public class InstantaneousReport extends Report {

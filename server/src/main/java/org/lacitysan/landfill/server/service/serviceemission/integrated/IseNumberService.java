@@ -6,6 +6,7 @@ import org.lacitysan.landfill.server.persistence.dao.serviceemission.ServiceEmis
 import org.lacitysan.landfill.server.persistence.dao.serviceemission.integrated.IseNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseData;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseNumber;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseRepairData;
 import org.lacitysan.landfill.server.service.serviceemission.ServiceEmissionExceedanceNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,21 @@ public class IseNumberService extends ServiceEmissionExceedanceNumberService<Ise
 	 */
 	public IseNumber getIseNumberFromString(String iseNumber) {
 		return getExceedanceNumberFromString(iseNumber);
+	}
+	
+	/** Gets the last repair made to the ISE. */
+	@Override
+	public IseRepairData getLastRepair(IseNumber iseNumber) {
+		IseRepairData result = null;
+		for (IseData iseData : iseNumber.getIseData()) {
+			if (iseData.getIseRepairData() == null || iseData.getIseRepairData().isEmpty()) {
+				continue;
+			}
+			for (IseRepairData iseRepairData : iseData.getIseRepairData()) {
+				result = iseRepairData;
+			}
+		}
+		return result;
 	}
 	
 	@Override

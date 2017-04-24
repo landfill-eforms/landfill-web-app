@@ -6,6 +6,7 @@ import org.lacitysan.landfill.server.persistence.dao.serviceemission.ServiceEmis
 import org.lacitysan.landfill.server.persistence.dao.serviceemission.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeRepairData;
 import org.lacitysan.landfill.server.service.serviceemission.ServiceEmissionExceedanceNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,21 @@ public class ImeNumberService extends ServiceEmissionExceedanceNumberService<Ime
 	 */
 	public ImeNumber getImeNumberFromString(String imeNumber) {
 		return getExceedanceNumberFromString(imeNumber);
+	}
+	
+	/** Gets the last repair made to the IME. */
+	@Override
+	public ImeRepairData getLastRepair(ImeNumber imeNumber) {
+		ImeRepairData result = null;
+		for (ImeData imeData : imeNumber.getImeData()) {
+			if (imeData.getImeRepairData() == null || imeData.getImeRepairData().isEmpty()) {
+				continue;
+			}
+			for (ImeRepairData imeRepairData : imeData.getImeRepairData()) {
+				result = imeRepairData;
+			}
+		}
+		return result;
 	}
 	
 	@Override

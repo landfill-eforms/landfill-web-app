@@ -1,5 +1,7 @@
 package org.lacitysan.landfill.server.util;
 
+import java.util.Collection;
+
 /**
  * A utility class containing methods for string manipulation.
  * @author Alvin Quach
@@ -156,6 +158,25 @@ public class StringUtils {
 	/** Removes whitespaces (spaces, tabs, line breaks) from a string. */
 	public static String removeWhitespace(String string) {
 		return string.replaceAll("(\\s+|\n|\t)", "");
+	}
+	
+	/**
+	 * Converts a collection of objects to their string representation via the <code>toString()<code> method,
+	 * and then delimits the strings using commas.
+	 * @param objects The collection of objects.
+	 * @param addSpace Whether to include a space after each comma.
+	 * @return A comma delimited string representing the collection.
+	 */
+	public static String collectionToCommaDelimited(Collection<? extends Object> objects, boolean addSpace) {
+		StringBuilder sb = new StringBuilder();
+		int i = 0;
+		for (Object object : objects) {
+			if (i > 0) {
+				sb.append(addSpace ? ", " : ",");
+			}
+			sb.append(object.toString());
+		}
+		return sb.toString();
 	}
 
 }

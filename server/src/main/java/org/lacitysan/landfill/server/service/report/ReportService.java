@@ -1,22 +1,31 @@
 package org.lacitysan.landfill.server.service.report;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.lacitysan.landfill.server.persistence.dao.serviceemission.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.dao.serviceemission.instantaneous.InstantaneousDataDao;
 import org.lacitysan.landfill.server.persistence.dao.serviceemission.integrated.IntegratedDataDao;
+import org.lacitysan.landfill.server.persistence.dao.serviceemission.integrated.IseNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IntegratedData;
-import org.lacitysan.landfill.server.persistence.enums.location.Site;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeRepairData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseData;
+import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseRepairData;
+import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceType;
 import org.lacitysan.landfill.server.persistence.enums.report.ReportType;
+import org.lacitysan.landfill.server.service.report.model.ExceedanceReport;
 import org.lacitysan.landfill.server.service.report.model.InstantaneousReport;
 import org.lacitysan.landfill.server.service.report.model.IntegratedReport;
 import org.lacitysan.landfill.server.service.report.model.Report;
+import org.lacitysan.landfill.server.service.report.model.data.ExceedanceReportData;
 import org.lacitysan.landfill.server.service.report.model.data.InstantaneousReportData;
 import org.lacitysan.landfill.server.service.report.model.data.IntegratedReportData;
 import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeNumberService;
+import org.lacitysan.landfill.server.service.serviceemission.integrated.IseNumberService;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
+import org.lacitysan.landfill.server.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,41 +37,137 @@ public class ReportService {
 
 	@Autowired
 	InstantaneousDataDao instantaneousDataDao;
-	
+
 	@Autowired
 	IntegratedDataDao integratedDataDao;
 
 	@Autowired
+	ImeNumberDao imeNumberDao;
+	
+	@Autowired
+	IseNumberDao iseNumberDao;
+
+	@Autowired
 	ImeNumberService imeNumberService;
+	
+	@Autowired
+	IseNumberService iseNumberService;
 
 	public Report generateReport(ReportQuery reportQuery) {
+		if (reportQuery.getReportType() == ReportType.EXCEEDANCE) {
+			return generateIntegratedReport(reportQuery);
+		}
 		if (reportQuery.getReportType() == ReportType.INSTANTANEOUS) {
 			return generateInstantaneousReport(reportQuery);
 		}
 		if (reportQuery.getReportType() == ReportType.INTEGRATED) {
 			return generateIntegratedReport(reportQuery);
 		}
+		if (reportQuery.getReportType() == ReportType.PROBE) {
+			// WTF???
+		}
 		return null;
 	}
 
-	private InstantaneousReport generateInstantaneousReport(ReportQuery reportQuery) {
+	private ExceedanceReport generateExceedanceReport(ReportQuery reportQuery) {
 
-		// Check if there is a site specified in the report query.
-		// Note that multiple sites are unsupported and will lead to random results.
-		Site site = reportQuery.getSites().stream().findFirst().orElse(null);
-		if (site == null) {
-			return null;
-		}
-		
 		// Check if there are start and end dates specified in the report query.
 		Long startDate = reportQuery.getStartDate() == null ? null : reportQuery.getStartDate().getTime();
 		Long endDate = reportQuery.getEndDate() == null ? null : reportQuery.getEndDate().getTime();
 
-		// Query the database.
-		List<InstantaneousData> instantaneousData = instantaneousDataDao.getBySiteAndDate(site, startDate, endDate);
+		List<ExceedanceReportData> exceedanceReportData = new ArrayList<>();
 
-		// Convert the queried data into report data.
-		List<InstantaneousReportData> instantaneousReportData = instantaneousData.parallelStream()
+		// Query the database for IMEs and add them to the report data.
+		if (reportQuery.getExceedanceTypes().contains(ExceedanceType.INSTANTANEOUS)) {
+			
+			// TODO Create method to query by date range instead of date code.
+			exceedanceReportData.addAll(imeNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
+					.parallelStream()
+					.sorted((a, b) -> a.compareTo(b))
+					.map(c -> {
+						
+						// Check for missing data.
+						if (c.getImeData() == null || c.getImeData().isEmpty()) {
+							return null;
+						}
+						
+						// Get initial IME entry and final repair entry, if exists.
+						List<ImeData> imeDataList = c.getImeData().stream().collect(Collectors.toList());
+						ImeData initial = imeDataList.get(0);
+						ImeRepairData finalRepair = imeNumberService.getLastRepair(c);
+						
+						ExceedanceReportData d = new ExceedanceReportData();
+						d.setDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
+						d.setLandfill(c.getSite().getName().toUpperCase());
+						d.setType(ExceedanceType.INSTANTANEOUS.getName().toUpperCase());
+						d.setIdentifier(c.getImeNumber());
+						d.setLocation(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
+						d.setRepair(finalRepair.getDescription());
+						d.setInitial(String.format("%.2f", initial.getMethaneLevel() / 100.0));
+						d.setRecheck(imeDataList.size() == 1 ? "" : String.format("%.2f", imeDataList.get(imeDataList.size() - 1).getMethaneLevel()));
+						return d;
+					})
+					.filter(e -> e != null)
+					.collect(Collectors.toList()));
+		}
+		
+		// Query the database for ISEs and add them to the report data.
+		if (reportQuery.getExceedanceTypes().contains(ExceedanceType.INTEGRATED)) {
+			exceedanceReportData.addAll(iseNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
+					.parallelStream()
+					.sorted((a, b) -> a.compareTo(b))
+					.map(c -> {
+						
+						// Check for missing data.
+						if (c.getIseData() == null || c.getIseData().isEmpty()) {
+							return null;
+						}
+						
+						// Get initial IME entry and final repair entry, if exists.
+						List<IseData> iseDataList = c.getIseData().stream().collect(Collectors.toList());
+						IseData initial = iseDataList.get(0);
+						IseRepairData finalRepair = iseNumberService.getLastRepair(c);
+						
+						ExceedanceReportData d = new ExceedanceReportData();
+						d.setDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
+						d.setLandfill(c.getSite().getName().toUpperCase());
+						d.setType(ExceedanceType.INTEGRATED.getName().toUpperCase());
+						d.setIdentifier(c.getIseNumber());
+						d.setLocation(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
+						d.setRepair(finalRepair.getDescription());
+						d.setInitial(String.format("%.2f", initial.getMethaneLevel() / 100.0));
+						d.setRecheck(iseDataList.size() == 1 ? "" : String.format("%.2f", iseDataList.get(iseDataList.size() - 1).getMethaneLevel()));
+						return d;
+					})
+					.filter(e -> e != null)
+					.collect(Collectors.toList()));
+		}
+		
+		// Query the database for Probe exceedances and add them to the report data.
+		if (reportQuery.getExceedanceTypes().contains(ExceedanceType.PROBE)) {
+			exceedanceReportData.addAll(iseNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
+					.parallelStream()
+					.sorted((a, b) -> a.compareTo(b))
+					.map(c -> {
+						return new ExceedanceReportData();
+					})
+					.filter(e -> e != null)
+					.collect(Collectors.toList()));
+		}
+		
+		return new ExceedanceReport(reportQuery, exceedanceReportData);
+
+	}
+
+	private InstantaneousReport generateInstantaneousReport(ReportQuery reportQuery) {
+
+		// Check if there are start and end dates specified in the report query.
+		Long startDate = reportQuery.getStartDate() == null ? null : reportQuery.getStartDate().getTime();
+		Long endDate = reportQuery.getEndDate() == null ? null : reportQuery.getEndDate().getTime();
+
+		// Query the database and convert the queried data into report data.
+		List<InstantaneousReportData> instantaneousReportData = instantaneousDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, endDate)
+				.parallelStream()
 				.sorted((a, b) -> {
 					// Sort data here instead of having InstantaneousData implement Comparable, so that we can add sort options in the future.
 					int sort = a.getStartTime().compareTo(b.getStartTime());
@@ -88,27 +193,18 @@ public class ReportService {
 
 		// Return the generated report data.
 		return new InstantaneousReport(reportQuery, instantaneousReportData);
-		
+
 	}
-	
+
 	private IntegratedReport generateIntegratedReport(ReportQuery reportQuery) {
 
-		// Check if there is a site specified in the report query.
-		// Note that multiple sites are unsupported and will lead to random results.
-		Site site = reportQuery.getSites().stream().findFirst().orElse(null);
-		if (site == null) {
-			return null;
-		}
-		
 		// Check if there are start and end dates specified in the report query.
 		Long startDate = reportQuery.getStartDate() == null ? null : reportQuery.getStartDate().getTime();
 		Long endDate = reportQuery.getEndDate() == null ? null : reportQuery.getEndDate().getTime();
 
-		// Query the database.
-		List<IntegratedData> integratedData = integratedDataDao.getBySiteAndDate(site, startDate, endDate);
-
-		// Convert the queried data into report data.
-		List<IntegratedReportData> integratedReportData = integratedData.parallelStream()
+		// Query the database and convert the queried data into report data.
+		List<IntegratedReportData> integratedReportData = integratedDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, endDate)
+				.parallelStream()
 				.sorted((a, b) -> {
 					// Sort data here instead of having IntegratedData implement Comparable, so that we can add sort options in the future.
 					int sort = a.getStartTime().compareTo(b.getStartTime());
@@ -136,8 +232,9 @@ public class ReportService {
 
 		// Return the generated report data.
 		return new IntegratedReport(reportQuery, integratedReportData);
-		
+
 	}
-	
+
+
 
 }

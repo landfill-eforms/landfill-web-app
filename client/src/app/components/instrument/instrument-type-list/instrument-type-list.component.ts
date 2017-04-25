@@ -130,8 +130,10 @@ export class InstrumentTypeListComponent implements OnInit {
 		this.navigationService.getNavbarComponent().resetFabActionSource();
 		this.fabActionSubscriber.unsubscribe();
 	}
+
+
 	
-	loadInstrumentTypes() {
+	private loadInstrumentTypes() {
 		this.instrumentTypeService.getAll((data) => {
 			console.log(data);
 			this.instrumentTypes = data;
@@ -147,7 +149,7 @@ export class InstrumentTypeListComponent implements OnInit {
 		let dialogRef:MdDialogRef<NewInstrumentTypeDialogComponent> = this.dialog.open(NewInstrumentTypeDialogComponent, dialogConfig);
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("New user group has been created.", "OK", {duration: 2000});
+				this.snackBar.open("New equipment type added.", "OK", {duration: 2000});
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading..."
 				this.loadInstrumentTypes();

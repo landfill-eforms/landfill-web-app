@@ -134,7 +134,7 @@ export class InstrumentListComponent implements OnInit {
 			this.instruments = data;
 			this.applyFilters();
 			this.navigationService.getSideinfoComponent().open();
-			//this.isDataLoaded = true;
+			this.isDataLoaded = true; // TODO have multiple variables for different types of data.
 		});
 	}
 
@@ -154,7 +154,7 @@ export class InstrumentListComponent implements OnInit {
 		dialogRef.componentInstance.instrumentTypes = this.instrumentTypes;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("New user group has been created.", "OK", {duration: 2000});
+				this.snackBar.open("New equipment added.", "OK", {duration: 2000});
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading..."
 				this.loadInstruments();

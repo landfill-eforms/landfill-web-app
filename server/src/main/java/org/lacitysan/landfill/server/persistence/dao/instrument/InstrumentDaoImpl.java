@@ -8,6 +8,7 @@ import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentTyp
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alvin Quach
@@ -19,6 +20,7 @@ public class InstrumentDaoImpl extends AbstractDaoImpl<Instrument> implements In
 	HibernateTemplate hibernateTemplate;
 
 	@Override
+	@Transactional
 	public Instrument getByTypeAndSerialNumber(InstrumentType instrumentType, String serialNumber) {
 		Object result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(Instrument.class)

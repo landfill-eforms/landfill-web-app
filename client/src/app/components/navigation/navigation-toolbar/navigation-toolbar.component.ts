@@ -56,7 +56,7 @@ export class NavigationToolbarComponent implements OnInit {
 
 	fabAction(event:any) {
 		this.fabActionSource.next(event);
-		this.fabActionSource.complete();
+		// this.fabActionSource.complete();
 	}
 
 	action() {

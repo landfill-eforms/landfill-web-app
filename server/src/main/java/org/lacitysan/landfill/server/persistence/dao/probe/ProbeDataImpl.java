@@ -7,6 +7,7 @@ import org.hibernate.Hibernate;
 import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alvin Quach
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 public class ProbeDataImpl extends AbstractDaoImpl<ProbeData> implements ProbeDataDao {
 
 	@Override
+	@Transactional
 	public List<ProbeData> getExceedances() {
 		List<?> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(ProbeData.class)

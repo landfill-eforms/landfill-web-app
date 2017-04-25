@@ -9,6 +9,7 @@ import org.lacitysan.landfill.server.persistence.entity.report.IndividualReportQ
 import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
 import org.lacitysan.landfill.server.persistence.entity.report.ScheduledReportQuery;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alvin Quach
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Repository;
 public class ReportQueryDaoImpl extends AbstractDaoImpl<ReportQuery> implements ReportQueryDao {
 
 	@Override
+	@Transactional
 	public List<ScheduledReportQuery> getAllScheduledReportQueries() {
 		List<?> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(ScheduledReportQuery.class)
@@ -31,6 +33,7 @@ public class ReportQueryDaoImpl extends AbstractDaoImpl<ReportQuery> implements 
 	}
 
 	@Override
+	@Transactional
 	public List<IndividualReportQuery> getAllIndividualReportQueries() {
 		List<?> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(IndividualReportQuery.class)

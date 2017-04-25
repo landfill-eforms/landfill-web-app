@@ -54,14 +54,14 @@ export class ReportsComponent {
 
 	test() {
 		if (this.reportType == 1) {
-			this.instantaneousDataService.getBySiteAndDate(this.location.name.toUpperCase(), this.dateRange.start, this.dateRange.end, (data) => {
+			this.instantaneousDataService.getBySiteAndDate(this.location, this.dateRange.start, this.dateRange.end, (data) => {
 				this.instantaneousData = data;
 				this.dataLoaded = 1;
 				console.log(this.instantaneousData);
 			});
 		}
 		if (this.reportType == 3) {
-			this.integratedDataService.getBySiteAndDate(this.location.name.toUpperCase(), this.dateRange.start, this.dateRange.end, (data) => {
+			this.integratedDataService.getBySiteAndDate(this.location, this.dateRange.start, this.dateRange.end, (data) => {
 				this.integratedData = data;
 				this.dataLoaded = 3;
 				console.log(this.integratedDataService);

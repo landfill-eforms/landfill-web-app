@@ -1,5 +1,10 @@
 package org.lacitysan.landfill.server.report;
 
+import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceType;
+import org.lacitysan.landfill.server.service.report.model.ExceedanceReport;
+import org.lacitysan.landfill.server.service.report.model.data.ProbeExceedanceReportData;
+import org.lacitysan.landfill.server.service.report.model.data.ServiceEmissionExceedanceReportData;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -175,7 +181,7 @@ public class ReportExport {
 	    }
 	}
 	
-	public void ExceedanceReport(List<ReportedExceedance> data) throws IOException {
+	public void ExceedanceReport(ExceedanceReport report) throws IOException {
 		
 		//----------------------------------------------------------------------------------------------------
 		PDDocument document = new PDDocument();		
@@ -184,73 +190,133 @@ public class ReportExport {
 		pdd.setTitle("Landfill report");
 		pdd.setCreator("Allen Ma");
 		
-		PDPage blankPage = new PDPage();
-		blankPage.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
-		document.addPage( blankPage );	    
+		
+		PDPage blankPage1 = new PDPage();
+		PDPage blankPage2 = new PDPage();
+		PDPage blankPage3 = new PDPage();	
+		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+		blankPage2.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+		blankPage3.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+		
+		document.addPage( blankPage1 );
+		document.addPage( blankPage2 );
+		document.addPage( blankPage3 );
+		
 	//----------------------------------------------------------------------------------------------------				
         String text = "";	        
         float margin = 10;
-        float tableWidth = blankPage.getMediaBox().getWidth() - (2 * margin);
-        float yStartNewPage = blankPage.getMediaBox().getHeight() - (2 * margin);
+        float tableWidth = blankPage1.getMediaBox().getWidth() - (2 * margin);
+        float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
         float yStart = yStartNewPage;
         float bottomMargin = 20;
+        
+        Set<ExceedanceType> types = report.getReportQuery().getExceedanceTypes();
         List<List> reportData = new ArrayList<>();
+        List<? extends Object> listType;
         
-        ArrayList<String> header = new ArrayList<>();
-        header.add("Date");
-        header.add("Landfill");
-        header.add("Exceedance Type");
-        header.add("IME#/Probe");
-        header.add("Grid/Depth");
-        header.add("Repair Description");
-        header.add("Initial ppmv");
-        header.add("Recheck");	    
-        
-//        reportData.add(header);
-        
-        for(int i = 0; i < data.size(); i++){
-        	ArrayList<String> info = new ArrayList<>();
-        	text = "" + data.get(i).getDate();
-        	info.add(text);
-        	info.add(data.get(i).getLandfill());
-        	info.add(data.get(i).getType());
-        	info.add(data.get(i).getIdentifier());
-        	info.add(data.get(i).getLocation());
-        	info.add(data.get(i).getRepair());
-        	info.add(data.get(i).getInitial());
-        	info.add(data.get(i).getRecheck());
+        int pageIndex = 0;
+        String exceedType = "";
+        for (Iterator<ExceedanceType> it = types.iterator(); it.hasNext(); ) {
+        	ExceedanceType exType = it.next();
+        	if (exType.getName().equals("Instantaneous") ){
+        		exceedType = "Instantaneous Exceedances";
+        		listType = report.getImeReportData();
+        	}
+        	else if(exType.getName().equals("Integrated Exceedances")){
+        		exceedType = "Integrated";
+        		listType = report.getIseReportData();
+        	}
+        	else{
+        		exceedType = "Perimeter Probe Exceedances";
+        		listType = report.getProbeExceedanceReportData();
+        	}
         	
-        	reportData.add(info);
-        }
-        
-        BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage, true, true);
-		
-       //Create Header row
-		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
-		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "EXCEEDANCE REPORT");			
-		cell.setFont(PDType1Font.HELVETICA_BOLD);
-		
-		
-		
-		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
-		cell = hea.createCell((100 / 9.0f) * 2, "" + header.get(0) );
-		for (int i = 1; i < header.size(); i++) {
-               cell = hea.createCell((100 / 9f), "" + header.get(i));
-            }		
-		cell.setFont(PDType1Font.HELVETICA_BOLD);
-		dataTable.addHeaderRow(hea); //derRow
-		
-		for (List info : reportData) {
-			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
-            
-        	cell = row.createCell((100 / 9.0f) * 2, "" + info.get(0) ); //3
-            for (int i = 1; i < info.size(); i++) {
-               cell = row.createCell((100 / 9f), "" + info.get(i));
+        	ArrayList<String> header = new ArrayList<>();
+            if (exType.getName().equals("Instantaneous") || exType.getName().equals("Integrated")){
+            	
+            	header.add("Date Discovered");
+            	if(exType.getName().equals("Instantaneous")){
+            		header.add("IME#");
+            		header.add("Grid(s)");
+            	}
+            	else{
+            		header.add("ISE#");
+            		header.add("Grid");
+            	}      	
+                header.add("Repair Description");
+                header.add("Initial Reading (ppm)");
+                header.add("Recheck value (ppm)");
+                header.add("Date Cleared");
+                                 
+                for(int i = 0; i < listType.size(); i++){
+                	ArrayList<String> info = new ArrayList<>();
+                	info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getDiscoveredDate() );                	
+            		info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getExceedanceNumber() );
+            		info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getMonitoringPoints() );     	
+                	info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getRepairDescription() );
+                	info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getInitial() );
+                	info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getRecheck() );
+                	info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getClearedDate() );
+                	                	
+                	reportData.add(info);
+                }
+            }
+            else if (exType.getName().equals("Probe")){
+            	header.add("Date Discovered");
+        		header.add("Probe ID");
+        		header.add("Depth");           	            	     	
+                header.add("Repair Description");
+                header.add("Initial Reading (ppm)");
+                header.add("Recheck value (ppm)");
+                header.add("Date Cleared");
+                
+                for(int i = 0; i < listType.size(); i++){
+                	ArrayList<String> info = new ArrayList<>();
+                	info.add( ((ProbeExceedanceReportData) listType.get(i)).getDiscoveredDate() );                	
+            		info.add( ((ProbeExceedanceReportData) listType.get(i)).getProbeId() );
+            		info.add( ((ProbeExceedanceReportData) listType.get(i)).getDepth() );      	      	
+                	info.add( ((ProbeExceedanceReportData) listType.get(i)).getRepairDescription() );
+                	info.add( ((ProbeExceedanceReportData) listType.get(i)).getInitial() );
+                	info.add( ((ProbeExceedanceReportData) listType.get(i)).getRecheck() );
+                	info.add( ((ProbeExceedanceReportData) listType.get(i)).getClearedDate() );
+                	                	
+                	reportData.add(info);
+                }
             }
             
-            
-		}
-		dataTable.draw();
+            BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, document.getPage(pageIndex), true, true);
+    		
+            //Create Header row
+     		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
+     		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, exceedType);			
+     		cell.setFont(PDType1Font.HELVETICA_BOLD);
+     		
+     		
+     		
+     		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
+     		cell = hea.createCell((100 / 9.0f) * 2, "" + header.get(0) );
+     		for (int i = 1; i < header.size(); i++) {
+                    cell = hea.createCell((100 / 9f), "" + header.get(i));
+                 }		
+     		cell.setFont(PDType1Font.HELVETICA_BOLD);
+     		dataTable.addHeaderRow(hea); //derRow
+     		
+     		for (List info : reportData) {
+     			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
+                 
+             	cell = row.createCell((100 / 9.0f) * 2, "" + info.get(0) ); //3
+                 for (int i = 1; i < info.size(); i++) {
+                    cell = row.createCell((100 / 9f), "" + info.get(i));
+                 }
+                 
+                 
+     		}
+     		
+     		dataTable.draw(); 
+     		pageIndex++;
+        }
+                
+        
         
 		System.out.println(document.getNumberOfPages());
 //        DataTable tab = new DataTable(dataTable, blankPage);

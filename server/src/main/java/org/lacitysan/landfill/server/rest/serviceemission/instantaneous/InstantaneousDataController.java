@@ -6,7 +6,7 @@ import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.serviceemission.instantaneous.InstantaneousDataDao;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.InstantaneousData;
 import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
-import org.lacitysan.landfill.server.service.MonitoringPointService;
+import org.lacitysan.landfill.server.service.serviceemission.instantaneous.InstantaneousDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,20 +25,19 @@ public class InstantaneousDataController {
 	@Autowired
 	InstantaneousDataDao instantaneousDataDao;
 	
-	// TODO Delete this.
 	@Autowired
-	MonitoringPointService monitoringPointService;
+	InstantaneousDataService instantaneousDataService;
 	
 	@RequestMapping(value="/{siteName}", method=RequestMethod.GET)
 	@ResponseBody
-	public List<InstantaneousData> getBySite(@PathVariable String siteName) {
-		return instantaneousDataDao.getBySiteAndDate(monitoringPointService.getSiteByName(siteName), null, null);
+	public List<InstantaneousData> getBySite(@PathVariable String siteEnumName) {
+		return instantaneousDataService.getBySite(siteEnumName);
 	}
 	
 	@RequestMapping(value="/{siteName}/{start}/{end}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<InstantaneousData> getBySiteAndDate(@PathVariable String siteName, @PathVariable Long start, @PathVariable Long end) {
-		return instantaneousDataDao.getBySiteAndDate(monitoringPointService.getSiteByName(siteName), start, end);
+		return instantaneousDataService.getBySiteAndDate(siteName, start, end);
 	}
 	
 	@RestAllowSuperAdminOnly

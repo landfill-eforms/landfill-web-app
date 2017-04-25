@@ -58,7 +58,7 @@ public class IseNumber extends ServiceEmissionExceedanceNumber {
 
 	@Override
 	public String toString() {
-		return new IseNumberService().getStringFromIseNumber(this);
+		return new IseNumberService().generateStringFromIseNumber(this);
 	}
 
 }

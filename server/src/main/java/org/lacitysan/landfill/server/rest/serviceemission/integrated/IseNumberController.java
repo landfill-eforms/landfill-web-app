@@ -38,7 +38,7 @@ public class IseNumberController {
 	
 	@RequestMapping(value="/unique/iseNumber/{iseNumber}", method=RequestMethod.GET)
 	public IseNumber getByIseNumber(@PathVariable String iseNumber) {
-		IseNumber temp = iseNumberService.getIseNumberFromString(iseNumber);
+		IseNumber temp = iseNumberService.generateIseNumberFromString(iseNumber);
 		return iseNumberDao.getByIseNumber(temp);
 	}
 	

@@ -85,7 +85,7 @@ public class ImeNumber extends ServiceEmissionExceedanceNumber {
 
 	@Override
 	public String toString() {
-		return new ImeNumberService().getStringFromImeNumber(this);
+		return new ImeNumberService().generateStringFromImeNumber(this);
 	}
 
 }

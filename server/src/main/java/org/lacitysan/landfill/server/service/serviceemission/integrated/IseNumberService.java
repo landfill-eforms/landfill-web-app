@@ -23,7 +23,7 @@ public class IseNumberService extends ServiceEmissionExceedanceNumberService<Ise
 	
 	@Override
 	public List<IseNumber> getBySiteAndDateCode(String siteName) {
-		return iseNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByName(siteName), null);
+		return iseNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), null);
 	}
 	
 	@Override
@@ -40,8 +40,8 @@ public class IseNumberService extends ServiceEmissionExceedanceNumberService<Ise
 	 * @param exceedanceNumber The object that contains the ISE number's information. 
 	 * @return The formatted ISE number string.
 	 */
-	public String getStringFromIseNumber(IseNumber iseNumber) {
-		return getStringFromExceedanceNumber(iseNumber);
+	public String generateStringFromIseNumber(IseNumber iseNumber) {
+		return generateStringFromExceedanceNumber(iseNumber);
 	}
 
 	/**
@@ -51,13 +51,13 @@ public class IseNumberService extends ServiceEmissionExceedanceNumberService<Ise
 	 * @param exceedanceNumber String representation of an ISE number.
 	 * @return A generated <code>ISENumber</code> object based on the input ISE number string, or <code>null</code> if the input string was not valid.
 	 */
-	public IseNumber getIseNumberFromString(String iseNumber) {
-		return getExceedanceNumberFromString(iseNumber);
+	public IseNumber generateIseNumberFromString(String iseNumber) {
+		return generateExceedanceNumberFromString(iseNumber);
 	}
 	
-	/** Gets the last repair made to the ISE. */
+	/** Finds the last repair made to the ISE. */
 	@Override
-	public IseRepairData getLastRepair(IseNumber iseNumber) {
+	public IseRepairData findLastRepair(IseNumber iseNumber) {
 		IseRepairData result = null;
 		for (IseData iseData : iseNumber.getIseData()) {
 			if (iseData.getIseRepairData() == null || iseData.getIseRepairData().isEmpty()) {
@@ -68,6 +68,11 @@ public class IseNumberService extends ServiceEmissionExceedanceNumberService<Ise
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public IseData findInitialDataEntry(IseNumber iseNumber) {
+		return iseNumber.getIseData().stream().findFirst().orElse(null);
 	}
 	
 	@Override

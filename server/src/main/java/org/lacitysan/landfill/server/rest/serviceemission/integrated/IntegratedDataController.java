@@ -28,13 +28,13 @@ public class IntegratedDataController {
 	@Autowired
 	IntegratedDataService integratedDataService;
 	
-	@RequestMapping(value="/{siteName}", method=RequestMethod.GET)
+	@RequestMapping(value="/{siteEnumName}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<IntegratedData> getBySite(@PathVariable String siteEnumName) {
 		return integratedDataService.getBySite(siteEnumName);
 	}
 	
-	@RequestMapping(value="/{siteName}/{start}/{end}", method=RequestMethod.GET)
+	@RequestMapping(value="/{siteEnumName}/{start}/{end}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<IntegratedData> getBySiteAndDate(@PathVariable String siteName, @PathVariable Long start, @PathVariable Long end) {
 		return integratedDataService.getBySiteAndDate(siteName, start, end);

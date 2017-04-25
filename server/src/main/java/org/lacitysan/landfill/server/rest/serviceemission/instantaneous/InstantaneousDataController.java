@@ -28,13 +28,13 @@ public class InstantaneousDataController {
 	@Autowired
 	InstantaneousDataService instantaneousDataService;
 	
-	@RequestMapping(value="/{siteName}", method=RequestMethod.GET)
+	@RequestMapping(value="/{siteEnumName}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<InstantaneousData> getBySite(@PathVariable String siteEnumName) {
 		return instantaneousDataService.getBySite(siteEnumName);
 	}
 	
-	@RequestMapping(value="/{siteName}/{start}/{end}", method=RequestMethod.GET)
+	@RequestMapping(value="/{siteEnumName}/{start}/{end}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<InstantaneousData> getBySiteAndDate(@PathVariable String siteName, @PathVariable Long start, @PathVariable Long end) {
 		return instantaneousDataService.getBySiteAndDate(siteName, start, end);

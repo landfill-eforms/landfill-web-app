@@ -17,5 +17,7 @@ public interface ServiceEmissionExceedanceNumberDao<T extends ServiceEmissionExc
 	List<T> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode);
 
 	List<T> getVerifiedBySiteAndDateCode(Site site, Integer dateCode);
+	
+	List<T> getVerifiedBySiteAndDateRange(Site site, Long start, Long end);
 
 }

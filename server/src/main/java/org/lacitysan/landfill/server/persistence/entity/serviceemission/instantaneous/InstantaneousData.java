@@ -1,7 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -32,7 +32,7 @@ public class InstantaneousData extends ServiceEmissionData {
 	@JsonIgnoreProperties({"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"})
 	@ManyToMany
 	@JoinTable(name="dbo.InstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="InstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
-	private Set<ImeNumber> imeNumbers = new HashSet<>();
+	private Set<ImeNumber> imeNumbers = new TreeSet<>();
 	
 	@JsonIgnoreProperties({"instantaneousData", "unverifiedInstantaneousData", "inspector", "instrument"})
 	@ManyToOne
@@ -55,5 +55,5 @@ public class InstantaneousData extends ServiceEmissionData {
 	public void setWarmspotData(WarmspotData warmspotData) {
 		this.warmspotData = warmspotData;
 	}
-
+	
 }

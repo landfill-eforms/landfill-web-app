@@ -32,7 +32,7 @@ public class IntegratedDataController {
 	@RequestMapping(value="/{siteName}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<IntegratedData> getBySite(@PathVariable String siteName) {
-		return integratedDataDao.getBySite(monitoringPointService.getSiteByName(siteName));
+		return integratedDataDao.getBySiteAndDate(monitoringPointService.getSiteByName(siteName), null, null);
 	}
 	
 	@RequestMapping(value="/{siteName}/{start}/{end}", method=RequestMethod.GET)

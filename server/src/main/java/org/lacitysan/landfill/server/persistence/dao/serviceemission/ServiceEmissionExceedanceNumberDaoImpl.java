@@ -1,5 +1,6 @@
 package org.lacitysan.landfill.server.persistence.dao.serviceemission;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionExceedanceNumber;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
+import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -21,7 +23,7 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 	@Transactional
 	public List<T> getBySiteAndDateCode(Site site, Integer dateCode) {
 		if (site == null) {
-			return null;
+			return new ArrayList<>();
 		}
 		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(getGenericClass())
@@ -40,7 +42,7 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 	@Transactional
 	public List<T> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode) {
 		if (site == null) {
-			return null;
+			return new ArrayList<>();
 		}
 		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(getGenericClass())
@@ -60,7 +62,7 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 	@Transactional
 	public List<T> getVerifiedBySiteAndDateCode(Site site, Integer dateCode) {
 		if (site == null) {
-			return null;
+			return new ArrayList<>();
 		}
 		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(getGenericClass())
@@ -75,6 +77,30 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 				.filter(e -> e != null)
 				.collect(Collectors.toList());
 	}
+	
+	@Override
+	@Transactional
+	public List<T> getVerifiedBySiteAndDateRange(Site site, Long start, Long end) {
+		if (site == null) {
+			return new ArrayList<>();
+		}
+		Criteria criteria = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(getGenericClass())
+				.add(Restrictions.ne("status", ExceedanceStatus.UNVERIFIED))
+				.add(Restrictions.eq("site", site));
+		if (start != null) {
+			criteria.add(Restrictions.ge("dateCode", DateTimeUtils.longToSqlDate(start)));
+		}
+		if (end != null) {
+			criteria.add(Restrictions.lt("endTime", DateTimeUtils.longToSqlDate(DateTimeUtils.addDay(end))));
+		}
+		List<?> result = criteria.list();
+		return result.stream()
+				.map(e -> initialize(checkType(e)))
+				.filter(e -> e != null)
+				.collect(Collectors.toList());
+	}
+	
 
 	@Transactional
 	protected T getByExceedanceNumber(T exceedanceNumber) {

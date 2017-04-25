@@ -27,15 +27,15 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="dbo.Users")
 @JsonInclude(Include.NON_NULL)
 public class User {
-	
+
 	@Id
 	@Column(name="UserPK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotNull
 	private String username;
-	
+
 	@NotNull
 	@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
@@ -44,25 +44,25 @@ public class User {
 	@ManyToMany
 	@JoinTable(name="dbo.UsersXRefUserGroups", joinColumns=@JoinColumn(name="UserFK"), inverseJoinColumns=@JoinColumn(name="UserGroupFK"))
 	private Set<UserGroup> userGroups = new HashSet<>();
-	
+
 	@NotNull
 	private String firstname;
-	
+
 	@NotNull
 	private String middlename;
-	
+
 	@NotNull
 	private String lastname;
-	
+
 	@NotNull
 	private String emailAddress;
-	
+
 	@NotNull
 	private String employeeId;
-	
+
 	@NotNull
 	private Boolean enabled;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -141,6 +141,17 @@ public class User {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String printName() {
+		return firstname
+				+ (middlename == null || middlename.isEmpty() ? " " : " " + middlename.charAt(0) + ". ")
+				+ lastname; 
+	}
+	
+	@Override
+	public String toString() {
+		return username;
 	}
 
 }

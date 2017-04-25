@@ -19,7 +19,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedPro
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
-import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeService;
+import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeNumberService;
 import org.lacitysan.landfill.server.service.unverified.model.VerifiedDataSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ public class DataVerificationService {
 	WarmspotDataDao warmspotDataDao;
 	
 	@Autowired
-	ImeService imeService;
+	ImeNumberService imeService;
 	
 	public VerifiedDataSet verifyAndCommit(UnverifiedDataSet unverifiedDataSet) {
 		

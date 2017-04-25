@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Alvin Quach
  */
 @MappedSuperclass
-public class ServiceEmissionExceedanceRepairData {
+public abstract class ServiceEmissionExceedanceRepairData implements Comparable<ServiceEmissionExceedanceRepairData> {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -98,6 +98,11 @@ public class ServiceEmissionExceedanceRepairData {
 
 	public void setCrew(String crew) {
 		this.crew = crew;
+	}
+	
+	@Override
+	public int compareTo(ServiceEmissionExceedanceRepairData o) {
+		return dateTime.compareTo(o.getDateTime());
 	}
 	
 }

@@ -43,11 +43,10 @@ public class ReportQuery {
 	@Enumerated(EnumType.STRING)
 	private ReportType reportType;
 	
-	@ElementCollection(targetClass=Site.class)
-	@JoinTable(name="dbo.ReportQueriesXRefSites", joinColumns=@JoinColumn(name="ReportQueryFK"))
+	@NotNull
 	@Column(name="SiteString")
 	@Enumerated(EnumType.STRING)
-	private Set<Site> sites = new HashSet<>();
+	private Site site;
 	
 	@ElementCollection(targetClass=ExceedanceType.class)
 	@JoinTable(name="dbo.ReportQueriesXRefExceedanceTypes", joinColumns=@JoinColumn(name="ReportQueryFK"))
@@ -75,12 +74,12 @@ public class ReportQuery {
 		this.reportType = reportType;
 	}
 
-	public Set<Site> getSites() {
-		return sites;
+	public Site getSite() {
+		return site;
 	}
 
-	public void setSites(Set<Site> sites) {
-		this.sites = sites;
+	public void setSite(Site site) {
+		this.site = site;
 	}
 
 	public Set<ExceedanceType> getExceedanceTypes() {

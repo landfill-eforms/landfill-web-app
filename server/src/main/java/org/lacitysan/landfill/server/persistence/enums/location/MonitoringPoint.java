@@ -716,6 +716,11 @@ public enum MonitoringPoint {
 		return type;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 	@JsonCreator
 	public static MonitoringPoint deserialize(Object object) {
 		return LandfillEnumDeserializer.deserialize(MonitoringPoint.class, object);

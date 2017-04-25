@@ -1,5 +1,5 @@
-import { EmailRecipientType } from '../../enums/email/email-recipient-type.enum';
 import { ScheduledEmail } from '../scheduled/scheduled-email.class';
+import { EmailRecipientType } from '../../enums/email/email-recipient-type.enum';
 
 /**
  * This class was automatically generated from EmailRecipient.java using typescript-gen.

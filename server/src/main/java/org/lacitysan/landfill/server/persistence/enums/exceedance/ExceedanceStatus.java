@@ -11,7 +11,7 @@ public enum ExceedanceStatus {
 	
 	UNVERIFIED,
 	ACTIVE,
-	CLOSED;
+	CLEARED;
 	
 	@JsonCreator
 	public static ExceedanceStatus deserialize(Object object) {

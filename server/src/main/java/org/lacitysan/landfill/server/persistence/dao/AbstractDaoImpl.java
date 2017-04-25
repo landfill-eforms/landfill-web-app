@@ -61,6 +61,11 @@ public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
 		return entity;
 	}
 
+	/**
+	 * Checks if an object is an instance of this data access object's generic inner class.
+	 * @param entity The object to check.
+	 * @return The object typecasted to the generic inner class, or <code>null</code> if there is a type mismatch.
+	 */
 	@SuppressWarnings("unchecked")
 	protected T checkType(Object entity) {
 		if (getGenericClass().isInstance(entity)) {

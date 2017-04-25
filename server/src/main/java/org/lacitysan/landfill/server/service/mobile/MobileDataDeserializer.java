@@ -36,8 +36,8 @@ import org.lacitysan.landfill.server.service.mobile.model.MobileIntegratedData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileIseData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileProbeData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileWarmspotData;
-import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeService;
-import org.lacitysan.landfill.server.service.serviceemission.integrated.IseService;
+import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeNumberService;
+import org.lacitysan.landfill.server.service.serviceemission.integrated.IseNumberService;
 import org.lacitysan.landfill.server.service.user.UserService;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,10 +66,10 @@ public class MobileDataDeserializer {
 	UserService userService;
 	
 	@Autowired
-	ImeService imeService;
+	ImeNumberService imeService;
 	
 	@Autowired
-	IseService iseService;
+	IseNumberService iseService;
 	
 	@Autowired
 	MonitoringPointService monitoringPointService;
@@ -82,10 +82,10 @@ public class MobileDataDeserializer {
 		// WTF???????????????
 		Map<User, Map<Site, UnverifiedDataSet>> resultMap = new HashMap<>();
 
-		// Store a map of imported IME numbers. The value stored for each IME number is its original imported IME number string, if exists.
-		Map<ImeNumber, String> imeNumberMap = new HashMap<>();
+		// Store a map of imported IME numbers.
+		Set<ImeNumber> imeNumberSet = new HashSet<>();
 		
-		// Store a map of imported IME numbers. The value stored for each IME number is its original imported IME number string, if exists.
+		// Store a set of imported IME numbers.
 		Set<IseNumber> iseNumberSet = new HashSet<>();
 		
 		// Fucking want to chop my dick off.
@@ -104,12 +104,7 @@ public class MobileDataDeserializer {
 				
 				// Get date and format it into the date code.
 				Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileImeData.getmDate());
-				if (date == null) {
-					continue;
-				}
-				Calendar calendar = new GregorianCalendar();
-				calendar.setTime(date);
-				int dateCode = (calendar.get(Calendar.YEAR) % 2000) * 100 + calendar.get(Calendar.MONTH) + 1;
+				int dateCode = imeService.getDateCodeFromLong(date.getTime());
 				
 				// Create new IME number string based on site, date code, and next sequence number.
 				imeNumberString = site.getShortName() + "-" + dateCode + "-00";
@@ -132,10 +127,12 @@ public class MobileDataDeserializer {
 			imeData.setMethaneLevel((int)(mobileImeData.getmMethaneReading() * 100));
 			imeData.setInspector(getUser(userMap, mobileImeData.getmInspectorUserName()));
 			imeData.setImeNumber(imeNumber);
+			
+			// Add the IME data entry to the IME number.
 			imeNumber.getImeData().add(imeData);
 			
 			// Add the IME number to the set of IME numbers.
-			imeNumberMap.put(imeNumber, imeNumberString);
+			imeNumberSet.add(imeNumber);
 		}
 		
 		// Process the instantaneous data entries.
@@ -153,28 +150,39 @@ public class MobileDataDeserializer {
 				unverifiedInstantaneousData.setMonitoringPoint(grid);
 			}
 			if (mobileInstantaneousData.getImeNumber() != null && !mobileInstantaneousData.getImeNumber().isEmpty()) {
+				
+				// Declare and IME number and initialize to null.
 				ImeNumber imeNumber = null;
-				for (ImeNumber existingImeNumber : imeNumberMap.keySet()) {
-					if (imeNumberMap.get(existingImeNumber).equals(mobileInstantaneousData.getImeNumber())) {
+				
+				// Find an existing IME number that matches the current one.
+				for (ImeNumber existingImeNumber : imeNumberSet) {
+					if (existingImeNumber.getImeNumber().equals(mobileInstantaneousData.getImeNumber())) {
 						imeNumber = existingImeNumber;
 						break;
 					}
 				}
+				
+				// If no suitable IME number was found, then create a new one.
 				if (imeNumber == null) {
 					ImeNumber newImeNumber = imeService.getImeNumberFromString(mobileInstantaneousData.getImeNumber());
 					if (newImeNumber != null) {
-						// We dont need this.
-						//short sequence = imeService.getNextSequence(newImeNumber.getSite(), newImeNumber.getDateCode(), false);
-						// newImeNumber.setSequence(sequence);
+						
+						// Make sure the IME's date code matches with the discovery date.
+						Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate());
+						newImeNumber.setDateCode(imeService.getDateCodeFromLong(date.getTime()));
+						
 						newImeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
-						imeNumberMap.put(newImeNumber, mobileInstantaneousData.getImeNumber());
+						imeNumberSet.add(newImeNumber);
 						imeNumber = newImeNumber;
 					}
 				}
+				
+				// Add the instantaneous data to the IME number and vice versa.
 				if (imeNumber != null) {
 					imeNumber.getUnverifiedInstantaneousData().add(unverifiedInstantaneousData);
 					unverifiedInstantaneousData.getImeNumbers().add(imeNumber);
 				}
+				
 			}
 			unverifiedInstantaneousData.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
 			unverifiedInstantaneousData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate()));
@@ -369,7 +377,7 @@ public class MobileDataDeserializer {
 		Set<UnverifiedDataSet> result = resultMap.values().stream().map(map -> map.values()).flatMap(values -> values.stream()).collect(Collectors.toSet());
 		
 		// Insert IME numbers into database.
-		for (ImeNumber imeNumber : imeNumberMap.keySet()) {
+		for (ImeNumber imeNumber : imeNumberSet) {
 			// TODO Update 'modified by' field.
 			imeService.createUnverified(imeNumber);
 
@@ -413,5 +421,5 @@ public class MobileDataDeserializer {
 		userMap.put(username, user);
 		return user;
 	}
-
+	
 }

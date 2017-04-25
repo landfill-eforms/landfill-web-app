@@ -18,7 +18,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.lacitysan.landfill.server.service.report.model.ReportedExceedance;
 
 import be.quodlibet.boxable.BaseTable;
 import be.quodlibet.boxable.datatable.*;

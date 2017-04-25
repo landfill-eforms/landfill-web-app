@@ -7,6 +7,8 @@ import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
 import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
+import org.lacitysan.landfill.server.persistence.entity.report.IndividualReportQuery;
+import org.lacitysan.landfill.server.persistence.entity.report.ScheduledReportQuery;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.Schedule;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledEmail;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledNotification;
@@ -99,6 +101,10 @@ public class DataSourceConfig {
 						
 						// Probe
 						ProbeData.class,
+						
+						// Report
+						IndividualReportQuery.class,
+						ScheduledReportQuery.class,
 						
 						// Scheduled
 						Schedule.class,

@@ -1,10 +1,18 @@
 package org.lacitysan.landfill.server.persistence.entity.scheduled;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.lacitysan.landfill.server.persistence.entity.report.ScheduledReportQuery;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -17,15 +25,17 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class ScheduledReport extends ScheduledEmail {
 	
-	@NotNull
-	private Integer joo;
+	@JsonIgnoreProperties("scheduledReport")
+	@Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy="scheduledReport")
+	private Set<ScheduledReportQuery> reportQueries = new TreeSet<>();
 
-	public Integer getJoo() {
-		return joo;
+	public Set<ScheduledReportQuery> getReportQueries() {
+		return reportQueries;
 	}
 
-	public void setJoo(Integer joo) {
-		this.joo = joo;
-	}
+	public void setReportQueries(Set<ScheduledReportQuery> reportQueries) {
+		this.reportQueries = reportQueries;
+	}	
 
 }

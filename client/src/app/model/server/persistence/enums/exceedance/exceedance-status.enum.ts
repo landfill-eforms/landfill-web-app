@@ -14,9 +14,9 @@ export class ExceedanceStatus {
 		constantName: "ACTIVE"
 	};
 
-	static readonly CLOSED:ExceedanceStatus = {
+	static readonly CLEARED:ExceedanceStatus = {
 		ordinal: 2,
-		constantName: "CLOSED"
+		constantName: "CLEARED"
 	};
 
 	readonly ordinal:number;
@@ -26,7 +26,7 @@ export class ExceedanceStatus {
 		return [
 			ExceedanceStatus.UNVERIFIED,
 			ExceedanceStatus.ACTIVE,
-			ExceedanceStatus.CLOSED
+			ExceedanceStatus.CLEARED
 		];
 	}
 

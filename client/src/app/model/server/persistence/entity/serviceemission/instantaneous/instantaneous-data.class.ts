@@ -1,6 +1,6 @@
-import { WarmspotData } from './warmspot-data.class';
 import { ServiceEmissionData } from '../service-emission-data.class';
 import { ImeNumber } from './ime-number.class';
+import { WarmspotData } from './warmspot-data.class';
 
 /**
  * This class was automatically generated from InstantaneousData.java using typescript-gen.

@@ -1,3 +1,4 @@
+import { ScheduledReportQuery } from '../report/scheduled-report-query.class';
 import { ScheduledEmail } from './scheduled-email.class';
 
 /**
@@ -5,5 +6,5 @@ import { ScheduledEmail } from './scheduled-email.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class ScheduledReport extends ScheduledEmail {
-	joo:number;
+	reportQueries:ScheduledReportQuery[];
 }

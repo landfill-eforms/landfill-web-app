@@ -1,7 +1,9 @@
 package org.lacitysan.landfill.server.service.serviceemission;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -108,7 +110,13 @@ public abstract class ServiceEmissionExceedanceNumberService<T extends ServiceEm
 	}
 
 	abstract public T update(T exceedanceNumber);
-
+	
+	public int getDateCodeFromLong(long date) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTimeInMillis(date);
+		return (calendar.get(Calendar.YEAR) - 2000) * 100 + calendar.get(Calendar.MONTH) + 1;
+	}
+	
 	/**
 	 * Generates a formatted string representation of a service emissions exceedance number, based on the exceedance number's site, date, and sequence number.
 	 * The format of the generated number will be AAyyMM-BB (dash included), where AA is the short name of the site, yyMM is the date format, and BB is the sequence number.

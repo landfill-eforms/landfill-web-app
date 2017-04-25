@@ -104,12 +104,7 @@ public class MobileDataDeserializer {
 				
 				// Get date and format it into the date code.
 				Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileImeData.getmDate());
-				if (date == null) {
-					continue;
-				}
-				Calendar calendar = new GregorianCalendar();
-				calendar.setTime(date);
-				int dateCode = (calendar.get(Calendar.YEAR) % 2000) * 100 + calendar.get(Calendar.MONTH) + 1;
+				int dateCode = imeService.getDateCodeFromLong(date.getTime());
 				
 				// Create new IME number string based on site, date code, and next sequence number.
 				imeNumberString = site.getShortName() + "-" + dateCode + "-00";
@@ -155,25 +150,39 @@ public class MobileDataDeserializer {
 				unverifiedInstantaneousData.setMonitoringPoint(grid);
 			}
 			if (mobileInstantaneousData.getImeNumber() != null && !mobileInstantaneousData.getImeNumber().isEmpty()) {
+				
+				// Declare and IME number and initialize to null.
 				ImeNumber imeNumber = null;
+				
+				// Find an existing IME number that matches the current one.
 				for (ImeNumber existingImeNumber : imeNumberSet) {
 					if (existingImeNumber.getImeNumber().equals(mobileInstantaneousData.getImeNumber())) {
 						imeNumber = existingImeNumber;
 						break;
 					}
 				}
+				
+				// If no suitable IME number was found, then create a new one.
 				if (imeNumber == null) {
 					ImeNumber newImeNumber = imeService.getImeNumberFromString(mobileInstantaneousData.getImeNumber());
 					if (newImeNumber != null) {
+						
+						// Make sure the IME's date code matches with the discovery date.
+						Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate());
+						newImeNumber.setDateCode(imeService.getDateCodeFromLong(date.getTime()));
+						
 						newImeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
 						imeNumberSet.add(newImeNumber);
 						imeNumber = newImeNumber;
 					}
 				}
+				
+				// Add the instantaneous data to the IME number and vice versa.
 				if (imeNumber != null) {
 					imeNumber.getUnverifiedInstantaneousData().add(unverifiedInstantaneousData);
 					unverifiedInstantaneousData.getImeNumbers().add(imeNumber);
 				}
+				
 			}
 			unverifiedInstantaneousData.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
 			unverifiedInstantaneousData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate()));

@@ -1,6 +1,5 @@
 package org.lacitysan.landfill.server.service.report;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,15 +12,17 @@ import org.lacitysan.landfill.server.persistence.entity.serviceemission.instanta
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeRepairData;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseData;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseRepairData;
+import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceType;
 import org.lacitysan.landfill.server.persistence.enums.report.ReportType;
 import org.lacitysan.landfill.server.service.report.model.ExceedanceReport;
 import org.lacitysan.landfill.server.service.report.model.InstantaneousReport;
 import org.lacitysan.landfill.server.service.report.model.IntegratedReport;
 import org.lacitysan.landfill.server.service.report.model.Report;
-import org.lacitysan.landfill.server.service.report.model.data.ExceedanceReportData;
 import org.lacitysan.landfill.server.service.report.model.data.InstantaneousReportData;
 import org.lacitysan.landfill.server.service.report.model.data.IntegratedReportData;
+import org.lacitysan.landfill.server.service.report.model.data.ProbeExceedanceReportData;
+import org.lacitysan.landfill.server.service.report.model.data.ServiceEmissionExceedanceReportData;
 import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeNumberService;
 import org.lacitysan.landfill.server.service.serviceemission.integrated.IseNumberService;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
@@ -75,13 +76,13 @@ public class ReportService {
 		Long startDate = reportQuery.getStartDate() == null ? null : reportQuery.getStartDate().getTime();
 		Long endDate = reportQuery.getEndDate() == null ? null : reportQuery.getEndDate().getTime();
 
-		List<ExceedanceReportData> exceedanceReportData = new ArrayList<>();
+		ExceedanceReport exceedanceReport = new ExceedanceReport(reportQuery);
 
 		// Query the database for IMEs and add them to the report data.
 		if (reportQuery.getExceedanceTypes().contains(ExceedanceType.INSTANTANEOUS)) {
 			
 			// TODO Create method to query by date range instead of date code.
-			exceedanceReportData.addAll(imeNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
+			exceedanceReport.getImeReportData().addAll(imeNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
 					.parallelStream()
 					.sorted((a, b) -> a.compareTo(b))
 					.map(c -> {
@@ -96,15 +97,14 @@ public class ReportService {
 						ImeData initial = imeDataList.get(0);
 						ImeRepairData finalRepair = imeNumberService.getLastRepair(c);
 						
-						ExceedanceReportData d = new ExceedanceReportData();
-						d.setDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
-						d.setLandfill(c.getSite().getName().toUpperCase());
-						d.setType(ExceedanceType.INSTANTANEOUS.getName().toUpperCase());
-						d.setIdentifier(c.getImeNumber());
-						d.setLocation(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
-						d.setRepair(finalRepair.getDescription());
+						ServiceEmissionExceedanceReportData d = new ServiceEmissionExceedanceReportData();
+						d.setDiscoveredDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
+						d.setExceedanceNumber(c.getImeNumber());
+						d.setMonitoringPoints(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
+						d.setRepairDescription(finalRepair.getDescription());
 						d.setInitial(String.format("%.2f", initial.getMethaneLevel() / 100.0));
 						d.setRecheck(imeDataList.size() == 1 ? "" : String.format("%.2f", imeDataList.get(imeDataList.size() - 1).getMethaneLevel()));
+						d.setClearedDate(c.getStatus() == ExceedanceStatus.CLEARED ? DateTimeUtils.formatSimpleDate(finalRepair.getDateTime().getTime()) : "");
 						return d;
 					})
 					.filter(e -> e != null)
@@ -113,7 +113,7 @@ public class ReportService {
 		
 		// Query the database for ISEs and add them to the report data.
 		if (reportQuery.getExceedanceTypes().contains(ExceedanceType.INTEGRATED)) {
-			exceedanceReportData.addAll(iseNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
+			exceedanceReport.getIseReportData().addAll(iseNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
 					.parallelStream()
 					.sorted((a, b) -> a.compareTo(b))
 					.map(c -> {
@@ -128,15 +128,14 @@ public class ReportService {
 						IseData initial = iseDataList.get(0);
 						IseRepairData finalRepair = iseNumberService.getLastRepair(c);
 						
-						ExceedanceReportData d = new ExceedanceReportData();
-						d.setDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
-						d.setLandfill(c.getSite().getName().toUpperCase());
-						d.setType(ExceedanceType.INTEGRATED.getName().toUpperCase());
-						d.setIdentifier(c.getIseNumber());
-						d.setLocation(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
-						d.setRepair(finalRepair.getDescription());
+						ServiceEmissionExceedanceReportData d = new ServiceEmissionExceedanceReportData();
+						d.setDiscoveredDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
+						d.setExceedanceNumber(c.getIseNumber());
+						d.setMonitoringPoints(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
+						d.setRepairDescription(finalRepair.getDescription());
 						d.setInitial(String.format("%.2f", initial.getMethaneLevel() / 100.0));
 						d.setRecheck(iseDataList.size() == 1 ? "" : String.format("%.2f", iseDataList.get(iseDataList.size() - 1).getMethaneLevel()));
+						d.setClearedDate(c.getStatus() == ExceedanceStatus.CLEARED ? DateTimeUtils.formatSimpleDate(finalRepair.getDateTime().getTime()) : "");
 						return d;
 					})
 					.filter(e -> e != null)
@@ -145,17 +144,17 @@ public class ReportService {
 		
 		// Query the database for Probe exceedances and add them to the report data.
 		if (reportQuery.getExceedanceTypes().contains(ExceedanceType.PROBE)) {
-			exceedanceReportData.addAll(iseNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
+			exceedanceReport.getProbeExceedanceReportData().addAll(iseNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
 					.parallelStream()
 					.sorted((a, b) -> a.compareTo(b))
 					.map(c -> {
-						return new ExceedanceReportData();
+						return new ProbeExceedanceReportData();
 					})
 					.filter(e -> e != null)
 					.collect(Collectors.toList()));
 		}
 		
-		return new ExceedanceReport(reportQuery, exceedanceReportData);
+		return exceedanceReport;
 
 	}
 

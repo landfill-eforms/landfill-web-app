@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -29,13 +28,11 @@ public class IntegratedDataController {
 	IntegratedDataService integratedDataService;
 	
 	@RequestMapping(value="/{siteEnumName}", method=RequestMethod.GET)
-	@ResponseBody
 	public List<IntegratedData> getBySite(@PathVariable String siteEnumName) {
 		return integratedDataService.getBySite(siteEnumName);
 	}
 	
 	@RequestMapping(value="/{siteEnumName}/{start}/{end}", method=RequestMethod.GET)
-	@ResponseBody
 	public List<IntegratedData> getBySiteAndDate(@PathVariable String siteName, @PathVariable Long start, @PathVariable Long end) {
 		return integratedDataService.getBySiteAndDate(siteName, start, end);
 	}

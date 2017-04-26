@@ -37,7 +37,7 @@ export class InstantaneousReportComponent implements OnInit {
 		console.log(this.dateRange)
 		this.data = [];
 		this.isDataLoaded = false;
-        this.instantaneousDataService.getBySiteAndDate(this.sites.selected.name.toUpperCase(), this.dateRange.start, this.dateRange.end,
+        this.instantaneousDataService.getBySiteAndDate(this.sites.selected, this.dateRange.start, this.dateRange.end,
             (data) => {
                 console.log(data);
                 for (let i = 0; i < data.length; i++) {

@@ -1,5 +1,5 @@
-import { UserGroup } from '../user/user-group.class';
 import { Schedule } from './schedule.class';
+import { UserGroup } from '../user/user-group.class';
 import { EmailRecipient } from '../email/email-recipient.class';
 
 /**

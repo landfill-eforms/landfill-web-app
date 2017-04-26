@@ -6,13 +6,12 @@ import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.serviceemission.integrated.IntegratedDataDao;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IntegratedData;
 import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
-import org.lacitysan.landfill.server.service.MonitoringPointService;
+import org.lacitysan.landfill.server.service.serviceemission.integrated.IntegratedDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -25,20 +24,17 @@ public class IntegratedDataController {
 	@Autowired
 	IntegratedDataDao integratedDataDao;
 	
-	// TODO Delete this.
 	@Autowired
-	MonitoringPointService monitoringPointService;
+	IntegratedDataService integratedDataService;
 	
-	@RequestMapping(value="/{siteName}", method=RequestMethod.GET)
-	@ResponseBody
-	public List<IntegratedData> getBySite(@PathVariable String siteName) {
-		return integratedDataDao.getBySiteAndDate(monitoringPointService.getSiteByName(siteName), null, null);
+	@RequestMapping(value="/{siteEnumName}", method=RequestMethod.GET)
+	public List<IntegratedData> getBySite(@PathVariable String siteEnumName) {
+		return integratedDataService.getBySite(siteEnumName);
 	}
 	
-	@RequestMapping(value="/{siteName}/{start}/{end}", method=RequestMethod.GET)
-	@ResponseBody
+	@RequestMapping(value="/{siteEnumName}/{start}/{end}", method=RequestMethod.GET)
 	public List<IntegratedData> getBySiteAndDate(@PathVariable String siteName, @PathVariable Long start, @PathVariable Long end) {
-		return integratedDataDao.getBySiteAndDate(monitoringPointService.getSiteByName(siteName), start, end);
+		return integratedDataService.getBySiteAndDate(siteName, start, end);
 	}
 	
 	@RestAllowSuperAdminOnly

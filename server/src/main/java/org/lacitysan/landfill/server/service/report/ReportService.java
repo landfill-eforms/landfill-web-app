@@ -21,7 +21,6 @@ import org.lacitysan.landfill.server.service.report.model.IntegratedReport;
 import org.lacitysan.landfill.server.service.report.model.Report;
 import org.lacitysan.landfill.server.service.report.model.data.InstantaneousReportData;
 import org.lacitysan.landfill.server.service.report.model.data.IntegratedReportData;
-import org.lacitysan.landfill.server.service.report.model.data.ProbeExceedanceReportData;
 import org.lacitysan.landfill.server.service.report.model.data.ServiceEmissionExceedanceReportData;
 import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeNumberService;
 import org.lacitysan.landfill.server.service.serviceemission.integrated.IseNumberService;
@@ -56,7 +55,7 @@ public class ReportService {
 
 	public Report generateReport(ReportQuery reportQuery) {
 		if (reportQuery.getReportType() == ReportType.EXCEEDANCE) {
-			return generateIntegratedReport(reportQuery);
+			return generateExceedanceReport(reportQuery);
 		}
 		if (reportQuery.getReportType() == ReportType.INSTANTANEOUS) {
 			return generateInstantaneousReport(reportQuery);
@@ -87,7 +86,7 @@ public class ReportService {
 					.sorted((a, b) -> a.compareTo(b))
 					.map(c -> {
 						
-						// Check for missing data.
+						// Check if the IME number contains at least one data entry.
 						if (c.getImeData() == null || c.getImeData().isEmpty()) {
 							return null;
 						}
@@ -95,7 +94,7 @@ public class ReportService {
 						// Get initial IME entry and final repair entry, if exists.
 						List<ImeData> imeDataList = c.getImeData().stream().collect(Collectors.toList());
 						ImeData initial = imeDataList.get(0);
-						ImeRepairData finalRepair = imeNumberService.getLastRepair(c);
+						ImeRepairData finalRepair = imeNumberService.findLastRepair(c);
 						
 						ServiceEmissionExceedanceReportData d = new ServiceEmissionExceedanceReportData();
 						d.setDiscoveredDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
@@ -118,7 +117,7 @@ public class ReportService {
 					.sorted((a, b) -> a.compareTo(b))
 					.map(c -> {
 						
-						// Check for missing data.
+						// Check if the ISE number contains at least one data entry.
 						if (c.getIseData() == null || c.getIseData().isEmpty()) {
 							return null;
 						}
@@ -126,7 +125,7 @@ public class ReportService {
 						// Get initial IME entry and final repair entry, if exists.
 						List<IseData> iseDataList = c.getIseData().stream().collect(Collectors.toList());
 						IseData initial = iseDataList.get(0);
-						IseRepairData finalRepair = iseNumberService.getLastRepair(c);
+						IseRepairData finalRepair = iseNumberService.findLastRepair(c);
 						
 						ServiceEmissionExceedanceReportData d = new ServiceEmissionExceedanceReportData();
 						d.setDiscoveredDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
@@ -144,14 +143,7 @@ public class ReportService {
 		
 		// Query the database for Probe exceedances and add them to the report data.
 		if (reportQuery.getExceedanceTypes().contains(ExceedanceType.PROBE)) {
-			exceedanceReport.getProbeExceedanceReportData().addAll(iseNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
-					.parallelStream()
-					.sorted((a, b) -> a.compareTo(b))
-					.map(c -> {
-						return new ProbeExceedanceReportData();
-					})
-					.filter(e -> e != null)
-					.collect(Collectors.toList()));
+			// TODO Implement this.
 		}
 		
 		return exceedanceReport;

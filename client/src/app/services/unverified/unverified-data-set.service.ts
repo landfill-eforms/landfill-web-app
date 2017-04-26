@@ -1,3 +1,4 @@
+import { AbstractHttpService } from './../abstract/abstract-http.service';
 import { EnumUtils } from './../../utils/enum.utils';
 import { MonitoringPoint } from './../../model/server/persistence/enums/location/monitoring-point.enum';
 import { UnverifiedDataSet } from './../../model/server/persistence/entity/unverified/unverified-data-set.class';
@@ -7,38 +8,10 @@ import { AuthHttp } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class UnverifiedDataService {
+export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet> {
 
-	readonly baseUrl:string = environment.resourceUrl + '/unverified-data';
-
-	constructor(private authHttp:AuthHttp) {}
-
-	getAll(success:(data) => void, error?:(err) => void) {
-		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
-				data => success(data),
-				err => error ? error(err) : console.log(err)
-			);
-	}
-
-	getById(id:string, success:(data) => void, error?:(err) => void) {
-		this.authHttp.get(this.baseUrl + "/unique/id/" + id).map((res:Response) => res.json()).subscribe(
-				data => success(data),
-				err => error ? error(err) : console.log(err)
-			);
-	}
-
-	create(dataSet:UnverifiedDataSet, success:(data) => void, error?:(err) => void) {
-		this.authHttp.post(this.baseUrl + '/create', dataSet).map((res:Response) => res.json()).subscribe(
-				data => success(data),
-				err => error ? error(err) : console.log(err)
-			);
-	}
-
-	update(dataSet:UnverifiedDataSet, success:(data) => void, error?:(err) => void) {
-		this.authHttp.post(this.baseUrl + '/update', dataSet).map((res:Response) => res.json()).subscribe(
-				data => success(data),
-				err => error ? error(err) : console.log(err)
-			);
+	constructor(authHttp:AuthHttp) {
+		super("/unverified-data", authHttp);
 	}
 
 	commit(dataSet:UnverifiedDataSet, success:(data) => void, error?:(err) => void) {

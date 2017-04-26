@@ -10,7 +10,6 @@ import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.serviceemission.ServiceEmissionExceedanceNumber;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
-import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -21,7 +20,7 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 
 	@Override
 	@Transactional
-	public List<T> getBySiteAndDateCode(Site site, Integer dateCode) {
+	public List<T> getBySiteAndDateCode(Site site, Short dateCode) {
 		if (site == null) {
 			return new ArrayList<>();
 		}
@@ -40,7 +39,7 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 
 	@Override
 	@Transactional
-	public List<T> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode) {
+	public List<T> getUnverifiedBySiteAndDateCode(Site site, Short dateCode) {
 		if (site == null) {
 			return new ArrayList<>();
 		}
@@ -60,7 +59,7 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 
 	@Override
 	@Transactional
-	public List<T> getVerifiedBySiteAndDateCode(Site site, Integer dateCode) {
+	public List<T> getVerifiedBySiteAndDateCode(Site site, Short dateCode) {
 		if (site == null) {
 			return new ArrayList<>();
 		}
@@ -78,9 +77,22 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 				.collect(Collectors.toList());
 	}
 	
+	/** 
+	 * Queries the database by site and date-code range.
+	 * The start and/or end of the date-code range can be left open-ended by setting the respective parameters to <code>null</code>.
+	 * The start and end of the date-code range are both inclusive.
+	 * For example, in order to query for a set of data from XX1701-XX through XX1703-XX, 
+	 * the values <code>1701</code> and <code>1703</code> should be passed through the start and end parameters, respectively.
+	 * @param site The site to query for.
+	 * @param start The inclusive start of the date-code range of the data to query for. 
+	 * 				Set to <code>null</code> to leave the start of the date-code range open.
+	 * @param end The inclusive end of the date-code range of the data to query for. 
+	 * 			  Set to <code>null</code> to leave the end of the date-code range open.
+	 * @return A list of objects that match the query parameters.
+	 */
 	@Override
 	@Transactional
-	public List<T> getVerifiedBySiteAndDateRange(Site site, Long start, Long end) {
+	public List<T> getVerifiedBySiteAndDateCodeRange(Site site, Short start, Short end) {
 		if (site == null) {
 			return new ArrayList<>();
 		}
@@ -89,10 +101,10 @@ public abstract class ServiceEmissionExceedanceNumberDaoImpl<T extends ServiceEm
 				.add(Restrictions.ne("status", ExceedanceStatus.UNVERIFIED))
 				.add(Restrictions.eq("site", site));
 		if (start != null) {
-			criteria.add(Restrictions.ge("dateCode", DateTimeUtils.longToSqlDate(start)));
+			criteria.add(Restrictions.ge("dateCode", start));
 		}
 		if (end != null) {
-			criteria.add(Restrictions.lt("endTime", DateTimeUtils.longToSqlDate(DateTimeUtils.addDay(end))));
+			criteria.add(Restrictions.le("dateCode", end));
 		}
 		List<?> result = criteria.list();
 		return result.stream()

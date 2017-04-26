@@ -62,7 +62,7 @@ public class InstrumentType {
 	@NotNull
 	private Boolean pressure;
 	
-	@JsonIgnoreProperties({"instrumentType"})
+	@JsonIgnoreProperties(value="instrumentType", allowSetters=true)
 	@OneToMany(mappedBy="instrumentType")
 	private Set<Instrument> instruments = new HashSet<>();
 

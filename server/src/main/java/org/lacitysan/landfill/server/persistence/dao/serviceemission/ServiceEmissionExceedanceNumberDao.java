@@ -12,12 +12,12 @@ import org.lacitysan.landfill.server.persistence.enums.location.Site;
  */
 public interface ServiceEmissionExceedanceNumberDao<T extends ServiceEmissionExceedanceNumber> extends AbstractDao<T> {
 	
-	List<T> getBySiteAndDateCode(Site site, Integer dateCode);
+	List<T> getBySiteAndDateCode(Site site, Short dateCode);
 
-	List<T> getUnverifiedBySiteAndDateCode(Site site, Integer dateCode);
+	List<T> getUnverifiedBySiteAndDateCode(Site site, Short dateCode);
 
-	List<T> getVerifiedBySiteAndDateCode(Site site, Integer dateCode);
+	List<T> getVerifiedBySiteAndDateCode(Site site, Short dateCode);
 	
-	List<T> getVerifiedBySiteAndDateRange(Site site, Long start, Long end);
+	List<T> getVerifiedBySiteAndDateCodeRange(Site site, Short start, Short end);
 
 }

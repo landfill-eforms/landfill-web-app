@@ -14,6 +14,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 public abstract class ServiceEmissionDataDaoImpl<T extends ServiceEmissionData> extends AbstractDaoImpl<T> implements ServiceEmissionDataDao<T> {
 
+	/** 
+	 * Queries the database by site and date range.
+	 * The start and/or end of the date range can be left open-ended by setting the respective parameters to <code>null</code>.
+	 * The start of the date range is inclusive, and the end of the date range is exclusive.
+	 * For example, in order to query for data from 1/31/17 through 3/31/17, 
+	 * the long values for 1/31/17 and 4/1/17 should be passed through the start and end parameters, respectively.
+	 * The values are automatically normalized by setting the hours, minutes, seconds, and milliseconds to zero.
+	 * Time zone conversions are also handled automatically.
+	 * @param site The site to query for.
+	 * @param start The inclusive start of the date range of the data to query for. 
+	 * 				Set to <code>null</code> to leave the start of the date range open.
+	 * @param end The exclusive end of the date range of the data to query for. 
+	 * 			  Set to <code>null</code> to leave the end of the date range open.
+	 * @return A list of objects that match the query parameters.
+	 */
 	@Override
 	@Transactional
 	public List<T> getBySiteAndDate(Site site, Long start, Long end) {
@@ -25,7 +40,7 @@ public abstract class ServiceEmissionDataDaoImpl<T extends ServiceEmissionData> 
 			criteria.add(Restrictions.ge("startTime", DateTimeUtils.longToSqlDate(start)));
 		}
 		if (end != null) {
-			criteria.add(Restrictions.lt("endTime", DateTimeUtils.longToSqlDate(DateTimeUtils.addDay(end))));
+			criteria.add(Restrictions.lt("endTime", DateTimeUtils.longToSqlDate(end)));
 		}
 		List<?> result = criteria.list();
 		return result.stream()

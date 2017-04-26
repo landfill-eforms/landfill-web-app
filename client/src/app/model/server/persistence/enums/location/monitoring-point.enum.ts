@@ -1,5 +1,5 @@
-import { MonitoringPointType } from './monitoring-point-type.enum';
 import { Site } from './site.enum';
+import { MonitoringPointType } from './monitoring-point-type.enum';
 
 /**
  * This enum was automatically generated from MonitoringPoint.java using typescript-gen.

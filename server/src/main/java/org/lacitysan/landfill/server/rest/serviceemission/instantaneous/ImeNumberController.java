@@ -38,7 +38,7 @@ public class ImeNumberController {
 	
 	@RequestMapping(value="/unique/imeNumber/{imeNumber}", method=RequestMethod.GET)
 	public ImeNumber getByImeNumber(@PathVariable String imeNumber) {
-		ImeNumber temp = imeNumberService.getImeNumberFromString(imeNumber);
+		ImeNumber temp = imeNumberService.generateImeNumberFromString(imeNumber);
 		return imeNumberDao.getByImeNumber(temp);
 	}
 	

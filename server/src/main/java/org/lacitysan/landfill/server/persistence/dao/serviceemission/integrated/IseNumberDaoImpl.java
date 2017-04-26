@@ -20,6 +20,7 @@ public class IseNumberDaoImpl extends ServiceEmissionExceedanceNumberDaoImpl<Ise
 	}
 
 	@Override
+	@Transactional
 	public IseNumber getByIseNumber(IseNumber iseNumber) {
 		return getByExceedanceNumber(iseNumber);
 	}

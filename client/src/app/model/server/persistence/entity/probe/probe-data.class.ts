@@ -1,5 +1,5 @@
-import { User } from '../user/user.class';
 import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
+import { User } from '../user/user.class';
 
 /**
  * This class was automatically generated from ProbeData.java using typescript-gen.

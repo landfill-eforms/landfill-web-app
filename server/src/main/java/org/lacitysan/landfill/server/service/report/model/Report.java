@@ -19,4 +19,7 @@ public abstract class Report {
 		return reportQuery;
 	}
 
+	public void setReportQuery(ReportQuery reportQuery) {
+		this.reportQuery = reportQuery;
+	}
 }

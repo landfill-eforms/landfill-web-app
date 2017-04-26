@@ -35,7 +35,7 @@ public abstract class ServiceEmissionExceedanceNumber implements Comparable<Serv
 	private Site site;
 	
 	@NotNull
-	private Integer dateCode;
+	private Short dateCode;
 	
 	@NotNull
 	private Short sequence;
@@ -66,11 +66,11 @@ public abstract class ServiceEmissionExceedanceNumber implements Comparable<Serv
 		this.site = site;
 	}
 
-	public Integer getDateCode() {
+	public Short getDateCode() {
 		return dateCode;
 	}
 
-	public void setDateCode(Integer dateCode) {
+	public void setDateCode(Short dateCode) {
 		this.dateCode = dateCode;
 	}
 

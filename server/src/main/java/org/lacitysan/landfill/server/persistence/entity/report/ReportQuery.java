@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.report;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
@@ -30,8 +33,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name="dbo.ReportQueries")
+@Inheritance(strategy=InheritanceType.JOINED)
 @JsonInclude(Include.NON_NULL)
-public class ReportQuery {
+public abstract class ReportQuery implements Comparable<ReportQuery> {
 
 	@Id
 	@Column(name="ReportQueryPK")
@@ -57,6 +61,8 @@ public class ReportQuery {
 	private Date startDate;
 	
 	private Date endDate;
+	
+	private Timestamp dateCreated;
 
 	public Integer getId() {
 		return id;
@@ -104,6 +110,19 @@ public class ReportQuery {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public Timestamp getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Timestamp dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+	
+	@Override
+	public int compareTo(ReportQuery o) {
+		return dateCreated.compareTo(o.getDateCreated());
 	}
 	
 }

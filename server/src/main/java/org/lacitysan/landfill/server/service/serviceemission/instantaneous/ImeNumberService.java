@@ -23,7 +23,7 @@ public class ImeNumberService extends ServiceEmissionExceedanceNumberService<Ime
 	
 	@Override
 	public List<ImeNumber> getBySiteAndDateCode(String siteName) {
-		return imeNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByName(siteName), null);
+		return imeNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), null);
 	}
 	
 	@Override
@@ -40,8 +40,8 @@ public class ImeNumberService extends ServiceEmissionExceedanceNumberService<Ime
 	 * @param exceedanceNumber The object that contains the IME number's information. 
 	 * @return The formatted IME number string.
 	 */
-	public String getStringFromImeNumber(ImeNumber imeNumber) {
-		return getStringFromExceedanceNumber(imeNumber);
+	public String generateStringFromImeNumber(ImeNumber imeNumber) {
+		return generateStringFromExceedanceNumber(imeNumber);
 	}
 
 	/**
@@ -52,13 +52,13 @@ public class ImeNumberService extends ServiceEmissionExceedanceNumberService<Ime
 	 * @param exceedanceNumber String representation of an IME number.
 	 * @return A generated <code>IMENumber</code> object based on the input IME number string, or <code>null</code> if the input string was not valid.
 	 */
-	public ImeNumber getImeNumberFromString(String imeNumber) {
-		return getExceedanceNumberFromString(imeNumber);
+	public ImeNumber generateImeNumberFromString(String imeNumber) {
+		return generateExceedanceNumberFromString(imeNumber);
 	}
 	
-	/** Gets the last repair made to the IME. */
+	/** Finds the last repair made to the IME. */
 	@Override
-	public ImeRepairData getLastRepair(ImeNumber imeNumber) {
+	public ImeRepairData findLastRepair(ImeNumber imeNumber) {
 		ImeRepairData result = null;
 		for (ImeData imeData : imeNumber.getImeData()) {
 			if (imeData.getImeRepairData() == null || imeData.getImeRepairData().isEmpty()) {
@@ -69,6 +69,11 @@ public class ImeNumberService extends ServiceEmissionExceedanceNumberService<Ime
 			}
 		}
 		return result;
+	}
+	
+	@Override
+	public ImeData findInitialDataEntry(ImeNumber imeNumber) {
+		return imeNumber.getImeData().stream().findFirst().orElse(null);
 	}
 	
 	@Override

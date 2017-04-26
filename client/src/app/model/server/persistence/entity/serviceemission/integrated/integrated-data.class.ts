@@ -7,4 +7,5 @@ import { ServiceEmissionData } from '../service-emission-data.class';
 export class IntegratedData extends ServiceEmissionData {
 	bagNumber:number;
 	volume:number;
+	sampleId:string;
 }

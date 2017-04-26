@@ -97,21 +97,21 @@ public class MobileDataDeserializer {
 			if (imeNumberString == null || imeNumberString.trim().isEmpty()) {
 				
 				// Get site.
-				Site site = monitoringPointService.getSiteByName(mobileImeData.getmLocation());
+				Site site = monitoringPointService.getSiteByEnumName(mobileImeData.getmLocation());
 				if (site == null) {
 					continue;
 				}
 				
 				// Get date and format it into the date code.
 				Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileImeData.getmDate());
-				int dateCode = imeService.getDateCodeFromLong(date.getTime());
+				int dateCode = imeService.generateDateCodeFromLong(date.getTime());
 				
 				// Create new IME number string based on site, date code, and next sequence number.
 				imeNumberString = site.getShortName() + "-" + dateCode + "-00";
 			}
 			
 			// Create new IME number based on the IME number string.
-			ImeNumber imeNumber = imeService.getImeNumberFromString(imeNumberString);
+			ImeNumber imeNumber = imeService.generateImeNumberFromString(imeNumberString);
 			if (imeNumber == null) {
 				continue;
 			}
@@ -142,7 +142,7 @@ public class MobileDataDeserializer {
 			
 			// TODO Implement this inside the enum.
 			if (mobileInstantaneousData.getGridId() != null && !mobileInstantaneousData.getGridId().isEmpty() && mobileInstantaneousData.getmLocation() != null && !mobileInstantaneousData.getmLocation().isEmpty()) {
-				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByName(mobileInstantaneousData.getmLocation()), mobileInstantaneousData.getGridId());
+				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByEnumName(mobileInstantaneousData.getmLocation()), mobileInstantaneousData.getGridId());
 				if (grid == null) {
 					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileInstantaneousData.getGridId() + " in " + mobileInstantaneousData.getmLocation() + " not found.");
 					return null;
@@ -164,12 +164,12 @@ public class MobileDataDeserializer {
 				
 				// If no suitable IME number was found, then create a new one.
 				if (imeNumber == null) {
-					ImeNumber newImeNumber = imeService.getImeNumberFromString(mobileInstantaneousData.getImeNumber());
+					ImeNumber newImeNumber = imeService.generateImeNumberFromString(mobileInstantaneousData.getImeNumber());
 					if (newImeNumber != null) {
 						
 						// Make sure the IME's date code matches with the discovery date.
 						Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate());
-						newImeNumber.setDateCode(imeService.getDateCodeFromLong(date.getTime()));
+						newImeNumber.setDateCode(imeService.generateDateCodeFromLong(date.getTime()));
 						
 						newImeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
 						imeNumberSet.add(newImeNumber);
@@ -202,7 +202,7 @@ public class MobileDataDeserializer {
 				Map<Site, UnverifiedDataSet> wtf = new HashMap<>();
 				resultMap.put(user, wtf);
 			}
-			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByName(mobileInstantaneousData.getmLocation()));
+			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByEnumName(mobileInstantaneousData.getmLocation()));
 			if (unverifiedDataSet.getInspector() == null) {
 				unverifiedDataSet.setInspector(user);
 			}
@@ -220,7 +220,7 @@ public class MobileDataDeserializer {
 			if (user == null || !resultMap.containsKey(user)) {
 				continue;
 			}
-			Site site = monitoringPointService.getSiteByName(mobileWarmspotData.getmLocation());
+			Site site = monitoringPointService.getSiteByEnumName(mobileWarmspotData.getmLocation());
 			MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(site, mobileWarmspotData.getmGridId());
 			if (grid == null) {
 				if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGridId() + " in " + mobileWarmspotData.getmLocation() + " not found.");
@@ -245,7 +245,7 @@ public class MobileDataDeserializer {
 			if (iseNumberString == null || iseNumberString.trim().isEmpty()) {
 				
 				// Get site.
-				Site site = monitoringPointService.getSiteByName(mobileIseData.getmLocation());
+				Site site = monitoringPointService.getSiteByEnumName(mobileIseData.getmLocation());
 				if (site == null) {
 					continue;
 				}
@@ -264,7 +264,7 @@ public class MobileDataDeserializer {
 			}
 			
 			// Create new IME number based on the IME number string.
-			IseNumber iseNumber = iseService.getIseNumberFromString(iseNumberString);
+			IseNumber iseNumber = iseService.generateIseNumberFromString(iseNumberString);
 			if (iseNumber == null) {
 				continue;
 			}
@@ -293,7 +293,7 @@ public class MobileDataDeserializer {
 			
 			// TODO Implement this inside the enum.
 			if (mobileIntegratedData.getmGridId() != null && !mobileIntegratedData.getmGridId().isEmpty() && mobileIntegratedData.getmLocation() != null && !mobileIntegratedData.getmLocation().isEmpty()) {
-				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByName(mobileIntegratedData.getmLocation()), mobileIntegratedData.getmGridId());
+				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByEnumName(mobileIntegratedData.getmLocation()), mobileIntegratedData.getmGridId());
 				if (grid == null) {
 					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Integrated Data: Grid " + mobileIntegratedData.getmGridId() + " in " + mobileIntegratedData.getmLocation() + " not found.");
 					return null;
@@ -321,7 +321,7 @@ public class MobileDataDeserializer {
 				Map<Site, UnverifiedDataSet> wtf = new HashMap<>();
 				resultMap.put(user, wtf);
 			}
-			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByName(mobileIntegratedData.getmLocation()));
+			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByEnumName(mobileIntegratedData.getmLocation()));
 			if (unverifiedDataSet.getInspector() == null) {
 				unverifiedDataSet.setInspector(user);
 			}
@@ -337,7 +337,7 @@ public class MobileDataDeserializer {
 			
 			// TODO Implement this inside the enum.
 			if (mobileProbeData.getmProbeNumber() != null && !mobileProbeData.getmProbeNumber().isEmpty() && mobileProbeData.getmLocation() != null && !mobileProbeData.getmLocation().isEmpty()) {
-				MonitoringPoint probe = monitoringPointService.getProbeBySiteNameAndId(monitoringPointService.getSiteByName(mobileProbeData.getmLocation()), mobileProbeData.getmProbeNumber());
+				MonitoringPoint probe = monitoringPointService.getProbeBySiteNameAndId(monitoringPointService.getSiteByEnumName(mobileProbeData.getmLocation()), mobileProbeData.getmProbeNumber());
 				if (probe == null) {
 					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Probe Data: Probe " + mobileProbeData.getmProbeNumber() + " in " + mobileProbeData.getmLocation() + " not found.");
 					return null;
@@ -363,7 +363,7 @@ public class MobileDataDeserializer {
 			}
 			unverifiedProbeData.getInspectors().add(user);
 
-			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByName(mobileProbeData.getmLocation()));
+			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByEnumName(mobileProbeData.getmLocation()));
 			if (unverifiedDataSet.getInspector() == null) {
 				unverifiedDataSet.setInspector(user);
 			}

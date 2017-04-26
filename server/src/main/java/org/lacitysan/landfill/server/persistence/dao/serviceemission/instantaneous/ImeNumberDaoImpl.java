@@ -20,6 +20,7 @@ public class ImeNumberDaoImpl extends ServiceEmissionExceedanceNumberDaoImpl<Ime
 	}
 
 	@Override
+	@Transactional
 	public ImeNumber getByImeNumber(ImeNumber imeNumber) {
 		return getByExceedanceNumber(imeNumber);
 	}

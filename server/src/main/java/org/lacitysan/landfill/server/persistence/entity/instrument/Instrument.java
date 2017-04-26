@@ -37,7 +37,7 @@ public class Instrument {
 	@NotNull
 	private String serialNumber;
 	
-	@JsonIgnoreProperties({"instruments"})
+	@JsonIgnoreProperties(value="instruments", allowSetters=true)
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="InstrumentTypeFK")

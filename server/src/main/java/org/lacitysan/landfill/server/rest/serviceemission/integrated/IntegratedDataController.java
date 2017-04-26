@@ -33,8 +33,8 @@ public class IntegratedDataController {
 	}
 	
 	@RequestMapping(value="/{siteEnumName}/{start}/{end}", method=RequestMethod.GET)
-	public List<IntegratedData> getBySiteAndDate(@PathVariable String siteName, @PathVariable Long start, @PathVariable Long end) {
-		return integratedDataService.getBySiteAndDate(siteName, start, end);
+	public List<IntegratedData> getBySiteAndDate(@PathVariable String siteEnumName, @PathVariable Long start, @PathVariable Long end) {
+		return integratedDataService.getBySiteAndDate(siteEnumName, start, end);
 	}
 	
 	@RestAllowSuperAdminOnly

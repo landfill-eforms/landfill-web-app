@@ -33,8 +33,8 @@ public class InstantaneousDataController {
 	}
 	
 	@RequestMapping(value="/{siteEnumName}/{start}/{end}", method=RequestMethod.GET)
-	public List<InstantaneousData> getBySiteAndDate(@PathVariable String siteName, @PathVariable Long start, @PathVariable Long end) {
-		return instantaneousDataService.getBySiteAndDate(siteName, start, end);
+	public List<InstantaneousData> getBySiteAndDate(@PathVariable String siteEnumName, @PathVariable Long start, @PathVariable Long end) {
+		return instantaneousDataService.getBySiteAndDate(siteEnumName, start, end);
 	}
 	
 	@RestAllowSuperAdminOnly

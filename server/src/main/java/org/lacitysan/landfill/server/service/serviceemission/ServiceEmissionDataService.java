@@ -33,7 +33,9 @@ public abstract class ServiceEmissionDataService<T extends ServiceEmissionData> 
 		if (site == null) {
 			return new ArrayList<>();
 		}
-		return getCrudRepository().getBySiteAndDate(site, start, DateTimeUtils.addDay(end));
+		start = (start == null || start < 0) ? null : start;
+		end = (end == null || end < 0) ? null : DateTimeUtils.addDay(end);
+		return getCrudRepository().getBySiteAndDate(site, start, end);
 	}
 	
 	abstract protected ServiceEmissionDataDao<T> getCrudRepository();

@@ -1,8 +1,8 @@
 import { UnverifiedProbeData } from './unverified-probe-data.class';
+import { User } from '../user/user.class';
+import { UnverifiedIntegratedData } from './unverified-integrated-data.class';
 import { Site } from '../../enums/location/site.enum';
 import { UnverifiedInstantaneousData } from './unverified-instantaneous-data.class';
-import { UnverifiedIntegratedData } from './unverified-integrated-data.class';
-import { User } from '../user/user.class';
 
 /**
  * This class was automatically generated from UnverifiedDataSet.java using typescript-gen.
@@ -13,12 +13,11 @@ export class UnverifiedDataSet {
 	filename:string;
 	inspector:User;
 	site:Site;
-	uploadedBy:User;
-	uploadedDate:number;
-	modifiedBy:User;
-	modifiedDate:number;
 	unverifiedInstantaneousData:UnverifiedInstantaneousData[];
 	unverifiedIntegratedData:UnverifiedIntegratedData[];
 	unverifiedProbeData:UnverifiedProbeData[];
 	errors:any;
+	createdBy:User;
+	modifiedBy:User;
+	modifiedDate:number;
 }

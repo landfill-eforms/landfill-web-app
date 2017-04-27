@@ -1,6 +1,6 @@
+import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 import { Site } from '../../enums/location/site.enum';
 import { ExceedanceStatus } from '../../enums/exceedance/exceedance-status.enum';
-import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 
 /**
  * This class was automatically generated from ServiceEmissionExceedanceNumber.java using typescript-gen.

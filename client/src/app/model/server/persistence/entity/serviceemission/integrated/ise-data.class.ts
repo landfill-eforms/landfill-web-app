@@ -1,6 +1,6 @@
-import { ServiceEmissionExceedanceData } from '../service-emission-exceedance-data.class';
-import { IseNumber } from './ise-number.class';
 import { IseRepairData } from './ise-repair-data.class';
+import { IseNumber } from './ise-number.class';
+import { ServiceEmissionExceedanceData } from '../service-emission-exceedance-data.class';
 
 /**
  * This class was automatically generated from IseData.java using typescript-gen.

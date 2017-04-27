@@ -17,9 +17,9 @@ public class UnverifiedDataSetDaoImpl extends AbstractDaoImpl<UnverifiedDataSet>
 			return null;
 		}
 		Hibernate.initialize(unverifiedDataSet.getInspector());
-		Hibernate.initialize(unverifiedDataSet.getUploadedBy());
-		if (unverifiedDataSet.getUploadedBy() != null) {
-			Hibernate.initialize(unverifiedDataSet.getUploadedBy());
+		Hibernate.initialize(unverifiedDataSet.getCreatedBy());
+		if (unverifiedDataSet.getCreatedBy() != null) {
+			Hibernate.initialize(unverifiedDataSet.getCreatedBy());
 		}
 		Hibernate.initialize(unverifiedDataSet.getModifiedBy());
 		if (unverifiedDataSet.getModifiedBy() != null) {

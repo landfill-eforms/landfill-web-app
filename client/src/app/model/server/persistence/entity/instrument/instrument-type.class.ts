@@ -1,3 +1,4 @@
+import { User } from '../user/user.class';
 import { Instrument } from './instrument.class';
 
 /**
@@ -19,4 +20,7 @@ export class InstrumentType {
 	nitrogenPercent:boolean;
 	pressure:boolean;
 	instruments:Instrument[];
+	createdBy:User;
+	modifiedBy:User;
+	modifiedDate:number;
 }

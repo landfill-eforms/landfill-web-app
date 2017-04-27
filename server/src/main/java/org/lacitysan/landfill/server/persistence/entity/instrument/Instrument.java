@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.instrument;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.persistence.entity.system.Trackable;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.instrument.InstrumentStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
@@ -27,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name="dbo.Instruments")
 @JsonInclude(Include.NON_NULL)
-public class Instrument {
+public class Instrument implements Trackable {
 	
 	@Id
 	@Column(name="InstrumentPK")
@@ -61,6 +64,20 @@ public class Instrument {
 	private String inventoryNumber;
 	
 	private String description;
+	
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@ManyToOne
+	@JoinColumn(name="CreatedByFK")
+	private User createdBy;
+	
+	private Timestamp createdDate;
+	
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@ManyToOne
+	@JoinColumn(name="ModifiedByFK")
+	private User modifiedBy;
+	
+	private Timestamp modifiedDate;
 
 	public Integer getId() {
 		return id;
@@ -142,4 +159,44 @@ public class Instrument {
 		this.description = description;
 	}
 
+	@Override
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	@Override
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Override
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	@Override
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Override
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	@Override
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	@Override
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+	
 }

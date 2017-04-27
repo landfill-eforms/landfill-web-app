@@ -3,11 +3,11 @@ package org.lacitysan.landfill.server.rest.instrument;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentTypeDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
 import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
+import org.lacitysan.landfill.server.service.instrument.InstrumentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +24,9 @@ public class InstrumentTypeController {
 
 	@Autowired
 	InstrumentTypeDao instrumentTypeDao;
+	
+	@Autowired
+	InstrumentTypeService instrumentTypeService;
 
 	@RestSecurity(UserPermission.VIEW_INSTRUMENT_TYPES)
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
@@ -45,35 +48,13 @@ public class InstrumentTypeController {
 	@RestSecurity(UserPermission.CREATE_INSTRUMENT_TYPES)
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public InstrumentType create(@RequestBody InstrumentType instrumentType) {
-
-		// TODO Move this to a service.
-		instrumentType.setType(instrumentType.getType().trim());
-		if (instrumentType.getType().isEmpty()) {
-			throw new EmptyStringException("Instrument type cannot be blank.");
-		}
-		instrumentType.setManufacturer(instrumentType.getManufacturer().trim());
-		if (instrumentType.getManufacturer().isEmpty()) {
-			throw new EmptyStringException("Manufacturer name cannot be blank.");
-		}
-
-		return instrumentTypeDao.create(instrumentType);
+		return instrumentTypeService.create(instrumentType);
 	}
 
 	@RestSecurity(UserPermission.EDIT_INSTRUMENT_TYPES)
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public InstrumentType update(@RequestBody InstrumentType instrumentType) {
-
-		// TODO Move this to a service.
-		instrumentType.setType(instrumentType.getType().trim());
-		if (instrumentType.getType().isEmpty()) {
-			throw new EmptyStringException("Instrument type cannot be blank.");
-		}
-		instrumentType.setManufacturer(instrumentType.getManufacturer().trim());
-		if (instrumentType.getManufacturer().isEmpty()) {
-			throw new EmptyStringException("Manufacturer name cannot be blank.");
-		}
-
-		return instrumentTypeDao.update(instrumentType);
+		return instrumentTypeService.update(instrumentType);
 	}
 
 	@RestSecurity(UserPermission.DELETE_INSTRUMENT_TYPES)

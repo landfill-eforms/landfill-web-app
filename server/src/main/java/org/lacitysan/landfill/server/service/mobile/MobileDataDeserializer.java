@@ -38,6 +38,7 @@ import org.lacitysan.landfill.server.service.mobile.model.MobileProbeData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileWarmspotData;
 import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeNumberService;
 import org.lacitysan.landfill.server.service.serviceemission.integrated.IseNumberService;
+import org.lacitysan.landfill.server.service.system.TrackingService;
 import org.lacitysan.landfill.server.service.user.UserService;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,9 @@ public class MobileDataDeserializer {
 	
 	@Autowired
 	MonitoringPointService monitoringPointService;
+	
+	@Autowired
+	TrackingService trackingService;
 	
 	public Set<UnverifiedDataSet> deserializeData(MobileDataContainer mobileDataContainer) {
 		
@@ -385,9 +389,8 @@ public class MobileDataDeserializer {
 		
 		// Insert unverified data sets into the database.
 		for (UnverifiedDataSet unverifiedDataSet : result) {
-			unverifiedDataSet.setUploadedBy(userService.getCurrentUser());
-			unverifiedDataSet.setUploadedDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 			unverifiedDataSet.setFilename(mobileDataContainer.getFilename());
+			trackingService.create(unverifiedDataSet);
 			unverifiedDataSetDao.create(unverifiedDataSet);
 		}
 		

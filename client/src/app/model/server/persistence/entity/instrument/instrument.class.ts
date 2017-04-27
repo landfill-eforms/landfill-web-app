@@ -1,6 +1,7 @@
-import { Site } from '../../enums/location/site.enum';
-import { InstrumentType } from './instrument-type.class';
 import { InstrumentStatus } from '../../enums/instrument/instrument-status.enum';
+import { User } from '../user/user.class';
+import { InstrumentType } from './instrument-type.class';
+import { Site } from '../../enums/location/site.enum';
 
 /**
  * This class was automatically generated from Instrument.java using typescript-gen.
@@ -17,4 +18,7 @@ export class Instrument {
 	site:Site;
 	inventoryNumber:string;
 	description:string;
+	createdBy:User;
+	modifiedBy:User;
+	modifiedDate:number;
 }

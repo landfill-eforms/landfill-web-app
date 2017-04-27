@@ -1,6 +1,6 @@
 import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
-import { Instrument } from '../instrument/instrument.class';
 import { User } from '../user/user.class';
+import { Instrument } from '../instrument/instrument.class';
 
 /**
  * This class was automatically generated from ServiceEmissionData.java using typescript-gen.

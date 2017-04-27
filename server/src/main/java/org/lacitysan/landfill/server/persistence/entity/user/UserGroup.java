@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.persistence.entity.system.Trackable;
 import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name="dbo.UserGroups")
 @JsonInclude(Include.NON_NULL)
-public class UserGroup {
+public class UserGroup implements Trackable {
 	
 	@Id
 	@Column(name="UserGroupPK")
@@ -44,7 +45,16 @@ public class UserGroup {
 	
 	private String description;
 	
-	// TODO Find a better way to implement/retrieve 'modified by' and 'created by' info.
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@ManyToMany(mappedBy="userGroups")
+	private Set<User> users = new HashSet<>();
+	
+	@ElementCollection(targetClass=UserPermission.class)
+	@JoinTable(name="dbo.UserGroupsXRefUserPermissions", joinColumns=@JoinColumn(name="UserGroupFK"))
+	@Column(name="UserPermissionString")
+	@Enumerated(EnumType.STRING)
+	private Set<UserPermission> userPermissions = new HashSet<>();
+	
 	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="CreatedByFK")
@@ -58,16 +68,6 @@ public class UserGroup {
 	private User modifiedBy;
 	
 	private Timestamp modifiedDate;
-	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
-	@ManyToMany(mappedBy="userGroups")
-	private Set<User> users = new HashSet<>();
-	
-	@ElementCollection(targetClass=UserPermission.class)
-	@JoinTable(name="dbo.UserGroupsXRefUserPermissions", joinColumns=@JoinColumn(name="UserGroupFK"))
-	@Column(name="UserPermissionString")
-	@Enumerated(EnumType.STRING)
-	private Set<UserPermission> userPermissions = new HashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -109,34 +109,42 @@ public class UserGroup {
 		this.userPermissions = userPermissions;
 	}
 
+	@Override
 	public User getCreatedBy() {
 		return createdBy;
 	}
 
+	@Override
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
 	}
 
+	@Override
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
+	@Override
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 
+	@Override
 	public User getModifiedBy() {
 		return modifiedBy;
 	}
 
+	@Override
 	public void setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Date getModifiedDate() {
+	@Override
+	public Timestamp getModifiedDate() {
 		return modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}

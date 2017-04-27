@@ -1,6 +1,6 @@
 import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
-import { UnverifiedDataSet } from './unverified-data-set.class';
 import { User } from '../user/user.class';
+import { UnverifiedDataSet } from './unverified-data-set.class';
 
 /**
  * This class was automatically generated from UnverifiedProbeData.java using typescript-gen.

@@ -5,6 +5,7 @@ import org.lacitysan.landfill.server.exception.equipment.InvalidSerialNumberExce
 import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
+import org.lacitysan.landfill.server.service.system.TrackingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,27 +14,37 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class InstrumentService {
-	
+
 	@Autowired
 	InstrumentDao instrumentDao;
-	
+
+	@Autowired
+	TrackingService trackingService;
+
 	public Instrument create(Instrument instrument) {
-		if (instrument == null) return null;
-		validateSerialNumber(instrument.getSerialNumber(), true);
-		checkIfInstrumentExists(instrument, true);
+		if (instrument == null) {
+			return null;
+		}
+		validate(instrument);
+		trackingService.create(instrument);
 		return instrumentDao.create(instrument);
 	}
-	
+
 	public Instrument update(Instrument instrument) {
-		if (instrument == null) return null;
-		validateSerialNumber(instrument.getSerialNumber(), true);
-		checkIfInstrumentExists(instrument, true);
+		if (instrument == null) {
+			return null;
+		}
+		validate(instrument);
+		trackingService.modify(instrument);
 		return instrumentDao.update(instrument);
 	}
-	
-	private boolean validateSerialNumber(String serialNumber, boolean throwException) {
-		if (serialNumber.trim().isEmpty()) {
-			throw new EmptyStringException("Serial number cannot be blank.");
+
+	private boolean validateSerialNumber(Instrument instrument, boolean throwException) {
+		String serialNumber = instrument.getSerialNumber().trim();
+		if (serialNumber.isEmpty()) {
+			if (throwException) {
+				throw new EmptyStringException("Serial number cannot be blank.");
+			}
 		}
 		// TODO Allow non-consecutive hyphens.
 		if (!serialNumber.matches("^[a-zA-Z0-9]*$")) {
@@ -42,9 +53,10 @@ public class InstrumentService {
 			}
 			return false;
 		}
+		instrument.setSerialNumber(serialNumber);
 		return true;
 	}
-	
+
 	private boolean checkIfInstrumentExists(Instrument instrument, boolean throwException) {
 		if (instrument == null) {
 			return false;
@@ -57,6 +69,14 @@ public class InstrumentService {
 			throw new AlreadyExistsException("Equipment with the same serial number and type already exists.");
 		}
 		return true;
+	}
+
+	private boolean validate(Instrument instrument) {
+		return
+				validateSerialNumber(instrument, true)
+				&&
+				checkIfInstrumentExists(instrument, true);
+		// Add new validations here.
 	}
 
 }

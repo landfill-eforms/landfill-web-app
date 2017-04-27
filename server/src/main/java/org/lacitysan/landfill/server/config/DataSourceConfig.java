@@ -29,6 +29,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInt
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedProbeData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
+import org.lacitysan.landfill.server.persistence.entity.user.UserActivity;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -121,6 +122,7 @@ public class DataSourceConfig {
 
 						// User
 						User.class,
+						UserActivity.class,
 						UserGroup.class
 
 						)

@@ -1,8 +1,8 @@
+import { AppConstant } from './../../app.constant';
 import { AuthService } from './auth.service';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { RestrictedRouteBase } from './../../app.routing';
 import { UserPermission } from './../../model/server/persistence/enums/user/user-permission.enum';
 
 @Injectable()
@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate {
 		}
 
 		console.log("AuthGuard: Denying access because user doesn't have any of the requred permissions.")
-		this.router.navigate([RestrictedRouteBase + '/forbidden']);
+		this.router.navigate([AppConstant.RESTRICTED_ROUTE_BASE + '/forbidden']);
 		return false;
 
 	}

@@ -1,0 +1,17 @@
+<div class="page-title">Select an Exceedance Type</div>
+<div class="selector-cards-container flex-container" fxLayout="row" fxLayoutAlign="start start" fxLayoutWrap>
+	<div *ngFor="let link of links">
+		<div *ngIf="link.visible" class="selector-card-container flex-item" fxFlex="320px">
+			<div class="selector-card">
+				<img class="selector-card-img" [src]="link.img">
+				<div class="selector-card-title-container">
+					<div class="selector-card-title">{{link.title}}</div>
+					<div class="selector-card-subtitle">{{link.subtitle}}</div>
+				</div>
+				<div class="selector-card-action">
+					<button md-button [disabled]="link.disabled">SELECT</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

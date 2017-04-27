@@ -1,3 +1,4 @@
+import { AppConstant } from './../../../app.constant';
 import { Component } from '@angular/core';
 import { TitleService } from './../../../services/app/title.service';
 import { environment } from './../../../../environments/environment';
@@ -10,6 +11,7 @@ import { AuthService } from './../../../services/auth/auth.service';
 })
 export class LoginComponent {
 
+	readonly versionNumber:string = AppConstant.VERSION_NUMBER;
 	readonly backgroundUrl:string = environment.assetsUrl + "/images/login-background.jpg";
 	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-lite.png";
 
@@ -19,8 +21,8 @@ export class LoginComponent {
 	};
 
 	constructor (
-		private authService:AuthService,
-		private titleService:TitleService
+		private titleService:TitleService,
+		private authService:AuthService
 	) {
 		titleService.setTitle("Login");
 	}

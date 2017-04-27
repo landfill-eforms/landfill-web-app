@@ -1,9 +1,9 @@
+import { AppConstant } from './../../app.constant';
 import { Router } from '@angular/router';
 import { JwtHelper, AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
-import { RestrictedRouteBase } from './../../app.routing';
 import { environment } from './../../../environments/environment';
 import { UserPermission } from './../../model/server/persistence/enums/user/user-permission.enum';
 
@@ -48,7 +48,7 @@ export class AuthService {
 				console.log("Token Expiration:", this.jwtHelper.getTokenExpirationDate(jwtToken));
 				sessionStorage.setItem("id_token", jwtToken);
 				sessionStorage.setItem("user_permissions", JSON.stringify(this.parseUserPermissions(jwtToken)));
-				this.router.navigate(['/' + RestrictedRouteBase]);
+				this.router.navigate(['/' + AppConstant.RESTRICTED_ROUTE_BASE]);
 			},
 			(error:any) => {
 				this.snackBar.open(JSON.parse(error.text()).message, "OK", {duration: 2000});

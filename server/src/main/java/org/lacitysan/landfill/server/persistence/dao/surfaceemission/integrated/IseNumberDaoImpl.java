@@ -30,7 +30,6 @@ public class IseNumberDaoImpl extends SurfaceEmissionExceedanceNumberDaoImpl<Ise
 		if (iseNumber == null) {
 			return null;
 		}
-		Hibernate.initialize(iseNumber.getMonitoringPoints());
 		iseNumber.getIseData().forEach(iseData -> {
 			iseData.getIseRepairData().forEach(imeRepairData -> {
 				Hibernate.initialize(imeRepairData.getUser());

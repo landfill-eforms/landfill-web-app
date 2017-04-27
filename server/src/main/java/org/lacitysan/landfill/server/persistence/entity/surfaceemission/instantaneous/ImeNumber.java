@@ -4,10 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -19,6 +21,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.SurfaceEmissionExceedanceNumber;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 import org.lacitysan.landfill.server.service.surfaceemission.instantaneous.ImeNumberService;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -31,9 +34,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name="dbo.IMENumbers")
 @AttributeOverride(name="id", column=@Column(name="IMENumberPK"))
-@AssociationOverride(name="monitoringPoints", joinTable=@JoinTable(name="dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK")))
 @JsonInclude(Include.NON_NULL)
 public class ImeNumber extends SurfaceEmissionExceedanceNumber {
+	
+	@ElementCollection(targetClass=MonitoringPoint.class)
+	@JoinTable(name="dbo.IMENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="IMENumberFK"))
+	@Column(name="MonitoringPointString")
+	@Enumerated(EnumType.STRING)
+	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();
 	
 	@JsonIgnoreProperties(value={"imeNumbers", "warmspotData", "instrument", "inspector"}, allowSetters=true)
 	@ManyToMany(mappedBy="imeNumbers")
@@ -51,6 +59,14 @@ public class ImeNumber extends SurfaceEmissionExceedanceNumber {
 	@Transient
 	private String imeNumber;
 	
+	public Set<MonitoringPoint> getMonitoringPoints() {
+		return monitoringPoints;
+	}
+
+	public void setMonitoringPoints(Set<MonitoringPoint> monitoringPoints) {
+		this.monitoringPoints = monitoringPoints;
+	}
+
 	public Set<InstantaneousData> getInstantaneousData() {
 		return instantaneousData;
 	}

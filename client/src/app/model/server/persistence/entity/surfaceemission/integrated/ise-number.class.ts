@@ -1,4 +1,5 @@
 import { IseData } from './ise-data.class';
+import { MonitoringPoint } from '../../../enums/location/monitoring-point.enum';
 import { SurfaceEmissionExceedanceNumber } from '../surface-emission-exceedance-number.class';
 
 /**
@@ -6,6 +7,7 @@ import { SurfaceEmissionExceedanceNumber } from '../surface-emission-exceedance-
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class IseNumber extends SurfaceEmissionExceedanceNumber {
+	monitoringPoint:MonitoringPoint;
 	iseData:IseData[];
 	iseNumber:string;
 }

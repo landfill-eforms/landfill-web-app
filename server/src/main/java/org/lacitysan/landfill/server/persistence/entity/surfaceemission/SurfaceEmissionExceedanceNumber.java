@@ -1,10 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.surfaceemission;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -14,7 +10,6 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
-import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
 /**
@@ -44,11 +39,6 @@ public abstract class SurfaceEmissionExceedanceNumber implements Comparable<Surf
 	@Column(name="StatusString")
 	@Enumerated(EnumType.STRING)
 	private ExceedanceStatus status;
-	
-	@ElementCollection(targetClass=MonitoringPoint.class)
-	@Column(name="MonitoringPointString")
-	@Enumerated(EnumType.STRING)
-	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -90,14 +80,6 @@ public abstract class SurfaceEmissionExceedanceNumber implements Comparable<Surf
 		this.status = status;
 	}
 
-	public Set<MonitoringPoint> getMonitoringPoints() {
-		return monitoringPoints;
-	}
-
-	public void setMonitoringPoints(Set<MonitoringPoint> monitoringPoints) {
-		this.monitoringPoints = monitoringPoints;
-	}
-	
 	@Override
 	abstract public String toString();
 

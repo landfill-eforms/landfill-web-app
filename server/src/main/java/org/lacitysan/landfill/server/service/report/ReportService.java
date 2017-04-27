@@ -130,7 +130,7 @@ public class ReportService {
 						SurfaceEmissionExceedanceReportData d = new SurfaceEmissionExceedanceReportData();
 						d.setDiscoveredDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
 						d.setExceedanceNumber(c.getIseNumber());
-						d.setMonitoringPoints(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
+						d.setMonitoringPoints(c.getMonitoringPoint().getName());
 						d.setRepairDescription(finalRepair.getDescription());
 						d.setInitial(String.format("%.2f", initial.getMethaneLevel() / 100.0));
 						d.setRecheck(iseDataList.size() == 1 ? "" : String.format("%.2f", iseDataList.get(iseDataList.size() - 1).getMethaneLevel()));

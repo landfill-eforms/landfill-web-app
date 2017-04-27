@@ -1,4 +1,3 @@
-import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 import { Site } from '../../enums/location/site.enum';
 import { ExceedanceStatus } from '../../enums/exceedance/exceedance-status.enum';
 
@@ -12,5 +11,4 @@ export abstract class SurfaceEmissionExceedanceNumber {
 	dateCode:number;
 	sequence:number;
 	status:ExceedanceStatus;
-	monitoringPoints:MonitoringPoint[];
 }

@@ -3,19 +3,20 @@ package org.lacitysan.landfill.server.persistence.entity.surfaceemission.integra
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.SurfaceEmissionExceedanceNumber;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 import org.lacitysan.landfill.server.service.surfaceemission.integrated.IseNumberService;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,9 +29,13 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name="dbo.ISENumbers")
 @AttributeOverride(name="id", column=@Column(name="ISENumberPK"))
-@AssociationOverride(name="monitoringPoints", joinTable=@JoinTable(name="dbo.ISENumbersXRefMonitoringPoints", joinColumns=@JoinColumn(name="ISENumberFK")))
 @JsonInclude(Include.NON_NULL)
 public class IseNumber extends SurfaceEmissionExceedanceNumber {
+	
+	@NotNull
+	@Column(name="MonitoringPointString")
+	@Enumerated(EnumType.STRING)
+	private MonitoringPoint monitoringPoint;
 	
 	@JsonIgnoreProperties("iseNumber")
 	@Cascade(CascadeType.ALL)
@@ -39,6 +44,14 @@ public class IseNumber extends SurfaceEmissionExceedanceNumber {
 
 	@Transient
 	private String iseNumber;
+
+	public MonitoringPoint getMonitoringPoint() {
+		return monitoringPoint;
+	}
+
+	public void setMonitoringPoint(MonitoringPoint monitoringPoint) {
+		this.monitoringPoint = monitoringPoint;
+	}
 
 	public Set<IseData> getIseData() {
 		return iseData;

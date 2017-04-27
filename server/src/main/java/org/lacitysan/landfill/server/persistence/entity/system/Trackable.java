@@ -1,7 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.system;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 
@@ -19,7 +18,7 @@ public interface Trackable {
 	public void setCreatedBy(User createdBy);
 
 	/** Gets the date and time that this object was created. */
-	public Date getCreatedDate();
+	public Timestamp getCreatedDate();
 
 	/** Sets the date and time that this object was created. */
 	public void setCreatedDate(Timestamp createdDate);

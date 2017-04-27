@@ -12,6 +12,7 @@ export class UserGroup {
 	users:User[];
 	userPermissions:UserPermission[];
 	createdBy:User;
+	createdDate:number;
 	modifiedBy:User;
 	modifiedDate:number;
 }

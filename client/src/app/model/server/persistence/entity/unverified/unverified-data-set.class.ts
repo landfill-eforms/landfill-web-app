@@ -18,6 +18,7 @@ export class UnverifiedDataSet {
 	unverifiedProbeData:UnverifiedProbeData[];
 	errors:any;
 	createdBy:User;
+	createdDate:number;
 	modifiedBy:User;
 	modifiedDate:number;
 }

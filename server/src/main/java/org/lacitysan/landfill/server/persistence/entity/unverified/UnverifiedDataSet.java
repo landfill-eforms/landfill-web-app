@@ -1,7 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.unverified;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -164,7 +163,7 @@ public class UnverifiedDataSet implements Trackable {
 	}
 
 	@Override
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 

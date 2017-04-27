@@ -1,7 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.instrument;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -210,7 +209,7 @@ public class InstrumentType implements Trackable {
 	}
 
 	@Override
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 

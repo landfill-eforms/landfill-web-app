@@ -19,6 +19,7 @@ export class Instrument {
 	inventoryNumber:string;
 	description:string;
 	createdBy:User;
+	createdDate:number;
 	modifiedBy:User;
 	modifiedDate:number;
 }

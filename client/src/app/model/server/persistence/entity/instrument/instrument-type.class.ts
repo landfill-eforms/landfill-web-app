@@ -21,6 +21,7 @@ export class InstrumentType {
 	pressure:boolean;
 	instruments:Instrument[];
 	createdBy:User;
+	createdDate:number;
 	modifiedBy:User;
 	modifiedDate:number;
 }

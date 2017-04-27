@@ -183,7 +183,7 @@ export class UnverifiedDataSetsComponent implements OnInit, OnDestroy {
 			this.showSideInfo = true;
 		}
 		this.selectedUnverifiedDataSet = unverifiedDataSet;
-		this.navigationService.getSideinfoComponent().subtitle = this.selectedUnverifiedDataSet.site.name + " " + DateTimeUtils.getDate(this.selectedUnverifiedDataSet.uploadedDate); 
+		this.navigationService.getSideinfoComponent().subtitle = this.selectedUnverifiedDataSet.site.name + " " + DateTimeUtils.getDate(this.selectedUnverifiedDataSet.createdDate); 
 		this.navigationService.getSideinfoComponent().getDirective().setData(this.selectedUnverifiedDataSet);
 	}
 

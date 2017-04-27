@@ -1,7 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.user;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -120,7 +119,7 @@ public class UserGroup implements Trackable {
 	}
 
 	@Override
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 

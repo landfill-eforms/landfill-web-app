@@ -1,5 +1,5 @@
 import { AbstractHttpService } from './../abstract/abstract-http.service';
-import { IseNumber } from './../../model/server/persistence/entity/serviceemission/integrated/ise-number.class';
+import { IseNumber } from './../../model/server/persistence/entity/surfaceemission/integrated/ise-number.class';
 import { Site } from './../../model/server/persistence/enums/location/site.enum';
 import { Response } from '@angular/http';
 import { environment } from './../../../environments/environment';

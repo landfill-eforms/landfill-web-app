@@ -1,6 +1,6 @@
 import { AbstractHttpService } from './../abstract/abstract-http.service';
 import { Site } from './../../model/server/persistence/enums/location/site.enum';
-import { InstantaneousData } from './../../model/server/persistence/entity/serviceemission/instantaneous/instantaneous-data.class';
+import { InstantaneousData } from './../../model/server/persistence/entity/surfaceemission/instantaneous/instantaneous-data.class';
 import { MonitoringPoint } from './../../model/server/persistence/enums/location/monitoring-point.enum';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';

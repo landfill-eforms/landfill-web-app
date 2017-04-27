@@ -1,12 +1,12 @@
-import { IseNumber } from './../../../model/server/persistence/entity/serviceemission/integrated/ise-number.class';
+import { IseNumber } from './../../../model/server/persistence/entity/surfaceemission/integrated/ise-number.class';
 import { IseNumberService } from './../../../services/integrated/ise-number.service';
 import { IntegratedDataService } from './../../../services/integrated/integrated-data.service';
 import { StringUtils } from './../../../utils/string.utils';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
-import { ImeNumber } from './../../../model/server/persistence/entity/serviceemission/instantaneous/ime-number.class';
-import { IntegratedData } from './../../../model/server/persistence/entity/serviceemission/integrated/integrated-data.class';
-import { InstantaneousData } from './../../../model/server/persistence/entity/serviceemission/instantaneous/instantaneous-data.class';
+import { ImeNumber } from './../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-number.class';
+import { IntegratedData } from './../../../model/server/persistence/entity/surfaceemission/integrated/integrated-data.class';
+import { InstantaneousData } from './../../../model/server/persistence/entity/surfaceemission/instantaneous/instantaneous-data.class';
 import { InstantaneousDataService } from './../../../services/instantaneous/instantaneous-data.service';
 import { Site } from './../../../model/server/persistence/enums/location/site.enum';
 import { Component } from '@angular/core';

@@ -1,4 +1,4 @@
-import { WarmspotData } from './../../model/server/persistence/entity/serviceemission/instantaneous/warmspot-data.class';
+import { WarmspotData } from './../../model/server/persistence/entity/surfaceemission/instantaneous/warmspot-data.class';
 import { AbstractHttpService } from './../abstract/abstract-http.service';
 import { environment } from './../../../environments/environment';
 import { AuthHttp } from 'angular2-jwt';

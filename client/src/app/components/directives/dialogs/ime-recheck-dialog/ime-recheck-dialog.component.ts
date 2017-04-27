@@ -1,6 +1,6 @@
 import { User } from './../../../../model/server/persistence/entity/user/user.class';
 import { MdDialogRef } from '@angular/material';
-import { ImeData } from './../../../../model/server/persistence/entity/serviceemission/instantaneous/ime-data.class';
+import { ImeData } from './../../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-data.class';
 import { Component } from '@angular/core';
 
 @Component({

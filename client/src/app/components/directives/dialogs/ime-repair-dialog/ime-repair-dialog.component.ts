@@ -1,4 +1,4 @@
-import { ImeRepairData } from './../../../../model/server/persistence/entity/serviceemission/instantaneous/ime-repair-data.class';
+import { ImeRepairData } from './../../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-repair-data.class';
 import { User } from './../../../../model/server/persistence/entity/user/user.class';
 import { MdDialogRef } from '@angular/material';
 import { Component, OnChanges } from '@angular/core';

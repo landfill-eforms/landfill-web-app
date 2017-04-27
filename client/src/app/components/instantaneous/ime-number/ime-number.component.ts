@@ -1,4 +1,4 @@
-import { ImeNumber } from './../../../model/server/persistence/entity/serviceemission/instantaneous/ime-number.class';
+import { ImeNumber } from './../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-number.class';
 import { MdSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';

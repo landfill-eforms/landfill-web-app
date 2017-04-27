@@ -1,5 +1,5 @@
-import { InstantaneousReportData } from './data/instantaneous-report-data.class';
 import { Report } from './report.class';
+import { InstantaneousReportData } from './data/instantaneous-report-data.class';
 
 /**
  * This class was automatically generated from InstantaneousReport.java using typescript-gen.

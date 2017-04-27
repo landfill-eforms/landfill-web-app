@@ -1,6 +1,6 @@
 import { AbstractHttpService } from './../abstract/abstract-http.service';
 import { Site } from './../../model/server/persistence/enums/location/site.enum';
-import { IntegratedData } from './../../model/server/persistence/entity/serviceemission/integrated/integrated-data.class';
+import { IntegratedData } from './../../model/server/persistence/entity/surfaceemission/integrated/integrated-data.class';
 import { MonitoringPoint } from './../../model/server/persistence/enums/location/monitoring-point.enum';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';

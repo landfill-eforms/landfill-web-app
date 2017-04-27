@@ -1,7 +1,7 @@
 import { DateTimeUtils } from './../../../../utils/date-time.utils';
 import { Sort, SortUtils } from './../../../../utils/sort.utils';
 import { StringUtils } from './../../../../utils/string.utils';
-import { InstantaneousData } from './../../../../model/server/persistence/entity/serviceemission/instantaneous/instantaneous-data.class';
+import { InstantaneousData } from './../../../../model/server/persistence/entity/surfaceemission/instantaneous/instantaneous-data.class';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({

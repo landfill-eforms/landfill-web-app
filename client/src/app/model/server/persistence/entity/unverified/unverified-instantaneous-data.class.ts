@@ -1,6 +1,6 @@
 import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 import { UnverifiedWarmspotData } from './unverified-warmspot-data.class';
-import { ImeNumber } from '../serviceemission/instantaneous/ime-number.class';
+import { ImeNumber } from '../surfaceemission/instantaneous/ime-number.class';
 import { Instrument } from '../instrument/instrument.class';
 import { UnverifiedDataSet } from './unverified-data-set.class';
 

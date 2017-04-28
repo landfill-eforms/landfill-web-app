@@ -1,3 +1,4 @@
+import { ImeNumberListSideinfoComponent } from './../../exceedance/ime-number-list-sideinfo/ime-number-list-sideinfo.component';
 import { UnverifiedDataSetListSideinfoComponent } from './../../unverified-data/unverified-data-set-list-sideinfo/unverified-data-set-list-sideinfo.component';
 import { InstrumentListSideinfoComponent } from './../../instrument/instrument-list-sideinfo/instrument-list-sideinfo.component';
 import { InstrumentTypeListSideinfoComponent } from './../../instrument/instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
@@ -15,6 +16,7 @@ import { Component, OnInit, Input, ElementRef, ViewChild, ViewContainerRef, Comp
 	entryComponents: [
 		UserListSideinfoComponent,
 		UserGroupListSideinfoComponent,
+		ImeNumberListSideinfoComponent,
 		InstrumentListSideinfoComponent,
 		InstrumentTypeListSideinfoComponent,
 		UnverifiedDataSetListSideinfoComponent
@@ -27,7 +29,7 @@ export class NavigationSideinfoComponent implements OnInit {
 	@Input() sidenav:MdSidenav;
 
 	private isOpened:boolean;
-	private currentDirective:ComponentRef<AbstractSideinfoComponent>;
+	private currentDirective:ComponentRef<AbstractSideinfoComponent<any>>;
 	
 	private disabled:boolean = true;
 	public title:string;
@@ -40,7 +42,7 @@ export class NavigationSideinfoComponent implements OnInit {
 		this.disable(); // Start with info sidenav closed.
 	}
 
-	getDirective():AbstractSideinfoComponent {
+	getDirective():AbstractSideinfoComponent<any> {
 		return this.currentDirective.instance;
 	}
 
@@ -54,7 +56,7 @@ export class NavigationSideinfoComponent implements OnInit {
 		});
     	let resolvedInputs = ReflectiveInjector.resolve(inputProviders);
 		let injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.directiveRef.parentInjector);
-		let factory = this.resolver.resolveComponentFactory<AbstractSideinfoComponent>(directiveType);
+		let factory = this.resolver.resolveComponentFactory<AbstractSideinfoComponent<any>>(directiveType);
 		let component = factory.create(injector);
 		this.directiveRef.clear();
 		this.directiveRef.insert(component.hostView);

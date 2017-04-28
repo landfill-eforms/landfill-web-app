@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 	selector: 'app-user-list-sideinfo',
 	templateUrl: './user-list-sideinfo.component.html'
 })
-export class UserListSideinfoComponent extends AbstractSideinfoComponent {
+export class UserListSideinfoComponent extends AbstractSideinfoComponent<User> {
 
 	user:User;
 
@@ -16,11 +16,11 @@ export class UserListSideinfoComponent extends AbstractSideinfoComponent {
 			super("User");
 	}
 
-	getData():any {
+	getData():User {
 		return this.user;
 	}
 
-	setData(data:any) {
+	setData(data:User) {
 		this.user = data;
 	}
 	

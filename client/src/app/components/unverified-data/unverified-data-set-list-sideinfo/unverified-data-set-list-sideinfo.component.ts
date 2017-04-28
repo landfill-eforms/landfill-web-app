@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 	selector: 'app-unverified-data-set-list-sideinfo',
 	templateUrl: './unverified-data-set-list-sideinfo.component.html'
 })
-export class UnverifiedDataSetListSideinfoComponent extends AbstractSideinfoComponent {
+export class UnverifiedDataSetListSideinfoComponent extends AbstractSideinfoComponent<UnverifiedDataSet> {
 
 	DateTimeUtils = DateTimeUtils;
 
@@ -19,11 +19,11 @@ export class UnverifiedDataSetListSideinfoComponent extends AbstractSideinfoComp
 			super("Unverified Data Set");
 	}
 
-	getData():any {
+	getData():UnverifiedDataSet {
 		return this.unverifiedDataSet;
 	}
 
-	setData(data:any) {
+	setData(data:UnverifiedDataSet) {
 		this.unverifiedDataSet = data;
 	}
 	

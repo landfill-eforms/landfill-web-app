@@ -1,3 +1,7 @@
+import { DateTimeUtils } from './../../../utils/date-time.utils';
+import { MonitoringPoint } from './../../../model/server/persistence/enums/location/monitoring-point.enum';
+import { Site } from './../../../model/server/persistence/enums/location/site.enum';
+import { EnumUtils } from './../../../utils/enum.utils';
 import { AbstractDataTableComponent } from './../../../model/client/abstract-components/abstract-data-table.component';
 import { InputStatus } from './../../../utils/input.utils';
 import { NavigationService } from './../../../services/app/navigation.service';
@@ -17,12 +21,12 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 })
 export class IseNumberListComponent extends AbstractDataTableComponent<IseNumber> implements OnInit, OnDestroy {
 
+	// Utilities
+	DateTimeUtils = DateTimeUtils;
+
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;
-
-	showSideInfo:boolean = false;
-	selectedData:IseNumber;
 
 	// Initialize the sort properties.
 	sortProperties = {
@@ -44,8 +48,10 @@ export class IseNumberListComponent extends AbstractDataTableComponent<IseNumber
 
 	filters:{text:string} = {
 		text: ""
-	}
+	};
 
+	showSideInfo:boolean = false;
+	selectedIseNumber:IseNumber;
 
 	constructor(
 		private router:Router,
@@ -56,7 +62,7 @@ export class IseNumberListComponent extends AbstractDataTableComponent<IseNumber
 		private navigationService:NavigationService) {
 			super();
 			navigationService.getNavbarComponent().expanded = true;
-			navigationService.getSideinfoComponent().setDirective(null, {iseNumber: null});
+			// navigationService.getSideinfoComponent().setDirective(null, {iseNumber: null});
 	}
 
 	ngOnInit() {
@@ -73,17 +79,44 @@ export class IseNumberListComponent extends AbstractDataTableComponent<IseNumber
 			console.log(data);
 			this.data = data;
 			this.applyFilters();
+			this.paginfo.totalRows = this.data.length;
+			this.navigationService.getSideinfoComponent().open();
 			this.isDataLoaded = true;
 		})
 	}
 
 	applyFilters() {
 
+		this.filteredData = this.data.filter(o => true);
+
+		this.paginfo.totalRows = this.filteredData.length;
+		if (this.pagination) {
+			this.pagination.update();
+		}
+		this.applyPagination();
 	}
 
 	resetFilters() {
 		this.filters.text = "";
 		this.applyFilters();
+	}
+
+	selectIseNumber(iseNumber:IseNumber) {
+		if (!this.selectedIseNumber) {
+			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
+		}
+		this.selectedIseNumber = iseNumber;
+		this.navigationService.getSideinfoComponent().subtitle = this.selectedIseNumber.iseNumber; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(this.selectedIseNumber);
+	}
+
+	deselectIseNumber() {
+		this.selectedIseNumber = null;
+	}
+
+	navigateToIseNumber(iseNumber:IseNumber) {
+		this.router.navigate([iseNumber.iseNumber], {relativeTo: this.activatedRoute});
 	}
 
 }

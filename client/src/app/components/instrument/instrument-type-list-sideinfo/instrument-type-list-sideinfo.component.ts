@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 	selector: 'app-instrument-type-list-sideinfo',
 	templateUrl: './instrument-type-list-sideinfo.component.html'
 })
-export class InstrumentTypeListSideinfoComponent extends AbstractSideinfoComponent {
+export class InstrumentTypeListSideinfoComponent extends AbstractSideinfoComponent<InstrumentType> {
 
 	instrumentType:InstrumentType;
 	tests:string[] = []
@@ -19,11 +19,11 @@ export class InstrumentTypeListSideinfoComponent extends AbstractSideinfoCompone
 			super("Equipment Type");
 	}
 
-	getData():any {
+	getData():InstrumentType {
 		return this.instrumentType;
 	}
 
-	setData(data:any) {
+	setData(data:InstrumentType) {
 		this.instrumentType = data;
 		this.tests = this.instrumentTypeService.generateApplicableTestsList(this.instrumentType);
 	}

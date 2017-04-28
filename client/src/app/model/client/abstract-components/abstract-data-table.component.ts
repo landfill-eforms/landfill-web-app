@@ -8,7 +8,7 @@ export abstract class AbstractDataTableComponent<T> {
 	abstract pagination:PaginationComponent;
 
 	isDataLoaded:boolean;
-	data:T[];
+	data:T[] = [];
 
 	sort:Sort = {
 		current: "id",

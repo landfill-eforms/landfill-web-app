@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 	selector: 'app-instrument-list-sideinfo',
 	templateUrl: './instrument-list-sideinfo.component.html'
 })
-export class InstrumentListSideinfoComponent extends AbstractSideinfoComponent {
+export class InstrumentListSideinfoComponent extends AbstractSideinfoComponent<Instrument> {
 
 	instrument:Instrument;
 	tests:string[] = []
@@ -19,11 +19,11 @@ export class InstrumentListSideinfoComponent extends AbstractSideinfoComponent {
 			super("Equipment");
 	}
 
-	getData():any {
+	getData():Instrument {
 		return this.instrument;
 	}
 
-	setData(data:any) {
+	setData(data:Instrument) {
 		this.instrument = data;
 	}
 	

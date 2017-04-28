@@ -1,0 +1,30 @@
+<div *ngIf="!imeNumber">
+	<div style="padding:16px;">
+		Select an equipment type to view its details.
+	</div>
+</div>
+<div *ngIf="imeNumber" style="height:calc(100% - 128px);">
+	<div  class="sideinfo-sections-container">
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				General
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Date Created
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					Coming Soon
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Last Modified
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					Coming Soon
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

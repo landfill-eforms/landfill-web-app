@@ -1,4 +1,5 @@
-export abstract class AbstractSideinfoComponent {
+import { TestBed } from '@angular/core/testing';
+export abstract class AbstractSideinfoComponent<T> {
 
 	title:string;
 
@@ -6,8 +7,8 @@ export abstract class AbstractSideinfoComponent {
 		this.title = title;
 	}
 
-	abstract getData():any;
+	abstract getData():T;
 
-	abstract setData(data:any);
+	abstract setData(data:T);
 
 }

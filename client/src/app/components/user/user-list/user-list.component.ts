@@ -20,11 +20,12 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class UserListComponent extends AbstractDataTableComponent<User> implements OnInit, OnDestroy {
 
+	// Utilities
+	StringUtils = StringUtils;
+
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;
-
-	stringUtils = StringUtils;
 
 	loadingMessage:string;
 
@@ -42,7 +43,7 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 		employeeId: [
 			"employeeId"
 		]
-	}
+	};
 
 	filters:{text:string, status:number} = {
 		text: "",

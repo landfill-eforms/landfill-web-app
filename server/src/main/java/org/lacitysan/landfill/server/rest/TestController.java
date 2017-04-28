@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.persistence.entity.report.IndividualReportQuery;
 import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.persistence.enums.report.ReportType;
@@ -24,7 +25,7 @@ public class TestController {
 	
 	@RequestMapping(value="/asdf", method=RequestMethod.GET)
 	public Report reportTest() throws ParseException {
-		ReportQuery reportQuery = new ReportQuery();
+		ReportQuery reportQuery = new IndividualReportQuery();
 		reportQuery.setReportType(ReportType.INSTANTANEOUS);
 //		reportQuery.setSite(Site.LOPEZ);
 		reportQuery.setSite(Site.BISHOPS);

@@ -1,3 +1,4 @@
+import { AbstractDataTableComponent } from './../../../model/client/abstract-components/abstract-data-table.component';
 import { UnverifiedIntegratedData } from './../../../model/server/persistence/entity/unverified/unverified-integrated-data.class';
 import { UnverifiedDataSetListSideinfoComponent } from './../unverified-data-set-list-sideinfo/unverified-data-set-list-sideinfo.component';
 import { InputStatus, InputUtils } from './../../../utils/input.utils';
@@ -23,23 +24,18 @@ import { OnInit, Component, OnDestroy, ViewChild } from '@angular/core';
 	templateUrl: './unverified-data-set-list.component.html',
 	styleUrls: ['./unverified-data-set-list.component.scss']
 })
-export class UnverifiedDataSetsComponent implements OnInit, OnDestroy {
+export class UnverifiedDataSetsComponent extends AbstractDataTableComponent<UnverifiedDataSet> implements OnInit, OnDestroy {
+
+	// Utilities
+	StringUtils = StringUtils;
+	DateTimeUtils = DateTimeUtils;
 
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;
 
-	StringUtils = StringUtils;
-	DateTimeUtils = DateTimeUtils;
-
-	unverifiedDataSets:UnverifiedDataSet[] = [];
-	loadingMessage:string = "Loading Data..."
 	isDataLoaded:boolean = false;
-
-	sort:Sort = {
-		current: "id",
-		reversed: false
-	}
+	loadingMessage:string = "Loading Data..."
 
 	sortProperties:any = {
 		site: [
@@ -67,19 +63,9 @@ export class UnverifiedDataSetsComponent implements OnInit, OnDestroy {
 		]
 	}
 
-	showFilters:boolean = false;
-	filteredRowsCount:number = 0;
-	filteredUnverifiedDataSets:UnverifiedDataSet[] = [];
 	filters:{text:string} = {
 		text: ""
 	};
-	textFilterStatus:InputStatus = {
-		valid: true,
-		errorMessage: ""
-	};
-
-	paginfo:Paginfo = new Paginfo();
-	paginatedUnverifiedDataSets:UnverifiedDataSet[] = [];
 
 	showSideInfo:boolean = false;
 	selectedUnverifiedDataSet:UnverifiedDataSet;
@@ -91,6 +77,7 @@ export class UnverifiedDataSetsComponent implements OnInit, OnDestroy {
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
 		private navigationService:NavigationService) {
+			super();
 			navigationService.getNavbarComponent().expanded = false;
 			navigationService.getSideinfoComponent().setDirective(UnverifiedDataSetListSideinfoComponent, {unverifiedDataSet: null});
 	}
@@ -108,9 +95,9 @@ export class UnverifiedDataSetsComponent implements OnInit, OnDestroy {
 				for (let j = 0; j < dataSet.unverifiedIntegratedData.length; j++) {
 					dataSet.unverifiedIntegratedData[j]["monitoringPoint"] = EnumUtils.convertToEnum(MonitoringPoint, dataSet.unverifiedIntegratedData[j]["monitoringPoint"]);
 				}
-				this.unverifiedDataSets.push(this.unverifiedDataService.checkForErrors(dataSet));
+				this.data.push(this.unverifiedDataService.checkForErrors(dataSet));
 			}
-			console.log(this.unverifiedDataSets);
+			console.log(this.data);
 			this.applyFilters();
 			this.isDataLoaded = true;
 		});
@@ -118,21 +105,6 @@ export class UnverifiedDataSetsComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		this.navigationService.getSideinfoComponent().disable();
-	}
-
-	sortBy(sortBy:string) {
-		SortUtils.sortAndUpdate(this.sort, sortBy, this.unverifiedDataSets, this.sortProperties[sortBy]);
-		this.applyFilters();
-	}
-
-	toggleFilters() {
-		if (this.showFilters) {
-			this.showFilters = false;
-			this.resetFilters();
-		}
-		else {
-			this.showFilters = true;
-		}
 	}
 
 	applyFilters() {
@@ -146,9 +118,9 @@ export class UnverifiedDataSetsComponent implements OnInit, OnDestroy {
 		}
 
 		// TODO Implement this.
-		this.filteredUnverifiedDataSets = this.unverifiedDataSets.filter(o => true);
+		this.filteredData = this.data.filter(o => true);
 
-		this.paginfo.totalRows = this.filteredUnverifiedDataSets.length;
+		this.paginfo.totalRows = this.filteredData.length;
 		if (this.pagination) {
 			this.pagination.update();
 		}
@@ -158,12 +130,6 @@ export class UnverifiedDataSetsComponent implements OnInit, OnDestroy {
 	resetFilters() {
 		this.filters.text = "";
 		this.applyFilters();
-	}
-
-	applyPagination() {
-		this.paginatedUnverifiedDataSets = this.filteredUnverifiedDataSets.filter((o, i) => {
-			return i >= (this.paginfo.currentPage - 1) * this.paginfo.displayedRows && i < this.paginfo.currentPage * this.paginfo.displayedRows;
-		});
 	}
 
 	toggleSideInfo() {
@@ -183,7 +149,7 @@ export class UnverifiedDataSetsComponent implements OnInit, OnDestroy {
 			this.showSideInfo = true;
 		}
 		this.selectedUnverifiedDataSet = unverifiedDataSet;
-		this.navigationService.getSideinfoComponent().subtitle = this.selectedUnverifiedDataSet.site.name + " " + DateTimeUtils.getDate(this.selectedUnverifiedDataSet.uploadedDate); 
+		this.navigationService.getSideinfoComponent().subtitle = this.selectedUnverifiedDataSet.site.name + " " + DateTimeUtils.getDate(this.selectedUnverifiedDataSet.createdDate); 
 		this.navigationService.getSideinfoComponent().getDirective().setData(this.selectedUnverifiedDataSet);
 	}
 

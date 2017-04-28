@@ -3,11 +3,11 @@ package org.lacitysan.landfill.server.rest.user;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserGroupDao;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
+import org.lacitysan.landfill.server.service.user.UserGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +24,9 @@ public class UserGroupController {
 	
 	@Autowired
 	UserGroupDao userGroupDao;
+	
+	@Autowired
+	UserGroupService userGroupService;
 	
 	@RestSecurity(UserPermission.VIEW_USER_GROUPS)
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
@@ -45,34 +48,19 @@ public class UserGroupController {
 	@RestSecurity(UserPermission.CREATE_USER_GROUPS)
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public UserGroup create(@RequestBody UserGroup userGroup) {
-		
-		// TODO Move this to a service.
-		userGroup.setName(userGroup.getName().trim());
-		if (userGroup.getName().isEmpty()) {
-			throw new EmptyStringException("User group name cannot be blank.");
-		}
-		
-		return userGroupDao.create(userGroup);
+		return userGroupService.create(userGroup);
 	}
 	
 	@RestSecurity(UserPermission.EDIT_USER_GROUPS)
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public UserGroup update(@RequestBody UserGroup userGroup) {
-		
-		// TODO Move this to a service.
-		userGroup.setName(userGroup.getName().trim());
-		if (userGroup.getName().isEmpty()) {
-			throw new EmptyStringException("User group name cannot be blank.");
-		}
-		
-		return userGroupDao.update(userGroup);
+		return userGroupService.update(userGroup);
 	}
 	
 	@RestSecurity(UserPermission.DELETE_USER_GROUPS)
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public UserGroup delete(@RequestBody UserGroup userGroup) {
-		userGroupDao.delete(userGroup);
-		return userGroup;
+		return userGroupDao.delete(userGroup);
 	}
 	
 	@RestSecurity(UserPermission.DELETE_USER_GROUPS)

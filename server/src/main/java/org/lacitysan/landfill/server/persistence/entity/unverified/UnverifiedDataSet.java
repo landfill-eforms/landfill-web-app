@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.lacitysan.landfill.server.persistence.entity.system.Trackable;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
@@ -35,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity
 @Table(name="dbo.UnverifiedDataSets")
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedDataSet {
+public class UnverifiedDataSet implements Trackable {
 	
 	@Id
 	@Column(name="UnverifiedDataSetPK")
@@ -52,21 +53,7 @@ public class UnverifiedDataSet {
 	@Column(name="SiteString")
 	@Enumerated(EnumType.STRING)
 	private Site site;
-	
-	@JsonIgnoreProperties({"userGroups", "enabled"})
-	@ManyToOne
-	@JoinColumn(name="UploadedByFK")
-	private User uploadedBy;
-	
-	private Timestamp uploadedDate;
-	
-	@JsonIgnoreProperties({"userGroups", "enabled"})
-	@ManyToOne
-	@JoinColumn(name="ModifiedByFK")
-	private User modifiedBy;
-	
-	private Timestamp modifiedDate;
-	
+
 	@JsonIgnoreProperties("unverifiedDataSet")
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
@@ -86,6 +73,21 @@ public class UnverifiedDataSet {
 	private Map<String, List<String>> errors = new HashMap<>();
 
 	// TODO Add other data types.
+	
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@ManyToOne
+	@JoinColumn(name="UploadedByFK")
+	private User createdBy;
+	
+	@Column(name="UploadedDate")
+	private Timestamp createdDate;
+	
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@ManyToOne
+	@JoinColumn(name="ModifiedByFK")
+	private User modifiedBy;
+	
+	private Timestamp modifiedDate;
 	
 	public Integer getId() {
 		return id;
@@ -119,38 +121,6 @@ public class UnverifiedDataSet {
 		this.site = site;
 	}
 
-	public User getUploadedBy() {
-		return uploadedBy;
-	}
-
-	public void setUploadedBy(User uploadedBy) {
-		this.uploadedBy = uploadedBy;
-	}
-
-	public Timestamp getUploadedDate() {
-		return uploadedDate;
-	}
-
-	public void setUploadedDate(Timestamp uploadedDate) {
-		this.uploadedDate = uploadedDate;
-	}
-
-	public User getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(User modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
-	public Timestamp getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(Timestamp modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
 	public Set<UnverifiedInstantaneousData> getUnverifiedInstantaneousData() {
 		return unverifiedInstantaneousData;
 	}
@@ -181,6 +151,46 @@ public class UnverifiedDataSet {
 
 	public void setErrors(Map<String, List<String>> errors) {
 		this.errors = errors;
+	}
+	
+	@Override
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	@Override
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Override
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	@Override
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Override
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	@Override
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	@Override
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
 
 }

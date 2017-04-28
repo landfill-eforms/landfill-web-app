@@ -1,3 +1,4 @@
+import { PublicModule } from './components/public/public.module'
 import { IseNumberService } from './services/integrated/ise-number.service';
 import { IntegratedDataService } from './services/integrated/integrated-data.service';
 import { WarmspotDataService } from './services/instantaneous/warmspot-data.service';
@@ -20,7 +21,6 @@ import { ImeRecheckDialogComponent } from './components/directives/dialogs/ime-r
 import { CommonModule } from './components/common/common.module';
 import { AssignImeNumberDialogComponent } from './components/unverified-data/assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataModule } from './components/unverified-data/unverified-data.module';
-import { InstantaneousModule } from './components/instantaneous/instantaneous.module';
 import { NewUserGroupDialogComponent } from './components/user-group/new-user-group-dialog/new-user-group-dialog.component';
 import { ReportModule } from './components/report/report.module';
 import { NewUserDialogComponent } from './components/user/new-user-dialog/new-user-dialog.component';
@@ -37,8 +37,8 @@ import { AuthGuard } from './services/auth/authguard';
 import { AuthService, AuthProvider } from './services/auth/auth.service';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PublicModule } from './components/public/public.module'
 import { NavigationModule } from './components/navigation/navigation.module'
+import { ExceedanceModule } from './components/exceedance/exceedance.module';
 import { DirectivesModule } from './components/directives/directives.module';
 import { UserModule } from './components/user/user.module';
 import { UserGroupModule } from './components/user-group/user-group.module';
@@ -63,13 +63,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		PublicModule,
 		NavigationModule,
 		DirectivesModule,
-		InstantaneousModule,
+		ExceedanceModule,
 		InstrumentModule,
 		MobileModule,
+		ReportModule,
 		UserModule,
 		UserGroupModule,
-		UnverifiedDataModule,
-		ReportModule,
+		UnverifiedDataModule
 	],
 	entryComponents: [
 		NewUserDialogComponent,
@@ -84,10 +84,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 	providers: [
 		//AppRouterProviders,
 		{provide: LocationStrategy, useClass: HashLocationStrategy},
+		AuthService,
 		AuthHttp,
 		AuthProvider,
 		AuthGuard,
-		AuthService,
+		// AuthService,
 		FileUploadService,
 		ImeNumberService,
 		InstantaneousDataService,

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
 import org.lacitysan.landfill.server.service.report.model.data.ProbeExceedanceReportData;
-import org.lacitysan.landfill.server.service.report.model.data.ServiceEmissionExceedanceReportData;
+import org.lacitysan.landfill.server.service.report.model.data.SurfaceEmissionExceedanceReportData;
 
 /**
  * A generated exceedance report.
@@ -13,27 +13,27 @@ import org.lacitysan.landfill.server.service.report.model.data.ServiceEmissionEx
  */
 public class ExceedanceReport extends Report {
 
-	List<ServiceEmissionExceedanceReportData> imeReportData = new ArrayList<>();
-	List<ServiceEmissionExceedanceReportData> iseReportData = new ArrayList<>();
+	List<SurfaceEmissionExceedanceReportData> imeReportData = new ArrayList<>();
+	List<SurfaceEmissionExceedanceReportData> iseReportData = new ArrayList<>();
 	List<ProbeExceedanceReportData> probeExceedanceReportData = new ArrayList<>();
 
 	public ExceedanceReport(ReportQuery reportQuery) {
 		super(reportQuery);
 	}
 
-	public List<ServiceEmissionExceedanceReportData> getImeReportData() {
+	public List<SurfaceEmissionExceedanceReportData> getImeReportData() {
 		return imeReportData;
 	}
 
-	public void setImeReportData(List<ServiceEmissionExceedanceReportData> imeReportData) {
+	public void setImeReportData(List<SurfaceEmissionExceedanceReportData> imeReportData) {
 		this.imeReportData = imeReportData;
 	}
 
-	public List<ServiceEmissionExceedanceReportData> getIseReportData() {
+	public List<SurfaceEmissionExceedanceReportData> getIseReportData() {
 		return iseReportData;
 	}
 
-	public void setIseReportData(List<ServiceEmissionExceedanceReportData> iseReportData) {
+	public void setIseReportData(List<SurfaceEmissionExceedanceReportData> iseReportData) {
 		this.iseReportData = iseReportData;
 	}
 

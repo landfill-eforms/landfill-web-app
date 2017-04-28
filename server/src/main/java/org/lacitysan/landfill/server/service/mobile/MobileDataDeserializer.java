@@ -11,14 +11,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
-import org.lacitysan.landfill.server.persistence.dao.serviceemission.instantaneous.ImeNumberDao;
-import org.lacitysan.landfill.server.persistence.dao.serviceemission.instantaneous.WarmspotDataDao;
+import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.ImeNumberDao;
+import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.WarmspotDataDao;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseNumber;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseNumber;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
@@ -36,8 +36,9 @@ import org.lacitysan.landfill.server.service.mobile.model.MobileIntegratedData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileIseData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileProbeData;
 import org.lacitysan.landfill.server.service.mobile.model.MobileWarmspotData;
-import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeNumberService;
-import org.lacitysan.landfill.server.service.serviceemission.integrated.IseNumberService;
+import org.lacitysan.landfill.server.service.surfaceemission.instantaneous.ImeNumberService;
+import org.lacitysan.landfill.server.service.surfaceemission.integrated.IseNumberService;
+import org.lacitysan.landfill.server.service.system.TrackingService;
 import org.lacitysan.landfill.server.service.user.UserService;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,9 @@ public class MobileDataDeserializer {
 	@Autowired
 	MonitoringPointService monitoringPointService;
 	
+	@Autowired
+	TrackingService trackingService;
+	
 	public Set<UnverifiedDataSet> deserializeData(MobileDataContainer mobileDataContainer) {
 		
 		// Store a map of users by their usernames.
@@ -97,21 +101,21 @@ public class MobileDataDeserializer {
 			if (imeNumberString == null || imeNumberString.trim().isEmpty()) {
 				
 				// Get site.
-				Site site = monitoringPointService.getSiteByName(mobileImeData.getmLocation());
+				Site site = monitoringPointService.getSiteByEnumName(mobileImeData.getmLocation());
 				if (site == null) {
 					continue;
 				}
 				
 				// Get date and format it into the date code.
 				Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileImeData.getmDate());
-				int dateCode = imeService.getDateCodeFromLong(date.getTime());
+				int dateCode = imeService.generateDateCodeFromLong(date.getTime());
 				
 				// Create new IME number string based on site, date code, and next sequence number.
 				imeNumberString = site.getShortName() + "-" + dateCode + "-00";
 			}
 			
 			// Create new IME number based on the IME number string.
-			ImeNumber imeNumber = imeService.getImeNumberFromString(imeNumberString);
+			ImeNumber imeNumber = imeService.generateImeNumberFromString(imeNumberString);
 			if (imeNumber == null) {
 				continue;
 			}
@@ -142,7 +146,7 @@ public class MobileDataDeserializer {
 			
 			// TODO Implement this inside the enum.
 			if (mobileInstantaneousData.getGridId() != null && !mobileInstantaneousData.getGridId().isEmpty() && mobileInstantaneousData.getmLocation() != null && !mobileInstantaneousData.getmLocation().isEmpty()) {
-				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByName(mobileInstantaneousData.getmLocation()), mobileInstantaneousData.getGridId());
+				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByEnumName(mobileInstantaneousData.getmLocation()), mobileInstantaneousData.getGridId());
 				if (grid == null) {
 					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileInstantaneousData.getGridId() + " in " + mobileInstantaneousData.getmLocation() + " not found.");
 					return null;
@@ -164,12 +168,12 @@ public class MobileDataDeserializer {
 				
 				// If no suitable IME number was found, then create a new one.
 				if (imeNumber == null) {
-					ImeNumber newImeNumber = imeService.getImeNumberFromString(mobileInstantaneousData.getImeNumber());
+					ImeNumber newImeNumber = imeService.generateImeNumberFromString(mobileInstantaneousData.getImeNumber());
 					if (newImeNumber != null) {
 						
 						// Make sure the IME's date code matches with the discovery date.
 						Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate());
-						newImeNumber.setDateCode(imeService.getDateCodeFromLong(date.getTime()));
+						newImeNumber.setDateCode(imeService.generateDateCodeFromLong(date.getTime()));
 						
 						newImeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
 						imeNumberSet.add(newImeNumber);
@@ -202,7 +206,7 @@ public class MobileDataDeserializer {
 				Map<Site, UnverifiedDataSet> wtf = new HashMap<>();
 				resultMap.put(user, wtf);
 			}
-			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByName(mobileInstantaneousData.getmLocation()));
+			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByEnumName(mobileInstantaneousData.getmLocation()));
 			if (unverifiedDataSet.getInspector() == null) {
 				unverifiedDataSet.setInspector(user);
 			}
@@ -220,7 +224,7 @@ public class MobileDataDeserializer {
 			if (user == null || !resultMap.containsKey(user)) {
 				continue;
 			}
-			Site site = monitoringPointService.getSiteByName(mobileWarmspotData.getmLocation());
+			Site site = monitoringPointService.getSiteByEnumName(mobileWarmspotData.getmLocation());
 			MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(site, mobileWarmspotData.getmGridId());
 			if (grid == null) {
 				if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGridId() + " in " + mobileWarmspotData.getmLocation() + " not found.");
@@ -245,7 +249,7 @@ public class MobileDataDeserializer {
 			if (iseNumberString == null || iseNumberString.trim().isEmpty()) {
 				
 				// Get site.
-				Site site = monitoringPointService.getSiteByName(mobileIseData.getmLocation());
+				Site site = monitoringPointService.getSiteByEnumName(mobileIseData.getmLocation());
 				if (site == null) {
 					continue;
 				}
@@ -264,7 +268,7 @@ public class MobileDataDeserializer {
 			}
 			
 			// Create new IME number based on the IME number string.
-			IseNumber iseNumber = iseService.getIseNumberFromString(iseNumberString);
+			IseNumber iseNumber = iseService.generateIseNumberFromString(iseNumberString);
 			if (iseNumber == null) {
 				continue;
 			}
@@ -293,7 +297,7 @@ public class MobileDataDeserializer {
 			
 			// TODO Implement this inside the enum.
 			if (mobileIntegratedData.getmGridId() != null && !mobileIntegratedData.getmGridId().isEmpty() && mobileIntegratedData.getmLocation() != null && !mobileIntegratedData.getmLocation().isEmpty()) {
-				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByName(mobileIntegratedData.getmLocation()), mobileIntegratedData.getmGridId());
+				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByEnumName(mobileIntegratedData.getmLocation()), mobileIntegratedData.getmGridId());
 				if (grid == null) {
 					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Integrated Data: Grid " + mobileIntegratedData.getmGridId() + " in " + mobileIntegratedData.getmLocation() + " not found.");
 					return null;
@@ -321,7 +325,7 @@ public class MobileDataDeserializer {
 				Map<Site, UnverifiedDataSet> wtf = new HashMap<>();
 				resultMap.put(user, wtf);
 			}
-			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByName(mobileIntegratedData.getmLocation()));
+			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByEnumName(mobileIntegratedData.getmLocation()));
 			if (unverifiedDataSet.getInspector() == null) {
 				unverifiedDataSet.setInspector(user);
 			}
@@ -337,7 +341,7 @@ public class MobileDataDeserializer {
 			
 			// TODO Implement this inside the enum.
 			if (mobileProbeData.getmProbeNumber() != null && !mobileProbeData.getmProbeNumber().isEmpty() && mobileProbeData.getmLocation() != null && !mobileProbeData.getmLocation().isEmpty()) {
-				MonitoringPoint probe = monitoringPointService.getProbeBySiteNameAndId(monitoringPointService.getSiteByName(mobileProbeData.getmLocation()), mobileProbeData.getmProbeNumber());
+				MonitoringPoint probe = monitoringPointService.getProbeBySiteNameAndId(monitoringPointService.getSiteByEnumName(mobileProbeData.getmLocation()), mobileProbeData.getmProbeNumber());
 				if (probe == null) {
 					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Probe Data: Probe " + mobileProbeData.getmProbeNumber() + " in " + mobileProbeData.getmLocation() + " not found.");
 					return null;
@@ -363,7 +367,7 @@ public class MobileDataDeserializer {
 			}
 			unverifiedProbeData.getInspectors().add(user);
 
-			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByName(mobileProbeData.getmLocation()));
+			UnverifiedDataSet unverifiedDataSet = getDataSet(resultMap.get(user), monitoringPointService.getSiteByEnumName(mobileProbeData.getmLocation()));
 			if (unverifiedDataSet.getInspector() == null) {
 				unverifiedDataSet.setInspector(user);
 			}
@@ -385,9 +389,8 @@ public class MobileDataDeserializer {
 		
 		// Insert unverified data sets into the database.
 		for (UnverifiedDataSet unverifiedDataSet : result) {
-			unverifiedDataSet.setUploadedBy(userService.getCurrentUser());
-			unverifiedDataSet.setUploadedDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 			unverifiedDataSet.setFilename(mobileDataContainer.getFilename());
+			trackingService.create(unverifiedDataSet);
 			unverifiedDataSetDao.create(unverifiedDataSet);
 		}
 		

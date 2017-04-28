@@ -1,8 +1,9 @@
+import { RestrictedRoute } from './../../../routes/restricted.route';
 import { environment } from './../../../../environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Route, Router } from '@angular/router';
-import { RestrictedRoutes, DefinedRoutes } from './../../../app.routing';
+import { RestrictedRoutes } from './../../../app.routing';
 import { AuthService } from './../../../services/auth/auth.service';
 import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
 import { MdSidenav } from '@angular/material';
@@ -22,7 +23,7 @@ export class NavigationDrawerComponent implements OnInit {
 		name: "Home",
 		links: [
 			{
-				route: DefinedRoutes.DASHBOARD,
+				route: RestrictedRoute.DASHBOARD,
 				icon: 'dashboard', 
 				label: 'Dashboard',
 				visible: false
@@ -40,13 +41,13 @@ export class NavigationDrawerComponent implements OnInit {
 		name: "User Management",
 		links: [
 			{
-				route: DefinedRoutes.USER_LIST, 
+				route: RestrictedRoute.USER_LIST, 
 				icon: 'people', 
 				label: 'Users',
 				visible: false
 			},
 			{
-				route: DefinedRoutes.USER_GROUP_LIST,
+				route: RestrictedRoute.USER_GROUP_LIST,
 				icon: 'group_work',
 				label: 'User Groups',
 				visible: false
@@ -70,7 +71,7 @@ export class NavigationDrawerComponent implements OnInit {
 		name: "Data Verification",
 		links: [
 			{
-				route: DefinedRoutes.UNVERIFIED_DATA_SET_LIST,
+				route: RestrictedRoute.UNVERIFIED_DATA_SET_LIST,
 				icon: 'gesture',
 				label: 'Unverified Data Sets',
 				visible: false
@@ -82,7 +83,7 @@ export class NavigationDrawerComponent implements OnInit {
 		name: "Reports",
 		links: [
 			{
-				route: DefinedRoutes.INSTANTANEOUS_REPORT,
+				route: RestrictedRoute.INSTANTANEOUS_REPORT,
 				icon: 'assignment',
 				label: 'Instantaneous Report',
 				visible: false
@@ -148,7 +149,7 @@ export class NavigationDrawerComponent implements OnInit {
 		name: "Data Transfer",
 		links: [
 			{
-				route: DefinedRoutes.MOBILE_UPLOAD,
+				route: RestrictedRoute.MOBILE_UPLOAD,
 				icon: 'file_upload',
 				label: 'Upload From Mobile',
 				visible: false
@@ -175,49 +176,49 @@ export class NavigationDrawerComponent implements OnInit {
 	// TEMPORARY
 	tempLinks:NavRouteLink[] = [
 		{
-			route: DefinedRoutes.DASHBOARD,
+			route: RestrictedRoute.DASHBOARD,
 			icon: 'dashboard', 
 			label: 'Dashboard',
 			visible: false
 		},
 		{
-			route: DefinedRoutes.USER_LIST, 
+			route: RestrictedRoute.USER_LIST, 
 			icon: 'people', 
 			label: 'Users',
 			visible: false
 		},
 		{
-			route: DefinedRoutes.USER_GROUP_LIST,
+			route: RestrictedRoute.USER_GROUP_LIST,
 			icon: 'group_work',
 			label: 'User Groups',
 			visible: false
 		},
 		{
-			route: DefinedRoutes.MOBILE_UPLOAD,
+			route: RestrictedRoute.MOBILE_UPLOAD,
 			icon: 'file_upload',
 			label: 'Upload From Mobile',
 			visible: false
 		},
 		{
-			route: DefinedRoutes.UNVERIFIED_DATA_SET_LIST,
+			route: RestrictedRoute.UNVERIFIED_DATA_SET_LIST,
 			icon: 'gesture',
 			label: 'Unverified Data Sets',
 			visible: false
 		},
 		{
-			route: DefinedRoutes.IME_NUMBER_LIST,
+			route: RestrictedRoute.EXCEEDANCE_SELECTOR,
 			icon: 'format_list_numbered',
-			label: 'IME Numbers',
+			label: 'Exceedances',
 			visible: false
 		},
 		{
-			route: DefinedRoutes.REPORTS,
+			route: RestrictedRoute.REPORTS,
 			icon: 'assignment',
 			label: 'Reports',
 			visible: false
 		},
 		{
-			route: DefinedRoutes.INSTRUMENT_LIST,
+			route: RestrictedRoute.INSTRUMENT_LIST,
 			icon: 'format_paint',
 			label: 'Equipment',
 			visible: false

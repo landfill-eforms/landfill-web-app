@@ -7,19 +7,21 @@ import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
 import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
+import org.lacitysan.landfill.server.persistence.entity.report.IndividualReportQuery;
+import org.lacitysan.landfill.server.persistence.entity.report.ScheduledReportQuery;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.Schedule;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledEmail;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledNotification;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledReport;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeNumber;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeRepairData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.WarmspotData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IntegratedData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseNumber;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseRepairData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeRepairData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.WarmspotData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IntegratedData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseNumber;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseRepairData;
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
@@ -27,6 +29,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInt
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedProbeData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
+import org.lacitysan.landfill.server.persistence.entity.user.UserActivity;
 import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -100,6 +103,10 @@ public class DataSourceConfig {
 						// Probe
 						ProbeData.class,
 						
+						// Report
+						IndividualReportQuery.class,
+						ScheduledReportQuery.class,
+						
 						// Scheduled
 						Schedule.class,
 						ScheduledEmail.class,
@@ -115,6 +122,7 @@ public class DataSourceConfig {
 
 						// User
 						User.class,
+						UserActivity.class,
 						UserGroup.class
 
 						)

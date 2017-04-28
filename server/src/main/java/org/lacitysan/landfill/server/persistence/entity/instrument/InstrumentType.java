@@ -1,5 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.instrument;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,9 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.lacitysan.landfill.server.persistence.entity.system.Trackable;
+import org.lacitysan.landfill.server.persistence.entity.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,52 +25,66 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name="dbo.InstrumentTypes")
-public class InstrumentType {
-	
+public class InstrumentType implements Trackable {
+
 	@Id
 	@Column(name="InstrumentTypePK")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotNull
 	private String type;
-	
+
 	@NotNull
 	private String manufacturer;
-	
+
 	@NotNull
 	private String description;
-	
+
 	@NotNull
 	private Boolean instantaneous;
-	
+
 	@NotNull
 	private Boolean probe;
-	
+
 	@NotNull
 	private Boolean methanePercent;
-	
+
 	@NotNull
 	private Boolean methanePpm;
-	
+
 	@NotNull
 	private Boolean hydrogenSulfidePpm;
-	
+
 	@NotNull
 	private Boolean oxygenPercent;
-	
+
 	@NotNull
 	private Boolean carbonDioxidePercent;
-	
+
 	@NotNull
 	private Boolean nitrogenPercent;
-	
+
 	@NotNull
 	private Boolean pressure;
-	
-	@JsonIgnoreProperties({"instrumentType"})
+
+	@JsonIgnoreProperties(value="instrumentType", allowSetters=true)
 	@OneToMany(mappedBy="instrumentType")
 	private Set<Instrument> instruments = new HashSet<>();
+
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@ManyToOne
+	@JoinColumn(name="CreatedByFK")
+	private User createdBy;
+
+	private Timestamp createdDate;
+
+	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@ManyToOne
+	@JoinColumn(name="ModifiedByFK")
+	private User modifiedBy;
+
+	private Timestamp modifiedDate;
 
 	public Integer getId() {
 		return id;
@@ -176,6 +196,46 @@ public class InstrumentType {
 
 	public void setInstruments(Set<Instrument> instruments) {
 		this.instruments = instruments;
+	}
+
+	@Override
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	@Override
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Override
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	@Override
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Override
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	@Override
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	@Override
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
 
 }

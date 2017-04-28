@@ -9,8 +9,10 @@ export class UserGroup {
 	id:number;
 	name:string;
 	description:string;
-	createdBy:User;
-	modifiedBy:User;
 	users:User[];
 	userPermissions:UserPermission[];
+	createdBy:User;
+	createdDate:number;
+	modifiedBy:User;
+	modifiedDate:number;
 }

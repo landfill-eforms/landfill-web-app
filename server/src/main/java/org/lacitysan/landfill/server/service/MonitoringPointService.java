@@ -47,13 +47,13 @@ public class MonitoringPointService {
 	}
 	
 	/**
-	 * Finds a site by its name.
-	 * @param siteName The case-insensitive name of the site.
-	 * @return A <code>Site</code> that matches the given short name, or <code>null</code> if no suitable site was found.
+	 * Finds a site by its enum name.
+	 * @param siteEnumName The case-insensitive enum name of the site.
+	 * @return A <code>Site</code> that matches the given enum name, or <code>null</code> if no suitable value was found.
 	 */
-	public Site getSiteByName(String siteName) {
+	public Site getSiteByEnumName(String siteEnumName) {
 		for (Site site : Site.values()) {
-			if (site.getName().equalsIgnoreCase(siteName)) {
+			if (site.name().equalsIgnoreCase(siteEnumName)) {
 				return site;
 			}
 		}

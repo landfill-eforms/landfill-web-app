@@ -4,7 +4,7 @@ package org.lacitysan.landfill.server.service.report.model.data;
  * Represents a single entry on an integrated report.
  * @author Alvin Quach
  */
-public class IntegratedReportData extends ServiceEmissionReportData {
+public class IntegratedReportData extends SurfaceEmissionReportData {
 	
 	private String bagNumber;
 	

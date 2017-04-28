@@ -4,7 +4,7 @@ package org.lacitysan.landfill.server.service.report.model.data;
  * Represents a single entry on an instantaneous report.
  * @author Alvin Quach
  */
-public class InstantaneousReportData extends ServiceEmissionReportData {
+public class InstantaneousReportData extends SurfaceEmissionReportData {
 	
 	private String imeNumber;
 

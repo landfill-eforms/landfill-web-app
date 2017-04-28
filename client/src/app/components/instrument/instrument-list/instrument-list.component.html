@@ -1,9 +1,9 @@
 <div style="height:calc(100% - 121px);"> <!-- Browser dependent. Test on multiple browserGroups before setting this value. -->
-	<div *ngIf="!isDataLoaded" class="loading-indicator-container">
+	<div *ngIf="!(isDataLoaded && isInstrumentTypesLoaded)" class="loading-indicator-container">
 		<md-spinner class="loading-indicator-spinner"></md-spinner>
 		<div class="loading-indicator-message">{{loadingMessage}}</div>
 	</div>
-	<div *ngIf="isDataLoaded" class="data-table-scrollable">
+	<div *ngIf="isDataLoaded && isInstrumentTypesLoaded" class="data-table-scrollable">
 		<div class="data-table-filter-container-row flex-container" fxLayout="row" fxLayoutAlign="end center">
 			<div *ngIf="showFilters" class="data-table-filter-container flex-item flex-container" fxFlex fxLayout="row" fxLayoutAlign="end center">
 				<div class="flex-item" fxFlex="152px"></div>
@@ -126,14 +126,14 @@
 			</div>
 		</div>
 		<div class="data-table-scrollable-area">
-			<div *ngFor="let instrument of paginatedInstruments" class="data-table-row">
+			<div *ngFor="let instrument of paginatedData" class="data-table-row">
 				<div class="data-table-row-content flex-container" 
 					fxLayout="row" 
 					(click)="selectInstrument(instrument)"
 					(dblclick)="navigateToInstrument(instrument)"
 					[ngClass]="{'data-table-row-content-active': instrument === selectedInstrument}">
 					<div class="data-table-first-column truncate flex-item" fxFlex>
-						<a [routerLink]="'../instrument/' + instrument.id" routerLikeActive="active">
+						<a [routerLink]="'../equipment/' + instrument.id" routerLikeActive="active">
 							{{instrument.serialNumber}}
 						</a>
 					</div>

@@ -1,4 +1,5 @@
 import { InstrumentStatus } from '../../enums/instrument/instrument-status.enum';
+import { User } from '../user/user.class';
 import { InstrumentType } from './instrument-type.class';
 import { Site } from '../../enums/location/site.enum';
 
@@ -17,4 +18,8 @@ export class Instrument {
 	site:Site;
 	inventoryNumber:string;
 	description:string;
+	createdBy:User;
+	createdDate:number;
+	modifiedBy:User;
+	modifiedDate:number;
 }

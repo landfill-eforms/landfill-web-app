@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.InstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.WarmspotData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IntegratedData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.InstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.WarmspotData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IntegratedData;
 
 /**
  * @author Alvin Quach

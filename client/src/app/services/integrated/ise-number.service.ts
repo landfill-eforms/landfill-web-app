@@ -1,4 +1,5 @@
-import { IseNumber } from './../../model/server/persistence/entity/serviceemission/integrated/ise-number.class';
+import { AbstractHttpService } from './../abstract/abstract-http.service';
+import { IseNumber } from './../../model/server/persistence/entity/surfaceemission/integrated/ise-number.class';
 import { Site } from './../../model/server/persistence/enums/location/site.enum';
 import { Response } from '@angular/http';
 import { environment } from './../../../environments/environment';
@@ -7,17 +8,10 @@ import { Injectable } from '@angular/core';
 
 /** Handles the logical operations for IseNumber objects. */
 @Injectable()
-export class IseNumberService {
+export class IseNumberService extends AbstractHttpService<IseNumber> {
 
-	readonly baseUrl:string = environment.resourceUrl + '/ise-number';
-
-	constructor(private authHttp:AuthHttp) {}
-
-	getAll(success:(data) => void, error?:(err) => void) {
-		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
-				data => success(data),
-				err => error ? error(err) : console.log(err)
-			);
+	constructor(authHttp:AuthHttp) {
+		super('/ise-number', authHttp);
 	}
 	
 	getBySite(site:Site, success:(data) => void, error?:(err) => void) {
@@ -29,20 +23,6 @@ export class IseNumberService {
 
 	getByIseNumber(imeNumber:string, success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/unique/imeNumber/" + imeNumber).map((res:Response) => res.json()).subscribe(
-				data => success(data),
-				err => error ? error(err) : console.log(err)
-			);
-	}
-
-	create(imeNumber:IseNumber, success:(data) => void, error?:(err) => void) {
-		this.authHttp.post(this.baseUrl + '/create', imeNumber).map((res:Response) => res.json()).subscribe(
-				data => success(data),
-				err => error ? error(err) : console.log(err)
-			);
-	}
-
-	update(imeNumber:IseNumber, success:(data) => void, error?:(err) => void) {
-		this.authHttp.post(this.baseUrl + '/update', imeNumber).map((res:Response) => res.json()).subscribe(
 				data => success(data),
 				err => error ? error(err) : console.log(err)
 			);

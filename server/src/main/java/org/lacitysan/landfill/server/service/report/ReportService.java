@@ -3,15 +3,15 @@ package org.lacitysan.landfill.server.service.report;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.lacitysan.landfill.server.persistence.dao.serviceemission.instantaneous.ImeNumberDao;
-import org.lacitysan.landfill.server.persistence.dao.serviceemission.instantaneous.InstantaneousDataDao;
-import org.lacitysan.landfill.server.persistence.dao.serviceemission.integrated.IntegratedDataDao;
-import org.lacitysan.landfill.server.persistence.dao.serviceemission.integrated.IseNumberDao;
+import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.ImeNumberDao;
+import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.InstantaneousDataDao;
+import org.lacitysan.landfill.server.persistence.dao.surfaceemission.integrated.IntegratedDataDao;
+import org.lacitysan.landfill.server.persistence.dao.surfaceemission.integrated.IseNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.instantaneous.ImeRepairData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseData;
-import org.lacitysan.landfill.server.persistence.entity.serviceemission.integrated.IseRepairData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeRepairData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseData;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseRepairData;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceType;
 import org.lacitysan.landfill.server.persistence.enums.report.ReportType;
@@ -21,10 +21,9 @@ import org.lacitysan.landfill.server.service.report.model.IntegratedReport;
 import org.lacitysan.landfill.server.service.report.model.Report;
 import org.lacitysan.landfill.server.service.report.model.data.InstantaneousReportData;
 import org.lacitysan.landfill.server.service.report.model.data.IntegratedReportData;
-import org.lacitysan.landfill.server.service.report.model.data.ProbeExceedanceReportData;
-import org.lacitysan.landfill.server.service.report.model.data.ServiceEmissionExceedanceReportData;
-import org.lacitysan.landfill.server.service.serviceemission.instantaneous.ImeNumberService;
-import org.lacitysan.landfill.server.service.serviceemission.integrated.IseNumberService;
+import org.lacitysan.landfill.server.service.report.model.data.SurfaceEmissionExceedanceReportData;
+import org.lacitysan.landfill.server.service.surfaceemission.instantaneous.ImeNumberService;
+import org.lacitysan.landfill.server.service.surfaceemission.integrated.IseNumberService;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.lacitysan.landfill.server.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +55,7 @@ public class ReportService {
 
 	public Report generateReport(ReportQuery reportQuery) {
 		if (reportQuery.getReportType() == ReportType.EXCEEDANCE) {
-			return generateIntegratedReport(reportQuery);
+			return generateExceedanceReport(reportQuery);
 		}
 		if (reportQuery.getReportType() == ReportType.INSTANTANEOUS) {
 			return generateInstantaneousReport(reportQuery);
@@ -87,7 +86,7 @@ public class ReportService {
 					.sorted((a, b) -> a.compareTo(b))
 					.map(c -> {
 						
-						// Check for missing data.
+						// Check if the IME number contains at least one data entry.
 						if (c.getImeData() == null || c.getImeData().isEmpty()) {
 							return null;
 						}
@@ -95,9 +94,9 @@ public class ReportService {
 						// Get initial IME entry and final repair entry, if exists.
 						List<ImeData> imeDataList = c.getImeData().stream().collect(Collectors.toList());
 						ImeData initial = imeDataList.get(0);
-						ImeRepairData finalRepair = imeNumberService.getLastRepair(c);
+						ImeRepairData finalRepair = imeNumberService.findLastRepair(c);
 						
-						ServiceEmissionExceedanceReportData d = new ServiceEmissionExceedanceReportData();
+						SurfaceEmissionExceedanceReportData d = new SurfaceEmissionExceedanceReportData();
 						d.setDiscoveredDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
 						d.setExceedanceNumber(c.getImeNumber());
 						d.setMonitoringPoints(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
@@ -118,7 +117,7 @@ public class ReportService {
 					.sorted((a, b) -> a.compareTo(b))
 					.map(c -> {
 						
-						// Check for missing data.
+						// Check if the ISE number contains at least one data entry.
 						if (c.getIseData() == null || c.getIseData().isEmpty()) {
 							return null;
 						}
@@ -126,12 +125,12 @@ public class ReportService {
 						// Get initial IME entry and final repair entry, if exists.
 						List<IseData> iseDataList = c.getIseData().stream().collect(Collectors.toList());
 						IseData initial = iseDataList.get(0);
-						IseRepairData finalRepair = iseNumberService.getLastRepair(c);
+						IseRepairData finalRepair = iseNumberService.findLastRepair(c);
 						
-						ServiceEmissionExceedanceReportData d = new ServiceEmissionExceedanceReportData();
+						SurfaceEmissionExceedanceReportData d = new SurfaceEmissionExceedanceReportData();
 						d.setDiscoveredDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
 						d.setExceedanceNumber(c.getIseNumber());
-						d.setMonitoringPoints(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
+						d.setMonitoringPoints(c.getMonitoringPoint().getName());
 						d.setRepairDescription(finalRepair.getDescription());
 						d.setInitial(String.format("%.2f", initial.getMethaneLevel() / 100.0));
 						d.setRecheck(iseDataList.size() == 1 ? "" : String.format("%.2f", iseDataList.get(iseDataList.size() - 1).getMethaneLevel()));
@@ -144,14 +143,7 @@ public class ReportService {
 		
 		// Query the database for Probe exceedances and add them to the report data.
 		if (reportQuery.getExceedanceTypes().contains(ExceedanceType.PROBE)) {
-			exceedanceReport.getProbeExceedanceReportData().addAll(iseNumberDao.getVerifiedBySiteAndDateCode(reportQuery.getSite(), null)
-					.parallelStream()
-					.sorted((a, b) -> a.compareTo(b))
-					.map(c -> {
-						return new ProbeExceedanceReportData();
-					})
-					.filter(e -> e != null)
-					.collect(Collectors.toList()));
+			// TODO Implement this.
 		}
 		
 		return exceedanceReport;

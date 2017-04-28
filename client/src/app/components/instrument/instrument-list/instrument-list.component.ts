@@ -1,38 +1,36 @@
-import { InstrumentListSideinfoComponent } from './../instrument-list-sideinfo/instrument-list-sideinfo.component';
-import { NavigationService } from './../../../services/app/navigation.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { InputStatus, InputUtils } from './../../../utils/input.utils';
-import { PaginationComponent, Paginfo } from './../../directives/pagination/pagination.component';
-import { Subscription } from 'rxjs/Subscription';
+import { PaginationComponent } from './../../directives/pagination/pagination.component';
 import { NewInstrumentDialogComponent } from './../dialog/new-instrument-dialog/new-instrument-dialog.component';
-import { InstrumentTypeService } from './../../../services/instrument/instrument-type.service';
-import { InstrumentType } from './../../../model/server/persistence/entity/instrument/instrument-type.class';
-import { MdDialog, MdSnackBar, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { InstrumentListSideinfoComponent } from './../instrument-list-sideinfo/instrument-list-sideinfo.component';
 import { InstrumentService } from './../../../services/instrument/instrument.service';
+import { InstrumentType } from './../../../model/server/persistence/entity/instrument/instrument-type.class';
+import { InputUtils } from './../../../utils/input.utils';
+import { MdDialogConfig } from '@angular/material';
+import { MdDialogRef } from '@angular/material';
+import { NewInstrumentTypeDialogComponent } from './../dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
+import { InstrumentTypeListSideinfoComponent } from './../instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
+import { NavigationService } from './../../../services/app/navigation.service';
+import { MdSnackBar } from '@angular/material';
+import { MdDialog } from '@angular/material';
+import { InstrumentTypeService } from './../../../services/instrument/instrument-type.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { AbstractDataTableComponent } from './../../../model/client/abstract-components/abstract-data-table.component';
 import { Instrument } from './../../../model/server/persistence/entity/instrument/instrument.class';
-import { Sort, SortUtils } from './../../../utils/sort.utils';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
 @Component({
 	selector: 'app-instrument-list',
-	templateUrl: './instrument-list.component.html',
-	styleUrls: ['./instrument-list.component.scss']
+	templateUrl: './instrument-list.component.html'
 })
-export class InstrumentListComponent implements OnInit {
+export class InstrumentListComponent extends AbstractDataTableComponent<Instrument> implements OnInit, OnDestroy {
 
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;
 
-	isDataLoaded:boolean;
+	isInstrumentTypesLoaded:boolean
 	loadingMessage:string;
-	instruments:Instrument[];
 	instrumentTypes:InstrumentType[];
-	
-	sort:Sort = {
-		current: "id",
-		reversed: false
-	}
 
 	sortProperties:any = {
 		serialNumber: [
@@ -73,19 +71,9 @@ export class InstrumentListComponent implements OnInit {
 		],
 	}
 
-	showFilters:boolean = false;
-	filteredRowsCount:number = 0;
-	filteredInstruments:Instrument[] = [];
 	filters:{text:string} = {
 		text: ""
 	};
-	textFilterStatus:InputStatus = {
-		valid: true,
-		errorMessage: ""
-	};
-
-	paginfo:Paginfo = new Paginfo();
-	paginatedInstruments:Instrument[] = [];
 
 	showSideInfo:boolean = false;
 	selectedInstrument:Instrument;
@@ -98,6 +86,7 @@ export class InstrumentListComponent implements OnInit {
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
 		private navigationService:NavigationService) {
+			super();
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(InstrumentListSideinfoComponent, {instrumentType: null});
 	}
@@ -131,10 +120,10 @@ export class InstrumentListComponent implements OnInit {
 	loadInstruments() {
 		this.instrumentService.getAll((data) => {
 			console.log(data);
-			this.instruments = data;
+			this.data = data;
 			this.applyFilters();
 			this.navigationService.getSideinfoComponent().open();
-			//this.isDataLoaded = true;
+			this.isDataLoaded = true;
 		});
 	}
 
@@ -142,7 +131,7 @@ export class InstrumentListComponent implements OnInit {
 		this.instrumentTypeService.getAll((data) => {
 			console.log(data);
 			this.instrumentTypes = data;
-			this.isDataLoaded = true;
+			this.isInstrumentTypesLoaded = true;
 		});
 	}
 
@@ -154,27 +143,12 @@ export class InstrumentListComponent implements OnInit {
 		dialogRef.componentInstance.instrumentTypes = this.instrumentTypes;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("New user group has been created.", "OK", {duration: 2000});
+				this.snackBar.open("New equipment added.", "OK", {duration: 2000});
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading..."
 				this.loadInstruments();
 			}
 		});
-	}
-
-	sortBy(sortBy:string) {
-		SortUtils.sortAndUpdate(this.sort, sortBy, this.instruments, this.sortProperties[sortBy]);
-		this.applyFilters();
-	}
-
-	toggleFilters() {
-		if (this.showFilters) {
-			this.showFilters = false;
-			this.resetFilters();
-		}
-		else {
-			this.showFilters = true;
-		}
 	}
 
 	applyFilters() {
@@ -188,9 +162,9 @@ export class InstrumentListComponent implements OnInit {
 		}
 
 		// TODO Implement this.
-		this.filteredInstruments = this.instruments.filter(o => true);
+		this.filteredData = this.data.filter(o => true);
 
-		this.paginfo.totalRows = this.filteredInstruments.length;
+		this.paginfo.totalRows = this.filteredData.length;
 		if (this.pagination) {
 			this.pagination.update();
 		}
@@ -200,12 +174,6 @@ export class InstrumentListComponent implements OnInit {
 	resetFilters() {
 		this.filters.text = "";
 		this.applyFilters();
-	}
-
-	applyPagination() {
-		this.paginatedInstruments = this.filteredInstruments.filter((o, i) => {
-			return i >= (this.paginfo.currentPage - 1) * this.paginfo.displayedRows && i < this.paginfo.currentPage * this.paginfo.displayedRows;
-		});
 	}
 
 	toggleSideInfo() {

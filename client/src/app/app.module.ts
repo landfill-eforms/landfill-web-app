@@ -21,7 +21,6 @@ import { ImeRecheckDialogComponent } from './components/directives/dialogs/ime-r
 import { CommonModule } from './components/common/common.module';
 import { AssignImeNumberDialogComponent } from './components/unverified-data/assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataModule } from './components/unverified-data/unverified-data.module';
-import { InstantaneousModule } from './components/instantaneous/instantaneous.module';
 import { NewUserGroupDialogComponent } from './components/user-group/new-user-group-dialog/new-user-group-dialog.component';
 import { ReportModule } from './components/report/report.module';
 import { NewUserDialogComponent } from './components/user/new-user-dialog/new-user-dialog.component';
@@ -65,7 +64,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		NavigationModule,
 		DirectivesModule,
 		ExceedanceModule,
-		InstantaneousModule,
 		InstrumentModule,
 		MobileModule,
 		ReportModule,

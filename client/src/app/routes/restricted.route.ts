@@ -1,9 +1,10 @@
+import { IseNumberListComponent } from './../components/exceedance/ise-number-list/ise-number-list.component';
+import { ImeNumberComponent } from './../components/exceedance/ime-number/ime-number.component';
 import { MobileUploadComponent } from './../components/mobile/mobile-upload/mobile-upload.component';
 import { ImeReportComponent } from './../components/report/ime-report/ime-report.component';
 import { InstantaneousReportComponent } from './../components/report/instantaneous-report/instantaneous-report.component';
 import { ReportsComponent } from './../components/report/report-selector/report-selector.component';
-import { ImeNumberComponent } from './../components/instantaneous/ime-number/ime-number.component';
-import { ImeNumberListComponent } from './../components/instantaneous/ime-number-list/ime-number-list.component';
+import { ImeNumberListComponent } from './../components/exceedance/ime-number-list/ime-number-list.component';
 import { UnverifiedDataSetComponent } from './../components/unverified-data/unverified-data-set/unverified-data-set.component';
 import { UnverifiedDataSetsComponent } from './../components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
 import { InstrumentTypeComponent } from './../components/instrument/instrument-type/instrument-type.component';
@@ -42,6 +43,27 @@ export class RestrictedRoute {
 		path: 'exceedance',
 		component: ExceedanceSelectorComponent,
 	};
+
+	static readonly IME_NUMBER_LIST:Route = {
+		path: 'exceedance/ime',
+		component: ImeNumberListComponent,
+		data: {
+			name: "IME Number List",
+		}
+	}
+
+	static readonly IME_NUMBER:Route = {
+		path: 'exceedance/ime/:imeNumber',
+		component: ImeNumberComponent
+	}
+
+	static readonly ISE_NUMBER_LIST:Route = {
+		path: 'exceedance/ise',
+		component: IseNumberListComponent,
+		data: {
+			name: "ISE Number List",
+		}
+	}
 
 	/***** INSTRUMENT ROUTES *****/
 	static readonly INSTRUMENT_LIST:Route = {
@@ -89,17 +111,6 @@ export class RestrictedRoute {
 			]
 		}
 	};
-
-	/***** INSTANTANEOUS ROUTES *****/
-	static readonly IME_NUMBER_LIST:Route = {
-		path: 'ime-number-list',
-		component: ImeNumberListComponent
-	}
-
-	static readonly IME_NUMBER:Route = {
-		path: 'ime-number/:imeNumber',
-		component: ImeNumberComponent
-	}
 
 	/***** REPORT ROUTES *****/
 	static readonly REPORTS:Route = {

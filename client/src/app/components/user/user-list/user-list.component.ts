@@ -1,3 +1,4 @@
+import { AbstractDataTableComponent } from './../../../model/client/abstract-components/abstract-data-table.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserListSideinfoComponent } from './../user-list-sideinfo/user-list-sideinfo.component';
 import { NavigationService } from './../../../services/app/navigation.service';
@@ -15,10 +16,9 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
 	selector: 'app-user-list',
-	templateUrl: './user-list.component.html',
-	styleUrls: ['./user-list.component.scss']
+	templateUrl: './user-list.component.html'
 })
-export class UserListComponent implements OnInit, OnDestroy {
+export class UserListComponent extends AbstractDataTableComponent<User> implements OnInit, OnDestroy {
 
 	@ViewChild('pagination') pagination:PaginationComponent;
 
@@ -26,14 +26,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
 	stringUtils = StringUtils;
 
-	isDataLoaded:boolean;
 	loadingMessage:string;
-	users:User[] = [];
-
-	sort:Sort = {
-		current: "id",
-		reversed: false
-	}
 
 	sortProperties:any = {
 		username: [
@@ -51,17 +44,11 @@ export class UserListComponent implements OnInit, OnDestroy {
 		]
 	}
 
-	showFilters:boolean = false;
-	filteredRowsCount:number = 0;
-	filteredUsers:User[] = [];
 	filters:{text:string, status:number} = {
 		text: "",
 		status: 0
 	};
-	textFilterStatus:InputStatus = {
-		valid: true,
-		errorMessage: ""
-	};
+
 	statusFilterChoices:{value:number, label:string}[] = [
 		{
 			value: 0,
@@ -77,9 +64,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 		}
 	];
 
-	paginfo:Paginfo = new Paginfo();
-	paginatedUsers:User[] = [];
-
 	showSideInfo:boolean = false;
 	selectedUser:User;
 
@@ -90,6 +74,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
 		private navigationService:NavigationService) {
+			super();
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(UserListSideinfoComponent, {user: null});
 	}
@@ -123,9 +108,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 	loadUsers() {
 		this.userService.getAll((data) => {
 			console.log(data);
-			this.users = data;
+			this.data = data;
 			this.applyFilters();
-			this.paginfo.totalRows = this.users.length;
+			this.paginfo.totalRows = this.data.length;
 			this.navigationService.getSideinfoComponent().open();
 			this.isDataLoaded = true;
 		});
@@ -146,21 +131,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	sortBy(sortBy:string) {
-		SortUtils.sortAndUpdate(this.sort, sortBy, this.users, this.sortProperties[sortBy]);
-		this.applyFilters();
-	}
-
-	toggleFilters() {
-		if (this.showFilters) {
-			this.showFilters = false;
-			this.resetFilters();
-		}
-		else {
-			this.showFilters = true;
-		}
-	}
-
 	applyFilters() {
 
 		// Validate the text search string.
@@ -171,7 +141,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-		this.filteredUsers = this.users.filter(o => {
+		this.filteredData = this.data.filter(o => {
 			let textMatch:boolean = true;
 			if (this.filters.text) {
 				let search:RegExp = new RegExp(this.filters.text, 'i');
@@ -187,7 +157,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 			return textMatch && statusMatch;
 		});
 
-		this.paginfo.totalRows = this.filteredUsers.length;
+		this.paginfo.totalRows = this.filteredData.length;
 		if (this.pagination) {
 			this.pagination.update();
 		}
@@ -198,12 +168,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 		this.filters.text = "";
 		this.filters.status = 0;
 		this.applyFilters();
-	}
-
-	applyPagination() {
-		this.paginatedUsers = this.filteredUsers.filter((o, i) => {
-			return i >= (this.paginfo.currentPage - 1) * this.paginfo.displayedRows && i < this.paginfo.currentPage * this.paginfo.displayedRows;
-		});
 	}
 
 	toggleSideInfo() {

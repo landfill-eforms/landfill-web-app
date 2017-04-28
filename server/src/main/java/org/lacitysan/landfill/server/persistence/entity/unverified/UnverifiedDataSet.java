@@ -79,6 +79,7 @@ public class UnverifiedDataSet implements Trackable {
 	@JoinColumn(name="UploadedByFK")
 	private User createdBy;
 	
+	@Column(name="UploadedDate")
 	private Timestamp createdDate;
 	
 	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)

@@ -1,7 +1,7 @@
 import { InstrumentTypeService } from './../../../services/instrument/instrument-type.service';
 import { InstrumentType } from './../../../model/server/persistence/entity/instrument/instrument-type.class';
 import { NavigationService } from './../../../services/app/navigation.service';
-import { AbstractSideinfoComponent } from './../../../model/client/abstract-sideinfo.component';
+import { AbstractSideinfoComponent } from './../../../model/client/abstract-components/abstract-sideinfo.component';
 import { Component } from '@angular/core';
 
 @Component({

@@ -3,7 +3,7 @@ import { InstrumentListSideinfoComponent } from './../../instrument/instrument-l
 import { InstrumentTypeListSideinfoComponent } from './../../instrument/instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
 import { UserGroupListSideinfoComponent } from './../../user-group/user-group-list-sideinfo/user-group-list-sideinfo.component';
 import { UserListSideinfoComponent } from './../../user/user-list-sideinfo/user-list-sideinfo.component';
-import { AbstractSideinfoComponent } from './../../../model/client/abstract-sideinfo.component';
+import { AbstractSideinfoComponent } from './../../../model/client/abstract-components/abstract-sideinfo.component';
 import { MdSidenav } from '@angular/material';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { Component, OnInit, Input, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, ReflectiveInjector, ComponentRef } from '@angular/core';

@@ -9,7 +9,7 @@
 					<div class="selector-card-subtitle">{{link.subtitle}}</div>
 				</div>
 				<div class="selector-card-action">
-					<button md-button [disabled]="link.disabled">SELECT</button>
+					<button md-button [disabled]="link.disabled" [routerLink]="'../' + link.route.path">SELECT</button>
 				</div>
 			</div>
 		</div>

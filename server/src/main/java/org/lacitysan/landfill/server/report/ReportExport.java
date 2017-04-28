@@ -1,7 +1,10 @@
 package org.lacitysan.landfill.server.report;
 
+import org.lacitysan.landfill.server.persistence.entity.report.IndividualReportQuery;
+import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceType;
 import org.lacitysan.landfill.server.service.report.model.ExceedanceReport;
+import org.lacitysan.landfill.server.service.report.model.Report;
 import org.lacitysan.landfill.server.service.report.model.data.ProbeExceedanceReportData;
 import org.lacitysan.landfill.server.service.report.model.data.ServiceEmissionExceedanceReportData;
 
@@ -11,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +36,25 @@ import be.quodlibet.boxable.datatable.*;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-public class ReportExport {
+public class ReportExport{
+	
+	public static void main(String[] args){
+		IndividualReportQuery rq = new IndividualReportQuery();
+		
+		Set<ExceedanceType> exceedanceTypes = new HashSet<>();
+		
+		for(int i = 0; i < 3; i++){
+			for(int x = 0; x < 100; x++){
+				ExceedanceType 
+				
+				exceedanceTypes.add(e);
+			}
+		}
+		
+		rq.setExceedanceTypes(exceedanceTypes);
+		ExceedanceReport er = new ExceedanceReport(rq);
+		
+	}
 	
 	public void exportReport() throws IOException{
 

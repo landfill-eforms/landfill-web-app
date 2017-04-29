@@ -48,10 +48,8 @@ export class ExceedanceSelectorComponent implements OnInit {
 	];
 
 	constructor(
-		private titleService:TitleService,
 		private authService:AuthService,
 		private navigationService:NavigationService) {
-			titleService.setTitle("Exceedances");
 			navigationService.getNavbarComponent().expanded = false;
 	}
 

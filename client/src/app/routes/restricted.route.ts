@@ -30,23 +30,30 @@ export class RestrictedRoute {
 	static readonly DASHBOARD:Route = {
 		path: 'dashboard',
 		component: DashboardComponent,
+		canActivate: [AuthGuard],
 	};
 
 	/***** DATA SYNC ROUTES *****/
 	static readonly MOBILE_UPLOAD:Route = {
 		path: 'mobile-upload',
-		component: MobileUploadComponent
+		component: MobileUploadComponent,
+		canActivate: [AuthGuard],
 	};
 
 	/***** EXCEEDANCE ROUTES *****/
 	static readonly EXCEEDANCE_SELECTOR:Route = {
 		path: 'exceedance',
 		component: ExceedanceSelectorComponent,
+		canActivate: [AuthGuard],
+		data: {
+			name: "Exceedances"
+		}
 	};
 
 	static readonly IME_NUMBER_LIST:Route = {
 		path: 'exceedance/ime',
 		component: ImeNumberListComponent,
+		canActivate: [AuthGuard],
 		data: {
 			name: "IME Number List",
 		}
@@ -54,12 +61,14 @@ export class RestrictedRoute {
 
 	static readonly IME_NUMBER:Route = {
 		path: 'exceedance/ime/:imeNumber',
-		component: ImeNumberComponent
+		component: ImeNumberComponent,
+		canActivate: [AuthGuard],
 	}
 
 	static readonly ISE_NUMBER_LIST:Route = {
 		path: 'exceedance/ise',
 		component: IseNumberListComponent,
+		canActivate: [AuthGuard],
 		data: {
 			name: "ISE Number List",
 		}
@@ -132,6 +141,7 @@ export class RestrictedRoute {
 	static readonly UNVERIFIED_DATA_SET_LIST:Route = {
 		path: 'unverified-data-sets',
 		component: UnverifiedDataSetsComponent,
+		canActivate: [AuthGuard],
 		data: {
 			name: "Unverified Data",
 			permissions: [
@@ -143,6 +153,7 @@ export class RestrictedRoute {
 	static readonly UNVERIFIED_DATA_SET:Route = {
 		path: 'unverified-data-sets/:id',
 		component: UnverifiedDataSetComponent,
+		canActivate: [AuthGuard],
 		data: {
 			name: "Unverified Data",
 			permissions: [
@@ -178,6 +189,7 @@ export class RestrictedRoute {
 	static readonly NEW_USER:Route = {
 		path: 'new-user',
 		component: UserProfileComponent,
+		canActivate: [AuthGuard],
 	};
 
 	static readonly USER_GROUP_LIST:Route = {
@@ -195,6 +207,12 @@ export class RestrictedRoute {
 	static readonly USER_GROUP:Route = {
 		path: 'user-groups/:id',
 		component: UserGroupComponent,
+		canActivate: [AuthGuard],
+		data: {
+			permissions: [
+				UserPermission.VIEW_USER_GROUPS
+			]
+		}
 	};
 	
 }

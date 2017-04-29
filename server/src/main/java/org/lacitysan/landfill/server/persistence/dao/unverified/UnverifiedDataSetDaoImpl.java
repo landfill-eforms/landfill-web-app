@@ -26,25 +26,37 @@ public class UnverifiedDataSetDaoImpl extends AbstractDaoImpl<UnverifiedDataSet>
 			Hibernate.initialize(unverifiedDataSet.getModifiedBy());
 		}
 		unverifiedDataSet.getUnverifiedInstantaneousData().forEach(unverifiedInstantaneousData -> {
+//			Hibernate.initialize(unverifiedInstantaneousData.getUnverifiedDataSet());
 			Hibernate.initialize(unverifiedInstantaneousData.getInstrument());
 			Hibernate.initialize(unverifiedInstantaneousData.getUnverifiedWarmspotData());
 			unverifiedInstantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
 		});
 		unverifiedDataSet.getUnverifiedWarmspotData().forEach(unverifiedWarmspotData -> {
+//			Hibernate.initialize(unverifiedWarmspotData.getUnverifiedDataSet());
 			Hibernate.initialize(unverifiedWarmspotData.getInstrument());
 			Hibernate.initialize(unverifiedWarmspotData.getUnverifiedInstantaneousData());
 		});
 		unverifiedDataSet.getImeNumbers().forEach(imeNumber -> {
+//			Hibernate.initialize(imeNumber.getUnverifiedDataSet());
 			imeNumber.getUnverifiedInstantaneousData().forEach(unverifiedInstantaneousData -> Hibernate.initialize(unverifiedInstantaneousData));
-			imeNumber.getImeData().forEach(imeData -> Hibernate.initialize(imeData));
+			imeNumber.getImeData().forEach(imeData -> {
+				Hibernate.initialize(imeData.getImeRepairData());
+			});
+			imeNumber.getMonitoringPoints().forEach(monitoringPoint -> Hibernate.initialize(monitoringPoint));
 		});
 		unverifiedDataSet.getUnverifiedIntegratedData().forEach(unverifiedIntegratedData -> {
+//			Hibernate.initialize(unverifiedIntegratedData.getUnverifiedDataSet());
 			Hibernate.initialize(unverifiedIntegratedData.getInstrument());
 		});
 		unverifiedDataSet.getIseNumbers().forEach(iseNumber -> {
+//			Hibernate.initialize(iseNumber.getUnverifiedDataSet());
 			iseNumber.getIseData().forEach(iseData -> Hibernate.initialize(iseData));
+			iseNumber.getIseData().forEach(iseData -> {
+				Hibernate.initialize(iseData.getIseRepairData());
+			});
 		});
 		unverifiedDataSet.getUnverifiedProbeData().forEach(unverifiedProbeData -> {
+//			Hibernate.initialize(unverifiedProbeData.getUnverifiedDataSet());
 			unverifiedProbeData.getInspectors().forEach(inspector -> Hibernate.initialize(inspector));
 		});
 		return unverifiedDataSet;

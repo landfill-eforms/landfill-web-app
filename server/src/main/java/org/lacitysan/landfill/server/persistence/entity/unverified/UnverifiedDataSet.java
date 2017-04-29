@@ -30,6 +30,7 @@ import org.lacitysan.landfill.server.persistence.entity.system.Trackable;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -247,6 +248,7 @@ public class UnverifiedDataSet implements Trackable {
 		this.modifiedDate = modifiedDate;
 	}
 
+	@JsonIgnore
 	public boolean isEmpty() {
 		return
 				unverifiedInstantaneousData.isEmpty()

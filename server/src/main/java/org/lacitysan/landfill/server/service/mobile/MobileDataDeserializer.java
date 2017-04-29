@@ -132,13 +132,19 @@ public class MobileDataDeserializer {
 			imeData.setDescription(mobileImeData.getmDescription() == null ? "" : mobileImeData.getmDescription());
 			imeData.setMethaneLevel((int)(mobileImeData.getmMethaneReading() * 100));
 			imeData.setInspector(getUser(userMap, mobileImeData.getmInspectorUserName()));
+			
+			// Add the IME number to the IME data entry and vice versa.
 			imeData.setImeNumber(imeNumber);
-
-			// Add the IME data entry to the IME number.
 			imeNumber.getImeData().add(imeData);
 
-			// Add the IME number to the set of IME numbers.
+			/* 
+			 * Add the IME number to the unverified data set and vice versa.
+			 * 
+			 * NOTE: Do not add unverified data set to IME number here.
+			 * Let the checkRelations() method in the UnverifiedDataSetService handle this.
+			 */
 			unverifiedDataSet.getImeNumbers().add(imeNumber);
+			
 		}
 
 		// Process the instantaneous data entries.
@@ -212,8 +218,10 @@ public class MobileDataDeserializer {
 				unverifiedInstantaneousData.setBarometricPressure((short)(mobileInstantaneousData.getmBarometricPressure() * 100));
 			}
 
+			// Add the unverified data set to the unverified instantaneous data and vice versa.
 			unverifiedInstantaneousData.setUnverifiedDataSet(unverifiedDataSet);
 			unverifiedDataSet.getUnverifiedInstantaneousData().add(unverifiedInstantaneousData);
+			
 		}
 
 		// Process the instantaneous warmspot data entries.
@@ -242,16 +250,19 @@ public class MobileDataDeserializer {
 				return null;
 			}
 			unverifiedWarmspotData.setMonitoringPoint(grid);
+			
+			// Add the unverified data set to the unverified warmspot and vice versa.
 			unverifiedWarmspotData.setUnverifiedDataSet(unverifiedDataSet);
 			unverifiedDataSet.getUnverifiedWarmspotData().add(unverifiedWarmspotData);
 
-			// TODO Consider reversing the loops.
+			// Try to associate the warmspot data with an instantaneous data.
 			for (UnverifiedInstantaneousData unverifiedInstantaneousData : unverifiedDataSet.getUnverifiedInstantaneousData()) {
-				if (unverifiedInstantaneousData.getMethaneLevel() == unverifiedWarmspotData.getMethaneLevel()) {
+				if (unverifiedInstantaneousData.getMethaneLevel().equals(unverifiedWarmspotData.getMethaneLevel())) {
 					unverifiedInstantaneousData.setUnverifiedWarmspotData(unverifiedWarmspotData);
 					break;
 				}
 			}
+			
 		}
 
 		// Process the ISE data entries.
@@ -272,7 +283,7 @@ public class MobileDataDeserializer {
 			// Get ISE number string from mobile data.
 			String iseNumberString = mobileIseData.getmIseNumber();
 
-			// If the imported IME data doesn't contain an IME number, then get it from the site and date.
+			// If the imported ISE data doesn't contain an IME number, then get it from the site and date.
 			if (iseNumberString == null || iseNumberString.trim().isEmpty()) {
 
 				// Get date and format it into the date code.
@@ -284,11 +295,11 @@ public class MobileDataDeserializer {
 				calendar.setTime(date);
 				int dateCode = (calendar.get(Calendar.YEAR) % 2000) * 100 + calendar.get(Calendar.MONTH) + 1;
 
-				// Create new IME number string based on site, date code, and next sequence number.
+				// Create new ISE number string based on site, date code, and next sequence number.
 				iseNumberString = site.getShortName() + "-" + dateCode + "-00";
 			}
 
-			// Create new IME number based on the IME number string.
+			// Create new ISE number based on the ISE number string.
 			IseNumber iseNumber = iseNumberService.generateIseNumberFromString(iseNumberString);
 			if (iseNumber == null) {
 				continue;
@@ -297,20 +308,28 @@ public class MobileDataDeserializer {
 			// Set grid for the ISE number.
 			iseNumber.setMonitoringPoint(monitoringPointService.getGridBySiteNameAndId(site, mobileIseData.getmGridId()));
 
-			// Set the status of the IME number as unverified.
+			// Set the status of the ISE number as unverified.
 			iseNumber.setStatus(ExceedanceStatus.UNVERIFIED);
 
-			// Create initial IME data entry based on imported info.
+			// Create initial ISE data entry based on imported info.
 			IseData iseData = new IseData();
 			iseData.setDateTime(DateTimeUtils.mobileDateToTimestamp(mobileIseData.getmDate()));
 			iseData.setDescription(mobileIseData.getmDescription() == null ? "" : mobileIseData.getmDescription());
 			iseData.setMethaneLevel((int)(mobileIseData.getmMethaneReading() * 100));
 			iseData.setInspector(getUser(userMap, mobileIseData.getmInspectorUserName()));
+			
+			// Add the ISE number to the ISE data entry and vice versa.
 			iseData.setIseNumber(iseNumber);
 			iseNumber.getIseData().add(iseData);
 
-			// Add the IME number to the set of IME numbers.
+			/* 
+			 * Add the ISE number to the unverified data set and vice versa.
+			 * 
+			 * NOTE: Do not add unverified data set to ISE number here.
+			 * Let the checkRelations() method in the UnverifiedDataSetService handle this.
+			 */
 			unverifiedDataSet.getIseNumbers().add(iseNumber);
+			
 		}
 
 		// Process the integrated data entries.
@@ -349,8 +368,10 @@ public class MobileDataDeserializer {
 				unverifiedIntegratedData.setBarometricPressure((short)(mobileIntegratedData.getmBarometricPressure() * 100));
 			}
 
+			// Add the unverified data set to the unverified integrated data and vice versa.
 			unverifiedIntegratedData.setUnverifiedDataSet(unverifiedDataSet);
 			unverifiedDataSet.getUnverifiedIntegratedData().add(unverifiedIntegratedData);
+			
 		}
 
 		// Process probe data.
@@ -389,8 +410,10 @@ public class MobileDataDeserializer {
 			// At this point, this cannot be null.
 			UnverifiedDataSet unverifiedDataSet = getUnverifiedDataSet(resultMap, user, monitoringPointService.getSiteByEnumName(mobileProbeData.getmLocation()));
 
+			// Add the unverified data set to the unverified probe data and vice versa.
 			unverifiedProbeData.setUnverifiedDataSet(unverifiedDataSet);
 			unverifiedDataSet.getUnverifiedProbeData().add(unverifiedProbeData);
+			
 		}
 
 		// *** If it got to this point in the code, then that means there was no 'errors' with the mobile data.

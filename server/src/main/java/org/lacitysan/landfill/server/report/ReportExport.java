@@ -1,16 +1,24 @@
 package org.lacitysan.landfill.server.report;
 
+import org.lacitysan.landfill.server.persistence.entity.report.IndividualReportQuery;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceType;
+import org.lacitysan.landfill.server.persistence.enums.location.Site;
+import org.lacitysan.landfill.server.persistence.enums.report.ReportType;
 import org.lacitysan.landfill.server.service.report.model.ExceedanceReport;
 import org.lacitysan.landfill.server.service.report.model.data.ProbeExceedanceReportData;
-import org.lacitysan.landfill.server.service.report.model.data.ServiceEmissionExceedanceReportData;
+import org.lacitysan.landfill.server.service.report.model.data.SurfaceEmissionExceedanceReportData;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +41,71 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 public class ReportExport {
+	
+	 public static void main(String[] args) throws IOException{
+	        IndividualReportQuery rq = new IndividualReportQuery();
+	        
+	        LocalDate todayLocalDate = LocalDate.now( ZoneId.of( "America/Montreal" ) );
+			Date date = java.sql.Date.valueOf(todayLocalDate);
+	        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	        rq.setDateCreated(timestamp);
+	        rq.setEndDate(date);
+	        
+	        rq.setId(10);
+	        rq.setLastQueried(timestamp);
+	        ReportType rtype = ReportType.EXCEEDANCE;
+	        rq.setReportType(rtype);
+	        Site site = Site.BISHOPS;
+	        rq.setSite(site);
+	        rq.setStartDate(date);
+	        Set<ExceedanceType> exceedanceTypes = new HashSet<>();
+	        exceedanceTypes.add(ExceedanceType.INSTANTANEOUS);
+	        exceedanceTypes.add(ExceedanceType.INTEGRATED);
+	        exceedanceTypes.add(ExceedanceType.PROBE);
+	        rq.setExceedanceTypes(exceedanceTypes);
+
+	        SurfaceEmissionExceedanceReportData ime = new SurfaceEmissionExceedanceReportData();
+	        List<SurfaceEmissionExceedanceReportData> imeReportData = new ArrayList<>();
+	        
+	        ime.setDiscoveredDate("something");
+	        ime.setClearedDate("something");
+	        ime.setExceedanceNumber("something");
+	        ime.setInitial("something");
+	        ime.setMonitoringPoints("something");
+	        ime.setRecheck("something");
+	        ime.setRepairDescription("something");
+	        
+	        for(int i = 0; i < 100; i++){
+	        	imeReportData.add(ime);
+	        }
+	        
+	        SurfaceEmissionExceedanceReportData ise = new SurfaceEmissionExceedanceReportData();
+	        List<SurfaceEmissionExceedanceReportData> iseReportData = new ArrayList<>();
+	        
+	        
+	        for(int i = 0; i < 100; i++){
+	        	iseReportData.add(ime);
+	        }
+	        
+	        ProbeExceedanceReportData probe = new ProbeExceedanceReportData();
+	        List<ProbeExceedanceReportData> probeExceedanceReportData = new ArrayList<>();
+	        probe.setClearedDate("something");
+	        probe.setDepth("something");
+	        probe.setDiscoveredDate("something");
+	        probe.setInitial("something");
+	        probe.setProbeId("something");
+	        probe.setRecheck("something");
+	        probe.setRepairDescription("something");
+	        for(int i = 0; i < 100; i++){
+	        	probeExceedanceReportData.add(probe);
+	        }
+	        
+	        ExceedanceReport er = new ExceedanceReport(rq);
+	        er.setImeReportData(imeReportData);
+	        er.setIseReportData(iseReportData);
+	        er.setProbeExceedanceReportData(probeExceedanceReportData);
+	        CreateExceedanceReport(er);
+	    }
 	
 	public void exportReport() throws IOException{
 
@@ -181,34 +254,15 @@ public class ReportExport {
 	    }
 	}
 	
-	public void ExceedanceReport(ExceedanceReport report) throws IOException {
-		
-		//----------------------------------------------------------------------------------------------------
-		PDDocument document = new PDDocument();		
-		PDDocumentInformation pdd = document.getDocumentInformation();
-		pdd.setAuthor("Allen Ma");
-		pdd.setTitle("Landfill report");
-		pdd.setCreator("Allen Ma");
+	public static void CreateExceedanceReport(ExceedanceReport report) throws IOException {
 		
 		
-		PDPage blankPage1 = new PDPage();
-		PDPage blankPage2 = new PDPage();
-		PDPage blankPage3 = new PDPage();	
-		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
-		blankPage2.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
-		blankPage3.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
-		
-		document.addPage( blankPage1 );
-		document.addPage( blankPage2 );
-		document.addPage( blankPage3 );
-		
+		PDPage blankPage1;
+
+		String pdfName = "";
 	//----------------------------------------------------------------------------------------------------				
         String text = "";	        
-        float margin = 10;
-        float tableWidth = blankPage1.getMediaBox().getWidth() - (2 * margin);
-        float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
-        float yStart = yStartNewPage;
-        float bottomMargin = 20;
+        
         
         Set<ExceedanceType> types = report.getReportQuery().getExceedanceTypes();
         List<List> reportData = new ArrayList<>();
@@ -217,12 +271,28 @@ public class ReportExport {
         int pageIndex = 0;
         String exceedType = "";
         for (Iterator<ExceedanceType> it = types.iterator(); it.hasNext(); ) {
+        	PDDocument document = new PDDocument();		
+    		PDDocumentInformation pdd = document.getDocumentInformation();
+    		pdd.setAuthor("Allen Ma");
+    		pdd.setTitle("Landfill report");
+    		pdd.setCreator("Allen Ma");
+    		blankPage1 = new PDPage();
+    		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+    		
+    		float margin = 10;
+            float tableWidth = blankPage1.getMediaBox().getWidth() - (2 * margin);
+            float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
+            float yStart = yStartNewPage;
+            float bottomMargin = 20;
+    		
+    		document.addPage( blankPage1 );
+    		
         	ExceedanceType exType = it.next();
         	if (exType.getName().equals("Instantaneous") ){
         		exceedType = "Instantaneous Exceedances";
         		listType = report.getImeReportData();
         	}
-        	else if(exType.getName().equals("Integrated Exceedances")){
+        	else if(exType.getName().equals("Integrated")){
         		exceedType = "Integrated";
         		listType = report.getIseReportData();
         	}
@@ -247,16 +317,16 @@ public class ReportExport {
                 header.add("Initial Reading (ppm)");
                 header.add("Recheck value (ppm)");
                 header.add("Date Cleared");
-                                 
+                
                 for(int i = 0; i < listType.size(); i++){
                 	ArrayList<String> info = new ArrayList<>();
-                	info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getDiscoveredDate() );                	
-            		info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getExceedanceNumber() );
-            		info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getMonitoringPoints() );     	
-                	info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getRepairDescription() );
-                	info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getInitial() );
-                	info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getRecheck() );
-                	info.add( ((ServiceEmissionExceedanceReportData) listType.get(i)).getClearedDate() );
+                	info.add( ((SurfaceEmissionExceedanceReportData) listType.get(i)).getDiscoveredDate() );                	
+            		info.add( ((SurfaceEmissionExceedanceReportData) listType.get(i)).getExceedanceNumber() );
+            		info.add( ((SurfaceEmissionExceedanceReportData) listType.get(i)).getMonitoringPoints() );     	
+                	info.add( ((SurfaceEmissionExceedanceReportData) listType.get(i)).getRepairDescription() );
+                	info.add( ((SurfaceEmissionExceedanceReportData) listType.get(i)).getInitial() );
+                	info.add( ((SurfaceEmissionExceedanceReportData) listType.get(i)).getRecheck() );
+                	info.add( ((SurfaceEmissionExceedanceReportData) listType.get(i)).getClearedDate() );
                 	                	
                 	reportData.add(info);
                 }
@@ -284,7 +354,7 @@ public class ReportExport {
                 }
             }
             
-            BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, document.getPage(pageIndex), true, true);
+            BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage1, true, true);
     		
             //Create Header row
      		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
@@ -294,7 +364,7 @@ public class ReportExport {
      		
      		
      		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
-     		cell = hea.createCell((100 / 9.0f) * 2, "" + header.get(0) );
+     		cell = hea.createCell((100 / 6.0f) * 2, "" + header.get(0) );
      		for (int i = 1; i < header.size(); i++) {
                     cell = hea.createCell((100 / 9f), "" + header.get(i));
                  }		
@@ -304,7 +374,7 @@ public class ReportExport {
      		for (List info : reportData) {
      			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
                  
-             	cell = row.createCell((100 / 9.0f) * 2, "" + info.get(0) ); //3
+             	cell = row.createCell((100 / 6.0f) * 2, "" + info.get(0) ); //3
                  for (int i = 1; i < info.size(); i++) {
                     cell = row.createCell((100 / 9f), "" + info.get(i));
                  }
@@ -314,17 +384,11 @@ public class ReportExport {
      		
      		dataTable.draw(); 
      		pageIndex++;
+     		pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
+     		document.save(pdfName);
+    		document.close();
         }
                 
-        
-        
-		System.out.println(document.getNumberOfPages());
-//        DataTable tab = new DataTable(dataTable, blankPage);
-//		tab.addListToTable(reportData, DataTable.HASHEADER);
-//		dataTable.draw();
-		
-        document.save("C:/Users/Allen/Desktop/generatePDF/exceedTest.pdf");
-		document.close();
 	}
 
 }

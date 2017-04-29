@@ -1,8 +1,6 @@
 package org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous;
 
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -65,10 +62,6 @@ public class WarmspotData {
 	
 	@NotNull
 	private String size;
-	
-	@JsonIgnoreProperties({"warmspotData", "imeNumbers"})
-	@OneToMany(mappedBy="warmspotData")
-	private Set<InstantaneousData> instantaneousData = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -132,14 +125,6 @@ public class WarmspotData {
 
 	public void setSize(String size) {
 		this.size = size;
-	}
-
-	public Set<InstantaneousData> getInstantaneousData() {
-		return instantaneousData;
-	}
-
-	public void setInstantaneousData(Set<InstantaneousData> instantaneousData) {
-		this.instantaneousData = instantaneousData;
 	}
 
 }

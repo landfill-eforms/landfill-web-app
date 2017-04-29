@@ -23,7 +23,7 @@ export class ExceedanceSelectorComponent implements OnInit {
 		},
 		{
 			title: "Integrated",
-			subtitle: "Integrated Something Exceedances",
+			subtitle: "Integrated Sampling Exceedances",
 			img: "https://wallpaperscraft.com/image/sea_coast_rocks_underwater_world_vegetation_fish_53966_1920x1080.jpg",
 			route: RestrictedRoute.IME_NUMBER_LIST,
 			visible: false,
@@ -31,7 +31,7 @@ export class ExceedanceSelectorComponent implements OnInit {
 		},
 		{
 			title: "Probe",
-			subtitle: "Perimeter Probe Exceedances",
+			subtitle: "Probe Exceedances",
 			img: "https://wallpaperscraft.com/image/stars_sky_shore_84534_1920x1080.jpg",
 			route: RestrictedRoute.IME_NUMBER_LIST,
 			visible: false,

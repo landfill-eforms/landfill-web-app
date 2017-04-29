@@ -1,3 +1,5 @@
+import { OkDialogComponent } from './components/directives/dialogs/ok-dialog/ok-dialog.component';
+import { YesNoDialogComponent } from './components/directives/dialogs/yes-no-dialog/yes-no-dialog.component';
 import { PublicModule } from './components/public/public.module'
 import { IseNumberService } from './services/integrated/ise-number.service';
 import { IntegratedDataService } from './services/integrated/integrated-data.service';
@@ -72,6 +74,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		UnverifiedDataModule
 	],
 	entryComponents: [
+		OkDialogComponent,
+		YesNoDialogComponent,
 		NewUserDialogComponent,
 		NewUserGroupDialogComponent,
 		AssignImeNumberDialogComponent,

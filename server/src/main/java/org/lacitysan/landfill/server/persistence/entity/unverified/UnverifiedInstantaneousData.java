@@ -66,6 +66,12 @@ public class UnverifiedInstantaneousData {
 	@ManyToMany
 	@JoinTable(name="dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
+
+	@JsonIgnoreProperties(value={"unverifiedInstantaneousData", "instrument"},allowSetters=true)
+	@OneToOne
+	@JoinColumn(name="UnverifiedWarmspotFK")
+	@Cascade(CascadeType.ALL)
+	private UnverifiedWarmspotData unverifiedWarmspotData;
 	
 	@JsonIgnoreProperties("unverifiedInstantaneousData")
 	@NotNull
@@ -73,11 +79,6 @@ public class UnverifiedInstantaneousData {
 	@JoinColumn(name="UnverifiedDataSetFK", nullable=false)
 	@Cascade(CascadeType.ALL)
 	private UnverifiedDataSet unverifiedDataSet;
-	
-	@OneToOne
-	@JoinColumn(name="UnverifiedWarmspotFK")
-	@Cascade(CascadeType.ALL)
-	private UnverifiedWarmspotData unverifiedWarmspotData;
 	
 	public Integer getId() {
 		return id;
@@ -143,20 +144,20 @@ public class UnverifiedInstantaneousData {
 		this.imeNumbers = imeNumbers;
 	}
 
-	public UnverifiedDataSet getUnverifiedDataSet() {
-		return unverifiedDataSet;
-	}
-
-	public void setUnverifiedDataSet(UnverifiedDataSet unverifiedDataSet) {
-		this.unverifiedDataSet = unverifiedDataSet;
-	}
-
 	public UnverifiedWarmspotData getUnverifiedWarmspotData() {
 		return unverifiedWarmspotData;
 	}
 
 	public void setUnverifiedWarmspotData(UnverifiedWarmspotData unverifiedWarmspotData) {
 		this.unverifiedWarmspotData = unverifiedWarmspotData;
+	}
+	
+	public UnverifiedDataSet getUnverifiedDataSet() {
+		return unverifiedDataSet;
+	}
+
+	public void setUnverifiedDataSet(UnverifiedDataSet unverifiedDataSet) {
+		this.unverifiedDataSet = unverifiedDataSet;
 	}
 	
 }

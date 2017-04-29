@@ -6,11 +6,16 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * An alphanumeric identifier for a surface emissions exceedance, such as an IME or ISE.
@@ -39,6 +44,11 @@ public abstract class SurfaceEmissionExceedanceNumber implements Comparable<Surf
 	@Column(name="StatusString")
 	@Enumerated(EnumType.STRING)
 	private ExceedanceStatus status;
+	
+	@JsonIgnoreProperties(value={"iseNumbers", "imeNumbers", "unverifiedProbeData", "unverifiedIntegratedData", "unverifiedInstantaneousData", "unverifiedWarmspotData", "inspector"}, allowSetters=true)
+	@ManyToOne
+	@JoinColumn(name="UnverifiedDataSetFK")
+	private UnverifiedDataSet unverifiedDataSet;
 
 	public Integer getId() {
 		return id;
@@ -80,6 +90,14 @@ public abstract class SurfaceEmissionExceedanceNumber implements Comparable<Surf
 		this.status = status;
 	}
 
+	public UnverifiedDataSet getUnverifiedDataSet() {
+		return unverifiedDataSet;
+	}
+
+	public void setUnverifiedDataSet(UnverifiedDataSet unverifiedDataSet) {
+		this.unverifiedDataSet = unverifiedDataSet;
+	}
+
 	@Override
 	abstract public String toString();
 
@@ -96,5 +114,17 @@ public abstract class SurfaceEmissionExceedanceNumber implements Comparable<Surf
 		}
 		return 0;
 	}
+	
+//	@Override
+//	public boolean equals(Object o) {
+//		if (o == null) {
+//			return false;
+//		}
+//		if (!(o instanceof SurfaceEmissionExceedanceNumber)) {
+//			return false;
+//		}
+//		SurfaceEmissionExceedanceNumber exceedanceNumber = (SurfaceEmissionExceedanceNumber)o;
+//		return id == exceedanceNumber.getId() && compareTo(exceedanceNumber) == 0;
+//	}
 
 }

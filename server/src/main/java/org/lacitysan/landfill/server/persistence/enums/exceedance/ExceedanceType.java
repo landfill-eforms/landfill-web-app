@@ -10,9 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  */
 public enum ExceedanceType {
 	
-	INSTANTANEOUS ("Instantaneous", "IME"),
-	INTEGRATED ("Integrated", "ISE"),
-	PROBE ("Probe", "Probe");
+	INSTANTANEOUS ("Instantaneous Monitoring Exceedances", "IME"),
+	INTEGRATED ("Integrated Sampling Exceedances", "ISE"),
+	PROBE ("Probe Exceedances", "Probe"),
+	COMPONENT ("Component Leaks", "Component");
 	
 	private String name;
 	private String shortName;

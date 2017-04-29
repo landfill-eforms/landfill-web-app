@@ -21,10 +21,10 @@
 					</div>
 					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Date Created
+							Date Uploaded
 						</div>
 						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{unverifiedDataSet.uploadedDate ? DateTimeUtils.getDate(unverifiedDataSet.uploadedDate) : ''}}
+							{{unverifiedDataSet.createdDate ? DateTimeUtils.getDate(unverifiedDataSet.createdDate) : ''}}
 						</div>
 					</div>
 					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
@@ -32,7 +32,7 @@
 							Last Modified
 						</div>
 						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{unverifiedDataSet.uploadedBy ? DateTimeUtils.getDate(unverifiedDataSet.uploadedBy) : ''}}
+							{{unverifiedDataSet.modifiedDate ? DateTimeUtils.getDate(unverifiedDataSet.modifiedDate) : ''}}
 						</div>
 					</div>
 				</div>

@@ -49,25 +49,25 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('uploadedBy')">
+			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('createdBy')">
 				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'uploadedBy'}">
+					'data-table-header-label-sorted':sort.current == 'createdBy'}">
 					Uploaded By
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
 					'data-table-header-sort-arrow-reverse':sort.reversed,
-					'data-table-header-sort-arrow-inactive':sort.current !== 'uploadedBy'}">
+					'data-table-header-sort-arrow-inactive':sort.current !== 'createdBy'}">
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('uploadedDate')">
+			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('createdDate')">
 				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'uploadedDate'}">
+					'data-table-header-label-sorted':sort.current == 'createdDate'}">
 					Upload Date
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
 					'data-table-header-sort-arrow-reverse':sort.reversed,
-					'data-table-header-sort-arrow-inactive':sort.current !== 'uploadedDate'}">
+					'data-table-header-sort-arrow-inactive':sort.current !== 'createdDate'}">
 					arrow_downward
 				</md-icon>
 			</div>
@@ -108,10 +108,10 @@
 						{{dataSet.site.name}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
-						{{dataSet.uploadedBy ? StringUtils.formatUserName(dataSet.uploadedBy) : ''}}
+						{{dataSet.createdBy ? StringUtils.formatUserName(dataSet.createdBy) : ''}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
-						{{dataSet.uploadedDate ? DateTimeUtils.getDate(dataSet.uploadedDate) : ''}}
+						{{dataSet.createdDate ? DateTimeUtils.getDate(dataSet.createdDate) : ''}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
 						{{dataSet.modifiedBy ? StringUtils.formatUserName(dataSet.modifiedBy) : ''}}

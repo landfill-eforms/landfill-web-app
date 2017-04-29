@@ -17,10 +17,6 @@ public class WarmspotDataDaoImpl extends AbstractDaoImpl<WarmspotData> implement
 			return null;
 		}
 		Hibernate.initialize(warmspotData.getInspector());
-		warmspotData.getInstantaneousData().forEach(instantaneousData -> {
-			Hibernate.initialize(instantaneousData.getInstrument());
-			Hibernate.initialize(instantaneousData.getInspector());
-		});
 		return warmspotData;
 	}
 

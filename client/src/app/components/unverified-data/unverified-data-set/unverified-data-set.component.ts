@@ -1,3 +1,4 @@
+import { OkDialogComponent } from './../../directives/dialogs/ok-dialog/ok-dialog.component';
 import { UnverifiedProbeData } from './../../../model/server/persistence/entity/unverified/unverified-probe-data.class';
 import { UnverifiedIntegratedData } from './../../../model/server/persistence/entity/unverified/unverified-integrated-data.class';
 import { Instrument } from './../../../model/server/persistence/entity/instrument/instrument.class';
@@ -156,19 +157,19 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	save() {
-		this.dataSet.site = EnumUtils.convertToString(this.dataSet.site);
-		for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
-			let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
-			unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
-		}
-		for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
-			let unverifiedIntegratedData:UnverifiedIntegratedData =  this.dataSet.unverifiedIntegratedData[i];
-			unverifiedIntegratedData.monitoringPoint = EnumUtils.convertToString(unverifiedIntegratedData.monitoringPoint);
-		}
-		for (let i = 0; i < this.dataSet.unverifiedProbeData.length; i++) {
-			let unverifiedProbeData:UnverifiedProbeData =  this.dataSet.unverifiedProbeData[i];
-			unverifiedProbeData.monitoringPoint = EnumUtils.convertToString(unverifiedProbeData.monitoringPoint);
-		}
+		// this.dataSet.site = EnumUtils.convertToString(this.dataSet.site);
+		// for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
+		// 	let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
+		// 	unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
+		// }
+		// for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
+		// 	let unverifiedIntegratedData:UnverifiedIntegratedData =  this.dataSet.unverifiedIntegratedData[i];
+		// 	unverifiedIntegratedData.monitoringPoint = EnumUtils.convertToString(unverifiedIntegratedData.monitoringPoint);
+		// }
+		// for (let i = 0; i < this.dataSet.unverifiedProbeData.length; i++) {
+		// 	let unverifiedProbeData:UnverifiedProbeData =  this.dataSet.unverifiedProbeData[i];
+		// 	unverifiedProbeData.monitoringPoint = EnumUtils.convertToString(unverifiedProbeData.monitoringPoint);
+		// }
 		console.log(this.dataSet);
 		this.unverifiedDataService.update(this.dataSet, 
 			(data) => {
@@ -180,24 +181,24 @@ export class UnverifiedDataSetComponent implements OnInit {
 		);
 	}
 
-	commit() {
+	commitAll() {
 		if (this.dataSet.errors && (this.dataSet.errors.dataSet.length != 0 || this.dataSet.errors.instantaneous.length != 0)) {
 			this.snackBar.open("Cannot commit data because it contains errors.", "OK", {duration: 2000});
 			return;
 		}
-		this.dataSet.site = EnumUtils.convertToString(this.dataSet.site);
-		for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
-			let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
-			unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
-		}
-		for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
-			let unverifiedIntegratedData:UnverifiedIntegratedData =  this.dataSet.unverifiedIntegratedData[i];
-			unverifiedIntegratedData.monitoringPoint = EnumUtils.convertToString(unverifiedIntegratedData.monitoringPoint);
-		}
-		for (let i = 0; i < this.dataSet.unverifiedProbeData.length; i++) {
-			let unverifiedProbeData:UnverifiedProbeData =  this.dataSet.unverifiedProbeData[i];
-			unverifiedProbeData.monitoringPoint = EnumUtils.convertToString(unverifiedProbeData.monitoringPoint);
-		}
+		// this.dataSet.site = EnumUtils.convertToString(this.dataSet.site);
+		// for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
+		// 	let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
+		// 	unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
+		// }
+		// for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
+		// 	let unverifiedIntegratedData:UnverifiedIntegratedData =  this.dataSet.unverifiedIntegratedData[i];
+		// 	unverifiedIntegratedData.monitoringPoint = EnumUtils.convertToString(unverifiedIntegratedData.monitoringPoint);
+		// }
+		// for (let i = 0; i < this.dataSet.unverifiedProbeData.length; i++) {
+		// 	let unverifiedProbeData:UnverifiedProbeData =  this.dataSet.unverifiedProbeData[i];
+		// 	unverifiedProbeData.monitoringPoint = EnumUtils.convertToString(unverifiedProbeData.monitoringPoint);
+		// }
 		this.unverifiedDataService.commit(this.dataSet,
 			(data) => {
 				if (data) {
@@ -205,11 +206,29 @@ export class UnverifiedDataSetComponent implements OnInit {
 					this.snackBar.open("Data set successfully verified.", "OK", {duration: 3000});
 					this.router.navigate(['/app/unverified-data-set-list']);
 				}
+			},
+			(err) => {
+				let message:string[] = JSON.parse(err.text()).message.split("\n");
+				this.openErrorCallbackDialog(message);
 			}
 		);
 	}
 
 	// TODO Update save methods.
+
+	openErrorCallbackDialog(message:string[]) {
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '640px';
+		let dialogRef:MdDialogRef<OkDialogComponent> = this.dialog.open(OkDialogComponent, dialogConfig);
+		dialogRef.componentInstance.title = "Error Committing Data";
+		dialogRef.componentInstance.prompt = message;
+		dialogRef.componentInstance.confirmLabel = "OK";
+		dialogRef.afterClosed().subscribe((res) => {
+			if (res) {
+				console.log(this.dataSet);
+			}
+		});
+	}
 
 	sortByGrid() {
 		if (this.sort.current === "grid") {

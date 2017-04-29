@@ -1,4 +1,3 @@
-import { InstantaneousData } from './instantaneous-data.class';
 import { MonitoringPoint } from '../../../enums/location/monitoring-point.enum';
 import { User } from '../../user/user.class';
 import { Instrument } from '../../instrument/instrument.class';
@@ -16,5 +15,4 @@ export class WarmspotData {
 	date:number;
 	description:string;
 	size:string;
-	instantaneousData:InstantaneousData[];
 }

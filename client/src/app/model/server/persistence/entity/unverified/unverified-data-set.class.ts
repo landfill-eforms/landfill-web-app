@@ -1,8 +1,12 @@
-import { UnverifiedProbeData } from './unverified-probe-data.class';
-import { User } from '../user/user.class';
-import { UnverifiedIntegratedData } from './unverified-integrated-data.class';
-import { Site } from '../../enums/location/site.enum';
+import { ProbeExceedance } from '../probe/probe-exceedance.class';
 import { UnverifiedInstantaneousData } from './unverified-instantaneous-data.class';
+import { User } from '../user/user.class';
+import { ImeNumber } from '../surfaceemission/instantaneous/ime-number.class';
+import { Site } from '../../enums/location/site.enum';
+import { UnverifiedProbeData } from './unverified-probe-data.class';
+import { UnverifiedIntegratedData } from './unverified-integrated-data.class';
+import { UnverifiedWarmspotData } from './unverified-warmspot-data.class';
+import { IseNumber } from '../surfaceemission/integrated/ise-number.class';
 
 /**
  * This class was automatically generated from UnverifiedDataSet.java using typescript-gen.
@@ -14,8 +18,12 @@ export class UnverifiedDataSet {
 	inspector:User;
 	site:Site;
 	unverifiedInstantaneousData:UnverifiedInstantaneousData[];
+	unverifiedWarmspotData:UnverifiedWarmspotData[];
+	imeNumbers:ImeNumber[];
 	unverifiedIntegratedData:UnverifiedIntegratedData[];
+	iseNumbers:IseNumber[];
 	unverifiedProbeData:UnverifiedProbeData[];
+	probeExceedances:ProbeExceedance[];
 	errors:any;
 	createdBy:User;
 	createdDate:number;

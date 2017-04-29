@@ -38,6 +38,7 @@ public class ProbeData {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotNull
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
 	private MonitoringPoint monitoringPoint;
@@ -54,7 +55,6 @@ public class ProbeData {
 	@NotNull
 	private String description;
 	
-
 	@NotNull
 	private Short barometricPressure;
 	

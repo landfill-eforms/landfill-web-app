@@ -1,3 +1,5 @@
+import { OkDialogComponent } from './dialogs/ok-dialog/ok-dialog.component';
+import { YesNoDialogComponent } from './dialogs/yes-no-dialog/yes-no-dialog.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ImeRepairDialogComponent } from './dialogs/ime-repair-dialog/ime-repair-dialog.component';
 import { ImeRecheckDialogComponent } from './dialogs/ime-recheck-dialog/ime-recheck-dialog.component';
@@ -14,6 +16,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 	],
 	providers: [],
 	declarations: [
+		OkDialogComponent,
+		YesNoDialogComponent,
 		FileUploadComponent,
 		InstantaneousDataViewComponent,
 		ImeListViewComponent,
@@ -23,6 +27,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		PaginationComponent,
 	],
 	exports: [
+		OkDialogComponent,
+		YesNoDialogComponent,
 		FileUploadComponent,
 		InstantaneousDataViewComponent,
 		ImeListViewComponent,

@@ -151,6 +151,15 @@ md-toolbar-row {
 	overflow-y: overlay;
 }
 
+// Override action buttons for dialogs to conform to Material design.
+.mat-dialog-actions {
+	margin: 0 -24px;
+    padding: 24px 8px 8px 8px !important;
+	display: block !important;
+	text-align: right;
+	color: mat-color($app-primary, 500);
+}	
+
 .pagination-numeric-selector {
 	.mat-select-trigger {
 		min-width: 64px !important;

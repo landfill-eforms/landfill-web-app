@@ -1,18 +1,17 @@
 package org.lacitysan.landfill.server.rest.unverified;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedProbeData;
+import org.lacitysan.landfill.server.persistence.enums.test.TestType;
 import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.unverified.DataVerificationService;
-import org.lacitysan.landfill.server.service.unverified.model.VerifiedDataSet;
+import org.lacitysan.landfill.server.service.unverified.UnverifiedDataSetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +28,9 @@ public class UnverifiedDataController {
 
 	@Autowired
 	UnverifiedDataSetDao unverifiedDataSetDao;
+	
+	@Autowired
+	UnverifiedDataSetService unverifiedDataSetService;
 	
 	@Autowired
 	DataVerificationService dataVerificationService;
@@ -52,56 +54,40 @@ public class UnverifiedDataController {
 	
 	@RestAllowSuperAdminOnly
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public UnverifiedDataSet create(@RequestBody UnverifiedDataSet dataSet) {
-		// TODO Create a service for this.
-		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
-			if (data.getInstrument().getId() == null) {
-				data.setInstrument(null);
-			}
-			data.setUnverifiedDataSet(dataSet);
-		}
-		for (UnverifiedIntegratedData data : dataSet.getUnverifiedIntegratedData()) {
-			if (data.getInstrument().getId() == null) {
-				data.setInstrument(null);
-			}
-			data.setUnverifiedDataSet(dataSet);
-		}
-		for (UnverifiedProbeData data : dataSet.getUnverifiedProbeData()) {
-			data.setUnverifiedDataSet(dataSet);
-		}
-		return unverifiedDataSetDao.create(dataSet);
+	public UnverifiedDataSet create(@RequestBody UnverifiedDataSet unverifiedDataSet) {
+		return unverifiedDataSetService.create(unverifiedDataSet);
 	}
 	
 	@RestSecurity({UserPermission.EDIT_UNVERIFIED_DATA_SET})
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public UnverifiedDataSet update(@RequestBody UnverifiedDataSet dataSet) {
-		// TODO Create a service for this.
-		for (UnverifiedInstantaneousData data : dataSet.getUnverifiedInstantaneousData()) {
-			if (data.getInstrument().getId() == null) {
-				data.setInstrument(null);
-			}
-			data.setUnverifiedDataSet(dataSet);
-		}
-		for (UnverifiedIntegratedData data : dataSet.getUnverifiedIntegratedData()) {
-			if (data.getInstrument().getId() == null) {
-				data.setInstrument(null);
-			}
-			data.setUnverifiedDataSet(dataSet);
-		}
-		for (UnverifiedProbeData data : dataSet.getUnverifiedProbeData()) {
-			data.setUnverifiedDataSet(dataSet);
-		}
-		return unverifiedDataSetDao.update(dataSet);
+	public UnverifiedDataSet update(@RequestBody UnverifiedDataSet unverifiedDataSet) {
+		return unverifiedDataSetService.update(unverifiedDataSet);
 	}
 	
 	// TODO Create a method for deleting data sets.
 	
 	@RestSecurity({UserPermission.COMMIT_UNVERIFIED_DATA_SET})
 	@RequestMapping(value="/commit", method=RequestMethod.POST)
-	public Object commit(@RequestBody UnverifiedDataSet dataSet) {
-		VerifiedDataSet verifiedDataSet = dataVerificationService.verifyAndCommit(dataSet);
-
-		return verifiedDataSet;
+	public Object commitAll(@RequestBody UnverifiedDataSet unverifiedDataSet) {
+		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.values()));
+	}
+	
+	@RestSecurity({UserPermission.COMMIT_UNVERIFIED_DATA_SET})
+	@RequestMapping(value="/commit/instantaneous", method=RequestMethod.POST)
+	public Object commitInstantaneous(@RequestBody UnverifiedDataSet unverifiedDataSet) {
+		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.INSTANTANEOUS));
+	}
+	
+	@RestSecurity({UserPermission.COMMIT_UNVERIFIED_DATA_SET})
+	@RequestMapping(value="/commit/integrated", method=RequestMethod.POST)
+	public Object commitIntegrated(@RequestBody UnverifiedDataSet unverifiedDataSet) {
+		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.INTEGRATED));
 	}
 
+	@RestSecurity({UserPermission.COMMIT_UNVERIFIED_DATA_SET})
+	@RequestMapping(value="/commit/probe", method=RequestMethod.POST)
+	public Object commitProbe(@RequestBody UnverifiedDataSet unverifiedDataSet) {
+		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.PROBE));
+	}
+	
 }

@@ -40,16 +40,16 @@ export class UnverifiedDataSetsComponent extends AbstractDataTableComponent<Unve
 	sortProperties:any = {
 		site: [
 			"site.constantName",
-			"uploadedDate",
+			"createdDate",
 			"filename"
 		],
-		uploadedBy: [
-			"uploadedBy",
-			"uploadedDate",
+		createdBy: [
+			"createdBy",
+			"createdDate",
 			"filename"
 		],
-		uploadedDate: [
-			"uploadedDate",
+		createdDate: [
+			"createdDate",
 			"filename"
 		],
 		modifiedBy: [
@@ -78,7 +78,7 @@ export class UnverifiedDataSetsComponent extends AbstractDataTableComponent<Unve
 		private snackBar:MdSnackBar,
 		private navigationService:NavigationService) {
 			super();
-			navigationService.getNavbarComponent().expanded = false;
+			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(UnverifiedDataSetListSideinfoComponent, {unverifiedDataSet: null});
 	}
 

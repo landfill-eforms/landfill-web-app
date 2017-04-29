@@ -88,6 +88,7 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 			i++;
 		}
 		exceedanceNumber.setSequence(i);
+		exceedanceNumber.setUnverifiedDataSet(null);
 		getCrudRepository().update(exceedanceNumber);
 
 		if (shift) {

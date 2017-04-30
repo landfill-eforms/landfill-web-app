@@ -78,6 +78,7 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 			super();
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(UserListSideinfoComponent, {user: null});
+			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {

@@ -64,6 +64,7 @@ export class ImeNumberListComponent extends AbstractDataTableComponent<ImeNumber
 			super();
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(ImeNumberListSideinfoComponent, {imeNumber: null});
+			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {

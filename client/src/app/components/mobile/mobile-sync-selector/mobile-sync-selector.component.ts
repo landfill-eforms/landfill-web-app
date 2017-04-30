@@ -16,7 +16,7 @@ export class MobileSyncSelectorComponent implements OnInit {
 
 	readonly uploadCard:SelectorCard = {
 		title: "Upload",
-		subtitle: "Upload Data from Mobile App",
+		subtitle: "Upload Data File from Android Application",
 		img: "https://www.qdtricks.net/wp-content/uploads/2016/05/latest-1080-wallpaper.jpg",
 		route: RestrictedRoute.MOBILE_UPLOAD,
 		visible: false,
@@ -25,7 +25,7 @@ export class MobileSyncSelectorComponent implements OnInit {
 		
 	readonly downloadCard:SelectorCard = {
 		title: "Download",
-		subtitle: "Download Data to Mobile App",
+		subtitle: "Download Data File to Android Application",
 		img: "https://wallpaperscraft.com/image/sea_coast_rocks_underwater_world_vegetation_fish_53966_1920x1080.jpg",
 		route: RestrictedRoute.MOBILE_DOWNLOAD,
 		visible: false,
@@ -38,6 +38,7 @@ export class MobileSyncSelectorComponent implements OnInit {
 		private authService:AuthService,
 		private navigationService:NavigationService) {
 			navigationService.getNavbarComponent().expanded = false;
+			navigationService.getSideinfoComponent().disable();
 	}
 
 	ngOnInit() {

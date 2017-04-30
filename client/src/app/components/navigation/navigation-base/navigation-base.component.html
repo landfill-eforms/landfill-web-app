@@ -1,14 +1,14 @@
 
 <md-sidenav-container fullscreen class="navdrawer-container">
-	<md-sidenav #navdrawer mode="side" opened="true" class="navdrawer-contents">
+	<md-sidenav #navdrawer mode="side" opened="false" class="navdrawer-contents">
 		<app-navigation-drawer [sidenav]="navdrawer"></app-navigation-drawer>
 	</md-sidenav>
-	<md-sidenav-container class="sideinfo-container" fullscreen [ngClass]="{'sideinfo-force-close':isSideinfoDisabled()}">
+	<md-sidenav-container class="sideinfo-container" fullscreen [ngClass]="{'sideinfo-force-close': isSideinfoDisabled()}">
 		<md-sidenav #sideinfo mode="side" align="end" opened="true" class="sideinfo-contents">
 			<app-navigation-sideinfo [sidenav]="sideinfo"></app-navigation-sideinfo>
 		</md-sidenav>
 		<app-navigation-toolbar [navdrawer]="navdrawer"></app-navigation-toolbar>
-		<div class="main-content">
+		<div class="main-content" [ngClass]="{'main-content-expanded': isNavBarExpanded()}">
 			<router-outlet></router-outlet>
 		</div>
 	</md-sidenav-container>

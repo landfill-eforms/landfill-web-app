@@ -22,7 +22,8 @@
 			</div>
 			<button md-icon-button 
 				(click)="toggleFilters()" 
-				class="flex-item" 
+				class="toggle-icon-button flex-item"
+				[ngClass]="{'toggle-icon-button-active': showFilters}"
 				fxFlex="40px"
 				mdTooltip="Filter" 
 				mdTooltipPosition="below">
@@ -44,8 +45,8 @@
 					Username
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-					'data-table-header-sort-arrow-reverse':sort.reversed,
-					'data-table-header-sort-arrow-inactive':sort.current !== 'username'}">
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'username'}">
 					arrow_downward
 				</md-icon>
 			</div>
@@ -55,8 +56,8 @@
 					Name
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-					'data-table-header-sort-arrow-reverse':sort.reversed,
-					'data-table-header-sort-arrow-inactive':sort.current !== 'name'}">
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'name'}">
 					arrow_downward
 				</md-icon>
 			</div>
@@ -66,8 +67,8 @@
 					Email
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-					'data-table-header-sort-arrow-reverse':sort.reversed,
-					'data-table-header-sort-arrow-inactive':sort.current !== 'emailAddress'}">
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'emailAddress'}">
 					arrow_downward
 				</md-icon>
 			</div>
@@ -77,8 +78,8 @@
 					Employee ID
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-					'data-table-header-sort-arrow-reverse':sort.reversed,
-					'data-table-header-sort-arrow-inactive':sort.current !== 'employeeId'}">
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'employeeId'}">
 					arrow_downward
 				</md-icon>
 			</div>

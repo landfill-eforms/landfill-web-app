@@ -145,10 +145,14 @@ md-toolbar-row {
 }
 
 .main-content {
-	height: calc(100% - #{$navbar-expanded-height});
+	height: calc(100% - #{$navbar-height});
 	overflow-x: hidden;
 	overflow-y: auto;
 	overflow-y: overlay;
+}
+
+.main-content-expanded {
+	height: calc(100% - #{$navbar-expanded-height});
 }
 
 // Override action buttons for dialogs to conform to Material design.
@@ -242,9 +246,17 @@ md-toolbar-row {
 }
 
 .page-title {
-	padding: 24px 24px 8px 24px;
+	padding: 24px 24px 16px 24px;
 	font-size: 24px;
 	font-weight: 400;
+	color: rgba(0,0,0,0.87);
+}
+
+.page-subtitle {
+	padding: 0 24px 16px 24px;
+	font-size: 14px;
+	font-weight: 400;
+	color: rgba(0,0,0,0.54);
 }
 
 .section-single {
@@ -264,6 +276,7 @@ md-toolbar-row {
 }
 
 .section-title {
+	color: rgba(0,0,0,0.87);
 	font-weight: 400;
 	font-weight: normal;
 	font-size: 20px;
@@ -410,6 +423,21 @@ md-toolbar-row {
 .data-table-icon-button {
 	margin-top: -4px;
 	cursor: pointer;
+}
+
+.toggle-icon-button {
+	.mat-button-wrapper {
+		color: rgba(0,0,0,0.87);
+	}
+}
+
+.toggle-icon-button-active {
+	.mat-button-wrapper {
+		color: black;
+	}
+	.mat-button-ripple {
+		background: rgba(0,0,0,0.12);
+	}
 }
 
 .loading-indicator-container {

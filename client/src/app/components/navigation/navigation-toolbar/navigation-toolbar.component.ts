@@ -59,8 +59,12 @@ export class NavigationToolbarComponent implements OnInit {
 		// this.fabActionSource.complete();
 	}
 
-	action() {
+	toggleNavDrawer() {
 		this.navdrawer.toggle();
+	}
+
+	openNavDrawer() {
+		this.navdrawer.open();
 	}
 
 	logout() {

@@ -72,6 +72,7 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 		private navigationService:NavigationService) {
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(UserGroupListSideinfoComponent, {userGroup: null});
+			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {

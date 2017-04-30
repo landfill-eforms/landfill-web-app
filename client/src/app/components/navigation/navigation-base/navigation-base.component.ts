@@ -16,4 +16,8 @@ export class NavigationBaseComponent {
 		return this.navigationService.isSideinfoDisabled();
 	}
 
+	isNavBarExpanded():boolean {
+		return this.navigationService.getNavbarComponent().expanded;
+	}
+
 }

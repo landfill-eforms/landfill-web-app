@@ -75,6 +75,9 @@ export class NavigationSideinfoComponent implements OnInit {
 		this.destroyCurrent();
 	}
 
+	enable() {
+		this.disabled = false;
+	}
 
 	private destroyCurrent() {
 		if (this.currentDirective) {
@@ -87,12 +90,10 @@ export class NavigationSideinfoComponent implements OnInit {
 		this.isOpened = false;
 	}
 
-	/** 
-	 * Opens the info sidenav. 
-	 * Will automatically enable the info sidenav if it's disabled. 
-	 */
 	open() {
-		this.disabled = false;
+		if (this.disabled) {
+			return;
+		}
 		this.sidenav.open();
 		this.isOpened = true;
 	}

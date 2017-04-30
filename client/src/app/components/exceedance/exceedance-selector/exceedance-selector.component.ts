@@ -50,6 +50,7 @@ export class ExceedanceSelectorComponent implements OnInit {
 		private authService:AuthService,
 		private navigationService:NavigationService) {
 			navigationService.getNavbarComponent().expanded = false;
+			navigationService.getSideinfoComponent().disable();
 	}
 
 	ngOnInit() {

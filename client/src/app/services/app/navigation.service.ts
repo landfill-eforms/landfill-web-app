@@ -11,8 +11,6 @@ export class NavigationService {
 	private navbarComponent:NavigationToolbarComponent;
 	private sideinfoComponent:NavigationSideinfoComponent;
 
-	public isNavbarExpanded:boolean = false;
-
 	constructor(
 		private titleService:TitleService, 
 		private router:Router) {

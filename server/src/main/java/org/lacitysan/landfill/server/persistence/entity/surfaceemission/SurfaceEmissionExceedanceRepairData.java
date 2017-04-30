@@ -24,7 +24,7 @@ public abstract class SurfaceEmissionExceedanceRepairData implements Comparable<
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonIgnoreProperties({"userGroups"})
+	@JsonIgnoreProperties({"userGroups", "enabled"})
 	@ManyToOne
 	@JoinColumn(name="UserFK")
 	private User user;

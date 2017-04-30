@@ -58,7 +58,6 @@ export class FileDownloadService {
 
 	private getFilename(contentDisposition:string):string {
 		let idx = contentDisposition.indexOf("filename");
-		console.log(idx);
 		if (idx > -1) {
 			return contentDisposition.substr(idx + 9).replace(/\"/g, "");
 		}

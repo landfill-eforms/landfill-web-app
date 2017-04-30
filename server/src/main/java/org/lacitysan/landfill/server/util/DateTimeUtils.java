@@ -101,7 +101,7 @@ public class DateTimeUtils {
 	
 	/** Formats a long date value to a condensed format for use with filenames. */
 	public static String formatCondensed(long date) {
-		return new SimpleDateFormat("yyddMM_Hm").format(new Date(date));
+		return new SimpleDateFormat("yyddMM_HHmm").format(new Date(date));
 	}
 
 }

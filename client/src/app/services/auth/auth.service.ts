@@ -19,7 +19,7 @@ export class AuthService {
 	) {}
 
 	getToken():string {
-		return sessionStorage.getItem('id_token');
+		return localStorage.getItem('id_token');
 	}
 
 	isTokenExpired():boolean {
@@ -27,7 +27,7 @@ export class AuthService {
 	}
 
 	getUserPermissions():string[] {
-		let result = JSON.parse(sessionStorage.getItem("user_permissions"));
+		let result = JSON.parse(localStorage.getItem("user_permissions"));
 		if (Array.isArray(result)) {
 			return result;
 		}
@@ -46,8 +46,8 @@ export class AuthService {
 				console.log("JWT Token:", jwtToken);
 				console.log("Decoded Token:", this.jwtHelper.decodeToken(jwtToken));
 				console.log("Token Expiration:", this.jwtHelper.getTokenExpirationDate(jwtToken));
-				sessionStorage.setItem("id_token", jwtToken);
-				sessionStorage.setItem("user_permissions", JSON.stringify(this.parseUserPermissions(jwtToken)));
+				localStorage.setItem("id_token", jwtToken);
+				localStorage.setItem("user_permissions", JSON.stringify(this.parseUserPermissions(jwtToken)));
 				this.router.navigate(['/' + AppConstant.RESTRICTED_ROUTE_BASE]);
 			},
 			(error:any) => {
@@ -56,7 +56,7 @@ export class AuthService {
 	}
 
 	logout() {
-		sessionStorage.clear();
+		localStorage.clear();
 		this.router.navigate(['/login']);
 	}
 
@@ -105,7 +105,7 @@ export class AuthService {
 	}
 
 	getPrinciple():any {
-		let token:any = this.jwtHelper.decodeToken(sessionStorage.getItem('id_token'));
+		let token:any = this.jwtHelper.decodeToken(localStorage.getItem('id_token'));
 		if (!token || !token.principle) {
 			return null;
 		}
@@ -136,7 +136,7 @@ export function authFactory(http:Http, options:RequestOptions) {
 		headerName: 'Authorization',
 		headerPrefix: 'Bearer',
 		tokenName: 'id_token',
-		tokenGetter: (() => sessionStorage.getItem('id_token')),
+		tokenGetter: (() => localStorage.getItem('id_token')),
 		//globalHeaders: [{ 'Content-Type': 'text/plain' }],
 		noJwtError: false
 	}), http, options);

@@ -76,12 +76,6 @@ export const RestrictedRoutes:Routes = [
 				canActivate: [AuthGuard]
 			},
 			{
-				path: RestrictedRoute.MOBILE_DOWNLOAD.path,
-				data: RestrictedRoute.MOBILE_DOWNLOAD.data,
-				component: DashboardComponent,
-				canActivate: [AuthGuard]
-			},
-			{
 				path: RestrictedRoute.EXCEEDANCE_SELECTOR.path,
 				data: RestrictedRoute.EXCEEDANCE_SELECTOR.data,
 				component: ExceedanceSelectorComponent,

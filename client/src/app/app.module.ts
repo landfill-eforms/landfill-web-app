@@ -1,3 +1,4 @@
+import { FileDownloadService } from './services/file/file-download.service';
 import { OkDialogComponent } from './components/directives/dialogs/ok-dialog/ok-dialog.component';
 import { YesNoDialogComponent } from './components/directives/dialogs/yes-no-dialog/yes-no-dialog.component';
 import { PublicModule } from './components/public/public.module'
@@ -94,6 +95,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		AuthGuard,
 		// AuthService,
 		FileUploadService,
+		FileDownloadService,
 		ImeNumberService,
 		InstantaneousDataService,
 		IntegratedDataService,

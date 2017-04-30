@@ -5,14 +5,13 @@ import { TitleService } from './../../../services/app/title.service';
 import { AuthService } from './../../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
 	selector: 'app-exceedance-selector',
 	templateUrl: './exceedance-selector.component.html'
 })
 export class ExceedanceSelectorComponent implements OnInit {
 
-	readonly links:SelectorCard[] = [
+	readonly cards:SelectorCard[] = [
 		{
 			title: "Instantaneous",
 			subtitle: "Instantaneous Monitoring Exceedances",
@@ -53,10 +52,9 @@ export class ExceedanceSelectorComponent implements OnInit {
 			navigationService.getNavbarComponent().expanded = false;
 	}
 
-
 	ngOnInit() {
-		for (let link of this.links) {
-			link.visible = !link.route.data || this.authService.canAccess(link.route.data["permissions"]);
+		for (let card of this.cards) {
+			card.visible = !card.route.data || this.authService.canAccess(card.route.data["permissions"]);
 		}
 	}
 

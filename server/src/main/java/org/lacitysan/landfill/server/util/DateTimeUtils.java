@@ -98,5 +98,10 @@ public class DateTimeUtils {
 	public static String formatSimpleTime(long date) {
 		return new SimpleDateFormat("H:m").format(new Date(date));
 	}
+	
+	/** Formats a long date value to a condensed format for use with filenames. */
+	public static String formatCondensed(long date) {
+		return new SimpleDateFormat("yyddMM_Hm").format(new Date(date));
+	}
 
 }

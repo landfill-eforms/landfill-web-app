@@ -89,6 +89,7 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 			super();
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(InstrumentTypeListSideinfoComponent, {instrumentType: null});
+			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {

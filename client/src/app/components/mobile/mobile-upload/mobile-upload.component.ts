@@ -1,3 +1,4 @@
+import { NavigationService } from './../../../services/app/navigation.service';
 import { FileUploadService, FileUploadResult } from './../../../services/file/file-upload.service';
 import { MdSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
@@ -17,8 +18,11 @@ export class MobileUploadComponent implements OnInit {
         private el:ElementRef, 
         private router:Router,
         private snackBar:MdSnackBar,
-		private fileUploadService:FileUploadService
-        ) {}
+		private fileUploadService:FileUploadService,
+        private navigationService:NavigationService) {
+			navigationService.getNavbarComponent().expanded = false;
+			navigationService.getSideinfoComponent().disable();
+	}
 
     ngOnInit() {
 

@@ -63,6 +63,7 @@ export class IseNumberListComponent extends AbstractDataTableComponent<IseNumber
 			super();
 			navigationService.getNavbarComponent().expanded = true;
 			// navigationService.getSideinfoComponent().setDirective(null, {iseNumber: null});
+			// navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {

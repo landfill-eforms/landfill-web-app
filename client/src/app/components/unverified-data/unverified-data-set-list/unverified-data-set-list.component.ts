@@ -80,6 +80,7 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 			super();
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(UnverifiedDataSetListSideinfoComponent, {unverifiedDataSet: null});
+			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {

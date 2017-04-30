@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 	templateUrl: './report-selector.component.html',
 	styleUrls: ['./report-selector.component.scss']
 })
-export class ReportsComponent {
+export class ReportSelectorComponent {
 
 	dateTimeUtils = DateTimeUtils;
 	stringUtils = StringUtils;

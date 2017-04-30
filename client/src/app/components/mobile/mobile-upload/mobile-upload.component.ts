@@ -1,4 +1,4 @@
-import { FileUploadService } from './../../../services/file/file-upload.service';
+import { FileUploadService, FileUploadResult } from './../../../services/file/file-upload.service';
 import { MdSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { Component, OnInit, ElementRef } from '@angular/core';
@@ -30,6 +30,16 @@ export class MobileUploadComponent implements OnInit {
             let file:FileList = inputEl.files[0];
             this.file = inputEl.files[0];
             console.log(this.file);
+        }
+    }
+
+    test(result:FileUploadResult) {
+        if (result.success) {
+            this.router.navigate(['/app/unverified-data-sets']); 
+            this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
+        }
+        else {
+            this.snackBar.open(JSON.parse(result.data.text()).message, "OK", {duration: 5000});
         }
     }
 

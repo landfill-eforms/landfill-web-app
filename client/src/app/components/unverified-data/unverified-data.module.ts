@@ -4,7 +4,7 @@ import { AssignImeNumberDialogComponent } from './assign-ime-number-dialog/assig
 import { UnverifiedDataSetComponent } from './unverified-data-set/unverified-data-set.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from './../common/common.module';
-import { UnverifiedDataSetsComponent } from './unverified-data-set-list/unverified-data-set-list.component';
+import { UnverifiedDataSetListComponent } from './unverified-data-set-list/unverified-data-set-list.component';
 
 @NgModule({
     imports: [
@@ -14,7 +14,7 @@ import { UnverifiedDataSetsComponent } from './unverified-data-set-list/unverifi
     providers: [],
     declarations: [
 		AssignImeNumberDialogComponent,
-		UnverifiedDataSetsComponent,
+		UnverifiedDataSetListComponent,
 		UnverifiedDataSetComponent,
         UnverifiedDataSetListSideinfoComponent
 	]

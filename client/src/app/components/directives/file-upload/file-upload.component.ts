@@ -1,7 +1,7 @@
 import { MdSnackBar } from '@angular/material';
-import { FileUploadService } from './../../../services/file/file-upload.service';
+import { FileUploadService, FileUploadResult } from './../../../services/file/file-upload.service';
 import { Router } from '@angular/router';
-import { Component, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 
 
 // Source: http://stackoverflow.com/questions/36352405/file-upload-with-angular2-to-rest-api/39862337#39862337
@@ -13,7 +13,8 @@ import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 export class FileUploadComponent {
 
     @Input() multiple:boolean = false;
-    @Input() uploadRestUrl:string;
+    @Input() restUrl:string;
+    @Output() uploadResult = new EventEmitter<FileUploadResult>();
     @ViewChild('fileInput') el:ElementRef;
 
     selectedFileNames:string[] = [];
@@ -43,17 +44,18 @@ export class FileUploadComponent {
             for (let i = 0; i < fileCount; i++) {
                 formData.append('file', inputEl.files.item(i));
             }
-            this.fileUploadService.upload("mobile", formData,
+            this.fileUploadService.upload(this.restUrl, formData,
                 (data) => {
-                    console.log(data);
-
-                    // TODO Move these somewhere else.
-                    this.router.navigate(['/app/unverified-data-sets']); 
-                    this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
-                    
+                    this.uploadResult.emit({
+                        success: true,
+                        data: data
+                    });
                 },
                 (err) => {
-                    this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
+                    this.uploadResult.emit({
+                        success: false,
+                        data: err
+                    });
                 }
             );
         }

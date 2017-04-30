@@ -24,7 +24,7 @@ import { OnInit, Component, OnDestroy, ViewChild } from '@angular/core';
 	templateUrl: './unverified-data-set-list.component.html',
 	styleUrls: ['./unverified-data-set-list.component.scss']
 })
-export class UnverifiedDataSetsComponent extends AbstractDataTableComponent<UnverifiedDataSet> implements OnInit, OnDestroy {
+export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<UnverifiedDataSet> implements OnInit, OnDestroy {
 
 	// Utilities
 	StringUtils = StringUtils;

@@ -194,9 +194,9 @@ export class NavigationDrawerComponent implements OnInit {
 			visible: false
 		},
 		{
-			route: RestrictedRoute.MOBILE_UPLOAD,
-			icon: 'file_upload',
-			label: 'Upload From Mobile',
+			route: RestrictedRoute.MOBILE_SYNC_SELECTOR,
+			icon: 'sync',
+			label: 'Mobile Data Sync',
 			visible: false
 		},
 		{
@@ -212,7 +212,7 @@ export class NavigationDrawerComponent implements OnInit {
 			visible: false
 		},
 		{
-			route: RestrictedRoute.REPORTS,
+			route: RestrictedRoute.REPORT_SELECTOR,
 			icon: 'assignment',
 			label: 'Reports',
 			visible: false

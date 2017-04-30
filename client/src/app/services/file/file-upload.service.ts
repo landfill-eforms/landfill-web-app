@@ -18,3 +18,8 @@ export class FileUploadService {
 	}
 
 }
+
+export class FileUploadResult {
+	success:boolean;
+	data:any;
+}

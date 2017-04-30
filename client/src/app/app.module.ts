@@ -1,3 +1,4 @@
+import { DatePickerComponent } from './components/directives/pickers/date-picker/date-picker.component';
 import { FileDownloadService } from './services/file/file-download.service';
 import { OkDialogComponent } from './components/directives/dialogs/ok-dialog/ok-dialog.component';
 import { YesNoDialogComponent } from './components/directives/dialogs/yes-no-dialog/yes-no-dialog.component';
@@ -84,7 +85,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		ImeRepairDialogComponent,
 		NewInstrumentDialogComponent,
 		NewInstrumentTypeDialogComponent,
-		PaginationComponent
+		PaginationComponent,
+		DatePickerComponent
 	],
 	providers: [
 		//AppRouterProviders,

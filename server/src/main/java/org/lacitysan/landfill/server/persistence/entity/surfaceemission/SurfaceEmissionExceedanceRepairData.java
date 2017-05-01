@@ -2,14 +2,12 @@ package org.lacitysan.landfill.server.persistence.entity.surfaceemission;
 
 import java.sql.Timestamp;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,11 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Alvin Quach
  */
 @MappedSuperclass
-public abstract class SurfaceEmissionExceedanceRepairData implements Comparable<SurfaceEmissionExceedanceRepairData> {
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+public abstract class SurfaceEmissionExceedanceRepairData extends AbstractEntity implements Comparable<SurfaceEmissionExceedanceRepairData> {
 	
 	@JsonIgnoreProperties({"userGroups", "enabled"})
 	@ManyToOne
@@ -43,14 +37,6 @@ public abstract class SurfaceEmissionExceedanceRepairData implements Comparable<
 	
 	@NotNull
 	private String crew;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public User getUser() {
 		return user;

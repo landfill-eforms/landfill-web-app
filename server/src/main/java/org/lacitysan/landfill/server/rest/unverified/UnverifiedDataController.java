@@ -35,13 +35,13 @@ public class UnverifiedDataController {
 	@Autowired
 	DataVerificationService dataVerificationService;
 	
-	@RestSecurity({UserPermission.VIEW_UNVERIFIED_DATA_SETS})
+	@RestSecurity(UserPermission.VIEW_UNVERIFIED_DATA_SETS)
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<UnverifiedDataSet> getAll() {
 		return unverifiedDataSetDao.getAll();
 	}
 	
-	@RestSecurity({UserPermission.VIEW_UNVERIFIED_DATA_SET})
+	@RestSecurity(UserPermission.VIEW_UNVERIFIED_DATA_SET)
 	@RequestMapping(value="/unique/id/{id}", method=RequestMethod.GET)
 	public UnverifiedDataSet getById(@PathVariable String id) {
 		try {
@@ -58,33 +58,50 @@ public class UnverifiedDataController {
 		return unverifiedDataSetService.create(unverifiedDataSet);
 	}
 	
-	@RestSecurity({UserPermission.EDIT_UNVERIFIED_DATA_SET})
+	@RestSecurity(UserPermission.EDIT_UNVERIFIED_DATA_SET)
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public UnverifiedDataSet update(@RequestBody UnverifiedDataSet unverifiedDataSet) {
 		return unverifiedDataSetService.update(unverifiedDataSet);
 	}
 	
-	// TODO Create a method for deleting data sets.
+	@RestSecurity(UserPermission.DELETE_UNVERIFIED_DATA_SET)
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public UnverifiedDataSet delete(@RequestBody UnverifiedDataSet unverifiedDataSet) {
+		return unverifiedDataSetService.delete(unverifiedDataSet);
+	}
 	
-	@RestSecurity({UserPermission.COMMIT_UNVERIFIED_DATA_SET})
+	@RestSecurity(UserPermission.DELETE_UNVERIFIED_DATA_SET)
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+	public UnverifiedDataSet deleteById(@PathVariable String id) {
+		try {
+			UnverifiedDataSet unverifiedDataSet = new UnverifiedDataSet();
+			unverifiedDataSet.setId(Integer.parseInt(id));
+			return delete(unverifiedDataSet);
+		}
+		catch (NumberFormatException e) {
+			return null;
+		}
+	}
+	
+	@RestSecurity(UserPermission.COMMIT_UNVERIFIED_DATA_SET)
 	@RequestMapping(value="/commit", method=RequestMethod.POST)
 	public Object commitAll(@RequestBody UnverifiedDataSet unverifiedDataSet) {
 		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.values()));
 	}
 	
-	@RestSecurity({UserPermission.COMMIT_UNVERIFIED_DATA_SET})
+	@RestSecurity(UserPermission.COMMIT_UNVERIFIED_DATA_SET)
 	@RequestMapping(value="/commit/instantaneous", method=RequestMethod.POST)
 	public Object commitInstantaneous(@RequestBody UnverifiedDataSet unverifiedDataSet) {
 		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.INSTANTANEOUS));
 	}
 	
-	@RestSecurity({UserPermission.COMMIT_UNVERIFIED_DATA_SET})
+	@RestSecurity(UserPermission.COMMIT_UNVERIFIED_DATA_SET)
 	@RequestMapping(value="/commit/integrated", method=RequestMethod.POST)
 	public Object commitIntegrated(@RequestBody UnverifiedDataSet unverifiedDataSet) {
 		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.INTEGRATED));
 	}
 
-	@RestSecurity({UserPermission.COMMIT_UNVERIFIED_DATA_SET})
+	@RestSecurity(UserPermission.COMMIT_UNVERIFIED_DATA_SET)
 	@RequestMapping(value="/commit/probe", method=RequestMethod.POST)
 	public Object commitProbe(@RequestBody UnverifiedDataSet unverifiedDataSet) {
 		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.PROBE));

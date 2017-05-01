@@ -61,22 +61,10 @@ public class UserController {
 		return userService.updateProfile(user);
 	}
 
-	@RestSecurity(UserPermission.ASSIGN_EMPLOYEE_ID)
-	@RequestMapping(value="/update/employee-id", method=RequestMethod.POST)
-	public User updateEmployeeId(@RequestBody User user) {
-		return userService.updateEmployeeId(user);
-	}
-
-	@RestSecurity(value={UserPermission.ENABLE_USERS, UserPermission.DISABLE_USERS})
+	@RestSecurity(UserPermission.CHANGE_USER_STATUS)
 	@RequestMapping(value="/update/status", method=RequestMethod.POST)
 	public User updateStatus(@RequestBody User user) {
 		return userService.updateStatus(user);
-	}
-
-	@RestSecurity(UserPermission.ASSIGN_USER_GROUPS)
-	@RequestMapping(value="/update/user-groups", method=RequestMethod.POST)
-	public User updateUserGroups(@RequestBody User user) {
-		return userService.updateUserGroups(user);
 	}
 
 	@RestAllowSuperAdminOnly

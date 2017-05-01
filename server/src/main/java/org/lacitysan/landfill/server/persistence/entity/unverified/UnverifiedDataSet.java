@@ -8,13 +8,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -23,6 +21,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.entity.probe.ProbeExceedance;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseNumber;
@@ -40,13 +39,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name="dbo.UnverifiedDataSets")
+@AttributeOverride(name="id", column=@Column(name="UnverifiedDataSetPK"))
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedDataSet implements Trackable {
-	
-	@Id
-	@Column(name="UnverifiedDataSetPK")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 	
 	private String filename;
 	
@@ -65,7 +60,7 @@ public class UnverifiedDataSet implements Trackable {
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
 	
 	@JsonIgnoreProperties(value="unverifiedDataSet",allowSetters=true)
-	@Cascade(CascadeType.ALL)
+//	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
 	private Set<UnverifiedWarmspotData> unverifiedWarmspotData = new HashSet<>();
 	
@@ -111,14 +106,6 @@ public class UnverifiedDataSet implements Trackable {
 	private User modifiedBy;
 	
 	private Timestamp modifiedDate;
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getFilename() {
 		return filename;

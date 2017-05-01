@@ -1,15 +1,21 @@
 package org.lacitysan.landfill.server.service.user;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
 import org.lacitysan.landfill.server.exception.AlreadyExistsException;
+import org.lacitysan.landfill.server.exception.UnknownEntityException;
 import org.lacitysan.landfill.server.exception.user.InvalidEmailException;
 import org.lacitysan.landfill.server.exception.user.InvalidPasswordException;
 import org.lacitysan.landfill.server.exception.user.InvalidUsernameException;
+import org.lacitysan.landfill.server.exception.user.UnauthorizedUserException;
+import org.lacitysan.landfill.server.exception.user.UserGroupAssignmentException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
+import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
+import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +37,9 @@ public class UserService {
 	@Autowired
 	ApplicationVariableService applicationVariableService;
 	
+	@Autowired
+	UserGroupService userGroupService;
+	
 	/** 
 	 * Gets the current user based on authentication stored in the security context holder.
 	 * Super admin account will return null.
@@ -38,8 +47,8 @@ public class UserService {
 	 */
 	public User getCurrentUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication == null ) {
-			return null;
+		if (authentication == null) {
+			throw new UnauthorizedUserException("Current user authentication is invalid");
 		}
 		Object principle = authentication.getPrincipal();
 		if (principle instanceof Map) {
@@ -88,8 +97,17 @@ public class UserService {
 		// Update existing user.
 		User existing = userDao.getById(user.getId());
 		if (existing == null) {
-			// TODO Throw user ID not found exception.
+			throw new UnknownEntityException("Attempting to update unknown user.");
 		}
+		
+		// Only super admin and admin can edit other admin accounts.
+		if (userGroupService.contains(existing.getUserGroups(), UserPermission.ADMIN)) {
+			User currentUser = getCurrentUser();
+			if (currentUser != null && !userGroupService.contains(currentUser.getUserGroups(), UserPermission.ADMIN)) {
+				throw new UnauthorizedUserException("You are not authorized to change this account's username.");
+			}
+		}
+		
 		existing.setUsername(user.getUsername());
 		return userDao.update(existing);
 		
@@ -98,7 +116,13 @@ public class UserService {
 	public User changePassword(User user) {
 		User existing = userDao.getById(user.getId());
 		if (existing == null) {
-			// TODO Throw user ID not found exception.
+			throw new UnknownEntityException("Attempting to update unknown user.");
+		}
+		if (userGroupService.contains(existing.getUserGroups(), UserPermission.ADMIN)) {
+			User currentUser = getCurrentUser();
+			if (currentUser != null && !userGroupService.contains(currentUser.getUserGroups(), UserPermission.ADMIN)) {
+				throw new UnauthorizedUserException("You are not authorized to change this account's password.");
+			}
 		}
 		validatePassword(user.getPassword(), true);
 		existing.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -109,46 +133,42 @@ public class UserService {
 		intializeNullFields(user);
 		User existing = userDao.getById(user.getId());
 		if (existing == null) {
-			// TODO Throw user ID not found exception.
+			throw new UnknownEntityException("Attempting to update unknown user.");
+		}
+		if (userGroupService.contains(existing.getUserGroups(), UserPermission.ADMIN)) {
+			User currentUser = getCurrentUser();
+			if (currentUser != null && !userGroupService.contains(currentUser.getUserGroups(), UserPermission.ADMIN)) {
+				throw new UnauthorizedUserException("You are not authorized to edit this user's profile.");
+			}
 		}
 		existing.setFirstname(user.getFirstname());
 		existing.setMiddlename(user.getMiddlename());
 		existing.setLastname(user.getLastname());
+		existing.setEmployeeId(user.getEmployeeId()); // TODO Add validation for employee ID.
+		if (validateUserGroups(existing.getUserGroups(), user.getUserGroups(), true)) {
+			existing.setUserGroups(user.getUserGroups());
+		}
 		if (validateEmail(user.getEmailAddress(), true)) {
 			existing.setEmailAddress(user.getEmailAddress());
 		}
 		return userDao.update(existing);
 	}
 	
-	public User updateEmployeeId(User user) {
-		intializeNullFields(user); // Remove this if validation for employee ID is implemented.
-		User existing = userDao.getById(user.getId());
-		if (existing == null) {
-			// TODO Throw user ID not found exception.
-		}
-		existing.setEmployeeId(user.getEmployeeId());
-		return userDao.update(existing);
-	}
-	
 	public User updateStatus(User user) {
 		User existing = userDao.getById(user.getId());
 		if (existing == null) {
-			// TODO Throw user ID not found exception.
+			throw new UnknownEntityException("Attempting to update unknown user.");
+		}
+		if (userGroupService.contains(existing.getUserGroups(), UserPermission.ADMIN)) {
+			User currentUser = getCurrentUser();
+			if (currentUser != null && !userGroupService.contains(currentUser.getUserGroups(), UserPermission.ADMIN)) {
+				throw new UnauthorizedUserException("You are not authorized to change this account's status.");
+			}
 		}
 		existing.setEnabled(user.getEnabled());
 		return userDao.update(existing);
 	}
-	
-	public User updateUserGroups(User user) {
-		User existing = userDao.getById(user.getId());
-		if (existing == null) {
-			// TODO Throw user ID not found exception.
-		}
-		// TODO Check if current user has privileges to assign some restricted permissions (ie. Admin).
-		existing.setUserGroups(user.getUserGroups());
-		return userDao.update(existing);
-	}
-	
+
 	/**
 	 * Check username against username restrictions as imposed by the application properties.
 	 * @param username The username to be checked.
@@ -210,6 +230,29 @@ public class UserService {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Checks whether the user is already belongs to the admin user group.
+	 * If they do, then any groups can be added to the user.
+	 * If they don't, then groups containing the admin permission cannot be added to the user,
+	 * unless group(s) are being added by the super admin.
+	 * Likewise, if the user is already an admin, then his admin status can only be removed by the super admin.
+	 * <br></br>
+	 * Ideally, there should be only one user group with the admin permission.
+	 * @param existing
+	 * @param updated
+	 * @return
+	 */
+	private boolean validateUserGroups(Set<UserGroup> existing, Set<UserGroup> updated, boolean throwException) {
+		if (getCurrentUser() == null) {
+			return true; // null = super admin
+		}
+		boolean result = !(userGroupService.contains(existing, UserPermission.ADMIN) ^ userGroupService.contains(updated, UserPermission.ADMIN));
+		if (!result && throwException) {
+			throw new UserGroupAssignmentException("An illegal change the user's admin status was attempted.");
+		}
+		return result;
 	}
 	
 	/** Assumes username is not null. */

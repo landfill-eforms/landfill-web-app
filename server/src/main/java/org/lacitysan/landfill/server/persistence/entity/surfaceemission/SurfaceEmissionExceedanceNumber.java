@@ -3,14 +3,12 @@ package org.lacitysan.landfill.server.persistence.entity.surfaceemission;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
@@ -23,11 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Alvin Quach
  */
 @MappedSuperclass
-public abstract class SurfaceEmissionExceedanceNumber implements Comparable<SurfaceEmissionExceedanceNumber> {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+public abstract class SurfaceEmissionExceedanceNumber extends AbstractEntity implements Comparable<SurfaceEmissionExceedanceNumber> {
 	
 	@NotNull
 	@Column(name="SiteString")
@@ -49,14 +43,6 @@ public abstract class SurfaceEmissionExceedanceNumber implements Comparable<Surf
 	@ManyToOne
 	@JoinColumn(name="UnverifiedDataSetFK")
 	private UnverifiedDataSet unverifiedDataSet;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public Site getSite() {
 		return site;

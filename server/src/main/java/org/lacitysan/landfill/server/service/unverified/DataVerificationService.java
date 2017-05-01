@@ -12,6 +12,8 @@ import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneo
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.WarmspotDataDao;
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.integrated.IntegratedDataDao;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
+import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedInstantaneousDataDao;
+import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedWarmspotDataDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeData;
@@ -23,6 +25,8 @@ import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrat
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseNumber;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
@@ -43,6 +47,12 @@ public class DataVerificationService {
 
 	@Autowired
 	UnverifiedDataSetDao unverifiedDataSetDao;
+	
+	@Autowired
+	UnverifiedInstantaneousDataDao unverifiedInstantaneousDataDao;
+	
+	@Autowired
+	UnverifiedWarmspotDataDao unverifiedWarmspotDataDao;
 
 	@Autowired
 	InstantaneousDataDao instantaneousDataDao;
@@ -62,7 +72,7 @@ public class DataVerificationService {
 	@Autowired
 	IseNumberService iseNumberService;
 
-	public VerifiedDataSet verifyAndCommit(UnverifiedDataSet unverifiedDataSet, Collection<TestType> tests) {
+	public Object verifyAndCommit(UnverifiedDataSet unverifiedDataSet, Collection<TestType> tests) {
 
 		// Create a list to store errors.
 		List<String> errorLog = new LinkedList<>();
@@ -92,7 +102,7 @@ public class DataVerificationService {
 						if (instrument == null) {
 							errorLog.add(getDescription(unverifiedInstantaneousData) + " has no instrument defined.");
 						}
-						if (!instrument.getInstrumentType().getInstantaneous()) {
+						else if (!instrument.getInstrumentType().getInstantaneous()) {
 							errorLog.add(getDescription(unverifiedInstantaneousData) + " has an instrument that cannot be used for instantaneous readings.");
 						}
 
@@ -209,17 +219,22 @@ public class DataVerificationService {
 
 						// Check if the grid of each data point belongs to the correct site.
 						if (unverifiedIntegratedData.getMonitoringPoint().getSite() != site) {
-							return null;
+							errorLog.add("Instantaneous reading of " + (unverifiedIntegratedData.getMethaneLevel() / 100.0) + " ppm belongs to different site (" + unverifiedIntegratedData.getMonitoringPoint().getSite() + ")");
 						}
 
-						if (unverifiedIntegratedData.getInstrument() == null) {
-							return null;
+						// Check if there is an instrument defined and if it of the correct type.
+						Instrument instrument = unverifiedIntegratedData.getInstrument();
+						if (instrument == null) {
+							errorLog.add(getDescription(unverifiedIntegratedData) + " has no instrument defined.");
+						}
+						else if (!instrument.getInstrumentType().getInstantaneous()) {
+							errorLog.add(getDescription(unverifiedIntegratedData) + " has an instrument that cannot be used for integrated readings.");
 						}
 
 						// Get the barometric pressure from the unverified data point, and check if its value is valid.
 						Short barometricPressure = unverifiedIntegratedData.getBarometricPressure();
 						if (barometricPressure == null || barometricPressure < 2950 || barometricPressure > 3050) {
-							return null;
+							errorLog.add(getDescription(unverifiedIntegratedData) + " has an out-of-range barometric pressure.");
 						}
 
 						// Create new integrated data object and populate its fields with the data from the unverified data point.
@@ -343,6 +358,16 @@ public class DataVerificationService {
 			for (WarmspotData warmspotData : result.getWarmspotData()) {
 				warmspotDataDao.create(warmspotData);
 			}
+			
+//			// TODO Delete unverified warmspot data.
+//			for (UnverifiedWarmspotData unverifiedWarmspotData : unverifiedDataSet.getUnverifiedWarmspotData()) {
+//				unverifiedWarmspotDataDao.deleteSafe(unverifiedWarmspotData);
+//			}
+//			
+//			// Deleted unverified instantaneous data.
+//			for (UnverifiedInstantaneousData unverifiedInstantaneousData : unverifiedDataSet.getUnverifiedInstantaneousData()) {
+//				unverifiedInstantaneousDataDao.deleteSafe(unverifiedInstantaneousData);
+//			}
 
 			// Clear instantaneous data types from unverified data set
 			unverifiedDataSet.getUnverifiedInstantaneousData().clear();
@@ -360,6 +385,7 @@ public class DataVerificationService {
 					iseNumberService.verify(iseNumber);
 				}
 			}
+			// TODO Delete unverified integrated data.
 			unverifiedDataSet.getUnverifiedIntegratedData().clear();
 			unverifiedDataSet.getIseNumbers().clear();
 		}
@@ -369,19 +395,18 @@ public class DataVerificationService {
 				probeDataDao.create(probeData);
 			}
 			// TODO Add probe exceedances
+			// TODO Delete unverified probe data.
 			unverifiedDataSet.getUnverifiedProbeData().clear();
 			unverifiedDataSet.getProbeExceedances().clear();
 		}
 
 		if (unverifiedDataSet.isEmpty()) {
-			unverifiedDataSetDao.delete(unverifiedDataSet);
+			return unverifiedDataSetDao.deleteSafe(unverifiedDataSet);
 		}
 		else {
-			unverifiedDataSetDao.update(unverifiedDataSet);
+			return unverifiedDataSetDao.update(unverifiedDataSet);
 		}
-
-		return result;
-
+		
 	}
 
 	private String getDescription(Object o) {
@@ -392,7 +417,10 @@ public class DataVerificationService {
 		if (o instanceof ImeNumber) {
 			return "IME number " + o;
 		}
-
+		if (o instanceof UnverifiedIntegratedData) {
+			UnverifiedIntegratedData unverifiedIntegratedData = (UnverifiedIntegratedData)o;
+			return "Integrated reading of " + (unverifiedIntegratedData.getMethaneLevel() / 100.0) + " ppm on grid " + unverifiedIntegratedData.getMonitoringPoint().getName();
+		}
 		if (o instanceof IseNumber) {
 			return "ISE number " + o;
 		}

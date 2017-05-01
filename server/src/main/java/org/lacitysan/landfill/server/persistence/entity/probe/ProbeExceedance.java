@@ -1,5 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.probe;
 
-public class ProbeExceedance {
+import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
+
+public class ProbeExceedance extends AbstractEntity {
 
 }

@@ -100,6 +100,7 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 				}
 			}
 		}
+		
 		return exceedanceNumber;
 	}
 

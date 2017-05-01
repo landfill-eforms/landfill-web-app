@@ -1,5 +1,5 @@
+import { UnverifiedDataSetComponent } from './components/unverified-data/unverified-data-set/unverified-data-set.component';
 import { ReportSelectorComponent } from './components/report/report-selector/report-selector.component';
-import { UnverifiedDataSet } from './model/server/persistence/entity/unverified/unverified-data-set.class';
 import { UnverifiedDataSetListComponent } from './components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
 import { InstrumentTypeComponent } from './components/instrument/instrument-type/instrument-type.component';
 import { InstrumentTypeListComponent } from './components/instrument/instrument-type-list/instrument-type-list.component';
@@ -146,7 +146,7 @@ export const RestrictedRoutes:Routes = [
 			{
 				path: RestrictedRoute.UNVERIFIED_DATA_SET.path,
 				data: RestrictedRoute.UNVERIFIED_DATA_SET.data,
-				component: UnverifiedDataSet,
+				component: UnverifiedDataSetComponent,
 				canActivate: [AuthGuard]
 			},
 			{

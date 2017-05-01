@@ -33,44 +33,35 @@ export class UserPermission {
 		description: "User can create new users."
 	};
 
-	static readonly ENABLE_USERS:UserPermission = {
+	static readonly CHANGE_USER_STATUS:UserPermission = {
 		ordinal: 3,
-		constantName: "ENABLE_USERS",
-		name: "Enable Users",
+		constantName: "CHANGE_USER_STATUS",
+		name: "Change User Status",
 		category: "Users",
-		categoryAction: "Enable Account",
-		description: "User can reactivate other non-admin user accounts."
-	};
-
-	static readonly DISABLE_USERS:UserPermission = {
-		ordinal: 4,
-		constantName: "DISABLE_USERS",
-		name: "Disable Users",
-		category: "Users",
-		categoryAction: "Disable Account",
-		description: "User can deactivate other non-admin user accounts."
+		categoryAction: "Enable/Disable",
+		description: "User can enable/disable other non-admin user accounts."
 	};
 
 	static readonly RESET_USER_PASSWORDS:UserPermission = {
-		ordinal: 5,
+		ordinal: 4,
 		constantName: "RESET_USER_PASSWORDS",
 		name: "Reset User Passwords",
 		category: "Users",
 		categoryAction: "Reset Password",
-		description: "User can reset the passwords of other non-admin users."
+		description: "User can reset the passwords of non-admin users."
 	};
 
 	static readonly RESET_USER_USERNAMES:UserPermission = {
-		ordinal: 6,
+		ordinal: 5,
 		constantName: "RESET_USER_USERNAMES",
 		name: "Reset User Usernames",
 		category: "Users",
 		categoryAction: "Reset Username",
-		description: "User can reset the usernames of other non-admin users."
+		description: "User can reset the usernames of non-admin users."
 	};
 
 	static readonly EDIT_USER_PROFILES:UserPermission = {
-		ordinal: 7,
+		ordinal: 6,
 		constantName: "EDIT_USER_PROFILES",
 		name: "Edit User Profiles",
 		category: "Users",
@@ -78,26 +69,8 @@ export class UserPermission {
 		description: "User can edit the profiles of other non-admin users."
 	};
 
-	static readonly ASSIGN_EMPLOYEE_ID:UserPermission = {
-		ordinal: 8,
-		constantName: "ASSIGN_EMPLOYEE_ID",
-		name: "Assign Employee Id",
-		category: "Users",
-		categoryAction: "Assign Employee ID",
-		description: "User can change the employee ID associated with non-admin user accounts."
-	};
-
-	static readonly ASSIGN_USER_GROUPS:UserPermission = {
-		ordinal: 9,
-		constantName: "ASSIGN_USER_GROUPS",
-		name: "Assign User Groups",
-		category: "Users",
-		categoryAction: "Assign Groups",
-		description: "User can assign user groups to non-admin users."
-	};
-
 	static readonly VIEW_USER_GROUPS:UserPermission = {
-		ordinal: 10,
+		ordinal: 7,
 		constantName: "VIEW_USER_GROUPS",
 		name: "View User Groups",
 		category: "User Groups",
@@ -106,7 +79,7 @@ export class UserPermission {
 	};
 
 	static readonly CREATE_USER_GROUPS:UserPermission = {
-		ordinal: 11,
+		ordinal: 8,
 		constantName: "CREATE_USER_GROUPS",
 		name: "Create User Groups",
 		category: "User Groups",
@@ -115,7 +88,7 @@ export class UserPermission {
 	};
 
 	static readonly DELETE_USER_GROUPS:UserPermission = {
-		ordinal: 12,
+		ordinal: 9,
 		constantName: "DELETE_USER_GROUPS",
 		name: "Delete User Groups",
 		category: "User Groups",
@@ -124,7 +97,7 @@ export class UserPermission {
 	};
 
 	static readonly EDIT_USER_GROUPS:UserPermission = {
-		ordinal: 13,
+		ordinal: 10,
 		constantName: "EDIT_USER_GROUPS",
 		name: "Edit User Groups",
 		category: "User Groups",
@@ -133,7 +106,7 @@ export class UserPermission {
 	};
 
 	static readonly VIEW_INSTRUMENTS:UserPermission = {
-		ordinal: 14,
+		ordinal: 11,
 		constantName: "VIEW_INSTRUMENTS",
 		name: "View Instruments",
 		category: "Equipment",
@@ -142,7 +115,7 @@ export class UserPermission {
 	};
 
 	static readonly CREATE_INSTRUMENTS:UserPermission = {
-		ordinal: 15,
+		ordinal: 12,
 		constantName: "CREATE_INSTRUMENTS",
 		name: "Create Instruments",
 		category: "Equipment",
@@ -151,7 +124,7 @@ export class UserPermission {
 	};
 
 	static readonly EDIT_INSTRUMENTS:UserPermission = {
-		ordinal: 16,
+		ordinal: 13,
 		constantName: "EDIT_INSTRUMENTS",
 		name: "Edit Instruments",
 		category: "Equipment",
@@ -160,7 +133,7 @@ export class UserPermission {
 	};
 
 	static readonly DELETE_INSTRUMENTS:UserPermission = {
-		ordinal: 17,
+		ordinal: 14,
 		constantName: "DELETE_INSTRUMENTS",
 		name: "Delete Instruments",
 		category: "Equipment",
@@ -169,7 +142,7 @@ export class UserPermission {
 	};
 
 	static readonly VIEW_INSTRUMENT_TYPES:UserPermission = {
-		ordinal: 18,
+		ordinal: 15,
 		constantName: "VIEW_INSTRUMENT_TYPES",
 		name: "View Instrument Types",
 		category: "Equipment Type",
@@ -178,7 +151,7 @@ export class UserPermission {
 	};
 
 	static readonly CREATE_INSTRUMENT_TYPES:UserPermission = {
-		ordinal: 19,
+		ordinal: 16,
 		constantName: "CREATE_INSTRUMENT_TYPES",
 		name: "Create Instrument Types",
 		category: "Equipment Type",
@@ -187,7 +160,7 @@ export class UserPermission {
 	};
 
 	static readonly EDIT_INSTRUMENT_TYPES:UserPermission = {
-		ordinal: 20,
+		ordinal: 17,
 		constantName: "EDIT_INSTRUMENT_TYPES",
 		name: "Edit Instrument Types",
 		category: "Equipment Type",
@@ -196,7 +169,7 @@ export class UserPermission {
 	};
 
 	static readonly DELETE_INSTRUMENT_TYPES:UserPermission = {
-		ordinal: 21,
+		ordinal: 18,
 		constantName: "DELETE_INSTRUMENT_TYPES",
 		name: "Delete Instrument Types",
 		category: "Equipment Type",
@@ -205,7 +178,7 @@ export class UserPermission {
 	};
 
 	static readonly UPLOAD_MOBILE_DATA:UserPermission = {
-		ordinal: 22,
+		ordinal: 19,
 		constantName: "UPLOAD_MOBILE_DATA",
 		name: "Upload Mobile Data",
 		category: "Mobile App Sync",
@@ -214,7 +187,7 @@ export class UserPermission {
 	};
 
 	static readonly DOWNLOAD_MOBILE_DATA:UserPermission = {
-		ordinal: 23,
+		ordinal: 20,
 		constantName: "DOWNLOAD_MOBILE_DATA",
 		name: "Download Mobile Data",
 		category: "Mobile App Sync",
@@ -223,7 +196,7 @@ export class UserPermission {
 	};
 
 	static readonly VIEW_UNVERIFIED_DATA_SETS:UserPermission = {
-		ordinal: 24,
+		ordinal: 21,
 		constantName: "VIEW_UNVERIFIED_DATA_SETS",
 		name: "View Unverified Data Sets",
 		category: "Unverified Data",
@@ -232,7 +205,7 @@ export class UserPermission {
 	};
 
 	static readonly VIEW_UNVERIFIED_DATA_SET:UserPermission = {
-		ordinal: 25,
+		ordinal: 22,
 		constantName: "VIEW_UNVERIFIED_DATA_SET",
 		name: "View Unverified Data Set",
 		category: "Unverified Data",
@@ -241,7 +214,7 @@ export class UserPermission {
 	};
 
 	static readonly EDIT_UNVERIFIED_DATA_SET:UserPermission = {
-		ordinal: 26,
+		ordinal: 23,
 		constantName: "EDIT_UNVERIFIED_DATA_SET",
 		name: "Edit Unverified Data Set",
 		category: "Unverified Data",
@@ -250,7 +223,7 @@ export class UserPermission {
 	};
 
 	static readonly DELETE_UNVERIFIED_DATA_SET:UserPermission = {
-		ordinal: 27,
+		ordinal: 24,
 		constantName: "DELETE_UNVERIFIED_DATA_SET",
 		name: "Delete Unverified Data Set",
 		category: "Unverified Data",
@@ -259,7 +232,7 @@ export class UserPermission {
 	};
 
 	static readonly DELETE_UNVERIFIED_DATA:UserPermission = {
-		ordinal: 28,
+		ordinal: 25,
 		constantName: "DELETE_UNVERIFIED_DATA",
 		name: "Delete Unverified Data",
 		category: "Unverified Data",
@@ -268,7 +241,7 @@ export class UserPermission {
 	};
 
 	static readonly COMMIT_UNVERIFIED_DATA_SET:UserPermission = {
-		ordinal: 29,
+		ordinal: 26,
 		constantName: "COMMIT_UNVERIFIED_DATA_SET",
 		name: "Commit Unverified Data Set",
 		category: "Unverified Data",
@@ -277,7 +250,7 @@ export class UserPermission {
 	};
 
 	static readonly GENERATE_REPORTS:UserPermission = {
-		ordinal: 30,
+		ordinal: 27,
 		constantName: "GENERATE_REPORTS",
 		name: "Generate Reports",
 		category: "Reports",
@@ -286,7 +259,7 @@ export class UserPermission {
 	};
 
 	static readonly SCHEDULE_EMAIL_REPORTS:UserPermission = {
-		ordinal: 31,
+		ordinal: 28,
 		constantName: "SCHEDULE_EMAIL_REPORTS",
 		name: "Schedule Email Reports",
 		category: "Schedule",
@@ -295,7 +268,7 @@ export class UserPermission {
 	};
 
 	static readonly SCHEDULE_EMAIL_NOTIFICATIONS:UserPermission = {
-		ordinal: 32,
+		ordinal: 29,
 		constantName: "SCHEDULE_EMAIL_NOTIFICATIONS",
 		name: "Schedule Email Notifications",
 		category: "Schedule",
@@ -315,13 +288,10 @@ export class UserPermission {
 			UserPermission.ADMIN,
 			UserPermission.VIEW_USERS,
 			UserPermission.CREATE_USERS,
-			UserPermission.ENABLE_USERS,
-			UserPermission.DISABLE_USERS,
+			UserPermission.CHANGE_USER_STATUS,
 			UserPermission.RESET_USER_PASSWORDS,
 			UserPermission.RESET_USER_USERNAMES,
 			UserPermission.EDIT_USER_PROFILES,
-			UserPermission.ASSIGN_EMPLOYEE_ID,
-			UserPermission.ASSIGN_USER_GROUPS,
 			UserPermission.VIEW_USER_GROUPS,
 			UserPermission.CREATE_USER_GROUPS,
 			UserPermission.DELETE_USER_GROUPS,

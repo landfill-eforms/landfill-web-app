@@ -7,8 +7,7 @@ import 'rxjs/Rx';
 
 @Component({
     selector: 'app-mobile-upload',
-    templateUrl: './mobile-upload.component.html',
-    styleUrls: ['./mobile-upload.component.scss']
+    templateUrl: './mobile-upload.component.html'
 })
 export class MobileUploadComponent implements OnInit {
 

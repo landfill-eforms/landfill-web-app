@@ -14,6 +14,7 @@ export class FileUploadComponent {
 
     @Input() multiple:boolean = false;
     @Input() restUrl:string;
+    @Input() label:string = "SELECT FILE";
     @Output() uploadResult = new EventEmitter<FileUploadResult>();
     @ViewChild('fileInput') el:ElementRef;
 
@@ -24,6 +25,23 @@ export class FileUploadComponent {
         private snackBar:MdSnackBar,
         private fileUploadService:FileUploadService
         ) {}
+
+    openFileSelector() {
+        this.el.nativeElement.click();
+    }
+
+    getFileName():string {
+        let files = this.el.nativeElement.files;
+        if (files) {
+            if (files.length == 1) {
+                return files[0].name;
+            }
+            if (files.length > 0) {
+                return "Multiple files selected"
+            }
+        }
+        return "No file selected"
+    }
 
     fileSelected() {
         let inputEl:HTMLInputElement = this.el.nativeElement;

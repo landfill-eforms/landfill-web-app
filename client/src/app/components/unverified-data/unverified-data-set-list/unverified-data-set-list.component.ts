@@ -1,3 +1,6 @@
+import { AuthService } from './../../../services/auth/auth.service';
+import { RestrictedRoute } from './../../../routes/restricted.route';
+import { AppConstant } from './../../../app.constant';
 import { AbstractDataTableComponent } from './../../../model/client/abstract-components/abstract-data-table.component';
 import { UnverifiedIntegratedData } from './../../../model/server/persistence/entity/unverified/unverified-integrated-data.class';
 import { UnverifiedDataSetListSideinfoComponent } from './../unverified-data-set-list-sideinfo/unverified-data-set-list-sideinfo.component';
@@ -71,6 +74,7 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 	selectedUnverifiedDataSet:UnverifiedDataSet;
 
 	constructor(
+		private authService:AuthService,
 		private router:Router,
 		private activatedRoute:ActivatedRoute,
 		private unverifiedDataService:UnverifiedDataService,
@@ -84,6 +88,35 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 	}
 
 	ngOnInit() {
+		if (this.authService.canAccess(RestrictedRoute.MOBILE_UPLOAD.data["permissions"])) {
+			this.navigationService.getNavbarComponent().setFabInfo({
+				icon: "file_upload",
+				tooltip: "Upload"
+			});
+			this.fabActionSubscriber = this.navigationService
+				.getNavbarComponent()
+				.getFabActionSource()
+				.asObservable()
+				.subscribe((event) => {
+					console.log(event)
+					if (event instanceof MouseEvent) {
+						this.router.navigate([AppConstant.RESTRICTED_ROUTE_BASE + '/' + RestrictedRoute.MOBILE_UPLOAD.path]);
+					}
+				});
+		}
+		this.loadUnverifiedDataSets();
+	}
+
+	ngOnDestroy() {
+		this.navigationService.getSideinfoComponent().disable();
+		if (this.fabActionSubscriber) {
+			this.navigationService.getNavbarComponent().resetFabInfo();
+			this.navigationService.getNavbarComponent().resetFabActionSource();
+			this.fabActionSubscriber.unsubscribe();
+		}
+	}
+
+	loadUnverifiedDataSets() {
 		this.unverifiedDataService.getAll((data) => {
 			for (let i = 0; i < data.length; i++) {
 				let dataSet = data[i];
@@ -102,10 +135,6 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 			this.applyFilters();
 			this.isDataLoaded = true;
 		});
-	}
-
-	ngOnDestroy() {
-		this.navigationService.getSideinfoComponent().disable();
 	}
 
 	applyFilters() {

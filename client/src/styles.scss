@@ -251,17 +251,22 @@ md-toolbar-row {
 }
 
 .page-title {
-	padding: 24px 24px 16px 24px;
+	padding: 24px 24px 0 24px;
 	font-size: 24px;
 	font-weight: 400;
 	color: rgba(0,0,0,0.87);
 }
 
 .page-subtitle {
-	padding: 0 24px 16px 24px;
+	padding: 16px 24px 0 24px;
 	font-size: 14px;
 	font-weight: 400;
 	color: rgba(0,0,0,0.54);
+}
+
+
+.page-content {
+	padding: 16px 24px 24px 24px;
 }
 
 .dialog-form-container {
@@ -450,20 +455,6 @@ md-toolbar-row {
 	.mat-button-ripple {
 		background: rgba(0,0,0,0.12);
 	}
-}
-
-.loading-indicator-container {
-	padding-top: 16px;
-}
-
-.loading-indicator-spinner {
-	padding-left: calc(50% - 50px);
-}
-
-.loading-indicator-message {
-	font-weight: lighter;
-	font-size: 1.337rem;
-	text-align: center;
 }
 
 .fab-top-container {

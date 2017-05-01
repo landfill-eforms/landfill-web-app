@@ -1,1 +1,8 @@
-<input #fileInput type="file" [multiple]="multiple">
+<input #fileInput type="file" [multiple]="multiple" (change)="fileSelected()" style="visibility: hidden;">
+<div class="flex-container" fxLayout="row">
+    <button md-raised-button color="accent" (click)="openFileSelector()" class="file-select-button flex-item">{{label}}</button>
+    <button md-icon-button color="primary" (click)="upload()" [disabled]="fileInput.files?.length == 0" class="flex-item" fxFlex="40px">
+        <md-icon>file_upload</md-icon>
+    </button>
+</div>
+<div class="file-name">{{getFileName()}}</div>

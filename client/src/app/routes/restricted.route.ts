@@ -39,7 +39,7 @@ export class RestrictedRoute {
 	static readonly MOBILE_SYNC_SELECTOR:Route = {
 		path: 'mobile',
 		data: {
-			name: "Mobile Data Sync",
+			name: "Android Data Sync",
 			permissions: [
 				UserPermission.UPLOAD_MOBILE_DATA,
 				UserPermission.DOWNLOAD_MOBILE_DATA
@@ -50,17 +50,18 @@ export class RestrictedRoute {
 	static readonly MOBILE_UPLOAD:Route = {
 		path: 'mobile/upload',
 		data: {
-			name: "Upload From Mobile",
+			name: "Data Upload",
 			permissions: [
 				UserPermission.UPLOAD_MOBILE_DATA
 			]
 		}
 	};
 
+	// Not an actual route (does not have a component).
 	static readonly MOBILE_DOWNLOAD:Route = {
 		path: 'mobile/download',
 		data: {
-			name: "Download To Mobile",
+			name: "Data Download",
 			permissions: [
 				UserPermission.DOWNLOAD_MOBILE_DATA
 			]

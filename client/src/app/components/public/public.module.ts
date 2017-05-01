@@ -1,3 +1,4 @@
+import { DirectivesModule } from './../directives/directives.module';
 import { InfoComponent } from './info/info.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '../common/common.module'
@@ -7,6 +8,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 @NgModule({
 	imports: [
+		DirectivesModule,
 		CommonModule
 	],
 	providers: [],

@@ -52,10 +52,10 @@
 			<md-card-content>
 				<div class="section-title">Equipment List</div>
 				<div *ngIf="isDataLoaded" class="section-form-container">
-					<div *ngIf="!instrumentType.instruments || instrumentType.instruments.length == 0">
+					<div *ngIf="!(instrumentType.instruments?.length)">
 						<i>No records.</i>
 					</div>
-					<div *ngIf="instrumentType.instruments && instrumentType.instruments.length > 0" class="data-table">
+					<div *ngIf="instrumentType.instruments?.length > 0" class="data-table">
 						<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 							<div class="truncate flex-item" fxFlex (click)="sortBy('serialNumber')">
 								<span class="data-table-header-label-sortable">Serial Number</span>

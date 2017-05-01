@@ -522,3 +522,29 @@ md-toolbar-row {
 		color: mat-color($app-primary, 500);
 	}
 }
+
+.date-picker-input-menu {
+	max-width: none !important;
+}
+
+.date-picker-date-button-selected {
+	background: mat-color($app-primary);
+	color: rgba(255,255,255,0.87) !important;
+}
+
+.date-picker-date-button-today {
+	color: mat-color($app-primary);
+}
+
+.date-picker-date-button:hover {
+	background: rgba(0,0,0,0.12);
+}
+
+.date-picker-date-button:disabled {
+	color: rgba(0,0,0,0.54);
+	background: rgba(0,0,0,0) !important;
+}
+
+.date-picker-header {
+	background: mat-color($app-primary, 600);
+}

@@ -1,18 +1,75 @@
-<div (click)="$event.stopPropagation()">
-	<div>
-		<button (click)="navigateToYear(currDate.year - 1)">- Year</button>
-		<span>{{currDate.year}}</span>
-		<button (click)="navigateToYear(currDate.year + 1)">+ Year</button>
+<div (click)="$event.stopPropagation()" [ngStyle]="{'width': width + 'px', 'height': width * 4 / 3 + 'px'}">
+	<!--<div>
+		<button (click)="navigateToPrevYear()">- Year</button>
+		<span>{{selectedDate.year}}</span>
+		<button (click)="navigateToNextYear()">+ Year</button>
+	</div>-->
+	<div class="header date-picker-header" [ngStyle]="{'height': width * 0.3 - 32 + 'px'}">
+		<div class="header-year-text">
+			{{selectedDate.year}}
+		</div>
+		<div class="header-date-text">
+			{{daysOfWeek[selectedDate.dayOfWeek].shortName}}, {{months[selectedDate.month].shortName}} {{selectedDate.date}}
+		</div>
 	</div>
-	<div>
-		<button (click)="navigateToMonth(currDate.month - 1)">- Month</button>
-		<span>{{currDate.month}}</span>
-		<button (click)="navigateToMonth(currDate.month + 1)">+ Month</button>
+	<div class="month-nav-button-container" fxLayout="row" fxLayoutAlign="space-between center">
+		<button md-icon-button (click)="navigateToPrevMonth()" class="flex-item" fxFlex="40px">
+			<md-icon>navigate_before</md-icon>
+		</button>
+		<button md-icon-button (click)="navigateToNextMonth()" class="flex-item" fxFlex="40px">
+			<md-icon>navigate_next</md-icon>
+		</button>
 	</div>
-	<div *ngFor="let week of calendar" class="flex-container" fxLayout="row">
-		<div *ngFor="let day of week" class="flex-item" fxFlex="32px">
-			<div *ngIf="!day.hidden" (click)="selectDate(day.date)">
-				{{day.date == currDate.date ? '[' + day.date + ']' : day.date}}
+	<div style="overflow:hidden; display:flex; flex-direction:row;">
+		<div *ngIf="currCalendar" class="calendar-page" [ngStyle]="{'transform': 'translateX(' + currCalendar.transform + '%)'}" [ngClass]="{'calendar-page-transforming' : transforming}">
+			<div class="calendar-month-year-label">
+				{{months[currCalendar.month].name}} {{currCalendar.year}}
+			</div>
+			<div class="calendar-week calendar-week-header flex-container" fxLayout="row" [ngStyle]="{'width': width + 'px'}">
+				<div *ngFor="let day of daysOfWeek" class="flex-item" [fxFlex]="100 / 7" [ngStyle]="{'height': (width - 24) / 7 + 'px'}">
+					<button md-icon-button disabled class="date-picker-date-button">
+						{{day.initial}}
+					</button>
+				</div>
+			</div>
+			<div *ngFor="let week of currCalendar.calendar" class="calendar-week flex-container" fxLayout="row" [ngStyle]="{'width': width + 'px'}">
+				<div *ngFor="let day of week" class="flex-item" [fxFlex]="100 / 7" [ngStyle]="{'height': (width - 24) / 7 + 'px'}">
+					<button md-icon-button 
+						*ngIf="!day.hidden" 
+						(click)="selectDate(day.date, currCalendar.month, currCalendar.year)" 
+						[ngClass]="{
+							'date-picker-date-button-selected' : isSelected(day.date, currCalendar.month, currCalendar.year),
+							'date-picker-date-button-today' : isToday(day.date, currCalendar.month, currCalendar.year)
+						}"
+						class="date-picker-date-button">
+						{{day.date}}
+					</button>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="destCalendar" class="calendar-page" [ngStyle]="{'transform': 'translateX(' + destCalendar.transform + '%)'}" [ngClass]="{'calendar-page-transforming' : transforming}">
+			<div class="calendar-month-year-label">
+				{{months[destCalendar.month].name}} {{destCalendar.year}}
+			</div>
+			<div class="calendar-week calendar-week-header flex-container" fxLayout="row" [ngStyle]="{'width': width + 'px'}">
+				<div *ngFor="let day of daysOfWeek" class="flex-item" [fxFlex]="100 / 7" [ngStyle]="{'height': (width - 24) / 7 + 'px'}">
+					<button md-icon-button disabled class="date-picker-date-button">
+						{{day.initial}}
+					</button>
+				</div>
+			</div>
+			<div *ngFor="let week of destCalendar.calendar" class="calendar-week flex-container" fxLayout="row" [ngStyle]="{'width': width + 'px'}">
+				<div *ngFor="let day of week" class="flex-item" [fxFlex]="100 / 7" [ngStyle]="{'height': (width - 24) / 7 + 'px'}">
+					<button md-icon-button 
+						*ngIf="!day.hidden" 
+						[ngClass]="{
+							'date-picker-date-button-selected' : isSelected(day.date, destCalendar.month, destCalendar.year),
+							'date-picker-date-button-today' : isToday(day.date, destCalendar.month, destCalendar.year)
+						}"
+						class="date-picker-date-button">
+						{{day.date}}
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>

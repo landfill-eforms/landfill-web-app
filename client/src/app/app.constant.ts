@@ -8,6 +8,6 @@ export class AppConstant {
 
     static readonly TITLE_SUFFIX:string = "Landfill-eForms";
 
-    static readonly VERSION_NUMBER:string = "0.1.6";
+    static readonly VERSION_NUMBER:string = "0.2.0";
 
 }

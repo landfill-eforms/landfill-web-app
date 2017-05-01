@@ -1,3 +1,4 @@
+import { PublicRoute } from './../../../routes/public.route';
 import { RestrictedRoute } from './../../../routes/restricted.route';
 import { environment } from './../../../../environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
@@ -69,6 +70,12 @@ export class NavigationDrawerComponent implements OnInit {
 			route: RestrictedRoute.USER_GROUP_LIST,
 			icon: 'group_work',
 			label: 'User Groups',
+			visible: false
+		},
+		{
+			route: PublicRoute.INFO,
+			icon: 'info',
+			label: 'Information',
 			visible: false
 		},
 	];

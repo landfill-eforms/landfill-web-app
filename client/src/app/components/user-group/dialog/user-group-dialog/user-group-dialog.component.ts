@@ -1,20 +1,19 @@
-import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
-import { UserGroupService } from './../../../services/user/user-group.service';
+import { UserGroupService } from './../../../../services/user/user-group.service';
+import { UserGroup } from './../../../../model/server/persistence/entity/user/user-group.class';
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from "@angular/material";
 import { MdSnackBar } from '@angular/material';
 
 @Component({
-	selector: 'app-new-user-group-dialog',
-	templateUrl: './new-user-group-dialog.component.html',
-	styleUrls: ['./new-user-group-dialog.component.scss']
+	selector: 'app-user-group-dialog',
+	templateUrl: './user-group-dialog.component.html'
 })
-export class NewUserGroupDialogComponent implements OnInit {
+export class UserGroupDialogComponent implements OnInit {
 
 	userGroup:UserGroup;
 
 	constructor(
-		private dialogRef:MdDialogRef<NewUserGroupDialogComponent>,
+		private dialogRef:MdDialogRef<UserGroupDialogComponent>,
 		private snackBar:MdSnackBar,
 		private userGroupService:UserGroupService
 	) {}

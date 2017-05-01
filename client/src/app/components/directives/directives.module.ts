@@ -1,3 +1,4 @@
+import { DatePickerInputComponent } from './pickers/date-picker-input/date-picker-input.component';
 import { DatePickerComponent } from './pickers/date-picker/date-picker.component';
 import { OkDialogComponent } from './dialogs/ok-dialog/ok-dialog.component';
 import { YesNoDialogComponent } from './dialogs/yes-no-dialog/yes-no-dialog.component';
@@ -27,6 +28,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		ImeRepairDialogComponent,
 		PaginationComponent,
 		DatePickerComponent,
+		DatePickerInputComponent
 	],
 	exports: [
 		OkDialogComponent,
@@ -39,6 +41,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		ImeRepairDialogComponent,
 		PaginationComponent,
 		DatePickerComponent,
+		DatePickerInputComponent
 	]
 })
 

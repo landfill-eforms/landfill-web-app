@@ -30,6 +30,9 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
 	@Override
 	public User initialize(User user) {
+		if (user == null) {
+			return null;
+		}
 		user.getUserGroups().forEach(userGroup -> Hibernate.initialize(userGroup.getUserPermissions()));
 		return user;
 	}

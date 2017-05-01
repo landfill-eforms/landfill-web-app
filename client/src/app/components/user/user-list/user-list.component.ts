@@ -1,3 +1,4 @@
+import { UserDialogComponent } from './../dialog/user-dialog/user-dialog.component';
 import { AbstractDataTableComponent } from './../../../model/client/abstract-components/abstract-data-table.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserListSideinfoComponent } from './../user-list-sideinfo/user-list-sideinfo.component';
@@ -7,7 +8,6 @@ import { Paginfo, PaginationComponent } from './../../directives/pagination/pagi
 import { StringUtils } from './../../../utils/string.utils';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
-import { NewUserDialogComponent } from './../new-user-dialog/new-user-dialog.component';
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from './../../../services/user/user.service';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/material";
@@ -122,7 +122,7 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
 		//dialogConfig.height = '480px';
-		let dialogRef:MdDialogRef<NewUserDialogComponent> = this.dialog.open(NewUserDialogComponent, dialogConfig);
+		let dialogRef:MdDialogRef<UserDialogComponent> = this.dialog.open(UserDialogComponent, dialogConfig);
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				this.snackBar.open("New user has been registered.", "OK", {duration: 2000});

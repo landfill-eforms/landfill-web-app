@@ -1,0 +1,11 @@
+<div class="flex-container" fxLayout="row">
+	<md-input-container class="flex-item" fxFlex>
+		<input mdInput [placeholder]="placeholder" [(ngModel)]="dateString" (blur)="checkInput()">
+	</md-input-container>
+	<button md-icon-button [mdMenuTriggerFor]="picker">
+		<md-icon>today</md-icon>
+	</button>
+	<md-menu #picker="mdMenu" xPosition="before">
+		<app-date-picker [date]="actualDate" (dateChanged)="datePickerChanged($event)"></app-date-picker>
+	</md-menu>
+</div>

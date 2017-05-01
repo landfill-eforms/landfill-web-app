@@ -1,12 +1,11 @@
+import { InstrumentDialogComponent } from './../dialog/instrument-dialog/instrument-dialog.component';
 import { PaginationComponent } from './../../directives/pagination/pagination.component';
-import { NewInstrumentDialogComponent } from './../dialog/new-instrument-dialog/new-instrument-dialog.component';
 import { InstrumentListSideinfoComponent } from './../instrument-list-sideinfo/instrument-list-sideinfo.component';
 import { InstrumentService } from './../../../services/instrument/instrument.service';
 import { InstrumentType } from './../../../model/server/persistence/entity/instrument/instrument-type.class';
 import { InputUtils } from './../../../utils/input.utils';
 import { MdDialogConfig } from '@angular/material';
 import { MdDialogRef } from '@angular/material';
-import { NewInstrumentTypeDialogComponent } from './../dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
 import { InstrumentTypeListSideinfoComponent } from './../instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { MdSnackBar } from '@angular/material';
@@ -140,7 +139,7 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
 		//dialogConfig.height = '480px';
-		let dialogRef:MdDialogRef<NewInstrumentDialogComponent> = this.dialog.open(NewInstrumentDialogComponent, dialogConfig);
+		let dialogRef:MdDialogRef<InstrumentDialogComponent> = this.dialog.open(InstrumentDialogComponent, dialogConfig);
 		dialogRef.componentInstance.instrumentTypes = this.instrumentTypes;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {

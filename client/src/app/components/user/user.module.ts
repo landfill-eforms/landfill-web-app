@@ -1,7 +1,7 @@
+import { UserDialogComponent } from './dialog/user-dialog/user-dialog.component';
 import { UserListSideinfoComponent } from './user-list-sideinfo/user-list-sideinfo.component';
 import { DirectivesModule } from './../directives/directives.module';
 import { UserGroupSelectorComponent } from './user-group-selector/user-group-selector.component';
-import { NewUserDialogComponent } from './new-user-dialog/new-user-dialog.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '../common/common.module'
 import { UserBaseComponent } from './user-base/user-base.component';
@@ -16,12 +16,12 @@ import { UserOverviewComponent } from './user-overview/user-overview.component';
     ],
     providers: [],
     declarations: [
+        UserDialogComponent,
 		UserListComponent,
 		UserBaseComponent,
         UserOverviewComponent,
 		UserProfileComponent,
         UserGroupSelectorComponent,
-        NewUserDialogComponent,
         UserListSideinfoComponent
     ]
 })

@@ -1,17 +1,17 @@
-import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
 	selector: 'app-date-picker',
 	templateUrl: './date-picker.component.html',
 	styleUrls: ['./date-picker.component.scss']
 })
-export class DatePickerComponent implements OnInit {
+export class DatePickerComponent implements OnChanges {
 
-	@Input() defaultDate:number;
+	@Input() date:number;
 
-	@Output() dateChanged = new EventEmitter<Date>();
+	@Output() dateChanged = new EventEmitter<number>();
 
-	date:{year:number, month:number, date:number} = {
+	currDate:{year:number, month:number, date:number} = {
 		year: 0,
 		month: 0,
 		date: 1
@@ -20,67 +20,63 @@ export class DatePickerComponent implements OnInit {
 	calendar:Day[][] = [];
 	daysInMonth:number;
 
-	// TODO Delete this.
-	currentDate:Date;
-
 	constructor() {
 
 	}
 
-	ngOnInit() {
-		let defaultDate:Date = this.defaultDate == null ? new Date() : new Date(this.defaultDate);
-		this.date.year = defaultDate.getFullYear();
-		this.date.month = defaultDate.getMonth();
-		this.date.date = defaultDate.getDate();
-		console.log(this.date);
+	ngOnChanges() {
+		let date:Date = this.date == null ? new Date() : new Date(this.date);
+		this.currDate.year = date.getFullYear();
+		this.currDate.month = date.getMonth();
+		this.currDate.date = date.getDate();
+		console.log(this.currDate);
 		this.navigate();
 	}
 
 	selectDate(date:number) {
-		this.date.date = date;
+		this.currDate.date = date;
 		this.emitDateChange();
 	}
 
 	navigateToYear(year:number) {
-		this.date.year = year;
+		this.currDate.year = year;
 		this.navigate();
 	}
 
 	navigateToMonth(month:number) {
-		this.date.month = month;
+		this.currDate.month = month;
 		this.navigate();
 	}
 
 	private emitDateChange() {
-		let date:Date = new Date(this.date.year, this.date.month, this.date.date);
-		console.log(date);
-		this.dateChanged.emit(date);
-		this.currentDate = date; // TODO Delete this.
+		let date:Date = new Date(this.currDate.year, this.currDate.month, this.currDate.date);
+		console.log("Date Changed:", date);
+		this.dateChanged.emit(date.getTime());
 	}
 
 	private navigate() {
 
 		// Check if the previously selected date would be out of bounds in the new month/year.
-		this.daysInMonth = this.getDaysInMonth(this.date.year, this.date.month);
-		if (this.date.date > this.daysInMonth) {
-			this.date.date = this.daysInMonth;
+		this.daysInMonth = this.getDaysInMonth(this.currDate.year, this.currDate.month);
+		if (this.currDate.date > this.daysInMonth) {
+			this.currDate.date = this.daysInMonth;
 		}
 
 		// Get first day of week of month.
-		let temp:Date = new Date(this.date.year, this.date.month, 1);
+		let temp:Date = new Date(this.currDate.year, this.currDate.month, 1);
 		let offsetDaysCount:number = temp.getDay();
 
 		// Regenerate the calendar.
 		this.calendar = [];
-		let currDate:number = 1;
+		let dayOfMonth:number = 1;
 		for (let w = 0; w < 6; w++) {
 			let week:Day[] = [];
 			for (let d = 0; d < 7; d++) {
-				if ((w == 0 && d < offsetDaysCount) || currDate > this.daysInMonth) {
+				if ((w == 0 && d < offsetDaysCount) || dayOfMonth > this.daysInMonth) {
 					week.push({date: -1, hidden: true});
 					continue;
 				}
-				week.push({date: currDate++, hidden: false});
+				week.push({date: dayOfMonth++, hidden: false});
 			}
 			this.calendar.push(week);
 		}

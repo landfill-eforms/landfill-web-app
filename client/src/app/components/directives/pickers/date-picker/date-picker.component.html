@@ -1,19 +1,19 @@
-<div>Testing datepicker, please ignore.</div>
-<div>
-	<button (click)="navigateToYear(date.year - 1)">- Year</button>
-	<span>{{date.year}}</span>
-	<button (click)="navigateToYear(date.year + 1)">+ Year</button>
-</div>
-<div>
-	<button (click)="navigateToMonth(date.month - 1)">- Month</button>
-	<span>{{date.month}}</span>
-	<button (click)="navigateToMonth(date.month + 1)">+ Month</button>
-</div>
-<div *ngFor="let week of calendar" class="flex-container" fxLayout="row">
-	<div *ngFor="let day of week" class="flex-item" fxFlex="32px">
-		<div *ngIf="!day.hidden" (click)="selectDate(day.date)">
-			{{day.date == date.date ? '[' + day.date + ']' : day.date}}
+<div (click)="$event.stopPropagation()">
+	<div>
+		<button (click)="navigateToYear(currDate.year - 1)">- Year</button>
+		<span>{{currDate.year}}</span>
+		<button (click)="navigateToYear(currDate.year + 1)">+ Year</button>
+	</div>
+	<div>
+		<button (click)="navigateToMonth(currDate.month - 1)">- Month</button>
+		<span>{{currDate.month}}</span>
+		<button (click)="navigateToMonth(currDate.month + 1)">+ Month</button>
+	</div>
+	<div *ngFor="let week of calendar" class="flex-container" fxLayout="row">
+		<div *ngFor="let day of week" class="flex-item" fxFlex="32px">
+			<div *ngIf="!day.hidden" (click)="selectDate(day.date)">
+				{{day.date == currDate.date ? '[' + day.date + ']' : day.date}}
+			</div>
 		</div>
 	</div>
 </div>
-<div>{{currentDate}}</div>

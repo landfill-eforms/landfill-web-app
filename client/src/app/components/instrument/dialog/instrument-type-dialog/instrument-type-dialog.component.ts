@@ -4,16 +4,15 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from "@angular/material";
 
 @Component({
-	selector: 'app-new-instrument-type-dialog',
-	templateUrl: './new-instrument-type-dialog.component.html',
-	styleUrls: ['./new-instrument-type-dialog.component.scss']
+	selector: 'app-instrument-type-dialog',
+	templateUrl: './instrument-type-dialog.component.html'
 })
-export class NewInstrumentTypeDialogComponent implements OnInit {
+export class InstrumentTypeDialogComponent implements OnInit {
 
 	instrumentType:InstrumentType;
 
 	constructor(
-		public dialogRef:MdDialogRef<NewInstrumentTypeDialogComponent>,
+		public dialogRef:MdDialogRef<InstrumentTypeDialogComponent>,
 		private instrumentTypeService:InstrumentTypeService
 	) {}
 

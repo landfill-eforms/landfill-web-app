@@ -7,24 +7,29 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from "@angular/material";
 
 @Component({
-	selector: 'app-new-instrument-dialog',
-	templateUrl: './new-instrument-dialog.component.html',
-	styleUrls: ['./new-instrument-dialog.component.scss']
+	selector: 'app-instrument-dialog',
+	templateUrl: './instrument-dialog.component.html'
 })
-export class NewInstrumentDialogComponent implements OnInit {
+export class InstrumentDialogComponent implements OnInit {
 
 	instrument:Instrument;
 	instrumentTypes:InstrumentType[] = [];
 	instrumentStatus:InstrumentStatus[] = InstrumentStatus.values();
 	sites:Site[] = Site.values();
 
+	serviceDueDateString:string;
+	lastServiceDateString:string;
+	purchaseDateString:string;
+
 	constructor(
-		public dialogRef:MdDialogRef<NewInstrumentDialogComponent>,
+		public dialogRef:MdDialogRef<InstrumentDialogComponent>,
 		private instrumentService:InstrumentService
 	) {}
 
 	ngOnInit() {
-		this.instrument = new Instrument();
+		if (!this.instrument) {
+			this.instrument = new Instrument();
+		}
 	}
 
 	confirm() {
@@ -35,6 +40,12 @@ export class NewInstrumentDialogComponent implements OnInit {
 				this.dialogRef.close(data);
 			}
 		);
+	}
+
+	updateServiceDueDate(date) {
+		console.log(date);
+		let d = Date.parse(date);
+		// this.serviceDueDateString = Date.
 	}
 
 	cancel() {

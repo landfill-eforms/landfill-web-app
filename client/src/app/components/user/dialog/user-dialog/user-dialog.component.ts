@@ -1,15 +1,14 @@
-import { User } from './../../../model/server/persistence/entity/user/user.class';
-import { UserService } from './../../../services/user/user.service';
+import { User } from './../../../../model/server/persistence/entity/user/user.class';
+import { UserService } from './../../../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from "@angular/material";
 import { MdSnackBar } from '@angular/material';
 
 @Component({
-	selector: 'app-new-user-dialog',
-	templateUrl: './new-user-dialog.component.html',
-	styleUrls: ['./new-user-dialog.component.scss']
+	selector: 'app-user-dialog',
+	templateUrl: './user-dialog.component.html'
 })
-export class NewUserDialogComponent implements OnInit {
+export class UserDialogComponent implements OnInit {
 
 	user:User;
 	password:any = {
@@ -21,7 +20,7 @@ export class NewUserDialogComponent implements OnInit {
 
 	constructor(
 		private userService:UserService,
-		public dialogRef:MdDialogRef<NewUserDialogComponent>,
+		public dialogRef:MdDialogRef<UserDialogComponent>,
 		private snackBar:MdSnackBar
 	) {}
 

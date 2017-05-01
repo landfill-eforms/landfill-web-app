@@ -1,3 +1,4 @@
+import { UserGroupDialogComponent } from './../dialog/user-group-dialog/user-group-dialog.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserGroupListSideinfoComponent } from './../user-group-list-sideinfo/user-group-list-sideinfo.component';
 import { Paginfo, PaginationComponent } from './../../directives/pagination/pagination.component';
@@ -6,7 +7,6 @@ import { SortUtils } from './../../../utils/sort.utils';
 import { Subscription } from 'rxjs/Subscription';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
-import { NewUserGroupDialogComponent } from './../new-user-group-dialog/new-user-group-dialog.component';
 import { MdDialogConfig } from '@angular/material';
 import { MdDialogRef } from '@angular/material';
 import { MdDialog } from '@angular/material';
@@ -115,7 +115,7 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
 			//dialogConfig.height = '480px';
-		let dialogRef:MdDialogRef<NewUserGroupDialogComponent> = this.dialog.open(NewUserGroupDialogComponent, dialogConfig);
+		let dialogRef:MdDialogRef<UserGroupDialogComponent> = this.dialog.open(UserGroupDialogComponent, dialogConfig);
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				this.snackBar.open("New user group has been created.", "OK", {duration: 2000});

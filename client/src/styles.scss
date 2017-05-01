@@ -155,6 +155,11 @@ md-toolbar-row {
 	height: calc(100% - #{$navbar-expanded-height});
 }
 
+.mat-dialog-content {
+	overflow-y: auto;
+	height:calc(100% - 88px); // Override this in md-dialog-content if the dialog's title, etc. is taller than expected.
+}
+
 // Override action buttons for dialogs to conform to Material design.
 .mat-dialog-actions {
 	margin: 0 -24px;
@@ -219,8 +224,8 @@ md-toolbar-row {
 .mat-select-inline {
 	padding: 0 8px;
 	position: relative;
-	bottom: 3px; // Tested on Chrome. Might be different on other browsers.
-	.mat-select-placeholder {
+	bottom: 1px; // Tested on Chrome. Might be different on other browsers.
+	.mat-floating-placeholder {
 		top: -18px !important;
 	}
 }
@@ -259,39 +264,43 @@ md-toolbar-row {
 	color: rgba(0,0,0,0.54);
 }
 
-.section-single {
-	margin: 24px;
-	padding: 24px !important;
-}
-
-.section-multiple {
-	margin: 12px;
-	padding: 24px !important;
-}
-
-.section-multiple-container {
-	padding: 12px;
-	margin: 16px;
-	background: #EEE;
-}
-
-.section-title {
-	color: rgba(0,0,0,0.87);
-	font-weight: 400;
-	font-weight: normal;
-	font-size: 20px;
-	padding: 16px;
-}
-
-.section-subtitle {
-	font-weight: lighter;
-	font-size: 1.0rem;
-	padding: 24px;
-}
-
-.section-form-container {
+.dialog-form-container {
 	padding: 24px 16px 16px 16px;
 }
+
+// .section-single {
+// 	margin: 24px;
+// 	padding: 24px !important;
+// }
+
+// .section-multiple {
+// 	margin: 12px;
+// 	padding: 24px !important;
+// }
+
+// .section-multiple-container {
+// 	padding: 12px;
+// 	margin: 16px;
+// 	background: #EEE;
+// }
+
+// .section-title {
+// 	color: rgba(0,0,0,0.87);
+// 	font-weight: 400;
+// 	font-weight: normal;
+// 	font-size: 20px;
+// 	padding: 16px;
+// }
+
+// .section-subtitle {
+// 	font-weight: lighter;
+// 	font-size: 1.0rem;
+// 	padding: 24px;
+// }
+
+// .section-form-container {
+// 	padding: 24px 16px 16px 16px;
+// }
 
 .data-table-scrollable {
 	height: 100%;
@@ -311,6 +320,9 @@ md-toolbar-row {
 	height: 64px;
 	.data-table-filter-container {
 		padding-top: 16px;
+		.mat-select-inline {
+			bottom: 3px;
+		}
 	}
 }
 

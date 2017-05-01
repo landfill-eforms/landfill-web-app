@@ -1,8 +1,8 @@
+import { InstrumentTypeDialogComponent } from './../dialog/instrument-type-dialog/instrument-type-dialog.component';
 import { PaginationComponent } from './../../directives/pagination/pagination.component';
 import { InputUtils } from './../../../utils/input.utils';
 import { MdDialogConfig } from '@angular/material';
 import { MdDialogRef } from '@angular/material';
-import { NewInstrumentTypeDialogComponent } from './../dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
 import { InstrumentTypeListSideinfoComponent } from './../instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { MdSnackBar } from '@angular/material';
@@ -130,7 +130,7 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
 			//dialogConfig.height = '480px';
-		let dialogRef:MdDialogRef<NewInstrumentTypeDialogComponent> = this.dialog.open(NewInstrumentTypeDialogComponent, dialogConfig);
+		let dialogRef:MdDialogRef<InstrumentTypeDialogComponent> = this.dialog.open(InstrumentTypeDialogComponent, dialogConfig);
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				this.snackBar.open("New equipment type added.", "OK", {duration: 2000});

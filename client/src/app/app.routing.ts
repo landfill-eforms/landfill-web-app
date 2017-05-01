@@ -40,6 +40,7 @@ const PublicRoutes:Routes = [
 		pathMatch: 'full',
 	},
 	PublicRoute.LOGIN,
+	PublicRoute.INFO,
 	...StatusRoutes
 ];
 
@@ -173,6 +174,7 @@ export const RestrictedRoutes:Routes = [
 				canActivate: [AuthGuard]
 			},
 			...StatusRoutes,
+			PublicRoute.INFO
 		]
 	}
 ];

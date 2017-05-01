@@ -1,3 +1,7 @@
+import { UserGroupDialogComponent } from './components/user-group/dialog/user-group-dialog/user-group-dialog.component';
+import { UserDialogComponent } from './components/user/dialog/user-dialog/user-dialog.component';
+import { InstrumentTypeDialogComponent } from './components/instrument/dialog/instrument-type-dialog/instrument-type-dialog.component';
+import { InstrumentDialogComponent } from './components/instrument/dialog/instrument-dialog/instrument-dialog.component';
 import { DatePickerComponent } from './components/directives/pickers/date-picker/date-picker.component';
 import { FileDownloadService } from './services/file/file-download.service';
 import { OkDialogComponent } from './components/directives/dialogs/ok-dialog/ok-dialog.component';
@@ -6,8 +10,6 @@ import { PublicModule } from './components/public/public.module'
 import { IseNumberService } from './services/integrated/ise-number.service';
 import { IntegratedDataService } from './services/integrated/integrated-data.service';
 import { WarmspotDataService } from './services/instantaneous/warmspot-data.service';
-import { NewInstrumentTypeDialogComponent } from './components/instrument/dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
-import { NewInstrumentDialogComponent } from './components/instrument/dialog/new-instrument-dialog/new-instrument-dialog.component';
 import { NavigationService } from './services/app/navigation.service';
 import { TitleService } from './services/app/title.service';
 import { PaginationComponent } from './components/directives/pagination/pagination.component';
@@ -25,9 +27,7 @@ import { ImeRecheckDialogComponent } from './components/directives/dialogs/ime-r
 import { CommonModule } from './components/common/common.module';
 import { AssignImeNumberDialogComponent } from './components/unverified-data/assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataModule } from './components/unverified-data/unverified-data.module';
-import { NewUserGroupDialogComponent } from './components/user-group/new-user-group-dialog/new-user-group-dialog.component';
 import { ReportModule } from './components/report/report.module';
-import { NewUserDialogComponent } from './components/user/new-user-dialog/new-user-dialog.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -78,15 +78,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 	entryComponents: [
 		OkDialogComponent,
 		YesNoDialogComponent,
-		NewUserDialogComponent,
-		NewUserGroupDialogComponent,
+		UserDialogComponent,
+		UserGroupDialogComponent,
 		AssignImeNumberDialogComponent,
 		ImeRecheckDialogComponent,
 		ImeRepairDialogComponent,
-		NewInstrumentDialogComponent,
-		NewInstrumentTypeDialogComponent,
-		PaginationComponent,
-		DatePickerComponent
+		InstrumentDialogComponent,
+		InstrumentTypeDialogComponent,
+		// PaginationComponent,
+		// DatePickerComponent,
 	],
 	providers: [
 		//AppRouterProviders,

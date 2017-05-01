@@ -1,3 +1,4 @@
+import { PublicRoute } from './../../routes/public.route';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StatusRoute } from './../../routes/status.route';
 import { AuthService } from './../../services/auth/auth.service';
@@ -74,6 +75,14 @@ export class DashboardComponent implements OnInit {
 			route: StatusRoute.COMING_SOON,
 			visible: false,
 			disabled: true
+		},
+		{
+			title: "Information",
+			subtitle: "Release Notes and User Manual",
+			img: "http://blog.apethebook.com/wp-content/uploads/2013/11/Technology-Background-2973777.jpg",
+			route: PublicRoute.INFO,
+			visible: false,
+			disabled: false
 		}
 	];
 

@@ -17,4 +17,20 @@
 		</div>
 	</div>
 </div>
-<app-date-picker></app-date-picker>
+<div class="flex-container" fxLayout="row">
+	<app-date-picker-input placeholder="Testing Time" class="flex-item" fxFlex="320px"></app-date-picker-input>
+	<md-input-container class="flex-item" fxFlex="320px">
+		<input mdInput placeholder="Testing Lineup">
+	</md-input-container>
+	<md-select placeholder="Status" class="mat-select-inline mat-select-inline-flex flex-item" fxFlex="320px">
+		<md-option>
+			1
+		</md-option>
+		<md-option>
+			2
+		</md-option>
+		<md-option>
+			3
+		</md-option>
+	</md-select>
+</div>

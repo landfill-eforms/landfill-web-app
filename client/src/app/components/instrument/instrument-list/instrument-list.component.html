@@ -11,6 +11,16 @@
 					[ngClass]="{'mat-input-container-error':!textFilterStatus.valid}">
 					<input mdInput placeholder="Search" [(ngModel)]="filters.text" (ngModelChange)="applyFilters()">
 				</md-input-container>
+				<md-select [(ngModel)]="filters.site" placeholder="Site" class="mat-select-inline flex-item" fxFlex="150px" (ngModelChange)="applyFilters()">
+					<md-option *ngFor="let site of siteFilterChoices" [value]="site.ordinal">
+						{{site.name}}
+					</md-option>
+				</md-select>
+				<md-select [(ngModel)]="filters.status" placeholder="Status" class="mat-select-inline flex-item" fxFlex="150px" (ngModelChange)="applyFilters()">
+					<md-option *ngFor="let status of statusFilterChoices" [value]="status.ordinal">
+						{{status.name}}
+					</md-option>
+				</md-select>
 			</div>
 			<button md-icon-button 
 				(click)="toggleFilters()" 
@@ -63,18 +73,7 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('serviceDueDate')">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'serviceDueDate'}">
-					Next Service
-				</span>
-				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-					'data-table-header-sort-arrow-reverse': sort.reversed,
-					'data-table-header-sort-arrow-inactive': sort.current !== 'serviceDueDate'}">
-					arrow_downward
-				</md-icon>
-			</div>
-			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('lastServiceDate')">
+			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('lastServiceDate')" fxHide fxShow.gt-md>
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'lastServiceDate'}">
 					Last Service
@@ -85,7 +84,18 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('purchaseDate')">
+			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('serviceDueDate')" fxHide fxShow.gt-md>
+				<span class="data-table-header-label-sortable" [ngClass]="{
+					'data-table-header-label-sorted':sort.current == 'serviceDueDate'}">
+					Next Service
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'serviceDueDate'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('purchaseDate')" fxHide fxShow.gt-md>
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'purchaseDate'}">
 					Purchased
@@ -127,30 +137,31 @@
 				<div class="data-table-row-content flex-container" 
 					fxLayout="row" 
 					(click)="selectInstrument(instrument)"
-					(dblclick)="navigateToInstrument(instrument)"
+					(dblclick)="openInstrumentDialog(instrument)"
 					[ngClass]="{'data-table-row-content-active': instrument === selectedInstrument}">
 					<div class="data-table-first-column truncate flex-item" fxFlex>
-						<a [routerLink]="'../equipment/' + instrument.id" routerLikeActive="active">
+						<a *ngIf="canEdit" (click)="openInstrumentDialog(instrument)">
 							{{instrument.serialNumber}}
 						</a>
+						<div *ngIf="!canEdit">{{instrument.serialNumber}}</div>
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
 						{{instrument.instrumentType.type}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
-						{{instrument.instrumentStatus}}
+						{{instrument.instrumentStatus.name}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex fxHide fxShow.gt-md>
+						{{DateTimeUtils.getDate(instrument.lastServiceDate)}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
-						{{instrument.serviceDueDate}}
+						{{DateTimeUtils.getDate(instrument.serviceDueDate)}}
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
-						{{instrument.lastServiceDate}}
+					<div class="data-table-column truncate flex-item" fxFlex fxHide fxShow.gt-md>
+						{{DateTimeUtils.getDate(instrument.purchaseDate)}}
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
-						{{instrument.purchaseDate}}
-					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
-						{{instrument.site}}
+					<div class="data-table-column truncate flex-item" fxFlex fxHide fxShow.gt-md>
+						{{instrument.site?.name}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
 						{{instrument.inventoryNumber}}

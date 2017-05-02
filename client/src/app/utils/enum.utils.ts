@@ -11,6 +11,9 @@ export class EnumUtils {
 
 	/** Converts an enum name to an enum of the given class. */
 	static convertToEnum(enumClass, input:any):any {
+		if (input == null) {
+			return null;
+		}
 		let constantName:string;
 		if (typeof input == "string") {
 			constantName = input;

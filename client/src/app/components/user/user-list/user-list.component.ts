@@ -107,13 +107,14 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 		this.fabActionSubscriber.unsubscribe();
 	}
 
-	loadUsers() {
+	private loadUsers() {
 		this.userService.getAll((data) => {
 			console.log(data);
 			this.data = data;
 			this.applyFilters();
 			this.paginfo.totalRows = this.data.length;
 			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
 			this.isDataLoaded = true;
 		});
 	}

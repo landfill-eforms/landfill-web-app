@@ -4,9 +4,7 @@ import { InstrumentSelectorComponent } from './components/instrument/instrument-
 import { UnverifiedDataSetComponent } from './components/unverified-data/unverified-data-set/unverified-data-set.component';
 import { ReportSelectorComponent } from './components/report/report-selector/report-selector.component';
 import { UnverifiedDataSetListComponent } from './components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
-import { InstrumentTypeComponent } from './components/instrument/instrument-type/instrument-type.component';
 import { InstrumentTypeListComponent } from './components/instrument/instrument-type-list/instrument-type-list.component';
-import { InstrumentComponent } from './components/instrument/instrument/instrument.component';
 import { InstrumentListComponent } from './components/instrument/instrument-list/instrument-list.component';
 import { ImeNumberComponent } from './components/exceedance/ime-number/ime-number.component';
 import { ExceedanceSelectorComponent } from './components/exceedance/exceedance-selector/exceedance-selector.component';
@@ -107,24 +105,11 @@ export const RestrictedRoutes:Routes = [
 				canActivate: [AuthGuard]
 			},
 			{
-				path: RestrictedRoute.INSTRUMENT.path,
-				data: RestrictedRoute.INSTRUMENT.data,
-				component: InstrumentComponent,
-				canActivate: [AuthGuard]
-			},
-			{
 				path: RestrictedRoute.INSTRUMENT_TYPE_LIST.path,
 				data: RestrictedRoute.INSTRUMENT_TYPE_LIST.data,
 				component: InstrumentTypeListComponent,
 				canActivate: [AuthGuard]
 			},
-			{
-				path: RestrictedRoute.INSTRUMENT_TYPE.path,
-				data: RestrictedRoute.INSTRUMENT_TYPE.data,
-				component: InstrumentTypeComponent,
-				canActivate: [AuthGuard]
-			},
-
 			{
 				path: RestrictedRoute.REPORT_SELECTOR.path,
 				data: RestrictedRoute.REPORT_SELECTOR.data,

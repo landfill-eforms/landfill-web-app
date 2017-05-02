@@ -1,3 +1,9 @@
+import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
+import { AuthService } from './../../../services/auth/auth.service';
+import { DateTimeUtils } from './../../../utils/date-time.utils';
+import { Site } from './../../../model/server/persistence/enums/location/site.enum';
+import { InstrumentStatus } from './../../../model/server/persistence/enums/instrument/instrument-status.enum';
+import { EnumUtils } from './../../../utils/enum.utils';
 import { InstrumentDialogComponent } from './../dialog/instrument-dialog/instrument-dialog.component';
 import { PaginationComponent } from './../../directives/pagination/pagination.component';
 import { InstrumentListSideinfoComponent } from './../instrument-list-sideinfo/instrument-list-sideinfo.component';
@@ -22,6 +28,8 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 	templateUrl: './instrument-list.component.html'
 })
 export class InstrumentListComponent extends AbstractDataTableComponent<Instrument> implements OnInit, OnDestroy {
+
+	DateTimeUtils = DateTimeUtils;
 
 	@ViewChild('pagination') pagination:PaginationComponent;
 
@@ -70,14 +78,33 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 		],
 	}
 
-	filters:{text:string} = {
-		text: ""
+	filters:{text:string, status:number, site:number} = {
+		text: "",
+		status: -1,
+		site: -1
 	};
+
+	statusFilterChoices:any[] = [
+		{
+			ordinal: -1,
+			name: "Any"
+		},
+		...InstrumentStatus.values()
+	];
+
+	siteFilterChoices:any[] = [
+		{
+			ordinal: -1,
+			name: "Any"
+		},
+		...Site.values()
+	];
 
 	showSideInfo:boolean = false;
 	selectedInstrument:Instrument;
 
 	constructor(
+		private authService:AuthService,
 		private router:Router,
 		private activatedRoute:ActivatedRoute,
 		private instrumentService:InstrumentService,
@@ -92,19 +119,22 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 	}
 
 	ngOnInit() {
-		this.navigationService.getNavbarComponent().setFabInfo({
-			icon: "add",
-			tooltip: "New Equipment"
-		});
-		this.fabActionSubscriber = this.navigationService
-			.getNavbarComponent()
-			.getFabActionSource()
-			.asObservable()
-			.subscribe((event) => {
-				if (event instanceof MouseEvent) {
-					this.openNewInstrumentDialog();
-				}
+		this.canEdit = this.authService.canAccess([UserPermission.EDIT_INSTRUMENTS]);
+		if(this.authService.canAccess([UserPermission.CREATE_INSTRUMENTS])) {
+			this.navigationService.getNavbarComponent().setFabInfo({
+				icon: "add",
+				tooltip: "New Equipment"
 			});
+			this.fabActionSubscriber = this.navigationService
+				.getNavbarComponent()
+				.getFabActionSource()
+				.asObservable()
+				.subscribe((event) => {
+					if (event instanceof MouseEvent) {
+						this.openInstrumentDialog(null);
+					}
+				});
+		}
 		this.loadingMessage = "Loading Equipment List...";
 		this.loadInstruments();
 		this.loadInstrumentTypes();
@@ -121,8 +151,13 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 		this.instrumentService.getAll((data) => {
 			console.log(data);
 			this.data = data;
+			for (let instrument of this.data) {
+				instrument.instrumentStatus = EnumUtils.convertToEnum(InstrumentStatus, instrument.instrumentStatus);
+				instrument.site = EnumUtils.convertToEnum(Site, instrument.site);
+			}
 			this.applyFilters();
 			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
 			this.isDataLoaded = true;
 		});
 	}
@@ -135,15 +170,26 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 		});
 	}
 
-	openNewInstrumentDialog() {
+	openInstrumentDialog(instrument:Instrument) {
+		let isNew:boolean = !instrument;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
-		//dialogConfig.height = '480px';
 		let dialogRef:MdDialogRef<InstrumentDialogComponent> = this.dialog.open(InstrumentDialogComponent, dialogConfig);
 		dialogRef.componentInstance.instrumentTypes = this.instrumentTypes;
+		if (isNew) {
+			dialogRef.componentInstance.isNew = true;
+		}
+		else {
+			dialogRef.componentInstance.instrument = instrument;
+		}
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("New equipment added.", "OK", {duration: 2000});
+				if (isNew) {
+					this.snackBar.open("New equipment added.", "OK", {duration: 2000});
+				}
+				else {
+					this.snackBar.open("Equipment updated.", "OK", {duration: 2000});
+				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading..."
 				this.loadInstruments();
@@ -162,7 +208,22 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 		}
 
 		// TODO Implement this.
-		this.filteredData = this.data.filter(o => true);
+		this.filteredData = this.data.filter(o => {
+			let textMatch:boolean = true;
+			if (this.filters.text) {
+				let search:RegExp = new RegExp(this.filters.text, 'i');
+				textMatch = search.test(o.serialNumber) || search.test(o.inventoryNumber);
+			}
+			let statusMatch:boolean = true;
+			if (this.filters.status >= 0) {
+				statusMatch = o.instrumentStatus.ordinal == this.filters.status;
+			}
+			let siteMatch:boolean = true;
+			if (this.filters.site >= 0) {
+				siteMatch = o.site.ordinal == this.filters.site;
+			}
+			return textMatch && statusMatch && siteMatch;
+		});
 
 		this.paginfo.totalRows = this.filteredData.length;
 		if (this.pagination) {
@@ -199,10 +260,6 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 
 	deselectInstrument() {
 		this.selectedInstrument = null;
-	}
-
-	navigateToInstrument(instrument:Instrument) {
-		this.router.navigate([instrument.id], {relativeTo: this.activatedRoute});
 	}
 	
 }

@@ -7,6 +7,8 @@ export abstract class AbstractDataTableComponent<T> {
 
 	abstract pagination:PaginationComponent;
 
+	canEdit:boolean;
+
 	isDataLoaded:boolean;
 	data:T[] = [];
 

@@ -122,6 +122,8 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 			console.log(data);
 			this.data = data;
 			this.applyFilters();
+			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
 			this.isDataLoaded = true;
 		});
 	}

@@ -100,13 +100,14 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 		this.fabActionSubscriber.unsubscribe();
 	}
 
-	loadUserGroups() {
+	private loadUserGroups() {
 		this.userGroupService.getAll((data) => {
 			console.log(data);
 			this.userGroups = data;
 			this.applyFilters();
 			this.paginfo.totalRows = this.userGroups.length;
 			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
 			this.isDataLoaded = true;
 		});
 	}

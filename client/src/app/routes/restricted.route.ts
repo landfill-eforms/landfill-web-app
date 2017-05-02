@@ -7,9 +7,7 @@ import { ReportSelectorComponent } from './../components/report/report-selector/
 import { ImeNumberListComponent } from './../components/exceedance/ime-number-list/ime-number-list.component';
 import { UnverifiedDataSetComponent } from './../components/unverified-data/unverified-data-set/unverified-data-set.component';
 import { UnverifiedDataSetListComponent } from './../components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
-import { InstrumentTypeComponent } from './../components/instrument/instrument-type/instrument-type.component';
 import { InstrumentTypeListComponent } from './../components/instrument/instrument-type-list/instrument-type-list.component';
-import { InstrumentComponent } from './../components/instrument/instrument/instrument.component';
 import { InstrumentListComponent } from './../components/instrument/instrument-list/instrument-list.component';
 import { ExceedanceSelectorComponent } from './../components/exceedance/exceedance-selector/exceedance-selector.component';
 import { MobileSyncSelectorComponent } from './../components/mobile/mobile-sync-selector/mobile-sync-selector.component';
@@ -113,28 +111,10 @@ export class RestrictedRoute {
 		}
 	};
 
-	static readonly INSTRUMENT:Route = {
-		path: 'equipment/equipment/:id',
-		data: {
-			permissions: [
-				UserPermission.VIEW_INSTRUMENTS
-			]
-		}
-	};
-
 	static readonly INSTRUMENT_TYPE_LIST:Route = {
 		path: 'equipment/equipment-types',
 		data: {
 			name: "Equipment Types",
-			permissions: [
-				UserPermission.VIEW_INSTRUMENT_TYPES
-			]
-		}
-	};
-
-	static readonly INSTRUMENT_TYPE:Route = {
-		path: 'equipment/equipment-types/:id',
-		data: {
 			permissions: [
 				UserPermission.VIEW_INSTRUMENT_TYPES
 			]

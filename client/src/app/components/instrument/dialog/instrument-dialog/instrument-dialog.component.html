@@ -5,8 +5,8 @@
 			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Serial Number" [(ngModel)]="instrument.serialNumber">
 			</md-input-container>
-			<md-select [(ngModel)]="instrument.instrumentType" placeholder="Equipment Type" class="mat-select-row" style="width:100%">
-				<md-option *ngFor="let type of instrumentTypes" [value]="type">
+			<md-select [(ngModel)]="instrument.instrumentType.id" placeholder="Equipment Type" class="mat-select-row" style="width:100%">
+				<md-option *ngFor="let type of instrumentTypes" [value]="type.id">
 					{{type.type}}
 				</md-option>
 			</md-select>
@@ -19,21 +19,30 @@
 				<input mdInput placeholder="City Inventory Number" [(ngModel)]="instrument.inventoryNumber">
 			</md-input-container>
 			<md-select [(ngModel)]="instrument.instrumentStatus" placeholder="Status" class="mat-select-row" style="width:100%">
-				<md-option *ngFor="let status of instrumentStatus" [value]="status.constantName">
-					{{status.constantName}}
+				<md-option *ngFor="let status of instrumentStatus" [value]="status">
+					{{status.name}}
 				</md-option>
 			</md-select>
 			<md-select [(ngModel)]="instrument.site" placeholder="Assigned Site" class="mat-select-row" style="width:100%">
 				<md-option [value]="null">
 					<i>Not Assigned</i>
 				</md-option>
-				<md-option *ngFor="let site of sites" [value]="site.constantName">
+				<md-option *ngFor="let site of sites" [value]="site">
 					{{site.name}}
 				</md-option>
 			</md-select>
-			<app-date-picker-input placeholder="Last Service Date"></app-date-picker-input>
-			<app-date-picker-input placeholder="Next Service Date"></app-date-picker-input>
-			<app-date-picker-input placeholder="Purchased Date"></app-date-picker-input>
+			<app-date-picker-input placeholder="Last Service Date"
+				[initialDate]="instrument.lastServiceDate"
+				(dateChanged)="updateDate('lastServiceDate', $event)">
+			</app-date-picker-input>
+			<app-date-picker-input placeholder="Next Service Date"
+				[initialDate]="instrument.serviceDueDate"
+				(dateChanged)="updateDate('serviceDueDate', $event)">
+			</app-date-picker-input>
+			<app-date-picker-input placeholder="Purchased Date"
+				[initialDate]="instrument.purchaseDate"
+				(dateChanged)="updateDate('purchaseDate', $event)">
+			</app-date-picker-input>
 		</div>
 	</div>
 </md-dialog-content>

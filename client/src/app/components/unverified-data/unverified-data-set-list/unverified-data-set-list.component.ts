@@ -133,6 +133,8 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 			}
 			console.log(this.data);
 			this.applyFilters();
+			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
 			this.isDataLoaded = true;
 		});
 	}

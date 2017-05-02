@@ -26,7 +26,6 @@ export class DatePickerInputComponent implements OnChanges {
 			return;
 		}
 		let d = Date.parse(this.dateString);
-		console.log(this.dateString, d);
 		if (!isNaN(d)) {
 			this.actualDateChanged(d);
 		}

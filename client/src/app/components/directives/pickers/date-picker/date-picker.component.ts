@@ -45,7 +45,7 @@ export class DatePickerComponent implements OnChanges {
 
 	ngOnChanges() {
 		this.dateIsSelected = this.date ? true : false;
-		let date:Date = this.date == null ? new Date() : new Date(this.date);
+		let date:Date = !this.date ? new Date() : new Date(this.date);
 		this.selectedDate.year = date.getFullYear();
 		this.selectedDate.month = date.getMonth();
 		this.selectedDate.date = date.getDate();

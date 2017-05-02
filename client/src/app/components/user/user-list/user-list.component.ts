@@ -75,6 +75,7 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 	showSideInfo:boolean = false;
 	selectedUser:User;
 
+	isAdmin:boolean;
 	canChangeUsername:boolean;
 	canChangePassword:boolean;
 	canChangeStatus:boolean;
@@ -95,6 +96,11 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 	}
 
 	ngOnInit() {
+		this.isAdmin = this.authService.canAccess([UserPermission.ADMIN]);
+		console.log(this.isAdmin ? "is admin" : "not admin")
+		this.canChangeUsername = this.authService.canAccess([UserPermission.RESET_USER_USERNAMES]);
+		this.canChangePassword = this.authService.canAccess([UserPermission.RESET_USER_PASSWORDS]);
+		this.canChangeStatus = this.authService.canAccess([UserPermission.CHANGE_USER_STATUS]);
 		this.canEdit = this.authService.canAccess([UserPermission.EDIT_USER_PROFILES]);
 		if(this.authService.canAccess([UserPermission.CREATE_USERS])) {
 			this.navigationService.getNavbarComponent().setFabInfo({
@@ -125,21 +131,15 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 	}
 
 	private loadUsers() {
-		this.canChangeUsername = this.authService.canAccess([UserPermission.RESET_USER_USERNAMES]);
-		this.canChangePassword = this.authService.canAccess([UserPermission.RESET_USER_PASSWORDS]);
-		this.canChangeStatus = this.authService.canAccess([UserPermission.CHANGE_USER_STATUS]);
-		this.canEdit = this.authService.canAccess([UserPermission.EDIT_USER_PROFILES]);
-		if(this.authService.canAccess([UserPermission.CREATE_USERS])) {
-			this.userService.getAll((data) => {
-				console.log(data);
-				this.data = data;
-				this.applyFilters();
-				this.paginfo.totalRows = this.data.length;
-				this.navigationService.getSideinfoComponent().open();
-				this.showSideInfo = true;
-				this.isDataLoaded = true;
-			});
-		}
+		this.userService.getAll((data) => {
+			console.log(data);
+			this.data = data;
+			this.applyFilters();
+			this.paginfo.totalRows = this.data.length;
+			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
+			this.isDataLoaded = true;
+		});
 	}
 
 	private loadUserGroups() {
@@ -159,6 +159,7 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<UserDialogComponent> = this.dialog.open(UserDialogComponent, dialogConfig);
 		dialogRef.componentInstance.userGroups = this.userGroups;
+		dialogRef.componentInstance.isAdmin = this.isAdmin;
 		if (isNew) {
 			dialogRef.componentInstance.isNew = true;
 		}

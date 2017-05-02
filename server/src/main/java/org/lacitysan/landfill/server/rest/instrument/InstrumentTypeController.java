@@ -28,7 +28,7 @@ public class InstrumentTypeController {
 	@Autowired
 	InstrumentTypeService instrumentTypeService;
 
-	@RestSecurity(UserPermission.VIEW_INSTRUMENT_TYPES)
+	@RestSecurity({UserPermission.VIEW_INSTRUMENT_TYPES, UserPermission.VIEW_INSTRUMENTS, UserPermission.EDIT_INSTRUMENTS})
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<InstrumentType> getAll() {
 		return instrumentTypeDao.getAll();

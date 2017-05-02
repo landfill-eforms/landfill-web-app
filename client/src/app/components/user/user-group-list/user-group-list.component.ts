@@ -128,7 +128,12 @@ export class UserGroupListComponent extends AbstractDataTableComponent<UserGroup
 		}
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("New user group has been created.", "OK", {duration: 2000});
+				if (isNew) {
+					this.snackBar.open("New user group has been created.", "OK", {duration: 2000});
+				}
+				else {
+					this.snackBar.open("User group updated.", "OK", {duration: 2000});
+				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading User Groups..."
 				this.loadUserGroups();

@@ -1,3 +1,4 @@
+import { UserPermission } from './../../../../model/server/persistence/enums/user/user-permission.enum';
 import { UserGroup } from './../../../../model/server/persistence/entity/user/user-group.class';
 import { User } from './../../../../model/server/persistence/entity/user/user.class';
 import { UserService } from './../../../../services/user/user.service';
@@ -21,6 +22,8 @@ export class UserDialogComponent implements OnInit {
 		match: false
 		// TODO Minimum password lengths.
 	}
+
+	isAdmin:boolean;
 
 	constructor(
 		private userService:UserService,
@@ -46,6 +49,9 @@ export class UserDialogComponent implements OnInit {
 			this.user = clone;
 		}
 		for (let userGroup of this.userGroups) {
+			if (!this.isAdmin && this.hasAdmin(userGroup)) {
+				continue;
+			}
 			this.userGroupsWrapped.push({
 				userGroup: userGroup,
 				selected: this.user.userGroups.map(g => g.id).indexOf(userGroup.id) > -1
@@ -93,6 +99,15 @@ export class UserDialogComponent implements OnInit {
 
 	cancel() {
 		this.dialogRef.close();
+	}
+
+	private hasAdmin(userGroup:UserGroup) {
+		for (let permission of userGroup.userPermissions) {
+			if (permission === <any>UserPermission.ADMIN.constantName) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

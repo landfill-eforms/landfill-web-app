@@ -74,7 +74,7 @@ public class RestSecurityAspect {
 		}
 		
 		// If the controller/method is not restricted to the super admin, then allow access if the user is an regular admin.
-		if (userPermissions.contains(UserPermission.ADMIN)) {
+		if (userPermissions.contains(UserPermission.ADMIN.name())) {
 			if (ApplicationConstant.DEBUG) printSuccess("User is an admin.");
 			return;
 		}
@@ -87,7 +87,7 @@ public class RestSecurityAspect {
 
 		// Get the set of permissions allowed to access the method from its @RestSecurty, and add it to the allowedPermissions set.
 		if (restSecurity != null) {
-			allowedPermissions.addAll(Arrays.asList(restSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
+			allowedPermissions.addAll(Arrays.asList(restSecurity.value()).stream().map(r -> r.name()).collect(Collectors.toSet()));
 		}
 
 		else if (ApplicationConstant.DEBUG && restSecurity == null) printSuccess("No RestSecurity was found for the method.");
@@ -103,7 +103,7 @@ public class RestSecurityAspect {
 
 			// Get the set of permissions allowed to access the method from the @RestControllerSecurty and add the permissions to the allowedPermissions set.
 			if (restControllerSecurity != null) {
-				allowedPermissions.addAll(Arrays.asList(restControllerSecurity.value()).stream().map(r -> r.toString()).collect(Collectors.toSet()));
+				allowedPermissions.addAll(Arrays.asList(restControllerSecurity.value()).stream().map(r -> r.name()).collect(Collectors.toSet()));
 			}
 
 			else if (ApplicationConstant.DEBUG) printSuccess("No RestControllerSecurity was found for the controller.");

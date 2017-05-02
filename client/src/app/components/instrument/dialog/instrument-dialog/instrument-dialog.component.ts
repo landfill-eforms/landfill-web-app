@@ -32,6 +32,7 @@ export class InstrumentDialogComponent implements OnInit {
 		if (!this.instrument) {
 			this.instrument = new Instrument();
 			this.instrument.instrumentType = new InstrumentType();
+			this.instrument.instrumentStatus = InstrumentStatus.ACTIVE;
 		}
 		else {
 			// Clone instrument.
@@ -44,7 +45,6 @@ export class InstrumentDialogComponent implements OnInit {
 			}
 			this.instrument = clone;
 		}
-		console.log(this.instrument)
 	}
 
 	confirm() {

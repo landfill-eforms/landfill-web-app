@@ -154,13 +154,13 @@
 					<div class="data-table-column truncate flex-item" fxFlex fxHide fxShow.gt-md>
 						{{DateTimeUtils.getDate(instrument.lastServiceDate)}}
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
+					<div class="data-table-column truncate flex-item" fxFlex fxHide fxShow.gt-md>
 						{{DateTimeUtils.getDate(instrument.serviceDueDate)}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex fxHide fxShow.gt-md>
 						{{DateTimeUtils.getDate(instrument.purchaseDate)}}
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex fxHide fxShow.gt-md>
+					<div class="data-table-column truncate flex-item" fxFlex>
 						{{instrument.site?.name}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>

@@ -1,3 +1,5 @@
+import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
+import { AuthService } from './../../../services/auth/auth.service';
 import { InstrumentTypeDialogComponent } from './../dialog/instrument-type-dialog/instrument-type-dialog.component';
 import { PaginationComponent } from './../../directives/pagination/pagination.component';
 import { InputUtils } from './../../../utils/input.utils';
@@ -80,6 +82,7 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 	selectedInstrumentType:InstrumentType;
 
 	constructor(
+		private authService:AuthService,
 		private router:Router,
 		private activatedRoute:ActivatedRoute,
 		private instrumentTypeService:InstrumentTypeService,
@@ -93,19 +96,22 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 	}
 
 	ngOnInit() {
-		this.navigationService.getNavbarComponent().setFabInfo({
-			icon: "add",
-			tooltip: "New Type"
-		});
-		this.fabActionSubscriber = this.navigationService
-			.getNavbarComponent()
-			.getFabActionSource()
-			.asObservable()
-			.subscribe((event) => {
-				if (event instanceof MouseEvent) {
-					this.openNewInstrumentTypeDialog();
-				}
+		this.canEdit = this.authService.canAccess([UserPermission.EDIT_INSTRUMENT_TYPES]);
+		if(this.authService.canAccess([UserPermission.CREATE_INSTRUMENT_TYPES])) {
+			this.navigationService.getNavbarComponent().setFabInfo({
+				icon: "add",
+				tooltip: "New Type"
 			});
+			this.fabActionSubscriber = this.navigationService
+				.getNavbarComponent()
+				.getFabActionSource()
+				.asObservable()
+				.subscribe((event) => {
+					if (event instanceof MouseEvent) {
+						this.openInstrumentTypeDialog(null);
+					}
+				});
+		}
 		this.loadingMessage = "Loading...";
 		this.loadInstrumentTypes();
 	}
@@ -128,14 +134,25 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 		});
 	}
 
-	openNewInstrumentTypeDialog() {
+	openInstrumentTypeDialog(instrumentType:InstrumentType) {
+		let isNew:boolean = !instrumentType;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
-			//dialogConfig.height = '480px';
 		let dialogRef:MdDialogRef<InstrumentTypeDialogComponent> = this.dialog.open(InstrumentTypeDialogComponent, dialogConfig);
+		if (isNew) {
+			dialogRef.componentInstance.isNew = true;
+		}
+		else {
+			dialogRef.componentInstance.instrumentType = instrumentType;
+		}
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("New equipment type added.", "OK", {duration: 2000});
+				if (isNew) {
+					this.snackBar.open("New equipment type added.", "OK", {duration: 2000});
+				}
+				else {
+					this.snackBar.open("Equipment type updated.", "OK", {duration: 2000});
+				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading..."
 				this.loadInstrumentTypes();
@@ -153,8 +170,13 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 			return;
 		}
 
-		// TODO Implement this.
-		this.filteredData = this.data.filter(o => true);
+		this.filteredData = this.data.filter(o => {
+			if (this.filters.text) {
+				let search:RegExp = new RegExp(this.filters.text, 'i');
+				return search.test(o.type) || search.test(o.manufacturer) || search.test(o.description);
+			}
+			return true;
+		});
 
 		this.paginfo.totalRows = this.filteredData.length;
 		if (this.pagination) {
@@ -191,10 +213,6 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 
 	deselectInstrumentType() {
 		this.selectedInstrumentType = null;
-	}
-
-	navigateToInstrumentType(instrumentType:InstrumentType) {
-		this.router.navigate([instrumentType.id], {relativeTo: this.activatedRoute});
 	}
 
 }

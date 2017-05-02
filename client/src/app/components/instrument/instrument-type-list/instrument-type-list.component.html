@@ -55,31 +55,31 @@
 			<div class="data-table-column truncate flex-item" fxFlex="50">
 				<span class="data-table-header-label">Description</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 				<span class="data-table-header-label">Inst./Intg.</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 				<span class="data-table-header-label">Probe/Gas</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 				<span class="data-table-header-label">CH<sub>4</sub> %</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 				<span class="data-table-header-label">CH<sub>4</sub> ppm</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 				<span class="data-table-header-label">H<sub>2</sub>S ppm</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 				<span class="data-table-header-label">O<sub>2</sub> %</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 				<span class="data-table-header-label">CO<sub>2</sub> %</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 				<span class="data-table-header-label">N<sub>2</sub> %</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;">
+			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 				<span class="data-table-header-label">Pressure</span>
 			</div>
 		</div>
@@ -88,12 +88,13 @@
 				<div class="data-table-row-content flex-container" 
 					fxLayout="row" 
 					(click)="selectInstrumentType(type)"
-					(dblclick)="navigateToInstrumentType(type)"
+					(dblclick)="openInstrumentTypeDialog(type)"
 					[ngClass]="{'data-table-row-content-active': type === selectedInstrumentType}">
 					<div class="data-table-first-column truncate flex-item" fxFlex="10">
-						<a [routerLink]="type.id">
+						<a *ngIf="canEdit" (click)="openInstrumentTypeDialog(type)">
 							{{type.type}}
 						</a>
+						<div *ngIf="!canEdit">{{type.type}}</div>
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex="10">
 						{{type.manufacturer}}
@@ -101,31 +102,31 @@
 					<div class="data-table-column truncate flex-item" fxFlex="50">
 						{{type.description}}
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 						<md-icon *ngIf="type.instantaneous" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 						<md-icon *ngIf="type.probe" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 						<md-icon *ngIf="type.methanePercent" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 						<md-icon *ngIf="type.methanePpm" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 						<md-icon *ngIf="type.hydrogenSulfidePpm" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 						<md-icon *ngIf="type.oxygenPercent" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 						<md-icon *ngIf="type.carbonDioxidePercent" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 						<md-icon *ngIf="type.nitrogenPercent" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;">
+					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
 						<md-icon *ngIf="type.pressure" class="data-table-icon-checkmark">check</md-icon>
 					</div>
 				</div>

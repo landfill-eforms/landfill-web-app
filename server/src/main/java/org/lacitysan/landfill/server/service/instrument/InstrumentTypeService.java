@@ -23,6 +23,7 @@ public class InstrumentTypeService {
 		if (instrumentType == null) {
 			return null;
 		}
+		intializeNullFields(instrumentType);
 		validate(instrumentType);
 		trackingService.create(instrumentType);
 		return instrumentTypeDao.create(instrumentType);
@@ -32,6 +33,7 @@ public class InstrumentTypeService {
 		if (instrumentType == null) {
 			return null;
 		}
+		intializeNullFields(instrumentType);
 		validate(instrumentType);
 		trackingService.modify(instrumentType);
 		return instrumentTypeDao.update(instrumentType);
@@ -67,6 +69,37 @@ public class InstrumentTypeService {
 				&&
 				validateManufacturer(instrumentType, true);
 		// Add new validations here.
+	}
+	
+	/** Replaces null primitive wrapper fields with the appropriate non-null value. */
+	private void intializeNullFields(InstrumentType instrumentType) {
+		if (instrumentType.getInstantaneous() == null) {
+			instrumentType.setInstantaneous(false);
+		}
+		if (instrumentType.getProbe() == null) {
+			instrumentType.setProbe(false);
+		}
+		if (instrumentType.getMethanePercent() == null) {
+			instrumentType.setMethanePercent(false);
+		}
+		if (instrumentType.getMethanePpm() == null) {
+			instrumentType.setMethanePpm(false);
+		}
+		if (instrumentType.getHydrogenSulfidePpm() == null) {
+			instrumentType.setHydrogenSulfidePpm(false);
+		}
+		if (instrumentType.getOxygenPercent() == null) {
+			instrumentType.setOxygenPercent(false);
+		}
+		if (instrumentType.getCarbonDioxidePercent() == null) {
+			instrumentType.setCarbonDioxidePercent(false);
+		}
+		if (instrumentType.getNitrogenPercent() == null) {
+			instrumentType.setNitrogenPercent(false);
+		}
+		if (instrumentType.getPressure() == null) {
+			instrumentType.setPressure(false);
+		}
 	}
 
 }

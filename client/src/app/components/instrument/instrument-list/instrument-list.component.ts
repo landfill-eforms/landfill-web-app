@@ -207,20 +207,19 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 			return;
 		}
 
-		// TODO Implement this.
 		this.filteredData = this.data.filter(o => {
 			let textMatch:boolean = true;
 			if (this.filters.text) {
 				let search:RegExp = new RegExp(this.filters.text, 'i');
-				textMatch = search.test(o.serialNumber) || search.test(o.inventoryNumber);
+				textMatch = search.test(o.serialNumber) || search.test(o.inventoryNumber) || search.test(o.description);
 			}
 			let statusMatch:boolean = true;
 			if (this.filters.status >= 0) {
-				statusMatch = o.instrumentStatus.ordinal == this.filters.status;
+				statusMatch = o.instrumentStatus && (o.instrumentStatus.ordinal == this.filters.status);
 			}
 			let siteMatch:boolean = true;
 			if (this.filters.site >= 0) {
-				siteMatch = o.site.ordinal == this.filters.site;
+				siteMatch = o.site && (o.site.ordinal == this.filters.site);
 			}
 			return textMatch && statusMatch && siteMatch;
 		});

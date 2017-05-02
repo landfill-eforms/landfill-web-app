@@ -1,3 +1,5 @@
+import { UserStatusDialogComponent } from './dialog/user-status-dialog/user-status-dialog.component';
+import { UserPasswordDialogComponent } from './dialog/user-password-dialog/user-password-dialog.component';
 import { UserGroupListSideinfoComponent } from './user-group-list-sideinfo/user-group-list-sideinfo.component';
 import { UserPermissionPickerComponent } from './user-permission-picker/user-permission-picker.component';
 import { UserSelectorComponent } from './user-selector/user-selector.component';
@@ -20,6 +22,8 @@ import { UserListComponent } from './user-list/user-list.component';
     declarations: [
         UserSelectorComponent,
         UserDialogComponent,
+        UserPasswordDialogComponent,
+        UserStatusDialogComponent,
 		UserListComponent,
         UserGroupPickerComponent,
         UserListSideinfoComponent,

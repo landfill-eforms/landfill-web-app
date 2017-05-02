@@ -137,7 +137,7 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 	openInstrumentTypeDialog(instrumentType:InstrumentType) {
 		let isNew:boolean = !instrumentType;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
-		dialogConfig.width = '640px';
+		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<InstrumentTypeDialogComponent> = this.dialog.open(InstrumentTypeDialogComponent, dialogConfig);
 		if (isNew) {
 			dialogRef.componentInstance.isNew = true;
@@ -207,7 +207,7 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 			this.showSideInfo = true;
 		}
 		this.selectedInstrumentType = instrumentType;
-		this.navigationService.getSideinfoComponent().subtitle = this.selectedInstrumentType.type; 
+		this.navigationService.getSideinfoComponent().subtitle = this.selectedInstrumentType.manufacturer + ' ' + this.selectedInstrumentType.type; 
 		this.navigationService.getSideinfoComponent().getDirective().setData(this.selectedInstrumentType);
 	}
 

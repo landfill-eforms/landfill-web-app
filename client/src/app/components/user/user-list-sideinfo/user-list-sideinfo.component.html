@@ -1,5 +1,7 @@
 <div *ngIf="!user">
-	Select a user to view their details.
+	<div style="padding:16px;">
+		Select a user to view their details.
+	</div>
 </div>
 <div *ngIf="user" style="height:calc(100% - 128px);">
 	<md-tab-group style="height:100%;">
@@ -22,15 +24,27 @@
 							Password
 						</div>
 						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							********
+							<div class="sideinfo-section-data-value truncate">
+								<a *ngIf="canChangePassword" (click)="editPassword()">
+									********
+								</a>
+								<div *ngIf="!canChangePassword">
+									********
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
 							Status
 						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{user.enabled ? 'Enabled' : 'Disabled'}}
+						<div class="sideinfo-section-data-value truncate">
+							<a *ngIf="canChangePassword" (click)="editStatus()">
+								{{user.enabled ? 'Enabled' : 'Disabled'}}
+							</a>
+							<div *ngIf="!canChangePassword">
+								{{user.enabled ? 'Enabled' : 'Disabled'}}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -76,7 +90,7 @@
 						Groups
 					</div>
 					<div *ngFor="let group of user.userGroups" class="sideinfo-section-data-list-item truncate" style="width:256px;">
-						<a [routerLink]="'user-groups/' + group.id">{{group.name}}</a>
+						{{group.name}}
 					</div>
 				</div>
 				<div class="sideinfo-section">
@@ -95,8 +109,23 @@
 			</div>
 		</md-tab>
 		<md-tab label="Activity">
-			<div style="padding:16px;">
-				Coming Soon
+			<div *ngIf="!isUserActivityLoaded">
+				<app-page-loading-indicator></app-page-loading-indicator>
+			</div>
+			<div *ngIf="isUserActivityLoaded">
+				<div *ngIf="userActivity.length == 0" style="padding:16px;">
+					User has no recent activity.
+				</div>
+				<div *ngFor="let activity of userActivity" class="sideinfo-section">
+					<div class="sideinfo-section-header">
+						{{DateTimeUtils.getDate(activity.date)}} {{DateTimeUtils.getTime(activity.date)}} 
+					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-paragraph" style="width:256px;">
+							{{activity.activity}}
+						</div>
+					</div>
+				</div>
 			</div>
 		</md-tab>
 	</md-tab-group>

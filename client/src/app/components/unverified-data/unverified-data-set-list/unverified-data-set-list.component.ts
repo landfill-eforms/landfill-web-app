@@ -66,9 +66,18 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 		]
 	}
 
-	filters:{text:string} = {
-		text: ""
+	filters:{text:string, site:number} = {
+		text: "",
+		site: -1
 	};
+
+	siteFilterChoices:any[] = [
+		{
+			ordinal: -1,
+			name: "Any"
+		},
+		...Site.values()
+	];
 
 	showSideInfo:boolean = false;
 	selectedUnverifiedDataSet:UnverifiedDataSet;
@@ -150,7 +159,18 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 		}
 
 		// TODO Implement this.
-		this.filteredData = this.data.filter(o => true);
+		this.filteredData = this.data.filter(o => {
+			let textMatch:boolean = true;
+			if (this.filters.text) {
+				let search:RegExp = new RegExp(this.filters.text, 'i');
+				textMatch = search.test(o.filename);
+			}
+			let siteMatch:boolean = true;
+			if (this.filters.site >= 0) {
+				siteMatch = o.site && (o.site.ordinal == this.filters.site);
+			}
+			return textMatch && siteMatch;
+		});
 
 		this.paginfo.totalRows = this.filteredData.length;
 		if (this.pagination) {

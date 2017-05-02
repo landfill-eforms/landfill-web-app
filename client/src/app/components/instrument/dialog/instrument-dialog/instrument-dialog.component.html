@@ -1,4 +1,4 @@
-<div md-dialog-title>Register New Instrument</div>
+<div md-dialog-title>{{isNew ? 'Create New Equipment' : 'Edit Equipment'}}</div>
 <md-dialog-content>
 	<div class="dialog-form-container flex-container" fxLayout="row">
 		<div class="flex-item" fxFlex style="padding-right: 16px;">
@@ -51,6 +51,6 @@
 		CANCEL
 	</button>
 	<button md-button (click)="confirm()">
-		CONFIRM
+		{{isNew ? 'CONFIRM' : 'SAVE'}}
 	</button>
 </md-dialog-actions>

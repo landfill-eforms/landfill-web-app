@@ -1,0 +1,14 @@
+<div md-dialog-title>Change Account Status for '{{user.username}}'</div>
+<md-dialog-content style="height: 40px">
+	<md-slide-toggle [(ngModel)]="status">
+		{{status ? 'Enabled' : 'Disabled'}}
+	</md-slide-toggle>
+</md-dialog-content>
+<md-dialog-actions>
+	<button md-button (click)="cancel()">
+		CANCEL
+	</button>
+	<button md-button (click)="confirm()">
+		CONFIRM
+	</button>
+</md-dialog-actions>

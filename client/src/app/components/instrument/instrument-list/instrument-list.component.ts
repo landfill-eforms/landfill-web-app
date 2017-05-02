@@ -35,7 +35,7 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 
 	fabActionSubscriber:Subscription;
 
-	isInstrumentTypesLoaded:boolean
+	isInstrumentTypesLoaded:boolean;
 	loadingMessage:string;
 	instrumentTypes:InstrumentType[];
 
@@ -147,7 +147,7 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 		this.fabActionSubscriber.unsubscribe();
 	}
 	
-	loadInstruments() {
+	private loadInstruments() {
 		this.instrumentService.getAll((data) => {
 			console.log(data);
 			this.data = data;
@@ -162,7 +162,7 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 		});
 	}
 
-	loadInstrumentTypes() {
+	private loadInstrumentTypes() {
 		this.instrumentTypeService.getAll((data) => {
 			console.log(data);
 			this.instrumentTypes = data;
@@ -171,9 +171,12 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 	}
 
 	openInstrumentDialog(instrument:Instrument) {
+		if (!this.isDataLoaded || !this.isInstrumentTypesLoaded) {
+			return;
+		}
 		let isNew:boolean = !instrument;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
-		dialogConfig.width = '640px';
+		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<InstrumentDialogComponent> = this.dialog.open(InstrumentDialogComponent, dialogConfig);
 		dialogRef.componentInstance.instrumentTypes = this.instrumentTypes;
 		if (isNew) {

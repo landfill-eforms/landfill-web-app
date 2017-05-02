@@ -1,24 +1,58 @@
+<div md-dialog-title>{{isNew ? 'Register New User' : 'Edit User Profile'}}</div>
 <md-dialog-content>
-	<div class="section-title">Register New User</div>
-	<div class="section-form-container">
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Username" [(ngModel)]="user.username">
-		</md-input-container>
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Password" [(ngModel)]="user.password" type="password">
-		</md-input-container>
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="First Name" [(ngModel)]="user.firstname">
-		</md-input-container>
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Middle Name" [(ngModel)]="user.middlename">
-		</md-input-container>
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Last Name" [(ngModel)]="user.lastname">
-		</md-input-container>
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Email" [(ngModel)]="user.emailAddress">
-		</md-input-container>
+	<div class="dialog-form-container flex-container" fxLayout="row">
+		<div class="flex-item" fxFlex style="padding-right: 16px;">
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Username" [(ngModel)]="user.username" [disabled]="!isNew">
+			</md-input-container>
+			<div *ngIf="!isNew">
+				<md-input-container class="md-input-full-width">
+					<input mdInput placeholder="Password" value="********" disabled>
+				</md-input-container>
+			</div>
+			<div *ngIf="isNew">
+				<md-input-container class="md-input-full-width">
+					<input mdInput placeholder="Password" [(ngModel)]="password.chosen" type="password">
+				</md-input-container>
+				<md-input-container class="md-input-full-width">
+					<input mdInput placeholder="Verify Password" [(ngModel)]="password.verify" type="password">
+				</md-input-container>
+			</div>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="First Name" [(ngModel)]="user.firstname">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Middle Name" [(ngModel)]="user.middlename">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Last Name" [(ngModel)]="user.lastname">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Email" [(ngModel)]="user.emailAddress">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Employee ID" [(ngModel)]="user.employeeId">
+			</md-input-container>
+		</div>
+		<div class="flex-item" fxFlex style="padding-left: 16px;">
+			<div style="padding: 6px 0; font-weight: 500;">User Groups</div>
+			<div class="list-picker-box" [ngStyle]="{'height': isNew ? '399px' : '341px'}">
+				<div *ngFor="let group of userGroupsWrapped" class="list-item-container flex-container" fxLayout="row"> 
+					<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
+						<md-checkbox [(ngModel)]="group.selected"></md-checkbox>
+					</div>
+					<div class="list-item-info flex-item" fxFlex>
+						<div class="list-item-title">
+							{{group.userGroup.name}}
+						</div>
+						<div class="list-item-description">
+							{{group.userGroup.description}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="!isNew" style="font-size: 13px">NOTE: Changes made to user's groups will not be reflected until the user's next login.</div>
+		</div>
 	</div>
 </md-dialog-content>
 <md-dialog-actions>
@@ -26,6 +60,6 @@
 		CANCEL
 	</button>
 	<button md-button (click)="confirm()">
-		CONFIRM
+		{{isNew ? 'REGISTER' : 'SAVE'}}
 	</button>
 </md-dialog-actions>

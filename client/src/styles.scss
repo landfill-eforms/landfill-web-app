@@ -476,3 +476,51 @@ md-toolbar-row {
 .date-picker-header {
 	background: mat-color($app-primary, 600);
 }
+
+$group-add-remove-button-width: 50px;
+
+.list-picker-box {
+	width: 100%;
+	overflow-y: auto;
+	margin: 8px 0;
+	border-top: 1px solid rgba(0,0,0,0.12);
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+.list-item-container {
+	width: 100%;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+	background: #FFF;
+	transition: background 0.2s linear;
+}
+
+.list-item-container:hover {
+	background: #F7F7F7;
+}
+
+.list-item-add-button {
+	margin-left: 16px;
+	md-icon {
+		font-size: 2em;
+		cursor: pointer;
+	}
+}
+
+.list-item-info {
+	height: 64px; // Does not conform to Material design
+    padding: 8px 16px 8px 0;
+}
+
+.list-item-title {
+	color: rgba(0,0,0,0.87);
+	font-size: 13px;
+}
+
+.list-item-description {
+	color: rgba(0,0,0,0.54);
+	font-size: 13px;
+	overflow-y: auto;
+	line-height: 16px;
+	height: 32px;
+	padding-top: 2px;
+}

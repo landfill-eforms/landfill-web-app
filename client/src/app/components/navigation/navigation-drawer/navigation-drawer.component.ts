@@ -44,7 +44,7 @@ export class NavigationDrawerComponent implements OnInit {
 		},
 		{
 			route: RestrictedRoute.EXCEEDANCE_SELECTOR,
-			icon: 'format_list_numbered',
+			icon: 'whatshot',
 			label: 'Exceedances',
 			visible: false
 		},

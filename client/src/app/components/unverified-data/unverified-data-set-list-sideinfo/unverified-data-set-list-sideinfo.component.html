@@ -4,52 +4,58 @@
 	</div>
 </div>
 <div *ngIf="unverifiedDataSet" style="height:calc(100% - 128px);">
-	<md-tab-group style="height:100%;">
-		<md-tab label="Details">
-			<div  class="sideinfo-sections-container">
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						General
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Filename
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{unverifiedDataSet.filename}}
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Date Uploaded
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{unverifiedDataSet.createdDate ? DateTimeUtils.getDate(unverifiedDataSet.createdDate) : ''}}
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Last Modified
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{unverifiedDataSet.modifiedDate ? DateTimeUtils.getDate(unverifiedDataSet.modifiedDate) : ''}}
-						</div>
-					</div>
+	<div  class="sideinfo-sections-container">
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				General
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Date Uploaded
 				</div>
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						Filename
-					</div>
-					<div class="sideinfo-section-data-paragraph" style="width:256px;">
-						{{unverifiedDataSet.filename}}
-					</div>
+				<div *ngIf="unverifiedDataSet.createdDate" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(unverifiedDataSet.createdDate)}} {{DateTimeUtils.getTime(unverifiedDataSet.createdDate)}}
 				</div>
 			</div>
-		</md-tab>
-		<md-tab label="Activity">
-			<div style="padding:16px;">
-				Coming Soon
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Last Modified
+				</div>
+				<div *ngIf="unverifiedDataSet.modifiedDate" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(unverifiedDataSet.modifiedDate)}} {{DateTimeUtils.getTime(unverifiedDataSet.modifiedDate)}}
+				</div>
 			</div>
-		</md-tab>
-	</md-tab-group>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Contents
+			</div>
+			<div *ngIf="unverifiedDataSet.unverifiedInstantaneousData?.length > 0" class="sideinfo-section-data-list-item" style="width:256px;">
+				Instantaneous Data
+			</div>
+			<div *ngIf="unverifiedDataSet.unverifiedWarmspotData?.length > 0" class="sideinfo-section-data-list-item" style="width:256px;">
+				Warmspot Data
+			</div>
+			<div *ngIf="unverifiedDataSet.imeNumbers?.length > 0" class="sideinfo-section-data-list-item" style="width:256px;">
+				IME Numbers
+			</div>
+			<div *ngIf="unverifiedDataSet.unverifiedIntegratedData?.length > 0" class="sideinfo-section-data-list-item" style="width:256px;">
+				Inetgrated Data
+			</div>
+			<div *ngIf="unverifiedDataSet.iseNumbers?.length > 0" class="sideinfo-section-data-list-item" style="width:256px;">
+				ISE Numbers
+			</div>
+			<div *ngIf="unverifiedDataSet.unverifiedProbeData?.length > 0" class="sideinfo-section-data-list-item" style="width:256px;">
+				Probe Data
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Filename
+			</div>
+			<div class="sideinfo-section-data-paragraph" style="width:256px;">
+				{{unverifiedDataSet.filename}}
+			</div>
+		</div>
+	</div>
 </div>

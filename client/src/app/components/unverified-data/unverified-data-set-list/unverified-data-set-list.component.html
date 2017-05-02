@@ -11,15 +11,16 @@
 					[ngClass]="{'mat-input-container-error':!textFilterStatus.valid}">
 					<input mdInput placeholder="Search" [(ngModel)]="filters.text" (ngModelChange)="applyFilters()">
 				</md-input-container>
-				<md-select [(ngModel)]="filters.status" placeholder="Status" class="mat-select-inline flex-item" fxFlex="150px" (ngModelChange)="applyFilters()">
-					<md-option *ngFor="let status of statusFilterChoices" [value]="status.value">
-						{{status.label}}
+				<md-select [(ngModel)]="filters.site" placeholder="Site" class="mat-select-inline flex-item" fxFlex="150px" (ngModelChange)="applyFilters()">
+					<md-option *ngFor="let site of siteFilterChoices" [value]="site.ordinal">
+						{{site.name}}
 					</md-option>
 				</md-select>
 			</div>
 			<button md-icon-button 
 				(click)="toggleFilters()" 
-				class="flex-item" 
+				class="toggle-icon-button flex-item"
+				[ngClass]="{'toggle-icon-button-active': showFilters}"
 				fxFlex="40px"
 				mdTooltip="Filter" 
 				mdTooltipPosition="below">
@@ -45,6 +46,9 @@
 					'data-table-header-sort-arrow-inactive': sort.current !== 'site'}">
 					arrow_downward
 				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex>
+				<span class="data-table-header-label">Filename</span>
 			</div>
 			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('createdBy')">
 				<span class="data-table-header-label-sortable" [ngClass]="{
@@ -103,6 +107,9 @@
 					[ngClass]="{'data-table-row-content-active': dataSet === selectedUnverifiedDataSet}">
 					<div class="data-table-first-column truncate flex-item" fxFlex>
 						{{dataSet.site.name}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{dataSet.filename}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
 						{{dataSet.createdBy ? StringUtils.formatUserName(dataSet.createdBy) : ''}}

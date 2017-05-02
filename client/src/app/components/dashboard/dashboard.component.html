@@ -5,8 +5,10 @@
 	<!--<img class="dashboard-logo" [src]="logoUrl">-->
 	<div class="flex-container" fxLayout="row" fxLayoutAlign="start start" fxLayoutWrap>
 		<div *ngFor="let gridItem of gridItems">
-			<div *ngIf="gridItem.visible" class="unselectable dashboard-grid-item flex-item" fxFlex="280px" (click)="navigate(gridItem)" [ngStyle]="{'cursor': gridItem.disabled ? '' : 'pointer'}">
-				<img class="dashboard-grid-item-img" [src]="gridItem.img">
+			<div *ngIf="gridItem.visible" class="unselectable dashboard-grid-item flex-item" fxFlex="280px" (click)="navigate(gridItem)" [ngClass]="{'dashboard-grid-item-disabled': gridItem.disabled}">
+				<div class="dashboard-grid-item-img" [ngStyle]="{'background': 'linear-gradient(to bottom right, ' + gridItem.color + ')'}">
+					<md-icon>{{gridItem.img}}</md-icon>
+				</div>
 				<div class="dashboard-grid-item-text-area">
 					{{gridItem.title}}
 					<div class="dashboard-grid-item-subtext">

@@ -4,69 +4,58 @@
 	</div>
 </div>
 <div *ngIf="userGroup" style="height:calc(100% - 128px);">
-	<md-tab-group style="height:100%;">
-		<md-tab label="Details">
-			<div  class="sideinfo-sections-container">
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						General
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Name
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{userGroup.name}}
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Date Created
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							Coming Soon
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Last Modified
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							Coming Soon
-						</div>
-					</div>
+	<div  class="sideinfo-sections-container">
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				General
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Date Created
 				</div>
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						Description
-					</div>
-					<div class="sideinfo-section-data-paragraph" style="width:256px;">
-						{{userGroup.description}}
-					</div>
-				</div>
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						Permissions
-					</div>
-					<div *ngFor="let permission of userGroup.userPermissions" class="sideinfo-section-data-list-item truncate" style="width:256px;">
-						{{permission}}
-					</div>
-				</div>
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						Members
-					</div>
-					<div *ngFor="let user of userGroup.users" class="sideinfo-section-data-list-item truncate" style="width:256px;">
-						<!-- TODO Sort the users. -->
-						<a [routerLink]="'users/' + user.username">{{user.firstname}} {{user.middlename}} {{user.lastname}}</a>
-					</div>
+				<div *ngIf="userGroup.createdDate" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(userGroup.createdDate)}} {{DateTimeUtils.getTime(userGroup.createdDate)}}
 				</div>
 			</div>
-		</md-tab>
-		<md-tab label="Activity">
-			<div style="padding:16px;">
-				Coming Soon
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Last Modified
+				</div>
+				<div *ngIf="userGroup.modifiedDate" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(userGroup.modifiedDate)}} {{DateTimeUtils.getTime(userGroup.modifiedDate)}}
+				</div>
 			</div>
-		</md-tab>
-	</md-tab-group>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Description
+			</div>
+			<div class="sideinfo-section-data-paragraph" style="width:256px;">
+				{{userGroup.description}}
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Permissions
+			</div>
+			<div *ngIf="userGroup.userPermissions.length == 0" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+				<i>No permissions assigned</i>
+			</div>
+			<div *ngFor="let permission of userGroup.userPermissions" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+				{{permission.name}}
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Members
+			</div>
+			<div *ngIf="userGroup.users.length == 0" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+				<i>No users assigned</i>
+			</div>
+			<div *ngFor="let user of userGroup.users" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+				<!-- TODO Sort the users. -->
+				{{user.firstname}} {{user.middlename}} {{user.lastname}}
+			</div>
+		</div>
+	</div>
 </div>

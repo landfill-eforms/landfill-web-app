@@ -1,3 +1,6 @@
+import { UserStatusDialogComponent } from './components/user/dialog/user-status-dialog/user-status-dialog.component';
+import { UserPasswordDialogComponent } from './components/user/dialog/user-password-dialog/user-password-dialog.component';
+import { UserActivityService } from './services/user/user-activity.service';
 import { UserGroupDialogComponent } from './components/user/dialog/user-group-dialog/user-group-dialog.component';
 import { UserDialogComponent } from './components/user/dialog/user-dialog/user-dialog.component';
 import { InstrumentTypeDialogComponent } from './components/instrument/dialog/instrument-type-dialog/instrument-type-dialog.component';
@@ -77,6 +80,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		OkDialogComponent,
 		YesNoDialogComponent,
 		UserDialogComponent,
+		UserPasswordDialogComponent,
+		UserStatusDialogComponent,
 		UserGroupDialogComponent,
 		AssignImeNumberDialogComponent,
 		ImeRecheckDialogComponent,
@@ -105,6 +110,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		NavigationService,
 		TitleService,
 		UnverifiedDataService,
+		UserActivityService,
 		UserGroupService,
 		UserService,
 		WarmspotDataService

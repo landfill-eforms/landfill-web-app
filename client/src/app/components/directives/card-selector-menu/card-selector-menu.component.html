@@ -8,7 +8,7 @@
 					fxLayout="row" fxLayoutAlign="center" 
 					[ngClass]="{'selector-card-disabled' : card.disabled}"
 					(click)="click(card)">
-                    <img class="selector-card-img flex-item" [src]="card.img">
+                    <img *ngIf="card.img" class="selector-card-img flex-item" [src]="card.img">
                     <div class="selector-card-title-container flex-item" fxFlex>
                         <div class="selector-card-title">{{card.title}}</div>
                         <div class="selector-card-subtitle">{{card.subtitle}}</div>

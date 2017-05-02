@@ -14,7 +14,8 @@
 			</div>
 			<button md-icon-button 
 				(click)="toggleFilters()" 
-				class="flex-item" 
+				class="toggle-icon-button flex-item"
+				[ngClass]="{'toggle-icon-button-active': showFilters}"
 				fxFlex="40px"
 				mdTooltip="Filter" 
 				mdTooltipPosition="below">
@@ -60,16 +61,17 @@
 			</div>
 		</div>
 		<div class="data-table-scrollable-area">
-			<div *ngFor="let group of paginatedUserGroups" class="data-table-row">
+			<div *ngFor="let group of paginatedData" class="data-table-row">
 				<div class="data-table-row-content flex-container" 
 					fxLayout="row" 
 					(click)="selectUserGroup(group)"
-					(dblclick)="navigateToUserGroup(group)"
+					(dblclick)="openUserGroupDialog(group)"
 					[ngClass]="{'data-table-row-content-active': group === selectedUserGroup}">
 					<div class="data-table-first-column truncate flex-item" fxFlex="13.37">
-						<a [routerLink]="group.id">
+						<a *ngIf="canEdit" (click)="openUserGroupDialog(group)">
 							{{group.name}}
 						</a>
+						<div *ngIf="!canEdit">{{group.name}}</div>
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex="69px">
 						{{group.users.length}}

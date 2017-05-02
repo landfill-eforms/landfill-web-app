@@ -11,7 +11,6 @@ import { InstrumentTypeListComponent } from './../components/instrument/instrume
 import { InstrumentListComponent } from './../components/instrument/instrument-list/instrument-list.component';
 import { ExceedanceSelectorComponent } from './../components/exceedance/exceedance-selector/exceedance-selector.component';
 import { MobileSyncSelectorComponent } from './../components/mobile/mobile-sync-selector/mobile-sync-selector.component';
-import { UserProfileComponent } from './../components/user/user-profile/user-profile.component';
 import { UserPermission } from './../model/server/persistence/enums/user/user-permission.enum';
 import { AuthGuard } from './../services/auth/authguard';
 import { UserListComponent } from './../components/user/user-list/user-list.component';

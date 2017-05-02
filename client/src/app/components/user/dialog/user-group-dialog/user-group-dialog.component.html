@@ -1,12 +1,38 @@
+<div md-dialog-title>{{isNew ? 'Create New User Group' : 'Edit User Group'}}</div>
 <md-dialog-content>
-	<div class="section-title">Create New User Group</div>
-	<div class="section-form-container">
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Group Name" [(ngModel)]="userGroup.name">
-		</md-input-container>
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Description" [(ngModel)]="userGroup.description">
-		</md-input-container>
+	<div class="dialog-form-container flex-container" fxLayout="row">
+		<div class="flex-item" fxFlex style="padding-right: 16px;">
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Group Name" [(ngModel)]="userGroup.name">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<textarea mdInput rows="14" placeholder="Description" [(ngModel)]="userGroup.description"></textarea>
+			</md-input-container>
+		</div>
+		<div class="flex-item" fxFlex style="padding-left: 16px;">
+			<div style="padding: 6px 0; font-weight: 500;">User Permissions</div>
+			<div class="list-picker-box" style="height:304px">
+				<div *ngFor="let permission of userPermissionsWrapped" class="list-item-container flex-container" fxLayout="row"> 
+					<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
+						<md-checkbox [(ngModel)]="permission.selected"></md-checkbox>
+					</div>
+					<div class="list-item-info flex-item" fxFlex>
+						<div class="list-item-title">
+							<div *ngIf="permission.permission.group">
+								{{permission.permission.group}} - {{permission.permission.groupAction}}
+							</div>
+							<div *ngIf="!permission.permission.group">
+								{{permission.permission.name}}
+							</div>
+						</div>
+						<div class="list-item-description">
+							{{permission.permission.description}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="!isNew" style="font-size: 13px">NOTE: Changes made to permissions will not be reflected until users' next login.</div>
+		</div>
 	</div>
 </md-dialog-content>
 <md-dialog-actions>

@@ -1,3 +1,7 @@
+import { EnumUtils } from './../../../utils/enum.utils';
+import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
+import { AbstractDataTableComponent } from './../../../model/client/abstract-components/abstract-data-table.component';
+import { AuthService } from './../../../services/auth/auth.service';
 import { UserGroupDialogComponent } from './../dialog/user-group-dialog/user-group-dialog.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserGroupListSideinfoComponent } from './../user-group-list-sideinfo/user-group-list-sideinfo.component';
@@ -19,20 +23,13 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 	selector: 'app-user-group-list',
 	templateUrl: './user-group-list.component.html'
 })
-export class UserGroupListComponent implements OnInit, OnDestroy {
+export class UserGroupListComponent extends AbstractDataTableComponent<UserGroup> implements OnInit, OnDestroy {
 
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;
 
-	isDataLoaded:boolean;
 	loadingMessage:string;
-	userGroups:UserGroup[];
-
-	sort:any = {
-		current: "id",
-		reversed: false
-	}
 
 	sortProperties:any = {
 		name: [
@@ -46,49 +43,47 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 		]
 	}
 
-	showFilters:boolean = false;
-	filteredRowsCount:number = 0;
-	filteredUserGroups:UserGroup[] = [];
 	filters:{text:string} = {
 		text: ""
 	};
-	textFilterStatus:InputStatus = {
-		valid: true,
-		errorMessage: ""
-	};
-
-	paginfo:Paginfo = new Paginfo();
-	paginatedUserGroups:UserGroup[] = [];
 
 	showSideInfo:boolean = false;
 	selectedUserGroup:UserGroup;
 
+	canDelete:boolean;
+
 	constructor(
+		private authService:AuthService,
 		private router:Router,
 		private activatedRoute:ActivatedRoute,
 		private userGroupService:UserGroupService,
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
 		private navigationService:NavigationService) {
+			super();
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(UserGroupListSideinfoComponent, {userGroup: null});
 			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {
-		this.navigationService.getNavbarComponent().setFabInfo({
-			icon: "add",
-			tooltip: "New User Group"
-		});
-		this.fabActionSubscriber = this.navigationService
-			.getNavbarComponent()
-			.getFabActionSource()
-			.asObservable()
-			.subscribe((event) => {
-				if (event instanceof MouseEvent) {
-					this.openNewUserGroupDialog();
-				}
+		this.canDelete = this.authService.canAccess([UserPermission.DELETE_USER_GROUPS]);
+		this.canEdit = this.authService.canAccess([UserPermission.EDIT_USER_PROFILES]);
+		if(this.authService.canAccess([UserPermission.CREATE_USERS])) {
+			this.navigationService.getNavbarComponent().setFabInfo({
+				icon: "add",
+				tooltip: "New User Group"
 			});
+			this.fabActionSubscriber = this.navigationService
+				.getNavbarComponent()
+				.getFabActionSource()
+				.asObservable()
+				.subscribe((event) => {
+					if (event instanceof MouseEvent) {
+						this.openUserGroupDialog(null);
+					}
+				});
+		}
 		this.loadingMessage = "Loading User Groups...";
 		this.loadUserGroups();
 	}
@@ -103,20 +98,34 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 	private loadUserGroups() {
 		this.userGroupService.getAll((data) => {
 			console.log(data);
-			this.userGroups = data;
+			this.data = data;
+			for (let userGroup of this.data) {
+				let permissions:UserPermission[] = userGroup.userPermissions;
+				userGroup.userPermissions = [];
+				for (let permission of permissions) {
+					userGroup.userPermissions.push(EnumUtils.convertToEnum(UserPermission, permission));
+				}
+			}
 			this.applyFilters();
-			this.paginfo.totalRows = this.userGroups.length;
+			this.paginfo.totalRows = this.data.length;
 			this.navigationService.getSideinfoComponent().open();
 			this.showSideInfo = true;
 			this.isDataLoaded = true;
 		});
 	}
 
-	openNewUserGroupDialog() {
+	openUserGroupDialog(userGroup:UserGroup) {
+		let isNew:boolean = !userGroup;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
-		dialogConfig.width = '640px';
-			//dialogConfig.height = '480px';
+		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<UserGroupDialogComponent> = this.dialog.open(UserGroupDialogComponent, dialogConfig);
+		dialogRef.componentInstance.adminGroupExists = this.adminGroupExists(this.data);
+		if (isNew) {
+			dialogRef.componentInstance.isNew = true;
+		}
+		else {
+			dialogRef.componentInstance.userGroup = userGroup;
+		}
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				this.snackBar.open("New user group has been created.", "OK", {duration: 2000});
@@ -144,21 +153,6 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	sortBy(sortBy:string) {
-		SortUtils.sortAndUpdate(this.sort, sortBy, this.userGroups, this.sortProperties[sortBy]);
-		this.applyFilters();
-	}
-
-	toggleFilters() {
-		if (this.showFilters) {
-			this.showFilters = false;
-			this.resetFilters();
-		}
-		else {
-			this.showFilters = true;
-		}
-	}
-
 	applyFilters() {
 
 		// Validate the text search string.
@@ -169,10 +163,15 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-		// TODO Implement this.
-		this.filteredUserGroups = this.userGroups.filter(o => true);
+		this.filteredData = this.data.filter(o => {
+			if (this.filters.text) {
+				let search:RegExp = new RegExp(this.filters.text, 'i');
+				return search.test(o.name) || search.test(o.description);
+			}
+			return true;
+		});
 
-		this.paginfo.totalRows = this.filteredUserGroups.length;
+		this.paginfo.totalRows = this.filteredData.length;
 		if (this.pagination) {
 			this.pagination.update();
 		}
@@ -182,12 +181,6 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 	resetFilters() {
 		this.filters.text = "";
 		this.applyFilters();
-	}
-
-	applyPagination() {
-		this.paginatedUserGroups = this.filteredUserGroups.filter((o, i) => {
-			return i >= (this.paginfo.currentPage - 1) * this.paginfo.displayedRows && i < this.paginfo.currentPage * this.paginfo.displayedRows;
-		});
 	}
 
 	toggleSideInfo() {
@@ -215,8 +208,15 @@ export class UserGroupListComponent implements OnInit, OnDestroy {
 		this.selectedUserGroup = null;
 	}
 
-	navigateToUserGroup(userGroup:UserGroup) {
-		this.router.navigate([userGroup.id], {relativeTo: this.activatedRoute});
+	private adminGroupExists(userGroups:UserGroup[]):boolean {
+		for (let userGroup of userGroups) {
+			for (let permission of userGroup.userPermissions) {
+				if (permission.ordinal == UserPermission.ADMIN.ordinal) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

@@ -14,7 +14,8 @@
 			</div>
 			<button md-icon-button 
 				(click)="toggleFilters()" 
-				class="flex-item" 
+				class="toggle-icon-button flex-item"
+				[ngClass]="{'toggle-icon-button-active': showFilters}"
 				fxFlex="40px"
 				mdTooltip="Filter" 
 				mdTooltipPosition="below">

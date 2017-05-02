@@ -40,7 +40,7 @@ import be.quodlibet.boxable.datatable.DataTable;
  * @author Allen Huang
  */
 public class ReportExport{
-
+/*
 	public static void main(String[] args) throws IOException{
 		IndividualReportQuery rq = new IndividualReportQuery();
 
@@ -104,7 +104,7 @@ public class ReportExport{
 		er.setProbeExceedanceReportData(probeExceedanceReportData);
 		CreateExceedanceReport(er);
 	}
-
+*/
 	public void exportReport() throws IOException{
 		final String fileName = "C:/Users/Allen/Desktop/pdfxlamples/User Permissions.xlsx";
 		//----------------------------------------------------------------------------------------------------

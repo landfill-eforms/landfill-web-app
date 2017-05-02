@@ -1,4 +1,4 @@
-<div md-dialog-title>Create New Equipment Type</div>
+<div md-dialog-title>{{isNew ? 'Add New Equipment Type' : 'Edit Equipment Type'}}</div>
 <md-dialog-content>
 	<div class="dialog-form-container flex-container" fxLayout="row">
 		<div class="flex-item" fxFlex style="padding-right: 16px;">
@@ -12,7 +12,7 @@
 				<textarea mdInput rows="5" placeholder="Description" [(ngModel)]="instrumentType.description"></textarea>
 			</md-input-container>
 		</div>
-		<div class="flex-item" fxFlex style="padding-left: 16px; height: 260px;">
+		<div class="flex-item" fxFlex style="padding-left: 32px; height: 260px;">
 			<div>
 				<md-checkbox [(ngModel)]="instrumentType.instantaneous">Instantaneous/Integrated</md-checkbox>
 			</div>
@@ -48,6 +48,6 @@
 		CANCEL
 	</button>
 	<button md-button (click)="confirm()">
-		CONFIRM
+		{{isNew ? 'CONFIRM' : 'SAVE'}}
 	</button>
 </md-dialog-actions>

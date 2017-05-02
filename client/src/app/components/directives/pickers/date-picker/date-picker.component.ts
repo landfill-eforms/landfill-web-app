@@ -9,7 +9,7 @@ import { Component, Output, EventEmitter, OnInit, Input, OnChanges } from '@angu
 })
 export class DatePickerComponent implements OnChanges {
 
-	@Input() width:string;
+	@Input() width:number;
 	@Input() date:number;
 
 	@Output() dateChanged = new EventEmitter<number>();

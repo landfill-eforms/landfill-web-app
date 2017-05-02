@@ -1,4 +1,4 @@
-import { UserGroupDialogComponent } from './components/user-group/dialog/user-group-dialog/user-group-dialog.component';
+import { UserGroupDialogComponent } from './components/user/dialog/user-group-dialog/user-group-dialog.component';
 import { UserDialogComponent } from './components/user/dialog/user-dialog/user-dialog.component';
 import { InstrumentTypeDialogComponent } from './components/instrument/dialog/instrument-type-dialog/instrument-type-dialog.component';
 import { InstrumentDialogComponent } from './components/instrument/dialog/instrument-dialog/instrument-dialog.component';
@@ -45,7 +45,6 @@ import { NavigationModule } from './components/navigation/navigation.module'
 import { ExceedanceModule } from './components/exceedance/exceedance.module';
 import { DirectivesModule } from './components/directives/directives.module';
 import { UserModule } from './components/user/user.module';
-import { UserGroupModule } from './components/user-group/user-group.module';
 import { FileUploadService } from './services/file/file-upload.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -72,7 +71,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		MobileModule,
 		ReportModule,
 		UserModule,
-		UserGroupModule,
 		UnverifiedDataModule
 	],
 	entryComponents: [

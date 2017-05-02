@@ -3,11 +3,11 @@ import { UserGroupService } from './../../../services/user/user-group.service';
 import { Component, OnChanges, Input, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'app-user-group-selector',
-	templateUrl: './user-group-selector.component.html',
-	styleUrls: ['./user-group-selector.component.scss']
+	selector: 'app-user-group-picker',
+	templateUrl: './user-group-picker.component.html',
+	styleUrls: ['./user-group-picker.component.scss']
 })
-export class UserGroupSelectorComponent implements OnChanges, OnInit {
+export class UserGroupPickerComponent implements OnChanges, OnInit {
 
 	//@Input() availableGroupos:UserGroup[] = [];
 	@Input() selectedGroups:UserGroup[] = [];

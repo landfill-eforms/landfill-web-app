@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
 			title: "Users",
 			subtitle: "Manage User Accounts and User Groups",
 			img: "https://www.hdwallpapers.net/previews/flame-1054.jpg",
-			route: RestrictedRoute.USER_LIST,
+			route: RestrictedRoute.USER_SELECTOR,
 			disabled: false
 		},
 		{

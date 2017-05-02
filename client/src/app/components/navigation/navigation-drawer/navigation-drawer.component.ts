@@ -61,15 +61,9 @@ export class NavigationDrawerComponent implements OnInit {
 			visible: false
 		},
 		{
-			route: RestrictedRoute.USER_LIST, 
+			route: RestrictedRoute.USER_SELECTOR, 
 			icon: 'people', 
 			label: 'Users',
-			visible: false
-		},
-		{
-			route: RestrictedRoute.USER_GROUP_LIST,
-			icon: 'group_work',
-			label: 'User Groups',
 			visible: false
 		}
 	];

@@ -19,6 +19,7 @@ export class DatePickerComponent implements OnChanges {
 
 	readonly today:DayMonthYear;
 
+	dateIsSelected:boolean = false;
 	selectedDate:DayMonthYear = {
 		year: 0,
 		month: 0,
@@ -43,6 +44,7 @@ export class DatePickerComponent implements OnChanges {
 	}
 
 	ngOnChanges() {
+		this.dateIsSelected = this.date ? true : false;
 		let date:Date = this.date == null ? new Date() : new Date(this.date);
 		this.selectedDate.year = date.getFullYear();
 		this.selectedDate.month = date.getMonth();
@@ -63,7 +65,7 @@ export class DatePickerComponent implements OnChanges {
 	}
 
 	isSelected(date:number, month:number, year:number):boolean {
-		return this.selectedDate.year == year && this.selectedDate.month == month && this.selectedDate.date == date;
+		return this.dateIsSelected && this.selectedDate.date == date && this.selectedDate.month == month && this.selectedDate.year == year;
 	}
 
 	isToday(date:number, month:number, year:number) {

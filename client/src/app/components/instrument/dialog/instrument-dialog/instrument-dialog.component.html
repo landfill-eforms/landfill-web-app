@@ -1,7 +1,7 @@
 <div md-dialog-title>Register New Instrument</div>
 <md-dialog-content>
 	<div class="dialog-form-container flex-container" fxLayout="row">
-		<div class="flex-item" fxFlex style="padding-right: 8px;">
+		<div class="flex-item" fxFlex style="padding-right: 16px;">
 			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Serial Number" [(ngModel)]="instrument.serialNumber">
 			</md-input-container>
@@ -11,10 +11,13 @@
 				</md-option>
 			</md-select>
 			<md-input-container class="md-input-full-width">
-				<textarea mdInput rows="4" placeholder="Description" [(ngModel)]="instrument.description"></textarea>
+				<textarea mdInput rows="10" placeholder="Description" [(ngModel)]="instrument.description"></textarea>
 			</md-input-container>
 		</div>
-		<div class="flex-item" fxFlex style="padding-left: 8px;">
+		<div class="flex-item" fxFlex style="padding-left: 16px;">
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="City Inventory Number" [(ngModel)]="instrument.inventoryNumber">
+			</md-input-container>
 			<md-select [(ngModel)]="instrument.instrumentStatus" placeholder="Status" class="mat-select-row" style="width:100%">
 				<md-option *ngFor="let status of instrumentStatus" [value]="status.constantName">
 					{{status.constantName}}
@@ -28,9 +31,9 @@
 					{{site.name}}
 				</md-option>
 			</md-select>
-			<md-input-container class="md-input-full-width">
-				<input mdInput placeholder="City Inventory Number" [(ngModel)]="instrument.inventoryNumber">
-			</md-input-container>
+			<app-date-picker-input placeholder="Last Service Date"></app-date-picker-input>
+			<app-date-picker-input placeholder="Next Service Date"></app-date-picker-input>
+			<app-date-picker-input placeholder="Purchased Date"></app-date-picker-input>
 		</div>
 	</div>
 </md-dialog-content>

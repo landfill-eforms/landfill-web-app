@@ -1,13 +1,12 @@
-import { SortUtils } from './../../../utils/sort.utils';
 import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
 import { Component, OnChanges, Input } from '@angular/core';
 
 @Component({
-	selector: 'app-user-permission-selector',
-	templateUrl: './user-permission-selector.component.html',
-	styleUrls: ['./user-permission-selector.component.scss']
+	selector: 'app-user-permission-picker',
+	templateUrl: './user-permission-picker.component.html',
+	styleUrls: ['./user-permission-picker.component.scss']
 })
-export class UserPermissionSelectorComponent implements OnChanges {
+export class UserPermissionPickerComponent implements OnChanges {
 
 	@Input() selectedPermissions:UserPermission[] = [];
 

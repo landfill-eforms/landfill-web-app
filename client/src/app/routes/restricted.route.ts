@@ -13,10 +13,7 @@ import { InstrumentComponent } from './../components/instrument/instrument/instr
 import { InstrumentListComponent } from './../components/instrument/instrument-list/instrument-list.component';
 import { ExceedanceSelectorComponent } from './../components/exceedance/exceedance-selector/exceedance-selector.component';
 import { MobileSyncSelectorComponent } from './../components/mobile/mobile-sync-selector/mobile-sync-selector.component';
-import { UserGroupComponent } from './../components/user-group/user-group/user-group.component';
-import { UserGroupListComponent } from './../components/user-group/user-group-list/user-group-list.component';
 import { UserProfileComponent } from './../components/user/user-profile/user-profile.component';
-import { UserBaseComponent } from './../components/user/user-base/user-base.component';
 import { UserPermission } from './../model/server/persistence/enums/user/user-permission.enum';
 import { AuthGuard } from './../services/auth/authguard';
 import { UserListComponent } from './../components/user/user-list/user-list.component';
@@ -179,27 +176,29 @@ export class RestrictedRoute {
 	};
 
 	/***** USER ROUTES *****/
-	static readonly USER_LIST:Route = {
-		path: 'users',
+	static readonly USER_SELECTOR:Route = {
+		path: 'user',
 		data: {
 			name: "Users",
+			permissions: [
+				UserPermission.VIEW_USERS,
+				UserPermission.VIEW_USER_GROUPS
+			]
+		}
+	}
+
+	static readonly USER_LIST:Route = {
+		path: 'user/users',
+		data: {
+			name: "User Accounts",
 			permissions: [
 				UserPermission.VIEW_USERS
 			]
 		}
 	}
 
-	static readonly USER:Route = {
-		path: 'users/:username',
-		data: {
-			permissions: [
-				UserPermission.VIEW_USERS
-			]
-		}
-	};
-
 	static readonly USER_GROUP_LIST:Route = {
-		path: 'user-groups',
+		path: 'user/user-groups',
 		data: {
 			name: "User Groups",
 			permissions: [
@@ -208,13 +207,5 @@ export class RestrictedRoute {
 		}
 	};
 
-	static readonly USER_GROUP:Route = {
-		path: 'user-groups/:id',
-		data: {
-			permissions: [
-				UserPermission.VIEW_USER_GROUPS
-			]
-		}
-	};
 	
 }

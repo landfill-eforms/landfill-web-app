@@ -21,6 +21,10 @@ export class DatePickerInputComponent implements OnChanges {
 	}
 
 	checkInput() {
+		if (!this.dateString) {
+			this.actualDate = 0;
+			return;
+		}
 		let d = Date.parse(this.dateString);
 		console.log(this.dateString, d);
 		if (!isNaN(d)) {
@@ -36,12 +40,12 @@ export class DatePickerInputComponent implements OnChanges {
 	}
 
 	private actualDateChanged(date:number) {
-		if (this.actualDate == date) {
+		if (this.actualDate === date) {
 			return;
 		}
 		this.actualDate = date;
 		this.dateString = DateTimeUtils.getDate(this.actualDate);
-		this.dateChanged.emit(this.actualDate);
+		this.dateChanged.emit(!this.actualDate ? null : this.actualDate);
 	}
 	
 }

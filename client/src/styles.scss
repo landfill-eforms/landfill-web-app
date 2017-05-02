@@ -475,39 +475,45 @@ md-toolbar-row {
 }
 
 .selector-cards-container {
-	margin: 8px 16px;
+	width: 100%;
+	min-width: 600px;
 }
 
 .selector-card {
 	border-radius: 2px;
-	margin: 8px;
+	margin: 8px 0;
 	box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+	user-select: none;
+	cursor: pointer;
+	outline: none;
 }
 
 .selector-card-img {
 	border-radius: 2px 2px 0 0;
-	width: 100%;
+	height: 108px;
 }
 
 .selector-card-title-container {
-	padding: 24px 16px 16px 16px;
+	padding: 24px;
 }
 
 .selector-card-title {
 	font-size: 24px;
-	font-weight: 400;
-	color: rgba(0,0,0,0.87);
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 24px;
 }
 
 .selector-card-subtitle {
 	font-size: 14px;
-	font-weight: 400;
-	color: rgba(0,0,0,0.54);
-	padding-top: 16px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.54);
+    padding-top: 16px;
+    line-height: 14px;
 }
 
 .selector-card-action {
-	padding: 8px 0;
+	padding: 34px 0;
 	button {
 		margin-left: 8px;
 		color: mat-color($app-primary, 500);

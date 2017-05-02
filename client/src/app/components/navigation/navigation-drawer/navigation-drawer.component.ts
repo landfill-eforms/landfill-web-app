@@ -55,7 +55,7 @@ export class NavigationDrawerComponent implements OnInit {
 			visible: false
 		},
 		{
-			route: RestrictedRoute.INSTRUMENT_LIST,
+			route: RestrictedRoute.INSTRUMENT_SELECTOR,
 			icon: 'format_paint',
 			label: 'Equipment',
 			visible: false
@@ -71,13 +71,7 @@ export class NavigationDrawerComponent implements OnInit {
 			icon: 'group_work',
 			label: 'User Groups',
 			visible: false
-		},
-		{
-			route: PublicRoute.INFO,
-			icon: 'info',
-			label: 'Information',
-			visible: false
-		},
+		}
 	];
 
 

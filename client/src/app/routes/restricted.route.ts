@@ -95,8 +95,19 @@ export class RestrictedRoute {
 	}
 
 	/***** INSTRUMENT ROUTES *****/
-	static readonly INSTRUMENT_LIST:Route = {
+	static readonly INSTRUMENT_SELECTOR:Route = {
 		path: 'equipment',
+		data: {
+			name: "Equipment",
+			permissions: [
+				UserPermission.VIEW_INSTRUMENTS,
+				UserPermission.VIEW_INSTRUMENT_TYPES
+			]
+		}
+	};
+
+	static readonly INSTRUMENT_LIST:Route = {
+		path: 'equipment/equipment',
 		data: {
 			name: "Equipment",
 			permissions: [
@@ -106,7 +117,7 @@ export class RestrictedRoute {
 	};
 
 	static readonly INSTRUMENT:Route = {
-		path: 'equipment/:id',
+		path: 'equipment/equipment/:id',
 		data: {
 			permissions: [
 				UserPermission.VIEW_INSTRUMENTS
@@ -115,7 +126,7 @@ export class RestrictedRoute {
 	};
 
 	static readonly INSTRUMENT_TYPE_LIST:Route = {
-		path: 'equipment-types',
+		path: 'equipment/equipment-types',
 		data: {
 			name: "Equipment Types",
 			permissions: [
@@ -125,7 +136,7 @@ export class RestrictedRoute {
 	};
 
 	static readonly INSTRUMENT_TYPE:Route = {
-		path: 'equipment-types/:id',
+		path: 'equipment/equipment-types/:id',
 		data: {
 			permissions: [
 				UserPermission.VIEW_INSTRUMENT_TYPES

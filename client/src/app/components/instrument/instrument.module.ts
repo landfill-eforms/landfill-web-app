@@ -1,3 +1,4 @@
+import { InstrumentSelectorComponent } from './instrument-selector/instrument-selector.component';
 import { InstrumentTypeDialogComponent } from './dialog/instrument-type-dialog/instrument-type-dialog.component';
 import { InstrumentDialogComponent } from './dialog/instrument-dialog/instrument-dialog.component';
 import { InstrumentListSideinfoComponent } from './instrument-list-sideinfo/instrument-list-sideinfo.component';
@@ -17,6 +18,7 @@ import { CommonModule } from './../common/common.module';
 	],
 	providers: [],
 	declarations: [
+		InstrumentSelectorComponent,
 		InstrumentDialogComponent,
 		InstrumentTypeDialogComponent,
 		InstrumentListComponent,

@@ -1,3 +1,4 @@
+import { InstrumentSelectorComponent } from './components/instrument/instrument-selector/instrument-selector.component';
 import { UnverifiedDataSetComponent } from './components/unverified-data/unverified-data-set/unverified-data-set.component';
 import { ReportSelectorComponent } from './components/report/report-selector/report-selector.component';
 import { UnverifiedDataSetListComponent } from './components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
@@ -92,6 +93,12 @@ export const RestrictedRoutes:Routes = [
 				path: RestrictedRoute.IME_NUMBER.path,
 				data: RestrictedRoute.IME_NUMBER.data,
 				component: ImeNumberComponent,
+				canActivate: [AuthGuard]
+			},
+			{
+				path: RestrictedRoute.INSTRUMENT_SELECTOR.path,
+				data: RestrictedRoute.INSTRUMENT_SELECTOR.data,
+				component: InstrumentSelectorComponent,
 				canActivate: [AuthGuard]
 			},
 			{

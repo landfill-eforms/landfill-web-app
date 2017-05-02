@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
 			title: "Equipment",
 			subtitle: "Manage Equipment and Equipment Types",
 			img: "http://www.uidownload.com/files/403/985/109/rainbow-colorful-background-abstract-design-vector-graphic.jpg",
-			route: RestrictedRoute.INSTRUMENT_LIST,
+			route: RestrictedRoute.INSTRUMENT_SELECTOR,
 			visible: false,
 			disabled: false
 		},

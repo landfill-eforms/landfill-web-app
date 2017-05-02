@@ -1,0 +1,22 @@
+<div class="page-title">Equipment</div>
+<div class="page-subtitle">Select an exceedance type to log repairs and rechecks, and to download PDF summaries.</div>
+<div class="page-content">
+    <div class="flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+        <div *ngFor="let card of cards">
+            <div *ngIf="card.visible" class="selector-cards-container flex-item" fxFlex>
+                <div class="selector-card flex-container" fxLayout="row" fxLayoutAlign="center" [routerLink]="'../' + card.route.path">
+                    <img class="selector-card-img flex-item" [src]="card.img">
+                    <div class="selector-card-title-container flex-item" fxFlex>
+                        <div class="selector-card-title">{{card.title}}</div>
+                        <div class="selector-card-subtitle">{{card.subtitle}}</div>
+                    </div>
+                    <div class="selector-card-action flex-item" fxFlex="48px">
+                        <button md-icon-button [disabled]="card.disabled">
+                            <md-icon>navigate_next</md-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>

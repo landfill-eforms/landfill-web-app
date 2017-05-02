@@ -18,6 +18,14 @@ a {
 	cursor: pointer;
 }
 
+.primary-background {
+	background: mat-color($app-primary);
+}
+
+.primary-color {
+	color: mat-color($app-primary);
+}
+
 .mat-sidenav-content {
   transform: initial !important;
   overflow: hidden;
@@ -472,52 +480,6 @@ md-toolbar-row {
 
 .fab-action-button {
 	margin-left: 16px !important;
-}
-
-.selector-cards-container {
-	width: 100%;
-	min-width: 600px;
-}
-
-.selector-card {
-	border-radius: 2px;
-	margin: 8px 0;
-	box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-	user-select: none;
-	cursor: pointer;
-	outline: none;
-}
-
-.selector-card-img {
-	border-radius: 2px 2px 0 0;
-	height: 108px;
-}
-
-.selector-card-title-container {
-	padding: 24px;
-}
-
-.selector-card-title {
-	font-size: 24px;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.87);
-    line-height: 24px;
-}
-
-.selector-card-subtitle {
-	font-size: 14px;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.54);
-    padding-top: 16px;
-    line-height: 14px;
-}
-
-.selector-card-action {
-	padding: 34px 0;
-	button {
-		margin-left: 8px;
-		color: mat-color($app-primary, 500);
-	}
 }
 
 .date-picker-input-menu {

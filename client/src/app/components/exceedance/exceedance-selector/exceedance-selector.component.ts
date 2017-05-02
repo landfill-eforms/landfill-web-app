@@ -1,17 +1,19 @@
+import { AppNavLink } from './../../../model/client/app-nav-link';
 import { NavigationService } from './../../../services/app/navigation.service';
-import { SelectorCard } from './../../../model/client/selector-card';
 import { RestrictedRoute } from './../../../routes/restricted.route';
 import { TitleService } from './../../../services/app/title.service';
-import { AuthService } from './../../../services/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-exceedance-selector',
 	templateUrl: './exceedance-selector.component.html'
 })
-export class ExceedanceSelectorComponent implements OnInit {
+export class ExceedanceSelectorComponent {
 
-	readonly cards:SelectorCard[] = [
+	readonly title = "Exceedance Types";
+	readonly subtitle = "Select an exceedance type to log repairs and rechecks, and to download PDF summaries."
+
+	readonly cards:AppNavLink[] = [
 		{
 			title: "Instantaneous",
 			subtitle: "Instantaneous Monitoring Exceedances",
@@ -46,17 +48,9 @@ export class ExceedanceSelectorComponent implements OnInit {
 		}
 	];
 
-	constructor(
-		private authService:AuthService,
-		private navigationService:NavigationService) {
-			navigationService.getNavbarComponent().expanded = false;
-			navigationService.getSideinfoComponent().disable();
-	}
-
-	ngOnInit() {
-		for (let card of this.cards) {
-			card.visible = !card.route.data || this.authService.canAccess(card.route.data["permissions"]);
-		}
+	constructor(private navigationService:NavigationService) {
+		navigationService.getNavbarComponent().expanded = false;
+		navigationService.getSideinfoComponent().disable();
 	}
 
 }

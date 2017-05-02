@@ -1,45 +1,35 @@
+import { AppNavLink } from './../../../model/client/app-nav-link';
 import { NavigationService } from './../../../services/app/navigation.service';
-import { AuthService } from './../../../services/auth/auth.service';
 import { RestrictedRoute } from './../../../routes/restricted.route';
-import { SelectorCard } from './../../../model/client/selector-card';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-instrument-selector',
 	templateUrl: './instrument-selector.component.html'
 })
-export class InstrumentSelectorComponent implements OnInit {
+export class InstrumentSelectorComponent {
 
-    readonly cards:SelectorCard[] = [
+	readonly title = "Equipment";
+	readonly subtitle = "Chris, please put something here."
+
+    readonly cards:AppNavLink[] = [
 		{
-			title: "Equipment",
+			title: "Equipment Inventory",
 			subtitle: "Manage Equipment Inventory",
 			img: "https://www.qdtricks.net/wp-content/uploads/2016/05/latest-1080-wallpaper.jpg",
-			route: RestrictedRoute.INSTRUMENT_LIST,
-			visible: false,
-			disabled: false
+			route: RestrictedRoute.INSTRUMENT_LIST
 		},
 		{
 			title: "Equipment Types",
-			subtitle: "Equipment Makes, Models, and Types",
+			subtitle: "Manage Equipment Makes and Models",
 			img: "https://wallpaperscraft.com/image/sea_coast_rocks_underwater_world_vegetation_fish_53966_1920x1080.jpg",
-			route: RestrictedRoute.INSTRUMENT_TYPE_LIST,
-			visible: false,
-			disabled: false
+			route: RestrictedRoute.INSTRUMENT_TYPE_LIST
 		}
     ];
 
-    	constructor(
-		private authService:AuthService,
-		private navigationService:NavigationService) {
-			navigationService.getNavbarComponent().expanded = false;
-			navigationService.getSideinfoComponent().disable();
-	}
-
-	ngOnInit() {
-		for (let card of this.cards) {
-			card.visible = !card.route.data || this.authService.canAccess(card.route.data["permissions"]);
-		}
+	constructor(private navigationService:NavigationService) {
+		navigationService.getNavbarComponent().expanded = false;
+		navigationService.getSideinfoComponent().disable();
 	}
 
 }

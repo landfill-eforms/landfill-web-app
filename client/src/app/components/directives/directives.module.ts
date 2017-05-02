@@ -1,3 +1,4 @@
+import { CardSelectorMenuComponent } from './card-selector-menu/card-selector-menu.component';
 import { PageLoadingIndicatorComponent } from './page-loading-indicator/page-loading-indicator.component';
 import { DatePickerInputComponent } from './pickers/date-picker-input/date-picker-input.component';
 import { DatePickerComponent } from './pickers/date-picker/date-picker.component';
@@ -22,6 +23,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		OkDialogComponent,
 		YesNoDialogComponent,
 		FileUploadComponent,
+		CardSelectorMenuComponent,
 		InstantaneousDataViewComponent,
 		ImeListViewComponent,
 		ImeDataViewComponent,
@@ -36,6 +38,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		OkDialogComponent,
 		YesNoDialogComponent,
 		FileUploadComponent,
+		CardSelectorMenuComponent,
 		InstantaneousDataViewComponent,
 		ImeListViewComponent,
 		ImeDataViewComponent,

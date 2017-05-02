@@ -109,7 +109,7 @@ export class RestrictedRoute {
 	static readonly INSTRUMENT_LIST:Route = {
 		path: 'equipment/equipment',
 		data: {
-			name: "Equipment",
+			name: "Equipment Inventory",
 			permissions: [
 				UserPermission.VIEW_INSTRUMENTS
 			]

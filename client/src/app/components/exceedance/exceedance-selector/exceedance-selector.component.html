@@ -1,18 +1,1 @@
-<div class="page-title">Exceedance Types</div>
-<div class="page-subtitle">Select an exceedance type to log repairs and rechecks, and to download PDF summaries.</div>
-<div class="selector-cards-container flex-container" fxLayout="row" fxLayoutAlign="start start" fxLayoutWrap>
-	<div *ngFor="let card of cards">
-		<div *ngIf="card.visible" class="selector-card-container flex-item" fxFlex="320px">
-			<div class="selector-card">
-				<img class="selector-card-img" [src]="card.img">
-				<div class="selector-card-title-container">
-					<div class="selector-card-title">{{card.title}}</div>
-					<div class="selector-card-subtitle">{{card.subtitle}}</div>
-				</div>
-				<div class="selector-card-action">
-					<button md-button [disabled]="card.disabled" [routerLink]="'../' + card.route.path">SELECT</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<app-card-selector-menu [title]="title" [subtitle]="subtitle" [cards]="cards"></app-card-selector-menu>

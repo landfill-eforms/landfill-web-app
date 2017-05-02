@@ -1,0 +1,25 @@
+<div class="page-title" *ngIf="title">{{title}}</div>
+<div class="page-subtitle" *ngIf="subtitle">{{subtitle}}</div>
+<div class="page-content">
+    <div class="flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+        <div *ngFor="let card of cards">
+            <div *ngIf="card.visible" class="selector-cards-container flex-item" fxFlex>
+                <div class="selector-card flex-container" 
+					fxLayout="row" fxLayoutAlign="center" 
+					[ngClass]="{'selector-card-disabled' : card.disabled}"
+					(click)="click(card)">
+                    <img class="selector-card-img flex-item" [src]="card.img">
+                    <div class="selector-card-title-container flex-item" fxFlex>
+                        <div class="selector-card-title">{{card.title}}</div>
+                        <div class="selector-card-subtitle">{{card.subtitle}}</div>
+                    </div>
+                    <div class="selector-card-action flex-item" fxFlex="48px">
+                        <button md-icon-button [disabled]="card.disabled">
+                            <md-icon class="primary-color">navigate_next</md-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>

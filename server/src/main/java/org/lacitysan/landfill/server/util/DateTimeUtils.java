@@ -20,6 +20,10 @@ public class DateTimeUtils {
 	 */
 	public static Timestamp mobileDateToTimestamp(String mobileDate) {
 		
+		if (mobileDate == null) {
+			return null;
+		}
+		
 		// Specify the expected date format of the input string.
 		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
 		

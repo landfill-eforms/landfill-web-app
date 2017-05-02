@@ -72,7 +72,7 @@ public class UnverifiedInstantaneousData extends AbstractEntity {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="UnverifiedDataSetFK", nullable=false)
-	@Cascade(CascadeType.ALL)
+//	@Cascade(CascadeType.ALL)
 	private UnverifiedDataSet unverifiedDataSet;
 
 	public MonitoringPoint getMonitoringPoint() {

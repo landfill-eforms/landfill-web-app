@@ -357,6 +357,8 @@ public class MobileDataDeserializer {
 				unverifiedIntegratedData.setMonitoringPoint(grid);
 			}
 
+			// TODO Automate sample id.
+			unverifiedIntegratedData.setSampleId(mobileIntegratedData.getmSampleId() == null ? "" : mobileIntegratedData.getmSampleId());
 			unverifiedIntegratedData.setBagNumber(mobileIntegratedData.getmBagNumber().shortValue());
 			unverifiedIntegratedData.setVolume(mobileIntegratedData.getmVolumeReading().shortValue());
 			unverifiedIntegratedData.setMethaneLevel((int)(mobileIntegratedData.getmMethaneReading() * 100));

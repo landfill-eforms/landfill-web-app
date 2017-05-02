@@ -86,25 +86,7 @@ public class UnverifiedDataController {
 	@RestSecurity(UserPermission.COMMIT_UNVERIFIED_DATA_SET)
 	@RequestMapping(value="/commit", method=RequestMethod.POST)
 	public Object commitAll(@RequestBody UnverifiedDataSet unverifiedDataSet) {
-		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.values()));
-	}
-	
-	@RestSecurity(UserPermission.COMMIT_UNVERIFIED_DATA_SET)
-	@RequestMapping(value="/commit/instantaneous", method=RequestMethod.POST)
-	public Object commitInstantaneous(@RequestBody UnverifiedDataSet unverifiedDataSet) {
-		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.INSTANTANEOUS));
-	}
-	
-	@RestSecurity(UserPermission.COMMIT_UNVERIFIED_DATA_SET)
-	@RequestMapping(value="/commit/integrated", method=RequestMethod.POST)
-	public Object commitIntegrated(@RequestBody UnverifiedDataSet unverifiedDataSet) {
-		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.INTEGRATED));
-	}
-
-	@RestSecurity(UserPermission.COMMIT_UNVERIFIED_DATA_SET)
-	@RequestMapping(value="/commit/probe", method=RequestMethod.POST)
-	public Object commitProbe(@RequestBody UnverifiedDataSet unverifiedDataSet) {
-		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet), Arrays.asList(TestType.PROBE));
+		return dataVerificationService.verifyAndCommit(update(unverifiedDataSet));
 	}
 	
 }

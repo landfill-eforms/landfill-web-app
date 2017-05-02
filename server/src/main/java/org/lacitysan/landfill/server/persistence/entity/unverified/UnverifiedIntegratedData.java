@@ -40,6 +40,9 @@ public class UnverifiedIntegratedData extends AbstractEntity {
 	private Instrument instrument;
 	
 	@NotNull
+	private String sampleId;
+	
+	@NotNull
 	private Short bagNumber;
 	
 	@NotNull
@@ -77,6 +80,14 @@ public class UnverifiedIntegratedData extends AbstractEntity {
 
 	public void setInstrument(Instrument instrument) {
 		this.instrument = instrument;
+	}
+
+	public String getSampleId() {
+		return sampleId;
+	}
+
+	public void setSampleId(String sampleId) {
+		this.sampleId = sampleId;
 	}
 
 	public Short getBagNumber() {

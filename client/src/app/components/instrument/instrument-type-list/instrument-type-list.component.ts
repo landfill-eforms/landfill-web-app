@@ -118,9 +118,11 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 
 	ngOnDestroy() {
 		this.navigationService.getSideinfoComponent().disable();
-		this.navigationService.getNavbarComponent().resetFabInfo();
-		this.navigationService.getNavbarComponent().resetFabActionSource();
-		this.fabActionSubscriber.unsubscribe();
+		if (this.fabActionSubscriber) {
+			this.navigationService.getNavbarComponent().resetFabInfo();
+			this.navigationService.getNavbarComponent().resetFabActionSource();
+			this.fabActionSubscriber.unsubscribe();
+		}
 	}
 
 	private loadInstrumentTypes() {

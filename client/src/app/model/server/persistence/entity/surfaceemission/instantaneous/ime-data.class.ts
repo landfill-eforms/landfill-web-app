@@ -1,5 +1,5 @@
-import { ImeRepairData } from './ime-repair-data.class';
 import { ImeNumber } from './ime-number.class';
+import { ImeRepairData } from './ime-repair-data.class';
 import { SurfaceEmissionExceedanceData } from '../surface-emission-exceedance-data.class';
 
 /**

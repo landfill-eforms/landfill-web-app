@@ -1,5 +1,5 @@
-import { ScheduledReportQuery } from '../report/scheduled-report-query.class';
 import { ScheduledEmail } from './scheduled-email.class';
+import { ScheduledReportQuery } from '../report/scheduled-report-query.class';
 
 /**
  * This class was automatically generated from ScheduledReport.java using typescript-gen.

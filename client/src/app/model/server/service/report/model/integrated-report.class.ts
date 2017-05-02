@@ -1,5 +1,5 @@
-import { IntegratedReportData } from './data/integrated-report-data.class';
 import { Report } from './report.class';
+import { IntegratedReportData } from './data/integrated-report-data.class';
 
 /**
  * This class was automatically generated from IntegratedReport.java using typescript-gen.

@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment.prod';
 import { AppNavLink } from './../../../model/client/app-nav-link';
 import { FileDownloadService } from './../../../services/file/file-download.service';
 import { RestrictedRoutes } from './../../../app.routing';
@@ -22,13 +23,13 @@ export class MobileSyncSelectorComponent {
 		{
 			title: "Upload",
 			subtitle: "Upload Data File from Android Application",
-			img: "https://www.qdtricks.net/wp-content/uploads/2016/05/latest-1080-wallpaper.jpg",
+			img: environment.assetsUrl + "/images/links/file_upload.jpg",
 			route: RestrictedRoute.MOBILE_UPLOAD,
 		},
 		{
 			title: "Download",
 			subtitle: "Download Data File to Android Application",
-			img: "https://wallpaperscraft.com/image/sea_coast_rocks_underwater_world_vegetation_fish_53966_1920x1080.jpg",
+			img: environment.assetsUrl + "/images/links/file_download.jpg",
 			route: RestrictedRoute.MOBILE_DOWNLOAD,
 			action: "download"
 		}

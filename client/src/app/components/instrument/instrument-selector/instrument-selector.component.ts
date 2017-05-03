@@ -16,13 +16,13 @@ export class InstrumentSelectorComponent {
 		{
 			title: "Equipment Inventory",
 			subtitle: "Manage Equipment Inventory",
-			img: "https://www.qdtricks.net/wp-content/uploads/2016/05/latest-1080-wallpaper.jpg",
+			// img: "https://www.qdtricks.net/wp-content/uploads/2016/05/latest-1080-wallpaper.jpg",
 			route: RestrictedRoute.INSTRUMENT_LIST
 		},
 		{
 			title: "Equipment Types",
 			subtitle: "Manage Equipment Makes and Models",
-			img: "https://wallpaperscraft.com/image/sea_coast_rocks_underwater_world_vegetation_fish_53966_1920x1080.jpg",
+			// img: "https://wallpaperscraft.com/image/sea_coast_rocks_underwater_world_vegetation_fish_53966_1920x1080.jpg",
 			route: RestrictedRoute.INSTRUMENT_TYPE_LIST
 		}
     ];

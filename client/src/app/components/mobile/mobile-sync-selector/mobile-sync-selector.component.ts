@@ -23,13 +23,13 @@ export class MobileSyncSelectorComponent {
 		{
 			title: "Upload",
 			subtitle: "Upload Data File from Android Application",
-			img: environment.assetsUrl + "/images/links/file_upload.jpg",
+			//img: environment.assetsUrl + "/images/links/file_upload.jpg",
 			route: RestrictedRoute.MOBILE_UPLOAD,
 		},
 		{
 			title: "Download",
 			subtitle: "Download Data File to Android Application",
-			img: environment.assetsUrl + "/images/links/file_download.jpg",
+			//img: environment.assetsUrl + "/images/links/file_download.jpg",
 			route: RestrictedRoute.MOBILE_DOWNLOAD,
 			action: "download"
 		}

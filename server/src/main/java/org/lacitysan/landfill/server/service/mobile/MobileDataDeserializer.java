@@ -394,7 +394,7 @@ public class MobileDataDeserializer {
 			unverifiedProbeData.setDate(new Date(DateTimeUtils.mobileDateToTimestamp(mobileProbeData.getmDate()).getTime()));
 			unverifiedProbeData.setMethaneLevel((int)(mobileProbeData.getmMethanePercentage() * 100));
 			unverifiedProbeData.setPressureLevel((int)(mobileProbeData.getmWaterPressure() * 100));
-			unverifiedProbeData.setDescription(mobileProbeData.getmRemarks());
+			unverifiedProbeData.setDescription(mobileProbeData.getmRemarks() == null ? "" : mobileProbeData.getmRemarks());
 			unverifiedProbeData.setAccessible(false);
 
 			// Set barometric pressure

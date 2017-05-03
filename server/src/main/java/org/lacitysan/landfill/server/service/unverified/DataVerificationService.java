@@ -1,11 +1,8 @@
 package org.lacitysan.landfill.server.service.unverified;
 
 import java.sql.Date;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.exception.DataVerificationException;
@@ -28,12 +25,10 @@ import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrat
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
-import org.lacitysan.landfill.server.persistence.enums.test.TestType;
 import org.lacitysan.landfill.server.service.surfaceemission.instantaneous.ImeNumberService;
 import org.lacitysan.landfill.server.service.surfaceemission.integrated.IseNumberService;
 import org.lacitysan.landfill.server.service.unverified.model.VerifiedDataSet;

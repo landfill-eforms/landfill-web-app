@@ -1,6 +1,7 @@
 <div *ngIf="!instrument">
-	<div style="padding:16px;">
-		Select an equipment to view its details.
+	<div class="sideinfo-not-selected">
+		<md-icon>pageview</md-icon>
+		<div>Select an equipment to view its details.</div>
 	</div>
 </div>
 <div *ngIf="instrument" style="height:calc(100% - 128px);">

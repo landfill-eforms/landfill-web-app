@@ -1,6 +1,7 @@
 <div *ngIf="!user">
-	<div style="padding:16px;">
-		Select a user to view their details.
+	<div class="sideinfo-not-selected">
+		<md-icon>pageview</md-icon>
+		<div>Select a user account to view its details.</div>
 	</div>
 </div>
 <div *ngIf="user" style="height:calc(100% - 128px);">

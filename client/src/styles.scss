@@ -65,6 +65,17 @@ a {
 	}
 }
 
+.sideinfo-not-selected {
+	color: rgba(0,0,0,0.54);
+	padding: 16px;
+	text-align: center;
+	.mat-icon {
+		color: rgba(0,0,0,0.24);
+		width: 100%;
+    	font-size: 120px;
+	}
+}
+
 .sideinfo-header {
 	background-color: mat-color($app-primary, 600); 
 	height: 128px;

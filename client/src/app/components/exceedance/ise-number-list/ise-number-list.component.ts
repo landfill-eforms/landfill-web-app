@@ -76,7 +76,7 @@ export class IseNumberListComponent extends AbstractDataTableComponent<IseNumber
 	}
 
 	loadIseNumbers() {
-		this.iseNumberService.getAll((data) => {
+		this.iseNumberService.getAllVerified((data) => {
 			console.log(data);
 			this.data = data;
 			this.applyFilters();

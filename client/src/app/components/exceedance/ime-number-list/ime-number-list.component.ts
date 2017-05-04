@@ -77,7 +77,7 @@ export class ImeNumberListComponent extends AbstractDataTableComponent<ImeNumber
 	}
 
 	loadImeNumbers() {
-		this.imeNumberService.getAll((data) => {
+		this.imeNumberService.getAllVerified((data) => {
 			console.log(data);
 			this.data = data;
 			this.applyFilters();

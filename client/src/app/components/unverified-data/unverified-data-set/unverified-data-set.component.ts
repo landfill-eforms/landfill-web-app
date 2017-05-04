@@ -1,3 +1,11 @@
+import { RestrictedRoute } from './../../../routes/restricted.route';
+import { AppConstant } from './../../../app.constant';
+import { EditUnverifiedWarmspotDialogComponent } from './../dialog/edit-unverified-warmspot-dialog/edit-unverified-warmspot-dialog.component';
+import { EditUnverifiedIntegratedDialogComponent } from './../dialog/edit-unverified-integrated-dialog/edit-unverified-integrated-dialog.component';
+import { EditUnverifiedInstantaneousDialogComponent } from './../dialog/edit-unverified-instantaneous-dialog/edit-unverified-instantaneous-dialog.component';
+import { IseNumber } from './../../../model/server/persistence/entity/surfaceemission/integrated/ise-number.class';
+import { UnverifiedWarmspotData } from './../../../model/server/persistence/entity/unverified/unverified-warmspot-data.class';
+import { ExceedanceStatus } from './../../../model/server/persistence/enums/exceedance/exceedance-status.enum';
 import { OkDialogComponent } from './../../directives/dialogs/ok-dialog/ok-dialog.component';
 import { UnverifiedProbeData } from './../../../model/server/persistence/entity/unverified/unverified-probe-data.class';
 import { UnverifiedIntegratedData } from './../../../model/server/persistence/entity/unverified/unverified-integrated-data.class';
@@ -37,10 +45,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 	existingImeNumbers:ImeNumber[];
 	createdImeNumbers:ImeNumber[]; // IME numbers created during this session.
 	barometricPressure:number;
-	sort:any = {
-		current: "",
-		reversed: false
-	}
+
+	activeItem:any = {};
+
+	selectedInstantaneous:UnverifiedInstantaneousData[] = [];
+
+	test:boolean = true;
 
 	constructor(
 		private activatedRoute:ActivatedRoute,
@@ -68,7 +78,6 @@ export class UnverifiedDataSetComponent implements OnInit {
 						this.dataSet.unverifiedIntegratedData[i].instrument = <any>{}; // LOLOLOL
 					}
 				}
-				this.sortByGrid();
 				this.imeNumberService.getBySite(this.dataSet.site,
 					(data) => {
 						// TODO Use current date.
@@ -89,30 +98,159 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	// TODO Clean this up.
-	processData(data:any):UnverifiedDataSet {
-		data["site"] = EnumUtils.convertToEnum(Site, data["site"]);
-		if (data.barometricPressure) {
-			data.barometricPressure = data.barometricPressure / 100;
-		}
-		for (let i = 0; i < data.unverifiedInstantaneousData.length; i++) {
-			let unverifiedInstantaneousData:any = data.unverifiedInstantaneousData[i];
-			unverifiedInstantaneousData["monitoringPoint"] = EnumUtils.convertToEnum(MonitoringPoint, unverifiedInstantaneousData["monitoringPoint"]);
+	processData(data:UnverifiedDataSet):UnverifiedDataSet {
 
-			// TEMPORARY
-			if (unverifiedInstantaneousData["barometricPressure"]) {
-				this.barometricPressure = unverifiedInstantaneousData["barometricPressure"] / 100;
+		data.site = EnumUtils.convertToEnum(Site, data.site);
+
+		// Instantaneous
+		for (let unverifiedInstantaneousData of data.unverifiedInstantaneousData) {
+			unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToEnum(MonitoringPoint, unverifiedInstantaneousData.monitoringPoint);
+		}
+		data.unverifiedInstantaneousData.sort((a, b) => a.monitoringPoint.ordinal - b.monitoringPoint.ordinal);
+
+		// Warmspot
+		for (let unverifiedWarmspotData of data.unverifiedWarmspotData) {
+			unverifiedWarmspotData.monitoringPoint = EnumUtils.convertToEnum(MonitoringPoint, unverifiedWarmspotData.monitoringPoint);
+		}
+		data.unverifiedWarmspotData.sort((a, b) => a.monitoringPoint.ordinal - b.monitoringPoint.ordinal);
+
+		// IME Numbers
+		for (let imeNumber of data.imeNumbers) {
+			imeNumber.site = EnumUtils.convertToEnum(Site, imeNumber.site);
+			for (let i = 0; i < imeNumber.monitoringPoints.length; i++) {
+				imeNumber.monitoringPoints[i] = EnumUtils.convertToEnum(MonitoringPoint, imeNumber.monitoringPoints[i]);
 			}
+			imeNumber.status = EnumUtils.convertToEnum(ExceedanceStatus, imeNumber.status);
+		}
+		data.imeNumbers.sort((a, b) => {
+			if (a.imeNumber == b.imeNumber) {
+				return 0;
+			}
+			return a.imeNumber > b.imeNumber ? 1 : -1;
+		});
 
+		// Integrated
+		for (let unverifiedIntegratedData of data.unverifiedIntegratedData) {
+			unverifiedIntegratedData.monitoringPoint = EnumUtils.convertToEnum(MonitoringPoint, unverifiedIntegratedData.monitoringPoint);
 		}
-		for (let i = 0; i < data.unverifiedIntegratedData.length; i++) {
-			let unverifiedIntegratedData:any = data.unverifiedIntegratedData[i];
-			unverifiedIntegratedData["monitoringPoint"] = EnumUtils.convertToEnum(MonitoringPoint, unverifiedIntegratedData["monitoringPoint"]);
+		data.unverifiedIntegratedData.sort((a, b) => a.monitoringPoint.ordinal - b.monitoringPoint.ordinal);
+
+		// ISE Numbers
+		for (let iseNumbers of data.iseNumbers) {
+			iseNumbers.site = EnumUtils.convertToEnum(Site, iseNumbers.site);
+			iseNumbers.monitoringPoint = EnumUtils.convertToEnum(MonitoringPoint, iseNumbers.monitoringPoint);
+			iseNumbers.status = EnumUtils.convertToEnum(ExceedanceStatus, iseNumbers.status);
 		}
-		for (let i = 0; i < data.unverifiedProbeData.length; i++) {
-			let unverifiedProbeData:any = data.unverifiedProbeData[i];
-			unverifiedProbeData["monitoringPoint"] = EnumUtils.convertToEnum(MonitoringPoint, unverifiedProbeData["monitoringPoint"]);
-		}
+		data.iseNumbers.sort((a, b) => {
+			if (a.iseNumber == b.iseNumber) {
+				return 0;
+			}
+			return a.iseNumber > b.iseNumber ? 1 : -1;
+		});
+
+		// TODO Add probe.
 		return this.unverifiedDataService.checkForErrors(data);
+	}
+
+	editInstantaneous(data:UnverifiedInstantaneousData) {
+		this.activeItem = data;
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '480px';
+		let dialogRef:MdDialogRef<EditUnverifiedInstantaneousDialogComponent> = this.dialog.open(EditUnverifiedInstantaneousDialogComponent, dialogConfig);
+		dialogRef.componentInstance.availableInstruments = this.instruments;
+		dialogRef.componentInstance.data = data;
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				data.instrument = this.findInstrumentById(result["instrumentId"]);
+				data.barometricPressure = result["barometricPressure"] * 100;
+				data.methaneLevel = result["methaneLevel"] * 100;
+			}
+			this.activeItem = null;
+			this.unverifiedDataService.checkForErrors(this.dataSet);
+		});
+	}
+
+	editWarmspot(data:UnverifiedWarmspotData) {
+		this.activeItem = data;
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '480px';
+		let dialogRef:MdDialogRef<EditUnverifiedWarmspotDialogComponent> = this.dialog.open(EditUnverifiedWarmspotDialogComponent, dialogConfig);
+		dialogRef.componentInstance.availableInstruments = this.instruments;
+		dialogRef.componentInstance.data = data;
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				data.instrument = this.findInstrumentById(result["instrumentId"]);
+				data.methaneLevel = result["methaneLevel"] * 100;
+				data.size = result["size"];
+				data.description = result["description"];
+			}
+			this.activeItem = null;
+			this.unverifiedDataService.checkForErrors(this.dataSet);
+		});
+	}
+
+	editImeNumber(data:ImeNumber) {
+		
+	}
+
+	editIntegrated(data:UnverifiedIntegratedData) {
+		this.activeItem = data;
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '480px';
+		let dialogRef:MdDialogRef<EditUnverifiedIntegratedDialogComponent> = this.dialog.open(EditUnverifiedIntegratedDialogComponent, dialogConfig);
+		dialogRef.componentInstance.availableInstruments = this.instruments;
+		dialogRef.componentInstance.data = data;
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				data.instrument = this.findInstrumentById(result["instrumentId"]);
+				data.barometricPressure = result["barometricPressure"] * 100;
+				data.methaneLevel = result["methaneLevel"] * 100;
+				data.bagNumber = result["bagNumber"];
+				data.volume = result["volume"];
+			}
+			this.activeItem = null;
+			this.unverifiedDataService.checkForErrors(this.dataSet);
+		});
+	}
+
+	editIseNumber(data:IseNumber) {
+		
+	}
+
+	editProbeData(data:UnverifiedProbeData) {
+		
+	}
+
+	toggleInstantaneous(data:UnverifiedInstantaneousData) {
+		let idx = this.selectedInstantaneous.indexOf(data);
+		if (idx == -1) {
+			this.selectedInstantaneous.push(data);
+			data["selected"] = true;
+		}
+		else {
+			this.selectedInstantaneous.splice(idx, 1);
+			data["selected"] = false;
+		}
+	}
+
+	toggleWarmspot(data:UnverifiedWarmspotData) {
+		
+	}
+
+	toggleImeNumber(data:ImeNumber) {
+		
+	}
+
+	toggleIntegrated(data:UnverifiedIntegratedData) {
+
+	}
+
+	toggleIseNumber(data:IseNumber) {
+		
+	}
+
+	toggleProbeData(data:UnverifiedProbeData) {
+		
 	}
 
 	openAssignImeNumberDialog(data:UnverifiedInstantaneousData) {
@@ -157,19 +295,6 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	save() {
-		// this.dataSet.site = EnumUtils.convertToString(this.dataSet.site);
-		// for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
-		// 	let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
-		// 	unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
-		// }
-		// for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
-		// 	let unverifiedIntegratedData:UnverifiedIntegratedData =  this.dataSet.unverifiedIntegratedData[i];
-		// 	unverifiedIntegratedData.monitoringPoint = EnumUtils.convertToString(unverifiedIntegratedData.monitoringPoint);
-		// }
-		// for (let i = 0; i < this.dataSet.unverifiedProbeData.length; i++) {
-		// 	let unverifiedProbeData:UnverifiedProbeData =  this.dataSet.unverifiedProbeData[i];
-		// 	unverifiedProbeData.monitoringPoint = EnumUtils.convertToString(unverifiedProbeData.monitoringPoint);
-		// }
 		console.log(this.dataSet);
 		this.unverifiedDataService.update(this.dataSet, 
 			(data) => {
@@ -186,25 +311,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 			this.snackBar.open("Cannot commit data because it contains errors.", "OK", {duration: 2000});
 			return;
 		}
-		// this.dataSet.site = EnumUtils.convertToString(this.dataSet.site);
-		// for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
-		// 	let unverifiedInstantaneousData:UnverifiedInstantaneousData =  this.dataSet.unverifiedInstantaneousData[i];
-		// 	unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToString(unverifiedInstantaneousData.monitoringPoint);
-		// }
-		// for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
-		// 	let unverifiedIntegratedData:UnverifiedIntegratedData =  this.dataSet.unverifiedIntegratedData[i];
-		// 	unverifiedIntegratedData.monitoringPoint = EnumUtils.convertToString(unverifiedIntegratedData.monitoringPoint);
-		// }
-		// for (let i = 0; i < this.dataSet.unverifiedProbeData.length; i++) {
-		// 	let unverifiedProbeData:UnverifiedProbeData =  this.dataSet.unverifiedProbeData[i];
-		// 	unverifiedProbeData.monitoringPoint = EnumUtils.convertToString(unverifiedProbeData.monitoringPoint);
-		// }
 		this.unverifiedDataService.commit(this.dataSet,
 			(data) => {
 				if (data) {
 					this.processData(this.dataSet);
 					this.snackBar.open("Data set successfully verified.", "OK", {duration: 3000});
-					this.router.navigate(['/app/unverified-data-set-list']);
+					this.router.navigate([AppConstant.RESTRICTED_ROUTE_BASE + '/' + RestrictedRoute.UNVERIFIED_DATA_SET_LIST.path]);
 				}
 			},
 			(err) => {
@@ -230,67 +342,13 @@ export class UnverifiedDataSetComponent implements OnInit {
 		});
 	}
 
-	sortByGrid() {
-		if (this.sort.current === "grid") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "grid";
-			this.sort.reversed = false;
-		}
-		this.dataSet.unverifiedInstantaneousData.sort((a, b) => {
-			let compareGrid = (a.monitoringPoint.ordinal - b.monitoringPoint.ordinal) * (this.sort.reversed ? -1 : 1)
-			if (compareGrid != 0) {
-				return compareGrid;
+	private findInstrumentById(id:number):Instrument {
+		for (let instrument of this.instruments) {
+			if (instrument.id === id) {
+				return instrument;
 			}
-			return (a.startTime - b.startTime) * (this.sort.reversed ? -1 : 1);
-		});
-	}
-
-	sortByIme() {
-		if (this.sort.current === "ime") {
-			this.sort.reversed = !this.sort.reversed;
 		}
-		else {
-			this.sort.current = "ime";
-			this.sort.reversed = false;
-		}
-		this.dataSet.unverifiedInstantaneousData.sort((a, b) => {
-			if (a.imeNumbers[0] && !b.imeNumbers[0]) {
-				return 1 * (this.sort.reversed ? -1 : 1);
-			}
-			else if (b.imeNumbers[0] && !a.imeNumbers[0]) {
-				return -1 * (this.sort.reversed ? -1 : 1);
-			}
-			else if (!a.imeNumbers[0] && !b.imeNumbers[0]) {
-				var compareGrid = 0;
-			}
-			else {
-				var compareGrid = this.stringSortFunction(a.imeNumbers[0].imeNumber, b.imeNumbers[0].imeNumber, this.sort.reversed);
-			}
-			if (compareGrid != 0) {
-				return compareGrid;
-			}
-			return this.stringSortFunction(a.monitoringPoint.name, b.monitoringPoint.name, this.sort.reversed);
-		});
-	}
-
-	sortByMethaneLevel() {
-		if (this.sort.current === "methaneLevel") {
-			this.sort.reversed = !this.sort.reversed;
-		}
-		else {
-			this.sort.current = "methaneLevel";
-			this.sort.reversed = false;
-		}
-		this.dataSet.unverifiedInstantaneousData.sort((a, b) => (a.methaneLevel - b.methaneLevel) * (this.sort.reversed ? -1 : 1));
-	}
-
-	// TODO Move this to a util class.
-	private stringSortFunction(a:string, b:string, reversed:boolean):number {
-		if (a > b) return reversed ? -1 : 1;
-		if (a == b) return 0;
-		if (a < b) return reversed ? 1 : -1;
+		return null;
 	}
 
 	consoleLog() {

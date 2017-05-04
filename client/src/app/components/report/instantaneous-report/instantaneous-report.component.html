@@ -1,0 +1,100 @@
+<div class="grey-background" style="height: 100%; padding: 24px">
+	<md-card style="margin-bottom: 24px">
+		<md-card-content>
+			<div class="card-title">
+				Instantaneous Report Query
+			</div>
+			<div class="flex-container" fxLayout="row">
+				<md-select [(ngModel)]="selectedSite" placeholder="Equipment Type" class="mat-select-row flex-item" fxFlex style="margin-top: 10px">
+					<md-option *ngFor="let site of availableSites" [value]="site">
+						{{site.name}}
+					</md-option>
+				</md-select>
+				<app-date-picker-input placeholder="Min Date" (dateChanged)="dateChanged('start', $event)" class="flex-item" fxFlex style="padding: 16px"></app-date-picker-input>
+				<app-date-picker-input placeholder="Max Date" (dateChanged)="dateChanged('end', $event)" class="flex-item" fxFlex style="padding: 16px"></app-date-picker-input>
+			</div>
+			<button md-raised-button color="accent" (click)="previewReport()">RUN QUERY</button>
+		</md-card-content>
+	</md-card>
+	<md-card *ngIf="isDataLoaded" class="data-table-card" style="margin-bottom: 24px">
+		<md-card-content>
+			<div class="data-table-card-title-row">
+				Query Results
+			</div>
+			<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+				<div class="data-table-first-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Date</span>
+				</div>
+				<div class="data-table-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Barometric</span>
+				</div>
+				<div class="data-table-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Inspector</span>
+				</div>
+				<div class="data-table-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Grid</span>
+				</div>
+				<div class="data-table-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Start</span>
+				</div>
+				<div class="data-table-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">End</span>
+				</div>
+				<div class="data-table-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Instrument</span>
+				</div>
+				<div class="data-table-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Reading (ppm)</span>
+				</div>
+				<div class="data-table-last-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">IME Number(s)</span>
+				</div>
+			</div>
+			<div *ngIf="report.instantaneousReportData?.length == 0" class="data-table-no-data-label">
+				Query returned no results. Please refine your search criteria.
+			</div>
+			<div>
+				<div *ngFor="let data of report.instantaneousReportData" class="data-table-row">
+					<div class="data-table-row-content flex-container" fxLayout="row">
+						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.date}}
+						</div>
+						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.barometricPressure}}
+						</div>
+						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.inspector}}
+						</div>
+						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.monitoringPoint}}
+						</div>
+						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.startTime}}
+						</div>
+						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.endTime}}
+						</div>
+						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.instrument}}
+						</div>
+						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.methaneLevel}}
+						</div>
+						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.imeNumber}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="data-table-card-footer">
+				<button md-raised-button color="accent" 
+					(click)="downloadReport()" 
+					[disabled]="report.instantaneousReportData.length == 0" 
+					style="margin-top: 8px;">
+					DOWNLOAD PDF
+					<md-icon>file_download</md-icon>
+				</button>
+			</div>
+		</md-card-content>
+	</md-card>
+</div>

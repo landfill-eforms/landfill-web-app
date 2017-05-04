@@ -1,8 +1,6 @@
 import { IseNumberListComponent } from './../components/exceedance/ise-number-list/ise-number-list.component';
 import { ImeNumberComponent } from './../components/exceedance/ime-number/ime-number.component';
 import { MobileUploadComponent } from './../components/mobile/mobile-upload/mobile-upload.component';
-import { ImeReportComponent } from './../components/report/ime-report/ime-report.component';
-import { InstantaneousReportComponent } from './../components/report/instantaneous-report/instantaneous-report.component';
 import { ReportSelectorComponent } from './../components/report/report-selector/report-selector.component';
 import { ImeNumberListComponent } from './../components/exceedance/ime-number-list/ime-number-list.component';
 import { UnverifiedDataSetComponent } from './../components/unverified-data/unverified-data-set/unverified-data-set.component';
@@ -122,15 +120,33 @@ export class RestrictedRoute {
 
 	/***** REPORT ROUTES *****/
 	static readonly REPORT_SELECTOR:Route = {
-		path: 'reports',
+		path: 'report',
+		data: {
+			name: "Reports",
+			permissions: [
+				UserPermission.GENERATE_REPORTS
+			]
+		}
 	};
 
 	static readonly INSTANTANEOUS_REPORT:Route = {
-		path: 'instantaneous-report',
+		path: 'report/instantaneous',
+		data: {
+			name: "Instantaneous Report",
+			permissions: [
+				UserPermission.GENERATE_REPORTS
+			]
+		}
 	}
 
 	static readonly EXCEEDENCE_REPORT:Route = {
-		path: 'exceedance-report',
+		path: 'report/exceedance',
+		data: {
+			name: "Exceedance Report",
+			permissions: [
+				UserPermission.GENERATE_REPORTS
+			]
+		}
 	};
 
 	/***** UNVERIFIED DATA ROUTES *****/
@@ -147,7 +163,7 @@ export class RestrictedRoute {
 	static readonly UNVERIFIED_DATA_SET:Route = {
 		path: 'unverified-data-sets/:id',
 		data: {
-			name: "Unverified Data",
+			name: "Verify Data",
 			permissions: [
 				UserPermission.VIEW_UNVERIFIED_DATA_SET
 			]

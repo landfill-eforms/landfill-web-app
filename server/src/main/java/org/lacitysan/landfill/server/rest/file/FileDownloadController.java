@@ -71,5 +71,28 @@ public class FileDownloadController {
 			e.printStackTrace();
 		}
 	}
+	
+	// This is for the demo. Remove when no longer needed.
+	@RestSecurity(UserPermission.DOWNLOAD_MOBILE_DATA)
+	@RequestMapping(value="/pdf/fake", method=RequestMethod.GET)
+	public void getFakePdf(HttpServletResponse response) {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			String source = mapper.writerWithDefaultPrettyPrinter().writeValueAsString("HI ALLEN");
+			InputStream in = IOUtils.toInputStream(source, "UTF-8");
+			
+			// Set response headers. This needs to be done before writing to the response's output stream.
+			response.setContentType("application/pdf");
+			response.addHeader("Content-Disposition", "attachment; filename=\"report_" + DateTimeUtils.formatCondensed(Calendar.getInstance().getTimeInMillis()) + ".pdf\"");
+			response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
+
+			IOUtils.copy(in, response.getOutputStream());
+			response.flushBuffer();
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

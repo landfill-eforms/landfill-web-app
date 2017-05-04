@@ -1,3 +1,4 @@
+import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
 import { UserSelectorComponent } from './components/user/user-selector/user-selector.component';
 import { UserGroupListComponent } from './components/user/user-group-list/user-group-list.component';
 import { InstrumentSelectorComponent } from './components/instrument/instrument-selector/instrument-selector.component';
@@ -119,7 +120,7 @@ export const RestrictedRoutes:Routes = [
 			{
 				path: RestrictedRoute.INSTANTANEOUS_REPORT.path,
 				data: RestrictedRoute.INSTANTANEOUS_REPORT.data,
-				component: DashboardComponent, // TODO Change
+				component: InstantaneousReportComponent,
 				canActivate: [AuthGuard]
 			},
 			{

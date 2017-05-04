@@ -158,7 +158,6 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 			return;
 		}
 
-		// TODO Implement this.
 		this.filteredData = this.data.filter(o => {
 			let textMatch:boolean = true;
 			if (this.filters.text) {

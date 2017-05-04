@@ -21,7 +21,7 @@ export class FileDownloadService {
 	}
 
 	getTestPdf() {
-		this.authHttp.get(this.baseUrl + "/pdf/test", {responseType: ResponseContentType.Blob})
+		this.authHttp.get(this.baseUrl + "/pdf/fake", {responseType: ResponseContentType.Blob})
 			.subscribe((res) => {
 				this.processBlob(res);
 			});

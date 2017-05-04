@@ -2,3 +2,64 @@
 	padding: 8px 16px;
 	color: #F00;
 }
+
+.error-inline {
+	color: #F00;
+	font-style: italic;
+}
+
+.page {
+	position: relative;
+	top: 8px;
+	height: calc(100% - 8px);
+}
+
+.sideinfo {
+	overflow: hidden;
+}
+
+.sideinfo-top-padding {
+	background: #FFF;
+	padding-top: 48px;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+.sideinfo-background {
+	height: calc(100% - 48px);
+	overflow-y: auto;
+	padding: 0 0 0 2px;
+	md-card {
+		height: calc(100% - 48px);
+	}
+}
+
+.tab-contents {
+	padding: 24px 96px 24px 24px;
+	md-card {
+		margin: 24px 0;
+	}
+	md-card:first-child {
+		margin: 0;
+	}
+	md-card:last-child {
+		margin: 0;
+	}
+}
+
+.page-loading-indicator-container {
+	// padding-left: 320px;
+}
+
+.fab-container {
+	z-index: 9001;
+	// right: 352px;
+	right: 32px;
+	bottom: 0;
+	position: fixed;
+	div {
+		height: 480px;
+		button {
+			margin-bottom: 24px;
+		}
+	}
+}

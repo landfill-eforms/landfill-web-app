@@ -11,15 +11,16 @@
 					[ngClass]="{'mat-input-container-error':!textFilterStatus.valid}">
 					<input mdInput placeholder="Search" [(ngModel)]="filters.text" (ngModelChange)="applyFilters()">
 				</md-input-container>
-				<md-select [(ngModel)]="filters.status" placeholder="Status" class="mat-select-inline flex-item" fxFlex="150px" (ngModelChange)="applyFilters()">
-					<!--<md-option *ngFor="let status of statusFilterChoices" [value]="status.value">
-						{{status.label}}
-					</md-option>-->
+				<md-select [(ngModel)]="filters.site" placeholder="Site" class="mat-select-inline flex-item" fxFlex="150px" (ngModelChange)="applyFilters()">
+					<md-option *ngFor="let site of siteFilterChoices" [value]="site.ordinal">
+						{{site.name}}
+					</md-option>
 				</md-select>
 			</div>
 			<button md-icon-button 
 				(click)="toggleFilters()" 
-				class="flex-item" 
+				class="toggle-icon-button flex-item"
+				[ngClass]="{'toggle-icon-button-active': showFilters}"
 				fxFlex="40px"
 				mdTooltip="Filter" 
 				mdTooltipPosition="below">
@@ -102,10 +103,10 @@
 						</a>
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
-						{{imeNumber.site}}
+						{{imeNumber.site.name}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
-						{{imeNumber.monitoringPoints}}
+						{{imeNumber.monitoringPoints[0].name}} <!-- TODO Fix this -->
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
 						{{imeNumber.imeData && imeNumber.imeData[0] ? DateTimeUtils.getDate(imeNumber.imeData[0].dateTime) : ''}}
@@ -117,7 +118,7 @@
 						{{imeNumber.imeData ? imeNumber.imeData[imeNumber.imeData.length - 1].methaneLevel : ''}}
 					</div>
 					<div class="data-table-last-column truncate flex-item" fxFlex>
-						{{imeNumber.status}}
+						{{imeNumber.status.name}}
 					</div>
 				</div>
 			</div>

@@ -28,8 +28,12 @@ public class ImeNumberService extends SurfaceEmissionExceedanceNumberService<Ime
 	
 	@Override
 	public ImeNumber update(ImeNumber imeNumber) {
+		// TODO Find out why delete is not working.
 		for (ImeData imeData : imeNumber.getImeData()) {
 			imeData.setImeNumber(imeNumber);
+			for (ImeRepairData imeRepairData : imeData.getImeRepairData()) {
+				imeRepairData.setImeData(imeData);
+			}
 		}
 		return imeNumberDao.update(imeNumber);
 	}

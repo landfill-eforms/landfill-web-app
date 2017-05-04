@@ -1,3 +1,6 @@
+import { EditUnverifiedIntegratedDialogComponent } from './dialog/edit-unverified-integrated-dialog/edit-unverified-integrated-dialog.component';
+import { EditUnverifiedWarmspotDialogComponent } from './dialog/edit-unverified-warmspot-dialog/edit-unverified-warmspot-dialog.component';
+import { EditUnverifiedInstantaneousDialogComponent } from './dialog/edit-unverified-instantaneous-dialog/edit-unverified-instantaneous-dialog.component';
 import { UnverifiedDataSetListSideinfoComponent } from './unverified-data-set-list-sideinfo/unverified-data-set-list-sideinfo.component';
 import { DirectivesModule } from './../directives/directives.module';
 import { AssignImeNumberDialogComponent } from './assign-ime-number-dialog/assign-ime-number-dialog.component';
@@ -16,7 +19,10 @@ import { UnverifiedDataSetListComponent } from './unverified-data-set-list/unver
 		AssignImeNumberDialogComponent,
 		UnverifiedDataSetListComponent,
 		UnverifiedDataSetComponent,
-        UnverifiedDataSetListSideinfoComponent
+        UnverifiedDataSetListSideinfoComponent,
+        EditUnverifiedInstantaneousDialogComponent,
+        EditUnverifiedWarmspotDialogComponent,
+        EditUnverifiedIntegratedDialogComponent
 	]
 })
 

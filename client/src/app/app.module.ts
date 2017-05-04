@@ -1,3 +1,6 @@
+import { EditUnverifiedIntegratedDialogComponent } from './components/unverified-data/dialog/edit-unverified-integrated-dialog/edit-unverified-integrated-dialog.component';
+import { EditUnverifiedWarmspotDialogComponent } from './components/unverified-data/dialog/edit-unverified-warmspot-dialog/edit-unverified-warmspot-dialog.component';
+import { EditUnverifiedInstantaneousDialogComponent } from './components/unverified-data/dialog/edit-unverified-instantaneous-dialog/edit-unverified-instantaneous-dialog.component';
 import { UserStatusDialogComponent } from './components/user/dialog/user-status-dialog/user-status-dialog.component';
 import { UserPasswordDialogComponent } from './components/user/dialog/user-password-dialog/user-password-dialog.component';
 import { UserActivityService } from './services/user/user-activity.service';
@@ -21,6 +24,7 @@ import { InstrumentTypeService } from './services/instrument/instrument-type.ser
 import { InstrumentModule } from './components/instrument/instrument.module';
 import { UnverifiedDataService } from './services/unverified/unverified-data-set.service';
 import { UserService } from './services/user/user.service';
+import { ReportService } from './services/report/report.service';
 import { UserGroupService } from './services/user/user-group.service';
 import { InstrumentService } from './services/instrument/instrument.service';
 import { InstantaneousDataService } from './services/instantaneous/instantaneous-data.service';
@@ -88,6 +92,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		ImeRepairDialogComponent,
 		InstrumentDialogComponent,
 		InstrumentTypeDialogComponent,
+		EditUnverifiedInstantaneousDialogComponent,
+		EditUnverifiedWarmspotDialogComponent,
+		EditUnverifiedIntegratedDialogComponent
 		// PaginationComponent,
 		// DatePickerComponent,
 	],
@@ -108,6 +115,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		InstrumentTypeService,
 		IseNumberService,
 		NavigationService,
+		ReportService,
 		TitleService,
 		UnverifiedDataService,
 		UserActivityService,

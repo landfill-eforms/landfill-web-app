@@ -30,6 +30,9 @@ public class IseNumberService extends SurfaceEmissionExceedanceNumberService<Ise
 	public IseNumber update(IseNumber iseNumber) {
 		for (IseData iseData : iseNumber.getIseData()) {
 			iseData.setIseNumber(iseNumber);
+			for (IseRepairData iseRepairData : iseData.getIseRepairData()) {
+				iseRepairData.setIseData(iseData);
+			}
 		}
 		return iseNumberDao.update(iseNumber);
 	}

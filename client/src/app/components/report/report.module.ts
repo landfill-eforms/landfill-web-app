@@ -1,3 +1,4 @@
+import { InstantaneousReportComponent } from './instantaneous-report/instantaneous-report.component';
 import { DirectivesModule } from './../directives/directives.module';
 import { ReportSelectorComponent } from './report-selector/report-selector.component';
 import { CommonModule } from './../common/common.module';
@@ -11,6 +12,7 @@ import { NgModule } from '@angular/core';
 	providers: [],
 	declarations: [
 		ReportSelectorComponent,
+		InstantaneousReportComponent
 	]
 })
 

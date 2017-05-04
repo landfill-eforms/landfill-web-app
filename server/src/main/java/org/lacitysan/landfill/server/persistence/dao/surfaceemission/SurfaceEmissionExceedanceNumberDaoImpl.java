@@ -20,6 +20,32 @@ public abstract class SurfaceEmissionExceedanceNumberDaoImpl<T extends SurfaceEm
 
 	@Override
 	@Transactional
+	public List<T> getAllVerified() {
+		List<?> result = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(getGenericClass())
+				.add(Restrictions.ne("status", ExceedanceStatus.UNVERIFIED))
+				.list();
+		return result.stream()
+				.map(e -> initialize(checkType(e)))
+				.filter(e -> e != null)
+				.collect(Collectors.toList());
+	}
+	
+	@Override
+	@Transactional
+	public List<T> getAllUnverified() {
+		List<?> result = hibernateTemplate.getSessionFactory().getCurrentSession()
+				.createCriteria(getGenericClass())
+				.add(Restrictions.eq("status", ExceedanceStatus.UNVERIFIED))
+				.list();
+		return result.stream()
+				.map(e -> initialize(checkType(e)))
+				.filter(e -> e != null)
+				.collect(Collectors.toList());
+	}
+	
+	@Override
+	@Transactional
 	public List<T> getBySiteAndDateCode(Site site, Short dateCode) {
 		if (site == null) {
 			return new ArrayList<>();

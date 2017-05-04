@@ -59,11 +59,23 @@ public class UnverifiedInstantaneousData extends AbstractEntity {
 	@JoinTable(name="dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
-	@JsonIgnoreProperties("unverifiedInstantaneousData")
+	@JsonIgnoreProperties(value={
+			"unverifiedInstantaneousData", 
+			"unverifiedWarmspotData", 
+			"imeNumbers", 
+			"unverifiedIntegratedData", 
+			"iseNumbers", 
+			"unverifiedProbeData", 
+			"probeExceedances", 
+			"inspector", 
+			"createdBy",
+			"createdDate",
+			"modifiedBy",
+			"modifiedDate"
+	}, allowSetters=true)
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="UnverifiedDataSetFK", nullable=false)
-//	@Cascade(CascadeType.ALL)
 	private UnverifiedDataSet unverifiedDataSet;
 
 	public MonitoringPoint getMonitoringPoint() {

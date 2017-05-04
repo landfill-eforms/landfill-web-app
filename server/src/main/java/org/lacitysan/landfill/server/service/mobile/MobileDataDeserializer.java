@@ -85,7 +85,7 @@ public class MobileDataDeserializer {
 		// WTF???????????????
 		Map<User, Map<Site, UnverifiedDataSet>> resultMap = new HashMap<>();
 
-		// Fucking want to chop my dick off.
+		// Process the IME data entries.
 		for (MobileImeData mobileImeData : mobileDataContainer.getmImeDatas()) {
 
 			// Get user information.
@@ -238,7 +238,8 @@ public class MobileDataDeserializer {
 			if (unverifiedDataSet == null) {
 				continue;
 			}
-
+			
+			// TODO Import instrument.
 			UnverifiedWarmspotData unverifiedWarmspotData = new UnverifiedWarmspotData();
 			unverifiedWarmspotData.setMethaneLevel((int)(mobileWarmspotData.getmMaxMethaneReading() * 100));
 			unverifiedWarmspotData.setDate(new Date(DateTimeUtils.mobileDateToTimestamp(mobileWarmspotData.getmDate()).getTime()));
@@ -289,6 +290,7 @@ public class MobileDataDeserializer {
 
 				// Create new ISE number string based on site, date code, and next sequence number.
 				iseNumberString = site.getShortName() + "-" + dateCode + "-00";
+				
 			}
 
 			// Create new ISE number based on the ISE number string.
@@ -419,13 +421,11 @@ public class MobileDataDeserializer {
 
 			// Insert IME numbers into database.
 			for (ImeNumber imeNumber : unverifiedDataSet.getImeNumbers()) {
-				// TODO Update 'modified by' field.
 				imeNumberService.createUnverified(imeNumber);
 			}
 
 			// Insert ISE numbers into database.
 			for (IseNumber iseNumber : unverifiedDataSet.getIseNumbers()) {
-				// TODO Update 'modified by' field.
 				iseNumberService.createUnverified(iseNumber);
 			}
 

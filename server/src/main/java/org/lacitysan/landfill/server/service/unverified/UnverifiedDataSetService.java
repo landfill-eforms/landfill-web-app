@@ -62,8 +62,7 @@ public class UnverifiedDataSetService {
 				// Remove references from the unverified instantaneous data to the IME number.
 				Integer id = imeNumber.getId();
 				unverifiedInstantaneousData.getImeNumbers().removeIf(i -> i.getId().equals(id));
-				UnverifiedInstantaneousData gay = unverifiedInstantaneousDataDao.update(unverifiedInstantaneousData);
-				System.out.println(gay);
+				unverifiedInstantaneousDataDao.update(unverifiedInstantaneousData);
 			}
 			
 			// Delete the IME number.

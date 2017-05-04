@@ -22,24 +22,37 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @MappedSuperclass
 public abstract class SurfaceEmissionExceedanceNumber extends AbstractEntity implements Comparable<SurfaceEmissionExceedanceNumber> {
-	
+
 	@NotNull
 	@Column(name="SiteString")
 	@Enumerated(EnumType.STRING)
 	private Site site;
-	
+
 	@NotNull
 	private Short dateCode;
-	
+
 	@NotNull
 	private Short sequence;
-	
+
 	@NotNull
 	@Column(name="StatusString")
 	@Enumerated(EnumType.STRING)
 	private ExceedanceStatus status;
-	
-	@JsonIgnoreProperties(value={"iseNumbers", "imeNumbers", "unverifiedProbeData", "unverifiedIntegratedData", "unverifiedInstantaneousData", "unverifiedWarmspotData", "inspector"}, allowSetters=true)
+
+	@JsonIgnoreProperties(value={
+			"unverifiedInstantaneousData", 
+			"unverifiedWarmspotData", 
+			"imeNumbers", 
+			"unverifiedIntegratedData", 
+			"iseNumbers", 
+			"unverifiedProbeData", 
+			"probeExceedances", 
+			"inspector", 
+			"createdBy",
+			"createdDate",
+			"modifiedBy",
+			"modifiedDate"
+	}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="UnverifiedDataSetFK")
 	private UnverifiedDataSet unverifiedDataSet;
@@ -100,17 +113,5 @@ public abstract class SurfaceEmissionExceedanceNumber extends AbstractEntity imp
 		}
 		return 0;
 	}
-	
-//	@Override
-//	public boolean equals(Object o) {
-//		if (o == null) {
-//			return false;
-//		}
-//		if (!(o instanceof SurfaceEmissionExceedanceNumber)) {
-//			return false;
-//		}
-//		SurfaceEmissionExceedanceNumber exceedanceNumber = (SurfaceEmissionExceedanceNumber)o;
-//		return id == exceedanceNumber.getId() && compareTo(exceedanceNumber) == 0;
-//	}
 
 }

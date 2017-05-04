@@ -31,6 +31,16 @@ public class IseNumberController {
 		return iseNumberDao.getAll();
 	}
 	
+	@RequestMapping(value="/list/verified", method=RequestMethod.GET)
+	public List<IseNumber> getAllVerified() {
+		return iseNumberDao.getAllVerified();
+	}
+	
+	@RequestMapping(value="/list/unverified", method=RequestMethod.GET)
+	public List<IseNumber> getAllUnverified() {
+		return iseNumberDao.getAllUnverified();
+	}
+	
 	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
 	public List<IseNumber> getBySite(@PathVariable String siteName) {
 		return iseNumberService.getBySiteAndDateCode(siteName);

@@ -60,7 +60,7 @@ public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
 	
 	@JsonIgnoreProperties(value="unverifiedDataSet",allowSetters=true)
-//	@Cascade(CascadeType.ALL)
+	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
 	private Set<UnverifiedWarmspotData> unverifiedWarmspotData = new HashSet<>();
 	

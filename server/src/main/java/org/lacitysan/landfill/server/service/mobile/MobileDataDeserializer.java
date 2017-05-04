@@ -254,14 +254,6 @@ public class MobileDataDeserializer {
 			// Add the unverified data set to the unverified warmspot and vice versa.
 			unverifiedWarmspotData.setUnverifiedDataSet(unverifiedDataSet);
 			unverifiedDataSet.getUnverifiedWarmspotData().add(unverifiedWarmspotData);
-
-			// Try to associate the warmspot data with an instantaneous data.
-			for (UnverifiedInstantaneousData unverifiedInstantaneousData : unverifiedDataSet.getUnverifiedInstantaneousData()) {
-				if (unverifiedInstantaneousData.getMethaneLevel().equals(unverifiedWarmspotData.getMethaneLevel())) {
-					unverifiedInstantaneousData.setUnverifiedWarmspotData(unverifiedWarmspotData);
-					break;
-				}
-			}
 			
 		}
 

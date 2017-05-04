@@ -10,6 +10,7 @@ import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 export class UnverifiedIntegratedData extends AbstractEntity {
 	monitoringPoint:MonitoringPoint;
 	instrument:Instrument;
+	sampleId:string;
 	bagNumber:number;
 	volume:number;
 	barometricPressure:number;

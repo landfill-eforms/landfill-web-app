@@ -9,7 +9,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -50,10 +49,6 @@ public class UnverifiedWarmspotData extends AbstractEntity {
 	
 	@NotNull
 	private String size;
-	
-	@JsonIgnoreProperties(value={"unverifiedWarmspotData", "imeNumbers", "inspector", "instrument", "unverifiedDataSet"},allowSetters=true)
-	@OneToOne(mappedBy="unverifiedWarmspotData")
-	private UnverifiedInstantaneousData unverifiedInstantaneousData;
 	
 	@JsonIgnoreProperties("unverifiedInstantaneousData")
 	@NotNull
@@ -108,14 +103,6 @@ public class UnverifiedWarmspotData extends AbstractEntity {
 
 	public void setSize(String size) {
 		this.size = size;
-	}
-
-	public UnverifiedInstantaneousData getUnverifiedInstantaneousData() {
-		return unverifiedInstantaneousData;
-	}
-
-	public void setUnverifiedInstantaneousData(UnverifiedInstantaneousData unverifiedInstantaneousData) {
-		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
 	}
 
 	public UnverifiedDataSet getUnverifiedDataSet() {

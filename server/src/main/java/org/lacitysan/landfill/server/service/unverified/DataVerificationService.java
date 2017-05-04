@@ -1,6 +1,5 @@
 package org.lacitysan.landfill.server.service.unverified;
 
-import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +24,7 @@ import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrat
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
@@ -83,7 +83,7 @@ public class DataVerificationService {
 		// This is the inspector that we are working with for this set of unverified data.
 		User inspector = unverifiedDataSet.getInspector();
 
-		// Go through all the unverified instantaneous data points.
+		// Go through all the unverified instantaneous data entries.
 		result.getInstantaneousData().addAll(unverifiedDataSet.getUnverifiedInstantaneousData().stream()
 				.map(unverifiedInstantaneousData -> {
 
@@ -110,7 +110,7 @@ public class DataVerificationService {
 					// Create new instantaneous data object and populate its fields with the data from the unverified data point.
 					InstantaneousData instantaneousData = new InstantaneousData();
 
-					// If the data point is supposed to be a hotspot.
+					// If the data point is supposed to be a hotspot...
 					if (unverifiedInstantaneousData.getMethaneLevel() >= 50000) { 
 
 						// If the data point is an IME, but doesn't contain any IME numbers...
@@ -129,34 +129,45 @@ public class DataVerificationService {
 
 					}
 
-					// If the data point is supposed to be a warmspot.
-					else if (unverifiedInstantaneousData.getMethaneLevel() >= 20000) {
+					// If the data is not a hotspot...
+					else {
 
-						// If the data point is a warmspot, but doesn't contain any warmspot data...
-						if (unverifiedInstantaneousData.getUnverifiedWarmspotData() == null) {
-							errorLog.add(getDescription(unverifiedInstantaneousData) + " is a warmspot, but the data set doesn't contain a corresponding warmspot entry.");
+						// If the data point is supposed to be a warmspot...
+						if (unverifiedInstantaneousData.getMethaneLevel() >= 20000) {
+
+							// Check if there is a corresponding warmspot entry in the dataset.
+							boolean warmspotGridFound = false;
+							boolean warmspotReadingFound = false;
+							for (UnverifiedWarmspotData unverifiedWarmspotData : unverifiedDataSet.getUnverifiedWarmspotData()) {
+								if (unverifiedWarmspotData.getMonitoringPoint() == unverifiedInstantaneousData.getMonitoringPoint()) {
+									warmspotGridFound = true;
+								}
+								else {
+									continue;
+								}
+								if (unverifiedWarmspotData.getMethaneLevel().equals(unverifiedInstantaneousData.getMethaneLevel())) {
+									warmspotReadingFound = true;
+									break;
+								}
+							}
+
+							// If the data point is a warmspot, but doesn't contain any warmspot data...
+							if (!warmspotReadingFound) {
+								if (warmspotGridFound) {
+									errorLog.add(getDescription(unverifiedInstantaneousData) + " is a warmspot, and the data set contains a warmspot entry with the same grid, but it has a different a ppm.");
+								}
+								else {
+									errorLog.add(getDescription(unverifiedInstantaneousData) + " is a warmspot, but the data set doesn't contain a corresponding warmspot entry with the same grid and ppm.");
+								}
+							}
+
 						}
 
-						else {
-							WarmspotData warmspotData = new WarmspotData();
-							warmspotData.setMonitoringPoint(unverifiedInstantaneousData.getMonitoringPoint());
-							warmspotData.setInstrument(unverifiedInstantaneousData.getInstrument());
-							warmspotData.setInspector(inspector);
-							warmspotData.setMethaneLevel(unverifiedInstantaneousData.getMethaneLevel());
-							warmspotData.setDate(new Date(unverifiedInstantaneousData.getStartTime().getTime()));
-							warmspotData.setDescription(unverifiedInstantaneousData.getUnverifiedWarmspotData().getDescription());
-							warmspotData.setSize(unverifiedInstantaneousData.getUnverifiedWarmspotData().getSize());
-							result.getWarmspotData().add(warmspotData);
+						// If the data point is not a hotspot, then they shouldn't have any IME Numbers.
+						if (unverifiedInstantaneousData.getImeNumbers() != null && !unverifiedInstantaneousData.getImeNumbers().isEmpty()) {
+							errorLog.add(getDescription(unverifiedInstantaneousData) + " is a not a hotspot, but has IME number(s) associated with it.");
 						}
 
-					}
-
-					// If the data point is neither a warmspot nor a hotspot, then they shouldn't have any IME Numbers or warmspots.
-					else if (unverifiedInstantaneousData.getImeNumbers() != null && !unverifiedInstantaneousData.getImeNumbers().isEmpty()) {
-						errorLog.add(getDescription(unverifiedInstantaneousData) + " is a not a hotspot, but has IME number(s) associated with it.");
-					}
-					else if (unverifiedInstantaneousData.getUnverifiedWarmspotData() != null) {
-						errorLog.add(getDescription(unverifiedInstantaneousData) + " is a not a warmspot, but has a warmspot entry.");
 					}
 
 					instantaneousData.setInspector(inspector);
@@ -174,8 +185,6 @@ public class DataVerificationService {
 
 		// Add the rest of the IME numbers from the data set.
 		result.getImeNumbers().addAll(unverifiedDataSet.getImeNumbers());
-
-		System.out.println(result.getImeNumbers());
 
 		// Check all unverified IME numbers for errors.
 		for (ImeNumber imeNumber : result.getImeNumbers()) {
@@ -204,7 +213,23 @@ public class DataVerificationService {
 			}
 		}
 
-		// Go through all the unverified integrated data points.
+		// Go through all the unverified warmspot data entries.
+		result.getWarmspotData().addAll(unverifiedDataSet.getUnverifiedWarmspotData().stream()
+				.map(unverifiedWarmspotData -> {
+					// TODO Verify warmspot data, such as instrument, inspector, grid, and date.
+					WarmspotData warmspotData = new WarmspotData();
+					warmspotData.setMonitoringPoint(unverifiedWarmspotData.getMonitoringPoint());
+					warmspotData.setInstrument(unverifiedWarmspotData.getInstrument());
+					warmspotData.setInspector(inspector);
+					warmspotData.setMethaneLevel(unverifiedWarmspotData.getMethaneLevel());
+					warmspotData.setDate(unverifiedWarmspotData.getDate());
+					warmspotData.setDescription(unverifiedWarmspotData.getDescription());
+					warmspotData.setSize(unverifiedWarmspotData.getSize());
+					return warmspotData;
+				})
+				.collect(Collectors.toSet()));
+
+		// Go through all the unverified integrated data entries.
 		result.getIntegratedData().addAll(unverifiedDataSet.getUnverifiedIntegratedData().stream()
 				.map(unverifiedIntegratedData -> {
 
@@ -274,7 +299,7 @@ public class DataVerificationService {
 			}
 		}
 
-		// Go through all the unverified probe data points.
+		// Go through all the unverified probe data entries.
 		result.getProbeData().addAll(unverifiedDataSet.getUnverifiedProbeData().stream()
 				.map(unverifiedProbeData -> {
 					Short barometricPressure = unverifiedProbeData.getBarometricPressure();

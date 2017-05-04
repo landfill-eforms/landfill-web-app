@@ -19,7 +19,6 @@ public class UnverifiedInstantaneousDataDaoImpl extends AbstractDaoImpl<Unverifi
 		Hibernate.initialize(unverifiedInstantaneousData.getInstrument());
 		Hibernate.initialize(unverifiedInstantaneousData.getMonitoringPoint());
 		Hibernate.initialize(unverifiedInstantaneousData.getUnverifiedDataSet());
-		Hibernate.initialize(unverifiedInstantaneousData.getUnverifiedWarmspotData());
 		unverifiedInstantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
 		return unverifiedInstantaneousData;
 	}

@@ -13,12 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeNumber;
@@ -61,12 +58,6 @@ public class UnverifiedInstantaneousData extends AbstractEntity {
 	@ManyToMany
 	@JoinTable(name="dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
-
-	@JsonIgnoreProperties(value={"unverifiedDataSet", "unverifiedInstantaneousData", "instrument"},allowSetters=true)
-	@OneToOne
-	@JoinColumn(name="UnverifiedWarmspotFK")
-	@Cascade(CascadeType.ALL)
-	private UnverifiedWarmspotData unverifiedWarmspotData;
 	
 	@JsonIgnoreProperties("unverifiedInstantaneousData")
 	@NotNull
@@ -131,14 +122,6 @@ public class UnverifiedInstantaneousData extends AbstractEntity {
 		this.imeNumbers = imeNumbers;
 	}
 
-	public UnverifiedWarmspotData getUnverifiedWarmspotData() {
-		return unverifiedWarmspotData;
-	}
-
-	public void setUnverifiedWarmspotData(UnverifiedWarmspotData unverifiedWarmspotData) {
-		this.unverifiedWarmspotData = unverifiedWarmspotData;
-	}
-	
 	public UnverifiedDataSet getUnverifiedDataSet() {
 		return unverifiedDataSet;
 	}

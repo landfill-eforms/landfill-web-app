@@ -2,7 +2,6 @@ import { ImeNumber } from '../surfaceemission/instantaneous/ime-number.class';
 import { UnverifiedDataSet } from './unverified-data-set.class';
 import { AbstractEntity } from '../abstract-entity.class';
 import { Instrument } from '../instrument/instrument.class';
-import { UnverifiedWarmspotData } from './unverified-warmspot-data.class';
 import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 
 /**
@@ -17,6 +16,5 @@ export class UnverifiedInstantaneousData extends AbstractEntity {
 	startTime:number;
 	endTime:number;
 	imeNumbers:ImeNumber[];
-	unverifiedWarmspotData:UnverifiedWarmspotData;
 	unverifiedDataSet:UnverifiedDataSet;
 }

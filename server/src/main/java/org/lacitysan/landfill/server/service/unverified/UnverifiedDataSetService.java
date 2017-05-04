@@ -78,15 +78,6 @@ public class UnverifiedDataSetService {
 			if (unverifiedInstantaneousData.getInstrument() == null || unverifiedInstantaneousData.getInstrument().getId() == null) {
 				unverifiedInstantaneousData.setInstrument(null);
 			}
-			if (unverifiedInstantaneousData.getUnverifiedWarmspotData() != null) {
-				UnverifiedWarmspotData unverifiedWarmspotData = unverifiedInstantaneousData.getUnverifiedWarmspotData();
-				if (unverifiedWarmspotData.getUnverifiedDataSet() == null) {
-					unverifiedWarmspotData.setUnverifiedDataSet(unverifiedDataSet);
-				}
-				if (unverifiedWarmspotData.getUnverifiedInstantaneousData() == null) {
-					unverifiedWarmspotData.setUnverifiedInstantaneousData(unverifiedInstantaneousData);
-				}
-			}
 			unverifiedInstantaneousData.setUnverifiedDataSet(unverifiedDataSet);
 		}
 		for (UnverifiedWarmspotData unverifiedWarmspotData : unverifiedDataSet.getUnverifiedWarmspotData()) {

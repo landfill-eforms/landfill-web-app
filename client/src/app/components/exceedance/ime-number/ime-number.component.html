@@ -1,9 +1,13 @@
-<div class="section-multiple-container">
-	<div class="section-title">View IME Number</div>
-	<div class="flex-container" fxLayout="column">
-		<md-card class="section-multiple flex-item" fxFlex>
-			<md-card-content *ngIf="isDataLoaded" >
-				<div class="section-title">IME Info</div>
+<div class="grey-background" style="height: 100%; padding: 24px">
+	<div *ngIf="!isDataLoaded">
+		<app-page-loading-indicator></app-page-loading-indicator>
+	</div>
+	<div *ngIf="isDataLoaded && isUsersLoaded">
+		<md-card style="margin-bottom: 24px">
+			<md-card-content>
+				<div class="card-title">
+					Information
+				</div>
 				<div *ngIf="imeNumberData" class="section-form-container flex-container" fxLayout="row">
 					<div class="flex-item" fxFlex>
 						<strong>IME Number:</strong> {{imeNumberData.imeNumber}}
@@ -20,14 +24,61 @@
 				</div>
 			</md-card-content>
 		</md-card>
-		<md-card class="section-multiple flex-item" fxFlex>
+		<md-card style="margin-bottom: 24px">
 			<md-card-content>
-				<div class="section-title">IME Records</div>
-				<div *ngIf="!isDataLoaded" class="loading-indicator-container">
-					<md-spinner class="loading-indicator-spinner"></md-spinner>
-					<div class="loading-indicator-message">Loading...</div>
+				<div class="card-title">
+					IME Log
 				</div>
-				<!--<app-ime-data-view [data]="imeNumberData.imeData" [edit]="true"></app-ime-data-view>-->
+				<div *ngFor="let imeData of imeNumberData.imeData" class="flex-container" fxLayout="row">
+					<div class="flex-item" fxFlex>
+						<md-card style="height: 128px; margin-left: 4px; margin-bottom:24px;">
+							<md-card-content>
+								<div class="flex-item" fxFlex class="hello">
+									<strong>Date/Time:</strong> {{DateTimeUtils.getDate(imeData.dateTime)}} {{DateTimeUtils.getTime(imeData.dateTime)}}
+								</div>
+								<div class="flex-item" fxFlex class="hello">
+									<strong>Inspector:</strong> {{StringUtils.formatUserName(imeData.inspector)}}
+								</div>
+								<div class="flex-item" fxFlex class="hello">
+									<strong>Methane Level:</strong> {{imeData.methaneLevel / 100}}
+								</div>
+								<div class="flex-item" fxFlex class="hello">
+									<strong>Description:</strong> {{imeData.description}}
+								</div>
+							</md-card-content>
+						</md-card>
+
+					</div>
+					<div class="flex-item" fxFlex>
+						<md-card *ngFor="let imeRepairData of imeData.imeRepairData" style="height: 128px; margin-left: 4px; margin-bottom:24px;">
+							<md-card-content>
+								<div class="flex-item" fxFlex class="hello">
+									<strong>Date/Time:</strong> {{DateTimeUtils.getDate(imeRepairData.dateTime)}} {{DateTimeUtils.getTime(imeRepairData.dateTime)}}
+								</div>
+								<div class="flex-item" fxFlex class="hello"> 
+									<strong>Description:</strong> {{imeRepairData.description}}
+								</div>
+								<div class="flex-item" fxFlex class="hello">
+									<strong>Crew:</strong> {{imeRepairData.crew}}
+								</div>
+							</md-card-content>
+						</md-card>
+						<div style="height:128px; padding-top:44px; text-align:center;">
+							<button md-button color="accent" (click)="openNewRepairDialog(imeData)">
+								ADD REPAIR <md-icon>add</md-icon>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="flex-container" fxLayout="row">
+					<div class="flex-item" fxFlex="50">
+						<div style="height:128px; padding-top:44px; text-align:center;">
+							<button md-button color="accent" (click)="openNewRecheckDialog()">
+								ADD RECHECK <md-icon>add</md-icon>
+							</button>
+						</div>
+					</div>
+				</div>
 			</md-card-content>
 		</md-card>
 	</div>

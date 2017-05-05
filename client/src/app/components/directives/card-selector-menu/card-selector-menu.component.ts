@@ -32,7 +32,7 @@ export class CardSelectorMenuComponent {
 		if (card.disabled) {
 			return;
 		}
-		if (card.route) {
+		if (card.route && card.route.path) {
 			this.router.navigate([AppConstant.RESTRICTED_ROUTE_BASE + '/' + card.route.path]);
 		}
 		if (card.action) {

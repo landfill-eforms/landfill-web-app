@@ -264,6 +264,7 @@ public class DataVerificationService {
 					integratedData.setMethaneLevel(unverifiedIntegratedData.getMethaneLevel());
 					integratedData.setBagNumber(unverifiedIntegratedData.getBagNumber());
 					integratedData.setVolume(unverifiedIntegratedData.getVolume());
+					integratedData.setSampleId(unverifiedIntegratedData.getSampleId());
 
 					return integratedData;
 

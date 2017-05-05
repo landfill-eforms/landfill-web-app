@@ -13,6 +13,8 @@ export class MobileUploadComponent implements OnInit {
 
     file:any;
 
+    processing:boolean = false;
+
     constructor(
         private el:ElementRef, 
         private router:Router,
@@ -37,11 +39,16 @@ export class MobileUploadComponent implements OnInit {
     }
 
     test(result:FileUploadResult) {
+        this.processing = true;
         if (result.success) {
-            this.router.navigate(['/app/unverified-data-sets']); 
-            this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
+            setTimeout(() => {
+                this.router.navigate(['/app/unverified-data-sets']); 
+                this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
+            }, 5000);
         }
         else {
+            this.processing = false;
+            console.log(result);   
             this.snackBar.open(JSON.parse(result.data.text()).message, "OK", {duration: 5000});
         }
     }

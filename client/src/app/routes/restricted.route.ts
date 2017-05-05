@@ -51,7 +51,6 @@ export class RestrictedRoute {
 
 	// Not an actual route (does not have a component).
 	static readonly MOBILE_DOWNLOAD:Route = {
-		path: 'mobile/download',
 		data: {
 			name: "Data Download",
 			permissions: [
@@ -77,6 +76,9 @@ export class RestrictedRoute {
 
 	static readonly IME_NUMBER:Route = {
 		path: 'exceedance/ime/:imeNumber',
+		data: {	
+			name: "IME Number Log",
+		}
 	}
 
 	static readonly ISE_NUMBER_LIST:Route = {

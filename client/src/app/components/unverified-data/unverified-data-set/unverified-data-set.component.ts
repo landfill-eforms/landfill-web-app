@@ -1,3 +1,4 @@
+import { NavigationService } from './../../../services/app/navigation.service';
 import { RestrictedRoute } from './../../../routes/restricted.route';
 import { AppConstant } from './../../../app.constant';
 import { EditUnverifiedWarmspotDialogComponent } from './../dialog/edit-unverified-warmspot-dialog/edit-unverified-warmspot-dialog.component';
@@ -60,7 +61,10 @@ export class UnverifiedDataSetComponent implements OnInit {
 		private instrumentService:InstrumentService,
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
-	) {}
+		private navigationService:NavigationService) {
+			navigationService.getNavbarComponent().expanded = false;
+			navigationService.getSideinfoComponent().disable();
+	}
 
 	ngOnInit() {
 		this.dataSetId = this.activatedRoute.params['_value']['id'];

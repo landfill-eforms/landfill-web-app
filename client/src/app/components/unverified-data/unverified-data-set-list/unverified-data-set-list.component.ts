@@ -76,7 +76,7 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 			ordinal: -1,
 			name: "Any"
 		},
-		...Site.values()
+		...Site.values().filter(site => site.active)
 	];
 
 	showSideInfo:boolean = false;

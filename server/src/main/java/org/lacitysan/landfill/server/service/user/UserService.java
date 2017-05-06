@@ -109,6 +109,7 @@ public class UserService {
 		}
 		
 		existing.setUsername(user.getUsername());
+		
 		return userDao.update(existing);
 		
 	}

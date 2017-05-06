@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Alvin Quach
  */
 @Entity
-@Table(name="dbo.UserActivities")
+@Table(name="dbo.UserActivity")
 @AttributeOverride(name="id", column=@Column(name="UserActivityPK"))
 @JsonInclude(Include.NON_NULL)
 public class UserActivity extends AbstractEntity implements Comparable<UserActivity> {

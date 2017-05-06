@@ -26,7 +26,7 @@ public class UserActivityController {
 		try {
 			// For now, limit to activity within past 7 days.
 			// TODO Add activity cutoff to application settings.
-			return userActivityService.getByUserIdAndDate(Integer.valueOf(id), 7);
+			return userActivityService.getByUserIdAndDateRange(Integer.valueOf(id), 7);
 		}
 		catch (NumberFormatException e) {
 			return null;

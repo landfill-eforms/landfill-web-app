@@ -1,6 +1,8 @@
 package org.lacitysan.landfill.server.util;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * A utility class containing methods for string manipulation.
@@ -177,6 +179,13 @@ public class StringUtils {
 			sb.append(object.toString());
 		}
 		return sb.toString();
+	}
+	
+	/** Checks if the input character is a vowel. */
+	public static boolean isVowel(char c) {
+		return Arrays.stream(new Character[] {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'})
+				.collect(Collectors.toSet())
+				.contains(c);
 	}
 
 }

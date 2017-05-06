@@ -116,14 +116,6 @@ export class AuthService {
 		let claims:any = this.jwtHelper.decodeToken(jwtToken);
 		let permissions = claims["permissions"];
 		if (permissions && Array.isArray(permissions)) {
-			// let result:UserPermission[] = [];
-			// for (let i = 0; i < permissions.length; i++) {
-			// 	let permission:UserPermission = UserPermission[permissions[i]];
-			// 	if (permission) {
-			// 		result.push(permission);
-			// 	}
-			// }
-			// return result;
 			return permissions;
 		}
 		return [];
@@ -137,7 +129,6 @@ export function authFactory(http:Http, options:RequestOptions) {
 		headerPrefix: 'Bearer',
 		tokenName: 'id_token',
 		tokenGetter: (() => localStorage.getItem('id_token')),
-		//globalHeaders: [{ 'Content-Type': 'text/plain' }],
 		noJwtError: false
 	}), http, options);
 };

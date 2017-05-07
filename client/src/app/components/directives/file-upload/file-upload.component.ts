@@ -15,10 +15,13 @@ export class FileUploadComponent {
     @Input() multiple:boolean = false;
     @Input() restUrl:string;
     @Input() label:string = "SELECT FILE";
+    @Input() uploadingLabel:string = "Uploading..."
     @Output() uploadResult = new EventEmitter<FileUploadResult>();
     @ViewChild('fileInput') el:ElementRef;
 
     selectedFileNames:string[] = [];
+
+    uploading:boolean;
 
     constructor(
         private router:Router,
@@ -62,18 +65,21 @@ export class FileUploadComponent {
             for (let i = 0; i < fileCount; i++) {
                 formData.append('file', inputEl.files.item(i));
             }
+            this.uploading = true;
             this.fileUploadService.upload(this.restUrl, formData,
                 (data) => {
                     this.uploadResult.emit({
                         success: true,
                         data: data
                     });
+                    this.uploading = false;
                 },
                 (err) => {
                     this.uploadResult.emit({
                         success: false,
                         data: err
                     });
+                    this.uploading = false;
                 }
             );
         }

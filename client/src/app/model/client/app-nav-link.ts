@@ -5,7 +5,6 @@ export class AppNavLink {
 	subtitle:string;
 	img?:string;
 	route?:Route;
-	action?:any;
 	visible?:boolean;
 	disabled?:boolean;
 }

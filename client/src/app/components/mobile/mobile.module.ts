@@ -1,5 +1,4 @@
-import { MobileSyncSelectorComponent } from './mobile-sync-selector/mobile-sync-selector.component';
-import { MobileUploadComponent } from './mobile-upload/mobile-upload.component';
+import { MobileSyncComponent } from './mobile-sync/mobile-sync.component';
 import { DirectivesModule } from './../directives/directives.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from './../common/common.module';
@@ -11,8 +10,7 @@ import { CommonModule } from './../common/common.module';
     ],
 	providers: [],
 	declarations: [
-		MobileSyncSelectorComponent,
-        MobileUploadComponent
+		MobileSyncComponent
     ]
 })
 

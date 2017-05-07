@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 			subtitle: "Sync Data with Android App",
 			img: "sync",
 			color: "#FF9800, #FFA726, #FF9100",
-			route: RestrictedRoute.MOBILE_SYNC_SELECTOR,
+			route: RestrictedRoute.MOBILE_SYNC,
 			disabled: false
 		},
 		{

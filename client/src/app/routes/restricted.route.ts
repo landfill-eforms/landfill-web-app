@@ -1,14 +1,3 @@
-import { IseNumberListComponent } from './../components/exceedance/ise-number-list/ise-number-list.component';
-import { ImeNumberComponent } from './../components/exceedance/ime-number/ime-number.component';
-import { MobileUploadComponent } from './../components/mobile/mobile-upload/mobile-upload.component';
-import { ReportSelectorComponent } from './../components/report/report-selector/report-selector.component';
-import { ImeNumberListComponent } from './../components/exceedance/ime-number-list/ime-number-list.component';
-import { UnverifiedDataSetComponent } from './../components/unverified-data/unverified-data-set/unverified-data-set.component';
-import { UnverifiedDataSetListComponent } from './../components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
-import { InstrumentTypeListComponent } from './../components/instrument/instrument-type-list/instrument-type-list.component';
-import { InstrumentListComponent } from './../components/instrument/instrument-list/instrument-list.component';
-import { ExceedanceSelectorComponent } from './../components/exceedance/exceedance-selector/exceedance-selector.component';
-import { MobileSyncSelectorComponent } from './../components/mobile/mobile-sync-selector/mobile-sync-selector.component';
 import { UserPermission } from './../model/server/persistence/enums/user/user-permission.enum';
 import { AuthGuard } from './../services/auth/authguard';
 import { UserListComponent } from './../components/user/user-list/user-list.component';
@@ -28,7 +17,7 @@ export class RestrictedRoute {
 	};
 
 	/***** DATA SYNC ROUTES *****/
-	static readonly MOBILE_SYNC_SELECTOR:Route = {
+	static readonly MOBILE_SYNC:Route = {
 		path: 'mobile',
 		data: {
 			name: "Android Data Sync",
@@ -42,19 +31,9 @@ export class RestrictedRoute {
 	static readonly MOBILE_UPLOAD:Route = {
 		path: 'mobile/upload',
 		data: {
-			name: "Data Upload",
+			name: "Android Data Sync",
 			permissions: [
-				UserPermission.UPLOAD_MOBILE_DATA
-			]
-		}
-	};
-
-	// Not an actual route (does not have a component).
-	static readonly MOBILE_DOWNLOAD:Route = {
-		data: {
-			name: "Data Download",
-			permissions: [
-				UserPermission.DOWNLOAD_MOBILE_DATA
+				UserPermission.UPLOAD_MOBILE_DATA,
 			]
 		}
 	};

@@ -1,3 +1,4 @@
+import { StatusRoute } from './../../../routes/status.route';
 import { AppNavLink } from './../../../model/client/app-nav-link';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { RestrictedRoute } from './../../../routes/restricted.route';
@@ -19,7 +20,6 @@ export class ExceedanceSelectorComponent {
 			subtitle: "Instantaneous Monitoring Exceedances",
 			// img: "https://www.qdtricks.net/wp-content/uploads/2016/05/latest-1080-wallpaper.jpg",
 			route: RestrictedRoute.IME_NUMBER_LIST,
-			visible: false,
 			disabled: false
 		},
 		{
@@ -27,23 +27,20 @@ export class ExceedanceSelectorComponent {
 			subtitle: "Integrated Sampling Exceedances",
 			// img: "https://wallpaperscraft.com/image/sea_coast_rocks_underwater_world_vegetation_fish_53966_1920x1080.jpg",
 			route: RestrictedRoute.ISE_NUMBER_LIST,
-			visible: false,
 			disabled: false
 		},
 		{
 			title: "Probe",
-			subtitle: "Probe Exceedances",
+			subtitle: "(Coming Soon) Probe Exceedances",
 			// img: "https://wallpaperscraft.com/image/stars_sky_shore_84534_1920x1080.jpg",
-			route: RestrictedRoute.IME_NUMBER_LIST,
-			visible: false,
+			route: StatusRoute.COMING_SOON,
 			disabled: true
 		},
 		{
 			title: "Component",
-			subtitle: "Coming Soon",
+			subtitle: "(Coming Soon) Component Leaks",
 			// img: "https://ak2.picdn.net/shutterstock/videos/3125215/thumb/1.jpg",
-			route: RestrictedRoute.IME_NUMBER_LIST,
-			visible: false,
+			route: StatusRoute.COMING_SOON,
 			disabled: true
 		}
 	];

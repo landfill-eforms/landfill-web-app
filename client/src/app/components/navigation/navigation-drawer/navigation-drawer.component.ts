@@ -31,7 +31,7 @@ export class NavigationDrawerComponent implements OnInit {
 			visible: false
 		},
 		{
-			route: RestrictedRoute.MOBILE_SYNC_SELECTOR,
+			route: RestrictedRoute.MOBILE_SYNC,
 			icon: 'sync',
 			label: 'Android Data Sync',
 			visible: false

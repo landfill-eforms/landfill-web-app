@@ -1,3 +1,4 @@
+import { MobileSyncComponent } from './components/mobile/mobile-sync/mobile-sync.component';
 import { IseNumberListComponent } from './components/exceedance/ise-number-list/ise-number-list.component';
 import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
 import { UserSelectorComponent } from './components/user/user-selector/user-selector.component';
@@ -12,8 +13,6 @@ import { ImeNumberComponent } from './components/exceedance/ime-number/ime-numbe
 import { ExceedanceSelectorComponent } from './components/exceedance/exceedance-selector/exceedance-selector.component';
 import { ImeNumberListComponent } from './components/exceedance/ime-number-list/ime-number-list.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
-import { MobileUploadComponent } from './components/mobile/mobile-upload/mobile-upload.component';
-import { MobileSyncSelectorComponent } from './components/mobile/mobile-sync-selector/mobile-sync-selector.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './services/auth/authguard';
 import { ModuleWithProviders } from '@angular/core';
@@ -65,15 +64,15 @@ export const RestrictedRoutes:Routes = [
 				canActivate: [AuthGuard]
 			},
 			{
-				path: RestrictedRoute.MOBILE_SYNC_SELECTOR.path,
-				data: RestrictedRoute.MOBILE_SYNC_SELECTOR.data,
-				component: MobileSyncSelectorComponent,
+				path: RestrictedRoute.MOBILE_SYNC.path,
+				data: RestrictedRoute.MOBILE_SYNC.data,
+				component: MobileSyncComponent,
 				canActivate: [AuthGuard]
 			},
 			{
 				path: RestrictedRoute.MOBILE_UPLOAD.path,
 				data: RestrictedRoute.MOBILE_UPLOAD.data,
-				component: MobileUploadComponent,
+				component: MobileSyncComponent,
 				canActivate: [AuthGuard]
 			},
 			{

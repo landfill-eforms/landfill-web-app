@@ -1,3 +1,4 @@
+import { StatusRoute } from './../../../routes/status.route';
 import { AppNavLink } from './../../../model/client/app-nav-link';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { RestrictedRoute } from './../../../routes/restricted.route';
@@ -16,22 +17,26 @@ export class ReportSelectorComponent {
 		{
 			title: "Exceedance",
 			subtitle: "Preview and Generate an Exceedance Report",
-			route: RestrictedRoute.INSTANTANEOUS_REPORT
+			route: RestrictedRoute.INSTANTANEOUS_REPORT,
+			disabled: false
 		},
 		{
 			title: "Instantaneous",
 			subtitle: "Preview and Generate an Instantaneous Report",
-			route: RestrictedRoute.INSTANTANEOUS_REPORT
+			route: RestrictedRoute.INSTANTANEOUS_REPORT,
+			disabled: false
 		},
 		{
 			title: "Integrated",
 			subtitle: "Preview and Generate an Integrated Report",
-			route: RestrictedRoute.INSTANTANEOUS_REPORT
+			route: RestrictedRoute.INSTANTANEOUS_REPORT,
+			disabled: false
 		},
 		{
 			title: "Probe",
-			subtitle: "Preview and Generate a Probe Report",
-			route: RestrictedRoute.INSTANTANEOUS_REPORT
+			subtitle: "(Coming Soon) Preview and Generate a Probe Report",
+			route: StatusRoute.COMING_SOON,
+			disabled: true
 		}
     ];
 

@@ -1,3 +1,4 @@
+import { IseNumberListSideinfoComponent } from './../ise-number-list-sideinfo/ise-number-list-sideinfo.component';
 import { ExceedanceStatus } from './../../../model/server/persistence/enums/exceedance/exceedance-status.enum';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { MonitoringPoint } from './../../../model/server/persistence/enums/location/monitoring-point.enum';
@@ -72,8 +73,8 @@ export class IseNumberListComponent extends AbstractDataTableComponent<IseNumber
 		private navigationService:NavigationService) {
 			super();
 			navigationService.getNavbarComponent().expanded = true;
-			// navigationService.getSideinfoComponent().setDirective(null, {iseNumber: null});
-			// navigationService.getSideinfoComponent().enable();
+			navigationService.getSideinfoComponent().setDirective(IseNumberListSideinfoComponent, {iseNumber: null});
+			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {
@@ -160,10 +161,16 @@ export class IseNumberListComponent extends AbstractDataTableComponent<IseNumber
 
 	deselectIseNumber() {
 		this.selectedIseNumber = null;
+		this.navigationService.getSideinfoComponent().subtitle = ""; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(null);
 	}
 
 	navigateToIseNumber(iseNumber:IseNumber) {
 		this.router.navigate([iseNumber.iseNumber], {relativeTo: this.activatedRoute});
+	}
+	
+	isNavDrawerOpen():boolean {
+		return this.navigationService.isNavDrawerOpened();
 	}
 
 }

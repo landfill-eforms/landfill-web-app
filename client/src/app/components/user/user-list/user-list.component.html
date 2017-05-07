@@ -36,7 +36,7 @@
 			</button>
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-			<div class="data-table-first-column truncate flex-item" fxFlex="10" (click)="sortBy('username')">
+			<div class="data-table-first-column truncate flex-item" (click)="sortBy('username')" fxFlex="10">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'username'}">
 					Username
@@ -47,7 +47,7 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex="13" (click)="sortBy('name')">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('name')" fxFlex="13">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'name'}">
 					Name
@@ -58,7 +58,7 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('emailAddress')">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('emailAddress')" fxFlex>
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'emailAddress'}">
 					Email
@@ -69,7 +69,12 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex="13" (click)="sortBy('employeeId')">
+			<div class="data-table-column truncate flex-item" 
+				(click)="sortBy('employeeId')" 
+				fxFlex="13"
+				fxHide 
+				fxShow.gt-sm
+				[fxShow.gt-xs]="!showSideInfo || !isNavDrawerOpen()">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'employeeId'}">
 					Employee ID
@@ -103,7 +108,11 @@
 					<div class="data-table-column truncate flex-item" fxFlex>
 						{{user.emailAddress}}
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex="13">
+					<div class="data-table-column truncate flex-item" 
+						fxFlex="13"
+						fxHide 
+						fxShow.gt-sm 
+						[fxShow.gt-xs]="!showSideInfo || !isNavDrawerOpen()">
 						{{user.employeeId}}
 					</div>
 					<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">

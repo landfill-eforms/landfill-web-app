@@ -1,32 +1,32 @@
+import { IseNumber } from './../../../model/server/persistence/entity/surfaceemission/integrated/ise-number.class';
 import { StringUtils } from './../../../utils/string.utils';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
-import { ImeNumber } from './../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-number.class';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { AbstractSideinfoComponent } from './../../../model/client/abstract-components/abstract-sideinfo.component';
 import { Component } from '@angular/core';
 
 @Component({
-	selector: 'app-ime-number-list-sideinfo',
-	templateUrl: './ime-number-list-sideinfo.component.html'
+	selector: 'app-ise-number-list-sideinfo',
+	templateUrl: './ise-number-list-sideinfo.component.html'
 })
-export class ImeNumberListSideinfoComponent extends AbstractSideinfoComponent<ImeNumber> {
+export class IseNumberListSideinfoComponent extends AbstractSideinfoComponent<IseNumber> {
 
 	DateTimeUtils = DateTimeUtils;
 	StringUtils = StringUtils;
 
-	imeNumber:ImeNumber;
+	iseNumber:IseNumber;
 
 	constructor(
 		private navigationService:NavigationService) {
-			super("IME Number");
+			super("ISE Number");
 	}
 
-	getData():ImeNumber {
-		return this.imeNumber;
+	getData():IseNumber {
+		return this.iseNumber;
 	}
 
-	setData(data:ImeNumber) {
-		this.imeNumber = data;
+	setData(data:IseNumber) {
+		this.iseNumber = data;
 	}
 	
 }

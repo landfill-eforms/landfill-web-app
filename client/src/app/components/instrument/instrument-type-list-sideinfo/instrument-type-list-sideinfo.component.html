@@ -14,33 +14,41 @@
 				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
 					Date Created
 				</div>
-				<div *ngIf="instrumentType.createdDate" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-					{{DateTimeUtils.getDate(instrumentType.createdDate)}} {{DateTimeUtils.getTime(instrumentType.createdDate)}}
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDetailedDateTime(instrumentType?.createdDate)}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Created By
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(instrumentType?.createdBy)}}
 				</div>
 			</div>
 			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
 					Last Modified
 				</div>
-				<div *ngIf="instrumentType.modifiedDate" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-					{{DateTimeUtils.getDate(instrumentType.modifiedDate)}} {{DateTimeUtils.getTime(instrumentType.modifiedDate)}}
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDetailedDateTime(instrumentType?.modifiedDate)}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Modified By
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(instrumentType?.modifiedBy)}}
 				</div>
 			</div>
 		</div>
 		<div class="sideinfo-section">
 			<div class="sideinfo-section-header">
-				Description
-			</div>
-			<div class="sideinfo-section-data-paragraph" style="width:256px;">
-				{{instrumentType.description}}
-			</div>
-		</div>
-		<div class="sideinfo-section">
-			<div class="sideinfo-section-header">
-				Instruments
+				Instruments (S/N)
 			</div>
 			<div *ngIf="instrumentType.instruments.length == 0" class="sideinfo-section-data-list-item truncate" style="width:256px;">
-				<i>No instruments found</i>
+				<i>No associated instruments</i>
 			</div>
 			<div *ngFor="let instrument of instrumentType.instruments" class="sideinfo-section-data-list-item truncate" style="width:256px;">
 				<!-- TODO Sort the serial numbers. -->

@@ -31,7 +31,7 @@
 			</button>
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-			<div class="data-table-first-column truncate flex-item" fxFlex="10" (click)="sortBy('type')">
+			<div class="data-table-first-column truncate flex-item" (click)="sortBy('type')" fxFlex="10">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'type'}">
 					Equipment Type
@@ -42,7 +42,7 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex="10" (click)="sortBy('manufacturer')">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('manufacturer')" fxFlex="10">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'manufacturer'}">
 					Manufacturer
@@ -56,31 +56,85 @@
 			<div class="data-table-column truncate flex-item" fxFlex="50">
 				<span class="data-table-header-label">Description</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+			<div class="data-table-column-condensed truncate flex-item" 
+				style="text-align:center;" 
+				fxFlex="60px" 
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">Inst./Intg.</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+			<div class="data-table-column-condensed truncate flex-item" 
+				style="text-align:center;" 
+				fxFlex="60px" 
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">Probe/Gas</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+			<div class="data-table-column-condensed truncate flex-item" 
+				style="text-align:center;" 
+				fxFlex="60px" 
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">CH<sub>4</sub> %</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+			<div class="data-table-column-condensed truncate flex-item" 
+				style="text-align:center;" 
+				fxFlex="60px" 
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">CH<sub>4</sub> ppm</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+			<div class="data-table-column-condensed truncate flex-item" 
+				style="text-align:center;" 
+				fxFlex="60px" 
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">H<sub>2</sub>S ppm</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+			<div class="data-table-column-condensed truncate flex-item" 
+				style="text-align:center;" 
+				fxFlex="60px" 
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">O<sub>2</sub> %</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+			<div class="data-table-column-condensed truncate flex-item" 
+				style="text-align:center;" 
+				fxFlex="60px" 
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">CO<sub>2</sub> %</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+			<div class="data-table-column-condensed truncate flex-item" 
+				style="text-align:center;" 
+				fxFlex="60px" 
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">N<sub>2</sub> %</span>
 			</div>
-			<div class="data-table-column-condensed truncate flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+			<div class="data-table-column-condensed truncate flex-item" 
+				style="text-align:center;" 
+				fxFlex="60px" 
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">Pressure</span>
 			</div>
 		</div>
@@ -103,31 +157,85 @@
 					<div class="data-table-column truncate flex-item" fxFlex="50">
 						{{type.description}}
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+			<div class="data-table-column-condensed truncate flex-item" 
+				style="text-align:center;" 
+				fxFlex="60px" 
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 						<md-icon *ngIf="type.instantaneous" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+					<div class="data-table-column-condensed truncate flex-item" 
+						style="text-align:center;" 
+						fxFlex="60px" 
+						fxHide 
+						fxShow.gt-lg 
+						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 						<md-icon *ngIf="type.probe" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+					<div class="data-table-column-condensed truncate flex-item" 
+						style="text-align:center;" 
+						fxFlex="60px" 
+						fxHide 
+						fxShow.gt-lg 
+						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 						<md-icon *ngIf="type.methanePercent" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+					<div class="data-table-column-condensed truncate flex-item" 
+						style="text-align:center;" 
+						fxFlex="60px" 
+						fxHide 
+						fxShow.gt-lg 
+						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 						<md-icon *ngIf="type.methanePpm" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+					<div class="data-table-column-condensed truncate flex-item" 
+						style="text-align:center;" 
+						fxFlex="60px" 
+						fxHide 
+						fxShow.gt-lg 
+						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 						<md-icon *ngIf="type.hydrogenSulfidePpm" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+					<div class="data-table-column-condensed truncate flex-item" 
+						style="text-align:center;" 
+						fxFlex="60px" 
+						fxHide 
+						fxShow.gt-lg 
+						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 						<md-icon *ngIf="type.oxygenPercent" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+					<div class="data-table-column-condensed truncate flex-item" 
+						style="text-align:center;" 
+						fxFlex="60px" 
+						fxHide 
+						fxShow.gt-lg 
+						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 						<md-icon *ngIf="type.carbonDioxidePercent" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+					<div class="data-table-column-condensed truncate flex-item" 
+						style="text-align:center;" 
+						fxFlex="60px" 
+						fxHide 
+						fxShow.gt-lg 
+						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 						<md-icon *ngIf="type.nitrogenPercent" class="data-table-icon-checkmark">check</md-icon>
 					</div>
-					<div class="data-table-column-condensed flex-item" fxFlex="60px" style="text-align:center;" fxHide fxShow.gt-md>
+					<div class="data-table-column-condensed truncate flex-item" 
+						style="text-align:center;" 
+						fxFlex="60px" 
+						fxHide 
+						fxShow.gt-lg 
+						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 						<md-icon *ngIf="type.pressure" class="data-table-icon-checkmark">check</md-icon>
 					</div>
 				</div>

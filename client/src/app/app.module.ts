@@ -1,3 +1,4 @@
+import { FlexLayoutCustomBreakpointsModule } from './components/flex-layout/flex-layout-custom-breakpoints.module';
 import { EditUnverifiedIntegratedDialogComponent } from './components/unverified-data/dialog/edit-unverified-integrated-dialog/edit-unverified-integrated-dialog.component';
 import { EditUnverifiedWarmspotDialogComponent } from './components/unverified-data/dialog/edit-unverified-warmspot-dialog/edit-unverified-warmspot-dialog.component';
 import { EditUnverifiedInstantaneousDialogComponent } from './components/unverified-data/dialog/edit-unverified-instantaneous-dialog/edit-unverified-instantaneous-dialog.component';
@@ -69,6 +70,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		//AppRoutes,
 		BrowserAnimationsModule, // This required to use angular/material@2.0.0-beta.2 with Angular 4.
 		CommonModule,
+		FlexLayoutCustomBreakpointsModule,
 		Routing,
 		PublicModule,
 		NavigationModule,

@@ -7,7 +7,7 @@
 <div *ngIf="user" style="height:calc(100% - 128px);">
 	<md-tab-group style="height:100%;">
 		<md-tab label="Details">
-			<div  class="sideinfo-sections-container">
+			<div class="sideinfo-sections-container">
 				<div class="sideinfo-section">
 					<div class="sideinfo-section-header">
 						Account
@@ -110,20 +110,22 @@
 			</div>
 		</md-tab>
 		<md-tab label="Activity">
-			<div *ngIf="!isUserActivityLoaded">
-				<app-page-loading-indicator></app-page-loading-indicator>
-			</div>
-			<div *ngIf="isUserActivityLoaded">
-				<div *ngIf="userActivity.length == 0" style="padding:16px;">
-					User has no recent activity.
+			<div class="sideinfo-sections-container">
+				<div *ngIf="!isUserActivityLoaded">
+					<app-page-loading-indicator></app-page-loading-indicator>
 				</div>
-				<div *ngFor="let activity of userActivity" class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						{{DateTimeUtils.getDate(activity.date)}} {{DateTimeUtils.getTime(activity.date)}} 
+				<div *ngIf="isUserActivityLoaded">
+					<div *ngIf="userActivity.length == 0" style="padding:16px;">
+						User has no recent activity.
 					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-paragraph" style="width:256px;">
-							{{activity.activity}}
+					<div *ngFor="let activity of userActivity" class="sideinfo-section">
+						<div class="sideinfo-section-header">
+							{{DateTimeUtils.getDetailedDateTime(activity.date)}}
+						</div>
+						<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+							<div class="sideinfo-section-data-paragraph" style="width:256px;">
+								{{activity.activity}}
+							</div>
 						</div>
 					</div>
 				</div>

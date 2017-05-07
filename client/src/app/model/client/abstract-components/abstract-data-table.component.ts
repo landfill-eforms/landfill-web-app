@@ -1,3 +1,4 @@
+import { NavigationService } from './../../../services/app/navigation.service';
 import { Paginfo, PaginationComponent } from './../../../components/directives/pagination/pagination.component';
 import { InputStatus } from './../../../utils/input.utils';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
@@ -61,5 +62,7 @@ export abstract class AbstractDataTableComponent<T> {
 			return i >= (this.paginfo.currentPage - 1) * this.paginfo.displayedRows && i < this.paginfo.currentPage * this.paginfo.displayedRows;
 		});
 	}
+
+	abstract isNavDrawerOpen():boolean;
 
 }

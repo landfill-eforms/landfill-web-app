@@ -179,6 +179,7 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading Users..."
+				this.deselectUser();
 				this.loadUsers();
 			}
 		});
@@ -251,6 +252,12 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 
 	deselectUser() {
 		this.selectedUser = null;
+		this.navigationService.getSideinfoComponent().subtitle = ""; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(null);
+	}
+	
+	isNavDrawerOpen():boolean {
+		return this.navigationService.isNavDrawerOpened();
 	}
 
 }

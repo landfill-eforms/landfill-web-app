@@ -24,8 +24,7 @@ import { OnInit, Component, OnDestroy, ViewChild } from '@angular/core';
 
 @Component({
 	selector: 'app-unverified-data-set-list',
-	templateUrl: './unverified-data-set-list.component.html',
-	styleUrls: ['./unverified-data-set-list.component.scss']
+	templateUrl: './unverified-data-set-list.component.html'
 })
 export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<UnverifiedDataSet> implements OnInit, OnDestroy {
 
@@ -206,10 +205,16 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 
 	deselectUnverifiedDataSet() {
 		this.selectedUnverifiedDataSet = null;
+		this.navigationService.getSideinfoComponent().subtitle = ""; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(null);
 	}
 
 	navigateToUnverifiedDataSet(unverifiedDataSet:UnverifiedDataSet) {
 		this.router.navigate([unverifiedDataSet.id], {relativeTo: this.activatedRoute});
+	}
+	
+	isNavDrawerOpen():boolean {
+		return this.navigationService.isNavDrawerOpened();
 	}
 
 }

@@ -1,3 +1,4 @@
+import { StringUtils } from './../../../utils/string.utils';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { InstrumentTypeService } from './../../../services/instrument/instrument-type.service';
 import { InstrumentType } from './../../../model/server/persistence/entity/instrument/instrument-type.class';
@@ -12,6 +13,7 @@ import { Component } from '@angular/core';
 export class InstrumentTypeListSideinfoComponent extends AbstractSideinfoComponent<InstrumentType> {
 
 	DateTimeUtils = DateTimeUtils;
+	StringUtils = StringUtils;
 
 	instrumentType:InstrumentType;
 	tests:string[] = []

@@ -36,7 +36,10 @@
 			</button>
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('iseNumber')">
+			<div class="data-table-first-column truncate flex-item" (click)="sortBy('iseNumber')" 
+				fxFlex.gt-md="11"
+				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen() ? true : 11" 
+				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen() ? true : 11">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'iseNumber'}">
 					ISE Number
@@ -47,10 +50,13 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex>
+			<div class="data-table-column truncate flex-item" 
+				fxFlex.gt-md="6"
+				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen() ? true : 6" 
+				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen() ? true : 6">
 				<span class="data-table-header-label">Site</span>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('monitoringPoint')">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('monitoringPoint')" fxFlex>
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'monitoringPoint'}">
 					Grid
@@ -61,7 +67,12 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('discoveryDate')">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('discoveryDate')" 
+				fxFlex 
+				fxHide 
+				fxShow.gt-md 
+				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'discoveryDate'}">
 					Discovery Date
@@ -72,7 +83,12 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('initialReading')">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('initialReading')" 
+				fxFlex 
+				fxHide 
+				fxShow.gt-md 
+				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'initialReading'}">
 					Initial Reading
@@ -83,7 +99,12 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex>
+			<div class="data-table-column truncate flex-item" 
+				fxFlex 
+				fxHide 
+				fxShow.gt-md 
+				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">Latest Reading</span>
 			</div>
 			<div class="data-table-last-column truncate flex-item" fxFlex>
@@ -97,28 +118,49 @@
 					(click)="selectIseNumber(iseNumber)"
 					(dblclick)="navigateToIseNumber(iseNumber)"
 					[ngClass]="{'data-table-row-content-active': iseNumber === selectedIseNumber}">
-					<div class="data-table-first-column truncate flex-item" fxFlex>
+					<div class="data-table-first-column truncate flex-item" 
+						fxFlex.gt-md="11"
+						[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen() ? true : 11" 
+						[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen() ? true : 11">
 						<a [routerLink]="iseNumber.iseNumber">
 							{{iseNumber.iseNumber}}
 						</a>
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
+					<div class="data-table-column truncate flex-item" 
+						fxFlex.gt-md="6"
+						[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen() ? true : 6" 
+						[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen() ? true : 6">
 						{{iseNumber.site.name}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
 						{{iseNumber.monitoringPoint.name}}
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
+					<div class="data-table-column truncate flex-item" 
+						fxFlex 
+						fxHide 
+						fxShow.gt-md 
+						[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
 						{{iseNumber.iseData && iseNumber.iseData[0] ? DateTimeUtils.getDate(iseNumber.iseData[0].dateTime) : ''}}
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
+					<div class="data-table-column truncate flex-item"
+						fxFlex 
+						fxHide 
+						fxShow.gt-md 
+						[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
 						{{iseNumber.iseData && iseNumber.iseData[0] ? iseNumber.iseData[0].methaneLevel : ''}}
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
-						{{iseNumber.iseData ? iseNumber.iseData[iseNumber.iseData.length - 1].methaneLevel : ''}}
+					<div class="data-table-column truncate flex-item"
+						fxFlex 
+						fxHide 
+						fxShow.gt-md 
+						[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
+						{{iseNumber.iseData?.length ? iseNumber.iseData[iseNumber.iseData.length - 1].methaneLevel : ''}}
 					</div>
 					<div class="data-table-last-column truncate flex-item" fxFlex>
-						{{iseNumber.status.name}}
+						{{iseNumber.status?.name}}
 					</div>
 				</div>
 			</div>

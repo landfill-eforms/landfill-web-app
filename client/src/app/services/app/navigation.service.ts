@@ -10,6 +10,7 @@ export class NavigationService {
 
 	private navbarComponent:NavigationToolbarComponent;
 	private sideinfoComponent:NavigationSideinfoComponent;
+	private navDrawerOpened:boolean = false;
 
 	constructor(
 		private titleService:TitleService, 
@@ -64,6 +65,14 @@ export class NavigationService {
 
 	isSideinfoDisabled():boolean {
 		return this.getSideinfoComponent() && this.getSideinfoComponent().isDisabled();
+	}
+
+	isNavDrawerOpened():boolean {
+		return this.navDrawerOpened;
+	}
+
+	updateNavDrawerStatus(status:boolean) {
+		this.navDrawerOpened = status;
 	}
 
 }

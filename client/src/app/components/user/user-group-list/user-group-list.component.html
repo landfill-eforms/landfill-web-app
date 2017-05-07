@@ -31,7 +31,7 @@
 			</button>
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-			<div class="data-table-first-column truncate flex-item" fxFlex="13.37" (click)="sortBy('name')">
+			<div class="data-table-first-column truncate flex-item" (click)="sortBy('name')" fxFlex="13.37">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'name'}">
 					Group Name
@@ -42,10 +42,10 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex="69px" (click)="sortBy('userCount')">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('userCount')" fxFlex="69px">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'userCount'}">
-					Users
+					User Count
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
 					'data-table-header-sort-arrow-reverse': sort.reversed,

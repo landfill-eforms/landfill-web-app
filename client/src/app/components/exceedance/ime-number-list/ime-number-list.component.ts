@@ -163,10 +163,27 @@ export class ImeNumberListComponent extends AbstractDataTableComponent<ImeNumber
 
 	deselectImeNumber() {
 		this.selectedImeNumber = null;
+		this.navigationService.getSideinfoComponent().subtitle = ""; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(null);
 	}
 
 	navigateToImeNumber(imeNumber:ImeNumber) {
 		this.router.navigate([imeNumber.imeNumber], {relativeTo: this.activatedRoute});
+	}
+	
+	isNavDrawerOpen():boolean {
+		return this.navigationService.isNavDrawerOpened();
+	}
+
+	listGrids(imeNumber:ImeNumber):string {
+		let result:string = "";
+		for (let i = 0; i < imeNumber.monitoringPoints.length; i++) {
+			if (i > 0) {
+				result += ", ";
+			}
+			result += imeNumber.monitoringPoints[i].name;
+		}
+		return result;
 	}
 
 }

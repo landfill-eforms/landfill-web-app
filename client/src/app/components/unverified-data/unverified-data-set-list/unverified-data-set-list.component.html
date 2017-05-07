@@ -36,7 +36,7 @@
 			</button>
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('site')">
+			<div class="data-table-first-column truncate flex-item" (click)="sortBy('site')" fxFlex="6">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'site'}">
 					Site
@@ -47,10 +47,11 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex>
-				<span class="data-table-header-label">Filename</span>
-			</div>
-			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('createdBy')">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('createdBy')"
+				fxFlex="9"
+				fxHide 
+				fxShow.gt-md
+				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" >
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'createdBy'}">
 					Uploaded By
@@ -61,7 +62,11 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('createdDate')">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('createdDate')" 
+				fxFlex="7"
+				fxHide 
+				fxShow.gt-md
+				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" >
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'createdDate'}">
 					Upload Date
@@ -72,7 +77,13 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('modifiedBy')">
+			<div class="data-table-column truncate flex-item" 
+				(click)="sortBy('modifiedBy')" 
+				fxFlex="9"
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'modifiedBy'}">
 					Modified By
@@ -83,7 +94,13 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-first-column truncate flex-item" fxFlex (click)="sortBy('modifiedDate')">
+			<div class="data-table-column truncate flex-item" 
+				(click)="sortBy('modifiedDate')" 
+				fxFlex="7"
+				fxHide 
+				fxShow.gt-lg 
+				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label-sortable" [ngClass]="{
 					'data-table-header-label-sorted':sort.current == 'modifiedDate'}">
 					Modified Date
@@ -93,6 +110,9 @@
 					'data-table-header-sort-arrow-inactive': sort.current !== 'modifiedDate'}">
 					arrow_downward
 				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex>
+				<span class="data-table-header-label">Filename</span>
 			</div>
 			<div class="data-table-last-column truncate flex-item" fxFlex="40px" style="text-align:center;">
 				<span class="data-table-header-label">Edit</span>
@@ -105,23 +125,41 @@
 					(click)="selectUnverifiedDataSet(dataSet)"
 					(dblclick)="navigateToUnverifiedDataSet(dataSet)"
 					[ngClass]="{'data-table-row-content-active': dataSet === selectedUnverifiedDataSet}">
-					<div class="data-table-first-column truncate flex-item" fxFlex>
+					<div class="data-table-first-column truncate flex-item" fxFlex="6">
 						{{dataSet.site.name}}
+					</div>
+					<div class="data-table-column truncate flex-item" 
+						fxFlex="9"
+						fxHide 
+						fxShow.gt-md
+						[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" >
+						{{dataSet.createdBy ? StringUtils.formatUserName(dataSet.createdBy) : ''}}
+					</div>
+					<div class="data-table-column truncate flex-item" 
+						fxFlex="7"
+						fxHide 
+						fxShow.gt-md
+						[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" >
+						{{dataSet.createdDate ? DateTimeUtils.getDate(dataSet.createdDate) : ''}}
+					</div>
+					<div class="data-table-column truncate flex-item" 
+						fxFlex="9"
+						fxHide 
+						fxShow.gt-lg 
+						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
+						{{dataSet.modifiedBy ? StringUtils.formatUserName(dataSet.modifiedBy) : ''}}
+					</div>
+					<div class="data-table-column truncate flex-item"
+						fxFlex="7"
+						fxHide 
+						fxShow.gt-lg 
+						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
+						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
+						{{dataSet.modifiedDate ? DateTimeUtils.getDate(dataSet.modifiedDate) : ''}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
 						{{dataSet.filename}}
-					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
-						{{dataSet.createdBy ? StringUtils.formatUserName(dataSet.createdBy) : ''}}
-					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
-						{{dataSet.createdDate ? DateTimeUtils.getDate(dataSet.createdDate) : ''}}
-					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
-						{{dataSet.modifiedBy ? StringUtils.formatUserName(dataSet.modifiedBy) : ''}}
-					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
-						{{dataSet.modifiedDate ? DateTimeUtils.getDate(dataSet.modifiedDate) : ''}}
 					</div>
 					<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">
 						<md-icon [routerLink]="dataSet.id" mdTooltip="Edit" mdTooltipPosition="after" style="color:#07F;cursor:pointer;margin-top:-4px;">edit</md-icon>

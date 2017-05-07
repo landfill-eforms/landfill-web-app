@@ -1,3 +1,4 @@
+import { IseNumberListSideinfoComponent } from './ise-number-list-sideinfo/ise-number-list-sideinfo.component';
 import { IseNumberListComponent } from './ise-number-list/ise-number-list.component';
 import { ImeNumberListSideinfoComponent } from './ime-number-list-sideinfo/ime-number-list-sideinfo.component';
 import { ImeNumberComponent } from './ime-number/ime-number.component';
@@ -18,7 +19,8 @@ import { CommonModule } from '../common/common.module';
 		ImeNumberListComponent,
 		ImeNumberListSideinfoComponent,
 		ImeNumberComponent,
-		IseNumberListComponent
+		IseNumberListComponent,
+		IseNumberListSideinfoComponent,
 	]
 })
 

@@ -26,7 +26,7 @@ export class ExceedanceSelectorComponent {
 			title: "Integrated",
 			subtitle: "Integrated Sampling Exceedances",
 			// img: "https://wallpaperscraft.com/image/sea_coast_rocks_underwater_world_vegetation_fish_53966_1920x1080.jpg",
-			route: RestrictedRoute.IME_NUMBER_LIST,
+			route: RestrictedRoute.ISE_NUMBER_LIST,
 			visible: false,
 			disabled: false
 		},
@@ -36,7 +36,7 @@ export class ExceedanceSelectorComponent {
 			// img: "https://wallpaperscraft.com/image/stars_sky_shore_84534_1920x1080.jpg",
 			route: RestrictedRoute.IME_NUMBER_LIST,
 			visible: false,
-			disabled: false
+			disabled: true
 		},
 		{
 			title: "Component",

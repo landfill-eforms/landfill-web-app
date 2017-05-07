@@ -1,3 +1,4 @@
+import { IseNumberListComponent } from './components/exceedance/ise-number-list/ise-number-list.component';
 import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
 import { UserSelectorComponent } from './components/user/user-selector/user-selector.component';
 import { UserGroupListComponent } from './components/user/user-group-list/user-group-list.component';
@@ -93,6 +94,18 @@ export const RestrictedRoutes:Routes = [
 				component: ImeNumberComponent,
 				canActivate: [AuthGuard]
 			},
+			{
+				path: RestrictedRoute.ISE_NUMBER_LIST.path,
+				data: RestrictedRoute.ISE_NUMBER_LIST.data,
+				component: IseNumberListComponent,
+				canActivate: [AuthGuard]
+			},
+			// {
+			// 	path: RestrictedRoute.ISE_NUMBER.path,
+			// 	data: RestrictedRoute.ISE_NUMBER.data,
+			// 	component: IseNumberComponent,
+			// 	canActivate: [AuthGuard]
+			// },
 			{
 				path: RestrictedRoute.INSTRUMENT_SELECTOR.path,
 				data: RestrictedRoute.INSTRUMENT_SELECTOR.data,

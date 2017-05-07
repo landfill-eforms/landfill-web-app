@@ -197,6 +197,7 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading..."
+				this.deselectInstrument();
 				this.loadInstruments();
 			}
 		});
@@ -264,6 +265,12 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 
 	deselectInstrument() {
 		this.selectedInstrument = null;
+		this.navigationService.getSideinfoComponent().subtitle = ""; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(null);
+	}
+
+	isNavDrawerOpen():boolean {
+		return this.navigationService.isNavDrawerOpened();
 	}
 	
 }

@@ -70,6 +70,8 @@ a {
 }
 
 .sideinfo-not-selected {
+	user-select: none;
+	cursor: default;
 	color: rgba(0,0,0,0.54);
 	padding: 16px;
 	text-align: center;
@@ -499,10 +501,7 @@ md-toolbar-row {
 
 .toggle-icon-button-active {
 	.mat-button-wrapper {
-		color: black;
-	}
-	.mat-button-ripple {
-		background: rgba(0,0,0,0.12);
+		color: mat-color($app-accent, 300);
 	}
 }
 

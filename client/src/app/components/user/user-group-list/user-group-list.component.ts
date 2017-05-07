@@ -138,6 +138,7 @@ export class UserGroupListComponent extends AbstractDataTableComponent<UserGroup
 				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading User Groups..."
+				this.deselectUserGroup();
 				this.loadUserGroups();
 			}
 		});
@@ -213,6 +214,8 @@ export class UserGroupListComponent extends AbstractDataTableComponent<UserGroup
 
 	deselectUserGroup() {
 		this.selectedUserGroup = null;
+		this.navigationService.getSideinfoComponent().subtitle = ""; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(null);
 	}
 
 	private adminGroupExists(userGroups:UserGroup[]):boolean {
@@ -224,6 +227,10 @@ export class UserGroupListComponent extends AbstractDataTableComponent<UserGroup
 			}
 		}
 		return false;
+	}
+	
+	isNavDrawerOpen():boolean {
+		return this.navigationService.isNavDrawerOpened();
 	}
 
 }

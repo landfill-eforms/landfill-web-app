@@ -88,6 +88,13 @@ export class RestrictedRoute {
 		}
 	}
 
+	static readonly ISE_NUMBER:Route = {
+		path: 'exceedance/ise/:iseNumber',
+		data: {	
+			name: "ISE Number Log",
+		}
+	}
+
 	/***** INSTRUMENT ROUTES *****/
 	static readonly INSTRUMENT_SELECTOR:Route = {
 		path: 'equipment',

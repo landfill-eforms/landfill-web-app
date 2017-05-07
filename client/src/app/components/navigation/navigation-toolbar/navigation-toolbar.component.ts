@@ -33,7 +33,7 @@ export class NavigationToolbarComponent implements OnInit {
 	}
 
 	ngOnInit() {
-
+		this.navigationService.updateNavDrawerStatus(false);
 	}
 
 	getFabActionSource():BehaviorSubject<any> {
@@ -61,10 +61,12 @@ export class NavigationToolbarComponent implements OnInit {
 
 	toggleNavDrawer() {
 		this.navdrawer.toggle();
+		this.navigationService.updateNavDrawerStatus(!this.navigationService.isNavDrawerOpened());
 	}
 
 	openNavDrawer() {
 		this.navdrawer.open();
+		this.navigationService.updateNavDrawerStatus(true);
 	}
 
 	logout() {

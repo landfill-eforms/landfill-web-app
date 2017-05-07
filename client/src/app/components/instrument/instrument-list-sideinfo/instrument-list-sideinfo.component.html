@@ -14,16 +14,32 @@
 				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
 					Date Created
 				</div>
-				<div *ngIf="instrument.createdDate" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-					{{DateTimeUtils.getDate(instrument.createdDate)}} {{DateTimeUtils.getTime(instrument.createdDate)}}
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDetailedDateTime(instrument?.createdDate)}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Created By
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(instrument?.createdBy)}}
 				</div>
 			</div>
 			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
 					Last Modified
 				</div>
-				<div *ngIf="instrument.modifiedDate" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-					{{DateTimeUtils.getDate(instrument.modifiedDate)}} {{DateTimeUtils.getTime(instrument.modifiedDate)}}
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDetailedDateTime(instrument?.modifiedDate)}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Modified By
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(instrument?.modifiedBy)}}
 				</div>
 			</div>
 		</div>

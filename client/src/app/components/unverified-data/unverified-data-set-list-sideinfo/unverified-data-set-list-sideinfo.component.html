@@ -12,18 +12,34 @@
 			</div>
 			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-					Date Uploaded
+					Date Created
 				</div>
-				<div *ngIf="unverifiedDataSet.createdDate" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-					{{DateTimeUtils.getDate(unverifiedDataSet.createdDate)}} {{DateTimeUtils.getTime(unverifiedDataSet.createdDate)}}
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDetailedDateTime(unverifiedDataSet?.createdDate)}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Created By
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(unverifiedDataSet?.createdBy)}}
 				</div>
 			</div>
 			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
 					Last Modified
 				</div>
-				<div *ngIf="unverifiedDataSet.modifiedDate" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-					{{DateTimeUtils.getDate(unverifiedDataSet.modifiedDate)}} {{DateTimeUtils.getTime(unverifiedDataSet.modifiedDate)}}
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDetailedDateTime(unverifiedDataSet?.modifiedDate)}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Modified By
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(unverifiedDataSet?.modifiedBy)}}
 				</div>
 			</div>
 		</div>

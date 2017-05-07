@@ -1,3 +1,4 @@
+import { StringUtils } from './../../../utils/string.utils';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
 import { NavigationService } from './../../../services/app/navigation.service';
@@ -11,6 +12,7 @@ import { Component } from '@angular/core';
 export class UserGroupListSideinfoComponent extends AbstractSideinfoComponent<UserGroup> {
 
 	DateTimeUtils = DateTimeUtils;
+	StringUtils = StringUtils;
 
 	userGroup:UserGroup;
 

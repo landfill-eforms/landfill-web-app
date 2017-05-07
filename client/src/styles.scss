@@ -262,11 +262,6 @@ md-toolbar-row {
 }
 
 .unselectable {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   pointer-events: none;
 }
@@ -455,6 +450,8 @@ md-toolbar-row {
 }
 
 .data-table-row-content {
+	cursor: default;
+	user-select: none;
 	font-size: 13px;
 	color: rgba(0,0,0,0.87);
 	font-weight: 400;

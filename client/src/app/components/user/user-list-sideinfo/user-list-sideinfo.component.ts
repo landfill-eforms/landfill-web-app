@@ -38,16 +38,35 @@ export class UserListSideinfoComponent extends AbstractSideinfoComponent<User> {
 	}
 
 	setData(data:any) {
-		this.user = data.user;
-		this.canChangePassword = data.canChangePassword;
-		this.canChangeUsername = data.canChangeUsername;
-		this.canChangeStatus = data.canChangeStatus;
-		this.isUserActivityLoaded = false;
-		this.userActivityService.getByUserId(this.user.id, (data) => {
-			console.log(data);
-			this.userActivity = data;
-			this.isUserActivityLoaded = true;
-		});
+
+		// Get user and flags from data object.
+		if (data) {
+
+			// Only update the user data if a different user was selected.
+			if (!this.user || this.user.id != data.user.id) {
+				this.user = data.user;
+				this.isUserActivityLoaded = false;
+				this.userActivityService.getByUserId(this.user.id, (data) => {
+					console.log(data);
+					this.userActivity = data;
+					this.isUserActivityLoaded = true;
+				});
+			}
+
+			// Update flags regardless
+			this.canChangePassword = data.canChangePassword;
+			this.canChangeUsername = data.canChangeUsername;
+			this.canChangeStatus = data.canChangeStatus;
+
+		}
+
+		// If null was passed in, then that means we want to deselect the user.
+		else {
+			this.user = null;
+			this.userActivity = null;
+			this.isUserActivityLoaded = false;
+		}
+
 	}
 	
 	editPassword() {

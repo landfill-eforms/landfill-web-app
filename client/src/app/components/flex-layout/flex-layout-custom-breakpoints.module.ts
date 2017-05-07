@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BREAKPOINTS, DEFAULT_BREAKPOINTS, BreakPoint } from '@angular/flex-layout'
 import { validateSuffixes } from '@angular/flex-layout/utils';
 
-function customizeBreakPoints() {
+export function customizeBreakPoints() {
 	let breakpoints:BreakPoint[] = [
 		...DEFAULT_BREAKPOINTS.map((it:BreakPoint) => {
 			switch(it.alias) {

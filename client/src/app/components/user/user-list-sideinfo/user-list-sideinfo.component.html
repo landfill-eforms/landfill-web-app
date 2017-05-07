@@ -48,6 +48,14 @@
 							</div>
 						</div>
 					</div>
+					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+							Last Login
+						</div>
+						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+							{{DateTimeUtils.getDetailedDateTime(user.lastLogin)}}
+						</div>
+					</div>
 				</div>
 				<div class="sideinfo-section">
 					<div class="sideinfo-section-header">

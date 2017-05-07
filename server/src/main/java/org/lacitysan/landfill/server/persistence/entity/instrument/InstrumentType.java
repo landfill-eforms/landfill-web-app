@@ -70,14 +70,14 @@ public class InstrumentType extends AbstractEntity implements Trackable {
 	@OneToMany(mappedBy="instrumentType")
 	private Set<Instrument> instruments = new HashSet<>();
 
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="CreatedByFK")
 	private User createdBy;
 
 	private Timestamp createdDate;
 
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="ModifiedByFK")
 	private User modifiedBy;

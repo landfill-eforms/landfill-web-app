@@ -32,7 +32,7 @@ public abstract class SurfaceEmissionData extends AbstractEntity {
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
 	
-	@JsonIgnoreProperties("userGroups")
+	@JsonIgnoreProperties({"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"})
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;

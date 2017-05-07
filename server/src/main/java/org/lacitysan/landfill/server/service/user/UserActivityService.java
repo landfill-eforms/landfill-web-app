@@ -60,6 +60,8 @@ public class UserActivityService {
 	private String getActivityDescription(User user, Object entity, UserActivityType activityType) {
 		StringBuilder sb = new StringBuilder();
 		switch (activityType) {
+		case LOGIN:
+			return "Logged in.";
 		case CREATE:
 			sb.append("Created ");
 			break;
@@ -103,6 +105,7 @@ public class UserActivityService {
 	}
 	
 	public enum UserActivityType {
+		LOGIN,
 		CREATE,
 		MODIFY,
 		DELETE;

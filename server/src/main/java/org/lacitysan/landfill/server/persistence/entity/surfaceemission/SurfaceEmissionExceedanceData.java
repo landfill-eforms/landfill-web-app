@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @MappedSuperclass
 public abstract class SurfaceEmissionExceedanceData extends AbstractEntity implements Comparable<SurfaceEmissionExceedanceData> {
 	
-	@JsonIgnoreProperties({"userGroups", "enabled"})
+	@JsonIgnoreProperties({"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"})
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;

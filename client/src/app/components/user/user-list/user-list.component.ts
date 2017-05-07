@@ -1,3 +1,4 @@
+import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
 import { UserGroupService } from './../../../services/user/user-group.service';
 import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
@@ -27,6 +28,7 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 
 	// Utilities
 	StringUtils = StringUtils;
+	DateTimeUtils = DateTimeUtils;
 
 	@ViewChild('pagination') pagination:PaginationComponent;
 
@@ -46,6 +48,9 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 		],
 		emailAddress: [
 			"emailAddress"
+		],
+		lastLogin: [
+			"lastLogin"
 		],
 		employeeId: [
 			"employeeId"

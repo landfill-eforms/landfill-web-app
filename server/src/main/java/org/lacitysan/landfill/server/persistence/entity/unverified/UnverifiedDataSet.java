@@ -45,7 +45,7 @@ public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 	
 	private String filename;
 	
-	@JsonIgnoreProperties({"userGroups", "enabled"})
+	@JsonIgnoreProperties({"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"})
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;
@@ -92,7 +92,7 @@ public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 
 	// TODO Add other data types.
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="UploadedByFK")
 	private User createdBy;
@@ -100,7 +100,7 @@ public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 	@Column(name="UploadedDate")
 	private Timestamp createdDate;
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="ModifiedByFK")
 	private User modifiedBy;

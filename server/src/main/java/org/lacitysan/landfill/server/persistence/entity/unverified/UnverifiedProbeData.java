@@ -57,7 +57,7 @@ public class UnverifiedProbeData extends AbstractEntity {
 	@NotNull
 	private Boolean accessible;
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToMany
 	@JoinTable(name="dbo.UnverifiedProbeDataXRefInspectors", joinColumns=@JoinColumn(name="UnverifiedProbeFK"), inverseJoinColumns=@JoinColumn(name="InspectorFK"))
 	private Set<User> inspectors = new HashSet<>();

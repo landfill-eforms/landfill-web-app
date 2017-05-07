@@ -39,7 +39,7 @@ public class UserGroup extends AbstractEntity implements Trackable {
 	
 	private String description;
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToMany(mappedBy="userGroups")
 	private Set<User> users = new HashSet<>();
 	
@@ -49,14 +49,14 @@ public class UserGroup extends AbstractEntity implements Trackable {
 	@Enumerated(EnumType.STRING)
 	private Set<UserPermission> userPermissions = new HashSet<>();
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="CreatedByFK")
 	private User createdBy;
 	
 	private Timestamp createdDate;
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="ModifiedByFK")
 	private User modifiedBy;

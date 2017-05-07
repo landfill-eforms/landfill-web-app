@@ -62,14 +62,16 @@ public class User extends AbstractEntity implements Trackable {
 	@NotNull
 	private Boolean enabled;
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	private Timestamp lastLogin;
+	
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="CreatedByFK")
 	private User createdBy;
 	
 	private Timestamp createdDate;
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="ModifiedByFK")
 	private User modifiedBy;
@@ -148,6 +150,14 @@ public class User extends AbstractEntity implements Trackable {
 		this.enabled = enabled;
 	}
 	
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
 	public User getCreatedBy() {
 		return createdBy;
 	}

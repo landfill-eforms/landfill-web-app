@@ -1,5 +1,5 @@
 <div style="height:calc(100% - 121px);"> <!-- Browser dependent. Test on multiple browsers before setting this value. -->
-	<app-page-loading-indicator *ngIf="!isDataLoaded" [message]="loadingMessage"></app-page-loading-indicator>
+	<app-page-loading-indicator *ngIf="!isDataLoaded" message="Loading ISE Numbers..."></app-page-loading-indicator>
 	<div *ngIf="isDataLoaded" class="data-table-scrollable">
 		<div class="data-table-filter-container-row flex-container" fxLayout="row" fxLayoutAlign="end center">
 			<div *ngIf="showFilters" class="data-table-filter-container flex-item flex-container" fxFlex fxLayout="row" fxLayoutAlign="end center">

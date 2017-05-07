@@ -49,28 +49,30 @@ export class RestrictedRoute {
 	static readonly IME_NUMBER_LIST:Route = {
 		path: 'exceedance/ime',
 		data: {
-			name: "IME Number List",
+			name: "IME Numbers",
+			previous: RestrictedRoute.EXCEEDANCE_SELECTOR,
 		}
 	}
 
 	static readonly IME_NUMBER:Route = {
 		path: 'exceedance/ime/:imeNumber',
 		data: {	
-			name: "IME Number Log",
+			previous: RestrictedRoute.IME_NUMBER_LIST,
 		}
 	}
 
 	static readonly ISE_NUMBER_LIST:Route = {
 		path: 'exceedance/ise',
 		data: {
-			name: "ISE Number List",
+			name: "ISE Numbers",
+			previous: RestrictedRoute.EXCEEDANCE_SELECTOR,
 		}
 	}
 
 	static readonly ISE_NUMBER:Route = {
 		path: 'exceedance/ise/:iseNumber',
 		data: {	
-			name: "ISE Number Log",
+			previous: RestrictedRoute.ISE_NUMBER_LIST,
 		}
 	}
 
@@ -90,6 +92,7 @@ export class RestrictedRoute {
 		path: 'equipment/equipment',
 		data: {
 			name: "Equipment Inventory",
+			previous: RestrictedRoute.INSTRUMENT_SELECTOR,
 			permissions: [
 				UserPermission.VIEW_INSTRUMENTS
 			]
@@ -100,6 +103,7 @@ export class RestrictedRoute {
 		path: 'equipment/equipment-types',
 		data: {
 			name: "Equipment Types",
+			previous: RestrictedRoute.INSTRUMENT_SELECTOR,
 			permissions: [
 				UserPermission.VIEW_INSTRUMENT_TYPES
 			]
@@ -121,6 +125,7 @@ export class RestrictedRoute {
 		path: 'report/instantaneous',
 		data: {
 			name: "Instantaneous Report",
+			previous: RestrictedRoute.REPORT_SELECTOR,
 			permissions: [
 				UserPermission.GENERATE_REPORTS
 			]
@@ -131,6 +136,7 @@ export class RestrictedRoute {
 		path: 'report/exceedance',
 		data: {
 			name: "Exceedance Report",
+			previous: RestrictedRoute.REPORT_SELECTOR,
 			permissions: [
 				UserPermission.GENERATE_REPORTS
 			]
@@ -152,6 +158,7 @@ export class RestrictedRoute {
 		path: 'unverified-data-sets/:id',
 		data: {
 			name: "Verify Data",
+			previous: RestrictedRoute.UNVERIFIED_DATA_SET_LIST,
 			permissions: [
 				UserPermission.VIEW_UNVERIFIED_DATA_SET
 			]
@@ -174,6 +181,7 @@ export class RestrictedRoute {
 		path: 'user/users',
 		data: {
 			name: "User Accounts",
+			previous: RestrictedRoute.USER_SELECTOR,
 			permissions: [
 				UserPermission.VIEW_USERS
 			]
@@ -184,6 +192,7 @@ export class RestrictedRoute {
 		path: 'user/user-groups',
 		data: {
 			name: "User Groups",
+			previous: RestrictedRoute.USER_SELECTOR,
 			permissions: [
 				UserPermission.VIEW_USER_GROUPS
 			]

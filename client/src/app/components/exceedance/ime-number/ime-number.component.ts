@@ -1,3 +1,4 @@
+import { TitleService } from './../../../services/app/title.service';
 import { StringUtils } from './../../../utils/string.utils';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { ImeRecheckDialogComponent } from './../../directives/dialogs/ime-recheck-dialog/ime-recheck-dialog.component';
@@ -38,15 +39,20 @@ export class ImeNumberComponent implements OnInit {
 		private userService:UserService,
 		private activatedRoute:ActivatedRoute,
 		private snackBar:MdSnackBar,
+		private titleService:TitleService,
 		private navigationService:NavigationService) {
 			navigationService.getNavbarComponent().expanded = false;
 			navigationService.getSideinfoComponent().disable();
 	}
 
 	ngOnInit() {
+
 		// TODO Display error message if IME number in the URL is invalid.
 		this.imeNumber = this.activatedRoute.params['_value']['imeNumber'];
-		console.log(this.imeNumber);
+		this.titleService.setTitle(this.imeNumber);
+		this.navigationService.getNavbarComponent().title = this.imeNumber;
+
+		// Load IME number data.
 		this.imeNumberService.getByImeNumber(this.imeNumber,
 			(data) => {
 				console.log(data);
@@ -55,6 +61,8 @@ export class ImeNumberComponent implements OnInit {
 				this.isDataLoaded = true;
 			}
 		);
+
+		// Load list of inspectors.
 		this.userService.getAll((data) => {
 			this.users = data;
 			this.isUsersLoaded = true;

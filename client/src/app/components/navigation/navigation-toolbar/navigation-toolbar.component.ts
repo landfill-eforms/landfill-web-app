@@ -1,7 +1,7 @@
 import { TitleService } from './../../../services/app/title.service';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { AuthService } from './../../../services/auth/auth.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Route, Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { environment } from './../../../../environments/environment';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -20,6 +20,7 @@ export class NavigationToolbarComponent implements OnInit {
 
 	expanded:boolean = false;
 
+	breadcrumb:Route[] = [];
 	title:string;
 
 	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-lite-bright.png";

@@ -1,7 +1,7 @@
 import { NavigationToolbarComponent } from './../../components/navigation/navigation-toolbar/navigation-toolbar.component';
 import { NavigationSideinfoComponent } from './../../components/navigation/navigation-sideinfo/navigation-sideinfo.component';
 import { element } from 'protractor';
-import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Route, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { TitleService } from './title.service';
 import { Injectable } from '@angular/core';
 
@@ -53,14 +53,29 @@ export class NavigationService {
 		// Set page title using the activated route's name, if it is defined.
 		// If the name is not defined, the route's component probably has a dynamic name that it will set on init.
 		if (root.data['name']) {
-			this.titleService.setTitle(root.data['name']);
+			this.titleService.setTitle(root.data.name);
 		}
 
-		// Temporary.
+		// If the navbar exists for the current view.
 		if (this.navbarComponent) {
-			this.navbarComponent.title = this.titleService.getBaseTitle();
-		}
 
+			// Set title in the navbar.
+			if (root.data['name']) {
+				this.navbarComponent.title = root.data.name;
+			}
+
+			// Generate breadcrumb trail.
+			let breadcrumb:Route[] = [];
+			let previous:Route = root.data['previous'];
+			while (previous) {
+				breadcrumb.splice(0, 0, previous);
+				previous = previous.data && previous.data['previous'];
+			}
+			this.navbarComponent.breadcrumb = breadcrumb;
+			console.log("Breadcrumb", breadcrumb);
+
+		}
+		
 	}
 
 	isSideinfoDisabled():boolean {

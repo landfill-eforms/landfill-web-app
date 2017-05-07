@@ -12,10 +12,24 @@
 .navbar-title {
 	color: #FFF;
 	margin-left: 24px;
+	height: 32px;
+    padding-top: 4px;
 
 	// Does not follow material guidelines, but looks better.
 	// font-size: 18px;
-	font-weight: 400
+	font-weight: 400;
+
+	md-icon {
+		margin: 2px 12px;
+    	font-size: 20px;
+		color: rgba(255, 255, 255, 0.87);
+   		text-align: center;
+	}
+}
+
+.breadcrumb-link {
+	outline: none;
+	cursor: pointer;
 }
 
 .logo-container {

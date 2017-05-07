@@ -10,8 +10,18 @@
 				<img [src]="logoUrl">
 			</a>
 		</div>-->
-		<div class="navbar-title flex-item" fxFlex>
-			{{title}}
+		<div class="navbar-title flex-item flex-container" fxFlex fxLayout="row" fxLayoutAlign="start start">
+			<div *ngFor="let trail of breadcrumb">
+				<div class="breadcrumb-link flex-item" fxFlex [routerLink]="trail.path">
+					{{trail.data?.name}}
+				</div>
+				<div class="flex-item" fxFlex>
+					<md-icon>navigate_next</md-icon>
+				</div>
+			</div>
+			<div class="flex-item" fxFlex="100">
+				{{title}}
+			</div>
 		</div>
 		<div class="navbar-hamburger flex-item" fxFlex="64px">
 			<button md-icon-button [mdMenuTriggerFor]="menu">

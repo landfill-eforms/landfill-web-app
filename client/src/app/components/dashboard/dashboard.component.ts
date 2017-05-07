@@ -17,6 +17,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+	readonly title:string = "Dashboard";
+
 	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-lite.png";
 
 	readonly gridItems:VectorAppNavLink[] = [
@@ -92,7 +94,8 @@ export class DashboardComponent implements OnInit {
 		private router:Router,
 		private activatedRoute:ActivatedRoute,
 		private navigationService:NavigationService) {
-			titleService.setTitle("Dashboard");
+			titleService.setTitle(this.title);
+			navigationService.getNavbarComponent().title = this.title;
 			navigationService.getNavbarComponent().expanded = false;
 			navigationService.getSideinfoComponent().disable();
 	}

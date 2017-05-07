@@ -19,7 +19,7 @@ import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 })
 export class MobileSyncComponent implements OnInit, AfterViewInit {
 
-	readonly title = "Mobile Data Sync";
+	readonly title = "Android Data Sync";
 	readonly subtitle = 
 		"Sync data between the Android application and the web application. " +
 		"Data files exported from the Android application can be uploaded to the web application, " +

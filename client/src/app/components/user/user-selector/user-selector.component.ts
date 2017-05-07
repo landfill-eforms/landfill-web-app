@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 export class UserSelectorComponent {
 
 	readonly title = "Users";
-	readonly subtitle = "Chris, please put something here."
+	readonly subtitle = "Manage user accounts and user groups. User access and permissions can be configured through user groups."
 
     readonly cards:AppNavLink[] = [
 		{

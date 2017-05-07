@@ -157,7 +157,7 @@ export class RestrictedRoute {
 	static readonly UNVERIFIED_DATA_SET:Route = {
 		path: 'unverified-data-sets/:id',
 		data: {
-			name: "Verify Data",
+			name: "Unverified Data Set",
 			previous: RestrictedRoute.UNVERIFIED_DATA_SET_LIST,
 			permissions: [
 				UserPermission.VIEW_UNVERIFIED_DATA_SET

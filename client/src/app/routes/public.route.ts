@@ -12,7 +12,10 @@ export class PublicRoute {
 
 	static readonly INFO:Route = {
 		path: 'info',
-		component: InfoComponent
+		component: InfoComponent,
+		data: {
+			name: "About"
+		}
 	}
 
 }

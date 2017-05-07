@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 export class InstrumentSelectorComponent {
 
 	readonly title = "Equipment";
-	readonly subtitle = "Chris, please put something here."
+	readonly subtitle = "Manage the database of individual equipment, as well as the particular makes and models of equipment."
 
     readonly cards:AppNavLink[] = [
 		{

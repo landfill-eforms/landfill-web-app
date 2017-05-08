@@ -1,5 +1,5 @@
-import { ScheduledEmail } from '../scheduled/scheduled-email.class';
 import { AbstractEntity } from '../abstract-entity.class';
+import { ScheduledEmail } from '../scheduled/scheduled-email.class';
 import { EmailRecipientType } from '../../enums/email/email-recipient-type.enum';
 
 /**

@@ -1,5 +1,5 @@
-import { ImeNumber } from './ime-number.class';
 import { SurfaceEmissionData } from '../surface-emission-data.class';
+import { ImeNumber } from './ime-number.class';
 
 /**
  * This class was automatically generated from InstantaneousData.java using typescript-gen.

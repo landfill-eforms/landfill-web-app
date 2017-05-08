@@ -1,7 +1,7 @@
-import { ReportType } from '../../enums/report/report-type.enum';
 import { AbstractEntity } from '../abstract-entity.class';
-import { Site } from '../../enums/location/site.enum';
 import { ExceedanceType } from '../../enums/exceedance/exceedance-type.enum';
+import { Site } from '../../enums/location/site.enum';
+import { ReportType } from '../../enums/report/report-type.enum';
 
 /**
  * This class was automatically generated from ReportQuery.java using typescript-gen.

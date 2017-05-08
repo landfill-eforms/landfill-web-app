@@ -1,6 +1,6 @@
-import { UserPermission } from '../../enums/user/user-permission.enum';
 import { AbstractEntity } from '../abstract-entity.class';
 import { User } from './user.class';
+import { UserPermission } from '../../enums/user/user-permission.enum';
 
 /**
  * This class was automatically generated from UserGroup.java using typescript-gen.

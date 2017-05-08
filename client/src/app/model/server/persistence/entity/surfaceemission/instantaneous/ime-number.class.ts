@@ -1,8 +1,8 @@
+import { SurfaceEmissionExceedanceNumber } from '../surface-emission-exceedance-number.class';
 import { ImeData } from './ime-data.class';
 import { InstantaneousData } from './instantaneous-data.class';
-import { MonitoringPoint } from '../../../enums/location/monitoring-point.enum';
-import { SurfaceEmissionExceedanceNumber } from '../surface-emission-exceedance-number.class';
 import { UnverifiedInstantaneousData } from '../../unverified/unverified-instantaneous-data.class';
+import { MonitoringPoint } from '../../../enums/location/monitoring-point.enum';
 
 /**
  * This class was automatically generated from ImeNumber.java using typescript-gen.
@@ -13,5 +13,5 @@ export class ImeNumber extends SurfaceEmissionExceedanceNumber {
 	instantaneousData:InstantaneousData[];
 	unverifiedInstantaneousData:UnverifiedInstantaneousData[];
 	imeData:ImeData[];
-	imeNumber:string;
+	imeNumber?:string;
 }

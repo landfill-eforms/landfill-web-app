@@ -15,4 +15,9 @@ export class User extends AbstractEntity {
 	emailAddress:string;
 	employeeId:string;
 	enabled:boolean;
+	lastLogin:number;
+	createdBy:User;
+	createdDate:number;
+	modifiedBy:User;
+	modifiedDate:number;
 }

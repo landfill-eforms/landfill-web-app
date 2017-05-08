@@ -1,7 +1,7 @@
-import { Schedule } from './schedule.class';
 import { AbstractEntity } from '../abstract-entity.class';
-import { UserGroup } from '../user/user-group.class';
 import { EmailRecipient } from '../email/email-recipient.class';
+import { Schedule } from './schedule.class';
+import { UserGroup } from '../user/user-group.class';
 
 /**
  * This class was automatically generated from ScheduledEmail.java using typescript-gen.

@@ -1,8 +1,8 @@
-import { InstrumentType } from './instrument-type.class';
-import { InstrumentStatus } from '../../enums/instrument/instrument-status.enum';
 import { AbstractEntity } from '../abstract-entity.class';
-import { Site } from '../../enums/location/site.enum';
+import { InstrumentType } from './instrument-type.class';
 import { User } from '../user/user.class';
+import { InstrumentStatus } from '../../enums/instrument/instrument-status.enum';
+import { Site } from '../../enums/location/site.enum';
 
 /**
  * This class was automatically generated from Instrument.java using typescript-gen.

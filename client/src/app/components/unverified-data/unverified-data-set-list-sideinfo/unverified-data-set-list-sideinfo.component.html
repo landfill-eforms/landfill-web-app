@@ -12,7 +12,7 @@
 			</div>
 			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-					Date Created
+					Date Uploaded
 				</div>
 				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
 					{{DateTimeUtils.getDetailedDateTime(unverifiedDataSet?.createdDate)}}
@@ -20,7 +20,7 @@
 			</div>
 			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-					Created By
+					Uploaded By
 				</div>
 				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
 					{{StringUtils.formatUserName(unverifiedDataSet?.createdBy)}}
@@ -40,6 +40,27 @@
 				</div>
 				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
 					{{StringUtils.formatUserName(unverifiedDataSet?.modifiedBy)}}
+				</div>
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Details
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Site
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{unverifiedDataSet?.site?.name}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Inspector
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(unverifiedDataSet?.inspector)}}
 				</div>
 			</div>
 		</div>

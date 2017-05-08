@@ -44,7 +44,8 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 		],
 		name: [
 			"lastname",
-			"firstname"
+			"firstname",
+			"middlename"
 		],
 		emailAddress: [
 			"emailAddress"

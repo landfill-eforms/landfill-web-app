@@ -488,6 +488,9 @@ md-toolbar-row {
 	font-size: 16px;
     padding: 24px;
     text-align: center;
+	font-style: italic;
+	cursor: default;
+	user-select: none;
 }
 
 .toggle-icon-button {
@@ -503,20 +506,28 @@ md-toolbar-row {
 }
 
 .fab-top-container {
-	position: relative;
-	top: -28px;
-	left: 48px;
-	height: 0;
+	z-index: 9001;
+	right: 32px;
+	top: 0; // Specify this on the element itself
+	position: fixed;
+	button {
+		margin-bottom: 24px;
+	}
 }
 
 .fab-bottom-container {
-	position: fixed;
-	bottom: 32px;
+	z-index: 9001;
 	right: 32px;
+	bottom: 24px;
+	position: fixed;
+	button {
+		margin-top: 24px;
+	}
 }
 
-.fab-action-button {
-	margin-left: 16px !important;
+.fab-button-white {
+	background: #FFF;
+	color: rgba(0,0,0,0.87);
 }
 
 .date-picker-input-menu {
@@ -592,4 +603,3 @@ $group-add-remove-button-width: 50px;
 	height: 32px;
 	padding-top: 2px;
 }
-

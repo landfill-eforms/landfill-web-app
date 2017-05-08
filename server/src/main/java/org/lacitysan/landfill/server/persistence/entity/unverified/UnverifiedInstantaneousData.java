@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
@@ -32,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name="dbo.UnverifiedInstantaneousData")
 @AttributeOverride(name="id", column=@Column(name="UnverifiedInstantaneousPK"))
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedInstantaneousData extends AbstractEntity {
+public class UnverifiedInstantaneousData extends AbstractUnverifiedData {
 	
 	@NotNull
 	@Column(name="MonitoringPointString")
@@ -46,7 +45,7 @@ public class UnverifiedInstantaneousData extends AbstractEntity {
 	private Short barometricPressure;
 	
 	@NotNull
-	private Integer methaneLevel;	
+	private Integer methaneLevel;
 	
 	@NotNull
 	private Timestamp startTime;

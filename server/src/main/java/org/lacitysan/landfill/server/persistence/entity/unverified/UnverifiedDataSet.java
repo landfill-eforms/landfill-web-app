@@ -1,10 +1,7 @@
 package org.lacitysan.landfill.server.persistence.entity.unverified;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -86,9 +83,6 @@ public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 	
 	@Transient
 	private Set<ProbeExceedance> probeExceedances = new HashSet<>();
-	
-	@Transient
-	private Map<String, List<String>> errors = new HashMap<>();
 
 	// TODO Add other data types.
 	
@@ -185,14 +179,6 @@ public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 
 	public void setProbeExceedances(Set<ProbeExceedance> probeExceedances) {
 		this.probeExceedances = probeExceedances;
-	}
-
-	public Map<String, List<String>> getErrors() {
-		return errors;
-	}
-
-	public void setErrors(Map<String, List<String>> errors) {
-		this.errors = errors;
 	}
 	
 	@Override

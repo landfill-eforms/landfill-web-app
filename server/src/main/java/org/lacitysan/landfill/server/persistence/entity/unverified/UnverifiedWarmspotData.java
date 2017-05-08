@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 
@@ -27,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name="dbo.UnverifiedWarmspotData")
 @AttributeOverride(name="id", column=@Column(name="UnverifiedWarmspotPK"))
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedWarmspotData extends AbstractEntity {
+public class UnverifiedWarmspotData extends AbstractUnverifiedData {
 	
 	@NotNull
 	@Column(name="MonitoringPointString")

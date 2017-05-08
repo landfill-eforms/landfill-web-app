@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 
@@ -33,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name="dbo.UnverifiedProbeData")
 @AttributeOverride(name="id", column=@Column(name="UnverifiedProbePK"))
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedProbeData extends AbstractEntity {
+public class UnverifiedProbeData extends AbstractUnverifiedData {
 	
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)

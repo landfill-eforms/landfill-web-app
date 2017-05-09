@@ -185,9 +185,9 @@
 		</button>
 		<button md-fab
 			(click)="clear()"
-			mdTooltip="Save"
+			mdTooltip="Mark as Cleared"
 			mdTooltipPosition="before"
-			[disabled]="!clearable"
+			[disabled]="!clearable || isCleared"
 			class="flex-item"
 			fxFlex="56px">
 			<md-icon>done</md-icon>

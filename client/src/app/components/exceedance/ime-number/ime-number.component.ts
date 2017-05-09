@@ -1,3 +1,4 @@
+import { YesNoDialogComponent } from './../../directives/dialogs/yes-no-dialog/yes-no-dialog.component';
 import { ExceedanceStatus } from './../../../model/server/persistence/enums/exceedance/exceedance-status.enum';
 import { MonitoringPoint } from './../../../model/server/persistence/enums/location/monitoring-point.enum';
 import { Site } from './../../../model/server/persistence/enums/location/site.enum';
@@ -190,28 +191,56 @@ export class ImeNumberComponent implements OnInit {
 	}
 
 	save() {
-		this.imeNumberService.update(this.imeNumberData, 
-			(data) => {
-				console.log(data);
-				this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
-				this.imeNumberData = this.processImeNumber(data);
-				this.checkIfClearable();
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '480px';
+		let dialogRef:MdDialogRef<YesNoDialogComponent> = this.dialog.open(YesNoDialogComponent, dialogConfig);
+		dialogRef.componentInstance.title = "Confirm";
+		dialogRef.componentInstance.prompt = ["Recheck/repair entries that are saved on the database cannot be deleted. Would you like to continue saving?"];
+		dialogRef.componentInstance.confirmLabel = "SAVE";
+		dialogRef.componentInstance.cancelLabel = "CANCEL";
+		dialogRef.afterClosed().subscribe((res) => {
+			if (res) {
+				this.imeNumberService.update(this.imeNumberData, 
+					(data) => {
+						console.log(data);
+						this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
+						this.imeNumberData = this.processImeNumber(data);
+						this.checkIfClearable();
+					},
+					(err) => {
+						this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
+					}
+				);
 			}
-		);
+		});
 	}
 
 	clear() {
 		if (this.getLastImeData().methaneLevel >= 50000) {
 			return;
 		}
-		this.imeNumberService.clear(this.imeNumberData, 
-			(data) => {
-				console.log(data);
-				this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
-				this.imeNumberData = this.processImeNumber(data);
-				this.isCleared = this.imeNumberData.status == ExceedanceStatus.CLEARED;
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '480px';
+		let dialogRef:MdDialogRef<YesNoDialogComponent> = this.dialog.open(YesNoDialogComponent, dialogConfig);
+		dialogRef.componentInstance.title = "Confirm";
+		dialogRef.componentInstance.prompt = ["Cleared IME numbers cannot be edited. Please make sure all the entries and grids are correct before clearing. Would you like to clear this IME?"];
+		dialogRef.componentInstance.confirmLabel = "YES";
+		dialogRef.componentInstance.cancelLabel = "NO";
+		dialogRef.afterClosed().subscribe((res) => {
+			if (res) {
+				this.imeNumberService.clear(this.imeNumberData, 
+					(data) => {
+						console.log(data);
+						this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
+						this.imeNumberData = this.processImeNumber(data);
+						this.isCleared = this.imeNumberData.status == ExceedanceStatus.CLEARED;
+					},
+					(err) => {
+						this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
+					}
+				);
 			}
-		);
+		});
 	}
 
 	listGrids(imeNumber:ImeNumber):string {

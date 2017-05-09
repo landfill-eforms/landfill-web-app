@@ -63,11 +63,11 @@ export class ImeRecheckDialogComponent implements OnInit {
 
 	submit() {
 		this.data.dateTime = DateTimeUtils.mergeDateTime(this.dateTime.date, this.dateTime.time);
-		if (this.minDateTime != null && this.data.dateTime <= this.minDateTime) {
+		if (this.minDateTime != null && this.data.dateTime < this.minDateTime) {
 			this.snackBar.open("Date/time cannot be before the previous repair or recheck.", "OK", {duration: 5000});
 			return;
 		}
-		else if (this.maxDateTime != null && this.data.dateTime >= this.maxDateTime) {
+		else if (this.maxDateTime != null && this.data.dateTime > this.maxDateTime) {
 			this.snackBar.open("Date/time cannot be after the next repair or recheck.", "OK", {duration: 5000});
 			return;
 		}

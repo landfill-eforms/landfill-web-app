@@ -1,3 +1,4 @@
+import { TimePickerInputComponent } from './pickers/time-picker-input/time-picker-input.component';
 import { CardSelectorMenuComponent } from './card-selector-menu/card-selector-menu.component';
 import { PageLoadingIndicatorComponent } from './page-loading-indicator/page-loading-indicator.component';
 import { DatePickerInputComponent } from './pickers/date-picker-input/date-picker-input.component';
@@ -26,7 +27,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		PaginationComponent,
 		PageLoadingIndicatorComponent,
 		DatePickerComponent,
-		DatePickerInputComponent
+		DatePickerInputComponent,
+		TimePickerInputComponent
 	],
 	exports: [
 		OkDialogComponent,
@@ -38,7 +40,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 		PaginationComponent,
 		PageLoadingIndicatorComponent,
 		DatePickerComponent,
-		DatePickerInputComponent
+		DatePickerInputComponent,
+		TimePickerInputComponent
 	]
 })
 

@@ -1,6 +1,78 @@
 <div class="page grey-background flex-container" fxLayout="row">
 	<div class="flex-item" fxFlex>
-		<md-tab-group class="md-tab-header-white" style="height: 100%">
+		<md-tab-group selectedIndex="1" class="md-tab-header-white" style="height: 100%">
+			<md-tab label="Details">
+				<div class="tab-contents grey-background">
+					<div *ngIf="!isDataLoaded">
+						<app-page-loading-indicator></app-page-loading-indicator>
+					</div>
+					<div *ngIf="isDataLoaded">
+						<md-card>
+							<md-card-content>
+								<div class="card-title">
+									Data Set Details
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Site
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{unverifiedDataSet.site?.name}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Inspector
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{StringUtils.formatUserName(unverifiedDataSet.inspector)}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Filename
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{unverifiedDataSet.filename}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Upload Date
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{DateTimeUtils.getDetailedDateTime(unverifiedDataSet.createdDate)}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Uploaded By
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{StringUtils.formatUserName(unverifiedDataSet.createdBy)}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Last Edited
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{DateTimeUtils.getDetailedDateTime(unverifiedDataSet.modifedDate)}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Edited By
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{StringUtils.formatUserName(unverifiedDataSet.modifiedBy)}}
+									</div>
+								</div>
+							</md-card-content>
+						</md-card>
+					</div>
+				</div>
+			</md-tab>
 			<md-tab label="Instantaneous">
 				<div class="tab-contents grey-background">
 					<div *ngIf="!isDataLoaded" class="page-loading-indicator-container">
@@ -493,6 +565,7 @@
 			</button>
 		</div>
 	</div>
+	<!--
 	<div *ngIf="unverifiedDataSet" class="info-card-container flex-container" fxLayout="row" fxLayoutAlign="start start" [ngClass]="{'info-card-container-open': infoCardOpen}">
 		<button md-raised-button (click)="toggleInfoCard()" [mdTooltip]="infoCardOpen ? 'Close' : 'Expand'" mdTooltipPosition="before" class="flex-item" fxFlex="36px">
 			<md-icon>{{infoCardOpen ? 'navigate_next' : 'navigate_before'}}</md-icon>
@@ -535,4 +608,5 @@
 			</div>
 		</div>
 	</div>
+	-->
 <div>

@@ -45,22 +45,23 @@ export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<U
 			"createdDate",
 			"filename"
 		],
+		inspector: [
+			"inspector.lastname",
+			"inspector.firstname",
+			"inspector.middlename",
+			"site.constantName",
+			"createdDate",
+			"filename"
+		],
 		createdBy: [
-			"createdBy",
+			"createdBy.lastname",
+			"createdBy.firstname",
+			"createdBy.middlename",
 			"createdDate",
 			"filename"
 		],
 		createdDate: [
 			"createdDate",
-			"filename"
-		],
-		modifiedBy: [
-			"modifiedBy",
-			"modifiedDate",
-			"filename"
-		],
-		modifiedDate: [
-			"modifiedDate",
 			"filename"
 		]
 	}

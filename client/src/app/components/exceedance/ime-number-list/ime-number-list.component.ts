@@ -176,14 +176,7 @@ export class ImeNumberListComponent extends AbstractDataTableComponent<ImeNumber
 	}
 
 	listGrids(imeNumber:ImeNumber):string {
-		let result:string = "";
-		for (let i = 0; i < imeNumber.monitoringPoints.length; i++) {
-			if (i > 0) {
-				result += ", ";
-			}
-			result += imeNumber.monitoringPoints[i].name;
-		}
-		return result;
+		return this.imeNumberService.listGrids(imeNumber);
 	}
 
 }

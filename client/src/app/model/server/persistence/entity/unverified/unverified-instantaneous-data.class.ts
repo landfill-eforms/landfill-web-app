@@ -17,4 +17,6 @@ export class UnverifiedInstantaneousData extends AbstractUnverifiedData {
 	endTime:number;
 	imeNumbers:ImeNumber[];
 	unverifiedDataSet:UnverifiedDataSet;
+	errors?:string[];
+	selected?:boolean;
 }

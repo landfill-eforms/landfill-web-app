@@ -1,6 +1,78 @@
 <div class="page grey-background flex-container" fxLayout="row">
 	<div class="flex-item" fxFlex>
-		<md-tab-group class="md-tab-header-white" style="height: 100%">
+		<md-tab-group selectedIndex="1" class="md-tab-header-white" style="height: 100%">
+			<md-tab label="Details">
+				<div class="tab-contents grey-background">
+					<div *ngIf="!isDataLoaded">
+						<app-page-loading-indicator></app-page-loading-indicator>
+					</div>
+					<div *ngIf="isDataLoaded">
+						<md-card>
+							<md-card-content>
+								<div class="card-title">
+									Data Set Details
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Site
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{unverifiedDataSet.site?.name}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Inspector
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{StringUtils.formatUserName(unverifiedDataSet.inspector)}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Filename
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{unverifiedDataSet.filename}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Upload Date
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{DateTimeUtils.getDetailedDateTime(unverifiedDataSet.createdDate)}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Uploaded By
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{StringUtils.formatUserName(unverifiedDataSet.createdBy)}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Last Edited
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{DateTimeUtils.getDetailedDateTime(unverifiedDataSet.modifedDate)}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Edited By
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{StringUtils.formatUserName(unverifiedDataSet.modifiedBy)}}
+									</div>
+								</div>
+							</md-card-content>
+						</md-card>
+					</div>
+				</div>
+			</md-tab>
 			<md-tab label="Instantaneous">
 				<div class="tab-contents grey-background">
 					<div *ngIf="!isDataLoaded" class="page-loading-indicator-container">
@@ -12,11 +84,11 @@
 								<div class="card-title">
 									Errors
 								</div>
-								<div *ngIf="!dataSet.errors?.instantaneous?.length" style="padding:8px 0;">
+								<div *ngIf="!unverifiedDataSet.errors?.instantaneous?.length" style="padding:8px 0;">
 									<i>No errors found.</i>
 								</div>
-								<div *ngIf="dataSet.errors">
-									<div *ngFor="let error of dataSet.errors.instantaneous" class="error-item">
+								<div *ngIf="unverifiedDataSet.errors">
+									<div *ngFor="let error of unverifiedDataSet.errors.instantaneous" class="error-item">
 										{{error}}
 									</div>
 								</div>
@@ -56,14 +128,17 @@
 										<span class="data-table-header-label">Action</span>
 									</div>
 								</div>
+								<div *ngIf="unverifiedDataSet.unverifiedInstantaneousData?.length == 0" class="data-table-no-data-label">
+									No Data
+								</div>
 								<div>
-									<div *ngFor="let unverifiedInstantaneousData of dataSet.unverifiedInstantaneousData" class="data-table-row">
+									<div *ngFor="let unverifiedInstantaneousData of unverifiedDataSet.unverifiedInstantaneousData" class="data-table-row">
 										<div class="data-table-row-content flex-container" 
 											fxLayout="row" 
 											(dblclick)="editInstantaneous(unverifiedInstantaneousData)"
 											[ngClass]="{'data-table-row-content-active': activeItem === unverifiedInstantaneousData}">
 											<div class="data-table-checkbox-column truncate flex-item" fxFlex="68px">
-												<md-checkbox [checked]="unverifiedInstantaneousData.selected" 
+												<md-checkbox [(ngModel)]="unverifiedInstantaneousData.selected" 
 													(click)="toggleInstantaneous(unverifiedInstantaneousData)">
 												</md-checkbox>
 											</div>
@@ -139,8 +214,11 @@
 										<span class="data-table-header-label">Action</span>
 									</div>
 								</div>
+								<div *ngIf="unverifiedDataSet.unverifiedWarmspotData?.length == 0" class="data-table-no-data-label">
+									No Data
+								</div>
 								<div>
-									<div *ngFor="let unverifiedWarmspotData of dataSet.unverifiedWarmspotData" class="data-table-row">
+									<div *ngFor="let unverifiedWarmspotData of unverifiedDataSet.unverifiedWarmspotData" class="data-table-row">
 										<div class="data-table-row-content flex-container" 
 											fxLayout="row" 
 											(dblclick)="editWarmspot(unverifiedWarmspotData)"
@@ -214,8 +292,11 @@
 										<span class="data-table-header-label">Action</span>
 									</div>
 								</div>
+								<div *ngIf="unverifiedDataSet.imeNumbers?.length == 0" class="data-table-no-data-label">
+									No Data
+								</div>
 								<div>
-									<div *ngFor="let imeNumber of dataSet.imeNumbers" class="data-table-row">
+									<div *ngFor="let imeNumber of unverifiedDataSet.imeNumbers" class="data-table-row">
 										<div class="data-table-row-content flex-container" 
 											fxLayout="row" 
 											(dblclick)="editImeNumber(imeNumber)"
@@ -264,11 +345,11 @@
 								<div class="card-title">
 									Errors
 								</div>
-								<div *ngIf="!dataSet.errors?.integrated?.length" style="padding:8px 0;">
+								<div *ngIf="!unverifiedDataSet.errors?.integrated?.length" style="padding:8px 0;">
 									<i>No errors found.</i>
 								</div>
-								<div *ngIf="dataSet.errors">
-									<div *ngFor="let error of dataSet.errors.integrated" class="error-item">
+								<div *ngIf="unverifiedDataSet.errors">
+									<div *ngFor="let error of unverifiedDataSet.errors.integrated" class="error-item">
 										{{error}}
 									</div>
 								</div>
@@ -311,11 +392,11 @@
 										<span class="data-table-header-label">Action</span>
 									</div>
 								</div>
-								<div *ngIf="dataSet.unverifiedIntegratedData?.length == 0" class="data-table-no-data-label">
-									No data
+								<div *ngIf="unverifiedDataSet.unverifiedIntegratedData?.length == 0" class="data-table-no-data-label">
+									No Data
 								</div>
 								<div>
-									<div *ngFor="let unverifiedIntegratedData of dataSet.unverifiedIntegratedData" class="data-table-row">
+									<div *ngFor="let unverifiedIntegratedData of unverifiedDataSet.unverifiedIntegratedData" class="data-table-row">
 										<div class="data-table-row-content flex-container" 
 											fxLayout="row" 
 											(dblclick)="editIntegrated(unverifiedIntegratedData)"
@@ -397,11 +478,11 @@
 										<span class="data-table-header-label">Action</span>
 									</div>
 								</div>
-								<div *ngIf="dataSet.iseNumbers?.length == 0" class="data-table-no-data-label">
-									No data
+								<div *ngIf="unverifiedDataSet.iseNumbers?.length == 0" class="data-table-no-data-label">
+									No Data
 								</div>
 								<div>
-									<div *ngFor="let iseNumber of dataSet.iseNumbers" class="data-table-row">
+									<div *ngFor="let iseNumber of unverifiedDataSet.iseNumbers" class="data-table-row">
 										<div class="data-table-row-content flex-container" 
 											fxLayout="row" 
 											(dblclick)="editIseNumber(iseNumber)"
@@ -465,14 +546,67 @@
 		</div>
 	</div>
 	-->
-	<div class="fab-container">
+	<!--
+	<div class="fab-top-container" style="top: 144px;">
 		<div class="flex-container" fxLayout="column" fxLayoutAlign="end center">
-			<button md-fab (click)="commitAll()" mdTooltip="Commit" mdTooltipPosition="above" class="fab-action-button flex-item" fxFlex="56px">
-				<md-icon>done</md-icon>
-			</button>
-			<button md-fab (click)="save()" mdTooltip="Save" mdTooltipPosition="above" class="fab-action-button flex-item" fxFlex="56px">
-				<md-icon>save</md-icon>
+			<button md-fab (click)="save()" mdTooltip="Info" mdTooltipPosition="below" class="fab-button-white flex-item" fxFlex="56px">
+				<md-icon>info_outline</md-icon>
 			</button>
 		</div>
 	</div>
+	-->
+	<div class="fab-bottom-container">
+		<div class="flex-container" fxLayout="column" fxLayoutAlign="end center">
+			<button md-fab (click)="save()" mdTooltip="Save" mdTooltipPosition="above" class="fab-button-white flex-item" fxFlex="56px">
+				<md-icon>save</md-icon>
+			</button>
+			<button md-fab (click)="commitAll()" mdTooltip="Commit" mdTooltipPosition="above" class="flex-item" fxFlex="56px">
+				<md-icon>done</md-icon>
+			</button>
+		</div>
+	</div>
+	<!--
+	<div *ngIf="unverifiedDataSet" class="info-card-container flex-container" fxLayout="row" fxLayoutAlign="start start" [ngClass]="{'info-card-container-open': infoCardOpen}">
+		<button md-raised-button (click)="toggleInfoCard()" [mdTooltip]="infoCardOpen ? 'Close' : 'Expand'" mdTooltipPosition="before" class="flex-item" fxFlex="36px">
+			<md-icon>{{infoCardOpen ? 'navigate_next' : 'navigate_before'}}</md-icon>
+		</button>
+		<div class="info-card mat-elevation-z0" [ngClass]="{'mat-elevation-z5': infoCardOpen}">
+			<div class="card-title">
+				Details
+			</div>
+			<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="info-card-data-key flex-item" fxFlex="96px">
+					Site
+				</div>
+				<div class="info-card-data-value truncate flex-item" fxFlex="320px">
+					{{unverifiedDataSet.site?.name}}
+				</div>
+			</div>
+			<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="info-card-data-key flex-item" fxFlex="96px">
+					Inspector
+				</div>
+				<div class="info-card-data-value truncate flex-item" fxFlex="320px">
+					{{StringUtils.formatUserName(unverifiedDataSet.inspector)}}
+				</div>
+			</div>
+			<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="info-card-data-key flex-item" fxFlex="96px">
+					Upload Date
+				</div>
+				<div class="info-card-data-value truncate flex-item" fxFlex="320px">
+					{{DateTimeUtils.getDetailedDateTime(unverifiedDataSet.createdDate)}}
+				</div>
+			</div>
+			<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="info-card-data-key flex-item" fxFlex="96px">
+					Filename
+				</div>
+				<div class="info-card-data-value truncate flex-item" fxFlex="320px">
+					{{unverifiedDataSet.filename}}
+				</div>
+			</div>
+		</div>
+	</div>
+	-->
 <div>

@@ -1,4 +1,5 @@
 <md-toolbar class="navbar" [ngClass]="{'navbar-expanded': expanded}">
+	<div class="navbar-shadow"></div>
 	<div class="navbar-content flex-container" fxLayout="row" fxLayoutAlign="space-between center">
 		<div class="navbar-hamburger flex-item" fxFlex="40px">
 			<button md-icon-button (click)="toggleNavDrawer()">
@@ -44,7 +45,7 @@
 		</button>
 	</md-menu>
 </md-toolbar>
-<div class="fab-top-container" *ngIf="fabInfo">
+<div class="fab-container" *ngIf="fabInfo">
 	<button md-fab (click)="fabAction($event)" [mdTooltip]="fabInfo.tooltip" mdTooltipPosition="below">
 		<md-icon>{{fabInfo.icon}}</md-icon>
 	</button>

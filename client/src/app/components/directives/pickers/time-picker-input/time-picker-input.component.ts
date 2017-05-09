@@ -2,10 +2,10 @@ import { DateTimeUtils } from './../../../../utils/date-time.utils';
 import { Component, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 
 @Component({
-	selector: 'app-date-picker-input',
-	templateUrl: './date-picker-input.component.html'
+	selector: 'app-time-picker-input',
+	templateUrl: './time-picker-input.component.html'
 })
-export class DatePickerInputComponent implements OnChanges {
+export class TimePickerInputComponent implements OnChanges {
 
 	@Input() placeholder:string;
 	@Input() initialDate:number;
@@ -14,6 +14,9 @@ export class DatePickerInputComponent implements OnChanges {
 
 	dateString:string;
 	actualDate:number;
+
+	
+	init:boolean = false;
 
 	ngOnChanges() {
 		this.actualDateChanged(this.initialDate);
@@ -24,26 +27,27 @@ export class DatePickerInputComponent implements OnChanges {
 			this.actualDate = 0;
 			return;
 		}
-		let d = Date.parse(this.dateString);
+		let d = DateTimeUtils.parseTime(this.dateString);
 		if (!isNaN(d)) {
 			this.actualDateChanged(d);
 		}
 		else {
-			this.dateString = DateTimeUtils.getDate(this.actualDate);
+			this.dateString = DateTimeUtils.getTime(this.actualDate);
 		}
-	}
-
-	datePickerChanged(event) {
-		this.actualDateChanged(event);
+		console.log(this.dateString, this.actualDate);
 	}
 
 	private actualDateChanged(date:number) {
+		date = DateTimeUtils.filterTimeOnly(date);
 		if (this.actualDate === date) {
 			return;
 		}
+		let emit:boolean = this.actualDate != null; // Need this to avoid the "expression has changed after it was checked" exception.
 		this.actualDate = date;
-		this.dateString = DateTimeUtils.getDate(this.actualDate);
-		this.dateChanged.emit(!this.actualDate ? null : this.actualDate);
+		this.dateString = DateTimeUtils.getTime(this.actualDate);
+		if (emit) {
+			this.dateChanged.emit(!this.actualDate ? null : this.actualDate);
+		}
 	}
 	
 }

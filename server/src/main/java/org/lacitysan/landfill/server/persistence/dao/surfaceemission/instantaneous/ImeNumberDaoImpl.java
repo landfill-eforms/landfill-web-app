@@ -39,7 +39,7 @@ public class ImeNumberDaoImpl extends SurfaceEmissionExceedanceNumberDaoImpl<Ime
 		});
 		imeNumber.getImeData().forEach(imeData -> {
 			imeData.getImeRepairData().forEach(imeRepairData -> {
-				Hibernate.initialize(imeRepairData.getUser());
+				Hibernate.initialize(imeRepairData);
 			});
 		});
 		return imeNumber;

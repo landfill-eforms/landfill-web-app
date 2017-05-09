@@ -41,8 +41,8 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 	isDataLoaded:boolean = false;
 	instruments:Instrument[] = [];
-	dataSetId:string;
-	dataSet:UnverifiedDataSet;
+	unverifiedDataSetId:string;
+	unverifiedDataSet:UnverifiedDataSet;
 	existingImeNumbers:ImeNumber[];
 	createdImeNumbers:ImeNumber[]; // IME numbers created during this session.
 	barometricPressure:number;
@@ -51,7 +51,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 	selectedInstantaneous:UnverifiedInstantaneousData[] = [];
 
-	test:boolean = true;
+	infoCardOpen:boolean;
 
 	constructor(
 		private activatedRoute:ActivatedRoute,
@@ -67,27 +67,27 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.dataSetId = this.activatedRoute.params['_value']['id'];
+		this.unverifiedDataSetId = this.activatedRoute.params['_value']['id'];
 		
-		this.unverifiedDataService.getById(this.dataSetId,
+		this.unverifiedDataService.getById(this.unverifiedDataSetId,
 			(data) => {
-				this.dataSet = this.processData(data);
-				for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
-					if (!this.dataSet.unverifiedInstantaneousData[i].instrument) {
-						this.dataSet.unverifiedInstantaneousData[i].instrument = <any>{}; // LOLOLOL
+				this.unverifiedDataSet = this.processData(data);
+				for (let i = 0; i < this.unverifiedDataSet.unverifiedInstantaneousData.length; i++) {
+					if (!this.unverifiedDataSet.unverifiedInstantaneousData[i].instrument) {
+						this.unverifiedDataSet.unverifiedInstantaneousData[i].instrument = <any>{}; // LOLOLOL
 					}
 				}
-				for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
-					if (!this.dataSet.unverifiedIntegratedData[i].instrument) {
-						this.dataSet.unverifiedIntegratedData[i].instrument = <any>{}; // LOLOLOL
+				for (let i = 0; i < this.unverifiedDataSet.unverifiedIntegratedData.length; i++) {
+					if (!this.unverifiedDataSet.unverifiedIntegratedData[i].instrument) {
+						this.unverifiedDataSet.unverifiedIntegratedData[i].instrument = <any>{}; // LOLOLOL
 					}
 				}
-				this.imeNumberService.getBySite(this.dataSet.site,
+				this.imeNumberService.getBySite(this.unverifiedDataSet.site,
 					(data) => {
 						// TODO Use current date.
 						this.existingImeNumbers = data;
 						// .filter(number => 
-						// 	number.dateCode >= this.dataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
+						// 	number.dateCode >= this.unverifiedDataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
 						// );
 						console.log(this.existingImeNumbers);
 						this.instrumentService.getAll((data) => {
@@ -170,7 +170,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 				data.methaneLevel = result["methaneLevel"] * 100;
 			}
 			this.activeItem = null;
-			this.unverifiedDataService.checkForErrors(this.dataSet);
+			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
 		});
 	}
 
@@ -189,7 +189,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 				data.description = result["description"];
 			}
 			this.activeItem = null;
-			this.unverifiedDataService.checkForErrors(this.dataSet);
+			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
 		});
 	}
 
@@ -213,7 +213,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 				data.volume = result["volume"];
 			}
 			this.activeItem = null;
-			this.unverifiedDataService.checkForErrors(this.dataSet);
+			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
 		});
 	}
 
@@ -226,15 +226,8 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	toggleInstantaneous(data:UnverifiedInstantaneousData) {
-		let idx = this.selectedInstantaneous.indexOf(data);
-		if (idx == -1) {
-			this.selectedInstantaneous.push(data);
-			data["selected"] = true;
-		}
-		else {
-			this.selectedInstantaneous.splice(idx, 1);
-			data["selected"] = false;
-		}
+		console.log(data);
+		this.selectedInstantaneous = this.unverifiedDataSet.unverifiedInstantaneousData.filter(u => u.selected);
 	}
 
 	toggleWarmspot(data:UnverifiedWarmspotData) {
@@ -261,14 +254,14 @@ export class UnverifiedDataSetComponent implements OnInit {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
 		let dialogRef:MdDialogRef<AssignImeNumberDialogComponent> = this.dialog.open(AssignImeNumberDialogComponent, dialogConfig);
-		dialogRef.componentInstance.site = this.dataSet.site;
+		dialogRef.componentInstance.site = this.unverifiedDataSet.site;
 		dialogRef.componentInstance.data = data;
 		dialogRef.componentInstance.createdImeNumbers = this.createdImeNumbers;
 		dialogRef.componentInstance.existingImeNumbers = this.existingImeNumbers;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
-				this.unverifiedDataService.checkForErrors(this.dataSet);
+				this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
 			}
 		});
 	}
@@ -276,34 +269,34 @@ export class UnverifiedDataSetComponent implements OnInit {
 	removeImeNumbers(data:UnverifiedInstantaneousData) {
 		this.snackBar.open("IME number has been removed.", "OK", {duration: 2000});
 		data.imeNumbers = [];
-		this.unverifiedDataService.checkForErrors(this.dataSet);
+		this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
 	}
 
 	updateBarometricPressure() {
-		for (let i = 0; i < this.dataSet.unverifiedInstantaneousData.length; i++) {
+		for (let i = 0; i < this.unverifiedDataSet.unverifiedInstantaneousData.length; i++) {
 			if (this.barometricPressure) {
-				this.dataSet.unverifiedInstantaneousData[i].barometricPressure = this.barometricPressure * 100;
+				this.unverifiedDataSet.unverifiedInstantaneousData[i].barometricPressure = this.barometricPressure * 100;
 			}
 		}
-		for (let i = 0; i < this.dataSet.unverifiedIntegratedData.length; i++) {
+		for (let i = 0; i < this.unverifiedDataSet.unverifiedIntegratedData.length; i++) {
 			if (this.barometricPressure) {
-				this.dataSet.unverifiedIntegratedData[i].barometricPressure = this.barometricPressure * 100;
+				this.unverifiedDataSet.unverifiedIntegratedData[i].barometricPressure = this.barometricPressure * 100;
 			}
 		}
-		for (let i = 0; i < this.dataSet.unverifiedProbeData.length; i++) {
+		for (let i = 0; i < this.unverifiedDataSet.unverifiedProbeData.length; i++) {
 			if (this.barometricPressure) {
-				this.dataSet.unverifiedProbeData[i].barometricPressure = this.barometricPressure * 100;
+				this.unverifiedDataSet.unverifiedProbeData[i].barometricPressure = this.barometricPressure * 100;
 			}
 		}
-		this.unverifiedDataService.checkForErrors(this.dataSet);
+		this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
 	}
 
 	save() {
-		console.log(this.dataSet);
-		this.unverifiedDataService.update(this.dataSet, 
+		console.log(this.unverifiedDataSet);
+		this.unverifiedDataService.update(this.unverifiedDataSet, 
 			(data) => {
 				if (data) {
-					this.processData(this.dataSet);
+					this.processData(this.unverifiedDataSet);
 					this.snackBar.open("Data saved.", "OK", {duration: 2000});
 				}
 			}
@@ -311,14 +304,14 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	commitAll() {
-		if (this.dataSet.errors && (this.dataSet.errors.dataSet.length != 0 || this.dataSet.errors.instantaneous.length != 0)) {
+		if (this.unverifiedDataSet.errors && (this.unverifiedDataSet.errors.unverifiedDataSet.length != 0 || this.unverifiedDataSet.errors.instantaneous.length != 0)) {
 			this.snackBar.open("Cannot commit data because it contains errors.", "OK", {duration: 2000});
 			return;
 		}
-		this.unverifiedDataService.commit(this.dataSet,
+		this.unverifiedDataService.commit(this.unverifiedDataSet,
 			(data) => {
 				if (data) {
-					this.processData(this.dataSet);
+					this.processData(this.unverifiedDataSet);
 					this.snackBar.open("Data set successfully verified.", "OK", {duration: 3000});
 					this.router.navigate([AppConstant.RESTRICTED_ROUTE_BASE + '/' + RestrictedRoute.UNVERIFIED_DATA_SET_LIST.path]);
 				}
@@ -341,7 +334,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		dialogRef.componentInstance.confirmLabel = "OK";
 		dialogRef.afterClosed().subscribe((res) => {
 			if (res) {
-				console.log(this.dataSet);
+				console.log(this.unverifiedDataSet);
 			}
 		});
 	}
@@ -356,7 +349,11 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	consoleLog() {
-		console.log(this.dataSet);
+		console.log(this.unverifiedDataSet);
+	}
+
+	toggleInfoCard() {
+		this.infoCardOpen = !this.infoCardOpen;
 	}
 
 }

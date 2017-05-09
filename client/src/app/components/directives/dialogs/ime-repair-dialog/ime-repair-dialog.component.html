@@ -1,8 +1,26 @@
+<div md-dialog-title>IME Repair</div>
 <md-dialog-content>
-	<div class="section-title">IME Repair</div>
-	<div class="section-form-container">
-		<md-checkbox [(ngModel)]="data.soil">Soil</md-checkbox>
-		<md-checkbox [(ngModel)]="data.water">Water</md-checkbox>
+	<div class="dialog-form-container">
+		<div class="flex-container" fxLayout="row">
+			<app-date-picker-input placeholder="Date"
+				[initialDate]="dateTime.date"
+				(dateChanged)="dateChanged($event)"
+				class="flex-item"
+				fxFlex
+				style="padding-right: 16px;">
+				</app-date-picker-input>
+			<app-time-picker-input placeholder="Time"
+				[initialDate]="dateTime.time"
+				(dateChanged)="timeChanged($event)"
+				class="flex-item"
+				fxFlex
+				style="padding-left: 16px;">
+				</app-time-picker-input>
+		</div>
+		<div style="padding: 4px 0 16px 0;">
+			<md-checkbox [(ngModel)]="data.soil" style="padding-right: 24px;">Soil</md-checkbox>
+			<md-checkbox [(ngModel)]="data.water">Water</md-checkbox>
+		</div>
 		<md-input-container class="md-input-full-width">
 			<input mdInput placeholder="Description" [(ngModel)]="data.description">
 		</md-input-container>

@@ -22,34 +22,36 @@ public class ImeNumberService extends SurfaceEmissionExceedanceNumberService<Ime
 
 	@Autowired
 	ImeNumberDao imeNumberDao;	
-	
+
 	@Override
 	public List<ImeNumber> getBySiteAndDateCode(String siteName) {
 		return imeNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), null);
 	}
-	
+
 	@Override
 	public ImeNumber update(ImeNumber imeNumber) {
 		// TODO Find out why delete is not working.
 		// TODO Add back-end validation for repair/recheck dates.
 		for (ImeData imeData : imeNumber.getImeData()) {
 			imeData.setImeNumber(imeNumber);
+			intializeNullFields(imeData);
 			for (ImeRepairData imeRepairData : imeData.getImeRepairData()) {
 				imeRepairData.setImeData(imeData);
+				intializeNullFields(imeRepairData);
 			}
 		}
 		return imeNumberDao.update(imeNumber);
 	}
-	
+
 	@Override
 	public ImeNumber clear(ImeNumber imeNumber) {
-		
+
 		// Get the final recheck.
 		ImeData finalRecheck = imeNumber.getImeData().stream()
 				.sorted((a, b) -> -a.compareTo(b))
 				.findFirst()
 				.orElse(null);
-		
+
 		// Check if the final recheck is below the threshold.
 		System.out.println(finalRecheck.getDateTime());
 		if (finalRecheck.getMethaneLevel() < 50000) {
@@ -58,7 +60,7 @@ public class ImeNumberService extends SurfaceEmissionExceedanceNumberService<Ime
 		else {
 			throw new DataVerificationException("Cannot clear; the last recheck is still above 500 ppm.");
 		}
-		
+
 		return update(imeNumber);
 	}
 
@@ -83,7 +85,7 @@ public class ImeNumberService extends SurfaceEmissionExceedanceNumberService<Ime
 	public ImeNumber generateImeNumberFromString(String imeNumber) {
 		return generateExceedanceNumberFromString(imeNumber);
 	}
-	
+
 	/** Finds the last repair made to the IME. */
 	@Override
 	public ImeRepairData findLastRepair(ImeNumber imeNumber) {
@@ -98,15 +100,60 @@ public class ImeNumberService extends SurfaceEmissionExceedanceNumberService<Ime
 		}
 		return result;
 	}
-	
+
 	@Override
 	public ImeData findInitialDataEntry(ImeNumber imeNumber) {
 		return imeNumber.getImeData().stream().findFirst().orElse(null);
 	}
-	
+
 	@Override
 	protected SurfaceEmissionExceedanceNumberDao<ImeNumber> getCrudRepository() {
 		return imeNumberDao;
+	}
+
+/*
+	private void intializeNullFields(ImeNumber imeNumber) {
+		for (ImeData imeData : imeNumber.getImeData()) {
+			if (imeData.getDescription() == null) {
+				imeData.setDescription("");
+			}
+			for (ImeRepairData imeRepairData : imeData.getImeRepairData()) {
+				if (imeRepairData.getWater() == null) {
+					imeRepairData.setWater(false);
+				}
+				if (imeRepairData.getSoil() == null) {
+					imeRepairData.setSoil(false);
+				}
+				if (imeRepairData.getCrew() == null) {
+					imeRepairData.setCrew("");
+				}
+				if (imeRepairData.getDescription() == null) {
+					imeRepairData.setDescription("");
+				}
+			}
+		}
+	}
+*/
+	
+	private void intializeNullFields(ImeData imeData) {
+		if (imeData.getDescription() == null) {
+			imeData.setDescription("");
+		}
+	}
+
+	private void intializeNullFields(ImeRepairData imeRepairData) {
+		if (imeRepairData.getWater() == null) {
+			imeRepairData.setWater(false);
+		}
+		if (imeRepairData.getSoil() == null) {
+			imeRepairData.setSoil(false);
+		}
+		if (imeRepairData.getCrew() == null) {
+			imeRepairData.setCrew("");
+		}
+		if (imeRepairData.getDescription() == null) {
+			imeRepairData.setDescription("");
+		}
 	}
 
 }

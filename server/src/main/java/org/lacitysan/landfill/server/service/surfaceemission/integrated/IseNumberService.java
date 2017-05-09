@@ -34,8 +34,10 @@ public class IseNumberService extends SurfaceEmissionExceedanceNumberService<Ise
 		// TODO Add back-end validation for repair/recheck dates.
 		for (IseData iseData : iseNumber.getIseData()) {
 			iseData.setIseNumber(iseNumber);
+			intializeNullFields(iseData);
 			for (IseRepairData iseRepairData : iseData.getIseRepairData()) {
 				iseRepairData.setIseData(iseData);
+				intializeNullFields(iseRepairData);
 			}
 		}
 		return iseNumberDao.update(iseNumber);
@@ -106,6 +108,27 @@ public class IseNumberService extends SurfaceEmissionExceedanceNumberService<Ise
 	@Override
 	protected SurfaceEmissionExceedanceNumberDao<IseNumber> getCrudRepository() {
 		return iseNumberDao;
+	}
+	
+	private void intializeNullFields(IseData iseData) {
+		if (iseData.getDescription() == null) {
+			iseData.setDescription("");
+		}
+	}
+
+	private void intializeNullFields(IseRepairData iseRepairData) {
+		if (iseRepairData.getWater() == null) {
+			iseRepairData.setWater(false);
+		}
+		if (iseRepairData.getSoil() == null) {
+			iseRepairData.setSoil(false);
+		}
+		if (iseRepairData.getCrew() == null) {
+			iseRepairData.setCrew("");
+		}
+		if (iseRepairData.getDescription() == null) {
+			iseRepairData.setDescription("");
+		}
 	}
 
 }

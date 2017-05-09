@@ -2,26 +2,16 @@ package org.lacitysan.landfill.server.persistence.entity.surfaceemission;
 
 import java.sql.Timestamp;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
-import org.lacitysan.landfill.server.persistence.entity.user.User;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Alvin Quach
  */
 @MappedSuperclass
 public abstract class SurfaceEmissionExceedanceRepairData extends AbstractEntity implements Comparable<SurfaceEmissionExceedanceRepairData> {
-	
-	@JsonIgnoreProperties({"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"})
-	@ManyToOne
-	@JoinColumn(name="UserFK")
-	private User user;
 	
 	@NotNull
 	private Timestamp dateTime;
@@ -37,14 +27,6 @@ public abstract class SurfaceEmissionExceedanceRepairData extends AbstractEntity
 	
 	@NotNull
 	private String crew;
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	public Timestamp getDateTime() {
 		return dateTime;

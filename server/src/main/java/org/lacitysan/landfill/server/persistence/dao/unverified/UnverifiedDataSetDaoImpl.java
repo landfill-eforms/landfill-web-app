@@ -30,7 +30,7 @@ public class UnverifiedDataSetDaoImpl extends AbstractDaoImpl<UnverifiedDataSet>
 			unverifiedInstantaneousData.getImeNumbers().forEach(imeNumber -> {
 				imeNumber.getImeData().forEach(imeData -> {
 					imeData.getImeRepairData().forEach(imeRepairData -> {
-						Hibernate.initialize(imeRepairData.getUser());
+						Hibernate.initialize(imeRepairData);
 					});
 					Hibernate.initialize(imeNumber.getMonitoringPoints());
 				});

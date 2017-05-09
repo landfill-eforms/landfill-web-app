@@ -46,6 +46,8 @@ export class ImeRecheckDialogComponent implements OnInit {
 			if (this.maxDateTime != null && defaultDateTime > this.maxDateTime) {
 				defaultDateTime = this.maxDateTime;
 			}
+			this.data.imeRepairData = [];
+			this.data.inspector = new User();
 		}
 		this.dateTime.date = defaultDateTime;
 		this.dateTime.time = defaultDateTime;
@@ -70,7 +72,6 @@ export class ImeRecheckDialogComponent implements OnInit {
 			return;
 		}
 		if (!this.originalData) {
-			this.data.imeRepairData = [];
 			this.data.methaneLevel *= 100;
 			this.dialogRef.close(this.data);
 		}

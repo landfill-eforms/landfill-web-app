@@ -70,7 +70,7 @@ public abstract class SurfaceEmissionExceedanceRepairData extends AbstractEntity
 	
 	@Override
 	public int compareTo(SurfaceEmissionExceedanceRepairData o) {
-		return -dateTime.compareTo(o.getDateTime()); // Sort by oldest to newest.
+		return dateTime.compareTo(o.getDateTime()); // Sort by oldest to newest.
 	}
 	
 }

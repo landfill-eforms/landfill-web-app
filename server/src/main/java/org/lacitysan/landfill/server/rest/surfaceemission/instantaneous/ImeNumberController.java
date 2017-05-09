@@ -61,6 +61,11 @@ public class ImeNumberController {
 	public ImeNumber update(@RequestBody ImeNumber imeNumber) {
 		return imeNumberService.update(imeNumber);
 	}
+	
+	@RequestMapping(value="/clear", method=RequestMethod.POST)
+	public ImeNumber clear(@RequestBody ImeNumber imeNumber) {
+		return imeNumberService.clear(imeNumber);
+	}
 
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public ImeNumber delete(@RequestBody ImeNumber imeNumber) {

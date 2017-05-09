@@ -35,6 +35,13 @@ export abstract class SurfaceExceedanceNumberService<T extends SurfaceEmissionEx
 			);
 	}
 
+	clear(entity:T, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + '/clear', entity).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
+			);
+	}
+
 	generateStringFromExceedanceNumber(exceedanceNumber:T):string {
 		let date:Date = new Date(exceedanceNumber.dateCode);
 		let month = date.getMonth() + 1;

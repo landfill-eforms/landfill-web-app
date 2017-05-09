@@ -61,6 +61,11 @@ public class IseNumberController {
 	public IseNumber update(@RequestBody IseNumber iseNumber) {
 		return iseNumberService.update(iseNumber);
 	}
+	
+	@RequestMapping(value="/clear", method=RequestMethod.POST)
+	public IseNumber clear(@RequestBody IseNumber iseNumber) {
+		return iseNumberService.clear(iseNumber);
+	}
 
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public IseNumber delete(@RequestBody IseNumber iseNumber) {

@@ -118,6 +118,8 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 	}
 
 	abstract public T update(T exceedanceNumber);
+	
+	abstract public T clear(T exceedanceNumber);
 
 	/**
 	 * Converts a collection of exceedance numbers into a formatted string list.

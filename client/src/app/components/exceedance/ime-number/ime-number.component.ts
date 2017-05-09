@@ -38,7 +38,8 @@ export class ImeNumberComponent implements OnInit {
 	isUsersLoaded:boolean;
 	users:User[] = [];
 
-	loadingMessage:string;
+	isCleared:boolean;
+	clearable:boolean;
 
 	constructor(
 		private imeNumberService:ImeNumberService,
@@ -60,7 +61,15 @@ export class ImeNumberComponent implements OnInit {
 		this.navigationService.getNavbarComponent().title = this.imeNumber;
 
 		// Load IME number data.
-		this.loadImeNumber();
+		this.imeNumberService.getByImeNumber(this.imeNumber,
+			(data) => {
+				console.log(data);
+				this.imeNumberData = this.processImeNumber(data);
+				this.isCleared = this.imeNumberData.status == ExceedanceStatus.CLEARED;
+				this.checkIfClearable();
+				this.isDataLoaded = true;
+			}
+		);
 
 		// Load list of inspectors.
 		this.userService.getAll((data) => {
@@ -70,32 +79,26 @@ export class ImeNumberComponent implements OnInit {
 
 	}
 
-	private loadImeNumber() {
-		this.imeNumberService.getByImeNumber(this.imeNumber,
-			(data) => {
-				console.log(data);
-				this.imeNumberData = data;
+	private processImeNumber(imeNumber:ImeNumber):ImeNumber {
 
-				// Sort data entries upon loading.
-				this.imeNumberData.imeData.sort((a, b) => {
-					return a.dateTime - b.dateTime;
-				});
-				for (let imeData of this.imeNumberData.imeData) {
-					imeData.imeRepairData.sort((a, b) => {
-						return a.dateTime - b.dateTime;
-					});
-				}
+		// Sort data entries
+		imeNumber.imeData.sort((a, b) => {
+			return a.dateTime - b.dateTime;
+		});
+		for (let imeData of imeNumber.imeData) {
+			imeData.imeRepairData.sort((a, b) => {
+				return a.dateTime - b.dateTime;
+			});
+		}
 
-				// Convert strings to enums.
-				this.imeNumberData.site = EnumUtils.convertToEnum(Site, this.imeNumberData.site);
-				for (let i = 0; i < this.imeNumberData.monitoringPoints.length; i++) {
-					this.imeNumberData.monitoringPoints[i] = EnumUtils.convertToEnum(MonitoringPoint, this.imeNumberData.monitoringPoints[i]);
-				}
-				this.imeNumberData.status = EnumUtils.convertToEnum(ExceedanceStatus, this.imeNumberData.status);
+		// Convert strings to enums
+		imeNumber.site = EnumUtils.convertToEnum(Site, imeNumber.site);
+		for (let i = 0; i < imeNumber.monitoringPoints.length; i++) {
+			imeNumber.monitoringPoints[i] = EnumUtils.convertToEnum(MonitoringPoint, imeNumber.monitoringPoints[i]);
+		}
+		imeNumber.status = EnumUtils.convertToEnum(ExceedanceStatus, imeNumber.status);
 
-				this.isDataLoaded = true;
-			}
-		);
+		return imeNumber;
 	}
 
 	openRepairDialog(dataIdx?:number, repairIdx?:number) {
@@ -129,6 +132,7 @@ export class ImeNumberComponent implements OnInit {
 					return a.dateTime - b.dateTime;
 				});
 			}
+			this.checkIfClearable();
 		});
 	}
 
@@ -173,6 +177,7 @@ export class ImeNumberComponent implements OnInit {
 				result["deletable"] = true; // TEMPORARY
 				this.imeNumberData.imeData.push(result);
 			}
+			this.checkIfClearable();
 		});
 	}
 
@@ -189,9 +194,22 @@ export class ImeNumberComponent implements OnInit {
 			(data) => {
 				console.log(data);
 				this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
-				this.isDataLoaded = false;
-				this.loadingMessage = "Reloading..."
-				this.loadImeNumber();
+				this.imeNumberData = this.processImeNumber(data);
+				this.checkIfClearable();
+			}
+		);
+	}
+
+	clear() {
+		if (this.getLastImeData().methaneLevel >= 50000) {
+			return;
+		}
+		this.imeNumberService.clear(this.imeNumberData, 
+			(data) => {
+				console.log(data);
+				this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
+				this.imeNumberData = this.processImeNumber(data);
+				this.isCleared = this.imeNumberData.status == ExceedanceStatus.CLEARED;
 			}
 		);
 	}
@@ -201,17 +219,23 @@ export class ImeNumberComponent implements OnInit {
 	}
 
 	private getLastImeData():ImeData {
-		if (!this.imeNumberData || !this.imeNumberData.imeData || !this.imeNumberData.imeData.length) {
+		if (!this.imeNumberData || !this.imeNumberData.imeData) {
 			return null;
 		}
 		return this.imeNumberData.imeData[this.imeNumberData.imeData.length - 1];
 	}
 
 	private getLastImeRepairData(imeData:ImeData):ImeRepairData {
-		if (!imeData || !imeData.imeRepairData || !imeData.imeRepairData.length) {
+		if (!imeData || !imeData.imeRepairData) {
 			return null;
 		}
 		return imeData.imeRepairData[imeData.imeRepairData.length - 1];
+	}
+
+	private checkIfClearable() {
+		if (!this.isCleared) {
+			this.clearable = this.getLastImeData().methaneLevel < 50000;
+		}
 	}
 
 }

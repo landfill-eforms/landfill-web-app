@@ -1,7 +1,7 @@
 <div class="page grey-background">
-	<app-page-loading-indicator *ngIf="!isDataLoaded || !isUsersLoaded" [message]="loadingMessage"></app-page-loading-indicator>
+	<app-page-loading-indicator *ngIf="!isDataLoaded || !isUsersLoaded"></app-page-loading-indicator>
 	<div *ngIf="isDataLoaded && isUsersLoaded">
-		<md-card style="margin-bottom: 24px">
+		<md-card style="margin-bottom: 16px">
 			<md-card-content>
 				<div class="card-title">
 					IME Number Details
@@ -35,8 +35,11 @@
 						<div class="info-card-data-key flex-item" fxFlex="96px">
 							Grid(s)
 						</div>
-						<div class="info-card-data-value truncate flex-item" fxFlex>
+						<div *ngIf="!isCleared" class="info-card-data-value truncate flex-item" fxFlex>
 							<a>{{listGrids(imeNumberData)}}</a>
+						</div>
+						<div *ngIf="isCleared" class="info-card-data-value truncate flex-item" fxFlex>
+							{{listGrids(imeNumberData)}}
 						</div>
 					</div>
 				</div>
@@ -51,7 +54,7 @@
 			</div>
 			<div class="flex-container" fxLayout="row">
 				<div class="flex-item" fxFlex="50" style="padding-right: 12px;">
-					<div class="info-card-action-button-container">
+					<div *ngIf="!isCleared" class="info-card-action-button-container">
 						<button md-icon-button [mdMenuTriggerFor]="dataMenu">
 							<md-icon>more_vert</md-icon>
 						</button>
@@ -100,7 +103,7 @@
 				</div>
 				<div class="flex-item" fxFlex="50" style="padding-left: 12px;">
 					<div *ngFor="let imeRepairData of imeData.imeRepairData; let repairIdx = index">
-						<div class="info-card-action-button-container">
+						<div *ngIf="!isCleared" class="info-card-action-button-container">
 							<button md-icon-button [mdMenuTriggerFor]="dataMenu">
 								<md-icon>more_vert</md-icon>
 							</button>
@@ -153,14 +156,41 @@
 </div>
 <div class="fab-bottom-container">
 	<div class="flex-container" fxLayout="column" fxLayoutAlign="end center">
-		<button md-fab (click)="openRepairDialog()" mdTooltip="Add Repair" mdTooltipPosition="before" class="fab-button-white flex-item" fxFlex="56px">
+		<button md-fab 
+			(click)="openRepairDialog()"
+			mdTooltip="Add Repair"
+			mdTooltipPosition="before"
+			[disabled]="!imeNumberData || isCleared"
+			class="fab-button-white flex-item"
+			fxFlex="56px">
 			<md-icon>build</md-icon>
 		</button>
-		<button md-fab (click)="openRecheckDialog()" mdTooltip="Add Recheck" mdTooltipPosition="before" class="fab-button-white flex-item" fxFlex="56px">
+		<button md-fab
+			(click)="openRecheckDialog()"
+			mdTooltip="Add Recheck"
+			mdTooltipPosition="before"
+			[disabled]="!imeNumberData || isCleared"
+			class="fab-button-white flex-item"
+			fxFlex="56px">
 			<md-icon>repeat</md-icon>
 		</button>
-		<button md-fab (click)="save()" mdTooltip="Save" mdTooltipPosition="before" class="flex-item" fxFlex="56px">
+		<button md-fab
+			(click)="save()"
+			mdTooltip="Save"
+			mdTooltipPosition="before"
+			[disabled]="!imeNumberData || isCleared"
+			class="fab-button-white flex-item"
+			fxFlex="56px">
 			<md-icon>save</md-icon>
+		</button>
+		<button md-fab
+			(click)="clear()"
+			mdTooltip="Save"
+			mdTooltipPosition="before"
+			[disabled]="!clearable"
+			class="flex-item"
+			fxFlex="56px">
+			<md-icon>done</md-icon>
 		</button>
 	</div>
 </div>

@@ -66,7 +66,7 @@ public abstract class SurfaceEmissionExceedanceData extends AbstractEntity imple
 	
 	@Override
 	public int compareTo(SurfaceEmissionExceedanceData o) {
-		return -dateTime.compareTo(o.getDateTime()); // Sort by oldest to newest.
+		return dateTime.compareTo(o.getDateTime()); // Sort by oldest to newest.
 	}
 
 }

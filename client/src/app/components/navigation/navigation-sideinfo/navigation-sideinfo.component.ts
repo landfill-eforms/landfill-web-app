@@ -73,6 +73,8 @@ export class NavigationSideinfoComponent implements OnInit {
 
 	disable() {
 		this.disabled = true;
+		this.title = "";
+		this.subtitle = "";
 		this.close();
 		this.destroyCurrent();
 	}

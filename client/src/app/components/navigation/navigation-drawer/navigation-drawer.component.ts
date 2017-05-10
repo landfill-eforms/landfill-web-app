@@ -65,6 +65,12 @@ export class NavigationDrawerComponent implements OnInit {
 			icon: 'people', 
 			label: 'Users',
 			visible: false
+		},
+		{
+			route: RestrictedRoute.APPLICATION_SETTINGS, 
+			icon: 'settings', 
+			label: 'Application Settings',
+			visible: false
 		}
 	];
 

@@ -1,0 +1,65 @@
+<div class="page grey-background">
+	<app-page-loading-indicator *ngIf="!isDataLoaded"></app-page-loading-indicator>
+	<div *ngIf="isDataLoaded">
+		<md-card>
+			<md-card-content>
+				<div class="section-header">
+					User Accounts
+				</div>
+				<div class="settings-container">
+					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
+						<div class="setting-label flex-item" fxFlex>
+							Username Min Length
+						</div>
+						<md-input-container class="md-input-full-width flex-item" fxFlex="40px">
+							<input mdInput type="number" min="1" [(ngModel)]="applicationSettings.USERNAME_MIN_LENGTH.value">
+						</md-input-container>
+					</div>
+					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
+						<div class="setting-label flex-item" fxFlex>
+							Username Max Length
+						</div>
+						<md-input-container class="md-input-full-width flex-item" fxFlex="40px">
+							<input mdInput type="number" max="255" [(ngModel)]="applicationSettings.USERNAME_MAX_LENGTH.value">
+						</md-input-container>
+					</div>
+					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
+						<div class="setting-label flex-item" fxFlex>
+							Password Min Length
+						</div>
+						<md-input-container class="md-input-full-width flex-item" fxFlex="40px">
+							<input mdInput type="number" [(ngModel)]="applicationSettings.PASSWORD_MIN_LENGTH.value">
+						</md-input-container>
+					</div>
+					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
+						<div class="setting-label flex-item" fxFlex>
+							Password Max Length
+						</div>
+						<md-input-container class="md-input-full-width flex-item" fxFlex="40px">
+							<input mdInput type="number" [(ngModel)]="applicationSettings.PASSWORD_MAX_LENGTH.value">
+						</md-input-container>
+					</div>
+					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
+						<div class="setting-label flex-item" fxFlex>
+							Password Requires Special Character
+						</div>
+						<md-slide-toggle [(ngModel)]="applicationSettings.PASSWORD_ENFORCE_SPECIAL_CHAR.value" class="flex-item" fxFlex="40px"></md-slide-toggle>
+					</div>
+				</div>
+			</md-card-content>
+		</md-card>
+		<md-card>
+			<md-card-content>
+				<div class="card-title">
+					Password
+				</div>
+				<md-input-container class="md-input-full-width">
+					<input mdInput type="number" placeholder="Minimum Length" [(ngModel)]="applicationSettings.PASSWORD_MIN_LENGTH.value">
+				</md-input-container>
+				<md-input-container class="md-input-full-width">
+					<input mdInput type="number" placeholder="Maximum Length" [(ngModel)]="applicationSettings.PASSWORD_MAX_LENGTH.value">
+				</md-input-container>
+			</md-card-content>
+		</md-card>
+	</div>
+</div>

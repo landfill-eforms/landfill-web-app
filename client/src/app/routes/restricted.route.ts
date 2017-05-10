@@ -52,14 +52,14 @@ export class RestrictedRoute {
 			name: "IME Numbers",
 			previous: RestrictedRoute.EXCEEDANCE_SELECTOR,
 		}
-	}
+	};
 
 	static readonly IME_NUMBER:Route = {
 		path: 'exceedance/ime/:imeNumber',
 		data: {	
 			previous: RestrictedRoute.IME_NUMBER_LIST,
 		}
-	}
+	};
 
 	static readonly ISE_NUMBER_LIST:Route = {
 		path: 'exceedance/ise',
@@ -67,14 +67,14 @@ export class RestrictedRoute {
 			name: "ISE Numbers",
 			previous: RestrictedRoute.EXCEEDANCE_SELECTOR,
 		}
-	}
+	};
 
 	static readonly ISE_NUMBER:Route = {
 		path: 'exceedance/ise/:iseNumber',
 		data: {	
 			previous: RestrictedRoute.ISE_NUMBER_LIST,
 		}
-	}
+	};
 
 	/***** INSTRUMENT ROUTES *****/
 	static readonly INSTRUMENT_SELECTOR:Route = {
@@ -130,7 +130,7 @@ export class RestrictedRoute {
 				UserPermission.GENERATE_REPORTS
 			]
 		}
-	}
+	};
 
 	static readonly EXCEEDENCE_REPORT:Route = {
 		path: 'report/exceedance',
@@ -175,7 +175,7 @@ export class RestrictedRoute {
 				UserPermission.VIEW_USER_GROUPS
 			]
 		}
-	}
+	};
 
 	static readonly USER_LIST:Route = {
 		path: 'user/users',
@@ -186,7 +186,7 @@ export class RestrictedRoute {
 				UserPermission.VIEW_USERS
 			]
 		}
-	}
+	};
 
 	static readonly USER_GROUP_LIST:Route = {
 		path: 'user/user-groups',
@@ -199,5 +199,15 @@ export class RestrictedRoute {
 		}
 	};
 
-	
+	/***** APPLICATION SETTINGS *****/
+	static readonly APPLICATION_SETTINGS:Route = {
+		path: 'settings',
+		data: {
+			name: "Application Settings",
+			permissions: [
+				UserPermission.ADMIN
+			]
+		}
+	}
+
 }

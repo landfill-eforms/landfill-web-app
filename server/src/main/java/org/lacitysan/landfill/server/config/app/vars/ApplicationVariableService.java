@@ -8,7 +8,9 @@ import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.config.app.vars.model.ApplicationVariableSerialization;
 import org.lacitysan.landfill.server.persistence.dao.system.ApplicationSettingDao;
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
+import org.lacitysan.landfill.server.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,10 +22,16 @@ import org.springframework.stereotype.Service;
 public class ApplicationVariableService {
 	
 	private final ApplicationSettingDao applicationSettingDao;
+	
+	private final UserService userService;
+	
+	private final PasswordEncoder passswordEncoder;
 
 	@Autowired
-	public ApplicationVariableService(ApplicationSettingDao applicationSettingDao) {
+	public ApplicationVariableService(ApplicationSettingDao applicationSettingDao, UserService userService, PasswordEncoder passswordEncoder) {
 		this.applicationSettingDao = applicationSettingDao;
+		this.userService = userService;
+		this.passswordEncoder = passswordEncoder;
 		loadFromDatabase();
 	}
 	
@@ -64,6 +72,9 @@ public class ApplicationVariableService {
 	
 	public Map<String, ApplicationVariableSerialization> update(Map<String, ApplicationVariableSerialization> map) {
 		for (ApplicationVariableDefinition appVar : ApplicationVariableDefinition.values()) {
+			if (appVar == ApplicationVariableDefinition.SUPER_ADMIN_PASSWORD) {
+				continue;
+			}
 			ApplicationVariableSerialization updatedVar = map.get(appVar.name());
 			if (updatedVar == null) {
 				continue;
@@ -75,6 +86,13 @@ public class ApplicationVariableService {
 				}
 			}
 		}
+		loadFromDatabase();
+		return map();
+	}
+	
+	public Map<String, ApplicationVariableSerialization> updateSuperAdminPassword(String password) {
+		String encodedPassword = passswordEncoder.encode(password);
+		set(ApplicationVariableDefinition.SUPER_ADMIN_PASSWORD.name(), encodedPassword);
 		loadFromDatabase();
 		return map();
 	}

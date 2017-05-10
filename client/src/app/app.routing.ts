@@ -1,3 +1,4 @@
+import { ApplicationSettingsComponent } from './components/settings/application-settings/application-settings.component';
 import { MobileSyncComponent } from './components/mobile/mobile-sync/mobile-sync.component';
 import { IseNumberListComponent } from './components/exceedance/ise-number-list/ise-number-list.component';
 import { InstantaneousReportComponent } from './components/report/instantaneous-report/instantaneous-report.component';
@@ -169,6 +170,12 @@ export const RestrictedRoutes:Routes = [
 				path: RestrictedRoute.USER_GROUP_LIST.path,
 				data: RestrictedRoute.USER_GROUP_LIST.data,
 				component: UserGroupListComponent,
+				canActivate: [AuthGuard]
+			},
+			{
+				path: RestrictedRoute.APPLICATION_SETTINGS.path,
+				data: RestrictedRoute.APPLICATION_SETTINGS.data,
+				component: ApplicationSettingsComponent,
 				canActivate: [AuthGuard]
 			},
 			...StatusRoutes,

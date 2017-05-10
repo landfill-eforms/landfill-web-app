@@ -78,6 +78,14 @@ export class DashboardComponent implements OnInit {
 			route: StatusRoute.COMING_SOON,
 			disabled: true
 		},
+				{
+			title: "Application Setttings",
+			subtitle: "Web Application Global Settings",
+			img: "settings",
+			color: "#E91E63, #EC407A, #F50057",
+			route: RestrictedRoute.APPLICATION_SETTINGS,
+			disabled: false
+		},
 		{
 			title: "Information",
 			subtitle: "Release Notes and User Manual",

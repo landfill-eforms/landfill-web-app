@@ -1,3 +1,5 @@
+import { ApplicationSettingsComponent } from './components/settings/application-settings/application-settings.component';
+import { ApplicationSettingsService } from './services/app/application-settings.service';
 import { FlexLayoutCustomBreakpointsModule } from './components/flex-layout/flex-layout-custom-breakpoints.module';
 import { EditUnverifiedIntegratedDialogComponent } from './components/unverified-data/dialog/edit-unverified-integrated-dialog/edit-unverified-integrated-dialog.component';
 import { EditUnverifiedWarmspotDialogComponent } from './components/unverified-data/dialog/edit-unverified-warmspot-dialog/edit-unverified-warmspot-dialog.component';
@@ -59,7 +61,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 @NgModule({
 	declarations: [
 		AppComponent,
-		DashboardComponent
+		DashboardComponent,
+		ApplicationSettingsComponent
 	],
 	imports: [
 		// BrowserModule,
@@ -108,6 +111,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		AuthProvider,
 		AuthGuard,
 		// AuthService,
+		ApplicationSettingsService,
 		FileUploadService,
 		FileDownloadService,
 		ImeNumberService,

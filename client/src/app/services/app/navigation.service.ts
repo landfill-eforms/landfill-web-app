@@ -32,7 +32,7 @@ export class NavigationService {
 	}
 
 	setSideinfoComponent(component:NavigationSideinfoComponent) {
-		console.log("Side info compnent set.", component);
+		console.log("Side info component set.", component);
 		this.sideinfoComponent = component;
 	}
 

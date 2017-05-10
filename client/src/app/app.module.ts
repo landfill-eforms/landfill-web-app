@@ -1,3 +1,5 @@
+import { SuperAdminPasswordDialogComponent } from './components/settings/dialog/super-admin-password-dialog/super-admin-password-dialog.component';
+import { SettingsModule } from './components/settings/settings.module';
 import { ApplicationSettingsComponent } from './components/settings/application-settings/application-settings.component';
 import { ApplicationSettingsService } from './services/app/application-settings.service';
 import { FlexLayoutCustomBreakpointsModule } from './components/flex-layout/flex-layout-custom-breakpoints.module';
@@ -61,8 +63,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 @NgModule({
 	declarations: [
 		AppComponent,
-		DashboardComponent,
-		ApplicationSettingsComponent
+		DashboardComponent
 	],
 	imports: [
 		// BrowserModule,
@@ -82,6 +83,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		InstrumentModule,
 		MobileModule,
 		ReportModule,
+		SettingsModule,
 		UserModule,
 		UnverifiedDataModule
 	],
@@ -99,9 +101,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		InstrumentTypeDialogComponent,
 		EditUnverifiedInstantaneousDialogComponent,
 		EditUnverifiedWarmspotDialogComponent,
-		EditUnverifiedIntegratedDialogComponent
-		// PaginationComponent,
-		// DatePickerComponent,
+		EditUnverifiedIntegratedDialogComponent,
+		SuperAdminPasswordDialogComponent
 	],
 	providers: [
 		//AppRouterProviders,

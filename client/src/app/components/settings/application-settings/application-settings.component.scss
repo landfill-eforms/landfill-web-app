@@ -4,11 +4,11 @@
 }
 
 .section-header {
-    height: 14px;
-    padding: 16px;
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.54);
+	height: 14px;
+	padding: 16px;
+	font-size: 14px;
+	font-weight: 500;
+	color: rgba(0, 0, 0, 0.54);
 }
 
 md-card {
@@ -19,13 +19,23 @@ md-card {
 .setting-row {
 	border-top: 1px solid rgba(0,0,0,0.12);
 	padding: 0 24px;
-    height: 48px;
-	.setting-label {
-    	padding-top: 15px;
-	}
+	height: 64px;
 	md-slide-toggle {
-		padding-top: 15px;
+		padding-top: 24px;
 	}
+	md-input-container {
+		padding-top: 8px;
+	}
+}
+.setting-title {
+	padding: 12px 0 4px 0;
+	color: rgba(0, 0, 0, 0.87);
+	font-size: 16px;
+}
+
+.setting-subtitle {
+	color: rgba(0, 0, 0, 0.54);
+	font-size: 13px;
 }
 
 .settings-container {

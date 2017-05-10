@@ -1,11 +1,9 @@
 import { UserStatusDialogComponent } from './dialog/user-status-dialog/user-status-dialog.component';
 import { UserPasswordDialogComponent } from './dialog/user-password-dialog/user-password-dialog.component';
 import { UserGroupListSideinfoComponent } from './user-group-list-sideinfo/user-group-list-sideinfo.component';
-import { UserPermissionPickerComponent } from './user-permission-picker/user-permission-picker.component';
 import { UserSelectorComponent } from './user-selector/user-selector.component';
 import { UserGroupListComponent } from './user-group-list/user-group-list.component';
 import { UserGroupDialogComponent } from './dialog/user-group-dialog/user-group-dialog.component';
-import { UserGroupPickerComponent } from './user-group-picker/user-group-picker.component';
 import { UserDialogComponent } from './dialog/user-dialog/user-dialog.component';
 import { UserListSideinfoComponent } from './user-list-sideinfo/user-list-sideinfo.component';
 import { DirectivesModule } from './../directives/directives.module';
@@ -25,11 +23,9 @@ import { UserListComponent } from './user-list/user-list.component';
         UserPasswordDialogComponent,
         UserStatusDialogComponent,
 		UserListComponent,
-        UserGroupPickerComponent,
         UserListSideinfoComponent,
         UserGroupDialogComponent,
 		UserGroupListComponent,
-		UserPermissionPickerComponent,
         UserGroupListSideinfoComponent
     ]
 })

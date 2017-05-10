@@ -50,15 +50,19 @@
 		</md-card>
 		<md-card>
 			<md-card-content>
-				<div class="card-title">
-					Password
+				<div class="section-header">
+					Security Token
 				</div>
-				<md-input-container class="md-input-full-width">
-					<input mdInput type="number" placeholder="Minimum Length" [(ngModel)]="applicationSettings.PASSWORD_MIN_LENGTH.value">
-				</md-input-container>
-				<md-input-container class="md-input-full-width">
-					<input mdInput type="number" placeholder="Maximum Length" [(ngModel)]="applicationSettings.PASSWORD_MAX_LENGTH.value">
-				</md-input-container>
+				<div class="settings-container">
+					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
+						<div class="setting-label flex-item" fxFlex>
+							Expiration Time
+						</div>
+						<md-input-container class="md-input-full-width flex-item" fxFlex="40px">
+							<input mdInput type="number" min="1" [(ngModel)]="applicationSettings.USERNAME_MIN_LENGTH.value">
+						</md-input-container>
+					</div>
+				</div>
 			</md-card-content>
 		</md-card>
 	</div>

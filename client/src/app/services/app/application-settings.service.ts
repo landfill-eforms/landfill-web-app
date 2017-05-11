@@ -17,15 +17,15 @@ export class ApplicationSettingsService {
 			);
 	}
 
-    udpate(map:any, success:(data) => void, error?:(err) => void) {
-		this.authHttp.post(this.baseUrl, map).map((res:Response) => res.json()).subscribe(
+    update(map:any, success:(data) => void, error?:(err) => void) {
+		this.authHttp.post(this.baseUrl + "/update", map).map((res:Response) => res.json()).subscribe(
 				data => success(data),
 				err => error ? error(err) : console.log(err)
 			);
 	}
 
 	updateSuperAdminPassword(password:string, success:(data) => void, error?:(err) => void) {
-		this.authHttp.post(this.baseUrl, password).map((res:Response) => res.json()).subscribe(
+		this.authHttp.post(this.baseUrl + "/update/sa-pw", password).map((res:Response) => res.json()).subscribe(
 				data => success(data),
 				err => error ? error(err) : console.log(err)
 			);

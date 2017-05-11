@@ -60,6 +60,7 @@ export class ApplicationSettingsComponent implements OnInit {
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				this.authService.logout();
+                this.snackBar.open("Super admin password updated! Please re-log.", "OK", {duration: 3000});
 			}
 		});
     }
@@ -75,8 +76,8 @@ export class ApplicationSettingsComponent implements OnInit {
     save() {
         this.loadingMessage = "Saving Settings..."
         this.isDataLoaded = false;
-        this.convertToStrings();
-        this.applicationSettingsService.udpate(this.applicationSettings,
+        console.log(this.applicationSettings);
+        this.applicationSettingsService.update(this.applicationSettings,
             (data) => {
                 console.log(data);
                 this.applicationSettings = data;
@@ -104,13 +105,6 @@ export class ApplicationSettingsComponent implements OnInit {
             else if (setting.type === "BOOLEAN") {
                 setting.value = setting.value === "true" ? true : false;
             }
-        }
-    }
-
-    private convertToStrings() {
-        for (let key of Object.keys(this.applicationSettings)) {
-            let setting = this.applicationSettings[key];
-            setting.value = String(setting.value);
         }
     }
 

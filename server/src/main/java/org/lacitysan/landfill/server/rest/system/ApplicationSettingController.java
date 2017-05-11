@@ -9,6 +9,7 @@ import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestAllowSuperAdminOnly;
 import org.lacitysan.landfill.server.security.annotation.RestControllerSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,14 +31,14 @@ public class ApplicationSettingController {
 		return applictaionVariableService.map();
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	Map<String, ApplicationVariableSerialization> update(Map<String, ApplicationVariableSerialization> map) {
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	Map<String, ApplicationVariableSerialization> update(@RequestBody Map<String, ApplicationVariableSerialization> map) {
 		return applictaionVariableService.update(map);
 	}
 	
 	@RestAllowSuperAdminOnly
-	@RequestMapping(method=RequestMethod.POST)
-	Map<String, ApplicationVariableSerialization> updateSuperAdminPassword(String password) {
+	@RequestMapping(value="/update/sa-pw", method=RequestMethod.POST)
+	Map<String, ApplicationVariableSerialization> updateSuperAdminPassword(@RequestBody String password) {
 		return applictaionVariableService.updateSuperAdminPassword(password);
 	}
 	

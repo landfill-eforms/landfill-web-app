@@ -6,9 +6,9 @@ import java.util.Map;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.config.app.vars.model.ApplicationVariableSerialization;
+import org.lacitysan.landfill.server.config.app.vars.model.ApplicationVariableType;
 import org.lacitysan.landfill.server.persistence.dao.system.ApplicationSettingDao;
 import org.lacitysan.landfill.server.persistence.entity.system.ApplicationSetting;
-import org.lacitysan.landfill.server.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,14 +23,11 @@ public class ApplicationVariableService {
 	
 	private final ApplicationSettingDao applicationSettingDao;
 	
-	private final UserService userService;
-	
 	private final PasswordEncoder passswordEncoder;
 
 	@Autowired
-	public ApplicationVariableService(ApplicationSettingDao applicationSettingDao, UserService userService, PasswordEncoder passswordEncoder) {
+	public ApplicationVariableService(ApplicationSettingDao applicationSettingDao, PasswordEncoder passswordEncoder) {
 		this.applicationSettingDao = applicationSettingDao;
-		this.userService = userService;
 		this.passswordEncoder = passswordEncoder;
 		loadFromDatabase();
 	}
@@ -71,22 +68,28 @@ public class ApplicationVariableService {
 	}
 	
 	public Map<String, ApplicationVariableSerialization> update(Map<String, ApplicationVariableSerialization> map) {
-		for (ApplicationVariableDefinition appVar : ApplicationVariableDefinition.values()) {
-			if (appVar == ApplicationVariableDefinition.SUPER_ADMIN_PASSWORD) {
-				continue;
-			}
-			ApplicationVariableSerialization updatedVar = map.get(appVar.name());
-			if (updatedVar == null) {
-				continue;
-			}
-			if (!appVar.getValue().equals(updatedVar.getValue().toString())) {
-				set(appVar.name(), updatedVar.getValue().toString());
-				if (ApplicationConstant.DEBUG) {
-					System.out.println("DEBUG:\tApplication variable '" + appVar.name() + "' has been updated to '" + appVar.getDefaultValue().toString() + "'.");
+		boolean updated = false;
+		if (map != null && !map.isEmpty()) {
+			for (ApplicationVariableDefinition appVar : ApplicationVariableDefinition.values()) {
+				if (appVar == ApplicationVariableDefinition.SUPER_ADMIN_PASSWORD) {
+					continue;
+				}
+				ApplicationVariableSerialization updatedVar = map.get(appVar.name());
+				if (updatedVar == null || updatedVar.getValue() == null) {
+					continue;
+				}
+				if (!appVar.getValue().equals(updatedVar.getValue().toString())) {
+					set(appVar.name(), updatedVar.getValue().toString());
+					updated = true;
+					if (ApplicationConstant.DEBUG) {
+						System.out.println("DEBUG:\tApplication variable '" + appVar.name() + "' has been updated to '" + updatedVar.getValue().toString() + "'.");
+					}
 				}
 			}
 		}
-		loadFromDatabase();
+		if (updated) {
+			loadFromDatabase();
+		}
 		return map();
 	}
 	

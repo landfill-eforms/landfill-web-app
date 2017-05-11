@@ -8,16 +8,16 @@
 				</div>
 				<div class="settings-container">
 					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
-						<div class="flex-item" fxFlex>
+						<div class="flex-item" fxFlex="100">
 							<div class="setting-title">
 								Expiration Time
 							</div>
 							<div class="setting-subtitle truncate">
-								The amount of time that a generated token is valid for before expiring. Set to zero to never expire.
+								The amount of time (in milliseconds) that a generated token is valid for before expiring. Set to zero to never expire.
 							</div>
 						</div>
-						<md-input-container class="md-input-full-width flex-item" fxFlex="80px">
-							<input mdInput type="number" [(ngModel)]="applicationSettings.TOKEN_EXPIRATION_TIME.value">
+						<md-input-container class="md-input-full-width flex-item" fxFlex="96px">
+							<input mdInput placeholder="Milliseconds" type="number" [(ngModel)]="applicationSettings.TOKEN_EXPIRATION_TIME.value">
 						</md-input-container>
 					</div>
 				</div>
@@ -30,7 +30,7 @@
 				</div>
 				<div class="settings-container">
 					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
-						<div class="flex-item" fxFlex>
+						<div class="flex-item" fxFlex="100">
 							<div class="setting-title">
 								Min Username Length
 							</div>
@@ -38,12 +38,12 @@
 								Minimum required length of usernames.
 							</div>
 						</div>
-						<md-input-container class="md-input-full-width flex-item" fxFlex="40px">
-							<input mdInput type="number" min="1" [(ngModel)]="applicationSettings.USERNAME_MIN_LENGTH.value">
+						<md-input-container class="md-input-full-width flex-item" fxFlex="64px">
+							<input mdInput placeholder="Length" type="number" min="1" [(ngModel)]="applicationSettings.USERNAME_MIN_LENGTH.value">
 						</md-input-container>
 					</div>
 					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
-						<div class="flex-item" fxFlex>
+						<div class="flex-item" fxFlex="100">
 							<div class="setting-title">
 								Max Username Length
 							</div>
@@ -51,12 +51,12 @@
 								Maximum length of usernames.
 							</div>
 						</div>
-						<md-input-container class="md-input-full-width flex-item" fxFlex="40px">
-							<input mdInput type="number" max="255" [(ngModel)]="applicationSettings.USERNAME_MAX_LENGTH.value">
+						<md-input-container class="md-input-full-width flex-item" fxFlex="64px">
+							<input mdInput placeholder="Length" type="number" max="255" [(ngModel)]="applicationSettings.USERNAME_MAX_LENGTH.value">
 						</md-input-container>
 					</div>
 					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
-						<div class="flex-item" fxFlex>
+						<div class="flex-item" fxFlex="100">
 							<div class="setting-title">
 								Min Password Length
 							</div>
@@ -64,12 +64,12 @@
 								Minimum required length of user account passwords.
 							</div>
 						</div>
-						<md-input-container class="md-input-full-width flex-item" fxFlex="40px">
-							<input mdInput type="number" [(ngModel)]="applicationSettings.PASSWORD_MIN_LENGTH.value">
+						<md-input-container class="md-input-full-width flex-item" fxFlex="64px">
+							<input mdInput placeholder="Length" type="number" [(ngModel)]="applicationSettings.PASSWORD_MIN_LENGTH.value">
 						</md-input-container>
 					</div>
 					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
-						<div class="flex-item" fxFlex>
+						<div class="flex-item" fxFlex="100">
 							<div class="setting-title">
 								Max Password Length
 							</div>
@@ -77,12 +77,12 @@
 								Maximum length of user account passwords.
 							</div>
 						</div>
-						<md-input-container class="md-input-full-width flex-item" fxFlex="40px">
-							<input mdInput type="number" [(ngModel)]="applicationSettings.PASSWORD_MAX_LENGTH.value">
+						<md-input-container class="md-input-full-width flex-item" fxFlex="64px">
+							<input mdInput placeholder="Length" placeholder="Length" type="number" [(ngModel)]="applicationSettings.PASSWORD_MAX_LENGTH.value">
 						</md-input-container>
 					</div>
 					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
-						<div class="flex-item" fxFlex>
+						<div class="flex-item" fxFlex="100">
 							<div class="setting-title">
 								Password Special Character Required
 							</div>
@@ -102,7 +102,7 @@
 				</div>
 				<div class="settings-container">
 					<div class="setting-row flex-container" fxLayout="row" fxLayoutAlign="space-between stretch">
-						<div class="flex-item" fxFlex>
+						<div class="flex-item" fxFlex="100">
 							<div class="setting-title">
 								Super Admin Password
 							</div>
@@ -110,7 +110,7 @@
 								Set the password for the super admin account. This will log you out.
 							</div>
 						</div>
-						<button md-icon-button color="accent" (click)="openSuperAdminPasswordDialog()" style="margin-top: 12px">
+						<button md-icon-button color="primary" (click)="openSuperAdminPasswordDialog()" style="margin-top: 12px">
 							<md-icon>border_color</md-icon>
 						</button>
 					</div>

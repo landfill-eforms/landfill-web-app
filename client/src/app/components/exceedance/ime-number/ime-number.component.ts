@@ -195,7 +195,7 @@ export class ImeNumberComponent implements OnInit {
 		dialogConfig.width = '480px';
 		let dialogRef:MdDialogRef<YesNoDialogComponent> = this.dialog.open(YesNoDialogComponent, dialogConfig);
 		dialogRef.componentInstance.title = "Confirm";
-		dialogRef.componentInstance.prompt = ["Recheck/repair entries that are saved on the database cannot be deleted. Would you like to continue saving?"];
+		dialogRef.componentInstance.prompt = ["Recheck/repair entries that are saved to the database cannot be deleted. Would you like to continue saving?"];
 		dialogRef.componentInstance.confirmLabel = "SAVE";
 		dialogRef.componentInstance.cancelLabel = "CANCEL";
 		dialogRef.afterClosed().subscribe((res) => {

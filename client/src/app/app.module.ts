@@ -1,3 +1,4 @@
+import { ApplicationSettingsCanDeactivate } from './components/settings/application-settings/application-settings.candeactivate';
 import { ImeRecheckDialogComponent } from './components/exceedance/dialog/ime-recheck-dialog/ime-recheck-dialog.component';
 import { ImeRepairDialogComponent } from './components/exceedance/dialog/ime-repair-dialog/ime-repair-dialog.component';
 import { IseRecheckDialogComponent } from './components/exceedance/dialog/ise-recheck-dialog/ise-recheck-dialog.component';
@@ -116,6 +117,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		AuthProvider,
 		AuthGuard,
 		// AuthService,
+		ApplicationSettingsCanDeactivate,
 		ApplicationSettingsService,
 		FileUploadService,
 		FileDownloadService,
@@ -132,7 +134,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		UserActivityService,
 		UserGroupService,
 		UserService,
-		WarmspotDataService
+		WarmspotDataService,
 	],
 	bootstrap: [AppComponent]
 })

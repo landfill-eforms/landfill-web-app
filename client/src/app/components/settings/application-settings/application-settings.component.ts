@@ -22,6 +22,8 @@ export class ApplicationSettingsComponent implements OnInit {
     isDataLoaded:boolean;
     loadingMessage:string;
 
+    unsavedChagnes:boolean;
+
     constructor(
         private authService:AuthService,
         private applicationSettingsService:ApplicationSettingsService,

@@ -1,3 +1,4 @@
+import { ApplicationSettingsCanDeactivate } from './components/settings/application-settings/application-settings.candeactivate';
 import { IseNumberComponent } from './components/exceedance/ise-number/ise-number.component';
 import { ApplicationSettingsComponent } from './components/settings/application-settings/application-settings.component';
 import { MobileSyncComponent } from './components/mobile/mobile-sync/mobile-sync.component';
@@ -177,7 +178,8 @@ export const RestrictedRoutes:Routes = [
 				path: RestrictedRoute.APPLICATION_SETTINGS.path,
 				data: RestrictedRoute.APPLICATION_SETTINGS.data,
 				component: ApplicationSettingsComponent,
-				canActivate: [AuthGuard]
+				canActivate: [AuthGuard],
+				canDeactivate: [ApplicationSettingsCanDeactivate]
 			},
 			...StatusRoutes,
 			PublicRoute.INFO

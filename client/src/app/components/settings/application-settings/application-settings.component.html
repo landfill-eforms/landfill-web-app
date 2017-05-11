@@ -17,7 +17,7 @@
 							</div>
 						</div>
 						<md-input-container class="md-input-full-width flex-item" fxFlex="96px">
-							<input mdInput placeholder="Milliseconds" type="number" [(ngModel)]="applicationSettings.TOKEN_EXPIRATION_TIME.value">
+							<input mdInput placeholder="Milliseconds" type="number" (blur)="unsavedChagnes = true" [(ngModel)]="applicationSettings.TOKEN_EXPIRATION_TIME.value">
 						</md-input-container>
 					</div>
 				</div>

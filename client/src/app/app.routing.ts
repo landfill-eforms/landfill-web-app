@@ -1,3 +1,4 @@
+import { IseNumberComponent } from './components/exceedance/ise-number/ise-number.component';
 import { ApplicationSettingsComponent } from './components/settings/application-settings/application-settings.component';
 import { MobileSyncComponent } from './components/mobile/mobile-sync/mobile-sync.component';
 import { IseNumberListComponent } from './components/exceedance/ise-number-list/ise-number-list.component';
@@ -100,12 +101,12 @@ export const RestrictedRoutes:Routes = [
 				component: IseNumberListComponent,
 				canActivate: [AuthGuard]
 			},
-			// {
-			// 	path: RestrictedRoute.ISE_NUMBER.path,
-			// 	data: RestrictedRoute.ISE_NUMBER.data,
-			// 	component: IseNumberComponent,
-			// 	canActivate: [AuthGuard]
-			// },
+			{
+				path: RestrictedRoute.ISE_NUMBER.path,
+				data: RestrictedRoute.ISE_NUMBER.data,
+				component: IseNumberComponent,
+				canActivate: [AuthGuard]
+			},
 			{
 				path: RestrictedRoute.INSTRUMENT_SELECTOR.path,
 				data: RestrictedRoute.INSTRUMENT_SELECTOR.data,

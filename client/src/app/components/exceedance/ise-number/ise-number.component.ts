@@ -1,40 +1,40 @@
-import { ImeRecheckDialogComponent } from './../dialog/ime-recheck-dialog/ime-recheck-dialog.component';
-import { ImeRepairDialogComponent } from './../dialog/ime-repair-dialog/ime-repair-dialog.component';
+import { IseRepairDialogComponent } from './../dialog/ise-repair-dialog/ise-repair-dialog.component';
+import { IseRecheckDialogComponent } from './../dialog/ise-recheck-dialog/ise-recheck-dialog.component';
 import { YesNoDialogComponent } from './../../directives/dialogs/yes-no-dialog/yes-no-dialog.component';
 import { ExceedanceStatus } from './../../../model/server/persistence/enums/exceedance/exceedance-status.enum';
 import { MonitoringPoint } from './../../../model/server/persistence/enums/location/monitoring-point.enum';
 import { Site } from './../../../model/server/persistence/enums/location/site.enum';
 import { EnumUtils } from './../../../utils/enum.utils';
-import { ImeRepairData } from './../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-repair-data.class';
+import { IseRepairData } from './../../../model/server/persistence/entity/surfaceemission/integrated/ise-repair-data.class';
 import { TitleService } from './../../../services/app/title.service';
 import { StringUtils } from './../../../utils/string.utils';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { UserService } from './../../../services/user/user.service';
 import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
-import { ImeData } from './../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-data.class';
+import { IseData } from './../../../model/server/persistence/entity/surfaceemission/integrated/ise-data.class';
 import { NavigationService } from './../../../services/app/navigation.service';
-import { ImeNumber } from './../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-number.class';
+import { IseNumber } from './../../../model/server/persistence/entity/surfaceemission/integrated/ise-number.class';
 import { MdSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
+import { IseNumberService } from './../../../services/integrated/ise-number.service';
 import { Component, OnInit } from '@angular/core';
 
 
 @Component({
-	selector: 'app-ime-number',
-	templateUrl: './ime-number.component.html',
-	styleUrls: ['./ime-number.component.scss']
+	selector: 'app-ise-number',
+	templateUrl: './ise-number.component.html',
+	styleUrls: ['./ise-number.component.scss']
 
 })
-export class ImeNumberComponent implements OnInit {
+export class IseNumberComponent implements OnInit {
 
 	DateTimeUtils = DateTimeUtils;
 	StringUtils = StringUtils;
 
 	isDataLoaded:boolean;
-	imeNumber:string;
-	imeNumberData:ImeNumber;
+	iseNumber:string;
+	iseNumberData:IseNumber;
 
 	isUsersLoaded:boolean;
 	users:User[] = [];
@@ -43,7 +43,7 @@ export class ImeNumberComponent implements OnInit {
 	clearable:boolean;
 
 	constructor(
-		private imeNumberService:ImeNumberService,
+		private iseNumberService:IseNumberService,
 		private dialog:MdDialog,
 		private userService:UserService,
 		private activatedRoute:ActivatedRoute,
@@ -57,16 +57,16 @@ export class ImeNumberComponent implements OnInit {
 	ngOnInit() {
 
 		// TODO Display error message if IME number in the URL is invalid.
-		this.imeNumber = this.activatedRoute.params['_value']['imeNumber'];
-		this.titleService.setTitle(this.imeNumber);
-		this.navigationService.getNavbarComponent().title = this.imeNumber;
+		this.iseNumber = this.activatedRoute.params['_value']['iseNumber'];
+		this.titleService.setTitle(this.iseNumber);
+		this.navigationService.getNavbarComponent().title = this.iseNumber;
 
 		// Load IME number data.
-		this.imeNumberService.getByImeNumber(this.imeNumber,
+		this.iseNumberService.getByIseNumber(this.iseNumber,
 			(data) => {
 				console.log(data);
-				this.imeNumberData = this.processImeNumber(data);
-				this.isCleared = this.imeNumberData.status == ExceedanceStatus.CLEARED;
+				this.iseNumberData = this.processIseNumber(data);
+				this.isCleared = this.iseNumberData.status == ExceedanceStatus.CLEARED;
 				this.checkIfClearable();
 				this.isDataLoaded = true;
 			}
@@ -80,56 +80,54 @@ export class ImeNumberComponent implements OnInit {
 
 	}
 
-	private processImeNumber(imeNumber:ImeNumber):ImeNumber {
+	private processIseNumber(iseNumber:IseNumber):IseNumber {
 
 		// Sort data entries
-		imeNumber.imeData.sort((a, b) => {
+		iseNumber.iseData.sort((a, b) => {
 			return a.dateTime - b.dateTime;
 		});
-		for (let imeData of imeNumber.imeData) {
-			imeData.imeRepairData.sort((a, b) => {
+		for (let iseData of iseNumber.iseData) {
+			iseData.iseRepairData.sort((a, b) => {
 				return a.dateTime - b.dateTime;
 			});
 		}
 
 		// Convert strings to enums
-		imeNumber.site = EnumUtils.convertToEnum(Site, imeNumber.site);
-		for (let i = 0; i < imeNumber.monitoringPoints.length; i++) {
-			imeNumber.monitoringPoints[i] = EnumUtils.convertToEnum(MonitoringPoint, imeNumber.monitoringPoints[i]);
-		}
-		imeNumber.status = EnumUtils.convertToEnum(ExceedanceStatus, imeNumber.status);
+		iseNumber.site = EnumUtils.convertToEnum(Site, iseNumber.site);
+		iseNumber.monitoringPoint = EnumUtils.convertToEnum(MonitoringPoint, iseNumber.monitoringPoint);
+		iseNumber.status = EnumUtils.convertToEnum(ExceedanceStatus, iseNumber.status);
 
-		return imeNumber;
+		return iseNumber;
 	}
 
 	openRepairDialog(dataIdx?:number, repairIdx?:number) {
 
-		let imeData:ImeData = dataIdx != null ? this.imeNumberData.imeData[dataIdx] : this.getLastImeData();
-		let imeRepairData:ImeRepairData = imeData && repairIdx != null ? imeData.imeRepairData[repairIdx] : null;
+		let iseData:IseData = dataIdx != null ? this.iseNumberData.iseData[dataIdx] : this.getLastIseData();
+		let iseRepairData:IseRepairData = iseData && repairIdx != null ? iseData.iseRepairData[repairIdx] : null;
 
 		// Calculate min and max date/time allowed for the repair.
 		let minDateTime:number = null;
 		let maxDateTime:number = null;
-		if (imeData) {
-			minDateTime = imeData.dateTime;
+		if (iseData) {
+			minDateTime = iseData.dateTime;
 		}
-		if (dataIdx != null && dataIdx < this.imeNumberData.imeData.length - 1) {
-			maxDateTime = this.imeNumberData.imeData[dataIdx + 1].dateTime;
+		if (dataIdx != null && dataIdx < this.iseNumberData.iseData.length - 1) {
+			maxDateTime = this.iseNumberData.iseData[dataIdx + 1].dateTime;
 		}
 
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
 		dialogConfig.height = '360px';
-		let dialogRef:MdDialogRef<ImeRepairDialogComponent> = this.dialog.open(ImeRepairDialogComponent, dialogConfig);
+		let dialogRef:MdDialogRef<IseRepairDialogComponent> = this.dialog.open(IseRepairDialogComponent, dialogConfig);
 		dialogRef.componentInstance.minDateTime = minDateTime;
 		dialogRef.componentInstance.maxDateTime = maxDateTime;
-		dialogRef.componentInstance.originalData = imeRepairData;
+		dialogRef.componentInstance.originalData = iseRepairData;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				// If a result was returned, then that means it's a new repair entry.
 				result["deletable"] = true; // TEMPORARY
-				imeData.imeRepairData.push(result);
-				imeData.imeRepairData.sort((a, b) => {
+				iseData.iseRepairData.push(result);
+				iseData.iseRepairData.sort((a, b) => {
 					return a.dateTime - b.dateTime;
 				});
 			}
@@ -139,55 +137,55 @@ export class ImeNumberComponent implements OnInit {
 
 	openRecheckDialog(dataIdx?:number) {
 		
-		let imeData = this.imeNumberData.imeData[dataIdx];
-		let prevImeData:ImeData = dataIdx != null && dataIdx > 0 ? this.imeNumberData.imeData[dataIdx - 1] : this.getLastImeData();
+		let iseData = this.iseNumberData.iseData[dataIdx];
+		let prevIseData:IseData = dataIdx != null && dataIdx > 0 ? this.iseNumberData.iseData[dataIdx - 1] : this.getLastIseData();
 		
 		// Calculate min and max date/time allowed for the recheck.
 		let minDateTime:number = null;
 		let maxDateTime:number = null;
-		if (prevImeData) {
-			minDateTime = prevImeData.dateTime;
-			let prevImeRepairData:ImeRepairData = this.getLastImeRepairData(prevImeData);
-			if (prevImeRepairData) {
-				minDateTime = prevImeRepairData.dateTime;
+		if (prevIseData) {
+			minDateTime = prevIseData.dateTime;
+			let prevIseRepairData:IseRepairData = this.getLastIseRepairData(prevIseData);
+			if (prevIseRepairData) {
+				minDateTime = prevIseRepairData.dateTime;
 			}
 		}
 		if (dataIdx != null) {
-			let firstImeRepairData:ImeRepairData = imeData.imeRepairData[0];
-			if (firstImeRepairData) {
-				maxDateTime = firstImeRepairData.dateTime;
+			let firstIseRepairData:IseRepairData = iseData.iseRepairData[0];
+			if (firstIseRepairData) {
+				maxDateTime = firstIseRepairData.dateTime;
 			}
 			else {
-				let nextImeData:ImeData = this.imeNumberData.imeData[dataIdx + 1];
-				if (nextImeData) {
-					maxDateTime = nextImeData.dateTime;
+				let nextIseData:IseData = this.iseNumberData.iseData[dataIdx + 1];
+				if (nextIseData) {
+					maxDateTime = nextIseData.dateTime;
 				}
 			}
 		}
 		
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
-		let dialogRef:MdDialogRef<ImeRecheckDialogComponent> = this.dialog.open(ImeRecheckDialogComponent, dialogConfig);
+		let dialogRef:MdDialogRef<IseRecheckDialogComponent> = this.dialog.open(IseRecheckDialogComponent, dialogConfig);
 		dialogRef.componentInstance.users = this.users;
 		dialogRef.componentInstance.minDateTime = minDateTime;
 		dialogRef.componentInstance.maxDateTime = maxDateTime;
-		dialogRef.componentInstance.originalData = imeData;
+		dialogRef.componentInstance.originalData = iseData;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				// If a result was returned, then that means it's a new recheck entry.
 				result["deletable"] = true; // TEMPORARY
-				this.imeNumberData.imeData.push(result);
+				this.iseNumberData.iseData.push(result);
 			}
 			this.checkIfClearable();
 		});
 	}
 
 	deleteRepair(dataIdx:number, repairIdx:number) {
-		this.imeNumberData.imeData[dataIdx].imeRepairData.splice(repairIdx, 1);
+		this.iseNumberData.iseData[dataIdx].iseRepairData.splice(repairIdx, 1);
 	}
 
 	deleteRecheck(dataIdx:number) {
-		this.imeNumberData.imeData.splice(dataIdx, 1);
+		this.iseNumberData.iseData.splice(dataIdx, 1);
 	}
 
 	save() {
@@ -200,11 +198,11 @@ export class ImeNumberComponent implements OnInit {
 		dialogRef.componentInstance.cancelLabel = "CANCEL";
 		dialogRef.afterClosed().subscribe((res) => {
 			if (res) {
-				this.imeNumberService.update(this.imeNumberData, 
+				this.iseNumberService.update(this.iseNumberData, 
 					(data) => {
 						console.log(data);
 						this.snackBar.open("IME number has been updated.", "OK", {duration: 3000});
-						this.imeNumberData = this.processImeNumber(data);
+						this.iseNumberData = this.processIseNumber(data);
 						this.checkIfClearable();
 					},
 					(err) => {
@@ -216,7 +214,7 @@ export class ImeNumberComponent implements OnInit {
 	}
 
 	clear() {
-		if (this.getLastImeData().methaneLevel >= 50000) {
+		if (this.getLastIseData().methaneLevel >= 2500) {
 			return;
 		}
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
@@ -228,12 +226,12 @@ export class ImeNumberComponent implements OnInit {
 		dialogRef.componentInstance.cancelLabel = "NO";
 		dialogRef.afterClosed().subscribe((res) => {
 			if (res) {
-				this.imeNumberService.clear(this.imeNumberData, 
+				this.iseNumberService.clear(this.iseNumberData, 
 					(data) => {
 						console.log(data);
 						this.snackBar.open("IME number has been updated.", "OK", {duration: 3000});
-						this.imeNumberData = this.processImeNumber(data);
-						this.isCleared = this.imeNumberData.status == ExceedanceStatus.CLEARED;
+						this.iseNumberData = this.processIseNumber(data);
+						this.isCleared = this.iseNumberData.status == ExceedanceStatus.CLEARED;
 					},
 					(err) => {
 						this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
@@ -243,27 +241,23 @@ export class ImeNumberComponent implements OnInit {
 		});
 	}
 
-	listGrids(imeNumber:ImeNumber):string {
-		return this.imeNumberService.listGrids(imeNumber);
-	}
-
-	private getLastImeData():ImeData {
-		if (!this.imeNumberData || !this.imeNumberData.imeData) {
+	private getLastIseData():IseData {
+		if (!this.iseNumberData || !this.iseNumberData.iseData) {
 			return null;
 		}
-		return this.imeNumberData.imeData[this.imeNumberData.imeData.length - 1];
+		return this.iseNumberData.iseData[this.iseNumberData.iseData.length - 1];
 	}
 
-	private getLastImeRepairData(imeData:ImeData):ImeRepairData {
-		if (!imeData || !imeData.imeRepairData) {
+	private getLastIseRepairData(iseData:IseData):IseRepairData {
+		if (!iseData || !iseData.iseRepairData) {
 			return null;
 		}
-		return imeData.imeRepairData[imeData.imeRepairData.length - 1];
+		return iseData.iseRepairData[iseData.iseRepairData.length - 1];
 	}
 
 	private checkIfClearable() {
 		if (!this.isCleared) {
-			this.clearable = this.getLastImeData().methaneLevel < 50000;
+			this.clearable = this.getLastIseData().methaneLevel < 2500;
 		}
 	}
 

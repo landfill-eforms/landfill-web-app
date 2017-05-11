@@ -36,7 +36,8 @@
 			</button>
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-			<div class="data-table-first-column truncate flex-item" (click)="sortBy('iseNumber')" 
+			<div class="data-table-first-column truncate flex-item"
+				(click)="sortBy('iseNumber')" 
 				fxFlex.gt-md="11"
 				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen() ? true : 11" 
 				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen() ? true : 11">
@@ -107,7 +108,7 @@
 				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
 				<span class="data-table-header-label">Latest Reading</span>
 			</div>
-			<div class="data-table-last-column truncate flex-item" fxFlex>
+			<div class="data-table-last-column truncate flex-item" fxFlex="48px">
 				<span class="data-table-header-label">Status</span>
 			</div>
 		</div>
@@ -149,7 +150,7 @@
 						fxShow.gt-md 
 						[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" 
 						[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
-						{{iseNumber.iseData && iseNumber.iseData[0] ? iseNumber.iseData[0].methaneLevel : ''}}
+						{{iseNumber.iseData && iseNumber.iseData[0] ? iseNumber.iseData[0].methaneLevel / 100 : ''}}
 					</div>
 					<div class="data-table-column truncate flex-item"
 						fxFlex 
@@ -157,9 +158,9 @@
 						fxShow.gt-md 
 						[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" 
 						[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
-						{{iseNumber.iseData?.length ? iseNumber.iseData[iseNumber.iseData.length - 1].methaneLevel : ''}}
+						{{iseNumber.iseData?.length ? iseNumber.iseData[iseNumber.iseData.length - 1].methaneLevel / 100 : ''}}
 					</div>
-					<div class="data-table-last-column truncate flex-item" fxFlex>
+					<div class="data-table-last-column truncate flex-item" fxFlex="48px">
 						{{iseNumber.status?.name}}
 					</div>
 				</div>

@@ -1,20 +1,18 @@
 import { MdSnackBar } from '@angular/material';
 import { DateTimeUtils } from './../../../../utils/date-time.utils';
+import { IseRepairData } from './../../../../model/server/persistence/entity/surfaceemission/integrated/ise-repair-data.class';
 import { User } from './../../../../model/server/persistence/entity/user/user.class';
 import { MdDialogRef } from '@angular/material';
-import { ImeData } from './../../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-data.class';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'app-ime-recheck-dialog',
-	templateUrl: './ime-recheck-dialog.component.html',
-	styleUrls: ['./ime-recheck-dialog.component.scss']
+	selector: 'app-ise-repair-dialog',
+	templateUrl: './ise-repair-dialog.component.html'
 })
-export class ImeRecheckDialogComponent implements OnInit {
-	
-	data:ImeData;
-	originalData:ImeData;
-	users:User[] = [];
+export class IseRepairDialogComponent implements OnInit {
+
+	data:IseRepairData = new IseRepairData();
+	originalData:IseRepairData;
 
 	minDateTime:number;
 	maxDateTime:number;
@@ -23,20 +21,18 @@ export class ImeRecheckDialogComponent implements OnInit {
 		time: 0
 	}
 
-	constructor(
-		private snackBar:MdSnackBar,
-		public dialogRef:MdDialogRef<ImeRecheckDialogComponent>) {
+	constructor(private snackBar:MdSnackBar,
+		public dialogRef:MdDialogRef<IseRepairDialogComponent>) {
 
 	}
 
 	ngOnInit() {
 		let defaultDateTime:number = new Date().getTime();
-		this.data = new ImeData();
+		this.data = new IseRepairData();
 		if (this.originalData) {
-			this.data.dateTime = this.originalData.dateTime;
-			this.data.description = this.originalData.description;
-			this.data.methaneLevel = this.originalData.methaneLevel / 100;
-			this.data.inspector = this.originalData.inspector;
+			for (let key of Object.keys(this.originalData)) {
+				this.data[key] = this.originalData[key];
+			}
 			defaultDateTime = this.originalData.dateTime;
 		}
 		else {
@@ -46,8 +42,6 @@ export class ImeRecheckDialogComponent implements OnInit {
 			if (this.maxDateTime != null && defaultDateTime > this.maxDateTime) {
 				defaultDateTime = this.maxDateTime;
 			}
-			this.data.imeRepairData = [];
-			this.data.inspector = new User();
 		}
 		this.dateTime.date = defaultDateTime;
 		this.dateTime.time = defaultDateTime;
@@ -64,37 +58,30 @@ export class ImeRecheckDialogComponent implements OnInit {
 	submit() {
 		this.data.dateTime = DateTimeUtils.mergeDateTime(this.dateTime.date, this.dateTime.time);
 		if (this.minDateTime != null && this.data.dateTime < this.minDateTime) {
-			this.snackBar.open("Date/time cannot be before the previous repair or recheck.", "OK", {duration: 5000});
+			this.snackBar.open("Date/time cannot be before the current recheck.", "OK", {duration: 5000});
 			return;
 		}
 		else if (this.maxDateTime != null && this.data.dateTime > this.maxDateTime) {
-			this.snackBar.open("Date/time cannot be after the next repair or recheck.", "OK", {duration: 5000});
+			this.snackBar.open("Date/time cannot be after the next recheck.", "OK", {duration: 5000});
 			return;
 		}
 		if (!this.originalData) {
-			this.data.methaneLevel *= 100;
+			this.data.soil = !!this.data.soil;
+			this.data.water = !!this.data.water;
 			this.dialogRef.close(this.data);
 		}
 		else {
 			this.originalData.dateTime = this.data.dateTime;
 			this.originalData.description = this.data.description;
-			this.originalData.methaneLevel = this.data.methaneLevel * 100;
-			this.originalData.inspector = this.findUserById(this.data.inspector.id);
+			this.originalData.crew = this.data.crew
+			this.originalData.water = this.data.water;
+			this.originalData.soil = this.data.soil;
 			this.dialogRef.close();
 		}
 	}
 
 	cancel() {
 		this.dialogRef.close();
-	}
-
-	private findUserById(id:number):User {
-		for (let user of this.users) {
-			if (user.id == id) {
-				return user;
-			}
-		}
-		return null;
 	}
 
 }

@@ -1,3 +1,7 @@
+import { ImeRecheckDialogComponent } from './components/exceedance/dialog/ime-recheck-dialog/ime-recheck-dialog.component';
+import { ImeRepairDialogComponent } from './components/exceedance/dialog/ime-repair-dialog/ime-repair-dialog.component';
+import { IseRecheckDialogComponent } from './components/exceedance/dialog/ise-recheck-dialog/ise-recheck-dialog.component';
+import { IseRepairDialogComponent } from './components/exceedance/dialog/ise-repair-dialog/ise-repair-dialog.component';
 import { SuperAdminPasswordDialogComponent } from './components/settings/dialog/super-admin-password-dialog/super-admin-password-dialog.component';
 import { SettingsModule } from './components/settings/settings.module';
 import { ApplicationSettingsComponent } from './components/settings/application-settings/application-settings.component';
@@ -34,8 +38,6 @@ import { UserGroupService } from './services/user/user-group.service';
 import { InstrumentService } from './services/instrument/instrument.service';
 import { InstantaneousDataService } from './services/instantaneous/instantaneous-data.service';
 import { ImeNumberService } from './services/instantaneous/ime-number.service';
-import { ImeRepairDialogComponent } from './components/directives/dialogs/ime-repair-dialog/ime-repair-dialog.component';
-import { ImeRecheckDialogComponent } from './components/directives/dialogs/ime-recheck-dialog/ime-recheck-dialog.component';
 import { CommonModule } from './components/common/common.module';
 import { AssignImeNumberDialogComponent } from './components/unverified-data/assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataModule } from './components/unverified-data/unverified-data.module';
@@ -97,6 +99,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		AssignImeNumberDialogComponent,
 		ImeRecheckDialogComponent,
 		ImeRepairDialogComponent,
+		IseRecheckDialogComponent,
+		IseRepairDialogComponent,
 		InstrumentDialogComponent,
 		InstrumentTypeDialogComponent,
 		EditUnverifiedInstantaneousDialogComponent,

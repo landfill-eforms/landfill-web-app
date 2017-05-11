@@ -16,6 +16,8 @@ export class CardSelectorMenuComponent implements OnInit {
 	@Input() title:string;
 	@Input() subtitle:string;
 
+	@Input() coloredEdge:boolean;
+
 	@Output() action:EventEmitter<any> = new EventEmitter();
 
 	constructor(private authService:AuthService, private router:Router) {

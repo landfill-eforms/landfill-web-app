@@ -17,24 +17,28 @@ export class ReportSelectorComponent {
 		{
 			title: "Exceedance",
 			subtitle: "Preview and Generate an Exceedance Report",
+			edgeColor: "#66BB6A",
 			route: RestrictedRoute.INSTANTANEOUS_REPORT,
 			disabled: false
 		},
 		{
 			title: "Instantaneous",
 			subtitle: "Preview and Generate an Instantaneous Report",
+			edgeColor: "#66BB6A",
 			route: RestrictedRoute.INSTANTANEOUS_REPORT,
 			disabled: false
 		},
 		{
 			title: "Integrated",
 			subtitle: "Preview and Generate an Integrated Report",
+			edgeColor: "#66BB6A",
 			route: RestrictedRoute.INSTANTANEOUS_REPORT,
 			disabled: false
 		},
 		{
 			title: "Probe",
 			subtitle: "(Coming Soon) Preview and Generate a Probe Report",
+			edgeColor: "#66BB6A",
 			route: StatusRoute.COMING_SOON,
 			disabled: true
 		}

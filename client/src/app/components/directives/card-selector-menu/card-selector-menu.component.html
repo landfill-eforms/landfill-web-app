@@ -7,7 +7,13 @@
                 <div class="selector-card flex-container" 
 					fxLayout="row" 
                     fxLayoutAlign="center" 
-					[ngClass]="{'selector-card-disabled' : card.disabled}"
+					[ngClass]="{
+                        'selector-card-disabled': card.disabled,
+                        'selector-card-primary-edge': card.edgeColor === 'primary' && !card.disabled,
+                        'selector-card-accent-edge': card.edgeColor === 'accent' && !card.disabled,
+                        'selector-card-disabled-edge': card.edgeColor && card.disabled
+                    }"
+                    [ngStyle]="{'border-left': card.edgeColor ? '4px solid ' + card.edgeColor : ''}"
 					(click)="click(card)">
                     <img *ngIf="card.img" class="selector-card-img flex-item" [src]="card.img">
                     <div class="selector-card-title-container flex-item" fxFlex>

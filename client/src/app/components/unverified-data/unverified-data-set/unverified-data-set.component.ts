@@ -260,14 +260,14 @@ export class UnverifiedDataSetComponent implements OnInit {
 		dialogRef.componentInstance.existingImeNumbers = this.existingImeNumbers;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
+				this.snackBar.open("IME number has been updated.", "OK", {duration: 3000});
 				this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
 			}
 		});
 	}
 
 	removeImeNumbers(data:UnverifiedInstantaneousData) {
-		this.snackBar.open("IME number has been removed.", "OK", {duration: 2000});
+		this.snackBar.open("IME number has been removed.", "OK", {duration: 3000});
 		data.imeNumbers = [];
 		this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
 	}
@@ -297,7 +297,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 			(data) => {
 				if (data) {
 					this.processData(this.unverifiedDataSet);
-					this.snackBar.open("Data saved.", "OK", {duration: 2000});
+					this.snackBar.open("Data saved.", "OK", {duration: 3000});
 				}
 			}
 		);
@@ -305,7 +305,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 	commitAll() {
 		if (this.unverifiedDataSet.errors && (this.unverifiedDataSet.errors.unverifiedDataSet.length != 0 || this.unverifiedDataSet.errors.instantaneous.length != 0)) {
-			this.snackBar.open("Cannot commit data because it contains errors.", "OK", {duration: 2000});
+			this.snackBar.open("Cannot commit data because it contains errors.", "OK", {duration: 3000});
 			return;
 		}
 		this.unverifiedDataService.commit(this.unverifiedDataSet,

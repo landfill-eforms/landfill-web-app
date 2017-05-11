@@ -203,7 +203,7 @@ export class ImeNumberComponent implements OnInit {
 				this.imeNumberService.update(this.imeNumberData, 
 					(data) => {
 						console.log(data);
-						this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
+						this.snackBar.open("IME number has been updated.", "OK", {duration: 3000});
 						this.imeNumberData = this.processImeNumber(data);
 						this.checkIfClearable();
 					},
@@ -231,7 +231,7 @@ export class ImeNumberComponent implements OnInit {
 				this.imeNumberService.clear(this.imeNumberData, 
 					(data) => {
 						console.log(data);
-						this.snackBar.open("IME number has been updated.", "OK", {duration: 2000});
+						this.snackBar.open("IME number has been updated.", "OK", {duration: 3000});
 						this.imeNumberData = this.processImeNumber(data);
 						this.isCleared = this.imeNumberData.status == ExceedanceStatus.CLEARED;
 					},

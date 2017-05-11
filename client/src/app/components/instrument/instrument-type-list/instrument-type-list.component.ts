@@ -150,10 +150,10 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				if (isNew) {
-					this.snackBar.open("New equipment type added.", "OK", {duration: 2000});
+					this.snackBar.open("New equipment type added.", "OK", {duration: 3000});
 				}
 				else {
-					this.snackBar.open("Equipment type updated.", "OK", {duration: 2000});
+					this.snackBar.open("Equipment type updated.", "OK", {duration: 3000});
 				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading..."

@@ -131,10 +131,10 @@ export class UserGroupListComponent extends AbstractDataTableComponent<UserGroup
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				if (isNew) {
-					this.snackBar.open("New user group has been created.", "OK", {duration: 2000});
+					this.snackBar.open("New user group has been created.", "OK", {duration: 3000});
 				}
 				else {
-					this.snackBar.open("User group updated.", "OK", {duration: 2000});
+					this.snackBar.open("User group updated.", "OK", {duration: 3000});
 				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading User Groups..."
@@ -152,7 +152,7 @@ export class UserGroupListComponent extends AbstractDataTableComponent<UserGroup
 			this.userGroupService.delete(userGroup,
 				(data) => {
 					console.log(data);
-					this.snackBar.open("User group has been deleted.", "OK", {duration: 2000});
+					this.snackBar.open("User group has been deleted.", "OK", {duration: 3000});
 					this.isDataLoaded = false;
 					this.loadingMessage = "Reloading User Groups..."
 					this.loadUserGroups();

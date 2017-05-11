@@ -76,7 +76,7 @@ export class UserListSideinfoComponent extends AbstractSideinfoComponent<User> {
 		dialogRef.componentInstance.user = this.user;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("Password updated.", "OK", {duration: 2000});
+				this.snackBar.open("Password updated.", "OK", {duration: 3000});
 			}
 		});
 	}
@@ -88,7 +88,7 @@ export class UserListSideinfoComponent extends AbstractSideinfoComponent<User> {
 		dialogRef.componentInstance.user = this.user;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("User account status updated.", "OK", {duration: 2000});
+				this.snackBar.open("User account status updated.", "OK", {duration: 3000});
 			}
 		});
 	}

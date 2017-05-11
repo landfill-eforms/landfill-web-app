@@ -51,7 +51,7 @@ export class AuthService {
 				this.router.navigate(['/' + AppConstant.RESTRICTED_ROUTE_BASE]);
 			},
 			(error:any) => {
-				this.snackBar.open(JSON.parse(error.text()).message, "OK", {duration: 2000});
+				this.snackBar.open(JSON.parse(error.text()).message, "OK", {duration: 3000});
 			});
 	}
 

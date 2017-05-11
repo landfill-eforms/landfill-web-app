@@ -178,10 +178,10 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 			if (result) {
 				console.log("RESULT", result)
 				if (isNew) {
-					this.snackBar.open("New user has been registered.", "OK", {duration: 2000});
+					this.snackBar.open("New user has been registered.", "OK", {duration: 3000});
 				}
 				else {
-					this.snackBar.open("User profile updated.", "OK", {duration: 2000});
+					this.snackBar.open("User profile updated.", "OK", {duration: 3000});
 				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading Users..."

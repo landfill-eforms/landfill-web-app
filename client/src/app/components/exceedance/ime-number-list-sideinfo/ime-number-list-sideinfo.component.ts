@@ -27,6 +27,9 @@ export class ImeNumberListSideinfoComponent extends AbstractSideinfoComponent<Im
 
 	setData(data:ImeNumber) {
 		this.imeNumber = data;
+		this.imeNumber.imeData.sort((a, b) => {
+			return a.dateTime - b.dateTime;
+		});
 	}
 	
 }

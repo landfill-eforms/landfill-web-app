@@ -54,7 +54,7 @@ public class IseNumberService extends SurfaceEmissionExceedanceNumberService<Ise
 		
 		// Check if the final recheck is below the threshold.
 		System.out.println(finalRecheck.getDateTime());
-		if (finalRecheck.getMethaneLevel() < 25) {
+		if (finalRecheck.getMethaneLevel() < 2500) {
 			iseNumber.setStatus(ExceedanceStatus.CLEARED);
 		}
 		else {

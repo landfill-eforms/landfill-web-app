@@ -27,6 +27,9 @@ export class IseNumberListSideinfoComponent extends AbstractSideinfoComponent<Is
 
 	setData(data:IseNumber) {
 		this.iseNumber = data;
+		this.iseNumber.iseData.sort((a, b) => {
+			return a.dateTime - b.dateTime;
+		});
 	}
 	
 }

@@ -19,7 +19,7 @@
                 </div>
 				<div class="selector-card-expansion-card mat-elevation-z1 flex-container" [ngClass]="{'selector-card-expansion-card-expanded' : uploadDropdownOpen}">
 					<div class="page-content">
-						<app-file-upload #fileUpload restUrl="mobile" label="BROWSE..." uploadingLabel="Processing..." (uploadResult)="upload($event)"></app-file-upload>
+						<app-file-upload #fileUpload restUrl="mobile/upload" label="BROWSE..." uploadingLabel="Processing..." (uploadResult)="upload($event)"></app-file-upload>
 					</div>
                 </div>
             </div>

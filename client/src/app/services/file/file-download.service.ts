@@ -7,21 +7,14 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FileDownloadService {
 
-	readonly baseUrl:string = environment.resourceUrl + '/download';
+	readonly baseUrl:string = environment.resourceUrl;
 
 	constructor(private authHttp: AuthHttp) {
 		
 	}
 
-	getMobileDataDump() {
-		this.authHttp.get(this.baseUrl + "/mobile/dump", {responseType: ResponseContentType.Blob})
-			.subscribe((res) => {
-				this.processBlob(res);
-			});
-	}
-
-	getTestPdf() {
-		this.authHttp.get(this.baseUrl + "/pdf/fake", {responseType: ResponseContentType.Blob})
+	downloadMobileData() {
+		this.authHttp.get(this.baseUrl + "/mobile/download", {responseType: ResponseContentType.Blob})
 			.subscribe((res) => {
 				this.processBlob(res);
 			});

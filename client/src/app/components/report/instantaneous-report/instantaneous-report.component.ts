@@ -56,7 +56,7 @@ export class InstantaneousReportComponent {
 	}
 
 	downloadReport() {
-		this.fileDownloadService.getTestPdf();
+		
 	}
 
 	dateChanged(key, event) {

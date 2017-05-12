@@ -82,7 +82,7 @@ export class MobileSyncComponent implements OnInit, AfterViewInit {
     }
 
 	download() {
-		this.fileDownloadService.getMobileDataDump();
+		this.fileDownloadService.downloadMobileData();
 	}
 
 }

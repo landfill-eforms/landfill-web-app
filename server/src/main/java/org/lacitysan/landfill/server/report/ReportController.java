@@ -32,12 +32,12 @@ public class ReportController {
 	}
 	
 	@RequestMapping(value="/download", method=RequestMethod.POST)
-	public void getTestPdf(HttpServletResponse response, @RequestBody IndividualReportQuery reportQuery) {
+	public void downloadReportPdf(HttpServletResponse response, @RequestBody IndividualReportQuery reportQuery) {
 		try {
 
 			// Set response headers. This needs to be done before writing to the response's output stream.
 			response.setContentType("application/pdf");
-			response.addHeader("Content-Disposition", "attachment; filename=\"test_" + DateTimeUtils.formatCondensed(Calendar.getInstance().getTimeInMillis()) + ".pdf\"");
+			response.addHeader("Content-Disposition", "attachment; filename=\"report_" + DateTimeUtils.formatCondensed(Calendar.getInstance().getTimeInMillis()) + ".pdf\"");
 			response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
 			
 			reportService.generateReportPdf(response.getOutputStream(), reportQuery);

@@ -215,10 +215,10 @@ public class ReportService {
 
 		// Check if there are start and end dates specified in the report query.
 		Long startDate = reportQuery.getStartDate() == null ? null : reportQuery.getStartDate().getTime();
-		Long endDate = reportQuery.getEndDate() == null ? null : reportQuery.getEndDate().getTime();
+		Long endDate = reportQuery.getEndDate() == null ? null : DateTimeUtils.addDay(reportQuery.getEndDate().getTime());
 
 		// Query the database and convert the queried data into report data.
-		List<InstantaneousReportData> instantaneousReportData = instantaneousDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, DateTimeUtils.addDay(endDate))
+		List<InstantaneousReportData> instantaneousReportData = instantaneousDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, endDate)
 				.parallelStream()
 				.sorted((a, b) -> {
 					// Sort data here instead of having InstantaneousData implement Comparable, so that we can add sort options in the future.
@@ -252,10 +252,10 @@ public class ReportService {
 
 		// Check if there are start and end dates specified in the report query.
 		Long startDate = reportQuery.getStartDate() == null ? null : reportQuery.getStartDate().getTime();
-		Long endDate = reportQuery.getEndDate() == null ? null : reportQuery.getEndDate().getTime();
+		Long endDate = reportQuery.getEndDate() == null ? null : DateTimeUtils.addDay(reportQuery.getEndDate().getTime());
 
 		// Query the database and convert the queried data into report data.
-		List<IntegratedReportData> integratedReportData = integratedDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, DateTimeUtils.addDay(endDate))
+		List<IntegratedReportData> integratedReportData = integratedDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, endDate)
 				.parallelStream()
 				.sorted((a, b) -> {
 					// Sort data here instead of having IntegratedData implement Comparable, so that we can add sort options in the future.

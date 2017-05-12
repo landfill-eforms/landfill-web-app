@@ -7,6 +7,7 @@ import { Component, Input, EventEmitter, Output, OnChanges } from '@angular/core
 })
 export class DatePickerInputComponent implements OnChanges {
 
+	@Input() disabled:boolean;
 	@Input() placeholder:string;
 	@Input() initialDate:number;
 

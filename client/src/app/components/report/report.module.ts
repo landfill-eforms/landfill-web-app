@@ -1,3 +1,6 @@
+import { ExceedanceReportComponent } from './exceedance-report/exceedance-report.component';
+import { WarmspotReportComponent } from './warmspot-report/warmspot-report.component';
+import { IntegratedReportComponent } from './integrated-report/integrated-report.component';
 import { ScheduledReportListSideinfoComponent } from './scheduled-report-list-sideinfo/scheduled-report-list-sideinfo.component';
 import { ScheduledReportDialogComponent } from './dialog/scheduled-report-dialog/scheduled-report-dialog.component';
 import { ScheduledReportListComponent } from './scheduled-report-list/scheduled-report-list.component';
@@ -15,7 +18,10 @@ import { NgModule } from '@angular/core';
 	providers: [],
 	declarations: [
 		ReportSelectorComponent,
+		ExceedanceReportComponent,
 		InstantaneousReportComponent,
+		IntegratedReportComponent,
+		WarmspotReportComponent,
 		ScheduledReportListComponent,
 		ScheduledReportDialogComponent,
 		ScheduledReportListSideinfoComponent

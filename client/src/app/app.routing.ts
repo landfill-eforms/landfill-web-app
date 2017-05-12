@@ -1,3 +1,6 @@
+import { WarmspotReportComponent } from './components/report/warmspot-report/warmspot-report.component';
+import { IntegratedReportComponent } from './components/report/integrated-report/integrated-report.component';
+import { ExceedanceReportComponent } from './components/report/exceedance-report/exceedance-report.component';
 import { ScheduledReportListComponent } from './components/report/scheduled-report-list/scheduled-report-list.component';
 import { ApplicationSettingsCanDeactivate } from './components/settings/application-settings/application-settings.candeactivate';
 import { IseNumberComponent } from './components/exceedance/ise-number/ise-number.component';
@@ -134,17 +137,29 @@ export const RestrictedRoutes:Routes = [
 				canActivate: [AuthGuard]
 			},
 			{
+				path: RestrictedRoute.EXCEEDENCE_REPORT.path,
+				data: RestrictedRoute.EXCEEDENCE_REPORT.data,
+				component: ExceedanceReportComponent,
+				canActivate: [AuthGuard]
+			},
+			{
 				path: RestrictedRoute.INSTANTANEOUS_REPORT.path,
 				data: RestrictedRoute.INSTANTANEOUS_REPORT.data,
 				component: InstantaneousReportComponent,
 				canActivate: [AuthGuard]
 			},
 			{
-				path: RestrictedRoute.EXCEEDENCE_REPORT.path,
-				data: RestrictedRoute.EXCEEDENCE_REPORT.data,
-				component: DashboardComponent, // TODO Change
+				path: RestrictedRoute.INTEGRATED_REPORT.path,
+				data: RestrictedRoute.INTEGRATED_REPORT.data,
+				component: IntegratedReportComponent,
 				canActivate: [AuthGuard]
 			},
+			{
+				path: RestrictedRoute.WARMSPOT_REPORT.path,
+				data: RestrictedRoute.WARMSPOT_REPORT.data,
+				component: WarmspotReportComponent,
+				canActivate: [AuthGuard]
+			},			
 			{
 				path: RestrictedRoute.SCHEDULED_REPORT_LIST.path,
 				data: RestrictedRoute.SCHEDULED_REPORT_LIST.data,

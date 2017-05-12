@@ -4,15 +4,15 @@ import { ReportService } from './../../../services/report/report.service';
 import { ReportType } from './../../../model/server/persistence/enums/report/report-type.enum';
 import { MdSnackBar } from '@angular/material';
 import { IndividualReportQuery } from './../../../model/server/persistence/entity/report/individual-report-query.class';
-import { InstantaneousReport } from './../../../model/server/service/report/model/instantaneous-report.class';
+import { IntegratedReport } from './../../../model/server/service/report/model/integrated-report.class';
 import { Site } from './../../../model/server/persistence/enums/location/site.enum';
 import { Component } from '@angular/core';
 
 @Component({
-	selector: 'app-instantaneous-report',
-	templateUrl: './instantaneous-report.component.html'
+	selector: 'app-integrated-report',
+	templateUrl: './integrated-report.component.html'
 })
-export class InstantaneousReportComponent {
+export class IntegratedReportComponent {
 
 	selectedSite:Site = Site.BISHOPS;
 	availableSites:Site[] = Site.values().filter(site => site.active);
@@ -20,7 +20,7 @@ export class InstantaneousReportComponent {
 	selectedReportPeriod:ReportPeriod = ReportPeriod.SINGLE;
 	reportPeriodChoices:ReportPeriod[] = ReportPeriod.values();
 
-	report:InstantaneousReport;
+	report:IntegratedReport;
 
 	dateRange:any = {
 		start: null,
@@ -65,7 +65,7 @@ export class InstantaneousReportComponent {
 
 	private generateQuery():IndividualReportQuery {
 		let reportQuery:IndividualReportQuery = new IndividualReportQuery;
-		reportQuery.reportType = ReportType.INSTANTANEOUS;
+		reportQuery.reportType = ReportType.INTEGRATED;
 		reportQuery.site = this.selectedSite;
 		reportQuery.reportPeriod = this.selectedReportPeriod;
 		reportQuery.startDate = this.dateRange.start;

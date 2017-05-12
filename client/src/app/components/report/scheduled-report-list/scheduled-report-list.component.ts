@@ -158,10 +158,10 @@ export class ScheduledReportListComponent extends AbstractDataTableComponent<Sch
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				if (isNew) {
-					this.snackBar.open("New equipment added.", "OK", {duration: 3000});
+					this.snackBar.open("New report scheduled.", "OK", {duration: 3000});
 				}
 				else {
-					this.snackBar.open("Equipment updated.", "OK", {duration: 3000});
+					this.snackBar.open("Scheduled Report Updated.", "OK", {duration: 3000});
 				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading..."

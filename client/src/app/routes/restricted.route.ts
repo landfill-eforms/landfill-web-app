@@ -121,6 +121,17 @@ export class RestrictedRoute {
 		}
 	};
 
+	static readonly EXCEEDENCE_REPORT:Route = {
+		path: 'report/exceedance',
+		data: {
+			name: "Exceedance Report",
+			previous: RestrictedRoute.REPORT_SELECTOR,
+			permissions: [
+				UserPermission.GENERATE_REPORTS
+			]
+		}
+	};
+
 	static readonly INSTANTANEOUS_REPORT:Route = {
 		path: 'report/instantaneous',
 		data: {
@@ -132,10 +143,21 @@ export class RestrictedRoute {
 		}
 	};
 
-	static readonly EXCEEDENCE_REPORT:Route = {
-		path: 'report/exceedance',
+	static readonly INTEGRATED_REPORT:Route = {
+		path: 'report/integrated',
 		data: {
-			name: "Exceedance Report",
+			name: "Integrated Report",
+			previous: RestrictedRoute.REPORT_SELECTOR,
+			permissions: [
+				UserPermission.GENERATE_REPORTS
+			]
+		}
+	};
+
+	static readonly WARMSPOT_REPORT:Route = {
+		path: 'report/warmspot',
+		data: {
+			name: "Warmspot Report",
 			previous: RestrictedRoute.REPORT_SELECTOR,
 			permissions: [
 				UserPermission.GENERATE_REPORTS

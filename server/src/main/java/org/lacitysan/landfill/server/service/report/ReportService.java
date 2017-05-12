@@ -96,7 +96,7 @@ public class ReportService {
 						}
 
 						// Get initial IME entry and final repair entry, if exists.
-						List<ImeData> imeDataList = c.getImeData().stream().collect(Collectors.toList());
+						List<ImeData> imeDataList = c.getImeData().stream().sorted().collect(Collectors.toList());
 						ImeData initial = imeDataList.get(0);
 						ImeRepairData finalRepair = imeNumberService.findLastRepair(c);
 
@@ -133,7 +133,7 @@ public class ReportService {
 						}
 
 						// Get initial IME entry and final repair entry, if exists.
-						List<IseData> iseDataList = c.getIseData().stream().collect(Collectors.toList());
+						List<IseData> iseDataList = c.getIseData().stream().sorted().collect(Collectors.toList());
 						IseData initial = iseDataList.get(0);
 						IseRepairData finalRepair = iseNumberService.findLastRepair(c);
 

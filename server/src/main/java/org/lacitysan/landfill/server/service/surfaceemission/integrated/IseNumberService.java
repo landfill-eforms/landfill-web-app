@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.service.surfaceemission.integrated;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.exception.DataVerificationException;
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.SurfaceEmissionExceedanceNumberDao;
@@ -89,11 +90,11 @@ public class IseNumberService extends SurfaceEmissionExceedanceNumberService<Ise
 	@Override
 	public IseRepairData findLastRepair(IseNumber iseNumber) {
 		IseRepairData result = null;
-		for (IseData iseData : iseNumber.getIseData()) {
+		for (IseData iseData : iseNumber.getIseData().stream().sorted().collect(Collectors.toList())) {
 			if (iseData.getIseRepairData() == null || iseData.getIseRepairData().isEmpty()) {
 				continue;
 			}
-			for (IseRepairData iseRepairData : iseData.getIseRepairData()) {
+			for (IseRepairData iseRepairData : iseData.getIseRepairData().stream().sorted().collect(Collectors.toList())) {
 				result = iseRepairData;
 			}
 		}

@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceType;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
+import org.lacitysan.landfill.server.persistence.enums.report.ReportPeriod;
 import org.lacitysan.landfill.server.persistence.enums.report.ReportType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -53,6 +54,11 @@ public abstract class ReportQuery extends AbstractEntity implements Comparable<R
 	@Enumerated(EnumType.STRING)
 	private Set<ExceedanceType> exceedanceTypes = new HashSet<>();
 	
+	@NotNull
+	@Column(name="ReportPeriodString")
+	@Enumerated(EnumType.STRING)
+	private ReportPeriod reportPeriod;
+	
 	private Date startDate;
 	
 	private Date endDate;
@@ -81,6 +87,14 @@ public abstract class ReportQuery extends AbstractEntity implements Comparable<R
 
 	public void setExceedanceTypes(Set<ExceedanceType> exceedanceTypes) {
 		this.exceedanceTypes = exceedanceTypes;
+	}
+
+	public ReportPeriod getReportPeriod() {
+		return reportPeriod;
+	}
+
+	public void setReportPeriod(ReportPeriod reportPeriod) {
+		this.reportPeriod = reportPeriod;
 	}
 
 	public Date getStartDate() {

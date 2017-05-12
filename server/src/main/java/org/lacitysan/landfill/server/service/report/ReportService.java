@@ -71,8 +71,15 @@ public class ReportService {
 
 	@Autowired
 	IseNumberService iseNumberService;
+	
+	@Autowired
+	ReportQueryService reportQueryService;
 
 	public Report generateReport(ReportQuery reportQuery) {
+		
+		// Calculate updated date range, if necessary.
+		reportQueryService.updateReportQueryDateRange(reportQuery);
+		
 		if (reportQuery.getReportType() == ReportType.EXCEEDANCE) {
 			return generateExceedanceReport(reportQuery);
 		}

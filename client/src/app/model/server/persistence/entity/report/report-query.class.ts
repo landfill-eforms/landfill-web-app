@@ -1,6 +1,7 @@
 import { AbstractEntity } from '../abstract-entity.class';
 import { ExceedanceType } from '../../enums/exceedance/exceedance-type.enum';
 import { Site } from '../../enums/location/site.enum';
+import { ReportPeriod } from '../../enums/report/report-period.enum';
 import { ReportType } from '../../enums/report/report-type.enum';
 
 /**
@@ -11,6 +12,7 @@ export abstract class ReportQuery extends AbstractEntity {
 	reportType:ReportType;
 	site:Site;
 	exceedanceTypes:ExceedanceType[];
+	reportPeriod:ReportPeriod;
 	startDate:number;
 	endDate:number;
 	dateCreated:number;

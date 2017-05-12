@@ -18,6 +18,7 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.InstantaneousDataDao;
+import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.WarmspotDataDao;
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.integrated.IntegratedDataDao;
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.integrated.IseNumberDao;
 import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
@@ -32,10 +33,12 @@ import org.lacitysan.landfill.server.service.report.model.ExceedanceReport;
 import org.lacitysan.landfill.server.service.report.model.InstantaneousReport;
 import org.lacitysan.landfill.server.service.report.model.IntegratedReport;
 import org.lacitysan.landfill.server.service.report.model.Report;
+import org.lacitysan.landfill.server.service.report.model.WarmspotReport;
 import org.lacitysan.landfill.server.service.report.model.data.InstantaneousReportData;
 import org.lacitysan.landfill.server.service.report.model.data.IntegratedReportData;
 import org.lacitysan.landfill.server.service.report.model.data.ProbeExceedanceReportData;
 import org.lacitysan.landfill.server.service.report.model.data.SurfaceEmissionExceedanceReportData;
+import org.lacitysan.landfill.server.service.report.model.data.WarmspotReportData;
 import org.lacitysan.landfill.server.service.surfaceemission.instantaneous.ImeNumberService;
 import org.lacitysan.landfill.server.service.surfaceemission.integrated.IseNumberService;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
@@ -63,7 +66,10 @@ public class ReportService {
 
 	@Autowired
 	IseNumberDao iseNumberDao;
-
+	
+	@Autowired
+	WarmspotDataDao warmspotDataDao;
+	
 	@Autowired
 	ImeNumberService imeNumberService;
 
@@ -87,6 +93,9 @@ public class ReportService {
 		if (reportQuery.getReportType() == ReportType.INTEGRATED) {
 			return generateIntegratedReport(reportQuery);
 		}
+		if (reportQuery.getReportType() == ReportType.WARMSPOT){
+			return generateWarmspotReport(reportQuery);
+		}
 		if (reportQuery.getReportType() == ReportType.PROBE) {
 			// TODO Implement this.
 		}
@@ -102,6 +111,9 @@ public class ReportService {
 		}
 		if (reportQuery.getReportType() == ReportType.INTEGRATED) {
 			generateIntegratedReportPdf(out, (IntegratedReport)generateReport(reportQuery));
+		}
+		if (reportQuery.getReportType() == ReportType.WARMSPOT){
+			generateWarmspotReportPdf(out, (WarmspotReport)generateReport(reportQuery));
 		}
 		if (reportQuery.getReportType() == ReportType.PROBE) {
 			// TODO Implement this.
@@ -275,6 +287,119 @@ public class ReportService {
 
 	}
 	
+	private WarmspotReport generateWarmspotReport(ReportQuery reportQuery){
+		// Check if there are start and end dates specified in the report query.
+		Long startDate = reportQuery.getStartDate() == null ? null : reportQuery.getStartDate().getTime();
+		Long endDate = reportQuery.getEndDate() == null ? null : DateTimeUtils.addDay(reportQuery.getEndDate().getTime());
+
+		// Query the database and convert the queried data into report data.
+		List<WarmspotReportData> warmspotReportData = warmspotDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, endDate)
+				.parallelStream()
+				.sorted((a, b) -> {
+					// Sort data here instead of having IntegratedData implement Comparable, so that we can add sort options in the future.
+					int sort = a.getDate().compareTo(b.getDate());
+					if (sort != 0) {
+						return sort;
+					}
+					return a.getMonitoringPoint().ordinal() - b.getMonitoringPoint().ordinal();
+				})
+				.map(c -> {
+					WarmspotReportData d = new WarmspotReportData();
+					d.setDate(DateTimeUtils.formatSimpleDate(c.getDate().getTime()));
+					d.setInspector(c.getInspector().printName());
+					d.setMonitoringPoint(c.getMonitoringPoint().getName());
+					d.setInstrument(c.getInstrument().getSerialNumber());
+					d.setMethane(String.format("%.2f", c.getMethaneLevel() / 100.0));
+					d.setDescription(c.getDescription());
+					d.setSize(c.getSize());
+					return d;
+				})
+				.collect(Collectors.toList());
+
+		// Return the generated report data.
+		return new WarmspotReport(reportQuery, warmspotReportData);
+	}
+	private void generateWarmspotReportPdf(OutputStream out, WarmspotReport report) throws IOException{
+		PDPage blankPage1;
+
+		List<List<String>> reportData = new ArrayList<>();
+		List<WarmspotReportData> listType = report.getWarmspotReportData();
+		
+		PDDocument document = new PDDocument();		
+		PDDocumentInformation pdd = document.getDocumentInformation();
+		pdd.setAuthor("Allen Ma");
+		pdd.setTitle("Landfill report");
+		pdd.setCreator("Allen Ma");
+		blankPage1 = new PDPage();
+		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+
+		float margin = 10;
+		float tableWidth = blankPage1.getMediaBox().getWidth() - (2 * margin);
+		float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
+		float yStart = yStartNewPage;
+		float bottomMargin = 20;
+
+		document.addPage( blankPage1 );
+
+		ArrayList<String> header = new ArrayList<>();
+
+		header.add("Date");
+		
+		header.add("Grid");
+		header.add("Description");
+		
+		header.add("Estimate Size");
+		header.add("ECI (full name)");
+		header.add("Max Value");
+		header.add("Instrument");
+
+		for(int i = 0; i < listType.size(); i++){
+			ArrayList<String> info = new ArrayList<>();
+			info.add( (listType.get(i)).getDate() );                	
+			info.add( (listType.get(i)).getMonitoringPoint() );
+			info.add( (listType.get(i)).getDescription() );     	
+			info.add( (listType.get(i)).getSize() );
+			info.add( (listType.get(i)).getInspector() );
+			info.add( (listType.get(i)).getMethane() );
+			info.add( (listType.get(i)).getInstrument() );
+			
+			reportData.add(info);
+		}
+		
+		BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage1, true, true);
+
+		//Create Header row
+		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
+		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Warmspot Report for " + report.getReportQuery().getSite().getName() + " " + getFormattedDateRange(report.getReportQuery()));			
+		cell.setFont(PDType1Font.HELVETICA_BOLD);
+
+
+
+		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
+		for (int i = 0; i < header.size(); i++) {
+			float width = 100 / 9f;
+			cell = hea.createCell(width, "" + header.get(i));
+			cell.setFont(PDType1Font.HELVETICA_BOLD);
+		}	
+		dataTable.addHeaderRow(hea); 
+
+		for (List<String> info : reportData) {
+			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
+
+			for (int i = 0; i < info.size(); i++) {
+				float width = 100 / 9f;
+				cell = row.createCell(width, "" + info.get(i));
+			}
+		}
+
+		dataTable.draw(); 
+//			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
+//			document.save(pdfName);
+		document.save(out);
+		document.close();	
+	}
+	
+	
 	private void generateInstantaneousReportPdf(OutputStream out, InstantaneousReport report) throws IOException{
 		PDPage blankPage1;
 
@@ -416,7 +541,7 @@ public class ReportService {
 
 		//Create Header row
 		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
-		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Instantaneous Report for " + report.getReportQuery().getSite().getName() + " " + getFormattedDateRange(report.getReportQuery()));
+		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Integrated Report for " + report.getReportQuery().getSite().getName() + " " + getFormattedDateRange(report.getReportQuery()));
 		cell.setFont(PDType1Font.HELVETICA_BOLD);
 
 

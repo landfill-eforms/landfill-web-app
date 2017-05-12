@@ -14,6 +14,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -102,9 +104,9 @@ public class ReportExport{
 		er.setImeReportData(imeReportData);
 		er.setIseReportData(iseReportData);
 		er.setProbeExceedanceReportData(probeExceedanceReportData);
-		CreateExceedanceReport(er);
+		createExceedanceReport(er);
 	}
-*/
+
 	public void exportReport() throws IOException{
 		final String fileName = "C:/Users/Allen/Desktop/pdfxlamples/User Permissions.xlsx";
 		//----------------------------------------------------------------------------------------------------
@@ -249,8 +251,8 @@ public class ReportExport{
 			e.printStackTrace();
 		}
 	}
-
-	public static void CreateExceedanceReport(ExceedanceReport report) throws IOException {
+*/
+	public static void createExceedanceReport(HttpServletResponse response, ExceedanceReport report) throws IOException {
 
 
 		PDPage blankPage1;
@@ -380,7 +382,8 @@ public class ReportExport{
 			dataTable.draw(); 
 			pageIndex++;
 			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
-			document.save(pdfName);
+//			document.save(pdfName);
+			document.save(response.getOutputStream());
 			document.close();
 		}
 

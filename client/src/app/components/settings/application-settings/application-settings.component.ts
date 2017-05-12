@@ -22,7 +22,7 @@ export class ApplicationSettingsComponent implements OnInit {
     isDataLoaded:boolean;
     loadingMessage:string;
 
-    unsavedChagnes:boolean;
+    unsavedChanges:boolean;
 
     constructor(
         private authService:AuthService,
@@ -93,6 +93,10 @@ export class ApplicationSettingsComponent implements OnInit {
                 this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
             }
         );
+    }
+
+    changed() {
+        this.unsavedChanges = true;
     }
 
     private convertFromStrings() {

@@ -13,7 +13,7 @@ export class ApplicationSettingsCanDeactivate extends UnsavedCanDeactivate<Appli
 	}
 
 	canDeactivate(component:ApplicationSettingsComponent, currentRoute: ActivatedRouteSnapshot, currentState:RouterStateSnapshot, nextState:RouterStateSnapshot) {
-		if (!component.unsavedChagnes || this.confirmed) {
+		if (!component.unsavedChanges || this.confirmed) {
 			this.confirmed = false;
 			return true;
 		}

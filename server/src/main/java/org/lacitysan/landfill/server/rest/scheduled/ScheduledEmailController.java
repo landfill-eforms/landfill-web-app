@@ -56,7 +56,13 @@ public class ScheduledEmailController {
 		}
 	}
 
-	@RequestMapping(value="/create", method=RequestMethod.POST)
+	@RequestMapping(value="/create/report", method=RequestMethod.POST)
+	public ScheduledEmail createReport(@RequestBody ScheduledReport scheduledEmail) {
+		if (scheduledEmail == null) return null;
+		return scheduledEmailDao.create(scheduledEmail); // TODO Create service for this.
+	}
+	
+	@RequestMapping(value="/create/notification", method=RequestMethod.POST)
 	public ScheduledEmail create(@RequestBody ScheduledEmail scheduledEmail) {
 		if (scheduledEmail == null) return null;
 		return scheduledEmailDao.create(scheduledEmail); // TODO Create service for this.

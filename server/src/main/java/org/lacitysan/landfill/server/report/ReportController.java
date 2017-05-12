@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.report.IndividualReportQuery;
 import org.lacitysan.landfill.server.service.report.ReportService;
-import org.lacitysan.landfill.server.service.report.model.ExceedanceReport;
 import org.lacitysan.landfill.server.service.report.model.Report;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class ReportController {
 		return reportService.generateReport(reportQuery);
 	}
 	
-	@RequestMapping(value="/download", method=RequestMethod.GET)
+	@RequestMapping(value="/download", method=RequestMethod.POST)
 	public void getTestPdf(HttpServletResponse response, @RequestBody IndividualReportQuery reportQuery) {
 		try {
 
@@ -41,12 +40,7 @@ public class ReportController {
 			response.addHeader("Content-Disposition", "attachment; filename=\"test_" + DateTimeUtils.formatCondensed(Calendar.getInstance().getTimeInMillis()) + ".pdf\"");
 			response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
 			
-			Report report = reportService.generateReport(reportQuery);
-			if (!(report instanceof ExceedanceReport)) {
-				return;
-			}
-			
-			ReportExport.createExceedanceReport(response, (ExceedanceReport)report);
+			reportService.generateReportPdf(response, reportQuery);
 			response.flushBuffer();
 		} 
 		catch (IOException e) {

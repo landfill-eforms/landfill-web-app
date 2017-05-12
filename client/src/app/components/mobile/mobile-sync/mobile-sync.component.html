@@ -10,8 +10,8 @@
                         <div class="selector-card-subtitle">Upload Data File from Android Application</div>
                     </div>
                     <div class="selector-card-action flex-item" fxFlex="64px">
-                        <button md-icon-button>
-                            <md-icon class="primary-color">
+                        <button md-icon-button color="primary">
+                            <md-icon>
 								{{uploadDropdownOpen ? 'expand_less' : 'expand_more'}}
 							</md-icon>
                         </button>
@@ -19,7 +19,7 @@
                 </div>
 				<div class="selector-card-expansion-card mat-elevation-z1 flex-container" [ngClass]="{'selector-card-expansion-card-expanded' : uploadDropdownOpen}">
 					<div class="page-content">
-						<app-file-upload #fileUpload restUrl="mobile" label="BROWSE..." uploadingLabel="Processing..." (uploadResult)="upload($event)"></app-file-upload>
+						<app-file-upload #fileUpload restUrl="mobile/upload" label="BROWSE..." uploadingLabel="Processing..." (uploadResult)="upload($event)"></app-file-upload>
 					</div>
                 </div>
             </div>
@@ -32,8 +32,8 @@
                         <div class="selector-card-subtitle">Download Data File to Android Application</div>
                     </div>
                     <div class="selector-card-action flex-item" fxFlex="64px">
-                        <button md-icon-button>
-                            <md-icon class="primary-color">file_download</md-icon>
+                        <button md-icon-button color="primary">
+                            <md-icon>file_download</md-icon>
                         </button>
                     </div>
                 </div>

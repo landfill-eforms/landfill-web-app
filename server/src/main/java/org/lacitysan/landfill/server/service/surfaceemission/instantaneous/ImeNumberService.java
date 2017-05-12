@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.service.surfaceemission.instantaneous;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.exception.DataVerificationException;
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.SurfaceEmissionExceedanceNumberDao;
@@ -90,11 +91,11 @@ public class ImeNumberService extends SurfaceEmissionExceedanceNumberService<Ime
 	@Override
 	public ImeRepairData findLastRepair(ImeNumber imeNumber) {
 		ImeRepairData result = null;
-		for (ImeData imeData : imeNumber.getImeData()) {
+		for (ImeData imeData : imeNumber.getImeData().stream().sorted().collect(Collectors.toList())) {
 			if (imeData.getImeRepairData() == null || imeData.getImeRepairData().isEmpty()) {
 				continue;
 			}
-			for (ImeRepairData imeRepairData : imeData.getImeRepairData()) {
+			for (ImeRepairData imeRepairData : imeData.getImeRepairData().stream().sorted().collect(Collectors.toList())) {
 				result = imeRepairData;
 			}
 		}
@@ -110,30 +111,6 @@ public class ImeNumberService extends SurfaceEmissionExceedanceNumberService<Ime
 	protected SurfaceEmissionExceedanceNumberDao<ImeNumber> getCrudRepository() {
 		return imeNumberDao;
 	}
-
-/*
-	private void intializeNullFields(ImeNumber imeNumber) {
-		for (ImeData imeData : imeNumber.getImeData()) {
-			if (imeData.getDescription() == null) {
-				imeData.setDescription("");
-			}
-			for (ImeRepairData imeRepairData : imeData.getImeRepairData()) {
-				if (imeRepairData.getWater() == null) {
-					imeRepairData.setWater(false);
-				}
-				if (imeRepairData.getSoil() == null) {
-					imeRepairData.setSoil(false);
-				}
-				if (imeRepairData.getCrew() == null) {
-					imeRepairData.setCrew("");
-				}
-				if (imeRepairData.getDescription() == null) {
-					imeRepairData.setDescription("");
-				}
-			}
-		}
-	}
-*/
 	
 	private void intializeNullFields(ImeData imeData) {
 		if (imeData.getDescription() == null) {

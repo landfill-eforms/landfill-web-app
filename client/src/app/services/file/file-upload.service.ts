@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class FileUploadService {
 
-	readonly baseUrl:string = environment.resourceUrl + '/upload';
+	readonly baseUrl:string = environment.resourceUrl;
 
 	constructor(private authHttp: AuthHttp) {
 		

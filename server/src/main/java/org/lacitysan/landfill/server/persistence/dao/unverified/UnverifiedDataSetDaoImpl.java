@@ -27,11 +27,31 @@ public class UnverifiedDataSetDaoImpl extends AbstractDaoImpl<UnverifiedDataSet>
 		}
 		unverifiedDataSet.getUnverifiedInstantaneousData().forEach(unverifiedInstantaneousData -> {
 			Hibernate.initialize(unverifiedInstantaneousData.getInstrument());
-			Hibernate.initialize(unverifiedInstantaneousData.getUnverifiedWarmspotData());
-			unverifiedInstantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
+			unverifiedInstantaneousData.getImeNumbers().forEach(imeNumber -> {
+				imeNumber.getImeData().forEach(imeData -> {
+					imeData.getImeRepairData().forEach(imeRepairData -> {
+						Hibernate.initialize(imeRepairData);
+					});
+					Hibernate.initialize(imeNumber.getMonitoringPoints());
+				});
+			});
+		});
+		unverifiedDataSet.getUnverifiedWarmspotData().forEach(unverifiedWarmspotData -> Hibernate.initialize(unverifiedWarmspotData.getInstrument()));
+		unverifiedDataSet.getImeNumbers().forEach(imeNumber -> {
+			imeNumber.getUnverifiedInstantaneousData().forEach(unverifiedInstantaneousData -> Hibernate.initialize(unverifiedInstantaneousData));
+			imeNumber.getImeData().forEach(imeData -> {
+				Hibernate.initialize(imeData.getImeRepairData());
+			});
+			imeNumber.getMonitoringPoints().forEach(monitoringPoint -> Hibernate.initialize(monitoringPoint));
 		});
 		unverifiedDataSet.getUnverifiedIntegratedData().forEach(unverifiedIntegratedData -> {
 			Hibernate.initialize(unverifiedIntegratedData.getInstrument());
+		});
+		unverifiedDataSet.getIseNumbers().forEach(iseNumber -> {
+			iseNumber.getIseData().forEach(iseData -> Hibernate.initialize(iseData));
+			iseNumber.getIseData().forEach(iseData -> {
+				Hibernate.initialize(iseData.getIseRepairData());
+			});
 		});
 		unverifiedDataSet.getUnverifiedProbeData().forEach(unverifiedProbeData -> {
 			unverifiedProbeData.getInspectors().forEach(inspector -> Hibernate.initialize(inspector));

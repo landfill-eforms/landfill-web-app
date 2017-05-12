@@ -12,10 +12,35 @@
 .navbar-title {
 	color: #FFF;
 	margin-left: 24px;
+	height: 32px;
+	padding-top: 4px;
 
 	// Does not follow material guidelines, but looks better.
 	// font-size: 18px;
-	font-weight: 400
+	font-weight: 400;
+
+	md-icon {
+		margin: 2px 12px;
+		font-size: 20px;
+		color: rgba(255, 255, 255, 0.87);
+   		text-align: center;
+	}
+}
+
+.navbar-shadow {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-shadow: 0 0 6.9px rgba(0,0,0,0.54);
+	z-index: 999;
+	pointer-events: none;
+	transition: height 0.2s ease-in-out;
+}
+
+.breadcrumb-link {
+	outline: none;
+	cursor: pointer;
 }
 
 .logo-container {
@@ -26,4 +51,12 @@
 			margin-top: 4px;
 		}
 	}
+}
+
+.fab-container {
+	position: relative; 
+	top: -28px; 
+	left: 48px; 
+	height: 0; 
+	z-index: 1000;
 }

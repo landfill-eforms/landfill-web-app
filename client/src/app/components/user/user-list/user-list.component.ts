@@ -1,3 +1,10 @@
+import { DateTimeUtils } from './../../../utils/date-time.utils';
+import { UserGroup } from './../../../model/server/persistence/entity/user/user-group.class';
+import { UserGroupService } from './../../../services/user/user-group.service';
+import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
+import { AuthService } from './../../../services/auth/auth.service';
+import { EnumUtils } from './../../../utils/enum.utils';
+import { UserDialogComponent } from './../dialog/user-dialog/user-dialog.component';
 import { AbstractDataTableComponent } from './../../../model/client/abstract-components/abstract-data-table.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserListSideinfoComponent } from './../user-list-sideinfo/user-list-sideinfo.component';
@@ -7,7 +14,6 @@ import { Paginfo, PaginationComponent } from './../../directives/pagination/pagi
 import { StringUtils } from './../../../utils/string.utils';
 import { Sort, SortUtils } from './../../../utils/sort.utils';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
-import { NewUserDialogComponent } from './../new-user-dialog/new-user-dialog.component';
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from './../../../services/user/user.service';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from "@angular/material";
@@ -22,12 +28,15 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 
 	// Utilities
 	StringUtils = StringUtils;
+	DateTimeUtils = DateTimeUtils;
 
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;
 
+	isUserGroupsLoaded:boolean;
 	loadingMessage:string;
+	userGroups:UserGroup[];
 
 	sortProperties:any = {
 		username: [
@@ -35,10 +44,14 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 		],
 		name: [
 			"lastname",
-			"firstname"
+			"firstname",
+			"middlename"
 		],
 		emailAddress: [
 			"emailAddress"
+		],
+		lastLogin: [
+			"lastLogin"
 		],
 		employeeId: [
 			"employeeId"
@@ -68,65 +81,111 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 	showSideInfo:boolean = false;
 	selectedUser:User;
 
+	isAdmin:boolean;
+	canChangeUsername:boolean;
+	canChangePassword:boolean;
+	canChangeStatus:boolean;
+
 	constructor(
+		private authService:AuthService,
 		private router:Router,
 		private activatedRoute:ActivatedRoute,
 		private userService:UserService,
+		private userGroupService:UserGroupService,
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
 		private navigationService:NavigationService) {
 			super();
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(UserListSideinfoComponent, {user: null});
+			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {
-		this.navigationService.getNavbarComponent().setFabInfo({
-			icon: "add",
-			tooltip: "New User"
-		});
-		this.fabActionSubscriber = this.navigationService
-			.getNavbarComponent()
-			.getFabActionSource()
-			.asObservable()
-			.subscribe((event) => {
-				console.log(event)
-				if (event instanceof MouseEvent) {
-					this.openNewUserDialog();
-				}
+		this.isAdmin = this.authService.canAccess([UserPermission.ADMIN]);
+		console.log(this.isAdmin ? "is admin" : "not admin")
+		this.canChangeUsername = this.authService.canAccess([UserPermission.RESET_USER_USERNAMES]);
+		this.canChangePassword = this.authService.canAccess([UserPermission.RESET_USER_PASSWORDS]);
+		this.canChangeStatus = this.authService.canAccess([UserPermission.CHANGE_USER_STATUS]);
+		this.canEdit = this.authService.canAccess([UserPermission.EDIT_USER_PROFILES]);
+		if(this.authService.canAccess([UserPermission.CREATE_USERS])) {
+			this.navigationService.getNavbarComponent().setFabInfo({
+				icon: "add",
+				tooltip: "New User"
 			});
+			this.fabActionSubscriber = this.navigationService
+				.getNavbarComponent()
+				.getFabActionSource()
+				.asObservable()
+				.subscribe((event) => {
+					console.log(event)
+					if (event instanceof MouseEvent) {
+						this.openUserDialog(null);
+					}
+				});
+		}
 		this.loadingMessage = "Loading Users...";
 		this.loadUsers();
+		this.loadUserGroups();
 	}
 
 	ngOnDestroy() {
 		this.navigationService.getSideinfoComponent().disable();
-		this.navigationService.getNavbarComponent().resetFabInfo();
-		this.navigationService.getNavbarComponent().resetFabActionSource();
-		this.fabActionSubscriber.unsubscribe();
+		if (this.fabActionSubscriber) {
+			this.navigationService.getNavbarComponent().resetFabInfo();
+			this.navigationService.getNavbarComponent().resetFabActionSource();
+			this.fabActionSubscriber.unsubscribe();
+		}
 	}
 
-	loadUsers() {
+	private loadUsers() {
 		this.userService.getAll((data) => {
 			console.log(data);
 			this.data = data;
 			this.applyFilters();
 			this.paginfo.totalRows = this.data.length;
 			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
 			this.isDataLoaded = true;
 		});
 	}
 
-	openNewUserDialog() {
+	private loadUserGroups() {
+		this.userGroupService.getAll((data) => {
+			console.log(data);
+			this.userGroups = data;
+			this.isUserGroupsLoaded = true;
+		});
+	}
+
+	openUserDialog(user:User) {
+		if (!this.isDataLoaded || !this.isUserGroupsLoaded) {
+			return;
+		}
+		let isNew:boolean = !user;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
-		dialogConfig.width = '640px';
-		//dialogConfig.height = '480px';
-		let dialogRef:MdDialogRef<NewUserDialogComponent> = this.dialog.open(NewUserDialogComponent, dialogConfig);
+		dialogConfig.width = '800px';
+		let dialogRef:MdDialogRef<UserDialogComponent> = this.dialog.open(UserDialogComponent, dialogConfig);
+		dialogRef.componentInstance.userGroups = this.userGroups;
+		dialogRef.componentInstance.isAdmin = this.isAdmin;
+		if (isNew) {
+			dialogRef.componentInstance.isNew = true;
+		}
+		else {
+			dialogRef.componentInstance.user = user;
+		}
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("New user has been registered.", "OK", {duration: 2000});
+				console.log("RESULT", result)
+				if (isNew) {
+					this.snackBar.open("New user has been registered.", "OK", {duration: 3000});
+				}
+				else {
+					this.snackBar.open("User profile updated.", "OK", {duration: 3000});
+				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading Users..."
+				this.deselectUser();
 				this.loadUsers();
 			}
 		});
@@ -189,15 +248,22 @@ export class UserListComponent extends AbstractDataTableComponent<User> implemen
 		}
 		this.selectedUser = user;
 		this.navigationService.getSideinfoComponent().subtitle = this.selectedUser.firstname + " " + this.selectedUser.middlename + " " + this.selectedUser.lastname; 
-		this.navigationService.getSideinfoComponent().getDirective().setData(this.selectedUser);
+		this.navigationService.getSideinfoComponent().getDirective().setData({
+			user: this.selectedUser,
+			canChangeUsername: this.canChangeUsername,
+			canChangePassword: this.canChangePassword,
+			canChangeStatus: this.canChangeStatus,
+		});
 	}
 
 	deselectUser() {
 		this.selectedUser = null;
+		this.navigationService.getSideinfoComponent().subtitle = ""; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(null);
 	}
-
-	navigateToUser(user:User) {
-		this.router.navigate([user.username], {relativeTo: this.activatedRoute});
+	
+	isNavDrawerOpen():boolean {
+		return this.navigationService.isNavDrawerOpened();
 	}
 
 }

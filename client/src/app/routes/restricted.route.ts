@@ -1,21 +1,3 @@
-import { IseNumberListComponent } from './../components/exceedance/ise-number-list/ise-number-list.component';
-import { ImeNumberComponent } from './../components/exceedance/ime-number/ime-number.component';
-import { MobileUploadComponent } from './../components/mobile/mobile-upload/mobile-upload.component';
-import { ImeReportComponent } from './../components/report/ime-report/ime-report.component';
-import { InstantaneousReportComponent } from './../components/report/instantaneous-report/instantaneous-report.component';
-import { ReportsComponent } from './../components/report/report-selector/report-selector.component';
-import { ImeNumberListComponent } from './../components/exceedance/ime-number-list/ime-number-list.component';
-import { UnverifiedDataSetComponent } from './../components/unverified-data/unverified-data-set/unverified-data-set.component';
-import { UnverifiedDataSetsComponent } from './../components/unverified-data/unverified-data-set-list/unverified-data-set-list.component';
-import { InstrumentTypeComponent } from './../components/instrument/instrument-type/instrument-type.component';
-import { InstrumentTypeListComponent } from './../components/instrument/instrument-type-list/instrument-type-list.component';
-import { InstrumentComponent } from './../components/instrument/instrument/instrument.component';
-import { InstrumentListComponent } from './../components/instrument/instrument-list/instrument-list.component';
-import { ExceedanceSelectorComponent } from './../components/exceedance/exceedance-selector/exceedance-selector.component';
-import { UserGroupComponent } from './../components/user-group/user-group/user-group.component';
-import { UserGroupListComponent } from './../components/user-group/user-group-list/user-group-list.component';
-import { UserProfileComponent } from './../components/user/user-profile/user-profile.component';
-import { UserBaseComponent } from './../components/user/user-base/user-base.component';
 import { UserPermission } from './../model/server/persistence/enums/user/user-permission.enum';
 import { AuthGuard } from './../services/auth/authguard';
 import { UserListComponent } from './../components/user/user-list/user-list.component';
@@ -23,66 +5,94 @@ import { DashboardComponent } from './../components/dashboard/dashboard.componen
 import { ComingSoonComponent } from './../components/public/coming-soon/coming-soon.component';
 import { Route } from '@angular/router';
 
-/** Routes that can only be accessed by authorized users. */
+/** 
+ * Routes that can only be accessed by authorized users.
+ * The components are not defined here, so that the routes can be accessed by components without getting cyclic dependency errors.
+ */
 export class RestrictedRoute {
 
 	/***** HOME PAGE *****/
 	static readonly DASHBOARD:Route = {
-		path: 'dashboard',
-		component: DashboardComponent,
+		path: 'dashboard'
 	};
 
 	/***** DATA SYNC ROUTES *****/
+	static readonly MOBILE_SYNC:Route = {
+		path: 'mobile',
+		data: {
+			name: "Android Data Sync",
+			permissions: [
+				UserPermission.UPLOAD_MOBILE_DATA,
+				UserPermission.DOWNLOAD_MOBILE_DATA
+			]
+		}
+	};
+
 	static readonly MOBILE_UPLOAD:Route = {
-		path: 'mobile-upload',
-		component: MobileUploadComponent
+		path: 'mobile/upload',
+		data: {
+			name: "Android Data Sync",
+			permissions: [
+				UserPermission.UPLOAD_MOBILE_DATA,
+			]
+		}
 	};
 
 	/***** EXCEEDANCE ROUTES *****/
 	static readonly EXCEEDANCE_SELECTOR:Route = {
 		path: 'exceedance',
-		component: ExceedanceSelectorComponent,
+		data: {
+			name: "Exceedances"
+		}
 	};
 
 	static readonly IME_NUMBER_LIST:Route = {
 		path: 'exceedance/ime',
-		component: ImeNumberListComponent,
 		data: {
-			name: "IME Number List",
+			name: "IME Numbers",
+			previous: RestrictedRoute.EXCEEDANCE_SELECTOR,
 		}
-	}
+	};
 
 	static readonly IME_NUMBER:Route = {
 		path: 'exceedance/ime/:imeNumber',
-		component: ImeNumberComponent
-	}
+		data: {	
+			previous: RestrictedRoute.IME_NUMBER_LIST,
+		}
+	};
 
 	static readonly ISE_NUMBER_LIST:Route = {
 		path: 'exceedance/ise',
-		component: IseNumberListComponent,
 		data: {
-			name: "ISE Number List",
+			name: "ISE Numbers",
+			previous: RestrictedRoute.EXCEEDANCE_SELECTOR,
 		}
-	}
+	};
+
+	static readonly ISE_NUMBER:Route = {
+		path: 'exceedance/ise/:iseNumber',
+		data: {	
+			previous: RestrictedRoute.ISE_NUMBER_LIST,
+		}
+	};
 
 	/***** INSTRUMENT ROUTES *****/
-	static readonly INSTRUMENT_LIST:Route = {
+	static readonly INSTRUMENT_SELECTOR:Route = {
 		path: 'equipment',
-		component: InstrumentListComponent,
-		canActivate: [AuthGuard],
 		data: {
 			name: "Equipment",
 			permissions: [
-				UserPermission.VIEW_INSTRUMENTS
+				UserPermission.VIEW_INSTRUMENTS,
+				UserPermission.VIEW_INSTRUMENT_TYPES
 			]
 		}
 	};
 
-	static readonly INSTRUMENT:Route = {
-		path: 'equipment/:id',
-		component: InstrumentComponent,
-		canActivate: [AuthGuard],
+	static readonly INSTRUMENT_LIST:Route = {
+		path: 'equipment/equipment',
 		data: {
+			name: "Equipment Inventory",
+			previous: RestrictedRoute.INSTRUMENT_SELECTOR,
 			permissions: [
 				UserPermission.VIEW_INSTRUMENTS
 			]
@@ -90,22 +100,10 @@ export class RestrictedRoute {
 	};
 
 	static readonly INSTRUMENT_TYPE_LIST:Route = {
-		path: 'equipment-types',
-		component: InstrumentTypeListComponent,
-		canActivate: [AuthGuard],
+		path: 'equipment/equipment-types',
 		data: {
 			name: "Equipment Types",
-			permissions: [
-				UserPermission.VIEW_INSTRUMENT_TYPES
-			]
-		}
-	};
-
-	static readonly INSTRUMENT_TYPE:Route = {
-		path: 'equipment-types/:id',
-		component: InstrumentTypeComponent,
-		canActivate: [AuthGuard],
-		data: {
+			previous: RestrictedRoute.INSTRUMENT_SELECTOR,
 			permissions: [
 				UserPermission.VIEW_INSTRUMENT_TYPES
 			]
@@ -113,25 +111,41 @@ export class RestrictedRoute {
 	};
 
 	/***** REPORT ROUTES *****/
-	static readonly REPORTS:Route = {
-		path: 'reports',
-		component: ReportsComponent
+	static readonly REPORT_SELECTOR:Route = {
+		path: 'report',
+		data: {
+			name: "Reports",
+			permissions: [
+				UserPermission.GENERATE_REPORTS
+			]
+		}
 	};
 
 	static readonly INSTANTANEOUS_REPORT:Route = {
-		path: 'instantaneous-report',
-		component: InstantaneousReportComponent
-	}
+		path: 'report/instantaneous',
+		data: {
+			name: "Instantaneous Report",
+			previous: RestrictedRoute.REPORT_SELECTOR,
+			permissions: [
+				UserPermission.GENERATE_REPORTS
+			]
+		}
+	};
 
 	static readonly EXCEEDENCE_REPORT:Route = {
-		path: 'exceedance-report',
-		component: ImeReportComponent
+		path: 'report/exceedance',
+		data: {
+			name: "Exceedance Report",
+			previous: RestrictedRoute.REPORT_SELECTOR,
+			permissions: [
+				UserPermission.GENERATE_REPORTS
+			]
+		}
 	};
 
 	/***** UNVERIFIED DATA ROUTES *****/
 	static readonly UNVERIFIED_DATA_SET_LIST:Route = {
 		path: 'unverified-data-sets',
-		component: UnverifiedDataSetsComponent,
 		data: {
 			name: "Unverified Data",
 			permissions: [
@@ -142,9 +156,9 @@ export class RestrictedRoute {
 
 	static readonly UNVERIFIED_DATA_SET:Route = {
 		path: 'unverified-data-sets/:id',
-		component: UnverifiedDataSetComponent,
 		data: {
-			name: "Unverified Data",
+			name: "Unverified Data Set",
+			previous: RestrictedRoute.UNVERIFIED_DATA_SET_LIST,
 			permissions: [
 				UserPermission.VIEW_UNVERIFIED_DATA_SET
 			]
@@ -152,49 +166,48 @@ export class RestrictedRoute {
 	};
 
 	/***** USER ROUTES *****/
-	static readonly USER_LIST:Route = {
-		path: 'users',
-		component: UserListComponent,
-		canActivate: [AuthGuard],
+	static readonly USER_SELECTOR:Route = {
+		path: 'user',
 		data: {
 			name: "Users",
 			permissions: [
-				UserPermission.VIEW_USERS
+				UserPermission.VIEW_USERS,
+				UserPermission.VIEW_USER_GROUPS
 			]
 		}
-	}
+	};
 
-	static readonly USER:Route = {
-		path: 'users/:username',
-		component: UserBaseComponent,
-		canActivate: [AuthGuard],
+	static readonly USER_LIST:Route = {
+		path: 'user/users',
 		data: {
+			name: "User Accounts",
+			previous: RestrictedRoute.USER_SELECTOR,
 			permissions: [
 				UserPermission.VIEW_USERS
 			]
 		}
 	};
 
-	static readonly NEW_USER:Route = {
-		path: 'new-user',
-		component: UserProfileComponent,
-	};
-
 	static readonly USER_GROUP_LIST:Route = {
-		path: 'user-groups',
-		component: UserGroupListComponent,
-		canActivate: [AuthGuard],
+		path: 'user/user-groups',
 		data: {
 			name: "User Groups",
+			previous: RestrictedRoute.USER_SELECTOR,
 			permissions: [
 				UserPermission.VIEW_USER_GROUPS
 			]
 		}
 	};
 
-	static readonly USER_GROUP:Route = {
-		path: 'user-groups/:id',
-		component: UserGroupComponent,
-	};
-	
+	/***** APPLICATION SETTINGS *****/
+	static readonly APPLICATION_SETTINGS:Route = {
+		path: 'settings',
+		data: {
+			name: "Application Settings",
+			permissions: [
+				UserPermission.ADMIN
+			]
+		}
+	}
+
 }

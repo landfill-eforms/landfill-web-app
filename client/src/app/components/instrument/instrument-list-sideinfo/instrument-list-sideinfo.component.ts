@@ -1,3 +1,5 @@
+import { StringUtils } from './../../../utils/string.utils';
+import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { InstrumentService } from './../../../services/instrument/instrument.service';
 import { Instrument } from './../../../model/server/persistence/entity/instrument/instrument.class';
 import { NavigationService } from './../../../services/app/navigation.service';
@@ -9,6 +11,9 @@ import { Component } from '@angular/core';
 	templateUrl: './instrument-list-sideinfo.component.html'
 })
 export class InstrumentListSideinfoComponent extends AbstractSideinfoComponent<Instrument> {
+
+	DateTimeUtils = DateTimeUtils;
+	StringUtils = StringUtils;
 
 	instrument:Instrument;
 	tests:string[] = []

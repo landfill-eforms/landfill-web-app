@@ -1,0 +1,12 @@
+<div md-dialog-title>{{title}}</div>
+<md-dialog-content>
+	<div *ngFor="let p of prompt" style="min-height:19px;">{{p}}</div>
+</md-dialog-content>
+<md-dialog-actions>
+	<button md-button (click)="cancel()">
+		{{cancelLabel}}
+	</button>
+	<button md-button (click)="confirm()">
+		{{confirmLabel}}
+	</button>
+</md-dialog-actions>

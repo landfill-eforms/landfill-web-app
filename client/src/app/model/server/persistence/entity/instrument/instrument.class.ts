@@ -1,14 +1,14 @@
-import { InstrumentStatus } from '../../enums/instrument/instrument-status.enum';
-import { User } from '../user/user.class';
+import { AbstractEntity } from '../abstract-entity.class';
 import { InstrumentType } from './instrument-type.class';
+import { User } from '../user/user.class';
+import { InstrumentStatus } from '../../enums/instrument/instrument-status.enum';
 import { Site } from '../../enums/location/site.enum';
 
 /**
  * This class was automatically generated from Instrument.java using typescript-gen.
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
-export class Instrument {
-	id:number;
+export class Instrument extends AbstractEntity {
 	serialNumber:string;
 	instrumentType:InstrumentType;
 	instrumentStatus:InstrumentStatus;

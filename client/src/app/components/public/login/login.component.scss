@@ -43,9 +43,12 @@
 	margin: 16px 0;
 }
 
-.app-info {
-    text-align: left;
-    font-size: 0.69rem;
-    font-weight: 300;
-    padding: 8px;
+.info {
+	font-size: 12px;
+	padding: 6px 12px;
+}
+
+.info-link {
+	cursor: pointer;
+	outline: none;
 }

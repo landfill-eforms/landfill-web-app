@@ -1,59 +1,66 @@
-import { StringUtils } from './../../../utils/string.utils';
-import { InstantaneousData } from './../../../model/server/persistence/entity/surfaceemission/instantaneous/instantaneous-data.class';
+import { FileDownloadService } from './../../../services/file/file-download.service';
+import { ReportService } from './../../../services/report/report.service';
+import { ReportType } from './../../../model/server/persistence/enums/report/report-type.enum';
+import { MdSnackBar } from '@angular/material';
+import { IndividualReportQuery } from './../../../model/server/persistence/entity/report/individual-report-query.class';
+import { InstantaneousReport } from './../../../model/server/service/report/model/instantaneous-report.class';
 import { Site } from './../../../model/server/persistence/enums/location/site.enum';
-import { DateTimeUtils } from './../../../utils/date-time.utils';
-import { InstantaneousDataService } from './../../../services/instantaneous/instantaneous-data.service';
-import { OnInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-instantaneous-report',
-    templateUrl: './instantaneous-report.component.html',
-    styleUrls: ['./instantaneous-report.component.scss']
+	selector: 'app-instantaneous-report',
+	templateUrl: './instantaneous-report.component.html'
 })
-export class InstantaneousReportComponent implements OnInit {
+export class InstantaneousReportComponent {
 
-	isDataLoaded:boolean = true;
-	data:InstantaneousData[] = [];
-	sites:any = {
-        list: [],
-        selected: {}
-    }
+	selectedSite:Site = Site.BISHOPS;
+	availableSites:Site[] = Site.values().filter(site => site.active);
+	report:InstantaneousReport;
+
 	dateRange:any = {
-		start: -1,
-		end: -1
+		start: null,
+		end: null
 	}
 
-    constructor (private instantaneousDataService:InstantaneousDataService) {
-        
-    }
+	isDataLoaded:boolean = false;
 
-    ngOnInit() {
+	constructor(
+		private snackBar:MdSnackBar,
+		private reportService:ReportService,
+		private fileDownloadService:FileDownloadService
+		) {
 
-        // Get list of active sites
-        this.sites.list = Site.values().filter(s => s.active);
-    }
-
-    getData() {
-		console.log(this.dateRange)
-		this.data = [];
-		this.isDataLoaded = false;
-        this.instantaneousDataService.getBySiteAndDate(this.sites.selected, this.dateRange.start, this.dateRange.end,
-            (data) => {
-                console.log(data);
-                for (let i = 0; i < data.length; i++) {
-                    this.data.push(this.instantaneousDataService.processDataPoint(data[i]));
-                }
-                this.isDataLoaded = true;
-            }
-        );
-    }
-
-	onStartDateChange(event) {
-		this.dateRange.start = event.target.valueAsNumber || -1;
 	}
 
-	onEndDateChange(event) {
-		this.dateRange.end = event.target.valueAsNumber || -1;
+	previewReport() {
+		console.log(this.selectedSite);
+		if (!this.selectedSite) {
+			this.snackBar.open("Please select a location.", "OK", {duration: 4000});
+			return;
+		}
+		let reportQuery:IndividualReportQuery = new IndividualReportQuery;
+		reportQuery.reportType = ReportType.INSTANTANEOUS;
+		reportQuery.site = this.selectedSite;
+		reportQuery.startDate = this.dateRange.start;
+		reportQuery.endDate = this.dateRange.end;
+		this.reportService.previewReport(reportQuery, 
+			(data) => {
+				console.log(data);
+				this.report = data;
+				this.isDataLoaded = true;
+			},
+			(err) => {
+				this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
+			}
+		);
+	}
+
+	downloadReport() {
+		this.fileDownloadService.getTestPdf();
+	}
+
+	dateChanged(key, event) {
+		this.dateRange[key] = event;
 	}
 
 }

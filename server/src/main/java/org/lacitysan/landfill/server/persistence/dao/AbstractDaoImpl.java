@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.hibernate.criterion.Restrictions;
+import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alvin Quach
- * @param <T>
  */
-public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
+public abstract class AbstractDaoImpl<T extends AbstractEntity> implements AbstractDao<T> {
 
 	@Autowired
 	protected HibernateTemplate hibernateTemplate;
@@ -51,12 +51,22 @@ public abstract class AbstractDaoImpl<T> implements AbstractDao<T> {
 	@Transactional
 	public T update(T entity) {
 		hibernateTemplate.update(entity);
-		return entity;
+		hibernateTemplate.getSessionFactory().getCurrentSession().flush();
+		hibernateTemplate.getSessionFactory().getCurrentSession().clear();
+		return getById(entity.getId());
 	}
 
 	@Override
 	@Transactional
 	public T delete(T entity) {
+		hibernateTemplate.delete(entity);
+		return entity;
+	}
+	
+	@Override
+	@Transactional
+	public T deleteSafe(T entity) {
+		entity = getById(entity.getId());
 		hibernateTemplate.delete(entity);
 		return entity;
 	}

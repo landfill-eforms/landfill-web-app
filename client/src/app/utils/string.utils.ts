@@ -3,6 +3,9 @@ export class StringUtils {
 
 	/** Takes a user object and outputs a name string in the following format: Last, First Middle. */
 	static formatUserName(user:User):string {
+		if (user == null) {
+			return "";
+		}
 		return StringUtils.formatName(user.firstname, user.middlename, user.lastname);
 	}
 

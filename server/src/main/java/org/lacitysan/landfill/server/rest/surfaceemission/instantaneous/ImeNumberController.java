@@ -31,6 +31,16 @@ public class ImeNumberController {
 		return imeNumberDao.getAll();
 	}
 	
+	@RequestMapping(value="/list/verified", method=RequestMethod.GET)
+	public List<ImeNumber> getAllVerified() {
+		return imeNumberDao.getAllVerified();
+	}
+	
+	@RequestMapping(value="/list/unverified", method=RequestMethod.GET)
+	public List<ImeNumber> getAllUnverified() {
+		return imeNumberDao.getAllUnverified();
+	}
+	
 	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
 	public List<ImeNumber> getBySite(@PathVariable String siteName) {
 		return imeNumberService.getBySiteAndDateCode(siteName);
@@ -50,6 +60,11 @@ public class ImeNumberController {
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public ImeNumber update(@RequestBody ImeNumber imeNumber) {
 		return imeNumberService.update(imeNumber);
+	}
+	
+	@RequestMapping(value="/clear", method=RequestMethod.POST)
+	public ImeNumber clear(@RequestBody ImeNumber imeNumber) {
+		return imeNumberService.clear(imeNumber);
 	}
 
 	@RequestMapping(value="/delete", method=RequestMethod.POST)

@@ -16,7 +16,7 @@ apply plugin: 'org.springframework.boot'
 
 jar {
 	baseName = 'server'
-	version = '0.1.2'
+	version = '0.4.5'
 }
 
 // Uncomment the following lines to build project as WAR instead of JAR.
@@ -24,7 +24,7 @@ jar {
 apply plugin: 'war'
 war {
 	baseName = 'server'
-	version = '0.1.2'
+	version = '0.4.5'
 }
 */
 

@@ -1,8 +1,9 @@
+import { IseNumberListSideinfoComponent } from './../../exceedance/ise-number-list-sideinfo/ise-number-list-sideinfo.component';
+import { UserGroupListSideinfoComponent } from './../../user/user-group-list-sideinfo/user-group-list-sideinfo.component';
 import { ImeNumberListSideinfoComponent } from './../../exceedance/ime-number-list-sideinfo/ime-number-list-sideinfo.component';
 import { UnverifiedDataSetListSideinfoComponent } from './../../unverified-data/unverified-data-set-list-sideinfo/unverified-data-set-list-sideinfo.component';
 import { InstrumentListSideinfoComponent } from './../../instrument/instrument-list-sideinfo/instrument-list-sideinfo.component';
 import { InstrumentTypeListSideinfoComponent } from './../../instrument/instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
-import { UserGroupListSideinfoComponent } from './../../user-group/user-group-list-sideinfo/user-group-list-sideinfo.component';
 import { UserListSideinfoComponent } from './../../user/user-list-sideinfo/user-list-sideinfo.component';
 import { AbstractSideinfoComponent } from './../../../model/client/abstract-components/abstract-sideinfo.component';
 import { MdSidenav } from '@angular/material';
@@ -17,6 +18,7 @@ import { Component, OnInit, Input, ElementRef, ViewChild, ViewContainerRef, Comp
 		UserListSideinfoComponent,
 		UserGroupListSideinfoComponent,
 		ImeNumberListSideinfoComponent,
+		IseNumberListSideinfoComponent,
 		InstrumentListSideinfoComponent,
 		InstrumentTypeListSideinfoComponent,
 		UnverifiedDataSetListSideinfoComponent
@@ -71,10 +73,15 @@ export class NavigationSideinfoComponent implements OnInit {
 
 	disable() {
 		this.disabled = true;
+		this.title = "";
+		this.subtitle = "";
 		this.close();
 		this.destroyCurrent();
 	}
 
+	enable() {
+		this.disabled = false;
+	}
 
 	private destroyCurrent() {
 		if (this.currentDirective) {
@@ -87,12 +94,10 @@ export class NavigationSideinfoComponent implements OnInit {
 		this.isOpened = false;
 	}
 
-	/** 
-	 * Opens the info sidenav. 
-	 * Will automatically enable the info sidenav if it's disabled. 
-	 */
 	open() {
-		this.disabled = false;
+		if (this.disabled) {
+			return;
+		}
 		this.sidenav.open();
 		this.isOpened = true;
 	}

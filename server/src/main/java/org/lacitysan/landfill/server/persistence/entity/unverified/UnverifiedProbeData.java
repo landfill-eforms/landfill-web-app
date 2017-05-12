@@ -4,13 +4,11 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -32,13 +30,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name="dbo.UnverifiedProbeData")
+@AttributeOverride(name="id", column=@Column(name="UnverifiedProbePK"))
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedProbeData {
-
-	@Id
-	@Column(name="UnverifiedProbePK")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+public class UnverifiedProbeData extends AbstractUnverifiedData {
 	
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
@@ -62,7 +56,7 @@ public class UnverifiedProbeData {
 	@NotNull
 	private Boolean accessible;
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToMany
 	@JoinTable(name="dbo.UnverifiedProbeDataXRefInspectors", joinColumns=@JoinColumn(name="UnverifiedProbeFK"), inverseJoinColumns=@JoinColumn(name="InspectorFK"))
 	private Set<User> inspectors = new HashSet<>();
@@ -72,14 +66,6 @@ public class UnverifiedProbeData {
 	@JoinColumn(name="UnverifiedDataSetFK", nullable=false)
 	@Cascade(CascadeType.ALL)
 	private UnverifiedDataSet unverifiedDataSet;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public MonitoringPoint getMonitoringPoint() {
 		return monitoringPoint;

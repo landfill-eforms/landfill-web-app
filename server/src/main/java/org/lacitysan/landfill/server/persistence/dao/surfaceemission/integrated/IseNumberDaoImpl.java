@@ -32,7 +32,7 @@ public class IseNumberDaoImpl extends SurfaceEmissionExceedanceNumberDaoImpl<Ise
 		}
 		iseNumber.getIseData().forEach(iseData -> {
 			iseData.getIseRepairData().forEach(imeRepairData -> {
-				Hibernate.initialize(imeRepairData.getUser());
+				Hibernate.initialize(imeRepairData);
 			});
 		});
 		return iseNumber;

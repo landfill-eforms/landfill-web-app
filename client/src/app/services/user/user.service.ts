@@ -53,22 +53,8 @@ export class UserService {
 			);
 	}
 
-	updateEmployeeId(user:User, success:(data) => void, error?:(err) => void) {
-		this.authHttp.post(this.baseUrl + '/update/employee-id', user).map((res:Response) => res.json()).subscribe(
-				data => success(data),
-				err => error ? error(err) : console.log(err)
-			);
-	}
-
 	updateStatus(user:User, success:(data) => void, error?:(err) => void) {
 		this.authHttp.post(this.baseUrl + '/update/status', user).map((res:Response) => res.json()).subscribe(
-				data => success(data),
-				err => error ? error(err) : console.log(err)
-			);
-	}
-
-	updateUserGroups(user:User, success:(data) => void, error?:(err) => void) {
-		this.authHttp.post(this.baseUrl + '/update/user-groups', user).map((res:Response) => res.json()).subscribe(
 				data => success(data),
 				err => error ? error(err) : console.log(err)
 			);

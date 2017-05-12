@@ -1,3 +1,6 @@
+import { AuthService } from './../../../services/auth/auth.service';
+import { RestrictedRoute } from './../../../routes/restricted.route';
+import { AppConstant } from './../../../app.constant';
 import { AbstractDataTableComponent } from './../../../model/client/abstract-components/abstract-data-table.component';
 import { UnverifiedIntegratedData } from './../../../model/server/persistence/entity/unverified/unverified-integrated-data.class';
 import { UnverifiedDataSetListSideinfoComponent } from './../unverified-data-set-list-sideinfo/unverified-data-set-list-sideinfo.component';
@@ -21,10 +24,9 @@ import { OnInit, Component, OnDestroy, ViewChild } from '@angular/core';
 
 @Component({
 	selector: 'app-unverified-data-set-list',
-	templateUrl: './unverified-data-set-list.component.html',
-	styleUrls: ['./unverified-data-set-list.component.scss']
+	templateUrl: './unverified-data-set-list.component.html'
 })
-export class UnverifiedDataSetsComponent extends AbstractDataTableComponent<UnverifiedDataSet> implements OnInit, OnDestroy {
+export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<UnverifiedDataSet> implements OnInit, OnDestroy {
 
 	// Utilities
 	StringUtils = StringUtils;
@@ -40,37 +42,48 @@ export class UnverifiedDataSetsComponent extends AbstractDataTableComponent<Unve
 	sortProperties:any = {
 		site: [
 			"site.constantName",
-			"uploadedDate",
+			"createdDate",
 			"filename"
 		],
-		uploadedBy: [
-			"uploadedBy",
-			"uploadedDate",
+		inspector: [
+			"inspector.lastname",
+			"inspector.firstname",
+			"inspector.middlename",
+			"site.constantName",
+			"createdDate",
 			"filename"
 		],
-		uploadedDate: [
-			"uploadedDate",
+		createdBy: [
+			"createdBy.lastname",
+			"createdBy.firstname",
+			"createdBy.middlename",
+			"createdDate",
 			"filename"
 		],
-		modifiedBy: [
-			"modifiedBy",
-			"modifiedDate",
-			"filename"
-		],
-		modifiedDate: [
-			"modifiedDate",
+		createdDate: [
+			"createdDate",
 			"filename"
 		]
 	}
 
-	filters:{text:string} = {
-		text: ""
+	filters:{text:string, site:number} = {
+		text: "",
+		site: -1
 	};
+
+	siteFilterChoices:any[] = [
+		{
+			ordinal: -1,
+			name: "Any"
+		},
+		...Site.values().filter(site => site.active)
+	];
 
 	showSideInfo:boolean = false;
 	selectedUnverifiedDataSet:UnverifiedDataSet;
 
 	constructor(
+		private authService:AuthService,
 		private router:Router,
 		private activatedRoute:ActivatedRoute,
 		private unverifiedDataService:UnverifiedDataService,
@@ -78,11 +91,41 @@ export class UnverifiedDataSetsComponent extends AbstractDataTableComponent<Unve
 		private snackBar:MdSnackBar,
 		private navigationService:NavigationService) {
 			super();
-			navigationService.getNavbarComponent().expanded = false;
+			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(UnverifiedDataSetListSideinfoComponent, {unverifiedDataSet: null});
+			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {
+		if (this.authService.canAccess(RestrictedRoute.MOBILE_UPLOAD.data["permissions"])) {
+			this.navigationService.getNavbarComponent().setFabInfo({
+				icon: "file_upload",
+				tooltip: "Upload"
+			});
+			this.fabActionSubscriber = this.navigationService
+				.getNavbarComponent()
+				.getFabActionSource()
+				.asObservable()
+				.subscribe((event) => {
+					console.log(event)
+					if (event instanceof MouseEvent) {
+						this.router.navigate([AppConstant.RESTRICTED_ROUTE_BASE + '/' + RestrictedRoute.MOBILE_UPLOAD.path]);
+					}
+				});
+		}
+		this.loadUnverifiedDataSets();
+	}
+
+	ngOnDestroy() {
+		this.navigationService.getSideinfoComponent().disable();
+		if (this.fabActionSubscriber) {
+			this.navigationService.getNavbarComponent().resetFabInfo();
+			this.navigationService.getNavbarComponent().resetFabActionSource();
+			this.fabActionSubscriber.unsubscribe();
+		}
+	}
+
+	loadUnverifiedDataSets() {
 		this.unverifiedDataService.getAll((data) => {
 			for (let i = 0; i < data.length; i++) {
 				let dataSet = data[i];
@@ -99,12 +142,10 @@ export class UnverifiedDataSetsComponent extends AbstractDataTableComponent<Unve
 			}
 			console.log(this.data);
 			this.applyFilters();
+			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
 			this.isDataLoaded = true;
 		});
-	}
-
-	ngOnDestroy() {
-		this.navigationService.getSideinfoComponent().disable();
 	}
 
 	applyFilters() {
@@ -117,8 +158,18 @@ export class UnverifiedDataSetsComponent extends AbstractDataTableComponent<Unve
 			return;
 		}
 
-		// TODO Implement this.
-		this.filteredData = this.data.filter(o => true);
+		this.filteredData = this.data.filter(o => {
+			let textMatch:boolean = true;
+			if (this.filters.text) {
+				let search:RegExp = new RegExp(this.filters.text, 'i');
+				textMatch = search.test(o.filename);
+			}
+			let siteMatch:boolean = true;
+			if (this.filters.site >= 0) {
+				siteMatch = o.site && (o.site.ordinal == this.filters.site);
+			}
+			return textMatch && siteMatch;
+		});
 
 		this.paginfo.totalRows = this.filteredData.length;
 		if (this.pagination) {
@@ -155,10 +206,16 @@ export class UnverifiedDataSetsComponent extends AbstractDataTableComponent<Unve
 
 	deselectUnverifiedDataSet() {
 		this.selectedUnverifiedDataSet = null;
+		this.navigationService.getSideinfoComponent().subtitle = ""; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(null);
 	}
 
 	navigateToUnverifiedDataSet(unverifiedDataSet:UnverifiedDataSet) {
 		this.router.navigate([unverifiedDataSet.id], {relativeTo: this.activatedRoute});
+	}
+	
+	isNavDrawerOpen():boolean {
+		return this.navigationService.isNavDrawerOpened();
 	}
 
 }

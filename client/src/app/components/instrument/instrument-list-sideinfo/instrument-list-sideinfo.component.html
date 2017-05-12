@@ -1,131 +1,142 @@
 <div *ngIf="!instrument">
-	<div style="padding:16px;">
-		Select an equipment to view its details.
+	<div class="sideinfo-not-selected">
+		<md-icon>pageview</md-icon>
+		<div>Select an equipment to view its details.</div>
 	</div>
 </div>
 <div *ngIf="instrument" style="height:calc(100% - 128px);">
-	<md-tab-group style="height:100%;">
-		<md-tab label="Details">
-			<div  class="sideinfo-sections-container">
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Date Created
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							Coming Soon
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Last Modified
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							Coming Soon
-						</div>
-					</div>
+	<div class="sideinfo-sections-container">
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				General
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Date Created
 				</div>
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						Equipment
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Manufacturer
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{instrument.instrumentType.manufacturer}}
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Type
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{instrument.instrumentType.type}}
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Serial Number
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{instrument.serialNumber}}
-						</div>
-					</div>
-				</div>
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						Description
-					</div>
-					<div class="sideinfo-section-data-paragraph" style="width:256px;">
-						{{instrument.description}}
-					</div>
-				</div>
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						Service
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Next Service
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{instrument.serviceDueDate}}
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Last Service
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{instrument.lastServiceDate}}
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Purchase Date
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{instrument.purchaseDate}}
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Purchase Date
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{instrument.purchaseDate}}
-						</div>
-					</div>
-				</div>
-				<div class="sideinfo-section">
-					<div class="sideinfo-section-header">
-						Tracking
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Assigned Site
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{instrument.site}}
-						</div>
-					</div>
-					<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
-						<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-							Inventory No.
-						</div>
-						<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-							{{instrument.inventoryNumber}}
-						</div>
-					</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDetailedDateTime(instrument?.createdDate)}}
 				</div>
 			</div>
-		</md-tab>
-		<md-tab label="Activity">
-			<div style="padding:16px;">
-				Coming Soon
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Created By
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(instrument?.createdBy)}}
+				</div>
 			</div>
-		</md-tab>
-	</md-tab-group>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Last Modified
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDetailedDateTime(instrument?.modifiedDate)}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Modified By
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(instrument?.modifiedBy)}}
+				</div>
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Equipment
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Manufacturer
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{instrument.instrumentType.manufacturer}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Type
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{instrument.instrumentType.type}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Serial Number
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{instrument.serialNumber}}
+				</div>
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Description
+			</div>
+			<div class="sideinfo-section-data-paragraph" style="width:256px;">
+				{{instrument.description}}
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Service
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Next Service
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(instrument.serviceDueDate)}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Last Service
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(instrument.lastServiceDate)}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Purchase Date
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(instrument.purchaseDate)}}
+				</div>
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Tracking
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Assigned Site
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{instrument.site?.name}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Inventory No.
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{instrument.inventoryNumber}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Status
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{instrument.instrumentStatus.name}}
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

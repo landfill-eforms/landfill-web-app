@@ -5,14 +5,12 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
@@ -23,11 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Alvin Quach
  */
 @MappedSuperclass
-public abstract class SurfaceEmissionData {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+public abstract class SurfaceEmissionData extends AbstractEntity {
 		
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
@@ -38,7 +32,7 @@ public abstract class SurfaceEmissionData {
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
 	
-	@JsonIgnoreProperties("userGroups")
+	@JsonIgnoreProperties({"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"})
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;
@@ -54,14 +48,6 @@ public abstract class SurfaceEmissionData {
 	
 	@NotNull
 	private Timestamp endTime;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public MonitoringPoint getMonitoringPoint() {
 		return monitoringPoint;

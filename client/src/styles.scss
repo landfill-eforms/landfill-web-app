@@ -18,6 +18,22 @@ a {
 	cursor: pointer;
 }
 
+.primary-background {
+	background: mat-color($app-primary);
+}
+
+.primary-color {
+	color: mat-color($app-primary);
+}
+
+.accent-color {
+	color: mat-color($app-accent);
+}
+
+.grey-background {
+	background: #EEE;
+}
+
 .mat-sidenav-content {
   transform: initial !important;
   overflow: hidden;
@@ -54,6 +70,19 @@ a {
 	}
 	.sideinfo-contents {
 		transition: none !important;
+	}
+}
+
+.sideinfo-not-selected {
+	user-select: none;
+	cursor: default;
+	color: rgba(0,0,0,0.54);
+	padding: 16px;
+	text-align: center;
+	.mat-icon {
+		color: rgba(0,0,0,0.24);
+		width: 100%;
+		font-size: 120px;
 	}
 }
 
@@ -126,7 +155,9 @@ a {
 }
 
 .navbar {
-	box-shadow: 0 0 6.9px rgba(0,0,0,0.54);
+	.navbar-shadow {
+		height: $navbar-height;
+	}
 }
 
 md-toolbar-row {
@@ -138,6 +169,9 @@ md-toolbar-row {
 	md-toolbar-row {
 		height: $navbar-expanded-height !important;
 	}
+	.navbar-shadow {
+		height: $navbar-expanded-height !important;
+	}
 }
 
 .mat-toolbar {
@@ -145,11 +179,29 @@ md-toolbar-row {
 }
 
 .main-content {
-	height: calc(100% - #{$navbar-expanded-height});
+	height: calc(100% - #{$navbar-height});
 	overflow-x: hidden;
 	overflow-y: auto;
 	overflow-y: overlay;
 }
+
+.main-content-expanded {
+	height: calc(100% - #{$navbar-expanded-height});
+}
+
+.mat-dialog-content {
+	overflow-y: auto;
+	height:calc(100% - 88px); // Override this in md-dialog-content if the dialog's title, etc. is taller than expected.
+}
+
+// Override action buttons for dialogs to conform to Material design.
+.mat-dialog-actions {
+	margin: 0 -24px;
+	padding: 24px 8px 8px 8px !important;
+	display: block !important;
+	text-align: right;
+	color: mat-color($app-primary, 500);
+}	
 
 .pagination-numeric-selector {
 	.mat-select-trigger {
@@ -171,6 +223,12 @@ md-toolbar-row {
 		.mat-select-underline {
 			display: none;
 		}
+	}
+}
+
+.md-tab-header-white {
+	md-tab-header {
+		background: #FFF;
 	}
 }
 
@@ -198,6 +256,12 @@ md-toolbar-row {
 	}
 }
 
+md-select {
+	.mat-floating-placeholder {
+		top: -18px !important;
+	}
+}
+
 .mat-select-row {
 	padding-top: 13px;
 	padding-bottom: 13px;
@@ -206,18 +270,10 @@ md-toolbar-row {
 .mat-select-inline {
 	padding: 0 8px;
 	position: relative;
-	bottom: 3px; // Tested on Chrome. Might be different on other browsers.
-	.mat-select-placeholder {
-		top: -18px !important;
-	}
+	bottom: 1px; // Tested on Chrome. Might be different on other browsers.
 }
 
 .unselectable {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   pointer-events: none;
 }
@@ -233,42 +289,54 @@ md-toolbar-row {
 }
 
 .page-title {
-	padding: 24px 24px 8px 24px;
+	padding: 24px 24px 0 24px;
 	font-size: 24px;
 	font-weight: 400;
+	color: rgba(0,0,0,0.87);
 }
 
-.section-single {
-	margin: 24px;
-	padding: 24px !important;
-}
-
-.section-multiple {
-	margin: 12px;
-	padding: 24px !important;
-}
-
-.section-multiple-container {
-	padding: 12px;
-	margin: 16px;
-	background: #EEE;
-}
-
-.section-title {
+.page-subtitle {
+	padding: 16px 24px 0 24px;
+	font-size: 14px;
 	font-weight: 400;
-	font-weight: normal;
+	color: rgba(0,0,0,0.54);
+}
+
+
+.page-content {
+	padding: 16px 24px 24px 24px;
+}
+
+.card-title {
 	font-size: 20px;
-	padding: 16px;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.87);
+	padding-bottom: 16px;
 }
 
-.section-subtitle {
-	font-weight: lighter;
-	font-size: 1.0rem;
+.dialog-form-container {
+	padding: 0 8px;
+	textarea {
+		resize: none;
+	}
+}
+
+.data-table-card {
+	padding: 0 !important;
+}
+
+.data-table-card-footer {
+	padding: 0 24px;
+	height: 56px;
+	border-top: 1px solid rgba(0,0,0,0.12);
+}
+
+.data-table-card-title-row {
+	font-size: 20px;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.87);
+	height: 16px;
 	padding: 24px;
-}
-
-.section-form-container {
-	padding: 24px 16px 16px 16px;
 }
 
 .data-table-scrollable {
@@ -289,6 +357,9 @@ md-toolbar-row {
 	height: 64px;
 	.data-table-filter-container {
 		padding-top: 16px;
+		.mat-select-inline {
+			bottom: 3px;
+		}
 	}
 }
 
@@ -343,6 +414,19 @@ md-toolbar-row {
 	transform: rotate(-90deg);
 }
 
+.data-table-checkbox-column {
+	padding: 14px 24px 0 24px;
+	margin-top: -16px;
+	pointer-events: all !important;
+	.mat-checkbox-inner-container {
+		cursor: pointer;
+	}
+}
+
+.data-table-checkbox-header {
+	padding-top: 18px !important;
+}
+
 .data-table-first-column {
 	margin-left: 24px;
 	margin-right: 28px;
@@ -358,6 +442,13 @@ md-toolbar-row {
 	margin-right: 24px;
 }
 
+.data-table-action-column {
+	margin-left: 28px;
+	// Make the width of the element 64px, and the width of the corresponding header 40px.
+	padding-left: 12px;
+	margin-top: -12px;
+}
+
 .data-table-column-condensed {
 	// NOTE: Does not follow material design guidelines.
 	margin-left: 8px;
@@ -371,6 +462,8 @@ md-toolbar-row {
 }
 
 .data-table-row-content {
+	cursor: default;
+	user-select: none;
 	font-size: 13px;
 	color: rgba(0,0,0,0.87);
 	font-weight: 400;
@@ -403,71 +496,146 @@ md-toolbar-row {
 	cursor: pointer;
 }
 
-.loading-indicator-container {
-	padding-top: 16px;
-}
-
-.loading-indicator-spinner {
-	padding-left: calc(50% - 50px);
-}
-
-.loading-indicator-message {
-	font-weight: lighter;
-	font-size: 1.337rem;
+.data-table-no-data-label {
+	font-size: 16px;
+	padding: 24px;
 	text-align: center;
+	font-style: italic;
+	cursor: default;
+	user-select: none;
+}
+
+.toggle-icon-button {
+	.mat-button-wrapper {
+		color: rgba(0,0,0,0.87);
+	}
+}
+
+.toggle-icon-button-active {
+	.mat-button-wrapper {
+		color: mat-color($app-accent, 300);
+	}
 }
 
 .fab-top-container {
-	position: relative;
-	top: -28px;
-	left: 48px;
-	height: 0;
+	z-index: 9001;
+	right: 32px;
+	top: 0; // Specify this on the element itself
+	position: fixed;
+	button {
+		margin-bottom: 24px;
+	}
 }
 
 .fab-bottom-container {
-	position: fixed;
-	bottom: 32px;
+	z-index: 9001;
 	right: 32px;
+	bottom: 24px;
+	position: fixed;
+	button {
+		margin-top: 24px;
+	}
 }
 
-.fab-action-button {
-	margin-left: 16px !important;
-}
-
-.selector-cards-container {
-	margin: 8px 16px;
-}
-
-.selector-card {
-	margin: 8px;
-	box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-}
-
-.selector-card-img {
-	width: 100%;
-}
-
-.selector-card-title-container {
-	padding: 24px 16px 16px 16px;
-}
-
-.selector-card-title {
-	font-size: 24px;
-	font-weight: 400;
+.fab-button-white {
+	background: #FFF;
 	color: rgba(0,0,0,0.87);
 }
 
-.selector-card-subtitle {
-	font-size: 14px;
-	font-weight: 400;
-	color: rgba(0,0,0,0.54);
-	padding-top: 16px;
+.date-picker-input-menu {
+	max-width: none !important;
 }
 
-.selector-card-action {
-	padding: 8px 0;
-	button {
-		margin-left: 8px;
-		color: mat-color($app-primary, 500);
+.date-picker-date-button-selected {
+	background: mat-color($app-primary);
+	color: rgba(255,255,255,0.87) !important;
+}
+
+.date-picker-date-button-today {
+	color: mat-color($app-primary);
+}
+
+.date-picker-date-button:hover {
+	background: rgba(0,0,0,0.12);
+}
+
+.date-picker-date-button:disabled {
+	color: rgba(0,0,0,0.54);
+	background: rgba(0,0,0,0) !important;
+}
+
+.date-picker-header {
+	background: mat-color($app-primary, 600);
+}
+
+$group-add-remove-button-width: 50px;
+
+.list-picker-box {
+	width: 100%;
+	overflow-y: auto;
+	margin: 8px 0;
+	border-top: 1px solid rgba(0,0,0,0.12);
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+.list-item-container {
+	width: 100%;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+	background: #FFF;
+	transition: background 0.2s linear;
+}
+
+.list-item-container:hover {
+	background: #F7F7F7;
+}
+
+.list-item-add-button {
+	margin-left: 16px;
+	md-icon {
+		font-size: 2em;
+		cursor: pointer;
 	}
+}
+
+.list-item-info {
+	height: 64px; // Does not conform to Material design
+	padding: 8px 16px 8px 0;
+}
+
+.list-item-title {
+	color: rgba(0,0,0,0.87);
+	font-size: 13px;
+}
+
+.list-item-description {
+	color: rgba(0,0,0,0.54);
+	font-size: 13px;
+	overflow-y: auto;
+	line-height: 16px;
+	height: 32px;
+	padding-top: 2px;
+}
+
+.section-subheader {
+	height: 14px;
+	padding: 17px 0;
+	font-size: 14px;
+	font-weight: 500;
+	color: rgba(0,0,0,0.54);
+}
+
+.info-card-data-row {
+	padding: 8px 0;
+}
+
+.info-card-data-key {
+	font-size: 13px;
+	font-weight: 500;
+	color: rgba(0,0,0,0.87);
+}
+
+.info-card-data-value {
+	font-size: 13px;
+	font-weight: 400;
+	color: rgba(0,0,0,0.87);
 }

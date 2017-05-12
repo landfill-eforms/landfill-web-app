@@ -1,8 +1,10 @@
+import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
+import { AuthService } from './../../../services/auth/auth.service';
+import { InstrumentTypeDialogComponent } from './../dialog/instrument-type-dialog/instrument-type-dialog.component';
 import { PaginationComponent } from './../../directives/pagination/pagination.component';
 import { InputUtils } from './../../../utils/input.utils';
 import { MdDialogConfig } from '@angular/material';
 import { MdDialogRef } from '@angular/material';
-import { NewInstrumentTypeDialogComponent } from './../dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
 import { InstrumentTypeListSideinfoComponent } from './../instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { MdSnackBar } from '@angular/material';
@@ -80,6 +82,7 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 	selectedInstrumentType:InstrumentType;
 
 	constructor(
+		private authService:AuthService,
 		private router:Router,
 		private activatedRoute:ActivatedRoute,
 		private instrumentTypeService:InstrumentTypeService,
@@ -89,31 +92,37 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 			super();
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(InstrumentTypeListSideinfoComponent, {instrumentType: null});
+			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {
-		this.navigationService.getNavbarComponent().setFabInfo({
-			icon: "add",
-			tooltip: "New Type"
-		});
-		this.fabActionSubscriber = this.navigationService
-			.getNavbarComponent()
-			.getFabActionSource()
-			.asObservable()
-			.subscribe((event) => {
-				if (event instanceof MouseEvent) {
-					this.openNewInstrumentTypeDialog();
-				}
+		this.canEdit = this.authService.canAccess([UserPermission.EDIT_INSTRUMENT_TYPES]);
+		if(this.authService.canAccess([UserPermission.CREATE_INSTRUMENT_TYPES])) {
+			this.navigationService.getNavbarComponent().setFabInfo({
+				icon: "add",
+				tooltip: "New Type"
 			});
+			this.fabActionSubscriber = this.navigationService
+				.getNavbarComponent()
+				.getFabActionSource()
+				.asObservable()
+				.subscribe((event) => {
+					if (event instanceof MouseEvent) {
+						this.openInstrumentTypeDialog(null);
+					}
+				});
+		}
 		this.loadingMessage = "Loading...";
 		this.loadInstrumentTypes();
 	}
 
 	ngOnDestroy() {
 		this.navigationService.getSideinfoComponent().disable();
-		this.navigationService.getNavbarComponent().resetFabInfo();
-		this.navigationService.getNavbarComponent().resetFabActionSource();
-		this.fabActionSubscriber.unsubscribe();
+		if (this.fabActionSubscriber) {
+			this.navigationService.getNavbarComponent().resetFabInfo();
+			this.navigationService.getNavbarComponent().resetFabActionSource();
+			this.fabActionSubscriber.unsubscribe();
+		}
 	}
 
 	private loadInstrumentTypes() {
@@ -121,20 +130,34 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 			console.log(data);
 			this.data = data;
 			this.applyFilters();
+			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
 			this.isDataLoaded = true;
 		});
 	}
 
-	openNewInstrumentTypeDialog() {
+	openInstrumentTypeDialog(instrumentType:InstrumentType) {
+		let isNew:boolean = !instrumentType;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
-		dialogConfig.width = '640px';
-			//dialogConfig.height = '480px';
-		let dialogRef:MdDialogRef<NewInstrumentTypeDialogComponent> = this.dialog.open(NewInstrumentTypeDialogComponent, dialogConfig);
+		dialogConfig.width = '800px';
+		let dialogRef:MdDialogRef<InstrumentTypeDialogComponent> = this.dialog.open(InstrumentTypeDialogComponent, dialogConfig);
+		if (isNew) {
+			dialogRef.componentInstance.isNew = true;
+		}
+		else {
+			dialogRef.componentInstance.instrumentType = instrumentType;
+		}
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("New equipment type added.", "OK", {duration: 2000});
+				if (isNew) {
+					this.snackBar.open("New equipment type added.", "OK", {duration: 3000});
+				}
+				else {
+					this.snackBar.open("Equipment type updated.", "OK", {duration: 3000});
+				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading..."
+				this.deselectInstrumentType();
 				this.loadInstrumentTypes();
 			}
 		});
@@ -150,8 +173,13 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 			return;
 		}
 
-		// TODO Implement this.
-		this.filteredData = this.data.filter(o => true);
+		this.filteredData = this.data.filter(o => {
+			if (this.filters.text) {
+				let search:RegExp = new RegExp(this.filters.text, 'i');
+				return search.test(o.type) || search.test(o.manufacturer) || search.test(o.description);
+			}
+			return true;
+		});
 
 		this.paginfo.totalRows = this.filteredData.length;
 		if (this.pagination) {
@@ -182,16 +210,18 @@ export class InstrumentTypeListComponent extends AbstractDataTableComponent<Inst
 			this.showSideInfo = true;
 		}
 		this.selectedInstrumentType = instrumentType;
-		this.navigationService.getSideinfoComponent().subtitle = this.selectedInstrumentType.type; 
+		this.navigationService.getSideinfoComponent().subtitle = this.selectedInstrumentType.manufacturer + ' ' + this.selectedInstrumentType.type; 
 		this.navigationService.getSideinfoComponent().getDirective().setData(this.selectedInstrumentType);
 	}
 
 	deselectInstrumentType() {
 		this.selectedInstrumentType = null;
+		this.navigationService.getSideinfoComponent().subtitle = ""; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(null);
 	}
-
-	navigateToInstrumentType(instrumentType:InstrumentType) {
-		this.router.navigate([instrumentType.id], {relativeTo: this.activatedRoute});
+	
+	isNavDrawerOpen():boolean {
+		return this.navigationService.isNavDrawerOpened();
 	}
 
 }

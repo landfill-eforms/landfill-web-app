@@ -1,29 +1,100 @@
 <div *ngIf="!imeNumber">
-	<div style="padding:16px;">
-		Select an equipment type to view its details.
+	<div class="sideinfo-not-selected">
+		<md-icon>pageview</md-icon>
+		<div>Select an IME Number to view its details.</div>
 	</div>
 </div>
 <div *ngIf="imeNumber" style="height:calc(100% - 128px);">
 	<div  class="sideinfo-sections-container">
 		<div class="sideinfo-section">
 			<div class="sideinfo-section-header">
-				General
+				Site
+			</div>
+			<div class="sideinfo-section-data-paragraph" style="width:256px;">
+				{{imeNumber.site?.name}}
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Grid(s)
+			</div>
+			<div *ngFor="let grid of imeNumber.monitoringPoints" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+				{{grid.name}}
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Initial Discovery
 			</div>
 			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-					Date Created
+					Date
 				</div>
-				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-					Coming Soon
+				<div *ngIf="imeNumber.imeData && imeNumber.imeData[0]" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(imeNumber.imeData[0].dateTime)}}
 				</div>
 			</div>
 			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
-					Last Modified
+					Reading
 				</div>
-				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
-					Coming Soon
+				<div *ngIf="imeNumber.imeData && imeNumber.imeData[0]" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{imeNumber.imeData[0].methaneLevel / 100}}
 				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Inspector
+				</div>
+				<div *ngIf="imeNumber.imeData && imeNumber.imeData[0]" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(imeNumber.imeData[0].inspector)}}
+				</div>
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Latest Recheck
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Date
+				</div>
+				<div *ngIf="imeNumber.imeData?.length > 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(imeNumber.imeData[imeNumber.imeData.length - 1].dateTime)}}
+				</div>
+				<div *ngIf="imeNumber.imeData?.length <= 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					<i>N/A</i>
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Reading
+				</div>
+				<div *ngIf="imeNumber.imeData?.length > 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{imeNumber.imeData[imeNumber.imeData.length - 1].methaneLevel / 100}}
+				</div>
+				<div *ngIf="imeNumber.imeData?.length <= 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					<i>N/A</i>
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Inspector
+				</div>
+				<div *ngIf="imeNumber.imeData?.length > 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(imeNumber.imeData[imeNumber.imeData.length - 1].inspector)}}
+				</div>
+				<div *ngIf="imeNumber.imeData?.length <= 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					<i>N/A</i>
+				</div>
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Current Status
+			</div>
+			<div class="sideinfo-section-data-paragraph" style="width:256px;">
+				{{imeNumber.status?.name}}
 			</div>
 		</div>
 	</div>

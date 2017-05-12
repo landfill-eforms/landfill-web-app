@@ -52,6 +52,9 @@ public class MonitoringPointService {
 	 * @return A <code>Site</code> that matches the given enum name, or <code>null</code> if no suitable value was found.
 	 */
 	public Site getSiteByEnumName(String siteEnumName) {
+		if (siteEnumName == null || siteEnumName.isEmpty()) {
+			return null;
+		}
 		for (Site site : Site.values()) {
 			if (site.name().equalsIgnoreCase(siteEnumName)) {
 				return site;
@@ -67,6 +70,9 @@ public class MonitoringPointService {
 	 * @return A grid-type <code>MonitoringPoint</code> that matches the input parameters, or <code>null</code> if no suitable grid was found. 
 	 */
 	public MonitoringPoint getGridBySiteNameAndId(Site site, String gridId) {
+		if (site == null || gridId == null || gridId.isEmpty()) {
+			return null;
+		}
 		for (MonitoringPoint point : MonitoringPoint.values()) {
 			if (point.getSite() == site && point.getType() == MonitoringPointType.GRID && point.getName().equalsIgnoreCase(gridId)) {
 				return point;

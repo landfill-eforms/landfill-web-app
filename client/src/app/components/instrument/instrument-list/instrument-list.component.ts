@@ -1,12 +1,17 @@
+import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
+import { AuthService } from './../../../services/auth/auth.service';
+import { DateTimeUtils } from './../../../utils/date-time.utils';
+import { Site } from './../../../model/server/persistence/enums/location/site.enum';
+import { InstrumentStatus } from './../../../model/server/persistence/enums/instrument/instrument-status.enum';
+import { EnumUtils } from './../../../utils/enum.utils';
+import { InstrumentDialogComponent } from './../dialog/instrument-dialog/instrument-dialog.component';
 import { PaginationComponent } from './../../directives/pagination/pagination.component';
-import { NewInstrumentDialogComponent } from './../dialog/new-instrument-dialog/new-instrument-dialog.component';
 import { InstrumentListSideinfoComponent } from './../instrument-list-sideinfo/instrument-list-sideinfo.component';
 import { InstrumentService } from './../../../services/instrument/instrument.service';
 import { InstrumentType } from './../../../model/server/persistence/entity/instrument/instrument-type.class';
 import { InputUtils } from './../../../utils/input.utils';
 import { MdDialogConfig } from '@angular/material';
 import { MdDialogRef } from '@angular/material';
-import { NewInstrumentTypeDialogComponent } from './../dialog/new-instrument-type-dialog/new-instrument-type-dialog.component';
 import { InstrumentTypeListSideinfoComponent } from './../instrument-type-list-sideinfo/instrument-type-list-sideinfo.component';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { MdSnackBar } from '@angular/material';
@@ -24,11 +29,13 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 })
 export class InstrumentListComponent extends AbstractDataTableComponent<Instrument> implements OnInit, OnDestroy {
 
+	DateTimeUtils = DateTimeUtils;
+
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;
 
-	isInstrumentTypesLoaded:boolean
+	isInstrumentTypesLoaded:boolean;
 	loadingMessage:string;
 	instrumentTypes:InstrumentType[];
 
@@ -71,14 +78,33 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 		],
 	}
 
-	filters:{text:string} = {
-		text: ""
+	filters:{text:string, status:number, site:number} = {
+		text: "",
+		status: -1,
+		site: -1
 	};
+
+	statusFilterChoices:any[] = [
+		{
+			ordinal: -1,
+			name: "Any"
+		},
+		...InstrumentStatus.values()
+	];
+
+	siteFilterChoices:any[] = [
+		{
+			ordinal: -1,
+			name: "Any"
+		},
+		...Site.values()
+	];
 
 	showSideInfo:boolean = false;
 	selectedInstrument:Instrument;
 
 	constructor(
+		private authService:AuthService,
 		private router:Router,
 		private activatedRoute:ActivatedRoute,
 		private instrumentService:InstrumentService,
@@ -89,22 +115,26 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 			super();
 			navigationService.getNavbarComponent().expanded = true;
 			navigationService.getSideinfoComponent().setDirective(InstrumentListSideinfoComponent, {instrumentType: null});
+			navigationService.getSideinfoComponent().enable();
 	}
 
 	ngOnInit() {
-		this.navigationService.getNavbarComponent().setFabInfo({
-			icon: "add",
-			tooltip: "New Equipment"
-		});
-		this.fabActionSubscriber = this.navigationService
-			.getNavbarComponent()
-			.getFabActionSource()
-			.asObservable()
-			.subscribe((event) => {
-				if (event instanceof MouseEvent) {
-					this.openNewInstrumentDialog();
-				}
+		this.canEdit = this.authService.canAccess([UserPermission.EDIT_INSTRUMENTS]);
+		if(this.authService.canAccess([UserPermission.CREATE_INSTRUMENTS])) {
+			this.navigationService.getNavbarComponent().setFabInfo({
+				icon: "add",
+				tooltip: "New Equipment"
 			});
+			this.fabActionSubscriber = this.navigationService
+				.getNavbarComponent()
+				.getFabActionSource()
+				.asObservable()
+				.subscribe((event) => {
+					if (event instanceof MouseEvent) {
+						this.openInstrumentDialog(null);
+					}
+				});
+		}
 		this.loadingMessage = "Loading Equipment List...";
 		this.loadInstruments();
 		this.loadInstrumentTypes();
@@ -112,22 +142,29 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 
 	ngOnDestroy() {
 		this.navigationService.getSideinfoComponent().disable();
-		this.navigationService.getNavbarComponent().resetFabInfo();
-		this.navigationService.getNavbarComponent().resetFabActionSource();
-		this.fabActionSubscriber.unsubscribe();
+		if (this.fabActionSubscriber) {
+			this.navigationService.getNavbarComponent().resetFabInfo();
+			this.navigationService.getNavbarComponent().resetFabActionSource();
+			this.fabActionSubscriber.unsubscribe();
+		}
 	}
 	
-	loadInstruments() {
+	private loadInstruments() {
 		this.instrumentService.getAll((data) => {
 			console.log(data);
 			this.data = data;
+			for (let instrument of this.data) {
+				instrument.instrumentStatus = EnumUtils.convertToEnum(InstrumentStatus, instrument.instrumentStatus);
+				instrument.site = EnumUtils.convertToEnum(Site, instrument.site);
+			}
 			this.applyFilters();
 			this.navigationService.getSideinfoComponent().open();
+			this.showSideInfo = true;
 			this.isDataLoaded = true;
 		});
 	}
 
-	loadInstrumentTypes() {
+	private loadInstrumentTypes() {
 		this.instrumentTypeService.getAll((data) => {
 			console.log(data);
 			this.instrumentTypes = data;
@@ -135,17 +172,32 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 		});
 	}
 
-	openNewInstrumentDialog() {
+	openInstrumentDialog(instrument:Instrument) {
+		if (!this.isDataLoaded || !this.isInstrumentTypesLoaded) {
+			return;
+		}
+		let isNew:boolean = !instrument;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
-		dialogConfig.width = '640px';
-		//dialogConfig.height = '480px';
-		let dialogRef:MdDialogRef<NewInstrumentDialogComponent> = this.dialog.open(NewInstrumentDialogComponent, dialogConfig);
+		dialogConfig.width = '800px';
+		let dialogRef:MdDialogRef<InstrumentDialogComponent> = this.dialog.open(InstrumentDialogComponent, dialogConfig);
 		dialogRef.componentInstance.instrumentTypes = this.instrumentTypes;
+		if (isNew) {
+			dialogRef.componentInstance.isNew = true;
+		}
+		else {
+			dialogRef.componentInstance.instrument = instrument;
+		}
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				this.snackBar.open("New equipment added.", "OK", {duration: 2000});
+				if (isNew) {
+					this.snackBar.open("New equipment added.", "OK", {duration: 3000});
+				}
+				else {
+					this.snackBar.open("Equipment updated.", "OK", {duration: 3000});
+				}
 				this.isDataLoaded = false;
 				this.loadingMessage = "Reloading..."
+				this.deselectInstrument();
 				this.loadInstruments();
 			}
 		});
@@ -161,8 +213,22 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 			return;
 		}
 
-		// TODO Implement this.
-		this.filteredData = this.data.filter(o => true);
+		this.filteredData = this.data.filter(o => {
+			let textMatch:boolean = true;
+			if (this.filters.text) {
+				let search:RegExp = new RegExp(this.filters.text, 'i');
+				textMatch = search.test(o.serialNumber) || search.test(o.inventoryNumber) || search.test(o.description);
+			}
+			let statusMatch:boolean = true;
+			if (this.filters.status >= 0) {
+				statusMatch = o.instrumentStatus && (o.instrumentStatus.ordinal == this.filters.status);
+			}
+			let siteMatch:boolean = true;
+			if (this.filters.site >= 0) {
+				siteMatch = o.site && (o.site.ordinal == this.filters.site);
+			}
+			return textMatch && statusMatch && siteMatch;
+		});
 
 		this.paginfo.totalRows = this.filteredData.length;
 		if (this.pagination) {
@@ -199,10 +265,12 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 
 	deselectInstrument() {
 		this.selectedInstrument = null;
+		this.navigationService.getSideinfoComponent().subtitle = ""; 
+		this.navigationService.getSideinfoComponent().getDirective().setData(null);
 	}
 
-	navigateToInstrument(instrument:Instrument) {
-		this.router.navigate([instrument.id], {relativeTo: this.activatedRoute});
+	isNavDrawerOpen():boolean {
+		return this.navigationService.isNavDrawerOpened();
 	}
 	
 }

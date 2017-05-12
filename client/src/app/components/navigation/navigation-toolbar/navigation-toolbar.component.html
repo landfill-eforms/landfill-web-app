@@ -1,7 +1,8 @@
-<md-toolbar class="navbar" [ngClass]="{'navbar-expanded':expanded}">
+<md-toolbar class="navbar" [ngClass]="{'navbar-expanded': expanded}">
+	<div class="navbar-shadow"></div>
 	<div class="navbar-content flex-container" fxLayout="row" fxLayoutAlign="space-between center">
 		<div class="navbar-hamburger flex-item" fxFlex="40px">
-			<button md-icon-button (click)="action()">
+			<button md-icon-button (click)="toggleNavDrawer()">
 				<md-icon>menu</md-icon>
 			</button>
 		</div>
@@ -10,8 +11,18 @@
 				<img [src]="logoUrl">
 			</a>
 		</div>-->
-		<div class="navbar-title flex-item" fxFlex>
-			{{title}}
+		<div class="navbar-title flex-item flex-container" fxFlex fxLayout="row" fxLayoutAlign="start start">
+			<div *ngFor="let trail of breadcrumb">
+				<div class="breadcrumb-link flex-item" fxFlex [routerLink]="trail.path">
+					{{trail.data?.name}}
+				</div>
+				<div class="flex-item" fxFlex>
+					<md-icon>navigate_next</md-icon>
+				</div>
+			</div>
+			<div class="flex-item" fxFlex="100">
+				{{title}}
+			</div>
 		</div>
 		<div class="navbar-hamburger flex-item" fxFlex="64px">
 			<button md-icon-button [mdMenuTriggerFor]="menu">
@@ -24,13 +35,17 @@
 			<md-icon>person_pin</md-icon>
 			<span>Profile</span>
 		</button>
+		<button md-menu-item routerLink="info">
+			<md-icon>info</md-icon>
+			<span>About</span>
+		</button>
 		<button md-menu-item (click)="logout()">
 			<md-icon>exit_to_app</md-icon>
 			<span>Logout</span>
 		</button>
 	</md-menu>
 </md-toolbar>
-<div class="fab-top-container" *ngIf="fabInfo">
+<div class="fab-container" *ngIf="fabInfo">
 	<button md-fab (click)="fabAction($event)" [mdTooltip]="fabInfo.tooltip" mdTooltipPosition="below">
 		<md-icon>{{fabInfo.icon}}</md-icon>
 	</button>

@@ -1,27 +1,36 @@
 <div class="background" [ngStyle]="{'background-image': 'url(' + backgroundUrl + ')'}">
 	<div class="fake-padding"></div>
 	<div class="card-container flex-container" fxLayout="row" fxLayoutAlign="center center">
-		<md-card fxFlex="500px" class="login-card">
-			<md-card-content>
-				<div class="logo-container unselectable">
-					<img [src]="logoUrl">
-				</div>
-				<div class="subtitle unselectable">LANDFILL e-FORMS</div>
-				<div>
-					<md-input-container style="width:100%">
-						<input [(ngModel)]="credentials.username" mdInput placeholder="Username" (keyup.enter)="login()" autofocus>
-					</md-input-container>
-				</div>
-				<div>
-					<md-input-container style="width:100%">
-						<input type="password" [(ngModel)]="credentials.password" mdInput placeholder="Password" (keyup.enter)="login()">
-					</md-input-container>
-				</div>
-				<button md-raised-button color="accent" class="login-button" (click)="login()">LOGIN</button>
-			</md-card-content>
-			<md-card-footer>
-				<div class="app-info unselectable">Version: {{versionNumber}}</div>
-			</md-card-footer>
-		</md-card>
+		<div class="flex-item" fxFlex="500px">
+			<md-card class="login-card">
+				<md-card-content>
+					<div class="logo-container unselectable">
+						<img [src]="logoUrl">
+					</div>
+					<div class="subtitle unselectable">LANDFILL e-FORMS</div>
+					<div>
+						<md-input-container style="width:100%">
+							<input [(ngModel)]="credentials.username" mdInput placeholder="Username" (keyup.enter)="login()" autofocus>
+						</md-input-container>
+					</div>
+					<div>
+						<md-input-container style="width:100%">
+							<input type="password" [(ngModel)]="credentials.password" mdInput placeholder="Password" (keyup.enter)="login()">
+						</md-input-container>
+					</div>
+					<button md-raised-button color="accent" class="login-button" (click)="login()">LOGIN</button>
+				</md-card-content>
+				<md-card-footer>
+					<div class="flex-container" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign="space-between center">
+						<div class="info flex-item" fxFlex style="text-align: left;">
+							<a routerLink="../info" class="info-link">About</a>
+						</div>
+						<div class="info flex-item" fxFlex style="text-align: right;">
+							&copy; 2017 Landfill e-Forms
+						</div>
+					</div>
+				</md-card-footer>
+			</md-card>
+		</div>
 	</div>
 </div>

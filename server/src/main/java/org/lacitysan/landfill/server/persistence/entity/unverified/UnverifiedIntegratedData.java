@@ -2,13 +2,11 @@ package org.lacitysan.landfill.server.persistence.entity.unverified;
 
 import java.sql.Timestamp;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -27,13 +25,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name="dbo.UnverifiedIntegratedData")
+@AttributeOverride(name="id", column=@Column(name="UnverifiedIntegratedPK"))
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedIntegratedData {
-
-	@Id
-	@Column(name="UnverifiedIntegratedPK")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+public class UnverifiedIntegratedData extends AbstractUnverifiedData {
 	
 	@NotNull
 	@Column(name="MonitoringPointString")
@@ -43,6 +37,9 @@ public class UnverifiedIntegratedData {
 	@ManyToOne
 	@JoinColumn(name="InstrumentFK")
 	private Instrument instrument;
+	
+	@NotNull
+	private String sampleId;
 	
 	@NotNull
 	private Short bagNumber;
@@ -68,14 +65,6 @@ public class UnverifiedIntegratedData {
 	@Cascade(CascadeType.ALL)
 	private UnverifiedDataSet unverifiedDataSet;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public MonitoringPoint getMonitoringPoint() {
 		return monitoringPoint;
 	}
@@ -90,6 +79,14 @@ public class UnverifiedIntegratedData {
 
 	public void setInstrument(Instrument instrument) {
 		this.instrument = instrument;
+	}
+
+	public String getSampleId() {
+		return sampleId;
+	}
+
+	public void setSampleId(String sampleId) {
+		this.sampleId = sampleId;
 	}
 
 	public Short getBagNumber() {

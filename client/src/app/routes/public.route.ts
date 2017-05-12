@@ -1,3 +1,4 @@
+import { InfoComponent } from './../components/public/info/info.component';
 import { LoginComponent } from './../components/public/login/login.component';
 import { Route } from '@angular/router';
 
@@ -9,6 +10,12 @@ export class PublicRoute {
 		component: LoginComponent
 	};
 
-	// TODO Add information route...
+	static readonly INFO:Route = {
+		path: 'info',
+		component: InfoComponent,
+		data: {
+			name: "About"
+		}
+	}
 
 }

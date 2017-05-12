@@ -6,21 +6,25 @@ export class ExceedanceStatus {
 
 	static readonly UNVERIFIED:ExceedanceStatus = {
 		ordinal: 0,
-		constantName: "UNVERIFIED"
+		constantName: "UNVERIFIED",
+		name: "Unverified"
 	};
 
 	static readonly ACTIVE:ExceedanceStatus = {
 		ordinal: 1,
-		constantName: "ACTIVE"
+		constantName: "ACTIVE",
+		name: "Active"
 	};
 
 	static readonly CLEARED:ExceedanceStatus = {
 		ordinal: 2,
-		constantName: "CLEARED"
+		constantName: "CLEARED",
+		name: "Cleared"
 	};
 
 	readonly ordinal:number;
 	readonly constantName:string;
+	readonly name:string;
 
 	static values():ExceedanceStatus[] {
 		return [

@@ -4,33 +4,31 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.entity.system.Trackable;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * @author Alvin Quach
  */
 @Entity
 @Table(name="dbo.InstrumentTypes")
-public class InstrumentType implements Trackable {
-
-	@Id
-	@Column(name="InstrumentTypePK")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+@AttributeOverride(name="id", column=@Column(name="InstrumentTypePK"))
+@JsonInclude(Include.NON_NULL)
+public class InstrumentType extends AbstractEntity implements Trackable {
 
 	@NotNull
 	private String type;
@@ -72,27 +70,19 @@ public class InstrumentType implements Trackable {
 	@OneToMany(mappedBy="instrumentType")
 	private Set<Instrument> instruments = new HashSet<>();
 
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="CreatedByFK")
 	private User createdBy;
 
 	private Timestamp createdDate;
 
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="ModifiedByFK")
 	private User modifiedBy;
 
 	private Timestamp modifiedDate;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getType() {
 		return type;

@@ -1,6 +1,5 @@
 import { SurfaceEmissionData } from '../surface-emission-data.class';
 import { ImeNumber } from './ime-number.class';
-import { WarmspotData } from './warmspot-data.class';
 
 /**
  * This class was automatically generated from InstantaneousData.java using typescript-gen.
@@ -8,5 +7,4 @@ import { WarmspotData } from './warmspot-data.class';
  */
 export class InstantaneousData extends SurfaceEmissionData {
 	imeNumbers:ImeNumber[];
-	warmspotData:WarmspotData;
 }

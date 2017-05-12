@@ -1,18 +1,46 @@
-<div class="section-multiple-container">
-	<div class="section-title">View IME Number</div>
-	<div class="flex-container" fxLayout="column">
-		<md-card class="section-multiple flex-item" fxFlex>
-			<md-card-content *ngIf="isDataLoaded" >
-				<div class="section-title">IME Info</div>
-				<div *ngIf="imeNumberData" class="section-form-container flex-container" fxLayout="row">
-					<div class="flex-item" fxFlex>
-						<strong>IME Number:</strong> {{imeNumberData.imeNumber}}
+<div class="page grey-background">
+	<app-page-loading-indicator *ngIf="!isDataLoaded || !isUsersLoaded"></app-page-loading-indicator>
+	<div *ngIf="isDataLoaded && isUsersLoaded">
+		<md-card style="margin-bottom: 16px">
+			<md-card-content>
+				<div class="card-title">
+					IME Number Details
+				</div>
+				<div *ngIf="imeNumberData">
+					<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="info-card-data-key flex-item" fxFlex="96px">
+							IME Number
+						</div>
+						<div class="info-card-data-value truncate flex-item" fxFlex>
+							{{imeNumber}}
+						</div>
 					</div>
-					<div class="flex-item" fxFlex>
-						<strong>Site:</strong> Coming Soon
+					<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="info-card-data-key flex-item" fxFlex="96px">
+							Status
+						</div>
+						<div class="info-card-data-value truncate flex-item" fxFlex>
+							{{imeNumberData.status.name}}
+						</div>
 					</div>
-					<div class="flex-item" fxFlex>
-						<strong>Grids:</strong> Coming Soon
+					<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="info-card-data-key flex-item" fxFlex="96px">
+							Site
+						</div>
+						<div class="info-card-data-value truncate flex-item" fxFlex>
+							{{imeNumberData.site.name}}
+						</div>
+					</div>
+					<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+						<div class="info-card-data-key flex-item" fxFlex="96px">
+							Grid(s)
+						</div>
+						<div *ngIf="!isCleared" class="info-card-data-value truncate flex-item" fxFlex>
+							<a>{{listGrids(imeNumberData)}}</a>
+						</div>
+						<div *ngIf="isCleared" class="info-card-data-value truncate flex-item" fxFlex>
+							{{listGrids(imeNumberData)}}
+						</div>
 					</div>
 				</div>
 				<div *ngIf="!imeNumberData">
@@ -20,20 +48,149 @@
 				</div>
 			</md-card-content>
 		</md-card>
-		<md-card class="section-multiple flex-item" fxFlex>
-			<md-card-content>
-				<div class="section-title">IME Records</div>
-				<div *ngIf="!isDataLoaded" class="loading-indicator-container">
-					<md-spinner class="loading-indicator-spinner"></md-spinner>
-					<div class="loading-indicator-message">Loading...</div>
+		<div *ngFor="let imeData of imeNumberData.imeData; let dataIdx = index; let lastData = last">
+			<div class="section-subheader">
+				{{dataIdx == 0 ? 'Initial Reading' : 'Recheck ' + dataIdx}}
+			</div>
+			<div class="flex-container" fxLayout="row">
+				<div class="flex-item" fxFlex="50" style="padding-right: 12px;">
+					<div *ngIf="!isCleared" class="info-card-action-button-container">
+						<button md-icon-button [mdMenuTriggerFor]="dataMenu">
+							<md-icon>more_vert</md-icon>
+						</button>
+						<md-menu #dataMenu="mdMenu">
+							<button md-menu-item (click)="openRecheckDialog(dataIdx)" [disabled]="dataIdx == 0">Edit</button>
+							<button md-menu-item (click)="openRepairDialog(dataIdx)">Add Repair</button>
+							<button md-menu-item (click)="deleteRecheck(dataIdx)" [disabled]="!lastData || !imeData.deletable">Delete</button>
+						</md-menu>
+					</div>
+					<md-card class="info-card recheck-card" [ngClass]="{'initial-card': dataIdx == 0, 'final-card': imeNumberData.status.constantName === 'CLEARED' && lastData}">
+						<md-card-content>
+							<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start start">
+								<div class="info-card-data-key flex-item" fxFlex="96px">
+									Date/Time
+								</div>
+								<div class="info-card-data-value truncate flex-item" fxFlex>
+									{{DateTimeUtils.getDetailedDateTime(imeData.dateTime)}}
+								</div>
+							</div>
+							<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start start">
+								<div class="info-card-data-key flex-item" fxFlex="96px">
+									Inspector
+								</div>
+								<div class="info-card-data-value truncate flex-item" fxFlex>
+									{{StringUtils.formatUserName(imeData.inspector)}}
+								</div>
+							</div>
+							<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start start">
+								<div class="info-card-data-key flex-item" fxFlex="96px" style="height: 15px;">
+									CH<sub>4</sub> (ppm)
+								</div>
+								<div class="info-card-data-value truncate flex-item" fxFlex>
+									{{imeData.methaneLevel / 100}}
+								</div>
+							</div>
+							<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start start">
+								<div class="info-card-data-key flex-item" fxFlex="96px">
+									Description
+								</div>
+								<div class="info-card-data-value flex-item" fxFlex>
+									{{imeData.description}}
+								</div>
+							</div>
+						</md-card-content>
+					</md-card>
 				</div>
-				<app-ime-data-view [data]="imeNumberData.imeData" [edit]="true"></app-ime-data-view>
-			</md-card-content>
-		</md-card>
+				<div class="flex-item" fxFlex="50" style="padding-left: 12px;">
+					<div *ngFor="let imeRepairData of imeData.imeRepairData; let repairIdx = index">
+						<div *ngIf="!isCleared" class="info-card-action-button-container">
+							<button md-icon-button [mdMenuTriggerFor]="dataMenu">
+								<md-icon>more_vert</md-icon>
+							</button>
+							<md-menu #dataMenu="mdMenu">
+								<button md-menu-item (click)="openRepairDialog(dataIdx, repairIdx)">Edit</button>
+								<button md-menu-item (click)="deleteRepair(dataIdx, repairIdx)" [disabled]="!imeRepairData.deletable">Delete</button>
+							</md-menu>
+						</div>
+						<md-card class="info-card repair-card">
+							<md-card-content>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start start">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Date/Time
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{DateTimeUtils.getDetailedDateTime(imeRepairData.dateTime)}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start start">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Water/Soil
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{imeRepairData.water && imeRepairData.soil ? 'Both' : (imeRepairData.water && !imeRepairData.soil ? 'Water' : (!imeRepairData.water && imeRepairData.soil ? 'Soil' : 'No'))}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start start">
+									<div class="info-card-data-key flex-item" fxFlex="96px" style="height: 15px;">
+										Repair Crew
+									</div>
+									<div class="info-card-data-value truncate flex-item" fxFlex>
+										{{imeRepairData.crew}}
+									</div>
+								</div>
+								<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start start">
+									<div class="info-card-data-key flex-item" fxFlex="96px">
+										Description
+									</div>
+									<div class="info-card-data-value flex-item" fxFlex>
+										{{imeRepairData.description}}
+									</div>
+								</div>
+							</md-card-content>
+						</md-card>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="fab-bottom-container">
-	<button md-fab (click)="save()" mdTooltip="Save" mdTooltipPosition="above" class="fab-action-button">
-		<md-icon>save</md-icon>
-	</button>
+	<div class="flex-container" fxLayout="column" fxLayoutAlign="end center">
+		<button md-fab 
+			(click)="openRepairDialog()"
+			mdTooltip="Add Repair"
+			mdTooltipPosition="before"
+			[disabled]="!imeNumberData || isCleared"
+			class="fab-button-white flex-item"
+			fxFlex="56px">
+			<md-icon>build</md-icon>
+		</button>
+		<button md-fab
+			(click)="openRecheckDialog()"
+			mdTooltip="Add Recheck"
+			mdTooltipPosition="before"
+			[disabled]="!imeNumberData || isCleared"
+			class="fab-button-white flex-item"
+			fxFlex="56px">
+			<md-icon>find_replace</md-icon>
+		</button>
+		<button md-fab
+			(click)="save()"
+			mdTooltip="Save"
+			mdTooltipPosition="before"
+			[disabled]="!imeNumberData || isCleared"
+			class="fab-button-white flex-item"
+			fxFlex="56px">
+			<md-icon>save</md-icon>
+		</button>
+		<button md-fab
+			(click)="clear()"
+			mdTooltip="Mark as Cleared"
+			mdTooltipPosition="before"
+			[disabled]="!clearable || isCleared"
+			class="flex-item"
+			fxFlex="56px">
+			<md-icon>done</md-icon>
+		</button>
+	</div>
 </div>

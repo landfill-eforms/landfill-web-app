@@ -21,26 +21,17 @@ public enum UserPermission {
 	/** User can create new users. */
 	CREATE_USERS ("Create Users", Category.USERS, "Create", "User can create new users."),
 
-	/** User can reactivate other non-admin user accounts. */
-	ENABLE_USERS ("Enable Users", Category.USERS, "Enable Account", "User can reactivate other non-admin user accounts."),
+	/** User can enable/disable other non-admin user accounts. */
+	CHANGE_USER_STATUS ("Change User Status", Category.USERS, "Enable/Disable", "User can enable/disable other non-admin user accounts."),
 
-	/** User can deactivate other non-admin user accounts. */
-	DISABLE_USERS ("Disable Users", Category.USERS, "Disable Account", "User can deactivate other non-admin user accounts."),
+	/** User can reset the passwords of non-admin users. */
+	RESET_USER_PASSWORDS ("Reset User Passwords", Category.USERS, "Reset Password", "User can reset the passwords of non-admin users."),
 
-	/** User can reset the passwords of other non-admin users. */
-	RESET_USER_PASSWORDS ("Reset User Passwords", Category.USERS, "Reset Password", "User can reset the passwords of other non-admin users."),
-
-	/** User can reset the usernames of other non-admin users. */
-	RESET_USER_USERNAMES ("Reset User Usernames", Category.USERS, "Reset Username", "User can reset the usernames of other non-admin users."),
+	/** User can reset the usernames of non-admin users. */
+	RESET_USER_USERNAMES ("Reset User Usernames", Category.USERS, "Reset Username", "User can reset the usernames of non-admin users."),
 
 	/** User can edit the profiles of other non-admin users. */
 	EDIT_USER_PROFILES ("Edit User Profiles", Category.USERS, "Edit Profile", "User can edit the profiles of other non-admin users."),
-
-	/** User can change the employee ID associated with non-admin user accounts. */
-	ASSIGN_EMPLOYEE_ID ("Assign Employee Id", Category.USERS, "Assign Employee ID", "User can change the employee ID associated with non-admin user accounts."),
-
-	/** User can assign user groups to non-admin users. */
-	ASSIGN_USER_GROUPS ("Assign User Groups", Category.USERS, "Assign Groups", "User can assign user groups to non-admin users."),
 
 	/** User can view existing user groups. */
 	VIEW_USER_GROUPS ("View User Groups", Category.USER_GROUPS, "View List", "User can view existing user groups."),

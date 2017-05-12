@@ -1,6 +1,6 @@
-import { ImeRepairData } from './ime-repair-data.class';
-import { ImeNumber } from './ime-number.class';
 import { SurfaceEmissionExceedanceData } from '../surface-emission-exceedance-data.class';
+import { ImeNumber } from './ime-number.class';
+import { ImeRepairData } from './ime-repair-data.class';
 
 /**
  * This class was automatically generated from ImeData.java using typescript-gen.

@@ -9,9 +9,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  */
 public enum ExceedanceStatus {
 	
-	UNVERIFIED,
-	ACTIVE,
-	CLEARED;
+	UNVERIFIED	("Unverified"),
+	ACTIVE		("Active"),
+	CLEARED		("Cleared");
+	
+	private String name;
+	
+	private ExceedanceStatus(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
 	
 	@JsonCreator
 	public static ExceedanceStatus deserialize(Object object) {

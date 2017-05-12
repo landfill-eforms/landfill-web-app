@@ -47,7 +47,7 @@ public class ImeNumber extends SurfaceEmissionExceedanceNumber {
 	@ManyToMany(mappedBy="imeNumbers")
 	private Set<InstantaneousData> instantaneousData = new HashSet<>();
 	
-	@JsonIgnoreProperties(value={"unverifiedDataSet", "imeNumbers", "warmspotData", "instrument"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"imeNumbers", "unverifiedWarmspotData", "instrument"}, allowSetters=true)
 	@ManyToMany(mappedBy="imeNumbers")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
 	

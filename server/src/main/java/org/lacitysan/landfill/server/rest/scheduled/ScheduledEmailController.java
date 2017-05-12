@@ -11,6 +11,7 @@ import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.security.annotation.RestControllerSecurity;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.security.annotation.RestSecurityMode;
+import org.lacitysan.landfill.server.service.scheduled.ScheduledEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,9 @@ public class ScheduledEmailController {
 
 	@Autowired
 	ScheduledEmailDao scheduledEmailDao;
+	
+	@Autowired
+	ScheduledEmailService scheduledEmailService;
 
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<ScheduledEmail> getAll() {
@@ -35,13 +39,13 @@ public class ScheduledEmailController {
 	}
 	
 	@RestSecurity(value=UserPermission.SCHEDULE_EMAIL_REPORTS, mode=RestSecurityMode.OVERRIDE)
-	@RequestMapping(value="/list/all/reports", method=RequestMethod.GET)
+	@RequestMapping(value="/list/all/report", method=RequestMethod.GET)
 	public List<ScheduledReport> getAllScheduledReports() {
 		return scheduledEmailDao.getAllScheduledReports();
 	}
 	
 	@RestSecurity(value=UserPermission.SCHEDULE_EMAIL_NOTIFICATIONS, mode=RestSecurityMode.OVERRIDE)
-	@RequestMapping(value="/list/all/notifications", method=RequestMethod.GET)
+	@RequestMapping(value="/list/all/notification", method=RequestMethod.GET)
 	public List<ScheduledNotification> getScheduledNotifications() {
 		return scheduledEmailDao.getAllScheduledNotifications();
 	}
@@ -57,34 +61,33 @@ public class ScheduledEmailController {
 	}
 
 	@RequestMapping(value="/create/report", method=RequestMethod.POST)
-	public ScheduledEmail createReport(@RequestBody ScheduledReport scheduledEmail) {
-		if (scheduledEmail == null) return null;
-		return scheduledEmailDao.create(scheduledEmail); // TODO Create service for this.
+	public ScheduledEmail createScheduledReport(@RequestBody ScheduledReport scheduledReport) {
+		return scheduledEmailService.create(scheduledReport); // TODO Create service for this.
 	}
 	
 	@RequestMapping(value="/create/notification", method=RequestMethod.POST)
-	public ScheduledEmail create(@RequestBody ScheduledEmail scheduledEmail) {
-		if (scheduledEmail == null) return null;
-		return scheduledEmailDao.create(scheduledEmail); // TODO Create service for this.
+	public ScheduledEmail createScheduledNotification(@RequestBody ScheduledNotification scheduledNotification) {
+		return scheduledEmailService.create(scheduledNotification);
 	}
 
-	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public ScheduledEmail update(@RequestBody ScheduledEmail scheduledEmail) {
-		if (scheduledEmail == null) return null;
-		return scheduledEmailDao.update(scheduledEmail); // TODO Create service for this.
+	@RequestMapping(value="/update/report", method=RequestMethod.POST)
+	public ScheduledEmail updateScheduledReport(@RequestBody ScheduledReport scheduledReport) {
+		return scheduledEmailService.update(scheduledReport);
+	}
+	
+	@RequestMapping(value="/update/notification", method=RequestMethod.POST)
+	public ScheduledEmail updateScheduledNotification(@RequestBody ScheduledNotification scheduledNotification) {
+		return scheduledEmailService.update(scheduledNotification);
 	}
 
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public ScheduledEmail delete(@RequestBody ScheduledEmail scheduledEmail) {
-		if (scheduledEmail == null) return null;
-		return scheduledEmailDao.delete(scheduledEmail);
+		return scheduledEmailService.delete(scheduledEmail);
 	}
 
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public ScheduledEmail deleteById(@PathVariable String id) {
-		return delete(getById(id));
+		return scheduledEmailService.delete(getById(id));
 	}
-
-
 
 }

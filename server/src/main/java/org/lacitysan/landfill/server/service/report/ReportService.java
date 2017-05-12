@@ -1,14 +1,16 @@
 package org.lacitysan.landfill.server.service.report;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletResponse;
-
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -91,15 +93,15 @@ public class ReportService {
 		return null;
 	}
 	
-	public void generateReportPdf(HttpServletResponse response, ReportQuery reportQuery) throws IOException {
+	public void generateReportPdf(OutputStream out, ReportQuery reportQuery) throws IOException {
 		if (reportQuery.getReportType() == ReportType.EXCEEDANCE) {
-			generateExceedanceReportPdf(response, (ExceedanceReport)generateReport(reportQuery));
+			generateExceedanceReportPdf(out, (ExceedanceReport)generateReport(reportQuery));
 		}
 		if (reportQuery.getReportType() == ReportType.INSTANTANEOUS) {
-			generateInstantaneousReportPdf(response, (InstantaneousReport)generateReport(reportQuery));
+			generateInstantaneousReportPdf(out, (InstantaneousReport)generateReport(reportQuery));
 		}
 		if (reportQuery.getReportType() == ReportType.INTEGRATED) {
-			generateIntegratedReportPdf(response, (IntegratedReport)generateReport(reportQuery));
+			generateIntegratedReportPdf(out, (IntegratedReport)generateReport(reportQuery));
 		}
 		if (reportQuery.getReportType() == ReportType.PROBE) {
 			// TODO Implement this.
@@ -204,7 +206,7 @@ public class ReportService {
 		Long endDate = reportQuery.getEndDate() == null ? null : reportQuery.getEndDate().getTime();
 
 		// Query the database and convert the queried data into report data.
-		List<InstantaneousReportData> instantaneousReportData = instantaneousDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, endDate)
+		List<InstantaneousReportData> instantaneousReportData = instantaneousDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, DateTimeUtils.addDay(endDate))
 				.parallelStream()
 				.sorted((a, b) -> {
 					// Sort data here instead of having InstantaneousData implement Comparable, so that we can add sort options in the future.
@@ -241,7 +243,7 @@ public class ReportService {
 		Long endDate = reportQuery.getEndDate() == null ? null : reportQuery.getEndDate().getTime();
 
 		// Query the database and convert the queried data into report data.
-		List<IntegratedReportData> integratedReportData = integratedDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, endDate)
+		List<IntegratedReportData> integratedReportData = integratedDataDao.getBySiteAndDate(reportQuery.getSite(), startDate, DateTimeUtils.addDay(endDate))
 				.parallelStream()
 				.sorted((a, b) -> {
 					// Sort data here instead of having IntegratedData implement Comparable, so that we can add sort options in the future.
@@ -273,11 +275,11 @@ public class ReportService {
 
 	}
 	
-	private void generateInstantaneousReportPdf(HttpServletResponse response, InstantaneousReport report) throws IOException{
+	private void generateInstantaneousReportPdf(OutputStream out, InstantaneousReport report) throws IOException{
 		PDPage blankPage1;
 
-		List<List<?>> reportData = new ArrayList<>();
-		List<?> listType = report.getInstantaneousReportData();
+		List<List<String>> reportData = new ArrayList<>();
+		List<InstantaneousReportData> listType = report.getInstantaneousReportData();
 		
 		PDDocument document = new PDDocument();		
 		PDDocumentInformation pdd = document.getDocumentInformation();
@@ -311,15 +313,15 @@ public class ReportService {
 
 		for(int i = 0; i < listType.size(); i++){
 			ArrayList<String> info = new ArrayList<>();
-			info.add( ((InstantaneousReportData) listType.get(i)).getDate() );                	
-			info.add( ((InstantaneousReportData) listType.get(i)).getBarometricPressure() );
-			info.add( ((InstantaneousReportData) listType.get(i)).getInspector() );     	
-			info.add( ((InstantaneousReportData) listType.get(i)).getMonitoringPoint() );
-			info.add( ((InstantaneousReportData) listType.get(i)).getStartTime() );
-			info.add( ((InstantaneousReportData) listType.get(i)).getEndTime() );
-			info.add( ((InstantaneousReportData) listType.get(i)).getInstrument() );
-			info.add( ((InstantaneousReportData) listType.get(i)).getMethaneLevel() );
-			info.add( ((InstantaneousReportData) listType.get(i)).getImeNumber() );
+			info.add( (listType.get(i)).getDate() );                	
+			info.add( (listType.get(i)).getBarometricPressure() );
+			info.add( (listType.get(i)).getInspector() );     	
+			info.add( (listType.get(i)).getMonitoringPoint() );
+			info.add( (listType.get(i)).getStartTime() );
+			info.add( (listType.get(i)).getEndTime() );
+			info.add( (listType.get(i)).getInstrument() );
+			info.add( (listType.get(i)).getMethaneLevel() );
+			info.add( (listType.get(i)).getImeNumber() );
 
 			reportData.add(info);
 		}
@@ -328,7 +330,7 @@ public class ReportService {
 
 		//Create Header row
 		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
-		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Instantaneous Report " + report.getReportQuery().getSite().getName());			
+		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Instantaneous Report for " + report.getReportQuery().getSite().getName() + " " + getFormattedDateRange(report.getReportQuery()));			
 		cell.setFont(PDType1Font.HELVETICA_BOLD);
 
 
@@ -336,22 +338,16 @@ public class ReportService {
 		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
 		for (int i = 0; i < header.size(); i++) {
 			float width = 100 / 9f;
-			if (i == 3) {
-				width = (100 / 6.0f) * 2;
-			}
 			cell = hea.createCell(width, "" + header.get(i));
 			cell.setFont(PDType1Font.HELVETICA_BOLD);
 		}	
-		dataTable.addHeaderRow(hea); //derRow
+		dataTable.addHeaderRow(hea); 
 
-		for (List<?> info : reportData) {
+		for (List<String> info : reportData) {
 			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
 
 			for (int i = 0; i < info.size(); i++) {
 				float width = 100 / 9f;
-				if (i == 3) {
-					width = (100 / 6.0f) * 2;
-				}
 				cell = row.createCell(width, "" + info.get(i));
 			}
 		}
@@ -359,15 +355,15 @@ public class ReportService {
 		dataTable.draw(); 
 //			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
 //			document.save(pdfName);
-		document.save(response.getOutputStream());
+		document.save(out);
 		document.close();	
 	}
 	
-	private void generateIntegratedReportPdf(HttpServletResponse response, IntegratedReport report) throws IOException{
+	private void generateIntegratedReportPdf(OutputStream out, IntegratedReport report) throws IOException{
 		PDPage blankPage1;
 
-		List<List<?>> reportData = new ArrayList<>();
-		List<?> listType = report.getIntegratedReportData();
+		List<List<String>> reportData = new ArrayList<>();
+		List<IntegratedReportData> listType = report.getIntegratedReportData();
 		
 		PDDocument document = new PDDocument();		
 		PDDocumentInformation pdd = document.getDocumentInformation();
@@ -401,17 +397,17 @@ public class ReportService {
 		
 		for(int i = 0; i < listType.size(); i++){
 			ArrayList<String> info = new ArrayList<>();
-			info.add( ((IntegratedReportData) listType.get(i)).getMonitoringPoint() );                	
-			info.add( ((IntegratedReportData) listType.get(i)).getInspector() );
-			info.add( ((IntegratedReportData) listType.get(i)).getSampleId() );     	
-			info.add( ((IntegratedReportData) listType.get(i)).getBagNumber() );
-			info.add( ((IntegratedReportData) listType.get(i)).getDate() );
-			info.add( ((IntegratedReportData) listType.get(i)).getStartTime() );
-			info.add( ((IntegratedReportData) listType.get(i)).getEndTime() );
-			info.add( ((IntegratedReportData) listType.get(i)).getVolume() );
-			info.add( ((IntegratedReportData) listType.get(i)).getBarometricPressure() );
-			info.add( ((IntegratedReportData) listType.get(i)).getInstrument() );
-			info.add( ((IntegratedReportData) listType.get(i)).getMethaneLevel() );
+			info.add( (listType.get(i)).getMonitoringPoint() );                	
+			info.add( (listType.get(i)).getInspector() );
+			info.add( (listType.get(i)).getSampleId() );     	
+			info.add( (listType.get(i)).getBagNumber() );
+			info.add( (listType.get(i)).getDate() );
+			info.add( (listType.get(i)).getStartTime() );
+			info.add( (listType.get(i)).getEndTime() );
+			info.add( (listType.get(i)).getVolume() );
+			info.add( (listType.get(i)).getBarometricPressure() );
+			info.add( (listType.get(i)).getInstrument() );
+			info.add( (listType.get(i)).getMethaneLevel() );
 
 			reportData.add(info);
 		}
@@ -420,30 +416,24 @@ public class ReportService {
 
 		//Create Header row
 		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
-		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Instantaneous Report " + report.getReportQuery().getSite().getName());			
+		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Instantaneous Report for " + report.getReportQuery().getSite().getName() + " " + getFormattedDateRange(report.getReportQuery()));
 		cell.setFont(PDType1Font.HELVETICA_BOLD);
 
 
 
 		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
 		for (int i = 0; i < header.size(); i++) {
-			float width = 100 / 9f;
-			if (i == 3) {
-				width = (100 / 6.0f) * 2;
-			}
+			float width = 100 / 11f;
 			cell = hea.createCell(width, "" + header.get(i));
 			cell.setFont(PDType1Font.HELVETICA_BOLD);
 		}	
-		dataTable.addHeaderRow(hea); //derRow
+		dataTable.addHeaderRow(hea);
 
-		for (List<?> info : reportData) {
+		for (List<String> info : reportData) {
 			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
 
 			for (int i = 0; i < info.size(); i++) {
-				float width = 100 / 9f;
-				if (i == 3) {
-					width = (100 / 6.0f) * 2;
-				}
+				float width = 100 / 11f;
 				cell = row.createCell(width, "" + info.get(i));
 			}
 		}
@@ -451,21 +441,23 @@ public class ReportService {
 		dataTable.draw(); 
 //			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
 //			document.save(pdfName);
-		document.save(response.getOutputStream());
+		document.save(out);
 		document.close();	
 	}
 	
-	private void generateExceedanceReportPdf(HttpServletResponse response, ExceedanceReport report) throws IOException {
-
+	@SuppressWarnings("deprecation")
+	private void generateExceedanceReportPdf(OutputStream out, ExceedanceReport report) throws IOException {
+		
 		PDPage blankPage1;
-//		String pdfName = "";
 
 		Set<ExceedanceType> types = report.getReportQuery().getExceedanceTypes();
 		List<List<?>> reportData = new ArrayList<>();
 		List<?> listType;
+		
+		ArrayList<ByteArrayOutputStream> allpdf = new ArrayList<>();
 
 		String exceedType = "";
-		for (Iterator<ExceedanceType> it = types.iterator(); it.hasNext(); ) {
+		for (ExceedanceType exType : types) {
 			PDDocument document = new PDDocument();		
 			PDDocumentInformation pdd = document.getDocumentInformation();
 			pdd.setAuthor("Allen Ma");
@@ -479,10 +471,7 @@ public class ReportService {
 			float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
 			float yStart = yStartNewPage;
 			float bottomMargin = 20;
-
-			document.addPage( blankPage1 );
-
-			ExceedanceType exType = it.next();
+			
 			if (exType == ExceedanceType.INSTANTANEOUS){
 				exceedType = "Instantaneous Exceedances";
 				listType = report.getImeReportData();
@@ -495,7 +484,7 @@ public class ReportService {
 				exceedType = "Perimeter Probe Exceedances";
 				listType = report.getProbeExceedanceReportData();
 			}
-
+			System.out.println(exceedType);
 			ArrayList<String> header = new ArrayList<>();
 			if (exType == ExceedanceType.INSTANTANEOUS || exType == ExceedanceType.INTEGRATED){
 
@@ -550,14 +539,13 @@ public class ReportService {
 			}
 
 			BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage1, true, true);
-
+			document.addPage( blankPage1 );
+			
 			//Create Header row
-			exceedType = exceedType + " " + report.getReportQuery().getSite().getName();
+			exceedType = exceedType + " for " + report.getReportQuery().getSite().getName()	+ " " + getFormattedDateRange(report.getReportQuery());
 			be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
 			be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, exceedType);			
 			cell.setFont(PDType1Font.HELVETICA_BOLD);
-
-
 
 			be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
 			for (int i = 0; i < header.size(); i++) {
@@ -580,19 +568,45 @@ public class ReportService {
 					}
 					cell = row.createCell(width, "" + info.get(i));
 				}
-
-
 			}
-
+			
+			
 			dataTable.draw(); 
 //			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
 //			document.save(pdfName);
-			document.save(response.getOutputStream());
+//			document.save(out);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			document.save(baos);
+			allpdf.add(baos);
 			document.close();
+			
+			
 		}
-
+		
+		PDFMergerUtility mergedPDF = new PDFMergerUtility();
+		for(int i = 0; i < allpdf.size(); i++){
+			mergedPDF.addSource(new ByteArrayInputStream(allpdf.get(i).toByteArray()));
+		}
+		mergedPDF.setDestinationStream(out);
+		mergedPDF.mergeDocuments();		
 	}
 
-
+	private String getFormattedDateRange(ReportQuery reportQuery) {
+		Date start = reportQuery.getStartDate();
+		Date end = reportQuery.getEndDate();
+		if (start == null && end == null) {
+			return "";
+		}
+		if (start == null) {
+			return "until " + end;
+		}
+		if (end == null) {
+			return "from " + start;
+		}
+		if (start.getTime() == end.getTime()) {
+			return "for " + start;
+		}
+		return "from " + start + " to " + end;
+	}
 
 }

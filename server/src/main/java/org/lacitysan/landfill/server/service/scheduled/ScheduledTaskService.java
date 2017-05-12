@@ -1,20 +1,26 @@
 package org.lacitysan.landfill.server.service.scheduled;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.dao.scheduled.ScheduledEmailDao;
+import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.Schedule;
 import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledEmail;
+import org.lacitysan.landfill.server.persistence.entity.scheduled.ScheduledReport;
 import org.lacitysan.landfill.server.persistence.enums.scheduled.SchedulePeriodBoundary;
 import org.lacitysan.landfill.server.persistence.enums.scheduled.ScheduleRecurrence;
 import org.lacitysan.landfill.server.service.email.EmailService;
+import org.lacitysan.landfill.server.service.report.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +32,9 @@ public class ScheduledTaskService {
 
 	@Autowired
 	EmailService emailService;
+	
+	@Autowired
+	ReportService reportService;
 
 	public void runScheduledTasks() {
 		LocalDateTime now = LocalDateTime.now();
@@ -48,7 +57,20 @@ public class ScheduledTaskService {
 			Schedule schedule = scheduledEmail.getSchedule();
 			Calendar offset = new GregorianCalendar();
 			offset.setTime(schedule.getOffset());
-			emailService.sendEmail(scheduledEmail);
+			List<byte[]> attachments = new ArrayList<>();
+			if (scheduledEmail instanceof ScheduledReport) {
+				for (ReportQuery reportQuery : ((ScheduledReport)scheduledEmail).getReportQueries()) {
+					try {
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						reportService.generateReportPdf(baos, reportQuery);
+						attachments.add(baos.toByteArray());
+					}
+					catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			emailService.sendEmail(scheduledEmail, attachments);
 			if (schedule.getRecurrence() == ScheduleRecurrence.SINGLE) {
 				schedule.setActive(false);
 			}

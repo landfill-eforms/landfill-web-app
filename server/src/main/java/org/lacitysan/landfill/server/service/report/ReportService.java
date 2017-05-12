@@ -378,6 +378,9 @@ public class ReportService {
 		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
 		for (int i = 0; i < header.size(); i++) {
 			float width = 100 / 9f;
+			if (i == 2) {
+				width = (100 / 3.0f);
+			}
 			cell = hea.createCell(width, "" + header.get(i));
 			cell.setFont(PDType1Font.HELVETICA_BOLD);
 		}	
@@ -388,6 +391,9 @@ public class ReportService {
 
 			for (int i = 0; i < info.size(); i++) {
 				float width = 100 / 9f;
+				if (i == 2) {
+					width = (100 / 3.0f);
+				}
 				cell = row.createCell(width, "" + info.get(i));
 			}
 		}

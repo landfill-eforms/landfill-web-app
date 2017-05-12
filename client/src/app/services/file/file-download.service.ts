@@ -1,3 +1,4 @@
+import { ReportQuery } from './../../model/server/persistence/entity/report/report-query.class';
 import { saveAs } from 'file-saver';
 import { AuthHttp } from 'angular2-jwt';
 import { Response, ResponseContentType } from '@angular/http';
@@ -15,6 +16,13 @@ export class FileDownloadService {
 
 	downloadMobileData() {
 		this.authHttp.get(this.baseUrl + "/mobile/download", {responseType: ResponseContentType.Blob})
+			.subscribe((res) => {
+				this.processBlob(res);
+			});
+	}
+
+	downloadReportPdf(reportQuery:ReportQuery) {
+		this.authHttp.post(this.baseUrl + "/report/download", reportQuery, {responseType: ResponseContentType.Blob})
 			.subscribe((res) => {
 				this.processBlob(res);
 			});

@@ -28,5 +28,4 @@ export class UnverifiedDataSet extends AbstractEntity {
 	createdDate:number;
 	modifiedBy:User;
 	modifiedDate:number;
-	errors?:any;
 }

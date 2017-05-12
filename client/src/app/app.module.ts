@@ -1,3 +1,4 @@
+import { EditUnverifiedProbeDialogComponent } from './components/unverified-data/dialog/edit-unverified-probe-dialog/edit-unverified-probe-dialog.component';
 import { ScheduledReportDialogComponent } from './components/report/dialog/scheduled-report-dialog/scheduled-report-dialog.component';
 import { ScheduledEmailService } from './services/scheduled/scheduled-email.service';
 import { ApplicationSettingsCanDeactivate } from './components/settings/application-settings/application-settings.candeactivate';
@@ -109,6 +110,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		EditUnverifiedInstantaneousDialogComponent,
 		EditUnverifiedWarmspotDialogComponent,
 		EditUnverifiedIntegratedDialogComponent,
+		EditUnverifiedProbeDialogComponent,
 		ScheduledReportDialogComponent,
 		SuperAdminPasswordDialogComponent
 	],

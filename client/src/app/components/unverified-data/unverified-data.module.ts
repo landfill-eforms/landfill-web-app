@@ -1,3 +1,4 @@
+import { EditUnverifiedProbeDialogComponent } from './dialog/edit-unverified-probe-dialog/edit-unverified-probe-dialog.component';
 import { EditUnverifiedIntegratedDialogComponent } from './dialog/edit-unverified-integrated-dialog/edit-unverified-integrated-dialog.component';
 import { EditUnverifiedWarmspotDialogComponent } from './dialog/edit-unverified-warmspot-dialog/edit-unverified-warmspot-dialog.component';
 import { EditUnverifiedInstantaneousDialogComponent } from './dialog/edit-unverified-instantaneous-dialog/edit-unverified-instantaneous-dialog.component';
@@ -22,7 +23,8 @@ import { UnverifiedDataSetListComponent } from './unverified-data-set-list/unver
         UnverifiedDataSetListSideinfoComponent,
         EditUnverifiedInstantaneousDialogComponent,
         EditUnverifiedWarmspotDialogComponent,
-        EditUnverifiedIntegratedDialogComponent
+        EditUnverifiedIntegratedDialogComponent,
+        EditUnverifiedProbeDialogComponent
 	]
 })
 

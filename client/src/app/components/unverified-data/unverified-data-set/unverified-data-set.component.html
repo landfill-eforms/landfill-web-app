@@ -526,7 +526,77 @@
 						<app-page-loading-indicator></app-page-loading-indicator>
 					</div>
 					<div *ngIf="isDataLoaded">
-						HELLO
+						<md-card>
+							<md-card-content>
+								<div class="data-table-card-title-row">
+									Probe Readings
+								</div>
+									<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+									<div class="data-table-checkbox-column data-table-checkbox-header truncate flex-item" fxFlex="68px">
+										<md-checkbox></md-checkbox>
+									</div>
+									<div class="data-table-column truncate flex-item" fxFlex>
+										<span class="data-table-header-label">Grid</span>
+									</div>
+									<div class="data-table-column truncate flex-item" fxFlex>
+										<span class="data-table-header-label">Barometric</span>
+									</div>
+									<div class="data-table-column truncate flex-item" fxFlex>
+										<span class="data-table-header-label">Reading (ppm)</span>
+									</div>
+									<div class="data-table-column truncate flex-item" fxFlex="50">
+										<span class="data-table-header-label">Description</span>
+									</div>
+									<div class="data-table-last-column truncate flex-item" fxFlex="40px">
+										<span class="data-table-header-label">Action</span>
+									</div>
+								</div>
+								<div *ngIf="unverifiedDataSet.unverifiedProbeData?.length == 0" class="data-table-no-data-label">
+									No Data
+								</div>
+								<div>
+									<div *ngFor="let unverifiedProbeData of unverifiedDataSet.unverifiedProbeData" class="data-table-row">
+										<div class="data-table-row-content flex-container" 
+											fxLayout="row" 
+											(dblclick)="editProbeData(unverifiedProbeData)"
+											[ngClass]="{'data-table-row-content-active': activeItem === unverifiedProbeData}">
+											<div class="data-table-checkbox-column truncate flex-item" fxFlex="68px">
+												<md-checkbox [checked]="unverifiedProbeData.selected" 
+													(click)="toggleProbeData(unverifiedProbeData)">
+												</md-checkbox>
+											</div>
+											<div class="data-table-column truncate flex-item" fxFlex>
+												{{unverifiedProbeData.monitoringPoint?.name}}
+											</div>
+											<div class="data-table-column truncate flex-item" fxFlex>
+												<div *ngIf="!unverifiedProbeData.barometricPressure" class="error-inline">
+													Not set
+												</div>
+												<div [ngStyle]="{'error-inline': unverifiedProbeData.barometricPressure < 2950 || unverifiedProbeData.barometricPressure > 3050}">
+													{{unverifiedProbeData.barometricPressure / 100}}
+												</div>
+											</div>
+											<div class="data-table-column truncate flex-item" fxFlex>
+												{{unverifiedProbeData.methaneLevel / 100}}
+											</div>
+											<div class="data-table-column truncate flex-item" fxFlex>
+												{{unverifiedProbeData.description}}
+											</div>
+											<div class="data-table-action-column truncate flex-item" fxFlex="64px">
+												<button md-icon-button [mdMenuTriggerFor]="probeMenu">
+													<md-icon>more_vert</md-icon>
+												</button>
+												<md-menu #probeMenu="mdMenu">
+													<button md-menu-item (click)="editProbeData(unverifiedProbeData)">Edit</button>
+													<button md-menu-item>Delete</button>
+												</md-menu>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="data-table-card-footer"></div>
+							</md-card-content>
+						</md-card>
 					</div>
 				</div>
 			</md-tab>

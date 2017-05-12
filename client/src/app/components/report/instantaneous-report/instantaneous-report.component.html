@@ -5,7 +5,7 @@
 				Instantaneous Report Query
 			</div>
 			<div class="flex-container" fxLayout="row">
-				<md-select [(ngModel)]="selectedSite" placeholder="Equipment Type" class="mat-select-row flex-item" fxFlex style="margin-top: 10px">
+				<md-select [(ngModel)]="selectedSite" placeholder="Site" class="mat-select-row flex-item" fxFlex style="margin-top: 10px">
 					<md-option *ngFor="let site of availableSites" [value]="site">
 						{{site.name}}
 					</md-option>

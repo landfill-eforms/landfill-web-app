@@ -1,3 +1,4 @@
+import { EditUnverifiedProbeDialogComponent } from './../dialog/edit-unverified-probe-dialog/edit-unverified-probe-dialog.component';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { RestrictedRoute } from './../../../routes/restricted.route';
 import { AppConstant } from './../../../app.constant';
@@ -222,7 +223,21 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	editProbeData(data:UnverifiedProbeData) {
-		
+		this.activeItem = data;
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '480px';
+		let dialogRef:MdDialogRef<EditUnverifiedProbeDialogComponent> = this.dialog.open(EditUnverifiedProbeDialogComponent, dialogConfig);
+		dialogRef.componentInstance.availableInstruments = this.instruments;
+		dialogRef.componentInstance.data = data;
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				data.barometricPressure = result["barometricPressure"] * 100;
+				data.methaneLevel = result["methaneLevel"] * 100;
+				data.description = result["description"];
+			}
+			this.activeItem = null;
+			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
+		});
 	}
 
 	toggleInstantaneous(data:UnverifiedInstantaneousData) {
@@ -304,7 +319,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	commitAll() {
-		if (this.unverifiedDataSet.errors && (this.unverifiedDataSet.errors.unverifiedDataSet.length != 0 || this.unverifiedDataSet.errors.instantaneous.length != 0)) {
+		if (this.unverifiedDataSet.errors && (this.unverifiedDataSet.errors.unverifiedDataSet && this.unverifiedDataSet.errors.unverifiedDataSet.length != 0 || this.unverifiedDataSet.errors.instantaneous && this.unverifiedDataSet.errors.instantaneous.length != 0)) {
 			this.snackBar.open("Cannot commit data because it contains errors.", "OK", {duration: 3000});
 			return;
 		}

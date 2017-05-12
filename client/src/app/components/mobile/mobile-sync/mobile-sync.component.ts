@@ -70,10 +70,8 @@ export class MobileSyncComponent implements OnInit, AfterViewInit {
 
     upload(result:FileUploadResult) {
         if (result.success) {
-            setTimeout(() => {
-                this.router.navigate(['/app/unverified-data-sets']); 
-                this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
-            }, 5000);
+			this.router.navigate(['/app/unverified-data-sets']); 
+			this.snackBar.open("File successfully uploaded.", "OK", {duration: 3000});
         }
         else {
             console.log(result);   

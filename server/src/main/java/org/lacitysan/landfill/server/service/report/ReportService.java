@@ -319,6 +319,7 @@ public class ReportService {
 		// Return the generated report data.
 		return new WarmspotReport(reportQuery, warmspotReportData);
 	}
+	
 	private void generateWarmspotReportPdf(OutputStream out, WarmspotReport report) throws IOException{
 		PDPage blankPage1;
 
@@ -326,10 +327,7 @@ public class ReportService {
 		List<WarmspotReportData> listType = report.getWarmspotReportData();
 		
 		PDDocument document = new PDDocument();		
-		PDDocumentInformation pdd = document.getDocumentInformation();
-		pdd.setAuthor("Allen Ma");
-		pdd.setTitle("Landfill report");
-		pdd.setCreator("Allen Ma");
+		
 		blankPage1 = new PDPage();
 		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
 
@@ -399,12 +397,10 @@ public class ReportService {
 		}
 
 		dataTable.draw(); 
-//			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
-//			document.save(pdfName);
+
 		document.save(out);
 		document.close();	
 	}
-	
 	
 	private void generateInstantaneousReportPdf(OutputStream out, InstantaneousReport report) throws IOException{
 		PDPage blankPage1;
@@ -484,8 +480,7 @@ public class ReportService {
 		}
 
 		dataTable.draw(); 
-//			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
-//			document.save(pdfName);
+
 		document.save(out);
 		document.close();	
 	}
@@ -497,10 +492,7 @@ public class ReportService {
 		List<IntegratedReportData> listType = report.getIntegratedReportData();
 		
 		PDDocument document = new PDDocument();		
-		PDDocumentInformation pdd = document.getDocumentInformation();
-		pdd.setAuthor("Allen Ma");
-		pdd.setTitle("Landfill report");
-		pdd.setCreator("Allen Ma");
+		
 		blankPage1 = new PDPage();
 		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
 
@@ -570,8 +562,7 @@ public class ReportService {
 		}
 
 		dataTable.draw(); 
-//			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
-//			document.save(pdfName);
+
 		document.save(out);
 		document.close();	
 	}
@@ -583,7 +574,7 @@ public class ReportService {
 
 		Set<ExceedanceType> types = report.getReportQuery().getExceedanceTypes();
 		List<List<?>> reportData;
-		//= new ArrayList<>()
+		
 		List<?> listType;
 		
 		ArrayList<ByteArrayOutputStream> allpdf = new ArrayList<>();
@@ -592,10 +583,7 @@ public class ReportService {
 		for (ExceedanceType exType : types) {
 			reportData = new ArrayList<>();
 			PDDocument document = new PDDocument();		
-			PDDocumentInformation pdd = document.getDocumentInformation();
-			pdd.setAuthor("Allen Ma");
-			pdd.setTitle("Landfill report");
-			pdd.setCreator("Allen Ma");
+			
 			blankPage1 = new PDPage();
 			blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
 
@@ -705,9 +693,7 @@ public class ReportService {
 			
 			
 			dataTable.draw(); 
-//			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
-//			document.save(pdfName);
-//			document.save(out);
+
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			document.save(baos);
 			allpdf.add(baos);

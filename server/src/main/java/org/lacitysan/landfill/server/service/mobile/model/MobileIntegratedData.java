@@ -1,5 +1,7 @@
 package org.lacitysan.landfill.server.service.mobile.model;
 
+import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
+
 /**
  * @author Alvin Quach
  */
@@ -12,7 +14,7 @@ public class MobileIntegratedData {
 	private String mId;
 	private String mInspectorName;
 	private String mInspectorUserName;
-	private String mInstrumentSerialNumber;
+	private Instrument mInstrument;
 	private String mLocation;
 	private Double mMethaneReading;
 	private String mSampleId;
@@ -75,12 +77,12 @@ public class MobileIntegratedData {
 		this.mInspectorUserName = mInspectorUserName;
 	}
 
-	public String getmInstrumentSerialNumber() {
-		return mInstrumentSerialNumber;
+	public Instrument getmInstrument() {
+		return mInstrument;
 	}
 
-	public void setmInstrumentSerialNumber(String mInstrumentSerialNumber) {
-		this.mInstrumentSerialNumber = mInstrumentSerialNumber;
+	public void setmInstrument(Instrument mInstrument) {
+		this.mInstrument = mInstrument;
 	}
 
 	public String getmLocation() {

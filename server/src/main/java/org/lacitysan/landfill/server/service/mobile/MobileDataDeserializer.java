@@ -212,6 +212,7 @@ public class MobileDataDeserializer {
 			unverifiedInstantaneousData.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
 			unverifiedInstantaneousData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate()));
 			unverifiedInstantaneousData.setEndTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmEndDate()));
+			unverifiedInstantaneousData.setInstrument(mobileInstantaneousData.getmInstrument());
 
 			// Set barometric pressure
 			if (mobileInstantaneousData.getmBarometricPressure() != null) {
@@ -245,6 +246,7 @@ public class MobileDataDeserializer {
 			unverifiedWarmspotData.setDate(new Date(DateTimeUtils.mobileDateToTimestamp(mobileWarmspotData.getmDate()).getTime()));
 			unverifiedWarmspotData.setDescription(mobileWarmspotData.getmDescription() == null ? "" : mobileWarmspotData.getmDescription());
 			unverifiedWarmspotData.setSize(String.valueOf(mobileWarmspotData.getmEstimatedSize()));
+			unverifiedWarmspotData.setInstrument(mobileWarmspotData.getmInstrument());
 			MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(site, mobileWarmspotData.getmGridId());
 			if (grid == null) {
 				if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGridId() + " in " + mobileWarmspotData.getmLocation() + " not found.");
@@ -358,6 +360,7 @@ public class MobileDataDeserializer {
 			unverifiedIntegratedData.setMethaneLevel((int)(mobileIntegratedData.getmMethaneReading() * 100));
 			unverifiedIntegratedData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileIntegratedData.getmStartDate()));
 			unverifiedIntegratedData.setEndTime(DateTimeUtils.mobileDateToTimestamp(mobileIntegratedData.getmEndDate()));
+			unverifiedIntegratedData.setInstrument(mobileIntegratedData.getmInstrument());
 
 			// Set barometric pressure
 			if (mobileIntegratedData.getmBarometricPressure() != null) {

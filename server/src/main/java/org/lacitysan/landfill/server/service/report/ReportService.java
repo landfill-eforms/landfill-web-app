@@ -451,13 +451,15 @@ public class ReportService {
 		PDPage blankPage1;
 
 		Set<ExceedanceType> types = report.getReportQuery().getExceedanceTypes();
-		List<List<?>> reportData = new ArrayList<>();
+		List<List<?>> reportData;
+		//= new ArrayList<>()
 		List<?> listType;
 		
 		ArrayList<ByteArrayOutputStream> allpdf = new ArrayList<>();
 
 		String exceedType = "";
 		for (ExceedanceType exType : types) {
+			reportData = new ArrayList<>();
 			PDDocument document = new PDDocument();		
 			PDDocumentInformation pdd = document.getDocumentInformation();
 			pdd.setAuthor("Allen Ma");
@@ -481,7 +483,7 @@ public class ReportService {
 				listType = report.getIseReportData();
 			}
 			else{
-				exceedType = "Perimeter Probe Exceedances";
+				exceedType = "Probe Exceedances";
 				listType = report.getProbeExceedanceReportData();
 			}
 			System.out.println(exceedType);

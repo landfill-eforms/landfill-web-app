@@ -1,3 +1,4 @@
+import { ExceedanceType } from './../../../model/server/persistence/enums/exceedance/exceedance-type.enum';
 import { ExceedanceReport } from './../../../model/server/service/report/model/exceedance-report.class';
 import { ReportPeriod } from './../../../model/server/persistence/enums/report/report-period.enum';
 import { FileDownloadService } from './../../../services/file/file-download.service';
@@ -65,7 +66,8 @@ export class ExceedanceReportComponent {
 
 	private generateQuery():IndividualReportQuery {
 		let reportQuery:IndividualReportQuery = new IndividualReportQuery;
-		reportQuery.reportType = ReportType.INTEGRATED;
+		reportQuery.reportType = ReportType.EXCEEDANCE;
+		reportQuery.exceedanceTypes = [ExceedanceType.INSTANTANEOUS, ExceedanceType.INTEGRATED]; // TODO Fix this...
 		reportQuery.site = this.selectedSite;
 		reportQuery.reportPeriod = this.selectedReportPeriod;
 		reportQuery.startDate = this.dateRange.start;

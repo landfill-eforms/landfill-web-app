@@ -41,6 +41,13 @@ export class ReportSelectorComponent {
 			edgeColor: "#66BB6A",
 			route: StatusRoute.COMING_SOON,
 			disabled: true
+		},
+		{
+			title: "Scheduled",
+			subtitle: "Set-up Automated Reports",
+			edgeColor: "#66BB6A",
+			route: RestrictedRoute.SCHEDULED_REPORT_LIST,
+			disabled: false
 		}
     ];
 

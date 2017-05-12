@@ -1,0 +1,130 @@
+<div md-dialog-title>{{isNew ? 'Schedule New Report' : 'Edit Scheduled Report'}}</div>
+<md-dialog-content>
+	<md-tab-group>
+		<md-tab label="Schedule">
+			<div style="padding-top: 24px">
+				<div class="dialog-form-container flex-container" fxLayout="row">
+					<div class="flex-item" fxFlex style="padding-right: 16px;">
+						<md-input-container class="md-input-full-width">
+							<input mdInput placeholder="Suject" [(ngModel)]="scheduledReport.subject">
+						</md-input-container>
+						<md-input-container class="md-input-full-width">
+							<textarea mdInput rows="10" placeholder="Body" [(ngModel)]="scheduledReport.body"></textarea>
+						</md-input-container>
+					</div>
+					<div class="flex-item" fxFlex style="padding-left: 16px;">
+						<app-date-picker-input placeholder="Start Date"
+							[initialDate]="scheduledReport.schedule.offset"
+							(dateChanged)="updateOffset($event)">
+						</app-date-picker-input>
+						<md-input-container class="md-input-full-width">
+							<input mdInput placeholder="Frequency" [(ngModel)]="scheduledReport.schedule.frequency">
+						</md-input-container>
+						<md-select [(ngModel)]="scheduledReport.schedule.recurrence" placeholder="Recurrance" class="mat-select-row" style="width:100%">
+							<md-option *ngFor="let s of scheduleRecurrenceChoices" [value]="s">
+								{{s.name}}
+							</md-option>
+						</md-select>
+						<md-slide-toggle [(ngModel)]="scheduledReport.schedule.active" style="padding-top: 12px; font-weight: 400;">
+							{{scheduledReport.schedule.active ? 'Active' : 'Inactive'}}
+						</md-slide-toggle>
+					</div>
+				</div>
+			</div>
+		</md-tab>
+		<md-tab label="Recipients">
+			<div class="dialog-form-container flex-container" fxLayout="row">
+				<div class="flex-item" fxFlex style="padding-right: 16px;">
+					<div style="padding-top: 24px; font-weight: 500;">User Groups</div>
+					<div class="list-picker-box" style="height:320px">
+						<div *ngFor="let group of userGroupsWrapped" class="list-item-container flex-container" fxLayout="row"> 
+							<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
+								<md-checkbox [(ngModel)]="group.selected"></md-checkbox>
+							</div>
+							<div class="list-item-info flex-item" fxFlex>
+								<div class="list-item-title">
+									{{group.userGroup.name}}
+								</div>
+								<div class="list-item-description">
+									{{group.userGroup.description}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="flex-item" fxFlex style="padding-left: 16px;">
+					<div style="padding-top: 24px; font-weight: 500;">Additional Recipients</div>
+					<div class="list-picker-box" style="height:320px">
+						<div *ngFor="let recipient of scheduledReport.recipients" class="list-item-container flex-container" fxLayout="row"> 
+							<div class="list-item-info flex-item" fxFlex style="height: 48px;">
+								<div class="list-item-title">
+									{{recipient.name}}
+								</div>
+								<div class="list-item-description">
+									{{recipient.emailAddress}}
+								</div>
+							</div>
+							<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
+								<md-icon (click)="removeRecipient(recipient)" color="warn">delete</md-icon>
+							</div>
+						</div>
+					</div>
+					<div class="flex-container" fxLayout="row">
+						<md-input-container class="mat-input-container-inline flex-item" fxFlex style="margin-left: 0;">
+							<input mdInput placeholder="New Recipient Name" [(ngModel)]="newRecipient.name">
+						</md-input-container>
+						<md-input-container class="mat-input-container-inline flex-item" fxFlex>
+							<input mdInput placeholder="Email Address" [(ngModel)]="newRecipient.emailAddress">
+						</md-input-container>
+						<button md-icon-button color="primary" (click)="addRecipient()" mdTooltip="New Recipient" mdTooltipPosition="above" class="flex-item" fxFlex="40px">
+							<md-icon>add</md-icon>
+						</button>
+					</div>
+				</div>
+			</div>
+		</md-tab>
+		<md-tab label="Query">
+			<div style="padding-top: 24px">
+				<div class="dialog-form-container flex-container" fxLayout="row">
+					<div class="flex-item" fxFlex style="padding-right: 16px;">
+						<md-select [(ngModel)]="scheduledReport.reportQueries[0].reportType" placeholder="Report Type" class="mat-select-row" style="width:100%">
+							<md-option *ngFor="let r of reportTypeChoices" [value]="r">
+								{{r.name}}
+							</md-option>
+						</md-select>
+						<md-select [(ngModel)]="scheduledReport.reportQueries[0].site" placeholder="Site" class="mat-select-row" style="width:100%">
+							<md-option *ngFor="let site of availableSites" [value]="site">
+								{{site.name}}
+							</md-option>
+						</md-select>
+						<md-select [(ngModel)]="scheduledReport.reportQueries[0].reportPeriod" placeholder="Period" class="mat-select-row" style="width:100%">
+							<md-option *ngFor="let p of reportPeriodChoices" [value]="p">
+								{{p.name}}
+							</md-option>
+						</md-select>
+						<app-date-picker-input *ngIf="scheduledReport.reportQueries[0].reportPeriod == reportPeriodChoices[0]"
+							placeholder="Start Date"
+							[initialDate]="scheduledReport.reportQueries[0].startDate"
+							(dateChanged)="updateStartDate($event)">
+						</app-date-picker-input>
+						<app-date-picker-input *ngIf="scheduledReport.reportQueries[0].reportPeriod == reportPeriodChoices[0]"
+							placeholder="End Date"
+							[initialDate]="scheduledReport.reportQueries[0].endDate"
+							(dateChanged)="updateEndDate($event)">
+						</app-date-picker-input>
+					</div>
+					<div class="flex-item" fxFlex style="padding-left: 16px;">
+					</div>
+				</div>
+			</div>
+		</md-tab>
+	</md-tab-group>
+</md-dialog-content>
+<md-dialog-actions>
+	<button md-button (click)="cancel()">
+		CANCEL
+	</button>
+	<button md-button (click)="confirm()">
+		{{isNew ? 'CONFIRM' : 'SAVE'}}
+	</button>
+</md-dialog-actions>

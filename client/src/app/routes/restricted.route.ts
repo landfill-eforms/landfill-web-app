@@ -143,6 +143,17 @@ export class RestrictedRoute {
 		}
 	};
 
+	static readonly SCHEDULED_REPORT_LIST:Route = {
+		path: 'report/scheduled',
+		data: {
+			name: "Scheduled Reports",
+			previous: RestrictedRoute.REPORT_SELECTOR,
+			permissions: [
+				UserPermission.SCHEDULE_EMAIL_REPORTS
+			]
+		}
+	};
+
 	/***** UNVERIFIED DATA ROUTES *****/
 	static readonly UNVERIFIED_DATA_SET_LIST:Route = {
 		path: 'unverified-data-sets',

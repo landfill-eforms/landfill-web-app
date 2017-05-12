@@ -42,8 +42,7 @@
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 			<div class="data-table-first-column truncate flex-item" (click)="sortBy('serialNumber')" fxFlex>
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'serialNumber'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'serialNumber'}">
 					<span fxHide fxShow.gt-md [fxShow.gt-sm]="!showSideInfo">Serial Number</span>
 					<span fxShow fxHide.gt-md [fxHide.gt-sm]="!showSideInfo">S/N</span>
 				</span>
@@ -54,8 +53,7 @@
 				</md-icon>
 			</div>
 			<div class="data-table-column truncate flex-item" (click)="sortBy('instrumentType')" fxFlex>
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'instrumentType'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'instrumentType'}">
 					Type
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -65,8 +63,7 @@
 				</md-icon>
 			</div>
 			<div class="data-table-column truncate flex-item" (click)="sortBy('instrumentStatus')" fxFlex>
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'instrumentStatus'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'instrumentStatus'}">
 					Status
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -82,8 +79,7 @@
 				fxShow.gt-lg 
 				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
 				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'lastServiceDate'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'lastServiceDate'}">
 					Last Service
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -99,8 +95,7 @@
 				fxShow.gt-lg 
 				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
 				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'serviceDueDate'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'serviceDueDate'}">
 					Next Service
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -116,8 +111,7 @@
 				fxShow.gt-lg 
 				[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
 				[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'purchaseDate'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'purchaseDate'}">
 					Purchased
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -127,8 +121,7 @@
 				</md-icon>
 			</div>
 			<div class="data-table-column truncate flex-item" (click)="sortBy('site')" fxFlex>
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'site'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'site'}">
 					<span fxHide fxShow.gt-md [fxShow.gt-sm]="!showSideInfo">Assigned Site</span>
 					<span fxShow fxHide.gt-md [fxHide.gt-sm]="!showSideInfo">Site</span>
 				</span>
@@ -139,8 +132,7 @@
 				</md-icon>
 			</div>
 			<div class="data-table-column truncate flex-item" (click)="sortBy('inventoryNumber')" fxFlex>
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'inventoryNumber'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'inventoryNumber'}">
 					Inventory No.
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{

@@ -11,14 +11,10 @@ import { Component } from '@angular/core';
 })
 export class UnverifiedDataSetListSideinfoComponent extends AbstractSideinfoComponent<UnverifiedDataSet> {
 
-	DateTimeUtils = DateTimeUtils;
-	StringUtils = StringUtils;
-
 	unverifiedDataSet:UnverifiedDataSet;
 
-	constructor(
-		private navigationService:NavigationService) {
-			super("Unverified Data Set");
+	constructor() {
+		super("Unverified Data Set");
 	}
 
 	getData():UnverifiedDataSet {

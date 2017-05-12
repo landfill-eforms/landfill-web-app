@@ -37,8 +37,7 @@
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 			<div class="data-table-first-column truncate flex-item" (click)="sortBy('site')" fxFlex="11">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'site'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'site'}">
 					Site
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -48,8 +47,7 @@
 				</md-icon>
 			</div>
 			<div class="data-table-column truncate flex-item" (click)="sortBy('inspector')" fxFlex="14">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'inspector'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'inspector'}">
 					Inspector
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -63,8 +61,7 @@
 				fxHide 
 				fxShow.gt-sm
 				[fxShow.gt-xs]="!showSideInfo || !isNavDrawerOpen()" >
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'createdDate'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'createdDate'}">
 					Upload Date
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -104,7 +101,9 @@
 						{{dataSet.filename}}
 					</div>
 					<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">
-						<md-icon [routerLink]="dataSet.id" mdTooltip="Edit" mdTooltipPosition="after" style="color:#07F;cursor:pointer;margin-top:-4px;">edit</md-icon>
+						<md-icon [routerLink]="dataSet.id" mdTooltip="Edit" mdTooltipPosition="after" color="primary" style="cursor:pointer;margin-top:-4px;">
+							edit
+						</md-icon>
 					</div>
 				</div>
 			</div>

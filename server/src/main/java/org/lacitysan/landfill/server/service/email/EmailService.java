@@ -1,21 +1,23 @@
 package org.lacitysan.landfill.server.service.email;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import javax.activation.DataHandler;
+import javax.mail.BodyPart;
 import javax.mail.Message;
-import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.persistence.entity.email.EmailRecipient;
@@ -30,72 +32,39 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EmailService {
-	
+
 	@Value("${mail.smtp.auth}")
 	private Boolean auth;
-	
+
 	@Value("${mail.smtp.starttls.enable}")
 	private Boolean startTlsEnable;
-	
+
 	@Value("${mail.smtp.host}")
 	private String host;
-	
+
 	@Value("${mail.smtp.port}")
 	private Integer port;
-	
+
 	@Value("${mail.smtp.username}")
 	private String username;
-	
+
 	@Value("${mail.smtp.password}")
 	private String password;
-	
-	public void sendEmail(ScheduledEmail scheduledEmail) {
-		sendEmail(generateRecipientSet(scheduledEmail.getUserGroups(), scheduledEmail.getRecipients()), scheduledEmail.getSubject(), scheduledEmail.getBody());
+
+	public void sendEmail(ScheduledEmail scheduledEmail, Collection<byte[]> attachments) {
+		sendEmail(generateRecipientSet(scheduledEmail.getUserGroups(), scheduledEmail.getRecipients()), scheduledEmail.getSubject(), scheduledEmail.getBody(), attachments);
 	}
-	
-	public void sendEmail(Collection<EmailRecipient> recipients, String subject, String body) {
-		
+
+	public void sendEmail(Collection<EmailRecipient> recipients, String subject, String body, Collection<byte[]> attachments) {
+
 		if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tAttempting to Send Email.");
-		
+
 		Properties properties = new Properties();
 		properties.put("mail.smtp.auth", auth);
 		properties.put("mail.smtp.starttls.enable", startTlsEnable);
 		properties.put("mail.smtp.host", host);
 		properties.put("mail.smtp.port", port);
-		
-		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		});
-		
-		try {
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(username, "Landfill e-Forms"));
-			for (EmailRecipient recipient : recipients) {
-				message.addRecipient(recipient.getRecipientType().getJavaxRecipientType(), new InternetAddress(recipient.getEmailAddress(), recipient.getName()));
-			}
-			message.setSubject(subject);
-			message.setText(body);
-			Transport.send(message);
-			if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tEmail Sent.");
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public void sendHourlyTestEmail() {
-		
-		if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tAttempting to Send Email.");
-		
-		Properties properties = new Properties();
-		properties.put("mail.smtp.auth", auth);
-		properties.put("mail.smtp.starttls.enable", startTlsEnable);
-		properties.put("mail.smtp.host", host);
-		properties.put("mail.smtp.port", port);
-		
+
 		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
@@ -103,28 +72,49 @@ public class EmailService {
 		});
 
 		try {
-			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("landfill.notifications@gmail.com", "Landfill e-Forms"));
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress("alvinthingy@gmail.com", "Alvin Quach"));
-			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("aaleman11@gmail.com", "Alfredo Aleman"));
-			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("ligerx000@gmail.com", "Allen Ma"));
-			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("alvinquach91@gmail.com", "Alvin Quach"));
-			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("ow.chris.t@gmail.com", "Chris Ow"));
-			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("3s.grantkang@gmail.com", "Grant Kang"));
-			msg.setSubject("Hourly Email Test");
-			msg.setText("This is a test. You should be receiving this email every hour. Sorry for the spam.\n" + Calendar.getInstance().getTimeInMillis());
-			Transport.send(msg);
+			
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username, "Landfill e-Forms"));
+			for (EmailRecipient recipient : recipients) {
+				message.addRecipient(recipient.getRecipientType().getJavaxRecipientType(), new InternetAddress(recipient.getEmailAddress(), recipient.getName()));
+			}
+			message.setSubject(subject);
+
+			if (attachments == null || attachments.isEmpty()) {
+				message.setText(body);
+			}
+			else {
+				
+				// Create new multipart.
+				Multipart multipart = new MimeMultipart();
+				
+				// Create a new body part for the message.
+				BodyPart messageBodyPart = new MimeBodyPart();
+				messageBodyPart.setText(body);
+				multipart.addBodyPart(messageBodyPart);
+				
+				// Add attachments
+				for (byte[] attachment : attachments) {
+					messageBodyPart = new MimeBodyPart();
+					ByteArrayDataSource dataSource = new ByteArrayDataSource(attachment, "application/pdf"); 
+					messageBodyPart.setDataHandler(new DataHandler(dataSource));
+					messageBodyPart.setFileName("report.pdf"); // TODO Generate more informative filename.
+					multipart.addBodyPart(messageBodyPart);
+				}
+				
+				// Set the contents of the email to the multipart.
+				message.setContent(multipart);
+			}
+
+			Transport.send(message);
 			if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tEmail Sent.");
-		} catch (AddressException e) {
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public Set<EmailRecipient> generateRecipientSet(Collection<UserGroup> userGroups, Collection<EmailRecipient> recipients) {
 		Set<EmailRecipient> result = new TreeSet<>();
 		result.addAll(userGroups.stream()
@@ -148,7 +138,7 @@ public class EmailService {
 		}
 		return result;
 	}
-	
+
 	/** 
 	 * Compares two email addresses. 
 	 * Assumes both email addresses are valid.
@@ -159,7 +149,7 @@ public class EmailService {
 	public boolean compareEmailAddresses(String a, String b) {
 		return stripEmailAddress(a).equals(stripEmailAddress(b));
 	}
-	
+
 	/**
 	 * Simplifies the input email address.
 	 * Gets rid of uninterpreted characters.

@@ -11,14 +11,10 @@ import { Component } from '@angular/core';
 })
 export class IseNumberListSideinfoComponent extends AbstractSideinfoComponent<IseNumber> {
 
-	DateTimeUtils = DateTimeUtils;
-	StringUtils = StringUtils;
-
 	iseNumber:IseNumber;
 
-	constructor(
-		private navigationService:NavigationService) {
-			super("ISE Number");
+	constructor() {
+		super("ISE Number");
 	}
 
 	getData():IseNumber {

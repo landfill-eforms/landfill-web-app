@@ -6,31 +6,37 @@ export class ReportType {
 
 	static readonly EXCEEDANCE:ReportType = {
 		ordinal: 0,
-		constantName: "EXCEEDANCE"
+		constantName: "EXCEEDANCE",
+		name: "Exceedance"
 	};
 
 	static readonly INSTANTANEOUS:ReportType = {
 		ordinal: 1,
-		constantName: "INSTANTANEOUS"
+		constantName: "INSTANTANEOUS",
+		name: "Instantaneous"
 	};
 
 	static readonly INTEGRATED:ReportType = {
 		ordinal: 2,
-		constantName: "INTEGRATED"
+		constantName: "INTEGRATED",
+		name: "Integrated"
 	};
 
 	static readonly PROBE:ReportType = {
 		ordinal: 3,
-		constantName: "PROBE"
+		constantName: "PROBE",
+		name: "Probe"
 	};
 
 	static readonly WARMSPOT:ReportType = {
 		ordinal: 4,
-		constantName: "WARMSPOT"
+		constantName: "WARMSPOT",
+		name: "Warmspot"
 	};
 
 	readonly ordinal:number;
 	readonly constantName:string;
+	readonly name:string;
 
 	static values():ReportType[] {
 		return [

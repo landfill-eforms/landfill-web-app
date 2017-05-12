@@ -46,7 +46,7 @@ public class ScheduledEmailController {
 	
 	@RestSecurity(value=UserPermission.SCHEDULE_EMAIL_NOTIFICATIONS, mode=RestSecurityMode.OVERRIDE)
 	@RequestMapping(value="/list/all/notification", method=RequestMethod.GET)
-	public List<ScheduledNotification> getScheduledNotifications() {
+	public List<ScheduledNotification> getAllScheduledNotifications() {
 		return scheduledEmailDao.getAllScheduledNotifications();
 	}
 
@@ -80,9 +80,14 @@ public class ScheduledEmailController {
 		return scheduledEmailService.update(scheduledNotification);
 	}
 
-	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public ScheduledEmail delete(@RequestBody ScheduledEmail scheduledEmail) {
-		return scheduledEmailService.delete(scheduledEmail);
+	@RequestMapping(value="/delete/report", method=RequestMethod.POST)
+	public ScheduledEmail deleteScheduledReport(@RequestBody ScheduledReport scheduledReport) {
+		return scheduledEmailService.delete(scheduledReport);
+	}
+	
+	@RequestMapping(value="/delete/notification", method=RequestMethod.POST)
+	public ScheduledEmail deleteScheduledNotification(@RequestBody ScheduledNotification scheduledNotification) {
+		return scheduledEmailService.delete(scheduledNotification);
 	}
 
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)

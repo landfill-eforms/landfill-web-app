@@ -28,10 +28,6 @@ import { OnInit, Component, OnDestroy, ViewChild } from '@angular/core';
 })
 export class UnverifiedDataSetListComponent extends AbstractDataTableComponent<UnverifiedDataSet> implements OnInit, OnDestroy {
 
-	// Utilities
-	StringUtils = StringUtils;
-	DateTimeUtils = DateTimeUtils;
-
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;

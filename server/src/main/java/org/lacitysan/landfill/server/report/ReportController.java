@@ -40,7 +40,7 @@ public class ReportController {
 			response.addHeader("Content-Disposition", "attachment; filename=\"test_" + DateTimeUtils.formatCondensed(Calendar.getInstance().getTimeInMillis()) + ".pdf\"");
 			response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
 			
-			reportService.generateReportPdf(response, reportQuery);
+			reportService.generateReportPdf(response.getOutputStream(), reportQuery);
 			response.flushBuffer();
 		} 
 		catch (IOException e) {

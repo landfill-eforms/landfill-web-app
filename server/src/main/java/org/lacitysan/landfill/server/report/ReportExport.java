@@ -254,18 +254,13 @@ public class ReportExport{
 */
 	public static void createExceedanceReport(HttpServletResponse response, ExceedanceReport report) throws IOException {
 
-
 		PDPage blankPage1;
-		String pdfName = "";
-		//----------------------------------------------------------------------------------------------------				
-		String text = "";	        
-
+//		String pdfName = "";
 
 		Set<ExceedanceType> types = report.getReportQuery().getExceedanceTypes();
-		List<List> reportData = new ArrayList<>();
-		List<? extends Object> listType;
+		List<List<?>> reportData = new ArrayList<>();
+		List<?> listType;
 
-		int pageIndex = 0;
 		String exceedType = "";
 		for (Iterator<ExceedanceType> it = types.iterator(); it.hasNext(); ) {
 			PDDocument document = new PDDocument();		
@@ -285,11 +280,11 @@ public class ReportExport{
 			document.addPage( blankPage1 );
 
 			ExceedanceType exType = it.next();
-			if (exType.getName().equals("Instantaneous") ){
+			if (exType == ExceedanceType.INSTANTANEOUS){
 				exceedType = "Instantaneous Exceedances";
 				listType = report.getImeReportData();
 			}
-			else if(exType.getName().equals("Integrated")){
+			else if(exType == ExceedanceType.INTEGRATED){
 				exceedType = "Integrated";
 				listType = report.getIseReportData();
 			}
@@ -299,10 +294,10 @@ public class ReportExport{
 			}
 
 			ArrayList<String> header = new ArrayList<>();
-			if (exType.getName().equals("Instantaneous") || exType.getName().equals("Integrated")){
+			if (exType == ExceedanceType.INSTANTANEOUS || exType == ExceedanceType.INTEGRATED){
 
 				header.add("Date Discovered");
-				if(exType.getName().equals("Instantaneous")){
+				if(exType == ExceedanceType.INSTANTANEOUS){
 					header.add("IME#");
 					header.add("Grid(s)");
 				}
@@ -328,7 +323,7 @@ public class ReportExport{
 					reportData.add(info);
 				}
 			}
-			else if (exType.getName().equals("Probe")){
+			else if (exType == ExceedanceType.PROBE){
 				header.add("Date Discovered");
 				header.add("Probe ID");
 				header.add("Depth");           	            	     	
@@ -361,27 +356,32 @@ public class ReportExport{
 
 
 			be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
-			cell = hea.createCell((100 / 6.0f) * 2, "" + header.get(0) );
-			for (int i = 1; i < header.size(); i++) {
-				cell = hea.createCell((100 / 9f), "" + header.get(i));
-			}		
-			cell.setFont(PDType1Font.HELVETICA_BOLD);
+			for (int i = 0; i < header.size(); i++) {
+				float width = 100 / 9f;
+				if (i == 3) {
+					width = (100 / 6.0f) * 2;
+				}
+				cell = hea.createCell(width, "" + header.get(i));
+				cell.setFont(PDType1Font.HELVETICA_BOLD);
+			}	
 			dataTable.addHeaderRow(hea); //derRow
 
-			for (List info : reportData) {
+			for (List<?> info : reportData) {
 				be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
 
-				cell = row.createCell((100 / 6.0f) * 2, "" + info.get(0) ); //3
-				for (int i = 1; i < info.size(); i++) {
-					cell = row.createCell((100 / 9f), "" + info.get(i));
+				for (int i = 0; i < info.size(); i++) {
+					float width = 100 / 9f;
+					if (i == 3) {
+						width = (100 / 6.0f) * 2;
+					}
+					cell = row.createCell(width, "" + info.get(i));
 				}
 
 
 			}
 
 			dataTable.draw(); 
-			pageIndex++;
-			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
+//			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
 //			document.save(pdfName);
 			document.save(response.getOutputStream());
 			document.close();

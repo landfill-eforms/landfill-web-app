@@ -1,7 +1,5 @@
 package org.lacitysan.landfill.server.rest.file;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -10,12 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.persistence.entity.report.IndividualReportQuery;
+import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceType;
+import org.lacitysan.landfill.server.persistence.enums.location.Site;
+import org.lacitysan.landfill.server.persistence.enums.report.ReportType;
 import org.lacitysan.landfill.server.persistence.enums.user.UserPermission;
 import org.lacitysan.landfill.server.report.ReportExport;
 import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.mobile.MobileDataSerializer;
 import org.lacitysan.landfill.server.service.report.ReportService;
 import org.lacitysan.landfill.server.service.report.model.ExceedanceReport;
+import org.lacitysan.landfill.server.service.report.model.Report;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,14 +65,22 @@ public class FileDownloadController {
 	@RequestMapping(value="/pdf/test", method=RequestMethod.GET)
 	public void getTestPdf(HttpServletResponse response) {
 		try {
-			InputStream in = new FileInputStream(new File("D:/Alvin/Documents/CS4440 HW6.pdf"));
+			IndividualReportQuery reportQuery = new IndividualReportQuery();
+			reportQuery.setReportType(ReportType.EXCEEDANCE);
+			reportQuery.setSite(Site.LOPEZ);
+			reportQuery.getExceedanceTypes().add(ExceedanceType.INSTANTANEOUS);
 
 			// Set response headers. This needs to be done before writing to the response's output stream.
 			response.setContentType("application/pdf");
 			response.addHeader("Content-Disposition", "attachment; filename=\"test_" + DateTimeUtils.formatCondensed(Calendar.getInstance().getTimeInMillis()) + ".pdf\"");
 			response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
 			
-			ReportExport.createExceedanceReport(response, null);
+			Report report = reportService.generateReport(reportQuery);
+			if (!(report instanceof ExceedanceReport)) {
+				return;
+			}
+			
+			ReportExport.createExceedanceReport(response, (ExceedanceReport)report);
 			response.flushBuffer();
 		} 
 		catch (IOException e) {

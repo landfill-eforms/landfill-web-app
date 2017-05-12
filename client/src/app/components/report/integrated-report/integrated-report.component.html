@@ -2,7 +2,7 @@
 	<md-card style="margin-bottom: 24px">
 		<md-card-content>
 			<div class="card-title">
-				Instantaneous Report Query
+				Integrated Report Query
 			</div>
 			<div class="flex-container" fxLayout="row">
 				<md-select [(ngModel)]="selectedSite" placeholder="Equipment Type" class="mat-select-row flex-item" fxFlex style="margin-top: 10px">
@@ -37,6 +37,12 @@
 					<span class="data-table-header-label">Inspector</span>
 				</div>
 				<div class="data-table-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Sample ID</span>
+				</div>
+				<div class="data-table-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Bag #</span>
+				</div>
+				<div class="data-table-column truncate flex-item" fxFlex>
 					<span class="data-table-header-label">Grid</span>
 				</div>
 				<div class="data-table-column truncate flex-item" fxFlex>
@@ -46,20 +52,20 @@
 					<span class="data-table-header-label">End</span>
 				</div>
 				<div class="data-table-column truncate flex-item" fxFlex>
+					<span class="data-table-header-label">Volume (L)</span>
+				</div>
+				<div class="data-table-column truncate flex-item" fxFlex>
 					<span class="data-table-header-label">Instrument</span>
 				</div>
 				<div class="data-table-column truncate flex-item" fxFlex>
 					<span class="data-table-header-label">Reading (ppm)</span>
 				</div>
-				<div class="data-table-last-column truncate flex-item" fxFlex>
-					<span class="data-table-header-label">IME Number(s)</span>
-				</div>
 			</div>
-			<div *ngIf="report.instantaneousReportData?.length == 0" class="data-table-no-data-label">
+			<div *ngIf="report.integratedReportData?.length == 0" class="data-table-no-data-label">
 				Query returned no results. Please refine your search criteria.
 			</div>
 			<div>
-				<div *ngFor="let data of report.instantaneousReportData" class="data-table-row">
+				<div *ngFor="let data of report.integratedReportData" class="data-table-row">
 					<div class="data-table-row-content flex-container" fxLayout="row">
 						<div class="data-table-first-column truncate flex-item" fxFlex>
 							{{data.date}}
@@ -71,6 +77,12 @@
 							{{data.inspector}}
 						</div>
 						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.sampleId}}
+						</div>
+						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.bagNumber}}
+						</div>						
+						<div class="data-table-first-column truncate flex-item" fxFlex>
 							{{data.monitoringPoint}}
 						</div>
 						<div class="data-table-first-column truncate flex-item" fxFlex>
@@ -80,13 +92,13 @@
 							{{data.endTime}}
 						</div>
 						<div class="data-table-first-column truncate flex-item" fxFlex>
+							{{data.volume}}
+						</div>						
+						<div class="data-table-first-column truncate flex-item" fxFlex>
 							{{data.instrument}}
 						</div>
 						<div class="data-table-first-column truncate flex-item" fxFlex>
 							{{data.methaneLevel}}
-						</div>
-						<div class="data-table-first-column truncate flex-item" fxFlex>
-							{{data.imeNumber}}
 						</div>
 					</div>
 				</div>
@@ -94,7 +106,7 @@
 			<div class="data-table-card-footer">
 				<button md-raised-button color="accent" 
 					(click)="downloadReport()" 
-					[disabled]="report.instantaneousReportData.length == 0" 
+					[disabled]="report.integratedReportData.length == 0" 
 					style="margin-top: 8px;">
 					DOWNLOAD PDF
 					<md-icon>file_download</md-icon>

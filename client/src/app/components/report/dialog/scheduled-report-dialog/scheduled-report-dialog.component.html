@@ -6,7 +6,7 @@
 				<div class="dialog-form-container flex-container" fxLayout="row">
 					<div class="flex-item" fxFlex style="padding-right: 16px;">
 						<md-input-container class="md-input-full-width">
-							<input mdInput placeholder="Suject" [(ngModel)]="scheduledReport.subject">
+							<input mdInput placeholder="Subject" [(ngModel)]="scheduledReport.subject">
 						</md-input-container>
 						<md-input-container class="md-input-full-width">
 							<textarea mdInput rows="10" placeholder="Body" [(ngModel)]="scheduledReport.body"></textarea>
@@ -18,7 +18,7 @@
 							(dateChanged)="updateOffset($event)">
 						</app-date-picker-input>
 						<md-input-container class="md-input-full-width">
-							<input mdInput placeholder="Frequency" [(ngModel)]="scheduledReport.schedule.frequency">
+							<input mdInput placeholder="Interval" [(ngModel)]="scheduledReport.schedule.frequency">
 						</md-input-container>
 						<md-select [(ngModel)]="scheduledReport.schedule.recurrence" placeholder="Recurrance" class="mat-select-row" style="width:100%">
 							<md-option *ngFor="let s of scheduleRecurrenceChoices" [value]="s">
@@ -102,12 +102,12 @@
 								{{p.name}}
 							</md-option>
 						</md-select>
-						<app-date-picker-input *ngIf="scheduledReport.reportQueries[0].reportPeriod == reportPeriodChoices[0]"
+						<app-date-picker-input [disabled]="scheduledReport.reportQueries[0].reportPeriod != reportPeriodChoices[0]"
 							placeholder="Start Date"
 							[initialDate]="scheduledReport.reportQueries[0].startDate"
 							(dateChanged)="updateStartDate($event)">
 						</app-date-picker-input>
-						<app-date-picker-input *ngIf="scheduledReport.reportQueries[0].reportPeriod == reportPeriodChoices[0]"
+						<app-date-picker-input [disabled]="scheduledReport.reportQueries[0].reportPeriod != reportPeriodChoices[0]"
 							placeholder="End Date"
 							[initialDate]="scheduledReport.reportQueries[0].endDate"
 							(dateChanged)="updateEndDate($event)">

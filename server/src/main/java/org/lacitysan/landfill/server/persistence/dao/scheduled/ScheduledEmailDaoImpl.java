@@ -54,7 +54,10 @@ public class ScheduledEmailDaoImpl extends AbstractDaoImpl<ScheduledEmail> imple
 		}
 		Hibernate.initialize(scheduledEmail.getSchedule());
 		Hibernate.initialize(scheduledEmail.getRecipients());
-		scheduledEmail.getUserGroups().forEach(userGroup -> Hibernate.initialize(userGroup.getUserPermissions()));
+		scheduledEmail.getUserGroups().forEach(userGroup -> {
+			Hibernate.initialize(userGroup.getUserPermissions());
+			Hibernate.initialize(userGroup.getUsers());
+		});
 		if (scheduledEmail instanceof ScheduledReport) {
 			((ScheduledReport)scheduledEmail).getReportQueries().forEach(reportQuery -> {
 				Hibernate.initialize(reportQuery.getExceedanceTypes());

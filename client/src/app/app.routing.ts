@@ -1,3 +1,4 @@
+import { ScheduledReportListComponent } from './components/report/scheduled-report-list/scheduled-report-list.component';
 import { ApplicationSettingsCanDeactivate } from './components/settings/application-settings/application-settings.candeactivate';
 import { IseNumberComponent } from './components/exceedance/ise-number/ise-number.component';
 import { ApplicationSettingsComponent } from './components/settings/application-settings/application-settings.component';
@@ -142,6 +143,12 @@ export const RestrictedRoutes:Routes = [
 				path: RestrictedRoute.EXCEEDENCE_REPORT.path,
 				data: RestrictedRoute.EXCEEDENCE_REPORT.data,
 				component: DashboardComponent, // TODO Change
+				canActivate: [AuthGuard]
+			},
+			{
+				path: RestrictedRoute.SCHEDULED_REPORT_LIST.path,
+				data: RestrictedRoute.SCHEDULED_REPORT_LIST.data,
+				component: ScheduledReportListComponent,
 				canActivate: [AuthGuard]
 			},
 			{

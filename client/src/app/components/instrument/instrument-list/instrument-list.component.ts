@@ -29,8 +29,6 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 })
 export class InstrumentListComponent extends AbstractDataTableComponent<Instrument> implements OnInit, OnDestroy {
 
-	DateTimeUtils = DateTimeUtils;
-
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;

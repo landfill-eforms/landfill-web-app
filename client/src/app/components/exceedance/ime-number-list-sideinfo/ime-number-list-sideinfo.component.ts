@@ -11,14 +11,10 @@ import { Component } from '@angular/core';
 })
 export class ImeNumberListSideinfoComponent extends AbstractSideinfoComponent<ImeNumber> {
 
-	DateTimeUtils = DateTimeUtils;
-	StringUtils = StringUtils;
-
 	imeNumber:ImeNumber;
 
-	constructor(
-		private navigationService:NavigationService) {
-			super("IME Number");
+	constructor() {
+		super("IME Number");
 	}
 
 	getData():ImeNumber {

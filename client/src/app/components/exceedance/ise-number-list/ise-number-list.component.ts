@@ -23,9 +23,6 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 })
 export class IseNumberListComponent extends AbstractDataTableComponent<IseNumber> implements OnInit, OnDestroy {
 
-	// Utilities
-	DateTimeUtils = DateTimeUtils;
-
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;

@@ -12,16 +12,11 @@ import { Component } from '@angular/core';
 })
 export class InstrumentTypeListSideinfoComponent extends AbstractSideinfoComponent<InstrumentType> {
 
-	DateTimeUtils = DateTimeUtils;
-	StringUtils = StringUtils;
-
 	instrumentType:InstrumentType;
 	tests:string[] = []
 
-	constructor(
-		private navigationService:NavigationService,
-		private instrumentTypeService:InstrumentTypeService) {
-			super("Equipment Type");
+	constructor(private instrumentTypeService:InstrumentTypeService) {
+		super("Equipment Type");
 	}
 
 	getData():InstrumentType {

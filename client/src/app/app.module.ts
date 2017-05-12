@@ -1,3 +1,5 @@
+import { ScheduledReportDialogComponent } from './components/report/dialog/scheduled-report-dialog/scheduled-report-dialog.component';
+import { ScheduledEmailService } from './services/scheduled/scheduled-email.service';
 import { ApplicationSettingsCanDeactivate } from './components/settings/application-settings/application-settings.candeactivate';
 import { ImeRecheckDialogComponent } from './components/exceedance/dialog/ime-recheck-dialog/ime-recheck-dialog.component';
 import { ImeRepairDialogComponent } from './components/exceedance/dialog/ime-repair-dialog/ime-repair-dialog.component';
@@ -107,6 +109,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		EditUnverifiedInstantaneousDialogComponent,
 		EditUnverifiedWarmspotDialogComponent,
 		EditUnverifiedIntegratedDialogComponent,
+		ScheduledReportDialogComponent,
 		SuperAdminPasswordDialogComponent
 	],
 	providers: [
@@ -128,6 +131,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		InstrumentTypeService,
 		IseNumberService,
 		NavigationService,
+		ScheduledEmailService,
 		ReportService,
 		TitleService,
 		UnverifiedDataService,

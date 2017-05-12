@@ -1,3 +1,6 @@
+import { ScheduledReportListSideinfoComponent } from './scheduled-report-list-sideinfo/scheduled-report-list-sideinfo.component';
+import { ScheduledReportDialogComponent } from './dialog/scheduled-report-dialog/scheduled-report-dialog.component';
+import { ScheduledReportListComponent } from './scheduled-report-list/scheduled-report-list.component';
 import { InstantaneousReportComponent } from './instantaneous-report/instantaneous-report.component';
 import { DirectivesModule } from './../directives/directives.module';
 import { ReportSelectorComponent } from './report-selector/report-selector.component';
@@ -12,7 +15,10 @@ import { NgModule } from '@angular/core';
 	providers: [],
 	declarations: [
 		ReportSelectorComponent,
-		InstantaneousReportComponent
+		InstantaneousReportComponent,
+		ScheduledReportListComponent,
+		ScheduledReportDialogComponent,
+		ScheduledReportListSideinfoComponent
 	]
 })
 

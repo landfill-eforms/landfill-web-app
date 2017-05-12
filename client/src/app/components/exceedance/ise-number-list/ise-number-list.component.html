@@ -41,8 +41,7 @@
 				fxFlex.gt-md="11"
 				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen() ? true : 11" 
 				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen() ? true : 11">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'iseNumber'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'iseNumber'}">
 					ISE Number
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -58,8 +57,7 @@
 				<span class="data-table-header-label">Site</span>
 			</div>
 			<div class="data-table-column truncate flex-item" (click)="sortBy('monitoringPoint')" fxFlex>
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'monitoringPoint'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'monitoringPoint'}">
 					Grid
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -74,8 +72,7 @@
 				fxShow.gt-md 
 				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" 
 				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'discoveryDate'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'discoveryDate'}">
 					Discovery Date
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -90,8 +87,7 @@
 				fxShow.gt-md 
 				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()" 
 				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'initialReading'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'initialReading'}">
 					Initial Reading
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{

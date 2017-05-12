@@ -32,6 +32,10 @@ import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceType
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.persistence.enums.report.ReportType;
 import org.lacitysan.landfill.server.service.report.model.ExceedanceReport;
+import org.lacitysan.landfill.server.service.report.model.InstantaneousReport;
+import org.lacitysan.landfill.server.service.report.model.IntegratedReport;
+import org.lacitysan.landfill.server.service.report.model.data.InstantaneousReportData;
+import org.lacitysan.landfill.server.service.report.model.data.IntegratedReportData;
 import org.lacitysan.landfill.server.service.report.model.data.ProbeExceedanceReportData;
 import org.lacitysan.landfill.server.service.report.model.data.SurfaceEmissionExceedanceReportData;
 
@@ -252,6 +256,189 @@ public class ReportExport{
 		}
 	}
 */
+	
+	public static void createInstantaneousReport(HttpServletResponse response, InstantaneousReport report) throws IOException{
+		PDPage blankPage1;
+
+		List<List<?>> reportData = new ArrayList<>();
+		List<?> listType = report.getInstantaneousReportData();
+		
+		PDDocument document = new PDDocument();		
+		PDDocumentInformation pdd = document.getDocumentInformation();
+		pdd.setAuthor("Allen Ma");
+		pdd.setTitle("Landfill report");
+		pdd.setCreator("Allen Ma");
+		blankPage1 = new PDPage();
+		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+
+		float margin = 10;
+		float tableWidth = blankPage1.getMediaBox().getWidth() - (2 * margin);
+		float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
+		float yStart = yStartNewPage;
+		float bottomMargin = 20;
+
+		document.addPage( blankPage1 );
+
+		ArrayList<String> header = new ArrayList<>();
+
+		header.add("Date");
+		
+		header.add("Barometric Pressure");
+		header.add("Inspector");
+		
+		header.add("Grid");
+		header.add("Start");
+		header.add("End");
+		header.add("Instrument");
+		header.add("Reading");
+		header.add("IME #(s)");
+
+		for(int i = 0; i < listType.size(); i++){
+			ArrayList<String> info = new ArrayList<>();
+			info.add( ((InstantaneousReportData) listType.get(i)).getDate() );                	
+			info.add( ((InstantaneousReportData) listType.get(i)).getBarometricPressure() );
+			info.add( ((InstantaneousReportData) listType.get(i)).getInspector() );     	
+			info.add( ((InstantaneousReportData) listType.get(i)).getMonitoringPoint() );
+			info.add( ((InstantaneousReportData) listType.get(i)).getStartTime() );
+			info.add( ((InstantaneousReportData) listType.get(i)).getEndTime() );
+			info.add( ((InstantaneousReportData) listType.get(i)).getInstrument() );
+			info.add( ((InstantaneousReportData) listType.get(i)).getMethaneLevel() );
+			info.add( ((InstantaneousReportData) listType.get(i)).getImeNumber() );
+
+			reportData.add(info);
+		}
+		
+		BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage1, true, true);
+
+		//Create Header row
+		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
+		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Instantaneous Report " + report.getReportQuery().getSite().getName());			
+		cell.setFont(PDType1Font.HELVETICA_BOLD);
+
+
+
+		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
+		for (int i = 0; i < header.size(); i++) {
+			float width = 100 / 9f;
+			if (i == 3) {
+				width = (100 / 6.0f) * 2;
+			}
+			cell = hea.createCell(width, "" + header.get(i));
+			cell.setFont(PDType1Font.HELVETICA_BOLD);
+		}	
+		dataTable.addHeaderRow(hea); //derRow
+
+		for (List<?> info : reportData) {
+			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
+
+			for (int i = 0; i < info.size(); i++) {
+				float width = 100 / 9f;
+				if (i == 3) {
+					width = (100 / 6.0f) * 2;
+				}
+				cell = row.createCell(width, "" + info.get(i));
+			}
+		}
+
+		dataTable.draw(); 
+//			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
+//			document.save(pdfName);
+		document.save(response.getOutputStream());
+		document.close();	
+	}
+	
+	public static void createIntegratedReport(HttpServletResponse response, IntegratedReport report) throws IOException{
+		PDPage blankPage1;
+
+		List<List<?>> reportData = new ArrayList<>();
+		List<?> listType = report.getIntegratedReportData();
+		
+		PDDocument document = new PDDocument();		
+		PDDocumentInformation pdd = document.getDocumentInformation();
+		pdd.setAuthor("Allen Ma");
+		pdd.setTitle("Landfill report");
+		pdd.setCreator("Allen Ma");
+		blankPage1 = new PDPage();
+		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+
+		float margin = 10;
+		float tableWidth = blankPage1.getMediaBox().getWidth() - (2 * margin);
+		float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
+		float yStart = yStartNewPage;
+		float bottomMargin = 20;
+
+		document.addPage( blankPage1 );
+
+		ArrayList<String> header = new ArrayList<>();
+		
+		header.add("Grid ID#");
+		header.add("Inspector");
+		header.add("Sample ID");
+		header.add("Bag #");
+		header.add("Date");
+		header.add("Start Time");
+		header.add("End Time");
+		header.add("Volume (Liters)");
+		header.add("Barometric Pressure");		
+		header.add("Instrument");
+		header.add("Reading ppm");
+		
+		for(int i = 0; i < listType.size(); i++){
+			ArrayList<String> info = new ArrayList<>();
+			info.add( ((IntegratedReportData) listType.get(i)).getMonitoringPoint() );                	
+			info.add( ((IntegratedReportData) listType.get(i)).getInspector() );
+			info.add( ((IntegratedReportData) listType.get(i)).getSampleId() );     	
+			info.add( ((IntegratedReportData) listType.get(i)).getBagNumber() );
+			info.add( ((IntegratedReportData) listType.get(i)).getDate() );
+			info.add( ((IntegratedReportData) listType.get(i)).getStartTime() );
+			info.add( ((IntegratedReportData) listType.get(i)).getEndTime() );
+			info.add( ((IntegratedReportData) listType.get(i)).getVolume() );
+			info.add( ((IntegratedReportData) listType.get(i)).getBarometricPressure() );
+			info.add( ((IntegratedReportData) listType.get(i)).getInstrument() );
+			info.add( ((IntegratedReportData) listType.get(i)).getMethaneLevel() );
+
+			reportData.add(info);
+		}
+		
+		BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage1, true, true);
+
+		//Create Header row
+		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
+		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Instantaneous Report " + report.getReportQuery().getSite().getName());			
+		cell.setFont(PDType1Font.HELVETICA_BOLD);
+
+
+
+		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
+		for (int i = 0; i < header.size(); i++) {
+			float width = 100 / 9f;
+			if (i == 3) {
+				width = (100 / 6.0f) * 2;
+			}
+			cell = hea.createCell(width, "" + header.get(i));
+			cell.setFont(PDType1Font.HELVETICA_BOLD);
+		}	
+		dataTable.addHeaderRow(hea); //derRow
+
+		for (List<?> info : reportData) {
+			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
+
+			for (int i = 0; i < info.size(); i++) {
+				float width = 100 / 9f;
+				if (i == 3) {
+					width = (100 / 6.0f) * 2;
+				}
+				cell = row.createCell(width, "" + info.get(i));
+			}
+		}
+
+		dataTable.draw(); 
+//			pdfName = "C:/Users/Allen/Desktop/generatePDF/" + exType.getName() +"ExceedTest.pdf";
+//			document.save(pdfName);
+		document.save(response.getOutputStream());
+		document.close();	
+	}
+	
 	public static void createExceedanceReport(HttpServletResponse response, ExceedanceReport report) throws IOException {
 
 		PDPage blankPage1;
@@ -349,6 +536,7 @@ public class ReportExport{
 			BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage1, true, true);
 
 			//Create Header row
+			exceedType = exceedType + " " + report.getReportQuery().getSite().getName();
 			be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
 			be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, exceedType);			
 			cell.setFont(PDType1Font.HELVETICA_BOLD);

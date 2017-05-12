@@ -32,8 +32,7 @@
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 			<div class="data-table-first-column truncate flex-item" (click)="sortBy('type')" fxFlex="10">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'type'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'type'}">
 					Equipment Type
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -43,8 +42,7 @@
 				</md-icon>
 			</div>
 			<div class="data-table-column truncate flex-item" (click)="sortBy('manufacturer')" fxFlex="10">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'manufacturer'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'manufacturer'}">
 					Manufacturer
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{

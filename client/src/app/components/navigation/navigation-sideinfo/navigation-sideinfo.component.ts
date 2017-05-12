@@ -1,3 +1,4 @@
+import { ScheduledReportListSideinfoComponent } from './../../report/scheduled-report-list-sideinfo/scheduled-report-list-sideinfo.component';
 import { IseNumberListSideinfoComponent } from './../../exceedance/ise-number-list-sideinfo/ise-number-list-sideinfo.component';
 import { UserGroupListSideinfoComponent } from './../../user/user-group-list-sideinfo/user-group-list-sideinfo.component';
 import { ImeNumberListSideinfoComponent } from './../../exceedance/ime-number-list-sideinfo/ime-number-list-sideinfo.component';
@@ -21,7 +22,8 @@ import { Component, OnInit, Input, ElementRef, ViewChild, ViewContainerRef, Comp
 		IseNumberListSideinfoComponent,
 		InstrumentListSideinfoComponent,
 		InstrumentTypeListSideinfoComponent,
-		UnverifiedDataSetListSideinfoComponent
+		UnverifiedDataSetListSideinfoComponent,
+		ScheduledReportListSideinfoComponent
 	]
 })
 export class NavigationSideinfoComponent implements OnInit {

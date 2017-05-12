@@ -37,8 +37,7 @@
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
 			<div class="data-table-first-column truncate flex-item" (click)="sortBy('username')" fxFlex="10">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'username'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'username'}">
 					Username
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -48,8 +47,7 @@
 				</md-icon>
 			</div>
 			<div class="data-table-column truncate flex-item" (click)="sortBy('name')" fxFlex="13">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'name'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'name'}">
 					Name
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -59,8 +57,7 @@
 				</md-icon>
 			</div>
 			<div class="data-table-column truncate flex-item" (click)="sortBy('emailAddress')" fxFlex>
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'emailAddress'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'emailAddress'}">
 					Email
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -76,8 +73,7 @@
 				fxShow.gt-md
 				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()"
 				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'lastLogin'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'lastLogin'}">
 					Last Login
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
@@ -92,8 +88,7 @@
 				fxHide 
 				fxShow.gt-sm
 				[fxShow.gt-xs]="!showSideInfo || !isNavDrawerOpen()">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'employeeId'}">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'employeeId'}">
 					Employee ID
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{

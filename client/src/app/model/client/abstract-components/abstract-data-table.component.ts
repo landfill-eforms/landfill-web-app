@@ -1,3 +1,5 @@
+import { StringUtils } from './../../../utils/string.utils';
+import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { Paginfo, PaginationComponent } from './../../../components/directives/pagination/pagination.component';
 import { InputStatus } from './../../../utils/input.utils';
@@ -5,6 +7,9 @@ import { Sort, SortUtils } from './../../../utils/sort.utils';
 
 /** A component extending from this abstract class contains a data table that can be sorted, filtered, and paginated. */
 export abstract class AbstractDataTableComponent<T> {
+
+	DateTimeUtils = DateTimeUtils;
+	StringUtils = StringUtils;
 
 	abstract pagination:PaginationComponent;
 

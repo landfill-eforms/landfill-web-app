@@ -52,12 +52,11 @@ public class ReportQueryService {
 		else if (reportQuery.getReportPeriod() == ReportPeriod.MONTHLY) {
 			
 			// Calculate start time.
-			start.add(Calendar.MONTH, -2);
+			start.add(Calendar.MONTH, -1);
 			start.set(Calendar.DATE, 1);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
 			// Calculate end time.
-			end.add(Calendar.MONTH, -1);
 			end.set(Calendar.DATE, 0);
 			reportQuery.setEndDate(new Date(end.getTimeInMillis()));
 			
@@ -88,13 +87,12 @@ public class ReportQueryService {
 		else if (reportQuery.getReportPeriod() == ReportPeriod.YEARLY) {
 			
 			// Calculate start time.
-			start.add(Calendar.YEAR, -2);
+			start.add(Calendar.YEAR, -1);
 			start.set(Calendar.MONTH, 0);
 			start.set(Calendar.DATE, 1);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
 			// Calculate end time.
-			end.add(Calendar.YEAR, -1);
 			end.set(Calendar.MONTH, 0);
 			end.set(Calendar.DATE, 0);
 			reportQuery.setEndDate(new Date(end.getTimeInMillis()));

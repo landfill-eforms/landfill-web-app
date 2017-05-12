@@ -26,10 +26,6 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class UserListComponent extends AbstractDataTableComponent<User> implements OnInit, OnDestroy {
 
-	// Utilities
-	StringUtils = StringUtils;
-	DateTimeUtils = DateTimeUtils;
-
 	@ViewChild('pagination') pagination:PaginationComponent;
 
 	fabActionSubscriber:Subscription;

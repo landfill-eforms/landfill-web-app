@@ -11,14 +11,10 @@ import { Component } from '@angular/core';
 })
 export class UserGroupListSideinfoComponent extends AbstractSideinfoComponent<UserGroup> {
 
-	DateTimeUtils = DateTimeUtils;
-	StringUtils = StringUtils;
-
 	userGroup:UserGroup;
 
-	constructor(
-		private navigationService:NavigationService) {
-			super("User Group");
+	constructor() {
+		super("User Group");
 	}
 
 	getData():UserGroup {

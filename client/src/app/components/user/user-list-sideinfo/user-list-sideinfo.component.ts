@@ -15,8 +15,6 @@ import { Component } from '@angular/core';
 })
 export class UserListSideinfoComponent extends AbstractSideinfoComponent<User> {
 
-	DateTimeUtils = DateTimeUtils;
-
 	user:User;
 	userActivity:UserActivity[];
 	isUserActivityLoaded:boolean;
@@ -28,8 +26,7 @@ export class UserListSideinfoComponent extends AbstractSideinfoComponent<User> {
 	constructor(
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
-		private userActivityService:UserActivityService,
-		private navigationService:NavigationService) {
+		private userActivityService:UserActivityService) {
 			super("User");
 	}
 

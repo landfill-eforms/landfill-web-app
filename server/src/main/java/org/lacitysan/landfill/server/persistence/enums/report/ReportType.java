@@ -10,11 +10,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  */
 public enum ReportType {
 	
-	EXCEEDANCE,
-	INSTANTANEOUS,
-	INTEGRATED,
-	PROBE,
-	WARMSPOT;
+	EXCEEDANCE		("Exceedance"),
+	INSTANTANEOUS	("Instantaneous"),
+	INTEGRATED		("Integrated"),
+	PROBE			("Probe"),
+	WARMSPOT		("Warmspot");
+	
+	private String name;
+	
+	private ReportType(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
 	
 	@JsonCreator
 	public static ReportType deserialize(Object object) {

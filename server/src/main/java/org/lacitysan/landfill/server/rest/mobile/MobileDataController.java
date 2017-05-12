@@ -2,7 +2,6 @@ package org.lacitysan.landfill.server.rest.mobile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Calendar;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,7 +13,6 @@ import org.lacitysan.landfill.server.security.annotation.RestSecurity;
 import org.lacitysan.landfill.server.service.mobile.MobileDataDeserializer;
 import org.lacitysan.landfill.server.service.mobile.MobileDataSerializer;
 import org.lacitysan.landfill.server.service.mobile.model.MobileDataContainer;
-import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +65,7 @@ public class MobileDataController {
 			
 			// Set response headers. This needs to be done before writing to the response's output stream.
 			response.setContentType("application/json");
-			response.addHeader("Content-Disposition", "attachment; filename=\"mobile_sync_" + DateTimeUtils.formatCondensed(Calendar.getInstance().getTimeInMillis()) + ".json\"");
+			response.addHeader("Content-Disposition", "attachment; filename=\"LandFillDataImport.json\"");
 			response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
 
 			IOUtils.copy(in, response.getOutputStream());

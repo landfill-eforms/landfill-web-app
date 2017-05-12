@@ -18,7 +18,7 @@ export class ReportSelectorComponent {
 			title: "Exceedance",
 			subtitle: "Preview and Generate an Exceedance Report",
 			edgeColor: "#66BB6A",
-			route: RestrictedRoute.INSTANTANEOUS_REPORT,
+			route: RestrictedRoute.EXCEEDENCE_REPORT,
 			disabled: false
 		},
 		{
@@ -32,7 +32,14 @@ export class ReportSelectorComponent {
 			title: "Integrated",
 			subtitle: "Preview and Generate an Integrated Report",
 			edgeColor: "#66BB6A",
-			route: RestrictedRoute.INSTANTANEOUS_REPORT,
+			route: RestrictedRoute.INTEGRATED_REPORT,
+			disabled: false
+		},
+		{
+			title: "Warmspot",
+			subtitle: "Preview and Generate a Warmspot Report",
+			edgeColor: "#66BB6A",
+			route: RestrictedRoute.WARMSPOT_REPORT,
 			disabled: false
 		},
 		{

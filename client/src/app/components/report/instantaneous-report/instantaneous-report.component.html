@@ -91,15 +91,21 @@
 					</div>
 				</div>
 			</div>
-			<div class="data-table-card-footer">
-				<button md-raised-button color="accent" 
-					(click)="downloadReport()" 
-					[disabled]="report.instantaneousReportData.length == 0" 
-					style="margin-top: 8px;">
-					DOWNLOAD PDF
-					<md-icon>file_download</md-icon>
-				</button>
+			<div class="data-table-card-footer"></div>
+		</md-card-content>
+	</md-card>
+	<md-card *ngIf="isDataLoaded" class="data-table-card" style="margin-bottom: 24px">
+		<md-card-content>
+			<div class="data-table-card-title-row">
+				Downloads
 			</div>
+			<button md-raised-button color="accent" 
+				(click)="downloadReport()" 
+				[disabled]="!report.imeReportData?.length && !report.iseReportData?.length && !report.probeExceedanceReportData?.length" 
+				style="margin: 8px 24px 24px 24px;">
+				DOWNLOAD PDF
+				<md-icon>file_download</md-icon>
+			</button>
 		</md-card-content>
 	</md-card>
 </div>

@@ -3,10 +3,10 @@
 		<md-tab-group selectedIndex="1" class="md-tab-header-white" style="height: 100%">
 			<md-tab label="Details">
 				<div class="tab-contents grey-background">
-					<div *ngIf="!isDataLoaded">
+					<div *ngIf="!isDataLoaded || !isInstrumentsLoaded">
 						<app-page-loading-indicator></app-page-loading-indicator>
 					</div>
-					<div *ngIf="isDataLoaded">
+					<div *ngIf="isDataLoaded && isInstrumentsLoaded">
 						<md-card>
 							<md-card-content>
 								<div class="card-title">
@@ -103,7 +103,7 @@
 									<div class="data-table-checkbox-column data-table-checkbox-header truncate flex-item" fxFlex="68px">
 										<md-checkbox></md-checkbox>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex="5">
+									<div class="data-table-column truncate flex-item" fxFlex="3">
 										<span class="data-table-header-label">Grid</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex="5">
@@ -142,7 +142,7 @@
 													(click)="toggleInstantaneous(unverifiedInstantaneousData)">
 												</md-checkbox>
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex="5">
+											<div class="data-table-column truncate flex-item" fxFlex="3">
 												{{unverifiedInstantaneousData.monitoringPoint?.name}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex="5">
@@ -364,7 +364,7 @@
 									<div class="data-table-checkbox-column data-table-checkbox-header truncate flex-item" fxFlex="68px">
 										<md-checkbox></md-checkbox>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex="5">
+									<div class="data-table-column truncate flex-item" fxFlex="3">
 										<span class="data-table-header-label">Grid</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex="5">
@@ -406,7 +406,7 @@
 													(click)="toggleIntegrated(unverifiedIntegratedData)">
 												</md-checkbox>
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex="5">
+											<div class="data-table-column truncate flex-item" fxFlex="3">
 												{{unverifiedIntegratedData.monitoringPoint?.name}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex="5">
@@ -544,7 +544,7 @@
 									<div class="data-table-column truncate flex-item" fxFlex>
 										<span class="data-table-header-label">Reading (ppm)</span>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex="50">
+									<div class="data-table-column truncate flex-item" fxFlex="40">
 										<span class="data-table-header-label">Description</span>
 									</div>
 									<div class="data-table-last-column truncate flex-item" fxFlex="40px">
@@ -579,7 +579,7 @@
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{unverifiedProbeData.methaneLevel / 100}}
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex>
+											<div class="data-table-column truncate flex-item" fxFlex="40">
 												{{unverifiedProbeData.description}}
 											</div>
 											<div class="data-table-action-column truncate flex-item" fxFlex="64px">

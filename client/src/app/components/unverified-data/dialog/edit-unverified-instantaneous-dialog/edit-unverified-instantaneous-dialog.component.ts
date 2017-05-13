@@ -21,6 +21,7 @@ export class EditUnverifiedInstantaneousDialogComponent implements OnInit {
 	fields:{
 		instrumentId?:number,
 		barometricPressure?:number,
+		methaneLevel?:number,
 		startTime?:number,
 		endTime?:number,
 		imeNumbers?:ImeNumber[]
@@ -39,6 +40,7 @@ export class EditUnverifiedInstantaneousDialogComponent implements OnInit {
 		// We make a copy of the values so that the original object is not modified, in case the user wanys to cancel the edit.
 		this.fields.instrumentId = this.data.instrument ? this.data.instrument.id : null;
 		this.fields.barometricPressure = this.data.barometricPressure / 100;
+		this.fields.methaneLevel = this.data.methaneLevel / 100;
 		this.fields.startTime = this.data.startTime;
 		this.fields.endTime = this.data.endTime;
 		this.availableInstruments = this.availableInstruments.filter(i => i.instrumentType.instantaneous);

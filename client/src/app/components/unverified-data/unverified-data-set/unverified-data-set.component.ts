@@ -40,6 +40,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 	DateTimeUtils = DateTimeUtils;
 
 	isDataLoaded:boolean = false;
+	isInstrumentsLoaded:boolean = false;
 	instruments:Instrument[] = [];
 	unverifiedDataSetId:string;
 	unverifiedDataSet:UnverifiedDataSet;
@@ -81,12 +82,14 @@ export class UnverifiedDataSetComponent implements OnInit {
 						this.unverifiedDataSet.unverifiedIntegratedData[i].instrument = new Instrument();
 					}
 				}
-						this.instrumentService.getAll((data) => {
-							this.instruments = data;
-							// this.instruments = data.filter(o => o.instrumentType.probe || o.instrumentType.instantaneous); // TODO Do this properly.
-							this.isDataLoaded = true;
-						});
 				this.isDataLoaded = true;
+			}
+		);
+
+		this.instrumentService.getAll((data) => {
+				this.instruments = data;
+				this.instruments = data.filter(o => o.instrumentType.probe || o.instrumentType.instantaneous); // TODO Do this properly.
+				this.isInstrumentsLoaded = true;
 			}
 		);
 	}
@@ -142,7 +145,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 			return a.iseNumber > b.iseNumber ? 1 : -1;
 		});
 
-		// TODO Add probe.
+		// Probe
+		for (let unverifiedProbeData of data.unverifiedProbeData) {
+			unverifiedProbeData.monitoringPoint = EnumUtils.convertToEnum(MonitoringPoint, unverifiedProbeData.monitoringPoint);
+		}
+		data.unverifiedProbeData.sort((a, b) => a.monitoringPoint.ordinal - b.monitoringPoint.ordinal);
+
 		return this.unverifiedDataService.checkForErrors(data);
 	}
 
@@ -159,6 +167,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 				// Update instantaneous data with data from dialog.
 				data.instrument = this.findInstrumentById(result["instrumentId"]);
 				data.barometricPressure = result["barometricPressure"] * 100;
+				data.methaneLevel = result["methaneLevel"] * 100;
 				data.startTime = result["startTime"];
 				data.endTime = result["endTime"];
 				data.imeNumbers = result["imeNumbers"];

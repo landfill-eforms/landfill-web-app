@@ -36,7 +36,7 @@
 				<div class="data-table-column truncate flex-item" fxFlex>
 					<span class="data-table-header-label">Grid(s)</span>
 				</div>
-				<div class="data-table-column truncate flex-item" fxFlex="30">
+				<div class="data-table-column truncate flex-item" fxFlex="21">
 					<span class="data-table-header-label">Repair Description</span>
 				</div>
 				<div class="data-table-column truncate flex-item" fxFlex>
@@ -64,7 +64,7 @@
 						<div class="data-table-first-column truncate flex-item" fxFlex>
 							{{data.monitoringPoints}}
 						</div>
-						<div class="data-table-first-column truncate flex-item" fxFlex>
+						<div class="data-table-first-column truncate flex-item" fxFlex="21">
 							{{data.repairDescription}}
 						</div>
 						<div class="data-table-first-column truncate flex-item" fxFlex>
@@ -79,7 +79,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="data-table-card-footer"> </div>
+			<div class="data-table-card-footer"></div>
 		</md-card-content>
 	</md-card>
 	<md-card *ngIf="isDataLoaded" class="data-table-card" style="margin-bottom: 24px">
@@ -97,7 +97,7 @@
 				<div class="data-table-column truncate flex-item" fxFlex>
 					<span class="data-table-header-label">Grid</span>
 				</div>
-				<div class="data-table-column truncate flex-item" fxFlex="30">
+				<div class="data-table-column truncate flex-item" fxFlex="21">
 					<span class="data-table-header-label">Repair Description</span>
 				</div>
 				<div class="data-table-column truncate flex-item" fxFlex>
@@ -125,7 +125,7 @@
 						<div class="data-table-first-column truncate flex-item" fxFlex>
 							{{data.monitoringPoints}}
 						</div>
-						<div class="data-table-first-column truncate flex-item" fxFlex>
+						<div class="data-table-first-column truncate flex-item" fxFlex="21">
 							{{data.repairDescription}}
 						</div>
 						<div class="data-table-first-column truncate flex-item" fxFlex>
@@ -140,15 +140,21 @@
 					</div>
 				</div>
 			</div>
-			<div class="data-table-card-footer">
-				<button md-raised-button color="accent" 
-					(click)="downloadReport()" 
-					[disabled]="!report.imeReportData?.length && !report.iseReportData?.length && !report.probeExceedanceReportData?.length" 
-					style="margin-top: 8px;">
-					DOWNLOAD PDF
-					<md-icon>file_download</md-icon>
-				</button>
+			<div class="data-table-card-footer"></div>
+		</md-card-content>
+	</md-card>
+	<md-card *ngIf="isDataLoaded" class="data-table-card" style="margin-bottom: 24px">
+		<md-card-content>
+			<div class="data-table-card-title-row">
+				Downloads
 			</div>
+			<button md-raised-button color="accent" 
+				(click)="downloadReport()" 
+				[disabled]="!report.imeReportData?.length && !report.iseReportData?.length && !report.probeExceedanceReportData?.length" 
+				style="margin: 8px 24px 24px 24px;">
+				DOWNLOAD PDF
+				<md-icon>file_download</md-icon>
+			</button>
 		</md-card-content>
 	</md-card>
 </div>

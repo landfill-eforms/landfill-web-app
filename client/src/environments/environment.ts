@@ -10,5 +10,5 @@ export const environment = {
   production: false,
   loginUrl: (UseDevResourceServer ? AppConstant.RESOURCE_SERVER_DEV : AppConstant.RESOURCE_SERVER) + "/login",
   resourceUrl: (UseDevResourceServer ? AppConstant.RESOURCE_SERVER_DEV : AppConstant.RESOURCE_SERVER) + "/rest",
-  assetsUrl: "/src/assets"
+  assetsUrl: "/assets"
 };

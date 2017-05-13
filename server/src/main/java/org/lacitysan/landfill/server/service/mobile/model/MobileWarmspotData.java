@@ -1,5 +1,7 @@
 package org.lacitysan.landfill.server.service.mobile.model;
 
+import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
+
 public class MobileWarmspotData {
 	
 	private String mId;
@@ -11,7 +13,7 @@ public class MobileWarmspotData {
     private String mInspectorFullName;
     private String mInspectorUserName;
     private Double mMaxMethaneReading;
-    private String mInstrumentSerial;
+	private Instrument mInstrument;
     
 	public String getmId() {
 		return mId;
@@ -84,13 +86,13 @@ public class MobileWarmspotData {
 	public void setmMaxMethaneReading(Double mMaxMethaneReading) {
 		this.mMaxMethaneReading = mMaxMethaneReading;
 	}
-	
-	public String getmInstrumentSerial() {
-		return mInstrumentSerial;
+
+	public Instrument getmInstrument() {
+		return mInstrument;
 	}
-	
-	public void setmInstrumentSerial(String mInstrumentSerial) {
-		this.mInstrumentSerial = mInstrumentSerial;
+
+	public void setmInstrument(Instrument mInstrument) {
+		this.mInstrument = mInstrument;
 	}
 
 }

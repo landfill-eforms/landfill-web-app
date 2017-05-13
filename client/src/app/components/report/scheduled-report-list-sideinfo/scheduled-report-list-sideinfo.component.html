@@ -1,0 +1,18 @@
+<div *ngIf="!scheduledReport">
+	<div class="sideinfo-not-selected">
+		<md-icon>pageview</md-icon>
+		<div>Select a scheduled report to view its details.</div>
+	</div>
+</div>
+<div *ngIf="scheduledReport" style="height:calc(100% - 128px);">
+	<div class="sideinfo-sections-container">
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Recipients
+			</div>
+			<div *ngFor="let recipient of scheduledReport.recipients" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+				{{recipient.name}} ({{recipient.emailAddress}})
+			</div>
+		</div>
+	</div>
+</div>

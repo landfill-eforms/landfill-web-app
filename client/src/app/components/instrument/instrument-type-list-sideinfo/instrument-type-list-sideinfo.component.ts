@@ -1,3 +1,5 @@
+import { StringUtils } from './../../../utils/string.utils';
+import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { InstrumentTypeService } from './../../../services/instrument/instrument-type.service';
 import { InstrumentType } from './../../../model/server/persistence/entity/instrument/instrument-type.class';
 import { NavigationService } from './../../../services/app/navigation.service';
@@ -13,10 +15,8 @@ export class InstrumentTypeListSideinfoComponent extends AbstractSideinfoCompone
 	instrumentType:InstrumentType;
 	tests:string[] = []
 
-	constructor(
-		private navigationService:NavigationService,
-		private instrumentTypeService:InstrumentTypeService) {
-			super("Equipment Type");
+	constructor(private instrumentTypeService:InstrumentTypeService) {
+		super("Equipment Type");
 	}
 
 	getData():InstrumentType {

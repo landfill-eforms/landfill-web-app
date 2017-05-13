@@ -56,7 +56,7 @@ export class AssignImeNumberDialogComponent {
 		this.action.newDate = event.target.valueAsNumber  + 1000 * 60 * 60 * 24; // Date picker is off by one day.
 		if (this.action.newDate) {
 			this.action.newSeries = this.findMaxIMESeries(this.action.newDate) + 1;
-			this.action.newImeNumberString = this.imeNumberService.getStringFromImeNumber(<any>{
+			this.action.newImeNumberString = this.imeNumberService.generateStringFromExceedanceNumber(<any>{
 				site: this.site, 
 				dateCode: this.action.newDate, 
 				sequence: this.action.newSeries

@@ -6,9 +6,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum SchedulePeriodBoundary {
 	
-	START,
-	END,
-	UNDEFINED;
+	START		("Start"),
+	END 		("End"),
+	UNDEFINED	("Undefined");
+	
+	private String name;
+	
+	private SchedulePeriodBoundary(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
 	
 	@JsonCreator
 	public static SchedulePeriodBoundary deserialize(Object object) {

@@ -9,6 +9,11 @@ public class ApplicationConstant {
 	/** Whether to print debug messages to the console. */
 	public static final Boolean DEBUG = true;
 	
+	/** The number of rounds to use for the BCrypt algorithm when generating new password hashes. */
+	// This is set to the minimum for better performance on Android.
+	// TODO Make this an application setting variable.
+	public static final Integer BCRYPT_STRENGTH = 4; 
+	
 	/** The name of the HTTP header field that contains the JWT. */
 	public static final String HTTP_TOKEN_HEADER_NAME = "Authorization";
 	

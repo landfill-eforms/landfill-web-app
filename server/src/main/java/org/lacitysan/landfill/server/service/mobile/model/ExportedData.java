@@ -3,32 +3,33 @@ package org.lacitysan.landfill.server.service.mobile.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
-import org.lacitysan.landfill.server.persistence.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * @author Alvin Quach
  */
+@JsonInclude(Include.NON_NULL)
 public class ExportedData {
 	
-	List<Instrument> instruments = new ArrayList<>();
+	List<Object> instruments = new ArrayList<>();
 	
-	List<User> users = new ArrayList<>();
+	List<Object> users = new ArrayList<>();
 
-	public List<Instrument> getInstruments() {
+	public List<Object> getInstruments() {
 		return instruments;
 	}
 
-	public void setInstruments(List<Instrument> instruments) {
+	public void setInstruments(List<Object> instruments) {
 		this.instruments = instruments;
 	}
 
-	public List<User> getUsers() {
+	public List<Object> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(List<Object> users) {
 		this.users = users;
 	}
-	
+
 }

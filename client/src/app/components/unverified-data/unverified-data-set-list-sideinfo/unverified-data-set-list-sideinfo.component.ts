@@ -1,3 +1,4 @@
+import { StringUtils } from './../../../utils/string.utils';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
 import { UnverifiedDataSet } from './../../../model/server/persistence/entity/unverified/unverified-data-set.class';
 import { NavigationService } from './../../../services/app/navigation.service';
@@ -10,13 +11,10 @@ import { Component } from '@angular/core';
 })
 export class UnverifiedDataSetListSideinfoComponent extends AbstractSideinfoComponent<UnverifiedDataSet> {
 
-	DateTimeUtils = DateTimeUtils;
-
 	unverifiedDataSet:UnverifiedDataSet;
 
-	constructor(
-		private navigationService:NavigationService) {
-			super("Unverified Data Set");
+	constructor() {
+		super("Unverified Data Set");
 	}
 
 	getData():UnverifiedDataSet {

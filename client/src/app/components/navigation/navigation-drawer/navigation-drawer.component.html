@@ -9,27 +9,8 @@
 			<div class="navdrawer-subtitle-name flex-item">{{userName}}</div>
 			<div class="navdrawer-subtitle-email flex-item">{{userEmail}}</div>
 		</div>
-	<!--</div>
-		<div class="navdrawer-section-header">
-			{{section.name}}
-		</div>
-		<div *ngFor="let link of section.links">
-			<div *ngIf="link.visible" 
-				[routerLink]="link.route.path" 
-				routerLinkActive="navdrawer-link-active" 
-				class="navdrawer-link flex-container"
-				fxLayout="row"
-				fxLayoutAlign=" center">
-				<md-icon class="navdrawer-link-icon flex-item" fxFlex="64px">{{link.icon}}</md-icon>
-				<div class="flex-item" fxFlex>{{link.label}}</div>
-			</div>
-		</div>-->
 	</div>
-
-
-
-	<!-- TEMPORARY -->
-	<div *ngFor="let link of tempLinks">
+	<div *ngFor="let link of links">
 		<div *ngIf="link.visible" 
 			[routerLink]="link.route.path" 
 			routerLinkActive="navdrawer-link-active" 
@@ -40,7 +21,6 @@
 			<div class="flex-item" fxFlex>{{link.label}}</div>
 		</div>
 	</div>
-
 	<div class="navdrawer-link flex-container"
 		(click) = "logout()"
 		fxLayout="row"
@@ -48,7 +28,4 @@
 		<md-icon class="navdrawer-link-icon flex-item" fxFlex="72px">exit_to_app</md-icon>
 		<div class="flex-item" fxFlex>Logout</div>
 	</div>
-
-
-
 </div>

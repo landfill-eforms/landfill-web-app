@@ -1,0 +1,106 @@
+<div *ngIf="!iseNumber">
+	<div class="sideinfo-not-selected">
+		<md-icon>pageview</md-icon>
+		<div>Select an ISE Number to view its details.</div>
+	</div>
+</div>
+<div *ngIf="iseNumber" style="height:calc(100% - 128px);">
+	<div  class="sideinfo-sections-container">
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Location
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Site
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{iseNumber.site?.name}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Grid
+				</div>
+				<div class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{iseNumber.monitoringPoint?.name}}
+				</div>
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Initial Discovery
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Date
+				</div>
+				<div *ngIf="iseNumber.iseData && iseNumber.iseData[0]" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(iseNumber.iseData[0].dateTime)}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Reading
+				</div>
+				<div *ngIf="iseNumber.iseData && iseNumber.iseData[0]" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{iseNumber.iseData[0].methaneLevel / 100}}
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Inspector
+				</div>
+				<div *ngIf="iseNumber.iseData && iseNumber.iseData[0]" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(iseNumber.iseData[0].inspector)}}
+				</div>
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Latest Recheck
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Date
+				</div>
+				<div *ngIf="iseNumber.iseData?.length > 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{DateTimeUtils.getDate(iseNumber.iseData[iseNumber.iseData.length - 1].dateTime)}}
+				</div>
+				<div *ngIf="iseNumber.iseData?.length <= 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					<i>N/A</i>
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Reading
+				</div>
+				<div *ngIf="iseNumber.iseData?.length > 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{iseNumber.iseData[iseNumber.iseData.length - 1].methaneLevel / 100}}
+				</div>
+				<div *ngIf="iseNumber.iseData?.length <= 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					<i>N/A</i>
+				</div>
+			</div>
+			<div class="sideinfo-section-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
+				<div class="sideinfo-section-data-key flex-item" fxFlex="96px">
+					Inspector
+				</div>
+				<div *ngIf="iseNumber.iseData?.length > 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					{{StringUtils.formatUserName(iseNumber.iseData[iseNumber.iseData.length - 1].inspector)}}
+				</div>
+				<div *ngIf="iseNumber.iseData?.length <= 1" class="sideinfo-section-data-value truncate flex-item" fxFlex="160px">
+					<i>N/A</i>
+				</div>
+			</div>
+		</div>
+		<div class="sideinfo-section">
+			<div class="sideinfo-section-header">
+				Current Status
+			</div>
+			<div class="sideinfo-section-data-paragraph" style="width:256px;">
+				{{iseNumber.status?.name}}
+			</div>
+		</div>
+	</div>
+</div>

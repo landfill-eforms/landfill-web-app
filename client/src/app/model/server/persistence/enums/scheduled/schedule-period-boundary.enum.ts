@@ -6,21 +6,25 @@ export class SchedulePeriodBoundary {
 
 	static readonly START:SchedulePeriodBoundary = {
 		ordinal: 0,
-		constantName: "START"
+		constantName: "START",
+		name: "Start"
 	};
 
 	static readonly END:SchedulePeriodBoundary = {
 		ordinal: 1,
-		constantName: "END"
+		constantName: "END",
+		name: "End"
 	};
 
 	static readonly UNDEFINED:SchedulePeriodBoundary = {
 		ordinal: 2,
-		constantName: "UNDEFINED"
+		constantName: "UNDEFINED",
+		name: "Undefined"
 	};
 
 	readonly ordinal:number;
 	readonly constantName:string;
+	readonly name:string;
 
 	static values():SchedulePeriodBoundary[] {
 		return [

@@ -29,6 +29,8 @@ public enum ApplicationVariableDefinition {
 	/** The BCrypt hashed password for the super admin account. */
 	SUPER_ADMIN_PASSWORD (ApplicationVariableType.STRING, "$2a$10$zL28TqhA.FHAsVj/52krq.mt.nEoDxUkpPoyMYxYo1ne9GINO4t12");
 	
+	// TODO Move BCrypt strength setting from ApplicationConstant to here.
+	
 	private ApplicationVariableType type;
 	private String defaultValue;
 	private String value;

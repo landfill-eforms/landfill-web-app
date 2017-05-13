@@ -1,5 +1,10 @@
-import { TestBed } from '@angular/core/testing';
+import { StringUtils } from './../../../utils/string.utils';
+import { DateTimeUtils } from './../../../utils/date-time.utils';
+
 export abstract class AbstractSideinfoComponent<T> {
+
+	DateTimeUtils = DateTimeUtils;
+	StringUtils = StringUtils;
 
 	title:string;
 

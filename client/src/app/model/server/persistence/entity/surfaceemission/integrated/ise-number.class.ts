@@ -1,6 +1,6 @@
+import { SurfaceEmissionExceedanceNumber } from '../surface-emission-exceedance-number.class';
 import { IseData } from './ise-data.class';
 import { MonitoringPoint } from '../../../enums/location/monitoring-point.enum';
-import { SurfaceEmissionExceedanceNumber } from '../surface-emission-exceedance-number.class';
 
 /**
  * This class was automatically generated from IseNumber.java using typescript-gen.
@@ -9,5 +9,5 @@ import { SurfaceEmissionExceedanceNumber } from '../surface-emission-exceedance-
 export class IseNumber extends SurfaceEmissionExceedanceNumber {
 	monitoringPoint:MonitoringPoint;
 	iseData:IseData[];
-	iseNumber:string;
+	iseNumber?:string;
 }

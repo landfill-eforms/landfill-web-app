@@ -1,0 +1,83 @@
+<div style="height:calc(100% - 121px);"> <!-- Browser dependent. Test on multiple browserGroups before setting this value. -->
+	<app-page-loading-indicator *ngIf="!isDataLoaded || !isUserGroupsLoaded" [message]="loadingMessage"></app-page-loading-indicator>
+	<div *ngIf="isDataLoaded && isUserGroupsLoaded" class="data-table-scrollable">
+		<div class="data-table-filter-container-row flex-container" fxLayout="row" fxLayoutAlign="end center">
+			<div *ngIf="showFilters" class="data-table-filter-container flex-item flex-container" fxFlex fxLayout="row" fxLayoutAlign="end center">
+				<div class="flex-item" fxFlex="152px"></div>
+				<md-input-container *ngIf="showFilters" 
+					[hintLabel]="textFilterStatus.errorMessage" 
+					class="mat-input-container-inline flex-item" 
+					fxFlex
+					[ngClass]="{'mat-input-container-error':!textFilterStatus.valid}">
+					<input mdInput placeholder="Search" [(ngModel)]="filters.text" (ngModelChange)="applyFilters()">
+				</md-input-container>
+				<md-select [(ngModel)]="filters.status" placeholder="Status" class="mat-select-inline flex-item" fxFlex="150px" (ngModelChange)="applyFilters()">
+					<md-option *ngFor="let status of statusFilterChoices" [value]="status.ordinal">
+						{{status.name}}
+					</md-option>
+				</md-select>
+			</div>
+			<button md-icon-button 
+				(click)="toggleFilters()" 
+				class="toggle-icon-button flex-item"
+				[ngClass]="{'toggle-icon-button-active': showFilters}"
+				fxFlex="40px"
+				mdTooltip="Filter" 
+				mdTooltipPosition="below">
+				<md-icon>filter_list</md-icon>
+			</button>
+			<button md-icon-button 
+				(click)="toggleSideInfo()" 
+				class="flex-item" 
+				fxFlex="40px" 
+				[mdTooltip]="showSideInfo ? 'Hide Details' : 'Show Details'" 
+				mdTooltipPosition="below">
+				<md-icon>{{showSideInfo ? 'chevron_right' : 'chevron_left'}}</md-icon>
+			</button>
+		</div>
+		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+			<div class="data-table-first-column truncate flex-item" fxFlex>
+				<span class="data-table-header-label">Subject</span>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex="50">
+				<span class="data-table-header-label">Message</span>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex="10">
+				<span class="data-table-header-label">Status</span>
+			</div>
+			<div class="data-table-last-column truncate flex-item" fxFlex="40px" style="text-align:center;">
+				<span class="data-table-header-label">Delete</span>
+			</div>
+		</div>
+		<div class="data-table-scrollable-area">
+			<div *ngFor="let scheduledReport of paginatedData" class="data-table-row">
+				<div class="data-table-row-content flex-container" 
+					fxLayout="row" 
+					(click)="selectScheduledReport(scheduledReport)"
+					(dblclick)="openScheduledReportDialog(scheduledReport)"
+					[ngClass]="{'data-table-row-content-active': scheduledReport === selectedScheduledReport}">
+					<div class="data-table-column truncate flex-item" fxFlex>
+						{{scheduledReport.subject}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex="50">
+						{{scheduledReport.body}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex="10">
+						{{scheduledReport.schedule?.active ? "Active" : "Inactive"}}
+					</div>
+					<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">
+						<md-icon (click)="deleteScheduledReport(scheduledReport)" mdTooltip="Delete" mdTooltipPosition="after" color="warn" style="cursor:pointer;margin-top:-4px;">
+							delete
+						</md-icon>
+					</div>
+				</div>
+			</div>
+		</div>
+		<app-pagination #pagination
+			[paginfo]="paginfo"
+			[showPageSelector]="true" 
+			[showFirstLastPage]="true"
+			(changed)="applyPagination()">
+		</app-pagination>
+	</div>
+</div>

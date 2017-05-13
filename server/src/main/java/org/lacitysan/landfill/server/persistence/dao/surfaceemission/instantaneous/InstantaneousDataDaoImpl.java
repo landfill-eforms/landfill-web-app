@@ -28,7 +28,6 @@ public class InstantaneousDataDaoImpl extends SurfaceEmissionDataDaoImpl<Instant
 		Hibernate.initialize(instantaneousData.getInstrument());
 		Hibernate.initialize(instantaneousData.getMonitoringPoint());
 		Hibernate.initialize(instantaneousData.getInspector());
-		Hibernate.initialize(instantaneousData.getWarmspotData());
 		instantaneousData.getImeNumbers().forEach(imeNumber -> Hibernate.initialize(imeNumber));
 		return instantaneousData;
 	}

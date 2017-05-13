@@ -1,0 +1,50 @@
+.header {
+    position: relative;
+    top: -8px;
+    margin-bottom: -32px;
+    padding: 16px;
+}
+
+.header-date-text {
+	color: #FFF;
+	font-size: 34px;
+	font-weight: 500;
+}
+
+.header-year-text {
+	color: rgba(255,255,255,0.87);
+	font-size: 16px;
+	padding-bottom: 4px;
+}
+
+.calendar-page {
+	width: 100%;
+}
+
+.calendar-page-transforming {
+	transition: transform 0.45s cubic-bezier(0.0, 0.5, 0.1, 1.0);
+}
+
+.calendar-month-year-label {
+	width: 100%;
+	text-align: center;
+	padding-bottom: 8px;
+	color: rgba(0,0,0,0.87);
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.calendar-week {
+	padding: 0 12px;
+	color: rgba(0,0,0,0.87);
+}
+
+.calendar-week-header {
+	color: rgba(0,0,0,0.54);
+}
+
+.month-nav-button-container {
+	top: 28px;
+	width: 100%;
+	position: relative;
+}

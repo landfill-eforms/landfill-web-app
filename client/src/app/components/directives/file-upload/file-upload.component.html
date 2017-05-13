@@ -1,1 +1,26 @@
-<input #fileInput type="file" [multiple]="multiple">
+<input #fileInput type="file" [multiple]="multiple" (change)="fileSelected()" style="visibility:hidden; height:0;">
+<div *ngIf="!uploading" class="flex-container" fxLayout="row">
+    <button md-raised-button 
+        color="accent" 
+        (click)="openFileSelector()" 
+        class="file-select-button flex-item" 
+        fxFlex="108px">
+        {{label}}
+    </button>
+    <button md-raised-button 
+        color="primary"
+        (click)="upload()"
+        [disabled]="fileInput.files?.length == 0"
+        class="file-select-button flex-item"
+        fxFlex="108px">
+        UPLOAD 
+        <md-icon>file_upload</md-icon>
+    </button>
+    <div class="file-name flex-item" fxFlex>{{getFileName()}}</div>
+</div>
+<div *ngIf="uploading" style="text-align: center;">
+    <div style="font-size:24px; padding-bottom:16px;">
+        {{uploadingLabel}}
+    </div>
+    <md-progress-bar mode="indeterminate"></md-progress-bar>
+</div>

@@ -1,7 +1,12 @@
-import { ImeReportComponent } from './ime-report/ime-report.component';
-import { DirectivesModule } from './../directives/directives.module';
-import { ReportsComponent } from './report-selector/report-selector.component';
+import { ExceedanceReportComponent } from './exceedance-report/exceedance-report.component';
+import { WarmspotReportComponent } from './warmspot-report/warmspot-report.component';
+import { IntegratedReportComponent } from './integrated-report/integrated-report.component';
+import { ScheduledReportListSideinfoComponent } from './scheduled-report-list-sideinfo/scheduled-report-list-sideinfo.component';
+import { ScheduledReportDialogComponent } from './dialog/scheduled-report-dialog/scheduled-report-dialog.component';
+import { ScheduledReportListComponent } from './scheduled-report-list/scheduled-report-list.component';
 import { InstantaneousReportComponent } from './instantaneous-report/instantaneous-report.component';
+import { DirectivesModule } from './../directives/directives.module';
+import { ReportSelectorComponent } from './report-selector/report-selector.component';
 import { CommonModule } from './../common/common.module';
 import { NgModule } from '@angular/core';
 
@@ -12,9 +17,14 @@ import { NgModule } from '@angular/core';
 	],
 	providers: [],
 	declarations: [
-		ReportsComponent,
+		ReportSelectorComponent,
+		ExceedanceReportComponent,
 		InstantaneousReportComponent,
-		ImeReportComponent
+		IntegratedReportComponent,
+		WarmspotReportComponent,
+		ScheduledReportListComponent,
+		ScheduledReportDialogComponent,
+		ScheduledReportListSideinfoComponent
 	]
 })
 

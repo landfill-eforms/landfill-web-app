@@ -1,3 +1,4 @@
+import { NavigationService } from './../../../services/app/navigation.service';
 import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
 
 @Component({
@@ -23,6 +24,10 @@ export class PaginationComponent implements OnChanges {
     readonly displayedRowsSelection:number[] = [10, 25, 50, 100];
 
     availablePagesSelection:number[] = [1];
+
+    constructor(private navigationService:NavigationService) {
+       
+    }
 
 	ngOnChanges() {
         console.log("Pagination change detected.");
@@ -93,6 +98,14 @@ export class PaginationComponent implements OnChanges {
     lastPage() {
         this.paginfo.currentPage = ~~(this.paginfo.totalRows / this.paginfo.displayedRows) + 1;
         this.update();
+    }
+
+    isSideinfoOpen():boolean {
+         return this.navigationService.getSideinfoComponent().isOpen();
+    }
+
+    isNavDrawerOpen():boolean {
+        return this.navigationService.isNavDrawerOpened();
     }
 
 }

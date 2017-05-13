@@ -1,0 +1,43 @@
+<div class="page-title" *ngIf="title">{{title}}</div>
+<div class="page-subtitle" *ngIf="subtitle">{{subtitle}}</div>
+<div class="page-content">
+    <div class="flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+        <div>
+            <div *ngIf="canUpload" class="selector-cards-container flex-item" fxFlex>
+                <div class="selector-card flex-container" fxLayout="row" fxLayoutAlign="center" (click)="toggleUploadDropdown()">
+                    <div class="selector-card-title-container flex-item" fxFlex>
+                        <div class="selector-card-title">Upload</div>
+                        <div class="selector-card-subtitle">Upload Data File from Android Application</div>
+                    </div>
+                    <div class="selector-card-action flex-item" fxFlex="64px">
+                        <button md-icon-button color="primary">
+                            <md-icon>
+								{{uploadDropdownOpen ? 'expand_less' : 'expand_more'}}
+							</md-icon>
+                        </button>
+                    </div>
+                </div>
+				<div class="selector-card-expansion-card mat-elevation-z1 flex-container" [ngClass]="{'selector-card-expansion-card-expanded' : uploadDropdownOpen}">
+					<div class="page-content">
+						<app-file-upload #fileUpload restUrl="mobile/upload" label="BROWSE..." uploadingLabel="Processing..." (uploadResult)="upload($event)"></app-file-upload>
+					</div>
+                </div>
+            </div>
+        </div>
+		<div>
+            <div *ngIf="canDownload" class="selector-cards-container flex-item" fxFlex>
+                <div class="selector-card flex-container" fxLayout="row" fxLayoutAlign="center" (click)="download()">
+                    <div class="selector-card-title-container flex-item" fxFlex>
+                        <div class="selector-card-title">Download</div>
+                        <div class="selector-card-subtitle">Download Data File to Android Application</div>
+                    </div>
+                    <div class="selector-card-action flex-item" fxFlex="64px">
+                        <button md-icon-button color="primary">
+                            <md-icon>file_download</md-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>

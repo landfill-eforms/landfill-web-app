@@ -1,146 +1,21 @@
 <div class="dashboard-container">
 	<div class="dashboard-title">
-		Today's Dashboard
+		Welcome to Landfill e-Forms!
 	</div>
-	<div class="dashboard-card-container">
-		<md-card class="dashboard-main-card">
-			<md-card-content>
-				<div class="dashboard-card-title">
-					<div>
-						<md-icon class="dashboard-main-card-title-icon">build</md-icon>
-					</div>
-					<div class="dashboard-main-title-text">
-						Overall Progress for the day
+	<!--<img class="dashboard-logo" [src]="logoUrl">-->
+	<div class="flex-container" fxLayout="row" fxLayoutAlign="start start" fxLayoutWrap>
+		<div *ngFor="let gridItem of gridItems">
+			<div *ngIf="gridItem.visible" class="unselectable dashboard-grid-item flex-item" fxFlex="280px" (click)="navigate(gridItem)" [ngClass]="{'dashboard-grid-item-disabled': gridItem.disabled}">
+				<div class="dashboard-grid-item-img" [ngStyle]="{'background': 'linear-gradient(to bottom right, ' + gridItem.color + ')'}">
+					<md-icon>{{gridItem.img}}</md-icon>
+				</div>
+				<div class="dashboard-grid-item-text-area">
+					{{gridItem.title}}
+					<div class="dashboard-grid-item-subtext">
+						{{gridItem.subtitle}}
 					</div>
 				</div>
-				<div class="dashboard-card-stat">
-					1
-				</div>
-			</md-card-content>
-			<md-card-footer>
-				<div class="dashboard-card-footer">
-					<md-icon>trending_down</md-icon>
-					13% From Yesterday
-				</div>
-			</md-card-footer>
-		</md-card>
-	</div>
-	<div class="flex-container" fxLayout="row">
-		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
-			<md-card class="dashboard-card">
-				<md-card-content>
-					<div class="dashboard-card-title">
-						<md-icon class="dashboard-card-title-icon">hourglass_empty</md-icon>
-						Pending Data Sets
-					</div>
-					<div class="dashboard-card-stat">
-						1
-					</div>
-				</md-card-content>
-				<md-card-footer>
-					<div class="dashboard-card-footer">
-						<md-icon>trending_down</md-icon>
-						13% From Yesterday
-					</div>
-				</md-card-footer>
-			</md-card>
-		</div>
-		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
-			<md-card class="dashboard-card">
-				<md-card-content>
-					<div class="dashboard-card-title">
-						<md-icon class="dashboard-card-title-icon">done</md-icon>
-						Hotspots Closed
-					</div>
-					<div class="dashboard-card-stat">
-						3
-					</div>
-				</md-card-content>
-				<md-card-footer>
-					<div class="dashboard-card-footer">
-						<md-icon>trending_up</md-icon>
-						33% From Yesterday
-					</div>
-				</md-card-footer>
-			</md-card>
-		</div>
-		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
-			<md-card class="dashboard-card">
-				<md-card-content>
-					<div class="dashboard-card-title">
-						<md-icon class="dashboard-card-title-icon">assignment_late</md-icon>
-						Grids Overdue
-					</div>
-					<div class="dashboard-card-stat">
-						37
-					</div>
-				</md-card-content>
-				<md-card-footer>
-					<div class="dashboard-card-footer">
-						<md-icon>trending_down</md-icon>
-						69% From Yesterday
-					</div>
-				</md-card-footer>
-			</md-card>
-		</div>
-	</div>
-	<div class="flex-container" fxLayout="row">
-		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
-			<md-card class="dashboard-card">
-				<md-card-content>
-					<div class="dashboard-card-title">
-						<md-icon class="dashboard-card-title-icon">build</md-icon>
-						Grids Checked
-					</div>
-					<div class="dashboard-card-stat">
-						41
-					</div>
-				</md-card-content>
-				<md-card-footer>
-					<div class="dashboard-card-footer">
-						<md-icon>trending_flat</md-icon>
-						10% From Yesterday
-					</div>
-				</md-card-footer>
-			</md-card>
-		</div>
-		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
-			<md-card class="dashboard-card">
-				<md-card-content>
-					<div class="dashboard-card-title">
-						<md-icon class="dashboard-card-title-icon">build</md-icon>
-						Repairs
-					</div>
-					<div class="dashboard-card-stat">
-						20
-					</div>
-				</md-card-content>
-				<md-card-footer>
-					<div class="dashboard-card-footer">
-						<md-icon>trending_flat</md-icon>
-						5% From Yesterday
-					</div>
-				</md-card-footer>
-			</md-card>
-		</div>
-		<div class="flex-item" [fxFlex]="100 / 3" class="dashboard-card-container">
-			<md-card class="dashboard-card">
-				<md-card-content>
-					<div class="dashboard-card-title">
-						<md-icon class="dashboard-card-title-icon">build</md-icon>
-						Number of times Synced
-					</div>
-					<div class="dashboard-card-stat">
-						150
-					</div>
-				</md-card-content>
-				<md-card-footer>
-					<div class="dashboard-card-footer">
-						<md-icon>trending_flat</md-icon>
-						95% From Yesterday
-					</div>
-				</md-card-footer>
-			</md-card>
+			</div>
 		</div>
 	</div>
 </div>

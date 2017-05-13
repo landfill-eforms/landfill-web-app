@@ -6,14 +6,24 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum ScheduleRecurrence {
 	
-	SINGLE,
-	MINUTELY,
-	HOURLY,
-	DAILY,
-	WEEKLY,
-	MONTHLY,
-	QUARTERLY,
-	YEARLY;
+	SINGLE		("One Time"),
+	MINUTELY	("Minutely"),
+	HOURLY		("Hourly"),
+	DAILY		("Daily"),
+	WEEKLY		("Weekly"),
+	MONTHLY		("Monthly"),
+	QUARTERLY	("Quarterly"),
+	YEARLY		("Yearly");
+	
+	private String name;
+	
+	private ScheduleRecurrence(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
 	
 	@JsonCreator
 	public static ScheduleRecurrence deserialize(Object object) {

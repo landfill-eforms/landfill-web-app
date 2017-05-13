@@ -28,7 +28,7 @@ public class UserGroupController {
 	@Autowired
 	UserGroupService userGroupService;
 	
-	@RestSecurity(UserPermission.VIEW_USER_GROUPS)
+	@RestSecurity({UserPermission.VIEW_USER_GROUPS, UserPermission.VIEW_USERS, UserPermission.EDIT_USER_PROFILES})
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)
 	public List<UserGroup> getAll() {
 		return userGroupDao.getAll();

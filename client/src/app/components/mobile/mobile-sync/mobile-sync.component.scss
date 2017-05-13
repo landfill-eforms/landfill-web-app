@@ -1,0 +1,30 @@
+@import "../../directives/card-selector-menu/card-selector-menu.component";
+
+.selector-card {
+	position: relative;
+	z-index: 2;
+	border-left: 4px solid #FFA726;
+}
+
+.selector-card-expansion-card {
+	pointer-events: none;
+	border-radius: 0 0 2px 2px;
+	margin: 0 1px 8px 1px;
+	z-index: 1;
+	user-select: none;
+	transition: all 0.2s ease-in-out;
+	position: relative;
+	top: -112px;
+	height: 0;
+}
+
+.selector-card-expansion-card-expanded {
+	pointer-events: all;
+	top: -8px;
+	height: 108px
+}
+
+.upload-component-hidden {
+	visibility: hidden;
+	height: 0;
+}

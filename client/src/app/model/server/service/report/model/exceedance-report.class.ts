@@ -1,6 +1,6 @@
-import { SurfaceEmissionExceedanceReportData } from './data/surface-emission-exceedance-report-data.class';
 import { Report } from './report.class';
 import { ProbeExceedanceReportData } from './data/probe-exceedance-report-data.class';
+import { SurfaceEmissionExceedanceReportData } from './data/surface-emission-exceedance-report-data.class';
 
 /**
  * This class was automatically generated from ExceedanceReport.java using typescript-gen.

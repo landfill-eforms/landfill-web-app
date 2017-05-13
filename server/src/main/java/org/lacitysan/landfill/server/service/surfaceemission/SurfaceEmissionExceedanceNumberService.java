@@ -21,8 +21,8 @@ import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Handles the logical operations for surface emissions exceedance (IME and ISE) related classes.
- * @param <T> The type of the surface emissions exceedance number (ie. <code>IMENumber</code>).
+ * Handles the logical operations for surface emissions exceedance (exceedance and ISE) related classes.
+ * @param <T> The type of the surface emissions exceedance number (ie. <code>exceedanceNumber</code>).
  * @author Alvin Quach
  */
 public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEmissionExceedanceNumber> {
@@ -47,9 +47,9 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 
 	public T createUnverified(T exceedanceNumber) {
 
-		// Use TreeSet to store existing unverified IME/ISE numbers so that they are in order by sequence number.
+		// Use TreeSet to store existing unverified exceedance/ISE numbers so that they are in order by sequence number.
 		Set<T> existingSet = new TreeSet<>(); 
-		existingSet.addAll(getCrudRepository().getUnverifiedBySiteAndDateCode(exceedanceNumber.getSite(), exceedanceNumber.getDateCode()));
+		existingSet.addAll(getCrudRepository().getBySiteAndDateCode(exceedanceNumber.getSite(), exceedanceNumber.getDateCode()));
 
 		short i = 1;
 		for (T existing : existingSet) {
@@ -65,44 +65,61 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 
 	}
 
-	// TODO Change this to work with a batch of IME numbers at once for more efficiency.
+	// TODO Change this to work with a batch of exceedance numbers at once for more efficiency.
 	public T verify(T exceedanceNumber) {
+		
+		// This method is only used for unverified exceedance numbers.
 		if (exceedanceNumber.getStatus() != ExceedanceStatus.UNVERIFIED) {
 			return exceedanceNumber;
 		}
 		else {
 			exceedanceNumber.setStatus(ExceedanceStatus.ACTIVE);
 		}
+		
 		short originalSequence = exceedanceNumber.getSequence();
-		List<T> existingImeNumbers = getCrudRepository().getVerifiedBySiteAndDateCode(exceedanceNumber.getSite(), exceedanceNumber.getDateCode()).stream().sorted().collect(Collectors.toList());
-		boolean shift = false;
+		
+		// We use a list here so that we can access the indices directly.
+		List<T> existingExceedanceNumbers = getCrudRepository()
+				.getBySiteAndDateCode(exceedanceNumber.getSite(), exceedanceNumber.getDateCode())
+				.stream()
+				.sorted()
+				.collect(Collectors.toList());
+		
+		boolean shift = false; // Whether we will need to shift the sequences of some of the unverified exceedance numbers.
+		
 		short i = 1;
-		for (T existingImeNumber : existingImeNumbers) {
-			if (existingImeNumber.getSequence() > i) {
+		for (T existingExceedanceNumber : existingExceedanceNumbers) {
+			if (existingExceedanceNumber.getSequence() > i) {
 				break;
 			}
-			else if (existingImeNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
+			if (existingExceedanceNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
 				shift = true;
 				break;
 			}
 			i++;
 		}
+		
 		exceedanceNumber.setSequence(i);
+		exceedanceNumber.setUnverifiedDataSet(null);
 		getCrudRepository().update(exceedanceNumber);
 
 		if (shift) {
-			for (int j = originalSequence - 1; j > i; j--) {
-				T existingImeNumber = existingImeNumbers.get(j - 1);
-				if (existingImeNumber.getSequence() < originalSequence) {
-					existingImeNumber.setSequence((short)(existingImeNumber.getSequence() + 1));
-					getCrudRepository().update(existingImeNumber);
+			for (int j = originalSequence - 1; j >= i; j--) {
+				T existingExceedanceNumber = existingExceedanceNumbers.get(j - 1);
+				if (existingExceedanceNumber.getStatus() == ExceedanceStatus.UNVERIFIED && existingExceedanceNumber.getSequence() < originalSequence) {
+					existingExceedanceNumber.setSequence((short)(existingExceedanceNumber.getSequence() + 1));
+					getCrudRepository().update(existingExceedanceNumber);
 				}
 			}
 		}
+		
 		return exceedanceNumber;
+		
 	}
 
 	abstract public T update(T exceedanceNumber);
+	
+	abstract public T clear(T exceedanceNumber);
 
 	/**
 	 * Converts a collection of exceedance numbers into a formatted string list.

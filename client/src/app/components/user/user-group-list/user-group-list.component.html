@@ -1,0 +1,93 @@
+<div style="height:calc(100% - 121px);"> <!-- Browser dependent. Test on multiple browserGroups before setting this value. -->
+	<app-page-loading-indicator *ngIf="!isDataLoaded" [message]="loadingMessage"></app-page-loading-indicator>
+	<div *ngIf="isDataLoaded" class="data-table-scrollable">
+		<div class="data-table-filter-container-row flex-container" fxLayout="row" fxLayoutAlign="end center">
+			<div *ngIf="showFilters" class="data-table-filter-container flex-item flex-container" fxFlex fxLayout="row" fxLayoutAlign="end center">
+				<div class="flex-item" fxFlex="152px"></div>
+				<md-input-container *ngIf="showFilters" 
+					[hintLabel]="textFilterStatus.errorMessage" 
+					class="mat-input-container-inline flex-item" 
+					fxFlex
+					[ngClass]="{'mat-input-container-error':!textFilterStatus.valid}">
+					<input mdInput placeholder="Search" [(ngModel)]="filters.text" (ngModelChange)="applyFilters()">
+				</md-input-container>
+			</div>
+			<button md-icon-button 
+				(click)="toggleFilters()" 
+				class="toggle-icon-button flex-item"
+				[ngClass]="{'toggle-icon-button-active': showFilters}"
+				fxFlex="40px"
+				mdTooltip="Filter" 
+				mdTooltipPosition="below">
+				<md-icon>filter_list</md-icon>
+			</button>
+			<button md-icon-button 
+				(click)="toggleSideInfo()" 
+				class="flex-item" 
+				fxFlex="40px" 
+				[mdTooltip]="showSideInfo ? 'Hide Details' : 'Show Details'" 
+				mdTooltipPosition="below">
+				<md-icon>{{showSideInfo ? 'chevron_right' : 'chevron_left'}}</md-icon>
+			</button>
+		</div>
+		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
+			<div class="data-table-first-column truncate flex-item" (click)="sortBy('name')" fxFlex="13.37">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'name'}">
+					Group Name
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'name'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" (click)="sortBy('userCount')" fxFlex="69px">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'userCount'}">
+					User Count
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'userCount'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" fxFlex="69">
+				<span class="data-table-header-label">Description</span>
+			</div>
+			<div class="data-table-last-column truncate flex-item" fxFlex="40px" style="text-align:center;">
+				<span class="data-table-header-label">Delete</span>
+			</div>
+		</div>
+		<div class="data-table-scrollable-area">
+			<div *ngFor="let group of paginatedData" class="data-table-row">
+				<div class="data-table-row-content flex-container" 
+					fxLayout="row" 
+					(click)="selectUserGroup(group)"
+					(dblclick)="openUserGroupDialog(group)"
+					[ngClass]="{'data-table-row-content-active': group === selectedUserGroup}">
+					<div class="data-table-first-column truncate flex-item" fxFlex="13.37">
+						<a *ngIf="canEdit" (click)="openUserGroupDialog(group)">
+							{{group.name}}
+						</a>
+						<div *ngIf="!canEdit">{{group.name}}</div>
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex="69px">
+						{{group.users.length}}
+					</div>
+					<div class="data-table-column truncate flex-item" fxFlex="69">
+						{{group.description}}
+					</div>
+					<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">
+						<md-icon (click)="delete(group)" style="color:#F00;cursor:pointer;margin-top:-4px;">delete</md-icon>
+					</div>
+				</div>
+			</div>
+		</div>
+		<app-pagination #pagination
+			[paginfo]="paginfo"
+			[showPageSelector]="true" 
+			[showFirstLastPage]="true"
+			(changed)="applyPagination()">
+		</app-pagination>
+	</div>
+</div>

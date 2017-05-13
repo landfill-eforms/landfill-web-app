@@ -20,6 +20,10 @@ public class DateTimeUtils {
 	 */
 	public static Timestamp mobileDateToTimestamp(String mobileDate) {
 		
+		if (mobileDate == null) {
+			return null;
+		}
+		
 		// Specify the expected date format of the input string.
 		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
 		
@@ -97,6 +101,11 @@ public class DateTimeUtils {
 	/** Formats a long date value to <code>H:m</code>. */
 	public static String formatSimpleTime(long date) {
 		return new SimpleDateFormat("H:m").format(new Date(date));
+	}
+	
+	/** Formats a long date value to a condensed format for use with filenames. */
+	public static String formatCondensed(long date) {
+		return new SimpleDateFormat("yyddMM_HHmm").format(new Date(date));
 	}
 
 }

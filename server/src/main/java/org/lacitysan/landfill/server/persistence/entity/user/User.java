@@ -1,18 +1,21 @@
 package org.lacitysan.landfill.server.persistence.entity.user;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
+import org.lacitysan.landfill.server.persistence.entity.system.Trackable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,13 +28,9 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
  */
 @Entity
 @Table(name="dbo.Users")
+@AttributeOverride(name="id", column=@Column(name="UserPK"))
 @JsonInclude(Include.NON_NULL)
-public class User {
-
-	@Id
-	@Column(name="UserPK")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+public class User extends AbstractEntity implements Trackable {
 
 	@NotNull
 	private String username;
@@ -62,14 +61,22 @@ public class User {
 
 	@NotNull
 	private Boolean enabled;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	
+	private Timestamp lastLogin;
+	
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
+	@ManyToOne
+	@JoinColumn(name="CreatedByFK")
+	private User createdBy;
+	
+	private Timestamp createdDate;
+	
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
+	@ManyToOne
+	@JoinColumn(name="ModifiedByFK")
+	private User modifiedBy;
+	
+	private Timestamp modifiedDate;
 
 	public String getUsername() {
 		return username;
@@ -141,6 +148,46 @@ public class User {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
 
 	public String printName() {

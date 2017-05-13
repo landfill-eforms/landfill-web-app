@@ -15,4 +15,6 @@ public interface UserActivityDao extends AbstractDao<UserActivity> {
 	
 	public List<UserActivity> getByUser(User user);
 	
+	public List<UserActivity> getByUserAndDate(User user, Long date);
+	
 }

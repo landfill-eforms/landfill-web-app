@@ -1,19 +1,15 @@
 package org.lacitysan.landfill.server.persistence.entity.unverified;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -22,10 +18,15 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
+import org.lacitysan.landfill.server.persistence.entity.probe.ProbeExceedance;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseNumber;
 import org.lacitysan.landfill.server.persistence.entity.system.Trackable;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -35,17 +36,13 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name="dbo.UnverifiedDataSets")
+@AttributeOverride(name="id", column=@Column(name="UnverifiedDataSetPK"))
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedDataSet implements Trackable {
-	
-	@Id
-	@Column(name="UnverifiedDataSetPK")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 	
 	private String filename;
 	
-	@JsonIgnoreProperties({"userGroups", "enabled"})
+	@JsonIgnoreProperties({"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"})
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;
@@ -59,10 +56,25 @@ public class UnverifiedDataSet implements Trackable {
 	@OneToMany(mappedBy="unverifiedDataSet")
 	private Set<UnverifiedInstantaneousData> unverifiedInstantaneousData = new HashSet<>();
 	
-	@JsonIgnoreProperties("unverifiedDataSet")
+	@JsonIgnoreProperties(value="unverifiedDataSet",allowSetters=true)
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="unverifiedDataSet")
+	private Set<UnverifiedWarmspotData> unverifiedWarmspotData = new HashSet<>();
+	
+	@JsonIgnoreProperties({"unverifiedDataSet", "instantaneousData"})
+	@OneToMany(mappedBy="unverifiedDataSet")
+	@Cascade(CascadeType.ALL)
+	private Set<ImeNumber> imeNumbers = new TreeSet<>();
+	
+	@JsonIgnoreProperties("unverifiedDataSet")
+	@OneToMany(mappedBy="unverifiedDataSet")
+	@Cascade(CascadeType.ALL)
 	private Set<UnverifiedIntegratedData> unverifiedIntegratedData = new HashSet<>();
+	
+	@JsonIgnoreProperties({"unverifiedDataSet"})
+	@OneToMany(mappedBy="unverifiedDataSet")
+	@Cascade(CascadeType.ALL)
+	private Set<IseNumber> iseNumbers = new TreeSet<>();
 	
 	@JsonIgnoreProperties("unverifiedDataSet")
 	@Cascade(CascadeType.ALL)
@@ -70,11 +82,11 @@ public class UnverifiedDataSet implements Trackable {
 	private Set<UnverifiedProbeData> unverifiedProbeData = new HashSet<>();
 	
 	@Transient
-	private Map<String, List<String>> errors = new HashMap<>();
+	private Set<ProbeExceedance> probeExceedances = new HashSet<>();
 
 	// TODO Add other data types.
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="UploadedByFK")
 	private User createdBy;
@@ -82,20 +94,12 @@ public class UnverifiedDataSet implements Trackable {
 	@Column(name="UploadedDate")
 	private Timestamp createdDate;
 	
-	@JsonIgnoreProperties(value={"userGroups", "enabled"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="ModifiedByFK")
 	private User modifiedBy;
 	
 	private Timestamp modifiedDate;
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getFilename() {
 		return filename;
@@ -128,13 +132,37 @@ public class UnverifiedDataSet implements Trackable {
 	public void setUnverifiedInstantaneousData(Set<UnverifiedInstantaneousData> unverifiedInstantaneousData) {
 		this.unverifiedInstantaneousData = unverifiedInstantaneousData;
 	}
-	
+
+	public Set<UnverifiedWarmspotData> getUnverifiedWarmspotData() {
+		return unverifiedWarmspotData;
+	}
+
+	public void setUnverifiedWarmspotData(Set<UnverifiedWarmspotData> unverifiedWarmspotData) {
+		this.unverifiedWarmspotData = unverifiedWarmspotData;
+	}
+
+	public Set<ImeNumber> getImeNumbers() {
+		return imeNumbers;
+	}
+
+	public void setImeNumbers(Set<ImeNumber> imeNumbers) {
+		this.imeNumbers = imeNumbers;
+	}
+
 	public Set<UnverifiedIntegratedData> getUnverifiedIntegratedData() {
 		return unverifiedIntegratedData;
 	}
 
 	public void setUnverifiedIntegratedData(Set<UnverifiedIntegratedData> unverifiedIntegratedData) {
 		this.unverifiedIntegratedData = unverifiedIntegratedData;
+	}
+
+	public Set<IseNumber> getIseNumbers() {
+		return iseNumbers;
+	}
+
+	public void setIseNumbers(Set<IseNumber> iseNumbers) {
+		this.iseNumbers = iseNumbers;
 	}
 
 	public Set<UnverifiedProbeData> getUnverifiedProbeData() {
@@ -145,12 +173,12 @@ public class UnverifiedDataSet implements Trackable {
 		this.unverifiedProbeData = unverifiedProbeData;
 	}
 
-	public Map<String, List<String>> getErrors() {
-		return errors;
+	public Set<ProbeExceedance> getProbeExceedances() {
+		return probeExceedances;
 	}
 
-	public void setErrors(Map<String, List<String>> errors) {
-		this.errors = errors;
+	public void setProbeExceedances(Set<ProbeExceedance> probeExceedances) {
+		this.probeExceedances = probeExceedances;
 	}
 	
 	@Override
@@ -193,4 +221,19 @@ public class UnverifiedDataSet implements Trackable {
 		this.modifiedDate = modifiedDate;
 	}
 
+	@JsonIgnore
+	public boolean isEmpty() {
+		return
+				unverifiedInstantaneousData.isEmpty()
+				&&
+				unverifiedWarmspotData.isEmpty()
+				&&
+				imeNumbers.isEmpty()
+				&&
+				unverifiedIntegratedData.isEmpty()
+				&&
+				iseNumbers.isEmpty()
+				&&
+				unverifiedProbeData.isEmpty();
+	}
 }

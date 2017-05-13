@@ -1,0 +1,30 @@
+<div md-dialog-title>Edit Single Integrated Reading</div>
+<md-dialog-content>
+	<div class="flex-item" fxFlex style="padding-right: 16px;">
+		<md-input-container class="md-input-full-width">
+			<input mdInput placeholder="Barometric Pressure" type="number" [(ngModel)]="fields.barometricPressure">
+		</md-input-container>
+		<md-input-container class="md-input-full-width">
+			<input mdInput placeholder="Methane (ppm)" type="number" [(ngModel)]="fields.methaneLevel">
+		</md-input-container>
+		<md-input-container class="md-input-full-width">
+			<input mdInput placeholder="Bag Number" type="number" [(ngModel)]="fields.bagNumber">
+		</md-input-container>
+		<md-input-container class="md-input-full-width">
+			<input mdInput placeholder="Volume (liters)" type="number" [(ngModel)]="fields.volume">
+		</md-input-container>
+		<md-select [(ngModel)]="fields.instrumentId" placeholder="Equipment Type" class="mat-select-row" style="width:100%">
+			<md-option *ngFor="let instrument of availableInstruments" [value]="instrument.id">
+				{{instrument.serialNumber}}
+			</md-option>
+		</md-select>
+	</div>
+</md-dialog-content>
+<md-dialog-actions>
+	<button md-button (click)="cancel()">
+		CANCEL
+	</button>
+	<button md-button (click)="confirm()">
+		UPDATE
+	</button>
+</md-dialog-actions>

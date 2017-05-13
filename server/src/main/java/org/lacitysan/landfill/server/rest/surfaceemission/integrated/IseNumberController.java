@@ -31,6 +31,16 @@ public class IseNumberController {
 		return iseNumberDao.getAll();
 	}
 	
+	@RequestMapping(value="/list/verified", method=RequestMethod.GET)
+	public List<IseNumber> getAllVerified() {
+		return iseNumberDao.getAllVerified();
+	}
+	
+	@RequestMapping(value="/list/unverified", method=RequestMethod.GET)
+	public List<IseNumber> getAllUnverified() {
+		return iseNumberDao.getAllUnverified();
+	}
+	
 	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
 	public List<IseNumber> getBySite(@PathVariable String siteName) {
 		return iseNumberService.getBySiteAndDateCode(siteName);
@@ -50,6 +60,11 @@ public class IseNumberController {
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public IseNumber update(@RequestBody IseNumber iseNumber) {
 		return iseNumberService.update(iseNumber);
+	}
+	
+	@RequestMapping(value="/clear", method=RequestMethod.POST)
+	public IseNumber clear(@RequestBody IseNumber iseNumber) {
+		return iseNumberService.clear(iseNumber);
 	}
 
 	@RequestMapping(value="/delete", method=RequestMethod.POST)

@@ -1,0 +1,53 @@
+<div md-dialog-title>{{isNew ? 'Add New Equipment Type' : 'Edit Equipment Type'}}</div>
+<md-dialog-content>
+	<div class="dialog-form-container flex-container" fxLayout="row">
+		<div class="flex-item" fxFlex style="padding-right: 16px;">
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Type" [(ngModel)]="instrumentType.type">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Manufacturer" [(ngModel)]="instrumentType.manufacturer">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<textarea mdInput rows="5" placeholder="Description" [(ngModel)]="instrumentType.description"></textarea>
+			</md-input-container>
+		</div>
+		<div class="flex-item" fxFlex style="padding-left: 32px; height: 260px;">
+			<div>
+				<md-checkbox [(ngModel)]="instrumentType.instantaneous">Instantaneous/Integrated</md-checkbox>
+			</div>
+			<div>
+				<md-checkbox [(ngModel)]="instrumentType.probe">Probes/Gas Wells</md-checkbox>
+			</div>
+			<div>
+				<md-checkbox [(ngModel)]="instrumentType.methanePercent">CH<sub>4</sub> Percent</md-checkbox>
+			</div>
+			<div>
+				<md-checkbox [(ngModel)]="instrumentType.methanePpm">CH<sub>4</sub> ppm</md-checkbox>
+			</div>
+			<div>
+				<md-checkbox [(ngModel)]="instrumentType.hydrogenSulfidePpm">H<sub>2</sub>S ppm</md-checkbox>
+			</div>
+			<div>
+				<md-checkbox [(ngModel)]="instrumentType.oxygenPercent">O<sub>2</sub> Percent</md-checkbox>
+			</div>
+			<div>
+				<md-checkbox [(ngModel)]="instrumentType.carbonDioxidePercent">CO<sub>2</sub> Percent</md-checkbox>
+			</div>
+			<div>
+				<md-checkbox [(ngModel)]="instrumentType.nitrogenPercent">N<sub>2</sub> Percent</md-checkbox>
+			</div>
+			<div>	
+				<md-checkbox [(ngModel)]="instrumentType.pressure">Pressure</md-checkbox>
+			</div>
+		</div>
+	</div>
+</md-dialog-content>
+<md-dialog-actions>
+	<button md-button (click)="cancel()">
+		CANCEL
+	</button>
+	<button md-button (click)="confirm()">
+		{{isNew ? 'CONFIRM' : 'SAVE'}}
+	</button>
+</md-dialog-actions>

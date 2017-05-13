@@ -4,23 +4,18 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
@@ -34,13 +29,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name="dbo.UnverifiedInstantaneousData")
+@AttributeOverride(name="id", column=@Column(name="UnverifiedInstantaneousPK"))
 @JsonInclude(Include.NON_NULL)
-public class UnverifiedInstantaneousData {
-	
-	@Id
-	@Column(name="UnverifiedInstantaneousPK")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+public class UnverifiedInstantaneousData extends AbstractUnverifiedData {
 	
 	@NotNull
 	@Column(name="MonitoringPointString")
@@ -54,7 +45,7 @@ public class UnverifiedInstantaneousData {
 	private Short barometricPressure;
 	
 	@NotNull
-	private Integer methaneLevel;	
+	private Integer methaneLevel;
 	
 	@NotNull
 	private Timestamp startTime;
@@ -62,30 +53,29 @@ public class UnverifiedInstantaneousData {
 	@NotNull
 	private Timestamp endTime;
 	
-	@JsonIgnoreProperties(value={"unverifiedInstantaneousData", "monitoringPoints", "instantaneousData", "imeData", "imeRepairData"}, allowSetters=true)
+	@JsonIgnoreProperties(value={"unverifiedDataSet", "unverifiedInstantaneousData", "instantaneousData", "imeRepairData"}, allowSetters=true)
 	@ManyToMany
 	@JoinTable(name="dbo.UnverifiedInstantaneousDataXRefIMENumbers", joinColumns=@JoinColumn(name="UnverifiedInstantaneousFK"), inverseJoinColumns=@JoinColumn(name="IMENumberFK"))
 	private Set<ImeNumber> imeNumbers = new HashSet<>();
 	
-	@JsonIgnoreProperties("unverifiedInstantaneousData")
+	@JsonIgnoreProperties(value={
+			"unverifiedInstantaneousData", 
+			"unverifiedWarmspotData", 
+			"imeNumbers", 
+			"unverifiedIntegratedData", 
+			"iseNumbers", 
+			"unverifiedProbeData", 
+			"probeExceedances", 
+			"inspector", 
+			"createdBy",
+			"createdDate",
+			"modifiedBy",
+			"modifiedDate"
+	}, allowSetters=true)
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="UnverifiedDataSetFK", nullable=false)
-	@Cascade(CascadeType.ALL)
 	private UnverifiedDataSet unverifiedDataSet;
-	
-	@OneToOne
-	@JoinColumn(name="UnverifiedWarmspotFK")
-	@Cascade(CascadeType.ALL)
-	private UnverifiedWarmspotData unverifiedWarmspotData;
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public MonitoringPoint getMonitoringPoint() {
 		return monitoringPoint;
@@ -149,14 +139,6 @@ public class UnverifiedInstantaneousData {
 
 	public void setUnverifiedDataSet(UnverifiedDataSet unverifiedDataSet) {
 		this.unverifiedDataSet = unverifiedDataSet;
-	}
-
-	public UnverifiedWarmspotData getUnverifiedWarmspotData() {
-		return unverifiedWarmspotData;
-	}
-
-	public void setUnverifiedWarmspotData(UnverifiedWarmspotData unverifiedWarmspotData) {
-		this.unverifiedWarmspotData = unverifiedWarmspotData;
 	}
 	
 }

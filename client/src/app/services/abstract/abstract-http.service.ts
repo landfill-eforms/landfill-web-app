@@ -20,7 +20,7 @@ export class AbstractHttpService<T> {
 			);
 	}
 
-	getById(id:string, success:(data) => void, error?:(err) => void) {
+	getById(id, success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/unique/id/" + id).map((res:Response) => res.json()).subscribe(
 				data => success(data),
 				err => error ? error(err) : console.log(err)

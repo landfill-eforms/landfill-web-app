@@ -1,9 +1,6 @@
 <div style="height:calc(100% - 121px);"> <!-- Browser dependent. Test on multiple browsers before setting this value. -->
-	<div *ngIf="!isDataLoaded" class="loading-indicator-container">
-		<md-spinner class="loading-indicator-spinner"></md-spinner>
-		<div class="loading-indicator-message">{{loadingMessage}}</div>
-	</div>
-	<div *ngIf="isDataLoaded" class="data-table-scrollable">
+	<app-page-loading-indicator *ngIf="!isDataLoaded || !isUserGroupsLoaded" [message]="loadingMessage"></app-page-loading-indicator>
+	<div *ngIf="isDataLoaded && isUserGroupsLoaded" class="data-table-scrollable">
 		<div class="data-table-filter-container-row flex-container" fxLayout="row" fxLayoutAlign="end center">
 			<div *ngIf="showFilters" class="data-table-filter-container flex-item flex-container" fxFlex fxLayout="row" fxLayoutAlign="end center">
 				<div class="flex-item" fxFlex="152px"></div>
@@ -22,7 +19,8 @@
 			</div>
 			<button md-icon-button 
 				(click)="toggleFilters()" 
-				class="flex-item" 
+				class="toggle-icon-button flex-item"
+				[ngClass]="{'toggle-icon-button-active': showFilters}"
 				fxFlex="40px"
 				mdTooltip="Filter" 
 				mdTooltipPosition="below">
@@ -38,47 +36,64 @@
 			</button>
 		</div>
 		<div class="unselectable data-table-header-row flex-container" fxLayout="row">
-			<div class="data-table-first-column truncate flex-item" fxFlex="10" (click)="sortBy('username')">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'username'}">
+			<div class="data-table-first-column truncate flex-item" (click)="sortBy('username')" fxFlex="10">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'username'}">
 					Username
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-					'data-table-header-sort-arrow-reverse':sort.reversed,
-					'data-table-header-sort-arrow-inactive':sort.current !== 'username'}">
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'username'}">
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex="13" (click)="sortBy('name')">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'name'}">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('name')" fxFlex="13">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'name'}">
 					Name
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-					'data-table-header-sort-arrow-reverse':sort.reversed,
-					'data-table-header-sort-arrow-inactive':sort.current !== 'name'}">
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'name'}">
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex (click)="sortBy('emailAddress')">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'emailAddress'}">
+			<div class="data-table-column truncate flex-item" (click)="sortBy('emailAddress')" fxFlex>
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'emailAddress'}">
 					Email
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-					'data-table-header-sort-arrow-reverse':sort.reversed,
-					'data-table-header-sort-arrow-inactive':sort.current !== 'emailAddress'}">
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'emailAddress'}">
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" fxFlex="13" (click)="sortBy('employeeId')">
-				<span class="data-table-header-label-sortable" [ngClass]="{
-					'data-table-header-label-sorted':sort.current == 'employeeId'}">
+			<div class="data-table-column truncate flex-item" 
+				(click)="sortBy('lastLogin')" 
+				fxFlex
+				fxHide 
+				fxShow.gt-md
+				[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()"
+				[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'lastLogin'}">
+					Last Login
+				</span>
+				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'lastLogin'}">
+					arrow_downward
+				</md-icon>
+			</div>
+			<div class="data-table-column truncate flex-item" 
+				(click)="sortBy('employeeId')" 
+				fxFlex="13"
+				fxHide 
+				fxShow.gt-sm
+				[fxShow.gt-xs]="!showSideInfo || !isNavDrawerOpen()">
+				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'employeeId'}">
 					Employee ID
 				</span>
 				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-					'data-table-header-sort-arrow-reverse':sort.reversed,
-					'data-table-header-sort-arrow-inactive':sort.current !== 'employeeId'}">
+					'data-table-header-sort-arrow-reverse': sort.reversed,
+					'data-table-header-sort-arrow-inactive': sort.current !== 'employeeId'}">
 					arrow_downward
 				</md-icon>
 			</div>
@@ -91,12 +106,13 @@
 				<div class="data-table-row-content flex-container" 
 					fxLayout="row" 
 					(click)="selectUser(user)"
-					(dblclick)="navigateToUser(user)"
+					(dblclick)="openUserDialog(user)"
 					[ngClass]="{'data-table-row-content-active': user === selectedUser}">
 					<div class="data-table-first-column truncate flex-item" fxFlex="10">
-						<a [routerLink]="user.username">
+						<a *ngIf="canEdit" (click)="openUserDialog(user)">
 							{{user.username}}
 						</a>
+						<div *ngIf="!canEdit">{{user.username}}</div>
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex="13">
 						{{StringUtils.formatUserName(user)}}
@@ -104,7 +120,19 @@
 					<div class="data-table-column truncate flex-item" fxFlex>
 						{{user.emailAddress}}
 					</div>
-					<div class="data-table-column truncate flex-item" fxFlex="13">
+					<div class="data-table-column truncate flex-item" 
+						fxFlex
+						fxHide 
+						fxShow.gt-md
+						[fxShow.gt-sm]="!showSideInfo || !isNavDrawerOpen()"
+						[fxShow.gt-xs]="!showSideInfo && !isNavDrawerOpen()">
+						{{DateTimeUtils.getDetailedDateTime(user.lastLogin)}}
+					</div>
+					<div class="data-table-column truncate flex-item" 
+						fxFlex="13"
+						fxHide 
+						fxShow.gt-sm 
+						[fxShow.gt-xs]="!showSideInfo || !isNavDrawerOpen()">
 						{{user.employeeId}}
 					</div>
 					<div class="data-table-last-column flex-item" fxFlex="40px" style="text-align:center;">

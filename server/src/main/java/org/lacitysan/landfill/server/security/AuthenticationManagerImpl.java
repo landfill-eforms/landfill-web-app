@@ -1,12 +1,16 @@
 package org.lacitysan.landfill.server.security;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
 import org.lacitysan.landfill.server.exception.user.DeactivatedUserException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
+import org.lacitysan.landfill.server.service.user.UserActivityService;
+import org.lacitysan.landfill.server.service.user.UserActivityService.UserActivityType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,10 +36,13 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 	ApplicationVariableService applicationVariableService;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	TokenAuthenticationService tokenAuthenticationService;
 	
 	@Autowired
-	TokenAuthenticationService tokenAuthenticationService;
+	UserActivityService userActivityService;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -77,7 +84,15 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 				throw new DeactivatedUserException("This account has been deactivated.");
 			}
 			
-			result = new AuthenticatedUser(user, tokenAuthenticationService.userGroupToAuthorities(user.getUserGroups())); 
+			// Update result.
+			result = new AuthenticatedUser(user, tokenAuthenticationService.userGroupToAuthorities(user.getUserGroups()));
+			
+			// Log the user's login event.
+			Timestamp now = new Timestamp(Calendar.getInstance().getTimeInMillis());
+			user.setLastLogin(now);
+			userDao.update(user);
+			userActivityService.updateUserActivity(user, now, user, UserActivityType.LOGIN);
+			
 		}
 		
 		return result;

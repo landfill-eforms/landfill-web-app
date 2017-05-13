@@ -1,5 +1,5 @@
+import { MobileSyncComponent } from './mobile-sync/mobile-sync.component';
 import { DirectivesModule } from './../directives/directives.module';
-import { MobileUploadComponent } from './mobile-upload/mobile-upload.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from './../common/common.module';
 
@@ -10,7 +10,7 @@ import { CommonModule } from './../common/common.module';
     ],
 	providers: [],
 	declarations: [
-        MobileUploadComponent
+		MobileSyncComponent
     ]
 })
 

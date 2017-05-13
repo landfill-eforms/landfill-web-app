@@ -3,14 +3,17 @@ package org.lacitysan.landfill.server.persistence.entity.surfaceemission;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
+import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
+import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * An alphanumeric identifier for a surface emissions exceedance, such as an IME or ISE.
@@ -18,35 +21,41 @@ import org.lacitysan.landfill.server.persistence.enums.location.Site;
  * @author Alvin Quach
  */
 @MappedSuperclass
-public abstract class SurfaceEmissionExceedanceNumber implements Comparable<SurfaceEmissionExceedanceNumber> {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
-	
+public abstract class SurfaceEmissionExceedanceNumber extends AbstractEntity implements Comparable<SurfaceEmissionExceedanceNumber> {
+
 	@NotNull
 	@Column(name="SiteString")
 	@Enumerated(EnumType.STRING)
 	private Site site;
-	
+
 	@NotNull
 	private Short dateCode;
-	
+
 	@NotNull
 	private Short sequence;
-	
+
 	@NotNull
 	@Column(name="StatusString")
 	@Enumerated(EnumType.STRING)
 	private ExceedanceStatus status;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	@JsonIgnoreProperties(value={
+			"unverifiedInstantaneousData", 
+			"unverifiedWarmspotData", 
+			"imeNumbers", 
+			"unverifiedIntegratedData", 
+			"iseNumbers", 
+			"unverifiedProbeData", 
+			"probeExceedances", 
+			"inspector", 
+			"createdBy",
+			"createdDate",
+			"modifiedBy",
+			"modifiedDate"
+	}, allowSetters=true)
+	@ManyToOne
+	@JoinColumn(name="UnverifiedDataSetFK")
+	private UnverifiedDataSet unverifiedDataSet;
 
 	public Site getSite() {
 		return site;
@@ -78,6 +87,14 @@ public abstract class SurfaceEmissionExceedanceNumber implements Comparable<Surf
 
 	public void setStatus(ExceedanceStatus status) {
 		this.status = status;
+	}
+
+	public UnverifiedDataSet getUnverifiedDataSet() {
+		return unverifiedDataSet;
+	}
+
+	public void setUnverifiedDataSet(UnverifiedDataSet unverifiedDataSet) {
+		this.unverifiedDataSet = unverifiedDataSet;
 	}
 
 	@Override

@@ -10,12 +10,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  */
 public enum InstrumentStatus {
 	
-	ACTIVE,
-	INACTIVE,
-	OBSOLETE,
-	DESTROYED,
-	SOLD;
+	ACTIVE 		("Active"),
+	INACTIVE	("Inactive"),
+	OBSOLETE	("Obsolete"),
+	DESTROYED	("Destroyed"),
+	SOLD		("Sold");
 	
+	private String name;
+	
+	private InstrumentStatus(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
 	@JsonCreator
 	public static InstrumentStatus deserialize(Object object) {
 		return LandfillEnumDeserializer.deserialize(InstrumentStatus.class, object);

@@ -16,7 +16,6 @@ import { InstrumentService } from './../../../services/instrument/instrument.ser
 import { ImeNumberService } from './../../../services/instantaneous/ime-number.service';
 import { ImeNumber } from './../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-number.class';
 import { UnverifiedInstantaneousData } from './../../../model/server/persistence/entity/unverified/unverified-instantaneous-data.class';
-import { AssignImeNumberDialogComponent } from './../assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { MdDialogRef } from '@angular/material';
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
@@ -45,7 +44,6 @@ export class UnverifiedDataSetComponent implements OnInit {
 	unverifiedDataSetId:string;
 	unverifiedDataSet:UnverifiedDataSet;
 	existingImeNumbers:ImeNumber[];
-	createdImeNumbers:ImeNumber[]; // IME numbers created during this session.
 	barometricPressure:number;
 
 	activeItem:any = {};
@@ -75,29 +73,20 @@ export class UnverifiedDataSetComponent implements OnInit {
 				this.unverifiedDataSet = this.processData(data);
 				for (let i = 0; i < this.unverifiedDataSet.unverifiedInstantaneousData.length; i++) {
 					if (!this.unverifiedDataSet.unverifiedInstantaneousData[i].instrument) {
-						this.unverifiedDataSet.unverifiedInstantaneousData[i].instrument = <any>{}; // LOLOLOL
+						this.unverifiedDataSet.unverifiedInstantaneousData[i].instrument = new Instrument();
 					}
 				}
 				for (let i = 0; i < this.unverifiedDataSet.unverifiedIntegratedData.length; i++) {
 					if (!this.unverifiedDataSet.unverifiedIntegratedData[i].instrument) {
-						this.unverifiedDataSet.unverifiedIntegratedData[i].instrument = <any>{}; // LOLOLOL
+						this.unverifiedDataSet.unverifiedIntegratedData[i].instrument = new Instrument();
 					}
 				}
-				this.imeNumberService.getBySite(this.unverifiedDataSet.site,
-					(data) => {
-						// TODO Use current date.
-						this.existingImeNumbers = data;
-						// .filter(number => 
-						// 	number.dateCode >= this.unverifiedDataSet.uploadedDate - 1000 * 60 * 60 * 24 * 30
-						// );
-						console.log(this.existingImeNumbers);
 						this.instrumentService.getAll((data) => {
 							this.instruments = data;
 							// this.instruments = data.filter(o => o.instrumentType.probe || o.instrumentType.instantaneous); // TODO Do this properly.
 							this.isDataLoaded = true;
 						});
-					}
-				);
+				this.isDataLoaded = true;
 			}
 		);
 	}
@@ -111,7 +100,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		for (let unverifiedInstantaneousData of data.unverifiedInstantaneousData) {
 			unverifiedInstantaneousData.monitoringPoint = EnumUtils.convertToEnum(MonitoringPoint, unverifiedInstantaneousData.monitoringPoint);
 		}
-		data.unverifiedInstantaneousData.sort((a, b) => a.monitoringPoint.ordinal - b.monitoringPoint.ordinal);
+		data.unverifiedInstantaneousData.sort((a, b) => a.startTime - b.startTime);
 
 		// Warmspot
 		for (let unverifiedWarmspotData of data.unverifiedWarmspotData) {
@@ -160,15 +149,19 @@ export class UnverifiedDataSetComponent implements OnInit {
 	editInstantaneous(data:UnverifiedInstantaneousData) {
 		this.activeItem = data;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
-		dialogConfig.width = '480px';
+		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<EditUnverifiedInstantaneousDialogComponent> = this.dialog.open(EditUnverifiedInstantaneousDialogComponent, dialogConfig);
+		dialogRef.componentInstance.availableImeNumbers = this.existingImeNumbers;
 		dialogRef.componentInstance.availableInstruments = this.instruments;
 		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
+				// Update instantaneous data with data from dialog.
 				data.instrument = this.findInstrumentById(result["instrumentId"]);
 				data.barometricPressure = result["barometricPressure"] * 100;
-				data.methaneLevel = result["methaneLevel"] * 100;
+				data.startTime = result["startTime"];
+				data.endTime = result["endTime"];
+				data.imeNumbers = result["imeNumbers"];
 			}
 			this.activeItem = null;
 			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
@@ -265,22 +258,6 @@ export class UnverifiedDataSetComponent implements OnInit {
 		
 	}
 
-	openAssignImeNumberDialog(data:UnverifiedInstantaneousData) {
-		let dialogConfig:MdDialogConfig = new MdDialogConfig();
-		dialogConfig.width = '640px';
-		let dialogRef:MdDialogRef<AssignImeNumberDialogComponent> = this.dialog.open(AssignImeNumberDialogComponent, dialogConfig);
-		dialogRef.componentInstance.site = this.unverifiedDataSet.site;
-		dialogRef.componentInstance.data = data;
-		dialogRef.componentInstance.createdImeNumbers = this.createdImeNumbers;
-		dialogRef.componentInstance.existingImeNumbers = this.existingImeNumbers;
-		dialogRef.afterClosed().subscribe(result => {
-			if (result) {
-				this.snackBar.open("IME number has been updated.", "OK", {duration: 3000});
-				this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
-			}
-		});
-	}
-
 	removeImeNumbers(data:UnverifiedInstantaneousData) {
 		this.snackBar.open("IME number has been removed.", "OK", {duration: 3000});
 		data.imeNumbers = [];
@@ -369,6 +346,11 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 	toggleInfoCard() {
 		this.infoCardOpen = !this.infoCardOpen;
+	}
+
+	/** Formats the unverified instantaneous data's IME number list into a string. */
+	listImeNumbers(data:UnverifiedInstantaneousData):string {
+		return this.imeNumberService.formatList(data.imeNumbers);
 	}
 
 }

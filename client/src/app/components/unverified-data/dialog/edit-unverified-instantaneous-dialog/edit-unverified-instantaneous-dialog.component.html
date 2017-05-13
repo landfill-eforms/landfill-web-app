@@ -1,17 +1,44 @@
 <div md-dialog-title>Edit Single Instantaneous Reading</div>
 <md-dialog-content>
 	<div class="flex-item" fxFlex style="padding-right: 16px;">
+		<app-time-picker-input placeholder="Start Time"
+			[initialDate]="fields.startTime"
+			(dateChanged)="updateStartTime($event)"
+			class="md-input-full-width">
+			</app-time-picker-input>
+		<app-time-picker-input placeholder="End Time"
+			[initialDate]="fields.endTime"
+			(dateChanged)="updateEndTime($event)"
+			class="md-input-full-width">
+			</app-time-picker-input>
 		<md-input-container class="md-input-full-width">
 			<input mdInput placeholder="Barometric Pressure" type="number" [(ngModel)]="fields.barometricPressure">
 		</md-input-container>
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Methane (ppm)" type="number" [(ngModel)]="fields.methaneLevel">
-		</md-input-container>
-		<md-select [(ngModel)]="fields.instrumentId" placeholder="Equipment Type" class="mat-select-row" style="width:100%">
+		<md-select [(ngModel)]="fields.instrumentId" placeholder="Equipment" class="mat-select-row" style="width:100%">
 			<md-option *ngFor="let instrument of availableInstruments" [value]="instrument.id">
 				{{instrument.serialNumber}}
 			</md-option>
 		</md-select>
+	</div>
+	<div class="flex-item" fxFlex style="padding-left: 16px;">
+		<div style="padding: 6px 0; font-weight: 500;">IME Numbers</div>
+		<div class="list-picker-box" style="height: 350px;">
+			<app-page-loading-indicator *ngIf="!availableImeNumbers"></app-page-loading-indicator>
+			<div *ngFor="let imeNumber of availableImeNumbers" class="list-item-container flex-container" fxLayout="row"> 
+				<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
+					<md-checkbox [(ngModel)]="imeNumber.selected" [disabled]="data.methaneLevel < 50000"></md-checkbox>
+				</div>
+				<div class="list-item-info flex-item" fxFlex style="height: 48px;">
+					<div class="list-item-title">
+						{{imeNumber.imeNumber}}{{imeNumber.status === "UNVERIFIED" ? '*' : ''}}
+					</div>
+					<div class="list-item-description">
+						{{imeNumber.imeData[0].description}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="!isNew" style="font-size: 13px">* = Unverified IME Number</div>
 	</div>
 </md-dialog-content>
 <md-dialog-actions>

@@ -43,7 +43,6 @@ import { InstrumentService } from './services/instrument/instrument.service';
 import { InstantaneousDataService } from './services/instantaneous/instantaneous-data.service';
 import { ImeNumberService } from './services/instantaneous/ime-number.service';
 import { CommonModule } from './components/common/common.module';
-import { AssignImeNumberDialogComponent } from './components/unverified-data/assign-ime-number-dialog/assign-ime-number-dialog.component';
 import { UnverifiedDataModule } from './components/unverified-data/unverified-data.module';
 import { ReportModule } from './components/report/report.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -100,7 +99,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		UserPasswordDialogComponent,
 		UserStatusDialogComponent,
 		UserGroupDialogComponent,
-		AssignImeNumberDialogComponent,
 		ImeRecheckDialogComponent,
 		ImeRepairDialogComponent,
 		IseRecheckDialogComponent,

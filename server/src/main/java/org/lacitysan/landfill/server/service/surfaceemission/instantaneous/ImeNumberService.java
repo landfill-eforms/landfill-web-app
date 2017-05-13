@@ -25,8 +25,13 @@ public class ImeNumberService extends SurfaceEmissionExceedanceNumberService<Ime
 	ImeNumberDao imeNumberDao;	
 
 	@Override
-	public List<ImeNumber> getBySiteAndDateCode(String siteName) {
+	public List<ImeNumber> getBySite(String siteName) {
 		return imeNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), null);
+	}
+	
+	@Override
+	public List<ImeNumber> getBySiteAndDateCode(String siteName, Short dateCode) {
+		return imeNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), dateCode);
 	}
 
 	@Override

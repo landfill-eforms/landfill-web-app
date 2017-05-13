@@ -35,6 +35,13 @@ export abstract class SurfaceExceedanceNumberService<T extends SurfaceEmissionEx
 			);
 	}
 
+	getBySiteAndDateCode(site:Site, dateCode:number, success:(data) => void, error?:(err) => void) {
+		this.authHttp.get(this.baseUrl + "/list/site/" + site.constantName + "/dateCode/" + dateCode).map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
+			);
+	}
+
 	clear(entity:T, success:(data) => void, error?:(err) => void) {
 		this.authHttp.post(this.baseUrl + '/clear', entity).map((res:Response) => res.json()).subscribe(
 				data => success(data),
@@ -42,11 +49,9 @@ export abstract class SurfaceExceedanceNumberService<T extends SurfaceEmissionEx
 			);
 	}
 
-	generateStringFromExceedanceNumber(exceedanceNumber:T):string {
-		let date:Date = new Date(exceedanceNumber.dateCode);
-		let month = date.getMonth() + 1;
-		let dayOfMonth = date.getDate();
-        return exceedanceNumber.site.shortName + "-" + (date.getFullYear() % 2000) + (month < 10 ? "0" + month : month) + "-" + (exceedanceNumber.sequence < 10 ? "0" : "") + exceedanceNumber.sequence;
+	generateDateCodeFromLong(date:number):number {
+		let d:Date = new Date(date);
+		return (d.getFullYear() % 100) * 100 + (d.getMonth() + 1);
 	}
 
 }

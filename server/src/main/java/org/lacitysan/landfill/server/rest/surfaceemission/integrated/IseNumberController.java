@@ -43,7 +43,17 @@ public class IseNumberController {
 	
 	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
 	public List<IseNumber> getBySite(@PathVariable String siteName) {
-		return iseNumberService.getBySiteAndDateCode(siteName);
+		return iseNumberService.getBySite(siteName);
+	}
+	
+	@RequestMapping(value="/list/site/{siteName}/dateCode/{dateCode}", method=RequestMethod.GET)
+	public List<IseNumber> getBySiteAndDateCode(@PathVariable String siteName, @PathVariable String dateCode) {
+		try {
+			return iseNumberService.getBySiteAndDateCode(siteName, Short.valueOf(dateCode));
+		}
+		catch (NumberFormatException e) {
+			return null;
+		}
 	}
 	
 	@RequestMapping(value="/unique/iseNumber/{iseNumber}", method=RequestMethod.GET)

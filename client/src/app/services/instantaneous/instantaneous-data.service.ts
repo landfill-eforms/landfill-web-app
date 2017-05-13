@@ -37,4 +37,6 @@ export class InstantaneousDataService extends AbstractHttpService<InstantaneousD
 		return data;
 	}
 
+
+
 }

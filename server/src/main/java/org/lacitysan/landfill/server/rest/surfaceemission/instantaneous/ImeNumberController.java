@@ -43,7 +43,17 @@ public class ImeNumberController {
 	
 	@RequestMapping(value="/list/site/{siteName}", method=RequestMethod.GET)
 	public List<ImeNumber> getBySite(@PathVariable String siteName) {
-		return imeNumberService.getBySiteAndDateCode(siteName);
+		return imeNumberService.getBySite(siteName);
+	}
+	
+	@RequestMapping(value="/list/site/{siteName}/dateCode/{dateCode}", method=RequestMethod.GET)
+	public List<ImeNumber> getBySiteAndDateCode(@PathVariable String siteName, @PathVariable String dateCode) {
+		try {
+			return imeNumberService.getBySiteAndDateCode(siteName, Short.valueOf(dateCode));
+		}
+		catch (NumberFormatException e) {
+			return null;
+		}
 	}
 	
 	@RequestMapping(value="/unique/imeNumber/{imeNumber}", method=RequestMethod.GET)

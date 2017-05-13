@@ -33,4 +33,20 @@ export class ImeNumberService extends SurfaceExceedanceNumberService<ImeNumber> 
 		return result;
 	}
 
+	/** Formats a list of IME numbers into a string. */
+	formatList(imeNumbers:ImeNumber[]):string {
+		console.log("CALLED")
+		imeNumbers.sort((a, b) => a.sequence - b.sequence);
+		let result:string = "";
+		for (let i = 0; i < imeNumbers.length; i++) {
+			if (i == 0) {
+				result += imeNumbers[i].imeNumber;
+			}
+			else {
+				result += ", " + (imeNumbers[i].sequence < 10 ? "0" : "") + imeNumbers[i].sequence;
+			}
+		}
+		return result;
+	}
+
 }

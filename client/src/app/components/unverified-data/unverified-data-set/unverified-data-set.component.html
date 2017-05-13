@@ -103,13 +103,13 @@
 									<div class="data-table-checkbox-column data-table-checkbox-header truncate flex-item" fxFlex="68px">
 										<md-checkbox></md-checkbox>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex="3">
+									<div class="data-table-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">Grid</span>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex="3">
+									<div class="data-table-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">Start</span>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex="3">
+									<div class="data-table-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">End</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
@@ -142,13 +142,13 @@
 													(click)="toggleInstantaneous(unverifiedInstantaneousData)">
 												</md-checkbox>
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex="3">
+											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{unverifiedInstantaneousData.monitoringPoint?.name}}
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex="3">
+											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{DateTimeUtils.getTime(unverifiedInstantaneousData.startTime)}}
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex="3">
+											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{DateTimeUtils.getTime(unverifiedInstantaneousData.endTime)}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
@@ -169,7 +169,7 @@
 												{{unverifiedInstantaneousData.methaneLevel / 100}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
-												{{unverifiedInstantaneousData.imeNumbers[0] && unverifiedInstantaneousData.imeNumbers[0].imeNumber}}
+												{{listImeNumbers(unverifiedInstantaneousData)}}
 											</div>
 											<div class="data-table-action-column truncate flex-item" fxFlex="64px">
 												<button md-icon-button [mdMenuTriggerFor]="instantaneousMenu">
@@ -195,7 +195,7 @@
 									<div class="data-table-checkbox-column data-table-checkbox-header truncate flex-item" fxFlex="68px">
 										<md-checkbox></md-checkbox>
 									</div>
-									<div class="data-table-first-column truncate flex-item" fxFlex="3">
+									<div class="data-table-first-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">Grid</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
@@ -228,7 +228,7 @@
 													(click)="toggleInstantaneous(unverifiedInstantaneousData)">
 												</md-checkbox>
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex="3">
+											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{unverifiedWarmspotData.monitoringPoint?.name}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
@@ -364,13 +364,13 @@
 									<div class="data-table-checkbox-column data-table-checkbox-header truncate flex-item" fxFlex="68px">
 										<md-checkbox></md-checkbox>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex="3">
+									<div class="data-table-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">Grid</span>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex="3">
+									<div class="data-table-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">Start</span>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex="3">
+									<div class="data-table-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">End</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
@@ -406,13 +406,13 @@
 													(click)="toggleIntegrated(unverifiedIntegratedData)">
 												</md-checkbox>
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex="3">
+											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{unverifiedIntegratedData.monitoringPoint?.name}}
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex="3">
+											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{DateTimeUtils.getTime(unverifiedIntegratedData.startTime)}}
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex="3">
+											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{DateTimeUtils.getTime(unverifiedIntegratedData.endTime)}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>

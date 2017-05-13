@@ -30,7 +30,9 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 	@Autowired
 	protected MonitoringPointService monitoringPointService;
 
-	abstract public List<T> getBySiteAndDateCode(String exceedanceNumber);
+	abstract public List<T> getBySite(String exceedanceNumber);
+	
+	abstract public List<T> getBySiteAndDateCode(String exceedanceNumber, Short dateCode);
 
 	public List<T> getVerifiedBySiteAndDateRange(Site site, Long start, Long end) {
 		return getCrudRepository().getVerifiedBySiteAndDateCodeRange(site, generateDateCodeFromLong(start), generateDateCodeFromLong(end)).stream()

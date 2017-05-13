@@ -1,7 +1,9 @@
 package org.lacitysan.landfill.server.persistence.entity.unverified;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -86,6 +88,9 @@ public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 
 	// TODO Add other data types.
 	
+	@Transient
+	private Map<String, ?> errors = new HashMap<>();
+	
 	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="UploadedByFK")
@@ -100,6 +105,7 @@ public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 	private User modifiedBy;
 	
 	private Timestamp modifiedDate;
+
 
 	public String getFilename() {
 		return filename;
@@ -181,6 +187,14 @@ public class UnverifiedDataSet extends AbstractEntity implements Trackable {
 		this.probeExceedances = probeExceedances;
 	}
 	
+	public Map<String, ?> getErrors() {
+		return errors;
+	}
+
+	public void setErrors(Map<String, ?> errors) {
+		this.errors = errors;
+	}
+
 	@Override
 	public User getCreatedBy() {
 		return createdBy;

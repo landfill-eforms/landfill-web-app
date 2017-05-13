@@ -24,9 +24,9 @@ export class UnverifiedDataSet extends AbstractEntity {
 	iseNumbers:IseNumber[];
 	unverifiedProbeData:UnverifiedProbeData[];
 	probeExceedances?:ProbeExceedance[];
+	errors?:any;
 	createdBy:User;
 	createdDate:number;
 	modifiedBy:User;
 	modifiedDate:number;
-	errors?:any;
 }

@@ -320,74 +320,95 @@ public class ReportService {
 		return new WarmspotReport(reportQuery, warmspotReportData);
 	}
 	
+	/**
+	 * Generates a PDF document for the Warmspot report.
+	 * @param out 	 Where the PDF will be saved to when created
+	 * @param report The object containing the data to generate the report
+	 */
 	private void generateWarmspotReportPdf(OutputStream out, WarmspotReport report) throws IOException{
-		PDPage blankPage1;
-
-		List<List<String>> reportData = new ArrayList<>();
-		List<WarmspotReportData> listType = report.getWarmspotReportData();
+		PDPage blankPage;
 		
+		// The list that contain will each row of data for the warmspot report 
+		List<List<String>> reportData = new ArrayList<>();
+		
+		// Gets the list of data in the Warmspot report object
+		List<WarmspotReportData> dataEntries = report.getWarmspotReportData();
+		
+		// Creates a pdf document object
 		PDDocument document = new PDDocument();		
 		
-		blankPage1 = new PDPage();
-		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
-
+		blankPage = new PDPage();
+		
+		// Sets the dimensions of a rectangle within the page, the contents will be written within the rectangle space
+		blankPage.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+		
+		// Margin determines the amount of white space between the contents and boundary of the page
 		float margin = 10;
-		float tableWidth = blankPage1.getMediaBox().getWidth() - (2 * margin);
-		float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
+		
+		// Determines the width of the table that will be created
+		float tableWidth = blankPage.getMediaBox().getWidth() - (2 * margin);
+		
+		// Determines where the table will be placed on the y-axis
+		float yStartNewPage = blankPage.getMediaBox().getHeight() - (2 * margin);
 		float yStart = yStartNewPage;
+		
 		float bottomMargin = 20;
-
-		document.addPage( blankPage1 );
-
-		ArrayList<String> header = new ArrayList<>();
-
-		header.add("Date");
 		
-		header.add("Grid");
-		header.add("Description");
+		document.addPage( blankPage );
 		
-		header.add("Estimate Size");
-		header.add("ECI (full name)");
-		header.add("Max Value");
-		header.add("Instrument");
+		ArrayList<String> columnNames = new ArrayList<>();
 
-		for(int i = 0; i < listType.size(); i++){
+		columnNames.add("Date");
+		columnNames.add("Grid");
+		columnNames.add("Description");
+		columnNames.add("Estimate Size");
+		columnNames.add("ECI (full name)");
+		columnNames.add("Max Value");
+		columnNames.add("Instrument");
+		
+		// Getting the information from the objects, adds them to a list in the order of the column name
+		for(int i = 0; i < dataEntries.size(); i++){
 			ArrayList<String> info = new ArrayList<>();
-			info.add( (listType.get(i)).getDate() );                	
-			info.add( (listType.get(i)).getMonitoringPoint() );
-			info.add( (listType.get(i)).getDescription() );     	
-			info.add( (listType.get(i)).getSize() );
-			info.add( (listType.get(i)).getInspector() );
-			info.add( (listType.get(i)).getMethane() );
-			info.add( (listType.get(i)).getInstrument() );
+			info.add( (dataEntries.get(i)).getDate() );                	
+			info.add( (dataEntries.get(i)).getMonitoringPoint() );
+			info.add( (dataEntries.get(i)).getDescription() );     	
+			info.add( (dataEntries.get(i)).getSize() );
+			info.add( (dataEntries.get(i)).getInspector() );
+			info.add( (dataEntries.get(i)).getMethane() );
+			info.add( (dataEntries.get(i)).getInstrument() );
 			
 			reportData.add(info);
 		}
 		
-		BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage1, true, true);
+		// Creates a table object on the specified page of the pdf document
+		BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage, true, true);
 
-		//Create Header row
+		// Create Header row for the table
 		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
 		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Warmspot Report for " + report.getReportQuery().getSite().getName() + " " + getFormattedDateRange(report.getReportQuery()));			
 		cell.setFont(PDType1Font.HELVETICA_BOLD);
 
-
-
+		// Create the row for the column name for the table
 		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
-		for (int i = 0; i < header.size(); i++) {
+		for (int i = 0; i < columnNames.size(); i++) {
+			
+			// Sets the width of each cell in the row
 			float width = 100 / 9f;
 			if (i == 2) {
 				width = (100 / 3.0f);
 			}
-			cell = hea.createCell(width, "" + header.get(i));
+			cell = hea.createCell(width, "" + columnNames.get(i));
 			cell.setFont(PDType1Font.HELVETICA_BOLD);
 		}	
 		dataTable.addHeaderRow(hea); 
-
+		
+		// Create a row for each warmspot data for the table
 		for (List<String> info : reportData) {
 			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
 
 			for (int i = 0; i < info.size(); i++) {
+				
+				// Create cells in the row with certain width
 				float width = 100 / 9f;
 				if (i == 2) {
 					width = (100 / 3.0f);
@@ -395,49 +416,65 @@ public class ReportService {
 				cell = row.createCell(width, "" + info.get(i));
 			}
 		}
-
+		
+		// Draws the table onto the page specified in the document, if table exceeds 1 page, it will insert more pages till table is done drawing
 		dataTable.draw(); 
 
 		document.save(out);
 		document.close();	
 	}
 	
+	/**
+	 * Generates a PDF document for the Instantaneous report.
+	 * @param out 	 Where the PDF will be saved to when created
+	 * @param report The object containing the data to generate the report
+	 */
 	private void generateInstantaneousReportPdf(OutputStream out, InstantaneousReport report) throws IOException{
-		PDPage blankPage1;
-
+		PDPage blankPage;
+		
+		// The list that contain will each row of data for the instantaneous report 
 		List<List<String>> reportData = new ArrayList<>();
+		
+		// Gets the list of data in the Instantaneous report object
 		List<InstantaneousReportData> listType = report.getInstantaneousReportData();
 		
+		// Creates a pdf document object
 		PDDocument document = new PDDocument();		
-		PDDocumentInformation pdd = document.getDocumentInformation();
-		pdd.setAuthor("Allen Ma");
-		pdd.setTitle("Landfill report");
-		pdd.setCreator("Allen Ma");
-		blankPage1 = new PDPage();
-		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
-
+		
+		blankPage = new PDPage();
+		
+		// Sets the dimensions of a rectangle within the page, the contents will be written within the rectangle space
+		blankPage.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+		
+		// Margin determines the amount of white space between the contents and boundary of the page
 		float margin = 10;
-		float tableWidth = blankPage1.getMediaBox().getWidth() - (2 * margin);
-		float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
+		
+		// Determines the width of the table that will be created
+		float tableWidth = blankPage.getMediaBox().getWidth() - (2 * margin);
+		
+		// Determines where the table will be placed on the y-axis
+		float yStartNewPage = blankPage.getMediaBox().getHeight() - (2 * margin);
 		float yStart = yStartNewPage;
+		
 		float bottomMargin = 20;
+				
+		document.addPage( blankPage );
 
-		document.addPage( blankPage1 );
+		ArrayList<String> columnNames = new ArrayList<>();
 
-		ArrayList<String> header = new ArrayList<>();
-
-		header.add("Date");
+		columnNames.add("Date");
 		
-		header.add("Barometric Pressure");
-		header.add("Inspector");
+		columnNames.add("Barometric Pressure");
+		columnNames.add("Inspector");
 		
-		header.add("Grid");
-		header.add("Start");
-		header.add("End");
-		header.add("Instrument");
-		header.add("Reading");
-		header.add("IME #(s)");
+		columnNames.add("Grid");
+		columnNames.add("Start");
+		columnNames.add("End");
+		columnNames.add("Instrument");
+		columnNames.add("Reading");
+		columnNames.add("IME #(s)");
 
+		// Getting the information from the objects, adds them to a list in the order of the column name
 		for(int i = 0; i < listType.size(); i++){
 			ArrayList<String> info = new ArrayList<>();
 			info.add( (listType.get(i)).getDate() );                	
@@ -453,71 +490,93 @@ public class ReportService {
 			reportData.add(info);
 		}
 		
-		BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage1, true, true);
+		// Creates a table object on the specified page of the pdf document
+		BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage, true, true);
 
 		//Create Header row
 		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
 		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Instantaneous Report for " + report.getReportQuery().getSite().getName() + " " + getFormattedDateRange(report.getReportQuery()));			
 		cell.setFont(PDType1Font.HELVETICA_BOLD);
 
-
-
+		// Create the row for the column name for the table
 		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
-		for (int i = 0; i < header.size(); i++) {
+		for (int i = 0; i < columnNames.size(); i++) {
 			float width = 100 / 9f;
-			cell = hea.createCell(width, "" + header.get(i));
+			cell = hea.createCell(width, "" + columnNames.get(i));
 			cell.setFont(PDType1Font.HELVETICA_BOLD);
 		}	
 		dataTable.addHeaderRow(hea); 
 
+		// Create a row for each instantaneous data for the table
 		for (List<String> info : reportData) {
 			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
 
 			for (int i = 0; i < info.size(); i++) {
-				float width = 100 / 9f;
+				
+				// Create cells in the row with certain width
+				float width = 100 / 9f;				
 				cell = row.createCell(width, "" + info.get(i));
 			}
 		}
 
+		// Draws the table onto the page specified in the document, if table exceeds 1 page, it will insert more pages till table is done drawing
 		dataTable.draw(); 
 
 		document.save(out);
 		document.close();	
 	}
 	
+	/**
+	 * Generates a PDF document for the Integrated report.
+	 * @param out 	 Where the PDF will be saved to when created
+	 * @param report The object containing the data to generate the report
+	 */
 	private void generateIntegratedReportPdf(OutputStream out, IntegratedReport report) throws IOException{
-		PDPage blankPage1;
+		PDPage blankPage;
 
+		// The list that contain will each row of data for the instantaneous report 
 		List<List<String>> reportData = new ArrayList<>();
+		
+		// Gets the list of data in the Integrated report object
 		List<IntegratedReportData> listType = report.getIntegratedReportData();
 		
+		// Creates a pdf document object
 		PDDocument document = new PDDocument();		
 		
-		blankPage1 = new PDPage();
-		blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+		blankPage = new PDPage();
+		
+		// Sets the dimensions of a rectangle within the page, the contents will be written within the rectangle space
+		blankPage.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
 
+		// Margin determines the amount of white space between the contents and boundary of the page
 		float margin = 10;
-		float tableWidth = blankPage1.getMediaBox().getWidth() - (2 * margin);
-		float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
+		
+		// Determines the width of the table that will be created
+		float tableWidth = blankPage.getMediaBox().getWidth() - (2 * margin);
+		
+		// Determines where the table will be placed on the y-axis
+		float yStartNewPage = blankPage.getMediaBox().getHeight() - (2 * margin);
 		float yStart = yStartNewPage;
+		
 		float bottomMargin = 20;
-
-		document.addPage( blankPage1 );
-
-		ArrayList<String> header = new ArrayList<>();
 		
-		header.add("Grid ID#");
-		header.add("Inspector");
-		header.add("Sample ID");
-		header.add("Bag #");
-		header.add("Date");
-		header.add("Start Time");
-		header.add("End Time");
-		header.add("Volume (Liters)");
-		header.add("Barometric Pressure");		
-		header.add("Instrument");
-		header.add("Reading ppm");
+		document.addPage( blankPage );
+
+		ArrayList<String> columnNames = new ArrayList<>();
 		
+		columnNames.add("Grid ID#");
+		columnNames.add("Inspector");
+		columnNames.add("Sample ID");
+		columnNames.add("Bag #");
+		columnNames.add("Date");
+		columnNames.add("Start Time");
+		columnNames.add("End Time");
+		columnNames.add("Volume (Liters)");
+		columnNames.add("Barometric Pressure");		
+		columnNames.add("Instrument");
+		columnNames.add("Reading ppm");
+		
+		// Getting the information from the objects, adds them to a list in the order of the column name
 		for(int i = 0; i < listType.size(); i++){
 			ArrayList<String> info = new ArrayList<>();
 			info.add( (listType.get(i)).getMonitoringPoint() );                	
@@ -535,64 +594,90 @@ public class ReportService {
 			reportData.add(info);
 		}
 		
-		BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage1, true, true);
+		// Creates a table object on the specified page of the pdf document
+		BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage, true, true);
 
 		//Create Header row
 		be.quodlibet.boxable.Row<PDPage> headerRow = dataTable.createRow(15f);
 		be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, "Integrated Report for " + report.getReportQuery().getSite().getName() + " " + getFormattedDateRange(report.getReportQuery()));
 		cell.setFont(PDType1Font.HELVETICA_BOLD);
 
-
-
+		// Create the row for the column name for the table
 		be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
-		for (int i = 0; i < header.size(); i++) {
+		for (int i = 0; i < columnNames.size(); i++) {
 			float width = 100 / 11f;
-			cell = hea.createCell(width, "" + header.get(i));
+			cell = hea.createCell(width, "" + columnNames.get(i));
 			cell.setFont(PDType1Font.HELVETICA_BOLD);
 		}	
 		dataTable.addHeaderRow(hea);
 
+		// Create a row for each integrated data for the table
 		for (List<String> info : reportData) {
 			be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
 
 			for (int i = 0; i < info.size(); i++) {
+				
+				// Create cells in the row with certain width
 				float width = 100 / 11f;
 				cell = row.createCell(width, "" + info.get(i));
 			}
 		}
 
+		// Draws the table onto the page specified in the document, if table exceeds 1 page, it will insert more pages till table is done drawing
 		dataTable.draw(); 
 
 		document.save(out);
 		document.close();	
 	}
 	
+	/**
+	 * Generates a PDF document for the Exceedance report.
+	 * It will generate a PDF for each Exceedance type and merge them into one document.
+	 * @param out 	 Where the PDF will be saved to when created
+	 * @param report The object containing the data to generate the report
+	 */
 	@SuppressWarnings("deprecation")
 	private void generateExceedanceReportPdf(OutputStream out, ExceedanceReport report) throws IOException {
 		
-		PDPage blankPage1;
+		PDPage blankPage;
 
+		// Gets the list of exceedance types in the exceedance report object
 		Set<ExceedanceType> types = report.getReportQuery().getExceedanceTypes();
-		List<List<?>> reportData;
 		
+		// List is undefined right now since it could be a list of any exceedance type
+		List<List<?>> reportData;		
 		List<?> listType;
 		
+		// The created PDFs will be stored within this list
 		ArrayList<ByteArrayOutputStream> allpdf = new ArrayList<>();
 
 		String exceedType = "";
+		
+		// Creates a PDF for each exceedance type in the set
 		for (ExceedanceType exType : types) {
 			reportData = new ArrayList<>();
+			
+			// Creates a pdf document object
 			PDDocument document = new PDDocument();		
 			
-			blankPage1 = new PDPage();
-			blankPage1.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
+			blankPage = new PDPage();
+			
+			// Sets the dimensions of a rectangle within the page, the contents will be written within the rectangle space
+			blankPage.setMediaBox(new PDRectangle(PDRectangle.A4.getHeight(),PDRectangle.A4.getWidth()));
 
+			// Margin determines the amount of white space between the contents and boundary of the page
 			float margin = 10;
-			float tableWidth = blankPage1.getMediaBox().getWidth() - (2 * margin);
-			float yStartNewPage = blankPage1.getMediaBox().getHeight() - (2 * margin);
+			
+			// Determines the width of the table that will be created
+			float tableWidth = blankPage.getMediaBox().getWidth() - (2 * margin);
+			
+			// Determines where the table will be placed on the y-axis
+			float yStartNewPage = blankPage.getMediaBox().getHeight() - (2 * margin);
 			float yStart = yStartNewPage;
+			
 			float bottomMargin = 20;
 			
+			// Determining the type of exceedance object the list will contain 
 			if (exType == ExceedanceType.INSTANTANEOUS){
 				exceedType = "Instantaneous Exceedances";
 				listType = report.getImeReportData();
@@ -605,24 +690,26 @@ public class ReportService {
 				exceedType = "Probe Exceedances";
 				listType = report.getProbeExceedanceReportData();
 			}
-			System.out.println(exceedType);
-			ArrayList<String> header = new ArrayList<>();
+			
+			// Will change according which exceedance pdf is being created
+			ArrayList<String> columnNames = new ArrayList<>();
 			if (exType == ExceedanceType.INSTANTANEOUS || exType == ExceedanceType.INTEGRATED){
 
-				header.add("Date Discovered");
+				columnNames.add("Date Discovered");
 				if(exType == ExceedanceType.INSTANTANEOUS){
-					header.add("IME#");
-					header.add("Grid(s)");
+					columnNames.add("IME#");
+					columnNames.add("Grid(s)");
 				}
 				else{
-					header.add("ISE#");
-					header.add("Grid");
+					columnNames.add("ISE#");
+					columnNames.add("Grid");
 				}      	
-				header.add("Repair Description");
-				header.add("Initial Reading (ppm)");
-				header.add("Recheck value (ppm)");
-				header.add("Date Cleared");
+				columnNames.add("Repair Description");
+				columnNames.add("Initial Reading (ppm)");
+				columnNames.add("Recheck value (ppm)");
+				columnNames.add("Date Cleared");
 
+				// Getting the information from the objects, adds them to a list in the order of the column name
 				for(int i = 0; i < listType.size(); i++){
 					ArrayList<String> info = new ArrayList<>();
 					info.add( ((SurfaceEmissionExceedanceReportData) listType.get(i)).getDiscoveredDate() );                	
@@ -637,14 +724,15 @@ public class ReportService {
 				}
 			}
 			else if (exType == ExceedanceType.PROBE){
-				header.add("Date Discovered");
-				header.add("Probe ID");
-				header.add("Depth");           	            	     	
-				header.add("Repair Description");
-				header.add("Initial Reading (ppm)");
-				header.add("Recheck value (ppm)");
-				header.add("Date Cleared");
+				columnNames.add("Date Discovered");
+				columnNames.add("Probe ID");
+				columnNames.add("Depth");           	            	     	
+				columnNames.add("Repair Description");
+				columnNames.add("Initial Reading (ppm)");
+				columnNames.add("Recheck value (ppm)");
+				columnNames.add("Date Cleared");
 
+				// Getting the information from the objects, adds them to a list in the order of the column name
 				for(int i = 0; i < listType.size(); i++){
 					ArrayList<String> info = new ArrayList<>();
 					info.add( ((ProbeExceedanceReportData) listType.get(i)).getDiscoveredDate() );                	
@@ -659,8 +747,9 @@ public class ReportService {
 				}
 			}
 
-			BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage1, true, true);
-			document.addPage( blankPage1 );
+			// Creates a table object on the specified page of the pdf document
+			BaseTable dataTable = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, blankPage, true, true);
+			document.addPage( blankPage );
 			
 			//Create Header row
 			exceedType = exceedType + " for " + report.getReportQuery().getSite().getName()	+ " " + getFormattedDateRange(report.getReportQuery());
@@ -668,21 +757,27 @@ public class ReportService {
 			be.quodlibet.boxable.Cell<PDPage> cell = headerRow.createCell(100, exceedType);			
 			cell.setFont(PDType1Font.HELVETICA_BOLD);
 
+			// Create the row for the column names for the table
 			be.quodlibet.boxable.Row<PDPage> hea = dataTable.createRow(15f);
-			for (int i = 0; i < header.size(); i++) {
+			for (int i = 0; i < columnNames.size(); i++) {
+				
+				// Create cells in the row with certain width
 				float width = 100 / 9f;
 				if (i == 3) {
 					width = (100 / 6.0f) * 2;
 				}
-				cell = hea.createCell(width, "" + header.get(i));
+				cell = hea.createCell(width, "" + columnNames.get(i));
 				cell.setFont(PDType1Font.HELVETICA_BOLD);
 			}	
 			dataTable.addHeaderRow(hea); //derRow
 
+			// Create a row for each exceedance data for the table
 			for (List<?> info : reportData) {
 				be.quodlibet.boxable.Row<PDPage> row = dataTable.createRow(10f);
 
 				for (int i = 0; i < info.size(); i++) {
+					
+					// Create cells in the row with certain width
 					float width = 100 / 9f;
 					if (i == 3) {
 						width = (100 / 6.0f) * 2;
@@ -691,17 +786,18 @@ public class ReportService {
 				}
 			}
 			
-			
+			// Draws the table onto the page specified in the document, if table exceeds 1 page, it will insert more pages till table is done drawing
 			dataTable.draw(); 
 
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			document.save(baos);
-			allpdf.add(baos);
+			ByteArrayOutputStream exceeedanceTypePDF = new ByteArrayOutputStream();
+			document.save(exceeedanceTypePDF);
+			allpdf.add(exceeedanceTypePDF);
 			document.close();
 			
 			
 		}
 		
+		// Combines all the PDFs in the list into one PDF document
 		PDFMergerUtility mergedPDF = new PDFMergerUtility();
 		for(int i = 0; i < allpdf.size(); i++){
 			mergedPDF.addSource(new ByteArrayInputStream(allpdf.get(i).toByteArray()));

@@ -7,6 +7,10 @@ import org.lacitysan.landfill.server.persistence.entity.report.IndividualReportQ
 import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
 import org.lacitysan.landfill.server.persistence.entity.report.ScheduledReportQuery;
 
+/**
+ * Data access object for <code>ReportQuery</code> entities.
+ * @author Alvin Quach
+ */
 public interface ReportQueryDao extends AbstractDao<ReportQuery> {
 	
 	List<ScheduledReportQuery> getAllScheduledReportQueries();

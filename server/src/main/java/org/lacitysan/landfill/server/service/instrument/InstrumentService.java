@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Handles the logical operations for <code>Instrument</code> entities.
  * @author Alvin Quach
  */
 @Service
@@ -71,6 +72,11 @@ public class InstrumentService {
 		return true;
 	}
 
+	/**
+	 * Calls all the validation methods in this method, for convenience.
+	 * @param instrument The <code>Instrument</code> object to validate.
+	 * @return True if all the validation check pass, false otherwise.
+	 */
 	private boolean validate(Instrument instrument) {
 		return
 				validateSerialNumber(instrument, true)

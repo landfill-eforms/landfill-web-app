@@ -9,7 +9,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
- * Fuck you Allen, this is how its done.
+ * Implemented data access object for <code>IntegratedData</code> entities.
  * @author Alvin Quach
  */
 @Repository

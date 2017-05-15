@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.config.app.vars.model;
 import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableDefinition;
 
 /**
- * Don't know what to name this class.
+ * The class that individual application variables serialize to when they are received as part of a JSON.
  * @author Alvin Quach
  */
 public class ApplicationVariableSerialization {

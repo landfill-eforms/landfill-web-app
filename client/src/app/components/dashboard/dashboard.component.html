@@ -2,7 +2,6 @@
 	<div class="dashboard-title">
 		Welcome to Landfill e-Forms!
 	</div>
-	<!--<img class="dashboard-logo" [src]="logoUrl">-->
 	<div class="flex-container" fxLayout="row" fxLayoutAlign="start start" fxLayoutWrap>
 		<div *ngFor="let gridItem of gridItems">
 			<div *ngIf="gridItem.visible" class="unselectable dashboard-grid-item flex-item" fxFlex="280px" (click)="navigate(gridItem)" [ngClass]="{'dashboard-grid-item-disabled': gridItem.disabled}">

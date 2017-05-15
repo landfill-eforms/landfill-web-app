@@ -1,6 +1,5 @@
 package org.lacitysan.landfill.server.service.surfaceemission.integrated;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.exception.DataVerificationException;
@@ -15,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Handles the logical operations for ISE related objects, such as <code>ISENumber</code> and <code>ISEData</code>.
+ * Handles the logical operations for ISE related entities, such as <code>ISENumber</code> and <code>ISEData</code>.
  * @author Alvin Quach
  */
 @Service
@@ -23,16 +22,6 @@ public class IseNumberService extends SurfaceEmissionExceedanceNumberService<Ise
 
 	@Autowired
 	IseNumberDao iseNumberDao;
-	
-	@Override
-	public List<IseNumber> getBySite(String siteName) {
-		return iseNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), null);
-	}
-	
-	@Override
-	public List<IseNumber> getBySiteAndDateCode(String siteName, Short dateCode) {
-		return iseNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), dateCode);
-	}
 	
 	@Override
 	public IseNumber update(IseNumber iseNumber) {

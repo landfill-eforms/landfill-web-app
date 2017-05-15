@@ -12,10 +12,12 @@ export class NavigationBaseComponent {
 		
 	}
 
+	/** Whether the information sidenav is currently disabled. */
 	isSideinfoDisabled():boolean {
 		return this.navigationService.isSideinfoDisabled();
 	}
 
+	/** Whether the information sidenav is currently opened. */
 	isNavBarExpanded():boolean {
 		return this.navigationService.getNavbarComponent().expanded;
 	}

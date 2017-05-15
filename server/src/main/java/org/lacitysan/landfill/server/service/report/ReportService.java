@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -49,6 +48,7 @@ import org.springframework.stereotype.Service;
 import be.quodlibet.boxable.BaseTable;
 
 /**
+ * Handles the logical operations for reports.
  * @author Alvin Quach
  * @author Allen Huang
  */

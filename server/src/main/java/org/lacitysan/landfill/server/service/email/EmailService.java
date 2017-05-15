@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
+ * Handles the sending of emails and other logical operation for emails.
  * @author Alvin Quach
  */
 @Service
@@ -51,10 +52,24 @@ public class EmailService {
 	@Value("${mail.smtp.password}")
 	private String password;
 
-	public void sendEmail(ScheduledEmail scheduledEmail, Collection<byte[]> attachments) {
+	/**
+	 * Sends a scheduled email along with attachments, if any.
+	 * Will automatically generate a set of recipients from the user groups and individual recipients of the <code>ScheduledEmail</code> object.
+	 * Calls the <code>sendEmail()</code> method internally.
+	 * @param scheduledEmail The scheduled email to be sent.
+	 * @param attachments Attachments to be sent with the email.
+	 */
+	public void sendScheduledEmail(ScheduledEmail scheduledEmail, Collection<byte[]> attachments) {
 		sendEmail(generateRecipientSet(scheduledEmail.getUserGroups(), scheduledEmail.getRecipients()), scheduledEmail.getSubject(), scheduledEmail.getBody(), attachments);
 	}
 
+	/**
+	 * Sends an email.
+	 * @param recipients The set of recipients to send the email to.
+	 * @param subject The subject of the email.
+	 * @param body The body of the email.
+	 * @param attachments Attachments to be sent with the email.
+	 */
 	public void sendEmail(Collection<EmailRecipient> recipients, String subject, String body, Collection<byte[]> attachments) {
 
 		if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tAttempting to Send Email.");
@@ -73,16 +88,26 @@ public class EmailService {
 
 		try {
 			
+			// Create new message.
 			Message message = new MimeMessage(session);
+			
+			// Set the sender info for the message.
 			message.setFrom(new InternetAddress(username, "Landfill e-Forms"));
+			
+			// Add recipients to the message.
 			for (EmailRecipient recipient : recipients) {
 				message.addRecipient(recipient.getRecipientType().getJavaxRecipientType(), new InternetAddress(recipient.getEmailAddress(), recipient.getName()));
 			}
+			
+			// Set subject to the message.
 			message.setSubject(subject);
 
+			// If there are no attachments, then just set the text body of the message.
 			if (attachments == null || attachments.isEmpty()) {
 				message.setText(body);
 			}
+			
+			// If there are attachments, then add them to the message.
 			else {
 				
 				// Create new multipart.
@@ -105,7 +130,8 @@ public class EmailService {
 				// Set the contents of the email to the multipart.
 				message.setContent(multipart);
 			}
-
+			
+			// Send the message.
 			Transport.send(message);
 			if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tEmail Sent.");
 		}
@@ -142,9 +168,8 @@ public class EmailService {
 	/** 
 	 * Compares two email addresses. 
 	 * Assumes both email addresses are valid.
-	 * @param a
-	 * @param b
-	 * @return
+	 * @param a The first email address to be compared.
+	 * @param b The second email address to be compared.
 	 */
 	public boolean compareEmailAddresses(String a, String b) {
 		return stripEmailAddress(a).equals(stripEmailAddress(b));
@@ -154,7 +179,6 @@ public class EmailService {
 	 * Simplifies the input email address.
 	 * Gets rid of uninterpreted characters.
 	 * @param emailAddress
-	 * @return
 	 */
 	private String stripEmailAddress(String emailAddress) {
 		String[] split = emailAddress.toLowerCase().split("@");

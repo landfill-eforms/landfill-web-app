@@ -43,6 +43,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 /**
+ * Spring configuration class for the database data source.
  * @author Alvin Quach
  */
 @Configuration

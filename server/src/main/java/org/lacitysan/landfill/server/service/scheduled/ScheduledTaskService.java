@@ -36,15 +36,25 @@ public class ScheduledTaskService {
 	@Autowired
 	ReportService reportService;
 
+	/** Runs all active scheduled tasks that are saved on the database. */
 	public void runScheduledTasks() {
+		
+		// Get the instantaneous time.
 		LocalDateTime now = LocalDateTime.now();
 		if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tChecking for scheduled tasks at " + now);
+		
+		// Get the list of scheduled emails from the database. 
+		// We can add other types of scheduled tasks, such as notifications, later on.
 		List<ScheduledEmail> scheduledEmails = scheduledEmailDao.getAll();
+		
+		// Check if there are any scheduled emails.
 		if (scheduledEmails.isEmpty()) {
 			if (ApplicationConstant.DEBUG) System.out.println("\tNo scheduled tasks.");
 			return;
 		}
 		if (ApplicationConstant.DEBUG) System.out.println("\tLoaded " + scheduledEmails.size() + " scheduled tasks from database.");
+		
+		// Filter out any emails that are not due at this time.
 		scheduledEmails.stream()
 		.filter(scheduledEmail -> {
 			Schedule schedule = scheduledEmail.getSchedule();
@@ -52,12 +62,14 @@ public class ScheduledTaskService {
 			if (ApplicationConstant.DEBUG) printTaskInfo(schedule, taskDue); 
 			return taskDue;
 		})
+		
+		// Run all the scheduled emails in parallel. 
 		.parallel()
 		.forEach(scheduledEmail -> {
 			Schedule schedule = scheduledEmail.getSchedule();
-			Calendar offset = new GregorianCalendar();
-			offset.setTime(schedule.getOffset());
 			List<byte[]> attachments = new ArrayList<>();
+			
+			// Check if the email type is a report, and run the report query(s).
 			if (scheduledEmail instanceof ScheduledReport) {
 				for (ReportQuery reportQuery : ((ScheduledReport)scheduledEmail).getReportQueries()) {
 					try {
@@ -70,15 +82,26 @@ public class ScheduledTaskService {
 					}
 				}
 			}
-			emailService.sendEmail(scheduledEmail, attachments);
+			
+			// Send the email.
+			emailService.sendScheduledEmail(scheduledEmail, attachments);
+			
+			// Update the scheduled email.
 			if (schedule.getRecurrence() == ScheduleRecurrence.SINGLE) {
 				schedule.setActive(false);
 			}
 			schedule.setLastOccurrence(Timestamp.from(now.atZone(ZoneId.systemDefault()).toInstant()));
 			scheduledEmailDao.update(scheduledEmail);
 		});
+		
 	}
 
+	/**
+	 * Checks determines whether a scheduled task is due at the specified reference time.
+	 * @param schedule The schedule of the scheduled task.
+	 * @param now The reference time.
+	 * @return True if the task is due, false otherwise.
+	 */
 	public boolean isTaskDue(Schedule schedule, LocalDateTime now) {
 		if (!schedule.getActive()) {
 			return false;

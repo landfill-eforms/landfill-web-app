@@ -12,6 +12,11 @@ import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Implemented data access object for <code>SurfaceEmissionData</code> entities.
+ * @author Alvin Quach
+ * @param <T> extends <code>SurfaceEmissionData</code>
+ */
 public abstract class SurfaceEmissionDataDaoImpl<T extends SurfaceEmissionData> extends AbstractDaoImpl<T> implements SurfaceEmissionDataDao<T> {
 
 	/** 

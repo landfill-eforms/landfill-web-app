@@ -30,10 +30,34 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 	@Autowired
 	protected MonitoringPointService monitoringPointService;
 
-	abstract public List<T> getBySite(String exceedanceNumber);
+	/**
+	 * Retrieves a list of exceedance numbers with the specified site name.
+	 * @param siteName The name of the site to query for.
+	 * @return A list of exceedance numbers matching the specified site name.
+	 */
+	public List<T> getBySite(String siteName) {
+		return getCrudRepository().getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), null);
+	}
 	
-	abstract public List<T> getBySiteAndDateCode(String exceedanceNumber, Short dateCode);
+	/**
+	 * Retrieves a list of exceedance numbers with the specified site name and date code.
+	 * @param siteName The name of the site to query for.
+	 * @param dateCode The date code of the exceedance number in yyMM.  
+	 * @return A list of exceedance numbers matching the specified site name and date code.
+	 */
+	public List<T> getBySiteAndDateCode(String siteName, Short dateCode) {
+		return getCrudRepository().getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), dateCode);
+	}
 
+	/**
+	 * Retrieves a list of exceedance numbers with the specified site name and date range.
+	 * The discovery date of the exceedance is used in determining whether it falls within the date range.
+	 * Both the start and end of the date range are inclusive.
+	 * @param siteName The name of the site to query for.
+	 * @param start The start of the date range.
+	 * @param end The end of the date range. 
+	 * @return A list of exceedance numbers matching the specified site name and date range.
+	 */
 	public List<T> getVerifiedBySiteAndDateRange(Site site, Long start, Long end) {
 		return getCrudRepository().getVerifiedBySiteAndDateCodeRange(site, generateDateCodeFromLong(start), generateDateCodeFromLong(end)).stream()
 				.filter(e -> {

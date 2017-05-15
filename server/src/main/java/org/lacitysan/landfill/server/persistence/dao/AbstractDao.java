@@ -5,8 +5,9 @@ import java.util.List;
 import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 
 /**
+ * Data access object for <code>AbstractEntity</code> entities.
  * @author Alvin Quach
- * @param <T>
+ * @param <T> extends <code>AbstractEntity</code>
  */
 public interface AbstractDao<T extends AbstractEntity> {
 
@@ -23,7 +24,9 @@ public interface AbstractDao<T extends AbstractEntity> {
 	T deleteSafe(T entity);
 	
 	/** 
-	 * Must be able to handle <code>null</code> inputs.
+	 * Initializes an entity retrieved from the database by Hibernate.
+	 * <br></br>
+	 * Implementations must be able to handle <code>null</code> inputs.
 	 * @param entity The entity to initialize.
 	 * @return The initialized entity (can be <code>null</code>).
 	 */

@@ -6,7 +6,8 @@ import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentTyp
 import org.springframework.stereotype.Repository;
 
 /**
- * @author Alvin Quach
+ * Implemented data access object for <code>InstrumentType</code> entities.
+ * @author aquach
  */
 @Repository
 public class InstrumentTypeDaoImpl extends AbstractDaoImpl<InstrumentType> implements InstrumentTypeDao {

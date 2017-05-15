@@ -37,6 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Handles the operations for validating and converting an unverified data set to verified data.
  * @author Alvin Quach
  */
 @Service

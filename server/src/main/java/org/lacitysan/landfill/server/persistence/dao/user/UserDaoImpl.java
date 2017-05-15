@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * Implemented data access object for <code>User</code> entities.
  * @author Alvin Quach
  */
 @Repository

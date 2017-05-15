@@ -9,6 +9,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
+ * Implemented data access object for <code>InstantaneousData</code> entities.
  * @author Alvin Quach
  */
 @Repository

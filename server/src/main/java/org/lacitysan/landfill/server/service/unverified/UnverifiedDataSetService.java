@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Handles the logical database operations for <code>UnverifiedDataSet</code> entities.
  * @author Alvin Quach
  */
 @Service

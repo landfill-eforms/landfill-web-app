@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * Implemented data access object for <code>ApplicationSetting</code> entities.
  * @author Alvin Quach
  */
 @Repository
@@ -18,6 +19,11 @@ public class ApplicationSettingDaoImpl implements ApplicationSettingDao {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 
+	/**
+	 * Retrieves the value of the application variable from the database with the given key.
+	 * @param key The key of the application variable value to retrieve.
+	 * @return The value of the application variable value from the database with the given key, or <code>null</code> if no variable with the key exists.
+	 */
 	@Override
 	@Transactional
 	public ApplicationSetting get(String key) {
@@ -40,6 +46,10 @@ public class ApplicationSettingDaoImpl implements ApplicationSettingDao {
 				.list();
 	}
 	
+	/**
+	 * Updates the application variable on the database, or creates the application variable if it doesn't exist yet.
+	 * @return The updated application variable.
+	 */
 	@Override
 	@Transactional
 	public ApplicationSetting set(ApplicationSetting applicationSetting) {
@@ -55,6 +65,10 @@ public class ApplicationSettingDaoImpl implements ApplicationSettingDao {
 		}
 	}
 
+	/**
+	 * Deletes the application variable from the database.
+	 * @return The updated application variable.
+	 */
 	@Override
 	@Transactional
 	public ApplicationSetting delete(ApplicationSetting applicationSetting) {

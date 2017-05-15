@@ -7,8 +7,9 @@ import org.lacitysan.landfill.server.persistence.entity.surfaceemission.SurfaceE
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
 /**
+ * Data access object for <code>SurfaceEmissionExceedanceNumber</code> entities.
  * @author Alvin Quach
- * @param <T>
+ * @param <T> extends <code>SurfaceEmissionExceedanceNumber</code>
  */
 public interface SurfaceEmissionExceedanceNumberDao<T extends SurfaceEmissionExceedanceNumber> extends AbstractDao<T> {
 	

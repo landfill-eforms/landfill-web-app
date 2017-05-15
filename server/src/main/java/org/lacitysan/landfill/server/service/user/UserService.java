@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
+ * Handles the logical operations for <code>User</code> entities.
  * @author Alvin Quach
  */
 @Service

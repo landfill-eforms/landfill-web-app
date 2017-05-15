@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Handles the logical operations for <code>IntegratedData</code> objects.
+ * Handles the logical operations for <code>IntegratedData</code> entities.
  * @author Alvin Quach
  */
 @Service

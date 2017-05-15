@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Don't know what to name this class.
+ * The service that handles all the logical operations of application variables.
  * @author Alvin Quach
  */
 @SuppressWarnings("unused")
@@ -67,6 +67,12 @@ public class ApplicationVariableService {
 		return getString(ApplicationVariableDefinition.SUPER_ADMIN_PASSWORD);
 	}
 	
+	/**
+	 * Updates the database with the values from a map.
+	 * Only the values that are different are updated.
+	 * @param map A map containing the application variables.
+	 * @return An updated map of the application variables.
+	 */
 	public Map<String, ApplicationVariableSerialization> update(Map<String, ApplicationVariableSerialization> map) {
 		boolean updated = false;
 		if (map != null && !map.isEmpty()) {
@@ -100,6 +106,10 @@ public class ApplicationVariableService {
 		return map();
 	}
 	
+	/**
+	 * Maps the current application variables into a <code>Map</code>.
+	 * @return A map of the current application variables.
+	 */
 	public Map<String, ApplicationVariableSerialization> map() {
 		Map<String, ApplicationVariableSerialization> result = new HashMap<>();
 		for (ApplicationVariableDefinition appVar : ApplicationVariableDefinition.values()) {
@@ -180,6 +190,14 @@ public class ApplicationVariableService {
 		return null;
 	}
 	
+	/**
+	 * Converts an object to a <code>Integer</code> object.
+	 * The object can be a <code>String</code> representing a case-insensitive integer value, or a <code>Integer</code> object itself.
+	 * Will return <code>null</code> if the object is does not represent a valid integer value, or optionally, returns <code>0</code> as a default value.
+	 * @param value An object that represents a integer value.
+	 * @param returnDefaultValue Whether to return a default value of <code>0</code> if the input value is invalid.
+	 * @return Integer value of input object, or <code>null</code> if the object is does not represent a valid integer value, or optionally, <code>0</code> as a default value.
+	 */
 	private Integer resolveInteger(Object value, boolean returnDefaultValue) {
 		if (value instanceof Integer) {
 			return (Integer)value;
@@ -195,6 +213,14 @@ public class ApplicationVariableService {
 		}
 	}
 	
+	/**
+	 * Converts an object to a <code>Long</code> object.
+	 * The object can be a <code>String</code> representing a case-insensitive long value, or a <code>Long</code> object itself.
+	 * Will return <code>null</code> if the object is does not represent a valid long value, or optionally, returns <code>0L</code> as a default value.
+	 * @param value An object that represents a long value.
+	 * @param returnDefaultValue Whether to return a default value of <code>0L</code> if the input value is invalid.
+	 * @return Long value of input object, or <code>null</code> if the object is does not represent a valid long value, or optionally, <code>0L</code> as a default value.
+	 */
 	private Long resolveLong(Object value, boolean returnDefaultValue) {
 		if (value instanceof Long) {
 			return (Long)value;
@@ -210,6 +236,14 @@ public class ApplicationVariableService {
 		}
 	}
 	
+	/**
+	 * Converts an object to a <code>Double</code> object.
+	 * The object can be a <code>String</code> representing a case-insensitive double value, or a <code>Double</code> object itself.
+	 * Will return <code>null</code> if the object is does not represent a valid double value, or optionally, returns <code>0.0</code> as a default value.
+	 * @param value An object that represents a double value.
+	 * @param returnDefaultValue Whether to return a default value of <code>0.0</code> if the input value is invalid.
+	 * @return Double value of input object, or <code>null</code> if the object is does not represent a valid double value, or optionally, <code>0.0</code> as a default value.
+	 */
 	private Double resolveDouble(Object value, boolean returnDefaultValue) {
 		if (value instanceof Double) {
 			return (Double)value;
@@ -225,6 +259,14 @@ public class ApplicationVariableService {
 		}
 	}
 	
+	/**
+	 * Converts an object to a <code>Boolean</code> object.
+	 * The object can be a <code>String</code> representing a case-insensitive boolean value, or a <code>Boolean</code> object itself.
+	 * Will return <code>null</code> if the object is does not represent a valid boolean value, or optionally, returns <code>false</code> as a default value.
+	 * @param value An object that represents a boolean value.
+	 * @param returnDefaultValue Whether to return a default value of <code>false</code> if the input value is invalid.
+	 * @return Boolean value of input object, or <code>null</code> if the object is does not represent a valid boolean value, or optionally, <code>false</code> as a default value.
+	 */
 	private Boolean resolveBoolean(Object value, boolean returnDefaultValue) {
 		if (value instanceof Boolean) {
 			return (Boolean)value;

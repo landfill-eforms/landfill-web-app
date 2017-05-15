@@ -30,6 +30,7 @@ export class CardSelectorMenuComponent implements OnInit {
 		}
 	}
 
+	/** Navigates the user to the route of the card they clicked on. */
 	click(card:AppNavLink) {
 		if (card.disabled) {
 			return;

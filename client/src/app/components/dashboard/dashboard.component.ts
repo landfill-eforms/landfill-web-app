@@ -17,10 +17,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+	/** The page title that displays on the tab, and on the navbar. */
 	readonly title:string = "Dashboard";
 
-	readonly logoUrl:string = environment.assetsUrl + "/images/la-san-logo-lite.png";
-
+	/** The list of items that appear on the 'grid' on the dashboard page. */
 	readonly gridItems:VectorAppNavLink[] = [
 		{
 			title: "Android Data Sync",
@@ -109,11 +109,13 @@ export class DashboardComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		// Figure out which items can be accessed by the current user. Hide ones that cannot be accessed.
 		for (let gridItem of this.gridItems) {
 			gridItem.visible = !gridItem.route.data || this.authService.canAccess(gridItem.route.data["permissions"]);
 		}
 	}
 
+	/** Navigates the user to the grid item's path. */
 	navigate(gridItem:AppNavLink) {
 		if (gridItem.disabled) {
 			return;

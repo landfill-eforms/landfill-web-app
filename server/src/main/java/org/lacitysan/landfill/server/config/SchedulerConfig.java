@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 /**
+ * Spring configuration for scheduled tasks, such as scheduled emails.
  * @author Alvin Quach
  */
 @Configuration
@@ -19,6 +20,7 @@ public class SchedulerConfig {
 	@Autowired
 	ScheduledTaskService scheduledTaskService;
 	
+	/** Tasks are checked an run every 60 seconds. */
 	@Scheduled(fixedRate=60000)
 	public void runScheduledTasks() {
 		scheduledTaskService.runScheduledTasks();

@@ -4,6 +4,7 @@ import org.lacitysan.landfill.server.persistence.dao.surfaceemission.SurfaceEmis
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeNumber;
 
 /**
+ * Data access object for <code>ImeNumber</code> entities.
  * @author Alvin Quach
  */
 public interface ImeNumberDao extends SurfaceEmissionExceedanceNumberDao<ImeNumber> {

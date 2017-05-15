@@ -13,8 +13,9 @@ import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * Implemented data access object for <code>SurfaceEmissionExceedanceNumber</code> entities.
  * @author Alvin Quach
- * @param <T>
+ * @param <T> extends <code>SurfaceEmissionExceedanceNumber</code>
  */
 public abstract class SurfaceEmissionExceedanceNumberDaoImpl<T extends SurfaceEmissionExceedanceNumber> extends AbstractDaoImpl<T> implements SurfaceEmissionExceedanceNumberDao<T> {
 

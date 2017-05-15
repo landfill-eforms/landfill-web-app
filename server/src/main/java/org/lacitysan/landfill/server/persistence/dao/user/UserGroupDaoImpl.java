@@ -6,6 +6,7 @@ import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.stereotype.Repository;
 
 /**
+ * Implemented data access object for <code>UserGroup</code> entities.
  * @author Alvin Quach
  */
 @Repository

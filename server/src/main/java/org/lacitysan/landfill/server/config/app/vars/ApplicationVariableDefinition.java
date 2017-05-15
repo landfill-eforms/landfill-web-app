@@ -3,7 +3,7 @@ package org.lacitysan.landfill.server.config.app.vars;
 import org.lacitysan.landfill.server.config.app.vars.model.ApplicationVariableType;
 
 /**
- * Don't know what to name this class.
+ * Definitions of the application variables.
  * @author Alvin Quach
  */
 public enum ApplicationVariableDefinition {

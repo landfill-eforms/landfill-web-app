@@ -8,7 +8,7 @@ import org.lacitysan.landfill.server.persistence.enums.report.ReportPeriod;
 import org.springframework.stereotype.Service;
 
 /**
- * Handles the logical operations for <code>ReportQuery</code> objects.
+ * Handles the logical operations for <code>ReportQuery</code> entities.
  * @author Alvin Quach
  */
 @Service

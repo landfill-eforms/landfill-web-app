@@ -8,6 +8,7 @@ import org.lacitysan.landfill.server.persistence.entity.user.UserActivity;
 import org.springframework.stereotype.Repository;
 
 /**
+ * Data access object for <code>UserActivity</code> entities.
  * @author Alvin Quach
  */
 @Repository

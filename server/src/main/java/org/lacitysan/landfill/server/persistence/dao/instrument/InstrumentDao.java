@@ -5,6 +5,7 @@ import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.instrument.InstrumentType;
 
 /**
+ * Data access object for <code>Instrument</code> entities.
  * @author Alvin Quach
  */
 public interface InstrumentDao extends AbstractDao<Instrument> {

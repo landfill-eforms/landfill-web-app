@@ -1,6 +1,5 @@
 package org.lacitysan.landfill.server.service.surfaceemission.instantaneous;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.exception.DataVerificationException;
@@ -15,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Handles the logical operations for IME related objects, such as <code>IMENumber</code> and <code>IMEData</code>.
+ * Handles the logical operations for IME related entities, such as <code>IMENumber</code> and <code>IMEData</code>.
  * @author Alvin Quach
  */
 @Service
@@ -23,16 +22,6 @@ public class ImeNumberService extends SurfaceEmissionExceedanceNumberService<Ime
 
 	@Autowired
 	ImeNumberDao imeNumberDao;	
-
-	@Override
-	public List<ImeNumber> getBySite(String siteName) {
-		return imeNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), null);
-	}
-	
-	@Override
-	public List<ImeNumber> getBySiteAndDateCode(String siteName, Short dateCode) {
-		return imeNumberDao.getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), dateCode);
-	}
 
 	@Override
 	public ImeNumber update(ImeNumber imeNumber) {

@@ -6,6 +6,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIns
 import org.springframework.stereotype.Repository;
 
 /**
+ * Implemented data access object for <code>UnverifiedInstantaneousData</code> entities.
  * @author Alvin Quach
  */
 @Repository

@@ -2,10 +2,15 @@ import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { environment } from '../../../environments/environment';
 
+/**
+ * Provides common HTTP API request functions such as creating, retriving, updating and deleting items from the database.
+ * @author Alvin Quach
+ */
 export class AbstractHttpService<T> {
 
 	protected readonly authHttp:AuthHttp;
 
+	/** The URL of the corresponding REST controller. */
 	readonly baseUrl:string;
 
 	constructor(resourcePath:string, authHttp:AuthHttp) {

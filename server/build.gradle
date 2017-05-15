@@ -43,15 +43,14 @@ ext {
 	jacksonVersion = '2.8.7'
 	jjwtVersion = '0.7.0'
 	aspectjVersion = '1.8.9'
+	javaxMailVersion = '1.5.6'
 	commonsIoVersion = '2.5'
 	poiVersion = '3.16-beta2'
 	pdfboxVersion = '2.0.5'
-	javaxMailVersion = '1.5.6'
+	boxableVersion = '1.5-RC'
 }
 
 dependencies {
-	compile group: 'com.github.dhorions', name: 'boxable', version: '1.5-RC'
-	
 	compile('org.springframework.boot:spring-boot-starter-data-rest:' + springBootVersion)
 	compile('org.springframework.security:spring-security-web:' + springSecurityVersion)
 	compile('org.springframework.security:spring-security-config:' + springSecurityVersion)
@@ -67,10 +66,11 @@ dependencies {
 	compile('io.jsonwebtoken:jjwt:' + jjwtVersion)
 	compile('org.aspectj:aspectjweaver:' + aspectjVersion)
 	compile('commons-io:commons-io:' + commonsIoVersion)
+	compile('com.sun.mail:javax.mail:' + javaxMailVersion)
 	compile('org.apache.poi:poi:' + poiVersion)
 	compile('org.apache.poi:poi-ooxml:' + poiVersion)
 	compile('org.apache.pdfbox:pdfbox:' + pdfboxVersion)
-	compile('com.sun.mail:javax.mail:' + javaxMailVersion)
+	compile('com.github.dhorions:boxable:' + boxableVersion)
 	
 	compile files('lib/sqljdbc42.jar')
 	

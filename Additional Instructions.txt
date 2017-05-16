@@ -1,0 +1,25 @@
+Additional Instructions for deploying the Web App
+
+In the database sql file, remove all the commands that adds users and the
+commands that give them permission.
+
+In the Wep App code change 2 files, the application.properties and DataSourceConfig.java
+     application.properties
+          comment out this line:
+               spring.datasource.name=test
+
+          change the password to Fill4life
+
+          change the url to localhost:1433\[server name]
+
+     DataSourceConfig.java
+          comment these 2 line near the top of the fILE:
+               @Value("${spring.datasource.name}")
+               private String databaseName;
+
+          comment these 2 line in the method getDataSource():
+               dataSource.addDataSourceProperty("serverName", serverName);
+               dataSource.addDataSourceProperty("databaseName", databaseName);
+
+          add this line in the method getDataSource()
+               dataSource.setJdbcUrl("jdbc:sqlserver://localhost:1433/LANDFILLDB;DatabaseName=test");

@@ -1,7 +1,6 @@
 Additional Instructions for deploying the Web App
 
-In the database sql file, remove all the commands that adds users and the
-commands that give them permission.
+In the database sql file, remove all the commands that creates and adds users.
 
 In the Wep App code change 2 files, the application.properties and DataSourceConfig.java
      application.properties

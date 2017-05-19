@@ -45,7 +45,9 @@ public class UserActivityService {
 			return null;
 		}
 		if (user == null) {
-			user = userService.getCurrentUser();
+			if ((user = userService.getCurrentUser()) == null) {
+				return null;
+			}
 		}
 		if (date == null) {
 			date = new Timestamp(Calendar.getInstance().getTimeInMillis());

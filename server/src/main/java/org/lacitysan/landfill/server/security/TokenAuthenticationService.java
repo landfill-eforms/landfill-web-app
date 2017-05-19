@@ -40,10 +40,15 @@ public class TokenAuthenticationService {
 	private byte[] secret;
 
 	public TokenAuthenticationService() {
-		secret = new byte[ApplicationConstant.TOKEN_SECRET_LENGTH / 8];
-		new Random().nextBytes(secret);
-		if (ApplicationConstant.DEBUG) {
-			System.out.println("DEBUG:\tGenerated JWT Secret: " + new Base64().encodeToString(secret));
+		if (ApplicationConstant.TOKEN_SECRET_USE_RANDOM) {
+			secret = new byte[ApplicationConstant.TOKEN_SECRET_RANDOM_LENGTH / 8];
+			new Random().nextBytes(secret);
+			if (ApplicationConstant.DEBUG) {
+				System.out.println("DEBUG:\tGenerated JWT Secret: " + new Base64().encodeToString(secret));
+			}
+		}
+		else {
+			secret = ApplicationConstant.TOKEN_SECRET_HARDCODED.getBytes();
 		}
 	}
 
@@ -55,7 +60,7 @@ public class TokenAuthenticationService {
 		String jwt = Jwts.builder()
 				.setClaims(claims)
 				.setExpiration(new Date(System.currentTimeMillis() + applicationVariableService.getTokenExpirationTime()))
-				.signWith(SignatureAlgorithm.HS512, "secret")
+				.signWith(SignatureAlgorithm.HS512, secret)
 				.compact();
 		response.addHeader(ApplicationConstant.HTTP_TOKEN_HEADER_NAME, ApplicationConstant.HTTP_TOKEN_PREFIX + " " + jwt);
 		response.addHeader("Access-Control-Allow-Origin", "*");
@@ -69,7 +74,7 @@ public class TokenAuthenticationService {
 			try {
 				token = token.replace(ApplicationConstant.HTTP_TOKEN_PREFIX + " ", "");
 				Claims claims = Jwts.parser()
-						.setSigningKey("secret")
+						.setSigningKey(secret)
 						.parseClaimsJws(token)
 						.getBody();
 				Object principle = claims.get("principle");

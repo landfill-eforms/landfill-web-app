@@ -101,7 +101,7 @@
 			</div>
 			<button md-raised-button color="accent" 
 				(click)="downloadReport()" 
-				[disabled]="!report.imeReportData?.length && !report.iseReportData?.length && !report.probeExceedanceReportData?.length" 
+				[disabled]="!report.instantaneousReportData?.length" 
 				style="margin: 8px 24px 24px 24px;">
 				DOWNLOAD PDF
 				<md-icon>file_download</md-icon>

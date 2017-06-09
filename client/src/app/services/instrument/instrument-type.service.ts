@@ -13,6 +13,9 @@ export class InstrumentTypeService extends AbstractHttpService<InstrumentType> {
 	}
 
 	generateApplicableTestsList(instrumentType:InstrumentType):string[] {
+		if (!instrumentType) {
+			return [];
+		}
 		let result:string[] = [];
 		if (instrumentType.instantaneous) {
 			result.push("Instantaneous/Integerated");

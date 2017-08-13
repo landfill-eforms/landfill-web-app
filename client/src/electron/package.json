@@ -1,0 +1,5 @@
+{
+  "name"    : "landfill-eforms",
+  "version" : "0.5.7",
+  "main"    : "electron.js"
+}

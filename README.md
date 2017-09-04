@@ -60,7 +60,7 @@ The dependencies may take a few miniutes to download.
 ### Database Management
 Coming soon...
 ## Launching Server Instances
-This sections describes the process of launching a local instance of a server for testing, etc.
+This sections describes the process of launching a local instance of a development server.
 ### Front-End Server
 To launch the front-end server from within Visual Studio Code:
 
@@ -71,4 +71,6 @@ To launch the front-end server from within Visual Studio Code:
 Note front-end server is set to listen on port 4200, so make sure that no other processes are listening on the same port number. The home page can then be accessed at <http://localhost:4200/>.
 ### Back-End Server
 
-Note back-end server is set to listen on port 5000, so make sure that no other processes are listening on the same port number.
+To ensure that the proper 'dev' profile is loaded when running an instance of the back-end server on your machine, add the paramter `--spring.profiles.active=dev` to the run configuration in Eclipse.
+
+Note that the back-end server is set to listen on port 8080 for when running in development mode, so make sure that no other processes are listening on the same port number.

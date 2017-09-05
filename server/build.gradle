@@ -14,17 +14,23 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
+
+// bootRun will use the production profile by default.
+bootRun {
+    args = ["--spring.profiles.active=prod"]
+}
+
 jar {
-	baseName = 'server'
-	version = '0.5.6'
+	baseName = 'lef-server'
+	version = '0.5.7'
 }
 
 // Uncomment the following lines to build project as WAR instead of JAR.
 /*
 apply plugin: 'war'
 war {
-	baseName = 'server'
-	version = '0.5.6'
+	baseName = 'lef-server'
+	version = '0.5.7'
 }
 */
 

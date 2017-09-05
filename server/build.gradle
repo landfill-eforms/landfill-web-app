@@ -22,7 +22,7 @@ bootRun {
 
 jar {
 	baseName = 'lef-server'
-	version = '0.5.7'
+	version = '0.5.8'
 }
 
 // Uncomment the following lines to build project as WAR instead of JAR.
@@ -30,7 +30,7 @@ jar {
 apply plugin: 'war'
 war {
 	baseName = 'lef-server'
-	version = '0.5.7'
+	version = '0.5.8'
 }
 */
 
@@ -45,7 +45,7 @@ ext {
 	springVersion = '4.3.10.RELEASE'
 	springSecurityVersion = '4.1.4.RELEASE'
 	springBootVersion = '1.4.7.RELEASE'
-	hibernateVersion = '5.2.4.Final'
+	hibernateVersion = '5.0.1.Final'
 	jacksonVersion = '2.8.9'
 	jjwtVersion = '0.7.0'
 	aspectjVersion = '1.8.9'

@@ -347,11 +347,7 @@ public class DataVerificationService {
 			 * This should also verify any unverified IME numbers from other unverified 
 			 * data sets that are used by instantaneous data in this data set.
 			 */
-			for (ImeNumber imeNumber : instantaneousData.getImeNumbers()) {
-				if (imeNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
-					imeNumberService.verify(imeNumber);
-				}
-			}
+			imeNumberService.verify(instantaneousData.getImeNumbers());
 
 			// Insert verified instantaneous data into database.
 			instantaneousDataDao.create(instantaneousData);
@@ -359,11 +355,7 @@ public class DataVerificationService {
 		}
 
 		// Update the rest of the IME numbers in the data set.
-		for (ImeNumber imeNumber : unverifiedDataSet.getImeNumbers()) {
-			if (imeNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
-				imeNumberService.verify(imeNumber);
-			}
-		}
+		imeNumberService.verify(unverifiedDataSet.getImeNumbers());
 
 		// Commit warmspot data.
 		for (WarmspotData warmspotData : result.getWarmspotData()) {
@@ -378,11 +370,9 @@ public class DataVerificationService {
 		for (IntegratedData integratedData : result.getIntegratedData()) {
 			integrateDataDao.create(integratedData);
 		}
-		for (IseNumber iseNumber : unverifiedDataSet.getIseNumbers()) {
-			if (iseNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
-				iseNumberService.verify(iseNumber);
-			}
-		}
+		
+		iseNumberService.verify(unverifiedDataSet.getIseNumbers());
+		
 		// TODO Delete unverified integrated data.
 		unverifiedDataSet.getUnverifiedIntegratedData().clear();
 		unverifiedDataSet.getIseNumbers().clear();

@@ -38,7 +38,7 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 	public List<T> getBySite(String siteName) {
 		return getCrudRepository().getBySiteAndDateCode(monitoringPointService.getSiteByEnumName(siteName), null);
 	}
-	
+
 	/**
 	 * Retrieves a list of exceedance numbers with the specified site name and date code.
 	 * @param siteName The name of the site to query for.
@@ -91,60 +91,63 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 
 	}
 
-	// TODO Change this to work with a batch of exceedance numbers at once for more efficiency.
-	public T verify(T exceedanceNumber) {
-		
-		// This method is only used for unverified exceedance numbers.
-		if (exceedanceNumber.getStatus() != ExceedanceStatus.UNVERIFIED) {
-			return exceedanceNumber;
-		}
-		else {
-			exceedanceNumber.setStatus(ExceedanceStatus.ACTIVE);
-		}
-		
-		short originalSequence = exceedanceNumber.getSequence();
-		
-		// We use a list here so that we can access the indices directly.
-		List<T> existingExceedanceNumbers = getCrudRepository()
-				.getBySiteAndDateCode(exceedanceNumber.getSite(), exceedanceNumber.getDateCode())
-				.stream()
-				.sorted()
-				.collect(Collectors.toList());
-		
-		boolean shift = false; // Whether we will need to shift the sequences of some of the unverified exceedance numbers.
-		
-		short i = 1;
-		for (T existingExceedanceNumber : existingExceedanceNumbers) {
-			if (existingExceedanceNumber.getSequence() > i) {
-				break;
-			}
-			if (existingExceedanceNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
-				shift = true;
-				break;
-			}
-			i++;
-		}
-		
-		exceedanceNumber.setSequence(i);
-		exceedanceNumber.setUnverifiedDataSet(null);
-		getCrudRepository().update(exceedanceNumber);
+	public void verify(Set<T> exceedanceNumbers) {
 
-		if (shift) {
-			for (int j = originalSequence - 1; j >= i; j--) {
-				T existingExceedanceNumber = existingExceedanceNumbers.get(j - 1);
-				if (existingExceedanceNumber.getStatus() == ExceedanceStatus.UNVERIFIED && existingExceedanceNumber.getSequence() < originalSequence) {
-					existingExceedanceNumber.setSequence((short)(existingExceedanceNumber.getSequence() + 1));
-					getCrudRepository().update(existingExceedanceNumber);
+		// Numbers need to be sorted in order for this to work.
+		exceedanceNumbers.stream()
+		.sorted()
+		.forEach(exceedanceNumber -> {
+
+			// This method is only used for unverified exceedance numbers.
+			if (exceedanceNumber.getStatus() != ExceedanceStatus.UNVERIFIED) {
+				return;
+			}
+			else {
+				exceedanceNumber.setStatus(ExceedanceStatus.ACTIVE);
+			}
+
+			short originalSequence = exceedanceNumber.getSequence();
+
+			// We use a list here so that we can access the indices directly.
+			List<T> existingExceedanceNumbers = getCrudRepository()
+					.getBySiteAndDateCode(exceedanceNumber.getSite(), exceedanceNumber.getDateCode())
+					.stream()
+					.sorted()
+					.collect(Collectors.toList());
+
+			boolean shift = false; // Whether we will need to shift the sequences of some of the unverified exceedance numbers.
+
+			short i = 1;
+			for (T existingExceedanceNumber : existingExceedanceNumbers) {
+				if (existingExceedanceNumber.getSequence() > i) {
+					break;
+				}
+				if (existingExceedanceNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
+					shift = true;
+					break;
+				}
+				i++;
+			}
+
+			exceedanceNumber.setSequence(i);
+			exceedanceNumber.setUnverifiedDataSet(null);
+			getCrudRepository().update(exceedanceNumber);
+
+			if (shift) {
+				for (int j = originalSequence - 1; j >= i; j--) {
+					T existingExceedanceNumber = existingExceedanceNumbers.get(j - 1);
+					if (existingExceedanceNumber.getStatus() == ExceedanceStatus.UNVERIFIED && existingExceedanceNumber.getSequence() < originalSequence) {
+						existingExceedanceNumber.setSequence((short)(existingExceedanceNumber.getSequence() + 1));
+						getCrudRepository().update(existingExceedanceNumber);
+					}
 				}
 			}
-		}
-		
-		return exceedanceNumber;
-		
+		});
+
 	}
 
 	abstract public T update(T exceedanceNumber);
-	
+
 	abstract public T clear(T exceedanceNumber);
 
 	/**

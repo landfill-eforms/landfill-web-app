@@ -18,10 +18,10 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
 	/** The page title that displays on the tab, and on the navbar. */
-	readonly title:string = "Dashboard";
+	readonly title: string = "Dashboard";
 
 	/** The list of items that appear on the 'grid' on the dashboard page. */
-	readonly gridItems:VectorAppNavLink[] = [
+	readonly gridItems: VectorAppNavLink[] = [
 		{
 			title: "Android Data Sync",
 			subtitle: "Sync Data with Android App",
@@ -96,36 +96,46 @@ export class DashboardComponent implements OnInit {
 		}
 	];
 
+	/** Whether the currently logged in user is the super admin. */
+	private _isSuperAdmin: boolean;
+
 	constructor(
-		private titleService:TitleService, 
-		private authService:AuthService,
-		private router:Router,
-		private activatedRoute:ActivatedRoute,
-		private navigationService:NavigationService) {
-			titleService.setTitle(this.title);
-			navigationService.getNavbarComponent().title = this.title;
-			navigationService.getNavbarComponent().expanded = false;
-			navigationService.getSideinfoComponent().disable();
+		private _titleService: TitleService, 
+		private _authService: AuthService,
+		private _router: Router,
+		private _activatedRoute: ActivatedRoute,
+		private _navigationService: NavigationService) {
+			_titleService.setTitle(this.title);
+			_navigationService.getNavbarComponent().title = this.title;
+			_navigationService.getNavbarComponent().expanded = false;
+			_navigationService.getSideinfoComponent().disable();
+	}
+
+	get isSuperAdmin(): boolean {
+		return this._isSuperAdmin;
 	}
 
 	ngOnInit() {
+		// Check if current user is the super admin.
+		this._isSuperAdmin = this._authService.isSuperAdmin();
+
 		// Figure out which items can be accessed by the current user. Hide ones that cannot be accessed.
 		for (let gridItem of this.gridItems) {
-			gridItem.visible = !gridItem.route.data || this.authService.canAccess(gridItem.route.data["permissions"]);
+			gridItem.visible = !gridItem.route.data || this._authService.canAccess(gridItem.route.data["permissions"]);
 		}
 	}
 
 	/** Navigates the user to the grid item's path. */
-	navigate(gridItem:AppNavLink) {
+	navigate(gridItem: AppNavLink) {
 		if (gridItem.disabled) {
 			return;
 		}
-		this.router.navigate(["../" + gridItem.route.path], {relativeTo: this.activatedRoute});
-		this.navigationService.getNavbarComponent().openNavDrawer();
+		this._router.navigate(["../" + gridItem.route.path], {relativeTo: this._activatedRoute});
+		this._navigationService.getNavbarComponent().openNavDrawer();
 	}
 
 }
 
 class VectorAppNavLink extends AppNavLink {
-	color?:string;
+	color?: string;
 }

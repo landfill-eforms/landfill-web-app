@@ -24,7 +24,7 @@
 		</md-select>
 	</div>
 	<div class="flex-item" fxFlex style="padding-left: 16px;">
-		<div style="padding: 6px 0; font-weight: 500;">IME Numbers</div>
+		<div style="padding: 6px 0; font-weight: 500;">Available IMEs</div>
 		<div class="list-picker-box" style="height: 350px;">
 			<app-page-loading-indicator *ngIf="!availableImeNumbers"></app-page-loading-indicator>
 			<div *ngFor="let imeNumber of availableImeNumbers" class="list-item-container flex-container" fxLayout="row"> 
@@ -41,7 +41,7 @@
 				</div>
 			</div>
 		</div>
-		<div style="font-size: 13px">* = Unverified IME Number</div>
+		<div style="font-size: 13px">* = Unverified IME</div>
 	</div>
 </md-dialog-content>
 <md-dialog-actions>

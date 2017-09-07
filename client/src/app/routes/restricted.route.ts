@@ -49,7 +49,7 @@ export class RestrictedRoute {
 	static readonly IME_NUMBER_LIST:Route = {
 		path: 'exceedance/ime',
 		data: {
-			name: "IME Numbers",
+			name: "IME",
 			previous: RestrictedRoute.EXCEEDANCE_SELECTOR,
 		}
 	};
@@ -64,7 +64,7 @@ export class RestrictedRoute {
 	static readonly ISE_NUMBER_LIST:Route = {
 		path: 'exceedance/ise',
 		data: {
-			name: "ISE Numbers",
+			name: "ISE",
 			previous: RestrictedRoute.EXCEEDANCE_SELECTOR,
 		}
 	};

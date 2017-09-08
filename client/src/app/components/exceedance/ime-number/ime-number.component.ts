@@ -1,3 +1,5 @@
+import { AuthService } from './../../../services/auth/auth.service';
+import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
 import { ImeRecheckDialogComponent } from './../dialog/ime-recheck-dialog/ime-recheck-dialog.component';
 import { ImeRepairDialogComponent } from './../dialog/ime-repair-dialog/ime-repair-dialog.component';
 import { YesNoDialogComponent } from './../../directives/dialogs/yes-no-dialog/yes-no-dialog.component';
@@ -32,37 +34,45 @@ export class ImeNumberComponent implements OnInit {
 	DateTimeUtils = DateTimeUtils;
 	StringUtils = StringUtils;
 
-	isDataLoaded:boolean;
-	imeNumber:string;
-	imeNumberData:ImeNumber;
+	isDataLoaded: boolean;
+	imeNumber: string;
+	imeNumberData: ImeNumber;
 
-	isUsersLoaded:boolean;
-	users:User[] = [];
+	isUsersLoaded: boolean;
+	users: User[] = [];
 
-	isCleared:boolean;
-	clearable:boolean;
+	isCleared: boolean;
+	clearable: boolean;
+
+	/** Whether or not the current user has permissions to edit the IME. */
+	private _canEdit: boolean;
 
 	constructor(
-		private imeNumberService:ImeNumberService,
-		private dialog:MdDialog,
-		private userService:UserService,
-		private activatedRoute:ActivatedRoute,
-		private snackBar:MdSnackBar,
-		private titleService:TitleService,
-		private navigationService:NavigationService) {
-			navigationService.getNavbarComponent().expanded = false;
-			navigationService.getSideinfoComponent().disable();
+		private _authService: AuthService,
+		private _imeNumberService: ImeNumberService,
+		private _dialog: MdDialog,
+		private _userService: UserService,
+		private _activatedRoute: ActivatedRoute,
+		private _snackBar: MdSnackBar,
+		private _titleService: TitleService,
+		private _navigationService: NavigationService) {
+			_navigationService.getNavbarComponent().expanded = false;
+			_navigationService.getSideinfoComponent().disable();
+	}
+
+	get canEdit(): boolean {
+		return this._canEdit;
 	}
 
 	ngOnInit() {
 
 		// TODO Display error message if IME number in the URL is invalid.
-		this.imeNumber = this.activatedRoute.params['_value']['imeNumber'];
-		this.titleService.setTitle(this.imeNumber);
-		this.navigationService.getNavbarComponent().title = this.imeNumber;
+		this.imeNumber = this._activatedRoute.params['_value']['imeNumber'];
+		this._titleService.setTitle(this.imeNumber);
+		this._navigationService.getNavbarComponent().title = this.imeNumber;
 
 		// Load IME number data.
-		this.imeNumberService.getByImeNumber(this.imeNumber,
+		this._imeNumberService.getByImeNumber(this.imeNumber,
 			(data) => {
 				console.log(data);
 				this.imeNumberData = this.processImeNumber(data);
@@ -73,14 +83,17 @@ export class ImeNumberComponent implements OnInit {
 		);
 
 		// Load list of inspectors.
-		this.userService.getAll((data) => {
+		this._userService.getAll((data) => {
 			this.users = data;
 			this.isUsersLoaded = true;
 		});
 
+		// Check if user has permission to edit the IME.
+		this._canEdit = this._authService.canAccess(UserPermission.EDIT_EXCEEDANCES);
+
 	}
 
-	private processImeNumber(imeNumber:ImeNumber):ImeNumber {
+	private processImeNumber(imeNumber: ImeNumber): ImeNumber {
 
 		// Sort data entries
 		imeNumber.imeData.sort((a, b) => {
@@ -102,14 +115,14 @@ export class ImeNumberComponent implements OnInit {
 		return imeNumber;
 	}
 
-	openRepairDialog(dataIdx?:number, repairIdx?:number) {
+	openRepairDialog(dataIdx?: number, repairIdx?: number) {
 
-		let imeData:ImeData = dataIdx != null ? this.imeNumberData.imeData[dataIdx] : this.getLastImeData();
-		let imeRepairData:ImeRepairData = imeData && repairIdx != null ? imeData.imeRepairData[repairIdx] : null;
+		let imeData: ImeData = dataIdx != null ? this.imeNumberData.imeData[dataIdx] : this.getLastImeData();
+		let imeRepairData: ImeRepairData = imeData && repairIdx != null ? imeData.imeRepairData[repairIdx] : null;
 
 		// Calculate min and max date/time allowed for the repair.
-		let minDateTime:number = null;
-		let maxDateTime:number = null;
+		let minDateTime: number = null;
+		let maxDateTime: number = null;
 		if (imeData) {
 			minDateTime = imeData.dateTime;
 		}
@@ -117,10 +130,10 @@ export class ImeNumberComponent implements OnInit {
 			maxDateTime = this.imeNumberData.imeData[dataIdx + 1].dateTime;
 		}
 
-		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		let dialogConfig: MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
 		dialogConfig.height = '360px';
-		let dialogRef:MdDialogRef<ImeRepairDialogComponent> = this.dialog.open(ImeRepairDialogComponent, dialogConfig);
+		let dialogRef: MdDialogRef<ImeRepairDialogComponent> = this._dialog.open(ImeRepairDialogComponent, dialogConfig);
 		dialogRef.componentInstance.minDateTime = minDateTime;
 		dialogRef.componentInstance.maxDateTime = maxDateTime;
 		dialogRef.componentInstance.originalData = imeRepairData;
@@ -137,37 +150,37 @@ export class ImeNumberComponent implements OnInit {
 		});
 	}
 
-	openRecheckDialog(dataIdx?:number) {
+	openRecheckDialog(dataIdx?: number) {
 		
 		let imeData = this.imeNumberData.imeData[dataIdx];
-		let prevImeData:ImeData = dataIdx != null && dataIdx > 0 ? this.imeNumberData.imeData[dataIdx - 1] : this.getLastImeData();
+		let prevImeData: ImeData = dataIdx != null && dataIdx > 0 ? this.imeNumberData.imeData[dataIdx - 1] : this.getLastImeData();
 		
 		// Calculate min and max date/time allowed for the recheck.
-		let minDateTime:number = null;
-		let maxDateTime:number = null;
+		let minDateTime: number = null;
+		let maxDateTime: number = null;
 		if (prevImeData) {
 			minDateTime = prevImeData.dateTime;
-			let prevImeRepairData:ImeRepairData = this.getLastImeRepairData(prevImeData);
+			let prevImeRepairData: ImeRepairData = this.getLastImeRepairData(prevImeData);
 			if (prevImeRepairData) {
 				minDateTime = prevImeRepairData.dateTime;
 			}
 		}
 		if (dataIdx != null) {
-			let firstImeRepairData:ImeRepairData = imeData.imeRepairData[0];
+			let firstImeRepairData: ImeRepairData = imeData.imeRepairData[0];
 			if (firstImeRepairData) {
 				maxDateTime = firstImeRepairData.dateTime;
 			}
 			else {
-				let nextImeData:ImeData = this.imeNumberData.imeData[dataIdx + 1];
+				let nextImeData: ImeData = this.imeNumberData.imeData[dataIdx + 1];
 				if (nextImeData) {
 					maxDateTime = nextImeData.dateTime;
 				}
 			}
 		}
 		
-		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		let dialogConfig: MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '640px';
-		let dialogRef:MdDialogRef<ImeRecheckDialogComponent> = this.dialog.open(ImeRecheckDialogComponent, dialogConfig);
+		let dialogRef: MdDialogRef<ImeRecheckDialogComponent> = this._dialog.open(ImeRecheckDialogComponent, dialogConfig);
 		dialogRef.componentInstance.users = this.users;
 		dialogRef.componentInstance.minDateTime = minDateTime;
 		dialogRef.componentInstance.maxDateTime = maxDateTime;
@@ -182,33 +195,33 @@ export class ImeNumberComponent implements OnInit {
 		});
 	}
 
-	deleteRepair(dataIdx:number, repairIdx:number) {
+	deleteRepair(dataIdx: number, repairIdx: number) {
 		this.imeNumberData.imeData[dataIdx].imeRepairData.splice(repairIdx, 1);
 	}
 
-	deleteRecheck(dataIdx:number) {
+	deleteRecheck(dataIdx: number) {
 		this.imeNumberData.imeData.splice(dataIdx, 1);
 	}
 
 	save() {
-		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		let dialogConfig: MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '480px';
-		let dialogRef:MdDialogRef<YesNoDialogComponent> = this.dialog.open(YesNoDialogComponent, dialogConfig);
+		let dialogRef: MdDialogRef<YesNoDialogComponent> = this._dialog.open(YesNoDialogComponent, dialogConfig);
 		dialogRef.componentInstance.title = "Confirm";
 		dialogRef.componentInstance.prompt = ["Recheck/repair entries that are saved to the database cannot be deleted. Would you like to continue saving?"];
 		dialogRef.componentInstance.confirmLabel = "SAVE";
 		dialogRef.componentInstance.cancelLabel = "CANCEL";
 		dialogRef.afterClosed().subscribe((res) => {
 			if (res) {
-				this.imeNumberService.update(this.imeNumberData, 
+				this._imeNumberService.update(this.imeNumberData, 
 					(data) => {
 						console.log(data);
-						this.snackBar.open("IME number has been updated.", "OK", {duration: 3000});
+						this._snackBar.open("IME number has been updated.", "OK", {duration: 3000});
 						this.imeNumberData = this.processImeNumber(data);
 						this.checkIfClearable();
 					},
 					(err) => {
-						this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
+						this._snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
 					}
 				);
 			}
@@ -219,42 +232,42 @@ export class ImeNumberComponent implements OnInit {
 		if (this.getLastImeData().methaneLevel >= 50000) {
 			return;
 		}
-		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		let dialogConfig: MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '480px';
-		let dialogRef:MdDialogRef<YesNoDialogComponent> = this.dialog.open(YesNoDialogComponent, dialogConfig);
+		let dialogRef: MdDialogRef<YesNoDialogComponent> = this._dialog.open(YesNoDialogComponent, dialogConfig);
 		dialogRef.componentInstance.title = "Confirm";
 		dialogRef.componentInstance.prompt = ["Cleared IME numbers cannot be edited. Please make sure all the entries and grids are correct before clearing. Would you like to clear this IME?"];
 		dialogRef.componentInstance.confirmLabel = "YES";
 		dialogRef.componentInstance.cancelLabel = "NO";
 		dialogRef.afterClosed().subscribe((res) => {
 			if (res) {
-				this.imeNumberService.clear(this.imeNumberData, 
+				this._imeNumberService.clear(this.imeNumberData, 
 					(data) => {
 						console.log(data);
-						this.snackBar.open("IME number has been updated.", "OK", {duration: 3000});
+						this._snackBar.open("IME number has been updated.", "OK", {duration: 3000});
 						this.imeNumberData = this.processImeNumber(data);
 						this.isCleared = this.imeNumberData.status == ExceedanceStatus.CLEARED;
 					},
 					(err) => {
-						this.snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
+						this._snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
 					}
 				);
 			}
 		});
 	}
 
-	listGrids(imeNumber:ImeNumber):string {
-		return this.imeNumberService.listGrids(imeNumber);
+	listGrids(imeNumber: ImeNumber): string {
+		return this._imeNumberService.listGrids(imeNumber);
 	}
 
-	private getLastImeData():ImeData {
+	private getLastImeData(): ImeData {
 		if (!this.imeNumberData || !this.imeNumberData.imeData) {
 			return null;
 		}
 		return this.imeNumberData.imeData[this.imeNumberData.imeData.length - 1];
 	}
 
-	private getLastImeRepairData(imeData:ImeData):ImeRepairData {
+	private getLastImeRepairData(imeData: ImeData): ImeRepairData {
 		if (!imeData || !imeData.imeRepairData) {
 			return null;
 		}

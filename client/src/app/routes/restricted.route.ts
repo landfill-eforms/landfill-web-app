@@ -42,7 +42,10 @@ export class RestrictedRoute {
 	static readonly EXCEEDANCE_SELECTOR:Route = {
 		path: 'exceedance',
 		data: {
-			name: "Exceedances"
+			name: "Exceedances",
+			permissions: [
+				UserPermission.VIEW_EXCEEDANCES
+			]
 		}
 	};
 
@@ -51,6 +54,9 @@ export class RestrictedRoute {
 		data: {
 			name: "IME",
 			previous: RestrictedRoute.EXCEEDANCE_SELECTOR,
+			permissions: [
+				UserPermission.VIEW_EXCEEDANCES
+			]
 		}
 	};
 
@@ -58,6 +64,9 @@ export class RestrictedRoute {
 		path: 'exceedance/ime/:imeNumber',
 		data: {	
 			previous: RestrictedRoute.IME_NUMBER_LIST,
+			permissions: [
+				UserPermission.VIEW_EXCEEDANCES
+			]
 		}
 	};
 
@@ -66,6 +75,9 @@ export class RestrictedRoute {
 		data: {
 			name: "ISE",
 			previous: RestrictedRoute.EXCEEDANCE_SELECTOR,
+			permissions: [
+				UserPermission.VIEW_EXCEEDANCES
+			]
 		}
 	};
 

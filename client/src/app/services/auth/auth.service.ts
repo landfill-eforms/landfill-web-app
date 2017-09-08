@@ -60,11 +60,30 @@ export class AuthService {
 		this.router.navigate(['/login']);
 	}
 
-	canAccess(permissions: UserPermission[]) {
+	/**
+	 * Returns true if the current user has at least one of the given permissions.
+	 * The given permission can be input as a single UserPermission or an array of UserPermission.
+	 * @param permissions The permission(s) that the current user will be checked for.
+	 *                    Can be specified either as a single UserPermission or an array of UserPermission.
+	 */
+	canAccess(permissions?: UserPermission | UserPermission[]): boolean {
+
+		let requiredPermissions: UserPermission[];
 
 		// If there were no required permissions specified, then allow access.
-		if (!permissions || permissions.length == 0) {
+		if (!permissions) {
 			return true;
+		}
+		else if (Array.isArray(permissions)) {
+			if (permissions.length == 0) {
+				return true;
+			}
+			requiredPermissions = permissions;
+		}
+
+		// if the input permission was not an array, then convert it to a array with one value.
+		else {
+			requiredPermissions = [permissions]
 		}
 
 		// Get string array of current user's permissions.
@@ -78,11 +97,11 @@ export class AuthService {
 		// *** At this point, it is determined that the user is not the super admin.
 
 		// Convert array of UserPermission into array of strings.
-		console.log(permissions);
-		let requiredPermissions: string[] = permissions.map(p => p.constantName);
+		console.log(requiredPermissions);
+		let requiredPermissionStrings: string[] = requiredPermissions.map(p => p.constantName);
 
 		// If the only the super admin can access the route, then deny access.
-		if (requiredPermissions.length == 1 && requiredPermissions[0] == "SUPER_ADMIN") {
+		if (requiredPermissionStrings.length == 1 && requiredPermissionStrings[0] == "SUPER_ADMIN") {
 			return false;
 		}
 
@@ -92,8 +111,8 @@ export class AuthService {
 		}
 
 		// Check if the user has at least one of the required permission.
-		for (let i = 0; i < requiredPermissions.length; i++) {
-			if (userPermissions.indexOf(requiredPermissions[i]) > -1) {
+		for (let requiredPermission of requiredPermissionStrings) {
+			if (userPermissions.indexOf(requiredPermission) > -1) {
 				return true;
 			}
 		}

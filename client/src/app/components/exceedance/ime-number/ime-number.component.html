@@ -1,4 +1,4 @@
-<div class="page grey-background">
+<div class="page grey-background" [ngClass]="{'can-edit': canEdit}">
 	<app-page-loading-indicator *ngIf="!isDataLoaded || !isUsersLoaded"></app-page-loading-indicator>
 	<div *ngIf="isDataLoaded && isUsersLoaded">
 		<md-card style="margin-bottom: 16px">
@@ -54,7 +54,7 @@
 			</div>
 			<div class="flex-container" fxLayout="row">
 				<div class="flex-item" fxFlex="50" style="padding-right: 12px;">
-					<div *ngIf="!isCleared" class="info-card-action-button-container">
+					<div *ngIf="canEdit && !isCleared" class="info-card-action-button-container">
 						<button md-icon-button [mdMenuTriggerFor]="dataMenu">
 							<md-icon>more_vert</md-icon>
 						</button>
@@ -154,7 +154,7 @@
 		</div>
 	</div>
 </div>
-<div class="fab-bottom-container">
+<div *ngIf="canEdit" class="fab-bottom-container">
 	<div class="flex-container" fxLayout="column" fxLayoutAlign="end center">
 		<button md-fab 
 			(click)="openRepairDialog()"

@@ -1,4 +1,5 @@
 import { AbstractEntity } from '../abstract-entity.class';
+import { Instrument } from '../instrument/instrument.class';
 import { User } from '../user/user.class';
 import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
 
@@ -12,6 +13,7 @@ export class ProbeData extends AbstractEntity {
 	methaneLevel:number;
 	pressureLevel:number;
 	description:string;
+	instrument:Instrument;
 	barometricPressure:number;
 	accessible:boolean;
 	inspectors:User[];

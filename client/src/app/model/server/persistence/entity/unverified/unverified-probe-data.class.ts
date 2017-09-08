@@ -1,3 +1,4 @@
+import { Instrument } from '../instrument/instrument.class';
 import { AbstractUnverifiedData } from './abstract-unverified-data.class';
 import { UnverifiedDataSet } from './unverified-data-set.class';
 import { User } from '../user/user.class';
@@ -13,6 +14,7 @@ export class UnverifiedProbeData extends AbstractUnverifiedData {
 	methaneLevel:number;
 	pressureLevel:number;
 	description:string;
+	instrument:Instrument;
 	barometricPressure:number;
 	accessible:boolean;
 	inspectors:User[];

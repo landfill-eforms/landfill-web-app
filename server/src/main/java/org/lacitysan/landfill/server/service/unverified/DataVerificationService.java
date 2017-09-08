@@ -102,7 +102,7 @@ public class DataVerificationService {
 						errorLog.add(getDescription(unverifiedInstantaneousData) + " has an instrument that cannot be used for instantaneous readings.");
 					}
 
-					// Get the barometric pressure from the unverified data point, and check if its value is valid.
+					// Check if the barometric pressure value is valid.
 					Short barometricPressure = unverifiedInstantaneousData.getBarometricPressure();
 					if (barometricPressure == null || barometricPressure < 2950 || barometricPressure > 3050) {
 						errorLog.add(getDescription(unverifiedInstantaneousData) + " has an out-of-range barometric pressure.");
@@ -175,7 +175,7 @@ public class DataVerificationService {
 					instantaneousData.setBarometricPressure(barometricPressure);
 					instantaneousData.setStartTime(unverifiedInstantaneousData.getStartTime());
 					instantaneousData.setEndTime(unverifiedInstantaneousData.getEndTime());
-					instantaneousData.setInstrument(unverifiedInstantaneousData.getInstrument());
+					instantaneousData.setInstrument(instrument);
 					instantaneousData.setMonitoringPoint(unverifiedInstantaneousData.getMonitoringPoint());
 					instantaneousData.setMethaneLevel(unverifiedInstantaneousData.getMethaneLevel());
 
@@ -248,7 +248,7 @@ public class DataVerificationService {
 						errorLog.add(getDescription(unverifiedIntegratedData) + " has an instrument that cannot be used for integrated readings.");
 					}
 
-					// Get the barometric pressure from the unverified data point, and check if its value is valid.
+					// Check if the barometric pressure value is valid.
 					Short barometricPressure = unverifiedIntegratedData.getBarometricPressure();
 					if (barometricPressure == null || barometricPressure < 2950 || barometricPressure > 3050) {
 						errorLog.add(getDescription(unverifiedIntegratedData) + " has an out-of-range barometric pressure.");
@@ -260,7 +260,7 @@ public class DataVerificationService {
 					integratedData.setBarometricPressure(barometricPressure);
 					integratedData.setStartTime(unverifiedIntegratedData.getStartTime());
 					integratedData.setEndTime(unverifiedIntegratedData.getEndTime());
-					integratedData.setInstrument(unverifiedIntegratedData.getInstrument());
+					integratedData.setInstrument(instrument);
 					integratedData.setMonitoringPoint(unverifiedIntegratedData.getMonitoringPoint());
 					integratedData.setMethaneLevel(unverifiedIntegratedData.getMethaneLevel());
 					integratedData.setBagNumber(unverifiedIntegratedData.getBagNumber());
@@ -304,16 +304,29 @@ public class DataVerificationService {
 		// Go through all the unverified probe data entries.
 		result.getProbeData().addAll(unverifiedDataSet.getUnverifiedProbeData().stream()
 				.map(unverifiedProbeData -> {
+					
+					// Check if the barometric pressure value is valid.
 					Short barometricPressure = unverifiedProbeData.getBarometricPressure();
 					if (barometricPressure == null || barometricPressure < 2950 || barometricPressure > 3050) {
 						return null;
 					}
+					
+					// Check if there is an instrument defined and if it of the correct type.
+					Instrument instrument = unverifiedProbeData.getInstrument();
+					if (instrument == null) {
+						errorLog.add(getDescription(unverifiedProbeData) + " has no instrument defined.");
+					}
+					else if (!instrument.getInstrumentType().getProbe()) {
+						errorLog.add(getDescription(unverifiedProbeData) + " has an instrument that cannot be used for probe readings.");
+					}
+					
 					ProbeData probeData = new ProbeData();
 					probeData.setAccessible(unverifiedProbeData.getAccessible());
 					probeData.setBarometricPressure(unverifiedProbeData.getBarometricPressure());
 					probeData.setDate(unverifiedProbeData.getDate());
 					probeData.setDescription(unverifiedProbeData.getDescription());
 					probeData.setInspectors(unverifiedProbeData.getInspectors());
+					probeData.setInstrument(instrument);
 					probeData.setMethaneLevel(unverifiedProbeData.getMethaneLevel());
 					probeData.setMonitoringPoint(unverifiedProbeData.getMonitoringPoint());
 					probeData.setPressureLevel(unverifiedProbeData.getPressureLevel());

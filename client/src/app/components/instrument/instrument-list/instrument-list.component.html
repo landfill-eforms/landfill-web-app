@@ -11,11 +11,6 @@
 					[ngClass]="{'mat-input-container-error':!textFilterStatus.valid}">
 					<input mdInput placeholder="Search" [(ngModel)]="filters.text" (ngModelChange)="applyFilters()">
 				</md-input-container>
-				<md-select [(ngModel)]="filters.site" placeholder="Site" class="mat-select-inline flex-item" fxFlex="150px" (ngModelChange)="applyFilters()">
-					<md-option *ngFor="let site of siteFilterChoices" [value]="site.ordinal">
-						{{site.name}}
-					</md-option>
-				</md-select>
 				<md-select [(ngModel)]="filters.status" placeholder="Status" class="mat-select-inline flex-item" fxFlex="150px" (ngModelChange)="applyFilters()">
 					<md-option *ngFor="let status of statusFilterChoices" [value]="status.ordinal">
 						{{status.name}}
@@ -120,17 +115,6 @@
 					arrow_downward
 				</md-icon>
 			</div>
-			<div class="data-table-column truncate flex-item" (click)="sortBy('site')" fxFlex>
-				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'site'}">
-					<span fxHide fxShow.gt-md [fxShow.gt-sm]="!showSideInfo">Assigned Site</span>
-					<span fxShow fxHide.gt-md [fxHide.gt-sm]="!showSideInfo">Site</span>
-				</span>
-				<md-icon class="data-table-header-sort-arrow" [ngClass]="{
-					'data-table-header-sort-arrow-reverse': sort.reversed,
-					'data-table-header-sort-arrow-inactive': sort.current !== 'site'}">
-					arrow_downward
-				</md-icon>
-			</div>
 			<div class="data-table-column truncate flex-item" (click)="sortBy('inventoryNumber')" fxFlex>
 				<span class="data-table-header-label-sortable" [ngClass]="{'data-table-header-label-sorted':sort.current == 'inventoryNumber'}">
 					Inventory No.
@@ -187,9 +171,6 @@
 						[fxShow.gt-md]="!showSideInfo || !isNavDrawerOpen()" 
 						[fxShow.gt-sm]="!showSideInfo && !isNavDrawerOpen()">
 						{{DateTimeUtils.getDate(instrument.purchaseDate)}}
-					</div>
-					<div class="data-table-column truncate flex-item" fxFlex>
-						{{instrument.site?.name}}
 					</div>
 					<div class="data-table-column truncate flex-item" fxFlex>
 						{{instrument.inventoryNumber}}

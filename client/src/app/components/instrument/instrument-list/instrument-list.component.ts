@@ -1,7 +1,6 @@
 import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
 import { AuthService } from './../../../services/auth/auth.service';
 import { DateTimeUtils } from './../../../utils/date-time.utils';
-import { Site } from './../../../model/server/persistence/enums/location/site.enum';
 import { InstrumentStatus } from './../../../model/server/persistence/enums/instrument/instrument-status.enum';
 import { EnumUtils } from './../../../utils/enum.utils';
 import { InstrumentDialogComponent } from './../dialog/instrument-dialog/instrument-dialog.component';
@@ -66,20 +65,15 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 			"purchaseDate",
 			"serialNumber"
 		],
-		site: [
-			"site",
-			"serialNumber"
-		],
 		inventoryNumber: [
 			"inventoryNumber",
 			"serialNumber"
 		],
 	}
 
-	filters:{text:string, status:number, site:number} = {
+	filters:{text:string, status:number} = {
 		text: "",
-		status: -1,
-		site: -1
+		status: -1
 	};
 
 	statusFilterChoices:any[] = [
@@ -88,14 +82,6 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 			name: "Any"
 		},
 		...InstrumentStatus.values()
-	];
-
-	siteFilterChoices:any[] = [
-		{
-			ordinal: -1,
-			name: "Any"
-		},
-		...Site.values()
 	];
 
 	showSideInfo:boolean = false;
@@ -153,7 +139,6 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 			this.data = data;
 			for (let instrument of this.data) {
 				instrument.instrumentStatus = EnumUtils.convertToEnum(InstrumentStatus, instrument.instrumentStatus);
-				instrument.site = EnumUtils.convertToEnum(Site, instrument.site);
 			}
 			this.applyFilters();
 			this.navigationService.getSideinfoComponent().open();
@@ -221,11 +206,7 @@ export class InstrumentListComponent extends AbstractDataTableComponent<Instrume
 			if (this.filters.status >= 0) {
 				statusMatch = o.instrumentStatus && (o.instrumentStatus.ordinal == this.filters.status);
 			}
-			let siteMatch:boolean = true;
-			if (this.filters.site >= 0) {
-				siteMatch = o.site && (o.site.ordinal == this.filters.site);
-			}
-			return textMatch && statusMatch && siteMatch;
+			return textMatch && statusMatch;
 		});
 
 		this.paginfo.totalRows = this.filteredData.length;

@@ -11,7 +11,7 @@
 				</md-option>
 			</md-select>
 			<md-input-container class="md-input-full-width">
-				<textarea mdInput rows="10" placeholder="Description" [(ngModel)]="instrument.description"></textarea>
+				<textarea mdInput rows="7" placeholder="Description" [(ngModel)]="instrument.description"></textarea>
 			</md-input-container>
 		</div>
 		<div class="flex-item" fxFlex style="padding-left: 16px;">
@@ -21,14 +21,6 @@
 			<md-select [(ngModel)]="instrument.instrumentStatus" placeholder="Status" class="mat-select-row" style="width:100%">
 				<md-option *ngFor="let status of instrumentStatus" [value]="status">
 					{{status.name}}
-				</md-option>
-			</md-select>
-			<md-select [(ngModel)]="instrument.site" placeholder="Assigned Site" class="mat-select-row" style="width:100%">
-				<md-option [value]="null">
-					<i>Not Assigned</i>
-				</md-option>
-				<md-option *ngFor="let site of sites" [value]="site">
-					{{site.name}}
 				</md-option>
 			</md-select>
 			<app-date-picker-input placeholder="Last Service Date"

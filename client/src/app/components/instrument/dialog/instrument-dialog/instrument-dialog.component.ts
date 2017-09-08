@@ -1,4 +1,3 @@
-import { Site } from './../../../../model/server/persistence/enums/location/site.enum';
 import { InstrumentStatus } from './../../../../model/server/persistence/enums/instrument/instrument-status.enum';
 import { InstrumentType } from './../../../../model/server/persistence/entity/instrument/instrument-type.class';
 import { Instrument } from './../../../../model/server/persistence/entity/instrument/instrument.class';
@@ -16,7 +15,6 @@ export class InstrumentDialogComponent implements OnInit {
 	instrument:Instrument;
 	instrumentTypes:InstrumentType[] = [];
 	instrumentStatus:InstrumentStatus[] = InstrumentStatus.values();
-	sites:Site[] = Site.values();
 
 	serviceDueDateString:string;
 	lastServiceDateString:string;

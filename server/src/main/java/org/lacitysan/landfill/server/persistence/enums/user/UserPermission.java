@@ -93,6 +93,12 @@ public enum UserPermission {
 	/** User can commit unverified data sets. <i>Subject to change</i> */
 	COMMIT_UNVERIFIED_DATA_SET ("Commit Unverified Data Set", Category.UNVERIFIED_DATA, "Commit Set", "User can commit unverified data sets."),
 
+	/** User can view exceedances (IME, ISE, etc.). */
+	VIEW_EXCEEDANCES ("View Exceedances", Category.EXCEEDANCES, "View", "User can view exceedances (IME, ISE, etc.)."),
+
+	/** User can edit and clear exceedances. */
+	EDIT_EXCEEDANCES ("Edit Exceedances", Category.EXCEEDANCES, "Edit", "User can edit and clear exceedances."),
+
 	/** User can generate reports. <i>Do we need separate permissions for each type of reports?</i> */
 	GENERATE_REPORTS ("Generate Reports", Category.REPORTS, "Generate", "User can generate reports."),
 
@@ -143,6 +149,7 @@ public enum UserPermission {
 	private static class Category {
 		protected final static String EQUIPMENT = "Equipment";
 		protected final static String EQUIPMENT_TYPE = "Equipment Type";
+		protected final static String EXCEEDANCES = "Exceedances";
 		protected final static String MOBILE_APP_SYNC = "Mobile App Sync";
 		protected final static String REPORTS = "Reports";
 		protected final static String SCHEDULE = "Schedule";

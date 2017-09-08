@@ -249,8 +249,26 @@ export class UserPermission {
 		description: "User can commit unverified data sets."
 	};
 
-	static readonly GENERATE_REPORTS:UserPermission = {
+	static readonly VIEW_EXCEEDANCES:UserPermission = {
 		ordinal: 27,
+		constantName: "VIEW_EXCEEDANCES",
+		name: "View Exceedances",
+		category: "Exceedances",
+		categoryAction: "View",
+		description: "User can view exceedances (IME, ISE, etc.)."
+	};
+
+	static readonly EDIT_EXCEEDANCES:UserPermission = {
+		ordinal: 28,
+		constantName: "EDIT_EXCEEDANCES",
+		name: "Edit Exceedances",
+		category: "Exceedances",
+		categoryAction: "Edit",
+		description: "User can edit and clear exceedances."
+	};
+
+	static readonly GENERATE_REPORTS:UserPermission = {
+		ordinal: 29,
 		constantName: "GENERATE_REPORTS",
 		name: "Generate Reports",
 		category: "Reports",
@@ -259,7 +277,7 @@ export class UserPermission {
 	};
 
 	static readonly SCHEDULE_EMAIL_REPORTS:UserPermission = {
-		ordinal: 28,
+		ordinal: 30,
 		constantName: "SCHEDULE_EMAIL_REPORTS",
 		name: "Schedule Email Reports",
 		category: "Schedule",
@@ -268,7 +286,7 @@ export class UserPermission {
 	};
 
 	static readonly SCHEDULE_EMAIL_NOTIFICATIONS:UserPermission = {
-		ordinal: 29,
+		ordinal: 31,
 		constantName: "SCHEDULE_EMAIL_NOTIFICATIONS",
 		name: "Schedule Email Notifications",
 		category: "Schedule",
@@ -312,6 +330,8 @@ export class UserPermission {
 			UserPermission.DELETE_UNVERIFIED_DATA_SET,
 			UserPermission.DELETE_UNVERIFIED_DATA,
 			UserPermission.COMMIT_UNVERIFIED_DATA_SET,
+			UserPermission.VIEW_EXCEEDANCES,
+			UserPermission.EDIT_EXCEEDANCES,
 			UserPermission.GENERATE_REPORTS,
 			UserPermission.SCHEDULE_EMAIL_REPORTS,
 			UserPermission.SCHEDULE_EMAIL_NOTIFICATIONS

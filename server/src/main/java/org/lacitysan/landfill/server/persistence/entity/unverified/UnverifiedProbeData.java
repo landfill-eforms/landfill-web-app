@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 
@@ -49,6 +50,11 @@ public class UnverifiedProbeData extends AbstractUnverifiedData {
 	
 	@NotNull
 	private String description;
+	
+	@JsonIgnoreProperties("instrumentType")
+	@ManyToOne
+	@JoinColumn(name="InstrumentFK")
+	private Instrument instrument;
 	
 	@NotNull
 	private Short barometricPressure;
@@ -113,6 +119,14 @@ public class UnverifiedProbeData extends AbstractUnverifiedData {
 
 	public void setBarometricPressure(Short barometricPressure) {
 		this.barometricPressure = barometricPressure;
+	}
+
+	public Instrument getInstrument() {
+		return instrument;
+	}
+
+	public void setInstrument(Instrument instrument) {
+		this.instrument = instrument;
 	}
 
 	public Boolean getAccessible() {

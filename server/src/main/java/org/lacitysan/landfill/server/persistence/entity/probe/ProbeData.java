@@ -12,10 +12,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
+import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 
@@ -49,6 +51,12 @@ public class ProbeData extends AbstractEntity {
 	
 	@NotNull
 	private String description;
+	
+	@JsonIgnoreProperties("instrumentType")
+	@ManyToOne
+	@NotNull
+	@JoinColumn(name="InstrumentFK")
+	private Instrument instrument;
 	
 	@NotNull
 	private Short barometricPressure;
@@ -99,6 +107,14 @@ public class ProbeData extends AbstractEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Instrument getInstrument() {
+		return instrument;
+	}
+
+	public void setInstrument(Instrument instrument) {
+		this.instrument = instrument;
 	}
 
 	public Short getBarometricPressure() {

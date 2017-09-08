@@ -16,7 +16,6 @@ import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
 import org.lacitysan.landfill.server.persistence.entity.system.Trackable;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.instrument.InstrumentStatus;
-import org.lacitysan.landfill.server.persistence.enums.location.Site;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -50,10 +49,6 @@ public class Instrument extends AbstractEntity implements Trackable {
 	private Timestamp lastServiceDate;
 	
 	private Timestamp purchaseDate;
-	
-	@Column(name="SiteString")
-	@Enumerated(EnumType.STRING)
-	private Site site;
 	
 	private String inventoryNumber;
 	
@@ -119,14 +114,6 @@ public class Instrument extends AbstractEntity implements Trackable {
 
 	public void setPurchaseDate(Timestamp purchaseDate) {
 		this.purchaseDate = purchaseDate;
-	}
-
-	public Site getSite() {
-		return site;
-	}
-
-	public void setSite(Site site) {
-		this.site = site;
 	}
 
 	public String getInventoryNumber() {

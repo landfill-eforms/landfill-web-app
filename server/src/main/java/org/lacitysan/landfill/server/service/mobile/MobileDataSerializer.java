@@ -40,7 +40,6 @@ public class MobileDataSerializer {
 			mappedInstrument.put("serialNumber", instrument.getSerialNumber());
 			mappedInstrument.put("instrumentType", instrument.getInstrumentType());
 			mappedInstrument.put("instrumentStatus", instrument.getInstrumentStatus());
-			mappedInstrument.put("site", instrument.getSite());
 			mappedInstrument.put("description", instrument.getDescription());
 			
 			// Create a new map for instrument type.

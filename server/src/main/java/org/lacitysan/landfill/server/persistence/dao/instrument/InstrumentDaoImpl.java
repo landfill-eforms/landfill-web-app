@@ -49,7 +49,6 @@ public class InstrumentDaoImpl extends AbstractDaoImpl<Instrument> implements In
 		}
 		Hibernate.initialize(instrument.getInstrumentType());
 		Hibernate.initialize(instrument.getInstrumentStatus());
-		Hibernate.initialize(instrument.getSite());
 		return instrument;
 	}
 

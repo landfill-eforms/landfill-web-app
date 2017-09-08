@@ -20,7 +20,6 @@ public class InstrumentTypeDaoImpl extends AbstractDaoImpl<InstrumentType> imple
 		instrumentType.getInstruments().forEach(instrument -> {
 			Hibernate.initialize(instrument.getInstrumentType());
 			Hibernate.initialize(instrument.getInstrumentStatus());
-			Hibernate.initialize(instrument.getSite());
 		});
 		return instrumentType;
 	}

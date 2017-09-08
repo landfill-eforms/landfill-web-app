@@ -7,6 +7,7 @@ import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWar
  * Data access object for <code>UnverifiedWarmspotData</code> entities.
  * @author Alvin Quach
  */
+@Deprecated
 public interface UnverifiedWarmspotDataDao extends AbstractDao<UnverifiedWarmspotData> {
 
 }

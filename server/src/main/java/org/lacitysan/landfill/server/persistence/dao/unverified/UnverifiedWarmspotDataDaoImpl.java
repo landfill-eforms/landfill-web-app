@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
  * Implemented data access object for <code>UnverifiedWarmspotData</code> entities.
  * @author Alvin Quach
  */
+@Deprecated
 @Repository
 public class UnverifiedWarmspotDataDaoImpl extends AbstractDaoImpl<UnverifiedWarmspotData> implements UnverifiedWarmspotDataDao {
 

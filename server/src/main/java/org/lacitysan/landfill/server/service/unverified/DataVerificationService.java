@@ -10,8 +10,6 @@ import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneo
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.WarmspotDataDao;
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.integrated.IntegratedDataDao;
 import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedDataSetDao;
-import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedInstantaneousDataDao;
-import org.lacitysan.landfill.server.persistence.dao.unverified.UnverifiedWarmspotDataDao;
 import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.probe.ProbeData;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeData;
@@ -45,12 +43,6 @@ public class DataVerificationService {
 
 	@Autowired
 	UnverifiedDataSetDao unverifiedDataSetDao;
-
-	@Autowired
-	UnverifiedInstantaneousDataDao unverifiedInstantaneousDataDao;
-
-	@Autowired
-	UnverifiedWarmspotDataDao unverifiedWarmspotDataDao;
 
 	@Autowired
 	InstantaneousDataDao instantaneousDataDao;

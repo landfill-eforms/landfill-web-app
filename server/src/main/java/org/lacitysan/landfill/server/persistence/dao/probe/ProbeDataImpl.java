@@ -34,6 +34,7 @@ public class ProbeDataImpl extends AbstractDaoImpl<ProbeData> implements ProbeDa
 		if (probeData == null) {
 			return null;
 		}
+		Hibernate.initialize(probeData.getInstrument());
 		probeData.getInspectors().forEach(inspector -> Hibernate.initialize(inspector));
 		return probeData;
 	}

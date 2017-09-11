@@ -39,6 +39,8 @@ public class UserGroup extends AbstractEntity implements Trackable {
 	
 	private String description;
 	
+	private Boolean containsInspectors;
+	
 	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)
 	@ManyToMany(mappedBy="userGroups")
 	private Set<User> users = new HashSet<>();
@@ -77,6 +79,14 @@ public class UserGroup extends AbstractEntity implements Trackable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Boolean getContainsInspectors() {
+		return containsInspectors;
+	}
+
+	public void setContainsInspectors(Boolean containsInspectors) {
+		this.containsInspectors = containsInspectors;
 	}
 
 	public Set<User> getUsers() {

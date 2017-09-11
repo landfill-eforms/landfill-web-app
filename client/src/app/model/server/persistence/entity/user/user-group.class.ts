@@ -9,6 +9,7 @@ import { UserPermission } from '../../enums/user/user-permission.enum';
 export class UserGroup extends AbstractEntity {
 	name:string;
 	description:string;
+	containsInspectors:boolean;
 	users:User[];
 	userPermissions:UserPermission[];
 	createdBy:User;

@@ -8,14 +8,14 @@ import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class UnverifiedIntegratedData extends AbstractUnverifiedData {
-	monitoringPoint:MonitoringPoint;
-	instrument:Instrument;
-	sampleId:string;
-	bagNumber:number;
-	volume:number;
-	barometricPressure:number;
-	methaneLevel:number;
-	startTime:number;
-	endTime:number;
-	unverifiedDataSet:UnverifiedDataSet;
+	monitoringPoint: MonitoringPoint;
+	instrument: Instrument;
+	sampleId: string;
+	bagNumber: number;
+	volume: number;
+	barometricPressure: number;
+	methaneLevel: number;
+	startTime: number;
+	endTime: number;
+	unverifiedDataSet: UnverifiedDataSet;
 }

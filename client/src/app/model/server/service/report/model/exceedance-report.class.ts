@@ -7,7 +7,7 @@ import { SurfaceEmissionExceedanceReportData } from './data/surface-emission-exc
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class ExceedanceReport extends Report {
-	imeReportData:SurfaceEmissionExceedanceReportData[];
-	iseReportData:SurfaceEmissionExceedanceReportData[];
-	probeExceedanceReportData:ProbeExceedanceReportData[];
+	imeReportData: SurfaceEmissionExceedanceReportData[];
+	iseReportData: SurfaceEmissionExceedanceReportData[];
+	probeExceedanceReportData: ProbeExceedanceReportData[];
 }

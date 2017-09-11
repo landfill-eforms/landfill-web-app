@@ -4,31 +4,31 @@
  */
 export class InstrumentStatus {
 
-	static readonly ACTIVE:InstrumentStatus = {
+	static readonly ACTIVE: InstrumentStatus = {
 		ordinal: 0,
 		constantName: "ACTIVE",
 		name: "Active"
 	};
 
-	static readonly INACTIVE:InstrumentStatus = {
+	static readonly INACTIVE: InstrumentStatus = {
 		ordinal: 1,
 		constantName: "INACTIVE",
 		name: "Inactive"
 	};
 
-	static readonly OBSOLETE:InstrumentStatus = {
+	static readonly OBSOLETE: InstrumentStatus = {
 		ordinal: 2,
 		constantName: "OBSOLETE",
 		name: "Obsolete"
 	};
 
-	static readonly DESTROYED:InstrumentStatus = {
+	static readonly DESTROYED: InstrumentStatus = {
 		ordinal: 3,
 		constantName: "DESTROYED",
 		name: "Destroyed"
 	};
 
-	static readonly SOLD:InstrumentStatus = {
+	static readonly SOLD: InstrumentStatus = {
 		ordinal: 4,
 		constantName: "SOLD",
 		name: "Sold"
@@ -36,7 +36,7 @@ export class InstrumentStatus {
 
 	readonly ordinal:number;
 	readonly constantName:string;
-	readonly name:string;
+	readonly name: string;
 
 	static values():InstrumentStatus[] {
 		return [

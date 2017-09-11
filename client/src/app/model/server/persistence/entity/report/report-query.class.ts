@@ -9,11 +9,11 @@ import { ReportType } from '../../enums/report/report-type.enum';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export abstract class ReportQuery extends AbstractEntity {
-	reportType:ReportType;
-	site:Site;
-	exceedanceTypes:ExceedanceType[];
-	reportPeriod:ReportPeriod;
-	startDate:number;
-	endDate:number;
-	dateCreated:number;
+	reportType: ReportType;
+	site: Site;
+	exceedanceTypes: ExceedanceType[];
+	reportPeriod: ReportPeriod;
+	startDate: number;
+	endDate: number;
+	dateCreated: number;
 }

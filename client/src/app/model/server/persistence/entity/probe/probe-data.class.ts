@@ -8,13 +8,13 @@ import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class ProbeData extends AbstractEntity {
-	monitoringPoint:MonitoringPoint;
-	date:number;
-	methaneLevel:number;
-	pressureLevel:number;
-	description:string;
-	instrument:Instrument;
-	barometricPressure:number;
-	accessible:boolean;
-	inspectors:User[];
+	monitoringPoint: MonitoringPoint;
+	date: number;
+	methaneLevel: number;
+	pressureLevel: number;
+	description: string;
+	instrument: Instrument;
+	barometricPressure: number;
+	accessible: boolean;
+	inspectors: User[];
 }

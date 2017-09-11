@@ -7,7 +7,7 @@ import { Site } from './site.enum';
  */
 export class MonitoringPoint {
 
-	static readonly LC_AMBIENT_1A:MonitoringPoint = {
+	static readonly LC_AMBIENT_1A: MonitoringPoint = {
 		ordinal: 0,
 		constantName: "LC_AMBIENT_1A",
 		name: "1A",
@@ -15,7 +15,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly LC_AMBIENT_2B:MonitoringPoint = {
+	static readonly LC_AMBIENT_2B: MonitoringPoint = {
 		ordinal: 1,
 		constantName: "LC_AMBIENT_2B",
 		name: "2B",
@@ -23,7 +23,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly LC_AMBIENT_3B:MonitoringPoint = {
+	static readonly LC_AMBIENT_3B: MonitoringPoint = {
 		ordinal: 2,
 		constantName: "LC_AMBIENT_3B",
 		name: "3B",
@@ -31,7 +31,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly LC_AMBIENT_4A:MonitoringPoint = {
+	static readonly LC_AMBIENT_4A: MonitoringPoint = {
 		ordinal: 3,
 		constantName: "LC_AMBIENT_4A",
 		name: "4A",
@@ -39,7 +39,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly LC_AMBIENT_4B:MonitoringPoint = {
+	static readonly LC_AMBIENT_4B: MonitoringPoint = {
 		ordinal: 4,
 		constantName: "LC_AMBIENT_4B",
 		name: "4B",
@@ -47,7 +47,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly LC_AMBIENT_5A:MonitoringPoint = {
+	static readonly LC_AMBIENT_5A: MonitoringPoint = {
 		ordinal: 5,
 		constantName: "LC_AMBIENT_5A",
 		name: "5A",
@@ -55,7 +55,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly LC_AMBIENT_5B:MonitoringPoint = {
+	static readonly LC_AMBIENT_5B: MonitoringPoint = {
 		ordinal: 6,
 		constantName: "LC_AMBIENT_5B",
 		name: "5B",
@@ -63,7 +63,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly LC_AMBIENT_6A:MonitoringPoint = {
+	static readonly LC_AMBIENT_6A: MonitoringPoint = {
 		ordinal: 7,
 		constantName: "LC_AMBIENT_6A",
 		name: "6A",
@@ -71,7 +71,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly LC_AMBIENT_6B:MonitoringPoint = {
+	static readonly LC_AMBIENT_6B: MonitoringPoint = {
 		ordinal: 8,
 		constantName: "LC_AMBIENT_6B",
 		name: "6B",
@@ -79,7 +79,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly SH_AMBIENT_01N:MonitoringPoint = {
+	static readonly SH_AMBIENT_01N: MonitoringPoint = {
 		ordinal: 9,
 		constantName: "SH_AMBIENT_01N",
 		name: "01N",
@@ -87,7 +87,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly SH_AMBIENT_02S:MonitoringPoint = {
+	static readonly SH_AMBIENT_02S: MonitoringPoint = {
 		ordinal: 10,
 		constantName: "SH_AMBIENT_02S",
 		name: "02S",
@@ -95,7 +95,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly TC_AMBIENT_SB:MonitoringPoint = {
+	static readonly TC_AMBIENT_SB: MonitoringPoint = {
 		ordinal: 11,
 		constantName: "TC_AMBIENT_SB",
 		name: "SB",
@@ -103,7 +103,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly TC_AMBIENT_ST:MonitoringPoint = {
+	static readonly TC_AMBIENT_ST: MonitoringPoint = {
 		ordinal: 12,
 		constantName: "TC_AMBIENT_ST",
 		name: "ST",
@@ -111,7 +111,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.AMBIENT
 	};
 
-	static readonly GP_BIOFILTER_A_IN:MonitoringPoint = {
+	static readonly GP_BIOFILTER_A_IN: MonitoringPoint = {
 		ordinal: 13,
 		constantName: "GP_BIOFILTER_A_IN",
 		name: "A-In",
@@ -119,7 +119,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.BIOFILTER
 	};
 
-	static readonly GP_BIOFILTER_A_OUT:MonitoringPoint = {
+	static readonly GP_BIOFILTER_A_OUT: MonitoringPoint = {
 		ordinal: 14,
 		constantName: "GP_BIOFILTER_A_OUT",
 		name: "A-Out",
@@ -127,7 +127,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.BIOFILTER
 	};
 
-	static readonly GP_BIOFILTER_B_IN:MonitoringPoint = {
+	static readonly GP_BIOFILTER_B_IN: MonitoringPoint = {
 		ordinal: 15,
 		constantName: "GP_BIOFILTER_B_IN",
 		name: "B-In",
@@ -135,7 +135,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.BIOFILTER
 	};
 
-	static readonly GP_BIOFILTER_B_OUT:MonitoringPoint = {
+	static readonly GP_BIOFILTER_B_OUT: MonitoringPoint = {
 		ordinal: 16,
 		constantName: "GP_BIOFILTER_B_OUT",
 		name: "B-Out",
@@ -143,7 +143,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.BIOFILTER
 	};
 
-	static readonly BC_GRID_A1:MonitoringPoint = {
+	static readonly BC_GRID_A1: MonitoringPoint = {
 		ordinal: 17,
 		constantName: "BC_GRID_A1",
 		name: "A1",
@@ -151,7 +151,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A2:MonitoringPoint = {
+	static readonly BC_GRID_A2: MonitoringPoint = {
 		ordinal: 18,
 		constantName: "BC_GRID_A2",
 		name: "A2",
@@ -159,7 +159,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A3:MonitoringPoint = {
+	static readonly BC_GRID_A3: MonitoringPoint = {
 		ordinal: 19,
 		constantName: "BC_GRID_A3",
 		name: "A3",
@@ -167,7 +167,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A4:MonitoringPoint = {
+	static readonly BC_GRID_A4: MonitoringPoint = {
 		ordinal: 20,
 		constantName: "BC_GRID_A4",
 		name: "A4",
@@ -175,7 +175,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A5:MonitoringPoint = {
+	static readonly BC_GRID_A5: MonitoringPoint = {
 		ordinal: 21,
 		constantName: "BC_GRID_A5",
 		name: "A5",
@@ -183,7 +183,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A6:MonitoringPoint = {
+	static readonly BC_GRID_A6: MonitoringPoint = {
 		ordinal: 22,
 		constantName: "BC_GRID_A6",
 		name: "A6",
@@ -191,7 +191,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A7:MonitoringPoint = {
+	static readonly BC_GRID_A7: MonitoringPoint = {
 		ordinal: 23,
 		constantName: "BC_GRID_A7",
 		name: "A7",
@@ -199,7 +199,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A8:MonitoringPoint = {
+	static readonly BC_GRID_A8: MonitoringPoint = {
 		ordinal: 24,
 		constantName: "BC_GRID_A8",
 		name: "A8",
@@ -207,7 +207,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A9:MonitoringPoint = {
+	static readonly BC_GRID_A9: MonitoringPoint = {
 		ordinal: 25,
 		constantName: "BC_GRID_A9",
 		name: "A9",
@@ -215,7 +215,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A10:MonitoringPoint = {
+	static readonly BC_GRID_A10: MonitoringPoint = {
 		ordinal: 26,
 		constantName: "BC_GRID_A10",
 		name: "A10",
@@ -223,7 +223,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A11:MonitoringPoint = {
+	static readonly BC_GRID_A11: MonitoringPoint = {
 		ordinal: 27,
 		constantName: "BC_GRID_A11",
 		name: "A11",
@@ -231,7 +231,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_A12:MonitoringPoint = {
+	static readonly BC_GRID_A12: MonitoringPoint = {
 		ordinal: 28,
 		constantName: "BC_GRID_A12",
 		name: "A12",
@@ -239,7 +239,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_B1:MonitoringPoint = {
+	static readonly BC_GRID_B1: MonitoringPoint = {
 		ordinal: 29,
 		constantName: "BC_GRID_B1",
 		name: "B1",
@@ -247,7 +247,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_B2:MonitoringPoint = {
+	static readonly BC_GRID_B2: MonitoringPoint = {
 		ordinal: 30,
 		constantName: "BC_GRID_B2",
 		name: "B2",
@@ -255,7 +255,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_B3:MonitoringPoint = {
+	static readonly BC_GRID_B3: MonitoringPoint = {
 		ordinal: 31,
 		constantName: "BC_GRID_B3",
 		name: "B3",
@@ -263,7 +263,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GRID_B4:MonitoringPoint = {
+	static readonly BC_GRID_B4: MonitoringPoint = {
 		ordinal: 32,
 		constantName: "BC_GRID_B4",
 		name: "B4",
@@ -271,7 +271,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_1:MonitoringPoint = {
+	static readonly GA_GRID_1: MonitoringPoint = {
 		ordinal: 33,
 		constantName: "GA_GRID_1",
 		name: "1",
@@ -279,7 +279,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_2:MonitoringPoint = {
+	static readonly GA_GRID_2: MonitoringPoint = {
 		ordinal: 34,
 		constantName: "GA_GRID_2",
 		name: "2",
@@ -287,7 +287,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_3:MonitoringPoint = {
+	static readonly GA_GRID_3: MonitoringPoint = {
 		ordinal: 35,
 		constantName: "GA_GRID_3",
 		name: "3",
@@ -295,7 +295,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_4:MonitoringPoint = {
+	static readonly GA_GRID_4: MonitoringPoint = {
 		ordinal: 36,
 		constantName: "GA_GRID_4",
 		name: "4",
@@ -303,7 +303,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_5:MonitoringPoint = {
+	static readonly GA_GRID_5: MonitoringPoint = {
 		ordinal: 37,
 		constantName: "GA_GRID_5",
 		name: "5",
@@ -311,7 +311,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_6:MonitoringPoint = {
+	static readonly GA_GRID_6: MonitoringPoint = {
 		ordinal: 38,
 		constantName: "GA_GRID_6",
 		name: "6",
@@ -319,7 +319,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_7:MonitoringPoint = {
+	static readonly GA_GRID_7: MonitoringPoint = {
 		ordinal: 39,
 		constantName: "GA_GRID_7",
 		name: "7",
@@ -327,7 +327,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_8:MonitoringPoint = {
+	static readonly GA_GRID_8: MonitoringPoint = {
 		ordinal: 40,
 		constantName: "GA_GRID_8",
 		name: "8",
@@ -335,7 +335,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_9:MonitoringPoint = {
+	static readonly GA_GRID_9: MonitoringPoint = {
 		ordinal: 41,
 		constantName: "GA_GRID_9",
 		name: "9",
@@ -343,7 +343,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_10:MonitoringPoint = {
+	static readonly GA_GRID_10: MonitoringPoint = {
 		ordinal: 42,
 		constantName: "GA_GRID_10",
 		name: "10",
@@ -351,7 +351,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_11:MonitoringPoint = {
+	static readonly GA_GRID_11: MonitoringPoint = {
 		ordinal: 43,
 		constantName: "GA_GRID_11",
 		name: "11",
@@ -359,7 +359,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly GA_GRID_12:MonitoringPoint = {
+	static readonly GA_GRID_12: MonitoringPoint = {
 		ordinal: 44,
 		constantName: "GA_GRID_12",
 		name: "12",
@@ -367,7 +367,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_1:MonitoringPoint = {
+	static readonly LC_GRID_1: MonitoringPoint = {
 		ordinal: 45,
 		constantName: "LC_GRID_1",
 		name: "1",
@@ -375,7 +375,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_2:MonitoringPoint = {
+	static readonly LC_GRID_2: MonitoringPoint = {
 		ordinal: 46,
 		constantName: "LC_GRID_2",
 		name: "2",
@@ -383,7 +383,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_3:MonitoringPoint = {
+	static readonly LC_GRID_3: MonitoringPoint = {
 		ordinal: 47,
 		constantName: "LC_GRID_3",
 		name: "3",
@@ -391,7 +391,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_4:MonitoringPoint = {
+	static readonly LC_GRID_4: MonitoringPoint = {
 		ordinal: 48,
 		constantName: "LC_GRID_4",
 		name: "4",
@@ -399,7 +399,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_5:MonitoringPoint = {
+	static readonly LC_GRID_5: MonitoringPoint = {
 		ordinal: 49,
 		constantName: "LC_GRID_5",
 		name: "5",
@@ -407,7 +407,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_6:MonitoringPoint = {
+	static readonly LC_GRID_6: MonitoringPoint = {
 		ordinal: 50,
 		constantName: "LC_GRID_6",
 		name: "6",
@@ -415,7 +415,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_7:MonitoringPoint = {
+	static readonly LC_GRID_7: MonitoringPoint = {
 		ordinal: 51,
 		constantName: "LC_GRID_7",
 		name: "7",
@@ -423,7 +423,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_8:MonitoringPoint = {
+	static readonly LC_GRID_8: MonitoringPoint = {
 		ordinal: 52,
 		constantName: "LC_GRID_8",
 		name: "8",
@@ -431,7 +431,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_9:MonitoringPoint = {
+	static readonly LC_GRID_9: MonitoringPoint = {
 		ordinal: 53,
 		constantName: "LC_GRID_9",
 		name: "9",
@@ -439,7 +439,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_10:MonitoringPoint = {
+	static readonly LC_GRID_10: MonitoringPoint = {
 		ordinal: 54,
 		constantName: "LC_GRID_10",
 		name: "10",
@@ -447,7 +447,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_11:MonitoringPoint = {
+	static readonly LC_GRID_11: MonitoringPoint = {
 		ordinal: 55,
 		constantName: "LC_GRID_11",
 		name: "11",
@@ -455,7 +455,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_12:MonitoringPoint = {
+	static readonly LC_GRID_12: MonitoringPoint = {
 		ordinal: 56,
 		constantName: "LC_GRID_12",
 		name: "12",
@@ -463,7 +463,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_13:MonitoringPoint = {
+	static readonly LC_GRID_13: MonitoringPoint = {
 		ordinal: 57,
 		constantName: "LC_GRID_13",
 		name: "13",
@@ -471,7 +471,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_14:MonitoringPoint = {
+	static readonly LC_GRID_14: MonitoringPoint = {
 		ordinal: 58,
 		constantName: "LC_GRID_14",
 		name: "14",
@@ -479,7 +479,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_15:MonitoringPoint = {
+	static readonly LC_GRID_15: MonitoringPoint = {
 		ordinal: 59,
 		constantName: "LC_GRID_15",
 		name: "15",
@@ -487,7 +487,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_16:MonitoringPoint = {
+	static readonly LC_GRID_16: MonitoringPoint = {
 		ordinal: 60,
 		constantName: "LC_GRID_16",
 		name: "16",
@@ -495,7 +495,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_17:MonitoringPoint = {
+	static readonly LC_GRID_17: MonitoringPoint = {
 		ordinal: 61,
 		constantName: "LC_GRID_17",
 		name: "17",
@@ -503,7 +503,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_18:MonitoringPoint = {
+	static readonly LC_GRID_18: MonitoringPoint = {
 		ordinal: 62,
 		constantName: "LC_GRID_18",
 		name: "18",
@@ -511,7 +511,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_19:MonitoringPoint = {
+	static readonly LC_GRID_19: MonitoringPoint = {
 		ordinal: 63,
 		constantName: "LC_GRID_19",
 		name: "19",
@@ -519,7 +519,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_20:MonitoringPoint = {
+	static readonly LC_GRID_20: MonitoringPoint = {
 		ordinal: 64,
 		constantName: "LC_GRID_20",
 		name: "20",
@@ -527,7 +527,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_21:MonitoringPoint = {
+	static readonly LC_GRID_21: MonitoringPoint = {
 		ordinal: 65,
 		constantName: "LC_GRID_21",
 		name: "21",
@@ -535,7 +535,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_22:MonitoringPoint = {
+	static readonly LC_GRID_22: MonitoringPoint = {
 		ordinal: 66,
 		constantName: "LC_GRID_22",
 		name: "22",
@@ -543,7 +543,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_23:MonitoringPoint = {
+	static readonly LC_GRID_23: MonitoringPoint = {
 		ordinal: 67,
 		constantName: "LC_GRID_23",
 		name: "23",
@@ -551,7 +551,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_24:MonitoringPoint = {
+	static readonly LC_GRID_24: MonitoringPoint = {
 		ordinal: 68,
 		constantName: "LC_GRID_24",
 		name: "24",
@@ -559,7 +559,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_25:MonitoringPoint = {
+	static readonly LC_GRID_25: MonitoringPoint = {
 		ordinal: 69,
 		constantName: "LC_GRID_25",
 		name: "25",
@@ -567,7 +567,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_26:MonitoringPoint = {
+	static readonly LC_GRID_26: MonitoringPoint = {
 		ordinal: 70,
 		constantName: "LC_GRID_26",
 		name: "26",
@@ -575,7 +575,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_27:MonitoringPoint = {
+	static readonly LC_GRID_27: MonitoringPoint = {
 		ordinal: 71,
 		constantName: "LC_GRID_27",
 		name: "27",
@@ -583,7 +583,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_28:MonitoringPoint = {
+	static readonly LC_GRID_28: MonitoringPoint = {
 		ordinal: 72,
 		constantName: "LC_GRID_28",
 		name: "28",
@@ -591,7 +591,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_29:MonitoringPoint = {
+	static readonly LC_GRID_29: MonitoringPoint = {
 		ordinal: 73,
 		constantName: "LC_GRID_29",
 		name: "29",
@@ -599,7 +599,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_30:MonitoringPoint = {
+	static readonly LC_GRID_30: MonitoringPoint = {
 		ordinal: 74,
 		constantName: "LC_GRID_30",
 		name: "30",
@@ -607,7 +607,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_31:MonitoringPoint = {
+	static readonly LC_GRID_31: MonitoringPoint = {
 		ordinal: 75,
 		constantName: "LC_GRID_31",
 		name: "31",
@@ -615,7 +615,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_32:MonitoringPoint = {
+	static readonly LC_GRID_32: MonitoringPoint = {
 		ordinal: 76,
 		constantName: "LC_GRID_32",
 		name: "32",
@@ -623,7 +623,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_33:MonitoringPoint = {
+	static readonly LC_GRID_33: MonitoringPoint = {
 		ordinal: 77,
 		constantName: "LC_GRID_33",
 		name: "33",
@@ -631,7 +631,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_34:MonitoringPoint = {
+	static readonly LC_GRID_34: MonitoringPoint = {
 		ordinal: 78,
 		constantName: "LC_GRID_34",
 		name: "34",
@@ -639,7 +639,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_35:MonitoringPoint = {
+	static readonly LC_GRID_35: MonitoringPoint = {
 		ordinal: 79,
 		constantName: "LC_GRID_35",
 		name: "35",
@@ -647,7 +647,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_36:MonitoringPoint = {
+	static readonly LC_GRID_36: MonitoringPoint = {
 		ordinal: 80,
 		constantName: "LC_GRID_36",
 		name: "36",
@@ -655,7 +655,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_37:MonitoringPoint = {
+	static readonly LC_GRID_37: MonitoringPoint = {
 		ordinal: 81,
 		constantName: "LC_GRID_37",
 		name: "37",
@@ -663,7 +663,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_38:MonitoringPoint = {
+	static readonly LC_GRID_38: MonitoringPoint = {
 		ordinal: 82,
 		constantName: "LC_GRID_38",
 		name: "38",
@@ -671,7 +671,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_39:MonitoringPoint = {
+	static readonly LC_GRID_39: MonitoringPoint = {
 		ordinal: 83,
 		constantName: "LC_GRID_39",
 		name: "39",
@@ -679,7 +679,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_40:MonitoringPoint = {
+	static readonly LC_GRID_40: MonitoringPoint = {
 		ordinal: 84,
 		constantName: "LC_GRID_40",
 		name: "40",
@@ -687,7 +687,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_41:MonitoringPoint = {
+	static readonly LC_GRID_41: MonitoringPoint = {
 		ordinal: 85,
 		constantName: "LC_GRID_41",
 		name: "41",
@@ -695,7 +695,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_42:MonitoringPoint = {
+	static readonly LC_GRID_42: MonitoringPoint = {
 		ordinal: 86,
 		constantName: "LC_GRID_42",
 		name: "42",
@@ -703,7 +703,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_43:MonitoringPoint = {
+	static readonly LC_GRID_43: MonitoringPoint = {
 		ordinal: 87,
 		constantName: "LC_GRID_43",
 		name: "43",
@@ -711,7 +711,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_44:MonitoringPoint = {
+	static readonly LC_GRID_44: MonitoringPoint = {
 		ordinal: 88,
 		constantName: "LC_GRID_44",
 		name: "44",
@@ -719,7 +719,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_45:MonitoringPoint = {
+	static readonly LC_GRID_45: MonitoringPoint = {
 		ordinal: 89,
 		constantName: "LC_GRID_45",
 		name: "45",
@@ -727,7 +727,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_46:MonitoringPoint = {
+	static readonly LC_GRID_46: MonitoringPoint = {
 		ordinal: 90,
 		constantName: "LC_GRID_46",
 		name: "46",
@@ -735,7 +735,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_47:MonitoringPoint = {
+	static readonly LC_GRID_47: MonitoringPoint = {
 		ordinal: 91,
 		constantName: "LC_GRID_47",
 		name: "47",
@@ -743,7 +743,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_48:MonitoringPoint = {
+	static readonly LC_GRID_48: MonitoringPoint = {
 		ordinal: 92,
 		constantName: "LC_GRID_48",
 		name: "48",
@@ -751,7 +751,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_49:MonitoringPoint = {
+	static readonly LC_GRID_49: MonitoringPoint = {
 		ordinal: 93,
 		constantName: "LC_GRID_49",
 		name: "49",
@@ -759,7 +759,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_50:MonitoringPoint = {
+	static readonly LC_GRID_50: MonitoringPoint = {
 		ordinal: 94,
 		constantName: "LC_GRID_50",
 		name: "50",
@@ -767,7 +767,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_51:MonitoringPoint = {
+	static readonly LC_GRID_51: MonitoringPoint = {
 		ordinal: 95,
 		constantName: "LC_GRID_51",
 		name: "51",
@@ -775,7 +775,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_52:MonitoringPoint = {
+	static readonly LC_GRID_52: MonitoringPoint = {
 		ordinal: 96,
 		constantName: "LC_GRID_52",
 		name: "52",
@@ -783,7 +783,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_53:MonitoringPoint = {
+	static readonly LC_GRID_53: MonitoringPoint = {
 		ordinal: 97,
 		constantName: "LC_GRID_53",
 		name: "53",
@@ -791,7 +791,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_54:MonitoringPoint = {
+	static readonly LC_GRID_54: MonitoringPoint = {
 		ordinal: 98,
 		constantName: "LC_GRID_54",
 		name: "54",
@@ -799,7 +799,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_55:MonitoringPoint = {
+	static readonly LC_GRID_55: MonitoringPoint = {
 		ordinal: 99,
 		constantName: "LC_GRID_55",
 		name: "55",
@@ -807,7 +807,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_56:MonitoringPoint = {
+	static readonly LC_GRID_56: MonitoringPoint = {
 		ordinal: 100,
 		constantName: "LC_GRID_56",
 		name: "56",
@@ -815,7 +815,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_57:MonitoringPoint = {
+	static readonly LC_GRID_57: MonitoringPoint = {
 		ordinal: 101,
 		constantName: "LC_GRID_57",
 		name: "57",
@@ -823,7 +823,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_58:MonitoringPoint = {
+	static readonly LC_GRID_58: MonitoringPoint = {
 		ordinal: 102,
 		constantName: "LC_GRID_58",
 		name: "58",
@@ -831,7 +831,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_59:MonitoringPoint = {
+	static readonly LC_GRID_59: MonitoringPoint = {
 		ordinal: 103,
 		constantName: "LC_GRID_59",
 		name: "59",
@@ -839,7 +839,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_60:MonitoringPoint = {
+	static readonly LC_GRID_60: MonitoringPoint = {
 		ordinal: 104,
 		constantName: "LC_GRID_60",
 		name: "60",
@@ -847,7 +847,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_61:MonitoringPoint = {
+	static readonly LC_GRID_61: MonitoringPoint = {
 		ordinal: 105,
 		constantName: "LC_GRID_61",
 		name: "61",
@@ -855,7 +855,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_62:MonitoringPoint = {
+	static readonly LC_GRID_62: MonitoringPoint = {
 		ordinal: 106,
 		constantName: "LC_GRID_62",
 		name: "62",
@@ -863,7 +863,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_63:MonitoringPoint = {
+	static readonly LC_GRID_63: MonitoringPoint = {
 		ordinal: 107,
 		constantName: "LC_GRID_63",
 		name: "63",
@@ -871,7 +871,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_64:MonitoringPoint = {
+	static readonly LC_GRID_64: MonitoringPoint = {
 		ordinal: 108,
 		constantName: "LC_GRID_64",
 		name: "64",
@@ -879,7 +879,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_65:MonitoringPoint = {
+	static readonly LC_GRID_65: MonitoringPoint = {
 		ordinal: 109,
 		constantName: "LC_GRID_65",
 		name: "65",
@@ -887,7 +887,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_66:MonitoringPoint = {
+	static readonly LC_GRID_66: MonitoringPoint = {
 		ordinal: 110,
 		constantName: "LC_GRID_66",
 		name: "66",
@@ -895,7 +895,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_67:MonitoringPoint = {
+	static readonly LC_GRID_67: MonitoringPoint = {
 		ordinal: 111,
 		constantName: "LC_GRID_67",
 		name: "67",
@@ -903,7 +903,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_68:MonitoringPoint = {
+	static readonly LC_GRID_68: MonitoringPoint = {
 		ordinal: 112,
 		constantName: "LC_GRID_68",
 		name: "68",
@@ -911,7 +911,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_69:MonitoringPoint = {
+	static readonly LC_GRID_69: MonitoringPoint = {
 		ordinal: 113,
 		constantName: "LC_GRID_69",
 		name: "69",
@@ -919,7 +919,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_70:MonitoringPoint = {
+	static readonly LC_GRID_70: MonitoringPoint = {
 		ordinal: 114,
 		constantName: "LC_GRID_70",
 		name: "70",
@@ -927,7 +927,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_71:MonitoringPoint = {
+	static readonly LC_GRID_71: MonitoringPoint = {
 		ordinal: 115,
 		constantName: "LC_GRID_71",
 		name: "71",
@@ -935,7 +935,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_72:MonitoringPoint = {
+	static readonly LC_GRID_72: MonitoringPoint = {
 		ordinal: 116,
 		constantName: "LC_GRID_72",
 		name: "72",
@@ -943,7 +943,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_73:MonitoringPoint = {
+	static readonly LC_GRID_73: MonitoringPoint = {
 		ordinal: 117,
 		constantName: "LC_GRID_73",
 		name: "73",
@@ -951,7 +951,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_74:MonitoringPoint = {
+	static readonly LC_GRID_74: MonitoringPoint = {
 		ordinal: 118,
 		constantName: "LC_GRID_74",
 		name: "74",
@@ -959,7 +959,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_75:MonitoringPoint = {
+	static readonly LC_GRID_75: MonitoringPoint = {
 		ordinal: 119,
 		constantName: "LC_GRID_75",
 		name: "75",
@@ -967,7 +967,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_76:MonitoringPoint = {
+	static readonly LC_GRID_76: MonitoringPoint = {
 		ordinal: 120,
 		constantName: "LC_GRID_76",
 		name: "76",
@@ -975,7 +975,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_77:MonitoringPoint = {
+	static readonly LC_GRID_77: MonitoringPoint = {
 		ordinal: 121,
 		constantName: "LC_GRID_77",
 		name: "77",
@@ -983,7 +983,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_78:MonitoringPoint = {
+	static readonly LC_GRID_78: MonitoringPoint = {
 		ordinal: 122,
 		constantName: "LC_GRID_78",
 		name: "78",
@@ -991,7 +991,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_79:MonitoringPoint = {
+	static readonly LC_GRID_79: MonitoringPoint = {
 		ordinal: 123,
 		constantName: "LC_GRID_79",
 		name: "79",
@@ -999,7 +999,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_80:MonitoringPoint = {
+	static readonly LC_GRID_80: MonitoringPoint = {
 		ordinal: 124,
 		constantName: "LC_GRID_80",
 		name: "80",
@@ -1007,7 +1007,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_81:MonitoringPoint = {
+	static readonly LC_GRID_81: MonitoringPoint = {
 		ordinal: 125,
 		constantName: "LC_GRID_81",
 		name: "81",
@@ -1015,7 +1015,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_82:MonitoringPoint = {
+	static readonly LC_GRID_82: MonitoringPoint = {
 		ordinal: 126,
 		constantName: "LC_GRID_82",
 		name: "82",
@@ -1023,7 +1023,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_83:MonitoringPoint = {
+	static readonly LC_GRID_83: MonitoringPoint = {
 		ordinal: 127,
 		constantName: "LC_GRID_83",
 		name: "83",
@@ -1031,7 +1031,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_84:MonitoringPoint = {
+	static readonly LC_GRID_84: MonitoringPoint = {
 		ordinal: 128,
 		constantName: "LC_GRID_84",
 		name: "84",
@@ -1039,7 +1039,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_85:MonitoringPoint = {
+	static readonly LC_GRID_85: MonitoringPoint = {
 		ordinal: 129,
 		constantName: "LC_GRID_85",
 		name: "85",
@@ -1047,7 +1047,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_86:MonitoringPoint = {
+	static readonly LC_GRID_86: MonitoringPoint = {
 		ordinal: 130,
 		constantName: "LC_GRID_86",
 		name: "86",
@@ -1055,7 +1055,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_87:MonitoringPoint = {
+	static readonly LC_GRID_87: MonitoringPoint = {
 		ordinal: 131,
 		constantName: "LC_GRID_87",
 		name: "87",
@@ -1063,7 +1063,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_88:MonitoringPoint = {
+	static readonly LC_GRID_88: MonitoringPoint = {
 		ordinal: 132,
 		constantName: "LC_GRID_88",
 		name: "88",
@@ -1071,7 +1071,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_89:MonitoringPoint = {
+	static readonly LC_GRID_89: MonitoringPoint = {
 		ordinal: 133,
 		constantName: "LC_GRID_89",
 		name: "89",
@@ -1079,7 +1079,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_90:MonitoringPoint = {
+	static readonly LC_GRID_90: MonitoringPoint = {
 		ordinal: 134,
 		constantName: "LC_GRID_90",
 		name: "90",
@@ -1087,7 +1087,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_91:MonitoringPoint = {
+	static readonly LC_GRID_91: MonitoringPoint = {
 		ordinal: 135,
 		constantName: "LC_GRID_91",
 		name: "91",
@@ -1095,7 +1095,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_92:MonitoringPoint = {
+	static readonly LC_GRID_92: MonitoringPoint = {
 		ordinal: 136,
 		constantName: "LC_GRID_92",
 		name: "92",
@@ -1103,7 +1103,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_93:MonitoringPoint = {
+	static readonly LC_GRID_93: MonitoringPoint = {
 		ordinal: 137,
 		constantName: "LC_GRID_93",
 		name: "93",
@@ -1111,7 +1111,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_94:MonitoringPoint = {
+	static readonly LC_GRID_94: MonitoringPoint = {
 		ordinal: 138,
 		constantName: "LC_GRID_94",
 		name: "94",
@@ -1119,7 +1119,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_95:MonitoringPoint = {
+	static readonly LC_GRID_95: MonitoringPoint = {
 		ordinal: 139,
 		constantName: "LC_GRID_95",
 		name: "95",
@@ -1127,7 +1127,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_96:MonitoringPoint = {
+	static readonly LC_GRID_96: MonitoringPoint = {
 		ordinal: 140,
 		constantName: "LC_GRID_96",
 		name: "96",
@@ -1135,7 +1135,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_97:MonitoringPoint = {
+	static readonly LC_GRID_97: MonitoringPoint = {
 		ordinal: 141,
 		constantName: "LC_GRID_97",
 		name: "97",
@@ -1143,7 +1143,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_98:MonitoringPoint = {
+	static readonly LC_GRID_98: MonitoringPoint = {
 		ordinal: 142,
 		constantName: "LC_GRID_98",
 		name: "98",
@@ -1151,7 +1151,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_99:MonitoringPoint = {
+	static readonly LC_GRID_99: MonitoringPoint = {
 		ordinal: 143,
 		constantName: "LC_GRID_99",
 		name: "99",
@@ -1159,7 +1159,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_100:MonitoringPoint = {
+	static readonly LC_GRID_100: MonitoringPoint = {
 		ordinal: 144,
 		constantName: "LC_GRID_100",
 		name: "100",
@@ -1167,7 +1167,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_101:MonitoringPoint = {
+	static readonly LC_GRID_101: MonitoringPoint = {
 		ordinal: 145,
 		constantName: "LC_GRID_101",
 		name: "101",
@@ -1175,7 +1175,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_102:MonitoringPoint = {
+	static readonly LC_GRID_102: MonitoringPoint = {
 		ordinal: 146,
 		constantName: "LC_GRID_102",
 		name: "102",
@@ -1183,7 +1183,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_103:MonitoringPoint = {
+	static readonly LC_GRID_103: MonitoringPoint = {
 		ordinal: 147,
 		constantName: "LC_GRID_103",
 		name: "103",
@@ -1191,7 +1191,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_104:MonitoringPoint = {
+	static readonly LC_GRID_104: MonitoringPoint = {
 		ordinal: 148,
 		constantName: "LC_GRID_104",
 		name: "104",
@@ -1199,7 +1199,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_105:MonitoringPoint = {
+	static readonly LC_GRID_105: MonitoringPoint = {
 		ordinal: 149,
 		constantName: "LC_GRID_105",
 		name: "105",
@@ -1207,7 +1207,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_106:MonitoringPoint = {
+	static readonly LC_GRID_106: MonitoringPoint = {
 		ordinal: 150,
 		constantName: "LC_GRID_106",
 		name: "106",
@@ -1215,7 +1215,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_107:MonitoringPoint = {
+	static readonly LC_GRID_107: MonitoringPoint = {
 		ordinal: 151,
 		constantName: "LC_GRID_107",
 		name: "107",
@@ -1223,7 +1223,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_108:MonitoringPoint = {
+	static readonly LC_GRID_108: MonitoringPoint = {
 		ordinal: 152,
 		constantName: "LC_GRID_108",
 		name: "108",
@@ -1231,7 +1231,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_109:MonitoringPoint = {
+	static readonly LC_GRID_109: MonitoringPoint = {
 		ordinal: 153,
 		constantName: "LC_GRID_109",
 		name: "109",
@@ -1239,7 +1239,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_110:MonitoringPoint = {
+	static readonly LC_GRID_110: MonitoringPoint = {
 		ordinal: 154,
 		constantName: "LC_GRID_110",
 		name: "110",
@@ -1247,7 +1247,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_111:MonitoringPoint = {
+	static readonly LC_GRID_111: MonitoringPoint = {
 		ordinal: 155,
 		constantName: "LC_GRID_111",
 		name: "111",
@@ -1255,7 +1255,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_112:MonitoringPoint = {
+	static readonly LC_GRID_112: MonitoringPoint = {
 		ordinal: 156,
 		constantName: "LC_GRID_112",
 		name: "112",
@@ -1263,7 +1263,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_113:MonitoringPoint = {
+	static readonly LC_GRID_113: MonitoringPoint = {
 		ordinal: 157,
 		constantName: "LC_GRID_113",
 		name: "113",
@@ -1271,7 +1271,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_114:MonitoringPoint = {
+	static readonly LC_GRID_114: MonitoringPoint = {
 		ordinal: 158,
 		constantName: "LC_GRID_114",
 		name: "114",
@@ -1279,7 +1279,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_115:MonitoringPoint = {
+	static readonly LC_GRID_115: MonitoringPoint = {
 		ordinal: 159,
 		constantName: "LC_GRID_115",
 		name: "115",
@@ -1287,7 +1287,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_116:MonitoringPoint = {
+	static readonly LC_GRID_116: MonitoringPoint = {
 		ordinal: 160,
 		constantName: "LC_GRID_116",
 		name: "116",
@@ -1295,7 +1295,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_117:MonitoringPoint = {
+	static readonly LC_GRID_117: MonitoringPoint = {
 		ordinal: 161,
 		constantName: "LC_GRID_117",
 		name: "117",
@@ -1303,7 +1303,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_118:MonitoringPoint = {
+	static readonly LC_GRID_118: MonitoringPoint = {
 		ordinal: 162,
 		constantName: "LC_GRID_118",
 		name: "118",
@@ -1311,7 +1311,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_119:MonitoringPoint = {
+	static readonly LC_GRID_119: MonitoringPoint = {
 		ordinal: 163,
 		constantName: "LC_GRID_119",
 		name: "119",
@@ -1319,7 +1319,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_120:MonitoringPoint = {
+	static readonly LC_GRID_120: MonitoringPoint = {
 		ordinal: 164,
 		constantName: "LC_GRID_120",
 		name: "120",
@@ -1327,7 +1327,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_121:MonitoringPoint = {
+	static readonly LC_GRID_121: MonitoringPoint = {
 		ordinal: 165,
 		constantName: "LC_GRID_121",
 		name: "121",
@@ -1335,7 +1335,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_122:MonitoringPoint = {
+	static readonly LC_GRID_122: MonitoringPoint = {
 		ordinal: 166,
 		constantName: "LC_GRID_122",
 		name: "122",
@@ -1343,7 +1343,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_123:MonitoringPoint = {
+	static readonly LC_GRID_123: MonitoringPoint = {
 		ordinal: 167,
 		constantName: "LC_GRID_123",
 		name: "123",
@@ -1351,7 +1351,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_124:MonitoringPoint = {
+	static readonly LC_GRID_124: MonitoringPoint = {
 		ordinal: 168,
 		constantName: "LC_GRID_124",
 		name: "124",
@@ -1359,7 +1359,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_125:MonitoringPoint = {
+	static readonly LC_GRID_125: MonitoringPoint = {
 		ordinal: 169,
 		constantName: "LC_GRID_125",
 		name: "125",
@@ -1367,7 +1367,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_126:MonitoringPoint = {
+	static readonly LC_GRID_126: MonitoringPoint = {
 		ordinal: 170,
 		constantName: "LC_GRID_126",
 		name: "126",
@@ -1375,7 +1375,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_127:MonitoringPoint = {
+	static readonly LC_GRID_127: MonitoringPoint = {
 		ordinal: 171,
 		constantName: "LC_GRID_127",
 		name: "127",
@@ -1383,7 +1383,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_128:MonitoringPoint = {
+	static readonly LC_GRID_128: MonitoringPoint = {
 		ordinal: 172,
 		constantName: "LC_GRID_128",
 		name: "128",
@@ -1391,7 +1391,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_129:MonitoringPoint = {
+	static readonly LC_GRID_129: MonitoringPoint = {
 		ordinal: 173,
 		constantName: "LC_GRID_129",
 		name: "129",
@@ -1399,7 +1399,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly LC_GRID_130:MonitoringPoint = {
+	static readonly LC_GRID_130: MonitoringPoint = {
 		ordinal: 174,
 		constantName: "LC_GRID_130",
 		name: "130",
@@ -1407,7 +1407,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_1:MonitoringPoint = {
+	static readonly SH_GRID_1: MonitoringPoint = {
 		ordinal: 175,
 		constantName: "SH_GRID_1",
 		name: "1",
@@ -1415,7 +1415,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_2:MonitoringPoint = {
+	static readonly SH_GRID_2: MonitoringPoint = {
 		ordinal: 176,
 		constantName: "SH_GRID_2",
 		name: "2",
@@ -1423,7 +1423,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_3:MonitoringPoint = {
+	static readonly SH_GRID_3: MonitoringPoint = {
 		ordinal: 177,
 		constantName: "SH_GRID_3",
 		name: "3",
@@ -1431,7 +1431,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_4:MonitoringPoint = {
+	static readonly SH_GRID_4: MonitoringPoint = {
 		ordinal: 178,
 		constantName: "SH_GRID_4",
 		name: "4",
@@ -1439,7 +1439,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_5:MonitoringPoint = {
+	static readonly SH_GRID_5: MonitoringPoint = {
 		ordinal: 179,
 		constantName: "SH_GRID_5",
 		name: "5",
@@ -1447,7 +1447,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_6:MonitoringPoint = {
+	static readonly SH_GRID_6: MonitoringPoint = {
 		ordinal: 180,
 		constantName: "SH_GRID_6",
 		name: "6",
@@ -1455,7 +1455,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_7:MonitoringPoint = {
+	static readonly SH_GRID_7: MonitoringPoint = {
 		ordinal: 181,
 		constantName: "SH_GRID_7",
 		name: "7",
@@ -1463,7 +1463,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_8:MonitoringPoint = {
+	static readonly SH_GRID_8: MonitoringPoint = {
 		ordinal: 182,
 		constantName: "SH_GRID_8",
 		name: "8",
@@ -1471,7 +1471,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_9:MonitoringPoint = {
+	static readonly SH_GRID_9: MonitoringPoint = {
 		ordinal: 183,
 		constantName: "SH_GRID_9",
 		name: "9",
@@ -1479,7 +1479,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_10:MonitoringPoint = {
+	static readonly SH_GRID_10: MonitoringPoint = {
 		ordinal: 184,
 		constantName: "SH_GRID_10",
 		name: "10",
@@ -1487,7 +1487,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_11:MonitoringPoint = {
+	static readonly SH_GRID_11: MonitoringPoint = {
 		ordinal: 185,
 		constantName: "SH_GRID_11",
 		name: "11",
@@ -1495,7 +1495,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_12:MonitoringPoint = {
+	static readonly SH_GRID_12: MonitoringPoint = {
 		ordinal: 186,
 		constantName: "SH_GRID_12",
 		name: "12",
@@ -1503,7 +1503,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_13:MonitoringPoint = {
+	static readonly SH_GRID_13: MonitoringPoint = {
 		ordinal: 187,
 		constantName: "SH_GRID_13",
 		name: "13",
@@ -1511,7 +1511,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_14:MonitoringPoint = {
+	static readonly SH_GRID_14: MonitoringPoint = {
 		ordinal: 188,
 		constantName: "SH_GRID_14",
 		name: "14",
@@ -1519,7 +1519,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_15:MonitoringPoint = {
+	static readonly SH_GRID_15: MonitoringPoint = {
 		ordinal: 189,
 		constantName: "SH_GRID_15",
 		name: "15",
@@ -1527,7 +1527,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_16:MonitoringPoint = {
+	static readonly SH_GRID_16: MonitoringPoint = {
 		ordinal: 190,
 		constantName: "SH_GRID_16",
 		name: "16",
@@ -1535,7 +1535,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_17:MonitoringPoint = {
+	static readonly SH_GRID_17: MonitoringPoint = {
 		ordinal: 191,
 		constantName: "SH_GRID_17",
 		name: "17",
@@ -1543,7 +1543,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_18:MonitoringPoint = {
+	static readonly SH_GRID_18: MonitoringPoint = {
 		ordinal: 192,
 		constantName: "SH_GRID_18",
 		name: "18",
@@ -1551,7 +1551,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_19:MonitoringPoint = {
+	static readonly SH_GRID_19: MonitoringPoint = {
 		ordinal: 193,
 		constantName: "SH_GRID_19",
 		name: "19",
@@ -1559,7 +1559,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_20:MonitoringPoint = {
+	static readonly SH_GRID_20: MonitoringPoint = {
 		ordinal: 194,
 		constantName: "SH_GRID_20",
 		name: "20",
@@ -1567,7 +1567,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_21:MonitoringPoint = {
+	static readonly SH_GRID_21: MonitoringPoint = {
 		ordinal: 195,
 		constantName: "SH_GRID_21",
 		name: "21",
@@ -1575,7 +1575,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_22:MonitoringPoint = {
+	static readonly SH_GRID_22: MonitoringPoint = {
 		ordinal: 196,
 		constantName: "SH_GRID_22",
 		name: "22",
@@ -1583,7 +1583,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_23:MonitoringPoint = {
+	static readonly SH_GRID_23: MonitoringPoint = {
 		ordinal: 197,
 		constantName: "SH_GRID_23",
 		name: "23",
@@ -1591,7 +1591,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_24:MonitoringPoint = {
+	static readonly SH_GRID_24: MonitoringPoint = {
 		ordinal: 198,
 		constantName: "SH_GRID_24",
 		name: "24",
@@ -1599,7 +1599,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_25:MonitoringPoint = {
+	static readonly SH_GRID_25: MonitoringPoint = {
 		ordinal: 199,
 		constantName: "SH_GRID_25",
 		name: "25",
@@ -1607,7 +1607,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_26:MonitoringPoint = {
+	static readonly SH_GRID_26: MonitoringPoint = {
 		ordinal: 200,
 		constantName: "SH_GRID_26",
 		name: "26",
@@ -1615,7 +1615,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_27:MonitoringPoint = {
+	static readonly SH_GRID_27: MonitoringPoint = {
 		ordinal: 201,
 		constantName: "SH_GRID_27",
 		name: "27",
@@ -1623,7 +1623,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_28:MonitoringPoint = {
+	static readonly SH_GRID_28: MonitoringPoint = {
 		ordinal: 202,
 		constantName: "SH_GRID_28",
 		name: "28",
@@ -1631,7 +1631,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_29:MonitoringPoint = {
+	static readonly SH_GRID_29: MonitoringPoint = {
 		ordinal: 203,
 		constantName: "SH_GRID_29",
 		name: "29",
@@ -1639,7 +1639,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_30:MonitoringPoint = {
+	static readonly SH_GRID_30: MonitoringPoint = {
 		ordinal: 204,
 		constantName: "SH_GRID_30",
 		name: "30",
@@ -1647,7 +1647,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_31:MonitoringPoint = {
+	static readonly SH_GRID_31: MonitoringPoint = {
 		ordinal: 205,
 		constantName: "SH_GRID_31",
 		name: "31",
@@ -1655,7 +1655,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_32:MonitoringPoint = {
+	static readonly SH_GRID_32: MonitoringPoint = {
 		ordinal: 206,
 		constantName: "SH_GRID_32",
 		name: "32",
@@ -1663,7 +1663,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_33:MonitoringPoint = {
+	static readonly SH_GRID_33: MonitoringPoint = {
 		ordinal: 207,
 		constantName: "SH_GRID_33",
 		name: "33",
@@ -1671,7 +1671,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_34:MonitoringPoint = {
+	static readonly SH_GRID_34: MonitoringPoint = {
 		ordinal: 208,
 		constantName: "SH_GRID_34",
 		name: "34",
@@ -1679,7 +1679,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_35:MonitoringPoint = {
+	static readonly SH_GRID_35: MonitoringPoint = {
 		ordinal: 209,
 		constantName: "SH_GRID_35",
 		name: "35",
@@ -1687,7 +1687,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_36:MonitoringPoint = {
+	static readonly SH_GRID_36: MonitoringPoint = {
 		ordinal: 210,
 		constantName: "SH_GRID_36",
 		name: "36",
@@ -1695,7 +1695,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_37:MonitoringPoint = {
+	static readonly SH_GRID_37: MonitoringPoint = {
 		ordinal: 211,
 		constantName: "SH_GRID_37",
 		name: "37",
@@ -1703,7 +1703,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_38:MonitoringPoint = {
+	static readonly SH_GRID_38: MonitoringPoint = {
 		ordinal: 212,
 		constantName: "SH_GRID_38",
 		name: "38",
@@ -1711,7 +1711,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_39:MonitoringPoint = {
+	static readonly SH_GRID_39: MonitoringPoint = {
 		ordinal: 213,
 		constantName: "SH_GRID_39",
 		name: "39",
@@ -1719,7 +1719,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly SH_GRID_40:MonitoringPoint = {
+	static readonly SH_GRID_40: MonitoringPoint = {
 		ordinal: 214,
 		constantName: "SH_GRID_40",
 		name: "40",
@@ -1727,7 +1727,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_1:MonitoringPoint = {
+	static readonly TC_GRID_1: MonitoringPoint = {
 		ordinal: 215,
 		constantName: "TC_GRID_1",
 		name: "1",
@@ -1735,7 +1735,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_2:MonitoringPoint = {
+	static readonly TC_GRID_2: MonitoringPoint = {
 		ordinal: 216,
 		constantName: "TC_GRID_2",
 		name: "2",
@@ -1743,7 +1743,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_3:MonitoringPoint = {
+	static readonly TC_GRID_3: MonitoringPoint = {
 		ordinal: 217,
 		constantName: "TC_GRID_3",
 		name: "3",
@@ -1751,7 +1751,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_4:MonitoringPoint = {
+	static readonly TC_GRID_4: MonitoringPoint = {
 		ordinal: 218,
 		constantName: "TC_GRID_4",
 		name: "4",
@@ -1759,7 +1759,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_5:MonitoringPoint = {
+	static readonly TC_GRID_5: MonitoringPoint = {
 		ordinal: 219,
 		constantName: "TC_GRID_5",
 		name: "5",
@@ -1767,7 +1767,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_6:MonitoringPoint = {
+	static readonly TC_GRID_6: MonitoringPoint = {
 		ordinal: 220,
 		constantName: "TC_GRID_6",
 		name: "6",
@@ -1775,7 +1775,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_7:MonitoringPoint = {
+	static readonly TC_GRID_7: MonitoringPoint = {
 		ordinal: 221,
 		constantName: "TC_GRID_7",
 		name: "7",
@@ -1783,7 +1783,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_8:MonitoringPoint = {
+	static readonly TC_GRID_8: MonitoringPoint = {
 		ordinal: 222,
 		constantName: "TC_GRID_8",
 		name: "8",
@@ -1791,7 +1791,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_9:MonitoringPoint = {
+	static readonly TC_GRID_9: MonitoringPoint = {
 		ordinal: 223,
 		constantName: "TC_GRID_9",
 		name: "9",
@@ -1799,7 +1799,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_10:MonitoringPoint = {
+	static readonly TC_GRID_10: MonitoringPoint = {
 		ordinal: 224,
 		constantName: "TC_GRID_10",
 		name: "10",
@@ -1807,7 +1807,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_11:MonitoringPoint = {
+	static readonly TC_GRID_11: MonitoringPoint = {
 		ordinal: 225,
 		constantName: "TC_GRID_11",
 		name: "11",
@@ -1815,7 +1815,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_12:MonitoringPoint = {
+	static readonly TC_GRID_12: MonitoringPoint = {
 		ordinal: 226,
 		constantName: "TC_GRID_12",
 		name: "12",
@@ -1823,7 +1823,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_13:MonitoringPoint = {
+	static readonly TC_GRID_13: MonitoringPoint = {
 		ordinal: 227,
 		constantName: "TC_GRID_13",
 		name: "13",
@@ -1831,7 +1831,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_14:MonitoringPoint = {
+	static readonly TC_GRID_14: MonitoringPoint = {
 		ordinal: 228,
 		constantName: "TC_GRID_14",
 		name: "14",
@@ -1839,7 +1839,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_15:MonitoringPoint = {
+	static readonly TC_GRID_15: MonitoringPoint = {
 		ordinal: 229,
 		constantName: "TC_GRID_15",
 		name: "15",
@@ -1847,7 +1847,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_16:MonitoringPoint = {
+	static readonly TC_GRID_16: MonitoringPoint = {
 		ordinal: 230,
 		constantName: "TC_GRID_16",
 		name: "16",
@@ -1855,7 +1855,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_17:MonitoringPoint = {
+	static readonly TC_GRID_17: MonitoringPoint = {
 		ordinal: 231,
 		constantName: "TC_GRID_17",
 		name: "17",
@@ -1863,7 +1863,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_18:MonitoringPoint = {
+	static readonly TC_GRID_18: MonitoringPoint = {
 		ordinal: 232,
 		constantName: "TC_GRID_18",
 		name: "18",
@@ -1871,7 +1871,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_19:MonitoringPoint = {
+	static readonly TC_GRID_19: MonitoringPoint = {
 		ordinal: 233,
 		constantName: "TC_GRID_19",
 		name: "19",
@@ -1879,7 +1879,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_20:MonitoringPoint = {
+	static readonly TC_GRID_20: MonitoringPoint = {
 		ordinal: 234,
 		constantName: "TC_GRID_20",
 		name: "20",
@@ -1887,7 +1887,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_21:MonitoringPoint = {
+	static readonly TC_GRID_21: MonitoringPoint = {
 		ordinal: 235,
 		constantName: "TC_GRID_21",
 		name: "21",
@@ -1895,7 +1895,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_22:MonitoringPoint = {
+	static readonly TC_GRID_22: MonitoringPoint = {
 		ordinal: 236,
 		constantName: "TC_GRID_22",
 		name: "22",
@@ -1903,7 +1903,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_23:MonitoringPoint = {
+	static readonly TC_GRID_23: MonitoringPoint = {
 		ordinal: 237,
 		constantName: "TC_GRID_23",
 		name: "23",
@@ -1911,7 +1911,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_24:MonitoringPoint = {
+	static readonly TC_GRID_24: MonitoringPoint = {
 		ordinal: 238,
 		constantName: "TC_GRID_24",
 		name: "24",
@@ -1919,7 +1919,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_25:MonitoringPoint = {
+	static readonly TC_GRID_25: MonitoringPoint = {
 		ordinal: 239,
 		constantName: "TC_GRID_25",
 		name: "25",
@@ -1927,7 +1927,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_26:MonitoringPoint = {
+	static readonly TC_GRID_26: MonitoringPoint = {
 		ordinal: 240,
 		constantName: "TC_GRID_26",
 		name: "26",
@@ -1935,7 +1935,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_27:MonitoringPoint = {
+	static readonly TC_GRID_27: MonitoringPoint = {
 		ordinal: 241,
 		constantName: "TC_GRID_27",
 		name: "27",
@@ -1943,7 +1943,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_28:MonitoringPoint = {
+	static readonly TC_GRID_28: MonitoringPoint = {
 		ordinal: 242,
 		constantName: "TC_GRID_28",
 		name: "28",
@@ -1951,7 +1951,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_29:MonitoringPoint = {
+	static readonly TC_GRID_29: MonitoringPoint = {
 		ordinal: 243,
 		constantName: "TC_GRID_29",
 		name: "29",
@@ -1959,7 +1959,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_30:MonitoringPoint = {
+	static readonly TC_GRID_30: MonitoringPoint = {
 		ordinal: 244,
 		constantName: "TC_GRID_30",
 		name: "30",
@@ -1967,7 +1967,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_31:MonitoringPoint = {
+	static readonly TC_GRID_31: MonitoringPoint = {
 		ordinal: 245,
 		constantName: "TC_GRID_31",
 		name: "31",
@@ -1975,7 +1975,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_32:MonitoringPoint = {
+	static readonly TC_GRID_32: MonitoringPoint = {
 		ordinal: 246,
 		constantName: "TC_GRID_32",
 		name: "32",
@@ -1983,7 +1983,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_33:MonitoringPoint = {
+	static readonly TC_GRID_33: MonitoringPoint = {
 		ordinal: 247,
 		constantName: "TC_GRID_33",
 		name: "33",
@@ -1991,7 +1991,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_34:MonitoringPoint = {
+	static readonly TC_GRID_34: MonitoringPoint = {
 		ordinal: 248,
 		constantName: "TC_GRID_34",
 		name: "34",
@@ -1999,7 +1999,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_35:MonitoringPoint = {
+	static readonly TC_GRID_35: MonitoringPoint = {
 		ordinal: 249,
 		constantName: "TC_GRID_35",
 		name: "35",
@@ -2007,7 +2007,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_36:MonitoringPoint = {
+	static readonly TC_GRID_36: MonitoringPoint = {
 		ordinal: 250,
 		constantName: "TC_GRID_36",
 		name: "36",
@@ -2015,7 +2015,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_37:MonitoringPoint = {
+	static readonly TC_GRID_37: MonitoringPoint = {
 		ordinal: 251,
 		constantName: "TC_GRID_37",
 		name: "37",
@@ -2023,7 +2023,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_38:MonitoringPoint = {
+	static readonly TC_GRID_38: MonitoringPoint = {
 		ordinal: 252,
 		constantName: "TC_GRID_38",
 		name: "38",
@@ -2031,7 +2031,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_39:MonitoringPoint = {
+	static readonly TC_GRID_39: MonitoringPoint = {
 		ordinal: 253,
 		constantName: "TC_GRID_39",
 		name: "39",
@@ -2039,7 +2039,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_40:MonitoringPoint = {
+	static readonly TC_GRID_40: MonitoringPoint = {
 		ordinal: 254,
 		constantName: "TC_GRID_40",
 		name: "40",
@@ -2047,7 +2047,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_41:MonitoringPoint = {
+	static readonly TC_GRID_41: MonitoringPoint = {
 		ordinal: 255,
 		constantName: "TC_GRID_41",
 		name: "41",
@@ -2055,7 +2055,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_42:MonitoringPoint = {
+	static readonly TC_GRID_42: MonitoringPoint = {
 		ordinal: 256,
 		constantName: "TC_GRID_42",
 		name: "42",
@@ -2063,7 +2063,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_43:MonitoringPoint = {
+	static readonly TC_GRID_43: MonitoringPoint = {
 		ordinal: 257,
 		constantName: "TC_GRID_43",
 		name: "43",
@@ -2071,7 +2071,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_44:MonitoringPoint = {
+	static readonly TC_GRID_44: MonitoringPoint = {
 		ordinal: 258,
 		constantName: "TC_GRID_44",
 		name: "44",
@@ -2079,7 +2079,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_45:MonitoringPoint = {
+	static readonly TC_GRID_45: MonitoringPoint = {
 		ordinal: 259,
 		constantName: "TC_GRID_45",
 		name: "45",
@@ -2087,7 +2087,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_46:MonitoringPoint = {
+	static readonly TC_GRID_46: MonitoringPoint = {
 		ordinal: 260,
 		constantName: "TC_GRID_46",
 		name: "46",
@@ -2095,7 +2095,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_47:MonitoringPoint = {
+	static readonly TC_GRID_47: MonitoringPoint = {
 		ordinal: 261,
 		constantName: "TC_GRID_47",
 		name: "47",
@@ -2103,7 +2103,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_48:MonitoringPoint = {
+	static readonly TC_GRID_48: MonitoringPoint = {
 		ordinal: 262,
 		constantName: "TC_GRID_48",
 		name: "48",
@@ -2111,7 +2111,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_49:MonitoringPoint = {
+	static readonly TC_GRID_49: MonitoringPoint = {
 		ordinal: 263,
 		constantName: "TC_GRID_49",
 		name: "49",
@@ -2119,7 +2119,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_50:MonitoringPoint = {
+	static readonly TC_GRID_50: MonitoringPoint = {
 		ordinal: 264,
 		constantName: "TC_GRID_50",
 		name: "50",
@@ -2127,7 +2127,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_51:MonitoringPoint = {
+	static readonly TC_GRID_51: MonitoringPoint = {
 		ordinal: 265,
 		constantName: "TC_GRID_51",
 		name: "51",
@@ -2135,7 +2135,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_52:MonitoringPoint = {
+	static readonly TC_GRID_52: MonitoringPoint = {
 		ordinal: 266,
 		constantName: "TC_GRID_52",
 		name: "52",
@@ -2143,7 +2143,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_53:MonitoringPoint = {
+	static readonly TC_GRID_53: MonitoringPoint = {
 		ordinal: 267,
 		constantName: "TC_GRID_53",
 		name: "53",
@@ -2151,7 +2151,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_54:MonitoringPoint = {
+	static readonly TC_GRID_54: MonitoringPoint = {
 		ordinal: 268,
 		constantName: "TC_GRID_54",
 		name: "54",
@@ -2159,7 +2159,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_55:MonitoringPoint = {
+	static readonly TC_GRID_55: MonitoringPoint = {
 		ordinal: 269,
 		constantName: "TC_GRID_55",
 		name: "55",
@@ -2167,7 +2167,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_56:MonitoringPoint = {
+	static readonly TC_GRID_56: MonitoringPoint = {
 		ordinal: 270,
 		constantName: "TC_GRID_56",
 		name: "56",
@@ -2175,7 +2175,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_57:MonitoringPoint = {
+	static readonly TC_GRID_57: MonitoringPoint = {
 		ordinal: 271,
 		constantName: "TC_GRID_57",
 		name: "57",
@@ -2183,7 +2183,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_58:MonitoringPoint = {
+	static readonly TC_GRID_58: MonitoringPoint = {
 		ordinal: 272,
 		constantName: "TC_GRID_58",
 		name: "58",
@@ -2191,7 +2191,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_59:MonitoringPoint = {
+	static readonly TC_GRID_59: MonitoringPoint = {
 		ordinal: 273,
 		constantName: "TC_GRID_59",
 		name: "59",
@@ -2199,7 +2199,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_60:MonitoringPoint = {
+	static readonly TC_GRID_60: MonitoringPoint = {
 		ordinal: 274,
 		constantName: "TC_GRID_60",
 		name: "60",
@@ -2207,7 +2207,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_61:MonitoringPoint = {
+	static readonly TC_GRID_61: MonitoringPoint = {
 		ordinal: 275,
 		constantName: "TC_GRID_61",
 		name: "61",
@@ -2215,7 +2215,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_62:MonitoringPoint = {
+	static readonly TC_GRID_62: MonitoringPoint = {
 		ordinal: 276,
 		constantName: "TC_GRID_62",
 		name: "62",
@@ -2223,7 +2223,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_63:MonitoringPoint = {
+	static readonly TC_GRID_63: MonitoringPoint = {
 		ordinal: 277,
 		constantName: "TC_GRID_63",
 		name: "63",
@@ -2231,7 +2231,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_64:MonitoringPoint = {
+	static readonly TC_GRID_64: MonitoringPoint = {
 		ordinal: 278,
 		constantName: "TC_GRID_64",
 		name: "64",
@@ -2239,7 +2239,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_65:MonitoringPoint = {
+	static readonly TC_GRID_65: MonitoringPoint = {
 		ordinal: 279,
 		constantName: "TC_GRID_65",
 		name: "65",
@@ -2247,7 +2247,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly TC_GRID_66:MonitoringPoint = {
+	static readonly TC_GRID_66: MonitoringPoint = {
 		ordinal: 280,
 		constantName: "TC_GRID_66",
 		name: "66",
@@ -2255,7 +2255,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GRID
 	};
 
-	static readonly BC_GROUNDWATER_BC_01:MonitoringPoint = {
+	static readonly BC_GROUNDWATER_BC_01: MonitoringPoint = {
 		ordinal: 281,
 		constantName: "BC_GROUNDWATER_BC_01",
 		name: "BC-01",
@@ -2263,7 +2263,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly BC_GROUNDWATER_BC_02:MonitoringPoint = {
+	static readonly BC_GROUNDWATER_BC_02: MonitoringPoint = {
 		ordinal: 282,
 		constantName: "BC_GROUNDWATER_BC_02",
 		name: "BC-02",
@@ -2271,7 +2271,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly BC_GROUNDWATER_BC_02A:MonitoringPoint = {
+	static readonly BC_GROUNDWATER_BC_02A: MonitoringPoint = {
 		ordinal: 283,
 		constantName: "BC_GROUNDWATER_BC_02A",
 		name: "BC-02A",
@@ -2279,7 +2279,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly BC_GROUNDWATER_BC_03:MonitoringPoint = {
+	static readonly BC_GROUNDWATER_BC_03: MonitoringPoint = {
 		ordinal: 284,
 		constantName: "BC_GROUNDWATER_BC_03",
 		name: "BC-03",
@@ -2287,7 +2287,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly BC_GROUNDWATER_BC_04:MonitoringPoint = {
+	static readonly BC_GROUNDWATER_BC_04: MonitoringPoint = {
 		ordinal: 285,
 		constantName: "BC_GROUNDWATER_BC_04",
 		name: "BC-04",
@@ -2295,7 +2295,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly BC_GROUNDWATER_BC_L:MonitoringPoint = {
+	static readonly BC_GROUNDWATER_BC_L: MonitoringPoint = {
 		ordinal: 286,
 		constantName: "BC_GROUNDWATER_BC_L",
 		name: "BC-L",
@@ -2303,7 +2303,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly BC_GROUNDWATER_BC_LW:MonitoringPoint = {
+	static readonly BC_GROUNDWATER_BC_LW: MonitoringPoint = {
 		ordinal: 287,
 		constantName: "BC_GROUNDWATER_BC_LW",
 		name: "BC-LW",
@@ -2311,7 +2311,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly BR_GROUNDWATER_MW_1:MonitoringPoint = {
+	static readonly BR_GROUNDWATER_MW_1: MonitoringPoint = {
 		ordinal: 288,
 		constantName: "BR_GROUNDWATER_MW_1",
 		name: "MW-1",
@@ -2319,7 +2319,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly BR_GROUNDWATER_MW_2:MonitoringPoint = {
+	static readonly BR_GROUNDWATER_MW_2: MonitoringPoint = {
 		ordinal: 289,
 		constantName: "BR_GROUNDWATER_MW_2",
 		name: "MW-2",
@@ -2327,7 +2327,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly BR_GROUNDWATER_MW_3:MonitoringPoint = {
+	static readonly BR_GROUNDWATER_MW_3: MonitoringPoint = {
 		ordinal: 290,
 		constantName: "BR_GROUNDWATER_MW_3",
 		name: "MW-3",
@@ -2335,7 +2335,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly GA_GROUNDWATER_LW_1:MonitoringPoint = {
+	static readonly GA_GROUNDWATER_LW_1: MonitoringPoint = {
 		ordinal: 291,
 		constantName: "GA_GROUNDWATER_LW_1",
 		name: "LW-1",
@@ -2343,7 +2343,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly GA_GROUNDWATER_LW_2:MonitoringPoint = {
+	static readonly GA_GROUNDWATER_LW_2: MonitoringPoint = {
 		ordinal: 292,
 		constantName: "GA_GROUNDWATER_LW_2",
 		name: "LW-2",
@@ -2351,7 +2351,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly GA_GROUNDWATER_MW_1:MonitoringPoint = {
+	static readonly GA_GROUNDWATER_MW_1: MonitoringPoint = {
 		ordinal: 293,
 		constantName: "GA_GROUNDWATER_MW_1",
 		name: "MW-1",
@@ -2359,7 +2359,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly GA_GROUNDWATER_MW_2:MonitoringPoint = {
+	static readonly GA_GROUNDWATER_MW_2: MonitoringPoint = {
 		ordinal: 294,
 		constantName: "GA_GROUNDWATER_MW_2",
 		name: "MW-2",
@@ -2367,7 +2367,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly GA_GROUNDWATER_MW_3:MonitoringPoint = {
+	static readonly GA_GROUNDWATER_MW_3: MonitoringPoint = {
 		ordinal: 295,
 		constantName: "GA_GROUNDWATER_MW_3",
 		name: "MW-3",
@@ -2375,7 +2375,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly GA_GROUNDWATER_MW_A:MonitoringPoint = {
+	static readonly GA_GROUNDWATER_MW_A: MonitoringPoint = {
 		ordinal: 296,
 		constantName: "GA_GROUNDWATER_MW_A",
 		name: "MW-A",
@@ -2383,7 +2383,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly GA_GROUNDWATER_MW_B:MonitoringPoint = {
+	static readonly GA_GROUNDWATER_MW_B: MonitoringPoint = {
 		ordinal: 297,
 		constantName: "GA_GROUNDWATER_MW_B",
 		name: "MW-B",
@@ -2391,7 +2391,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly GA_GROUNDWATER_MW_C:MonitoringPoint = {
+	static readonly GA_GROUNDWATER_MW_C: MonitoringPoint = {
 		ordinal: 298,
 		constantName: "GA_GROUNDWATER_MW_C",
 		name: "MW-C",
@@ -2399,7 +2399,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly GA_GROUNDWATER_MW_D:MonitoringPoint = {
+	static readonly GA_GROUNDWATER_MW_D: MonitoringPoint = {
 		ordinal: 299,
 		constantName: "GA_GROUNDWATER_MW_D",
 		name: "MW-D",
@@ -2407,7 +2407,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW92_1:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW92_1: MonitoringPoint = {
 		ordinal: 300,
 		constantName: "LC_GROUNDWATER_MW92_1",
 		name: "MW92-1",
@@ -2415,7 +2415,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW92_2:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW92_2: MonitoringPoint = {
 		ordinal: 301,
 		constantName: "LC_GROUNDWATER_MW92_2",
 		name: "MW92-2",
@@ -2423,7 +2423,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW92_3:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW92_3: MonitoringPoint = {
 		ordinal: 302,
 		constantName: "LC_GROUNDWATER_MW92_3",
 		name: "MW92-3",
@@ -2431,7 +2431,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW93_1:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW93_1: MonitoringPoint = {
 		ordinal: 303,
 		constantName: "LC_GROUNDWATER_MW93_1",
 		name: "MW93-1",
@@ -2439,7 +2439,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW93_2:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW93_2: MonitoringPoint = {
 		ordinal: 304,
 		constantName: "LC_GROUNDWATER_MW93_2",
 		name: "MW93-2",
@@ -2447,7 +2447,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW95_1:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW95_1: MonitoringPoint = {
 		ordinal: 305,
 		constantName: "LC_GROUNDWATER_MW95_1",
 		name: "MW95-1",
@@ -2455,7 +2455,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW95_2:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW95_2: MonitoringPoint = {
 		ordinal: 306,
 		constantName: "LC_GROUNDWATER_MW95_2",
 		name: "MW95-2",
@@ -2463,7 +2463,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW95_3:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW95_3: MonitoringPoint = {
 		ordinal: 307,
 		constantName: "LC_GROUNDWATER_MW95_3",
 		name: "MW95-3",
@@ -2471,7 +2471,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW95_4:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW95_4: MonitoringPoint = {
 		ordinal: 308,
 		constantName: "LC_GROUNDWATER_MW95_4",
 		name: "MW95-4",
@@ -2479,7 +2479,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW95_5:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW95_5: MonitoringPoint = {
 		ordinal: 309,
 		constantName: "LC_GROUNDWATER_MW95_5",
 		name: "MW95-5",
@@ -2487,7 +2487,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly LC_GROUNDWATER_MW95_6:MonitoringPoint = {
+	static readonly LC_GROUNDWATER_MW95_6: MonitoringPoint = {
 		ordinal: 310,
 		constantName: "LC_GROUNDWATER_MW95_6",
 		name: "MW95-6",
@@ -2495,7 +2495,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_4897A:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_4897A: MonitoringPoint = {
 		ordinal: 311,
 		constantName: "SH_GROUNDWATER_4897A",
 		name: "4897A",
@@ -2503,7 +2503,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_4897B:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_4897B: MonitoringPoint = {
 		ordinal: 312,
 		constantName: "SH_GROUNDWATER_4897B",
 		name: "4897B",
@@ -2511,7 +2511,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_4897C:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_4897C: MonitoringPoint = {
 		ordinal: 313,
 		constantName: "SH_GROUNDWATER_4897C",
 		name: "4897C",
@@ -2519,7 +2519,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_4897D:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_4897D: MonitoringPoint = {
 		ordinal: 314,
 		constantName: "SH_GROUNDWATER_4897D",
 		name: "4897D",
@@ -2527,7 +2527,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_IT_SA_1:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_IT_SA_1: MonitoringPoint = {
 		ordinal: 315,
 		constantName: "SH_GROUNDWATER_IT_SA_1",
 		name: "IT-SA-1",
@@ -2535,7 +2535,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_IT_SA_2:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_IT_SA_2: MonitoringPoint = {
 		ordinal: 316,
 		constantName: "SH_GROUNDWATER_IT_SA_2",
 		name: "IT-SA-2",
@@ -2543,7 +2543,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_IT_SA_3:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_IT_SA_3: MonitoringPoint = {
 		ordinal: 317,
 		constantName: "SH_GROUNDWATER_IT_SA_3",
 		name: "IT-SA-3",
@@ -2551,7 +2551,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_IT_SA_4:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_IT_SA_4: MonitoringPoint = {
 		ordinal: 318,
 		constantName: "SH_GROUNDWATER_IT_SA_4",
 		name: "IT-SA-4",
@@ -2559,7 +2559,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_IT_SA_5:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_IT_SA_5: MonitoringPoint = {
 		ordinal: 319,
 		constantName: "SH_GROUNDWATER_IT_SA_5",
 		name: "IT-SA-5",
@@ -2567,7 +2567,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_IT_SA_6:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_IT_SA_6: MonitoringPoint = {
 		ordinal: 320,
 		constantName: "SH_GROUNDWATER_IT_SA_6",
 		name: "IT-SA-6",
@@ -2575,7 +2575,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_IT_SA_7:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_IT_SA_7: MonitoringPoint = {
 		ordinal: 321,
 		constantName: "SH_GROUNDWATER_IT_SA_7",
 		name: "IT-SA-7",
@@ -2583,7 +2583,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_IT_SA_8:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_IT_SA_8: MonitoringPoint = {
 		ordinal: 322,
 		constantName: "SH_GROUNDWATER_IT_SA_8",
 		name: "IT-SA-8",
@@ -2591,7 +2591,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_SA_1A:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_SA_1A: MonitoringPoint = {
 		ordinal: 323,
 		constantName: "SH_GROUNDWATER_SA_1A",
 		name: "SA-1A",
@@ -2599,7 +2599,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_SA_3A:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_SA_3A: MonitoringPoint = {
 		ordinal: 324,
 		constantName: "SH_GROUNDWATER_SA_3A",
 		name: "SA-3A",
@@ -2607,7 +2607,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_SA_8A:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_SA_8A: MonitoringPoint = {
 		ordinal: 325,
 		constantName: "SH_GROUNDWATER_SA_8A",
 		name: "SA-8A",
@@ -2615,7 +2615,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly SH_GROUNDWATER_SA_LW:MonitoringPoint = {
+	static readonly SH_GROUNDWATER_SA_LW: MonitoringPoint = {
 		ordinal: 326,
 		constantName: "SH_GROUNDWATER_SA_LW",
 		name: "SA-LW",
@@ -2623,7 +2623,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_1:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_1: MonitoringPoint = {
 		ordinal: 327,
 		constantName: "TC_GROUNDWATER_MW_1",
 		name: "MW-1",
@@ -2631,7 +2631,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_2:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_2: MonitoringPoint = {
 		ordinal: 328,
 		constantName: "TC_GROUNDWATER_MW_2",
 		name: "MW-2",
@@ -2639,7 +2639,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_3:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_3: MonitoringPoint = {
 		ordinal: 329,
 		constantName: "TC_GROUNDWATER_MW_3",
 		name: "MW-3",
@@ -2647,7 +2647,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_4:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_4: MonitoringPoint = {
 		ordinal: 330,
 		constantName: "TC_GROUNDWATER_MW_4",
 		name: "MW-4",
@@ -2655,7 +2655,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_4A:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_4A: MonitoringPoint = {
 		ordinal: 331,
 		constantName: "TC_GROUNDWATER_MW_4A",
 		name: "MW-4A",
@@ -2663,7 +2663,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_5:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_5: MonitoringPoint = {
 		ordinal: 332,
 		constantName: "TC_GROUNDWATER_MW_5",
 		name: "MW-5",
@@ -2671,7 +2671,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_6:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_6: MonitoringPoint = {
 		ordinal: 333,
 		constantName: "TC_GROUNDWATER_MW_6",
 		name: "MW-6",
@@ -2679,7 +2679,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_7:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_7: MonitoringPoint = {
 		ordinal: 334,
 		constantName: "TC_GROUNDWATER_MW_7",
 		name: "MW-7",
@@ -2687,7 +2687,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_8:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_8: MonitoringPoint = {
 		ordinal: 335,
 		constantName: "TC_GROUNDWATER_MW_8",
 		name: "MW-8",
@@ -2695,7 +2695,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_8A:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_8A: MonitoringPoint = {
 		ordinal: 336,
 		constantName: "TC_GROUNDWATER_MW_8A",
 		name: "MW-8A",
@@ -2703,7 +2703,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_MW_9:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_MW_9: MonitoringPoint = {
 		ordinal: 337,
 		constantName: "TC_GROUNDWATER_MW_9",
 		name: "MW-9",
@@ -2711,7 +2711,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_TII_1:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_TII_1: MonitoringPoint = {
 		ordinal: 338,
 		constantName: "TC_GROUNDWATER_TII_1",
 		name: "TII-1",
@@ -2719,7 +2719,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_TII_2:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_TII_2: MonitoringPoint = {
 		ordinal: 339,
 		constantName: "TC_GROUNDWATER_TII_2",
 		name: "TII-2",
@@ -2727,7 +2727,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly TC_GROUNDWATER_TII_3:MonitoringPoint = {
+	static readonly TC_GROUNDWATER_TII_3: MonitoringPoint = {
 		ordinal: 340,
 		constantName: "TC_GROUNDWATER_TII_3",
 		name: "TII-3",
@@ -2735,7 +2735,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.GROUNDWATER
 	};
 
-	static readonly GA_LFG_IN:MonitoringPoint = {
+	static readonly GA_LFG_IN: MonitoringPoint = {
 		ordinal: 341,
 		constantName: "GA_LFG_IN",
 		name: "IN",
@@ -2743,7 +2743,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly GA_LFG_MID:MonitoringPoint = {
+	static readonly GA_LFG_MID: MonitoringPoint = {
 		ordinal: 342,
 		constantName: "GA_LFG_MID",
 		name: "MID",
@@ -2751,7 +2751,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly GA_LFG_OUT:MonitoringPoint = {
+	static readonly GA_LFG_OUT: MonitoringPoint = {
 		ordinal: 343,
 		constantName: "GA_LFG_OUT",
 		name: "OUT",
@@ -2759,7 +2759,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LFG_CO:MonitoringPoint = {
+	static readonly LC_LFG_CO: MonitoringPoint = {
 		ordinal: 344,
 		constantName: "LC_LFG_CO",
 		name: "CO",
@@ -2767,7 +2767,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LFG_F1:MonitoringPoint = {
+	static readonly LC_LFG_F1: MonitoringPoint = {
 		ordinal: 345,
 		constantName: "LC_LFG_F1",
 		name: "F1",
@@ -2775,7 +2775,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LFG_F2:MonitoringPoint = {
+	static readonly LC_LFG_F2: MonitoringPoint = {
 		ordinal: 346,
 		constantName: "LC_LFG_F2",
 		name: "F2",
@@ -2783,7 +2783,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LFG_F3:MonitoringPoint = {
+	static readonly LC_LFG_F3: MonitoringPoint = {
 		ordinal: 347,
 		constantName: "LC_LFG_F3",
 		name: "F3",
@@ -2791,7 +2791,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LFG_F4:MonitoringPoint = {
+	static readonly LC_LFG_F4: MonitoringPoint = {
 		ordinal: 348,
 		constantName: "LC_LFG_F4",
 		name: "F4",
@@ -2799,7 +2799,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LFG_F5:MonitoringPoint = {
+	static readonly LC_LFG_F5: MonitoringPoint = {
 		ordinal: 349,
 		constantName: "LC_LFG_F5",
 		name: "F5",
@@ -2807,7 +2807,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LFG_F6:MonitoringPoint = {
+	static readonly LC_LFG_F6: MonitoringPoint = {
 		ordinal: 350,
 		constantName: "LC_LFG_F6",
 		name: "F6",
@@ -2815,7 +2815,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LFG_F7:MonitoringPoint = {
+	static readonly LC_LFG_F7: MonitoringPoint = {
 		ordinal: 351,
 		constantName: "LC_LFG_F7",
 		name: "F7",
@@ -2823,7 +2823,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LFG_F8:MonitoringPoint = {
+	static readonly LC_LFG_F8: MonitoringPoint = {
 		ordinal: 352,
 		constantName: "LC_LFG_F8",
 		name: "F8",
@@ -2831,7 +2831,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LFG_F9:MonitoringPoint = {
+	static readonly LC_LFG_F9: MonitoringPoint = {
 		ordinal: 353,
 		constantName: "LC_LFG_F9",
 		name: "F9",
@@ -2839,7 +2839,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly SH_LFG_F1:MonitoringPoint = {
+	static readonly SH_LFG_F1: MonitoringPoint = {
 		ordinal: 354,
 		constantName: "SH_LFG_F1",
 		name: "F1",
@@ -2847,7 +2847,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly SH_LFG_F2:MonitoringPoint = {
+	static readonly SH_LFG_F2: MonitoringPoint = {
 		ordinal: 355,
 		constantName: "SH_LFG_F2",
 		name: "F2",
@@ -2855,7 +2855,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly TC_LFG_CO:MonitoringPoint = {
+	static readonly TC_LFG_CO: MonitoringPoint = {
 		ordinal: 356,
 		constantName: "TC_LFG_CO",
 		name: "CO",
@@ -2863,7 +2863,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly TC_LFG_FL:MonitoringPoint = {
+	static readonly TC_LFG_FL: MonitoringPoint = {
 		ordinal: 357,
 		constantName: "TC_LFG_FL",
 		name: "FL",
@@ -2871,7 +2871,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LFG
 	};
 
-	static readonly LC_LEACHATE_AB:MonitoringPoint = {
+	static readonly LC_LEACHATE_AB: MonitoringPoint = {
 		ordinal: 358,
 		constantName: "LC_LEACHATE_AB",
 		name: "AB+",
@@ -2879,7 +2879,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LEACHATE
 	};
 
-	static readonly LC_LEACHATE_C:MonitoringPoint = {
+	static readonly LC_LEACHATE_C: MonitoringPoint = {
 		ordinal: 359,
 		constantName: "LC_LEACHATE_C",
 		name: "C",
@@ -2887,7 +2887,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LEACHATE
 	};
 
-	static readonly TC_LEACHATE_LB_1N:MonitoringPoint = {
+	static readonly TC_LEACHATE_LB_1N: MonitoringPoint = {
 		ordinal: 360,
 		constantName: "TC_LEACHATE_LB_1N",
 		name: "LB-1N",
@@ -2895,7 +2895,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LEACHATE
 	};
 
-	static readonly TC_LEACHATE_LB_1S:MonitoringPoint = {
+	static readonly TC_LEACHATE_LB_1S: MonitoringPoint = {
 		ordinal: 361,
 		constantName: "TC_LEACHATE_LB_1S",
 		name: "LB-1S",
@@ -2903,7 +2903,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.LEACHATE
 	};
 
-	static readonly GP_PILE_A1:MonitoringPoint = {
+	static readonly GP_PILE_A1: MonitoringPoint = {
 		ordinal: 362,
 		constantName: "GP_PILE_A1",
 		name: "A1",
@@ -2911,7 +2911,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_A2:MonitoringPoint = {
+	static readonly GP_PILE_A2: MonitoringPoint = {
 		ordinal: 363,
 		constantName: "GP_PILE_A2",
 		name: "A2",
@@ -2919,7 +2919,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_A3:MonitoringPoint = {
+	static readonly GP_PILE_A3: MonitoringPoint = {
 		ordinal: 364,
 		constantName: "GP_PILE_A3",
 		name: "A3",
@@ -2927,7 +2927,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_A4:MonitoringPoint = {
+	static readonly GP_PILE_A4: MonitoringPoint = {
 		ordinal: 365,
 		constantName: "GP_PILE_A4",
 		name: "A4",
@@ -2935,7 +2935,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_A5:MonitoringPoint = {
+	static readonly GP_PILE_A5: MonitoringPoint = {
 		ordinal: 366,
 		constantName: "GP_PILE_A5",
 		name: "A5",
@@ -2943,7 +2943,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_A6:MonitoringPoint = {
+	static readonly GP_PILE_A6: MonitoringPoint = {
 		ordinal: 367,
 		constantName: "GP_PILE_A6",
 		name: "A6",
@@ -2951,7 +2951,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_A7:MonitoringPoint = {
+	static readonly GP_PILE_A7: MonitoringPoint = {
 		ordinal: 368,
 		constantName: "GP_PILE_A7",
 		name: "A7",
@@ -2959,7 +2959,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_A8:MonitoringPoint = {
+	static readonly GP_PILE_A8: MonitoringPoint = {
 		ordinal: 369,
 		constantName: "GP_PILE_A8",
 		name: "A8",
@@ -2967,7 +2967,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_A9:MonitoringPoint = {
+	static readonly GP_PILE_A9: MonitoringPoint = {
 		ordinal: 370,
 		constantName: "GP_PILE_A9",
 		name: "A9",
@@ -2975,7 +2975,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_B1:MonitoringPoint = {
+	static readonly GP_PILE_B1: MonitoringPoint = {
 		ordinal: 371,
 		constantName: "GP_PILE_B1",
 		name: "B1",
@@ -2983,7 +2983,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_B2:MonitoringPoint = {
+	static readonly GP_PILE_B2: MonitoringPoint = {
 		ordinal: 372,
 		constantName: "GP_PILE_B2",
 		name: "B2",
@@ -2991,7 +2991,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_B3:MonitoringPoint = {
+	static readonly GP_PILE_B3: MonitoringPoint = {
 		ordinal: 373,
 		constantName: "GP_PILE_B3",
 		name: "B3",
@@ -2999,7 +2999,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_B4:MonitoringPoint = {
+	static readonly GP_PILE_B4: MonitoringPoint = {
 		ordinal: 374,
 		constantName: "GP_PILE_B4",
 		name: "B4",
@@ -3007,7 +3007,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_B5:MonitoringPoint = {
+	static readonly GP_PILE_B5: MonitoringPoint = {
 		ordinal: 375,
 		constantName: "GP_PILE_B5",
 		name: "B5",
@@ -3015,7 +3015,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_B6:MonitoringPoint = {
+	static readonly GP_PILE_B6: MonitoringPoint = {
 		ordinal: 376,
 		constantName: "GP_PILE_B6",
 		name: "B6",
@@ -3023,7 +3023,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_B7:MonitoringPoint = {
+	static readonly GP_PILE_B7: MonitoringPoint = {
 		ordinal: 377,
 		constantName: "GP_PILE_B7",
 		name: "B7",
@@ -3031,7 +3031,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_B8:MonitoringPoint = {
+	static readonly GP_PILE_B8: MonitoringPoint = {
 		ordinal: 378,
 		constantName: "GP_PILE_B8",
 		name: "B8",
@@ -3039,7 +3039,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly GP_PILE_B9:MonitoringPoint = {
+	static readonly GP_PILE_B9: MonitoringPoint = {
 		ordinal: 379,
 		constantName: "GP_PILE_B9",
 		name: "B9",
@@ -3047,7 +3047,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_1:MonitoringPoint = {
+	static readonly LC_PILE_1: MonitoringPoint = {
 		ordinal: 380,
 		constantName: "LC_PILE_1",
 		name: "1",
@@ -3055,7 +3055,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_2:MonitoringPoint = {
+	static readonly LC_PILE_2: MonitoringPoint = {
 		ordinal: 381,
 		constantName: "LC_PILE_2",
 		name: "2",
@@ -3063,7 +3063,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_3:MonitoringPoint = {
+	static readonly LC_PILE_3: MonitoringPoint = {
 		ordinal: 382,
 		constantName: "LC_PILE_3",
 		name: "3",
@@ -3071,7 +3071,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_4:MonitoringPoint = {
+	static readonly LC_PILE_4: MonitoringPoint = {
 		ordinal: 383,
 		constantName: "LC_PILE_4",
 		name: "4",
@@ -3079,7 +3079,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_5:MonitoringPoint = {
+	static readonly LC_PILE_5: MonitoringPoint = {
 		ordinal: 384,
 		constantName: "LC_PILE_5",
 		name: "5",
@@ -3087,7 +3087,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_6:MonitoringPoint = {
+	static readonly LC_PILE_6: MonitoringPoint = {
 		ordinal: 385,
 		constantName: "LC_PILE_6",
 		name: "6",
@@ -3095,7 +3095,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_7:MonitoringPoint = {
+	static readonly LC_PILE_7: MonitoringPoint = {
 		ordinal: 386,
 		constantName: "LC_PILE_7",
 		name: "7",
@@ -3103,7 +3103,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_8:MonitoringPoint = {
+	static readonly LC_PILE_8: MonitoringPoint = {
 		ordinal: 387,
 		constantName: "LC_PILE_8",
 		name: "8",
@@ -3111,7 +3111,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_9:MonitoringPoint = {
+	static readonly LC_PILE_9: MonitoringPoint = {
 		ordinal: 388,
 		constantName: "LC_PILE_9",
 		name: "9",
@@ -3119,7 +3119,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_10:MonitoringPoint = {
+	static readonly LC_PILE_10: MonitoringPoint = {
 		ordinal: 389,
 		constantName: "LC_PILE_10",
 		name: "10",
@@ -3127,7 +3127,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_11:MonitoringPoint = {
+	static readonly LC_PILE_11: MonitoringPoint = {
 		ordinal: 390,
 		constantName: "LC_PILE_11",
 		name: "11",
@@ -3135,7 +3135,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_12:MonitoringPoint = {
+	static readonly LC_PILE_12: MonitoringPoint = {
 		ordinal: 391,
 		constantName: "LC_PILE_12",
 		name: "12",
@@ -3143,7 +3143,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_13:MonitoringPoint = {
+	static readonly LC_PILE_13: MonitoringPoint = {
 		ordinal: 392,
 		constantName: "LC_PILE_13",
 		name: "13",
@@ -3151,7 +3151,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_14:MonitoringPoint = {
+	static readonly LC_PILE_14: MonitoringPoint = {
 		ordinal: 393,
 		constantName: "LC_PILE_14",
 		name: "14",
@@ -3159,7 +3159,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_15:MonitoringPoint = {
+	static readonly LC_PILE_15: MonitoringPoint = {
 		ordinal: 394,
 		constantName: "LC_PILE_15",
 		name: "15",
@@ -3167,7 +3167,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_16:MonitoringPoint = {
+	static readonly LC_PILE_16: MonitoringPoint = {
 		ordinal: 395,
 		constantName: "LC_PILE_16",
 		name: "16",
@@ -3175,7 +3175,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_17:MonitoringPoint = {
+	static readonly LC_PILE_17: MonitoringPoint = {
 		ordinal: 396,
 		constantName: "LC_PILE_17",
 		name: "17",
@@ -3183,7 +3183,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_18:MonitoringPoint = {
+	static readonly LC_PILE_18: MonitoringPoint = {
 		ordinal: 397,
 		constantName: "LC_PILE_18",
 		name: "18",
@@ -3191,7 +3191,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_19:MonitoringPoint = {
+	static readonly LC_PILE_19: MonitoringPoint = {
 		ordinal: 398,
 		constantName: "LC_PILE_19",
 		name: "19",
@@ -3199,7 +3199,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_20:MonitoringPoint = {
+	static readonly LC_PILE_20: MonitoringPoint = {
 		ordinal: 399,
 		constantName: "LC_PILE_20",
 		name: "20",
@@ -3207,7 +3207,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_21:MonitoringPoint = {
+	static readonly LC_PILE_21: MonitoringPoint = {
 		ordinal: 400,
 		constantName: "LC_PILE_21",
 		name: "21",
@@ -3215,7 +3215,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_22:MonitoringPoint = {
+	static readonly LC_PILE_22: MonitoringPoint = {
 		ordinal: 401,
 		constantName: "LC_PILE_22",
 		name: "22",
@@ -3223,7 +3223,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_23:MonitoringPoint = {
+	static readonly LC_PILE_23: MonitoringPoint = {
 		ordinal: 402,
 		constantName: "LC_PILE_23",
 		name: "23",
@@ -3231,7 +3231,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly LC_PILE_24:MonitoringPoint = {
+	static readonly LC_PILE_24: MonitoringPoint = {
 		ordinal: 403,
 		constantName: "LC_PILE_24",
 		name: "24",
@@ -3239,7 +3239,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PILE
 	};
 
-	static readonly BC_PROBE_01A:MonitoringPoint = {
+	static readonly BC_PROBE_01A: MonitoringPoint = {
 		ordinal: 404,
 		constantName: "BC_PROBE_01A",
 		name: "01A",
@@ -3247,7 +3247,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_02A:MonitoringPoint = {
+	static readonly BC_PROBE_02A: MonitoringPoint = {
 		ordinal: 405,
 		constantName: "BC_PROBE_02A",
 		name: "02A",
@@ -3255,7 +3255,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_02B:MonitoringPoint = {
+	static readonly BC_PROBE_02B: MonitoringPoint = {
 		ordinal: 406,
 		constantName: "BC_PROBE_02B",
 		name: "02B",
@@ -3263,7 +3263,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_02C:MonitoringPoint = {
+	static readonly BC_PROBE_02C: MonitoringPoint = {
 		ordinal: 407,
 		constantName: "BC_PROBE_02C",
 		name: "02C",
@@ -3271,7 +3271,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_03A:MonitoringPoint = {
+	static readonly BC_PROBE_03A: MonitoringPoint = {
 		ordinal: 408,
 		constantName: "BC_PROBE_03A",
 		name: "03A",
@@ -3279,7 +3279,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_03B:MonitoringPoint = {
+	static readonly BC_PROBE_03B: MonitoringPoint = {
 		ordinal: 409,
 		constantName: "BC_PROBE_03B",
 		name: "03B",
@@ -3287,7 +3287,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_03C:MonitoringPoint = {
+	static readonly BC_PROBE_03C: MonitoringPoint = {
 		ordinal: 410,
 		constantName: "BC_PROBE_03C",
 		name: "03C",
@@ -3295,7 +3295,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_03D:MonitoringPoint = {
+	static readonly BC_PROBE_03D: MonitoringPoint = {
 		ordinal: 411,
 		constantName: "BC_PROBE_03D",
 		name: "03D",
@@ -3303,7 +3303,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_04A:MonitoringPoint = {
+	static readonly BC_PROBE_04A: MonitoringPoint = {
 		ordinal: 412,
 		constantName: "BC_PROBE_04A",
 		name: "04A",
@@ -3311,7 +3311,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_04B:MonitoringPoint = {
+	static readonly BC_PROBE_04B: MonitoringPoint = {
 		ordinal: 413,
 		constantName: "BC_PROBE_04B",
 		name: "04B",
@@ -3319,7 +3319,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_04C:MonitoringPoint = {
+	static readonly BC_PROBE_04C: MonitoringPoint = {
 		ordinal: 414,
 		constantName: "BC_PROBE_04C",
 		name: "04C",
@@ -3327,7 +3327,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_04D:MonitoringPoint = {
+	static readonly BC_PROBE_04D: MonitoringPoint = {
 		ordinal: 415,
 		constantName: "BC_PROBE_04D",
 		name: "04D",
@@ -3335,7 +3335,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_05A:MonitoringPoint = {
+	static readonly BC_PROBE_05A: MonitoringPoint = {
 		ordinal: 416,
 		constantName: "BC_PROBE_05A",
 		name: "05A",
@@ -3343,7 +3343,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_05B:MonitoringPoint = {
+	static readonly BC_PROBE_05B: MonitoringPoint = {
 		ordinal: 417,
 		constantName: "BC_PROBE_05B",
 		name: "05B",
@@ -3351,7 +3351,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_05C:MonitoringPoint = {
+	static readonly BC_PROBE_05C: MonitoringPoint = {
 		ordinal: 418,
 		constantName: "BC_PROBE_05C",
 		name: "05C",
@@ -3359,7 +3359,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_05D:MonitoringPoint = {
+	static readonly BC_PROBE_05D: MonitoringPoint = {
 		ordinal: 419,
 		constantName: "BC_PROBE_05D",
 		name: "05D",
@@ -3367,7 +3367,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_06A:MonitoringPoint = {
+	static readonly BC_PROBE_06A: MonitoringPoint = {
 		ordinal: 420,
 		constantName: "BC_PROBE_06A",
 		name: "06A",
@@ -3375,7 +3375,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_06B:MonitoringPoint = {
+	static readonly BC_PROBE_06B: MonitoringPoint = {
 		ordinal: 421,
 		constantName: "BC_PROBE_06B",
 		name: "06B",
@@ -3383,7 +3383,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_06C:MonitoringPoint = {
+	static readonly BC_PROBE_06C: MonitoringPoint = {
 		ordinal: 422,
 		constantName: "BC_PROBE_06C",
 		name: "06C",
@@ -3391,7 +3391,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_07A:MonitoringPoint = {
+	static readonly BC_PROBE_07A: MonitoringPoint = {
 		ordinal: 423,
 		constantName: "BC_PROBE_07A",
 		name: "07A",
@@ -3399,7 +3399,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_07B:MonitoringPoint = {
+	static readonly BC_PROBE_07B: MonitoringPoint = {
 		ordinal: 424,
 		constantName: "BC_PROBE_07B",
 		name: "07B",
@@ -3407,7 +3407,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_07C:MonitoringPoint = {
+	static readonly BC_PROBE_07C: MonitoringPoint = {
 		ordinal: 425,
 		constantName: "BC_PROBE_07C",
 		name: "07C",
@@ -3415,7 +3415,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_08A:MonitoringPoint = {
+	static readonly BC_PROBE_08A: MonitoringPoint = {
 		ordinal: 426,
 		constantName: "BC_PROBE_08A",
 		name: "08A",
@@ -3423,7 +3423,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_08B:MonitoringPoint = {
+	static readonly BC_PROBE_08B: MonitoringPoint = {
 		ordinal: 427,
 		constantName: "BC_PROBE_08B",
 		name: "08B",
@@ -3431,7 +3431,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_08C:MonitoringPoint = {
+	static readonly BC_PROBE_08C: MonitoringPoint = {
 		ordinal: 428,
 		constantName: "BC_PROBE_08C",
 		name: "08C",
@@ -3439,7 +3439,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_09A:MonitoringPoint = {
+	static readonly BC_PROBE_09A: MonitoringPoint = {
 		ordinal: 429,
 		constantName: "BC_PROBE_09A",
 		name: "09A",
@@ -3447,7 +3447,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_09B:MonitoringPoint = {
+	static readonly BC_PROBE_09B: MonitoringPoint = {
 		ordinal: 430,
 		constantName: "BC_PROBE_09B",
 		name: "09B",
@@ -3455,7 +3455,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly BC_PROBE_09C:MonitoringPoint = {
+	static readonly BC_PROBE_09C: MonitoringPoint = {
 		ordinal: 431,
 		constantName: "BC_PROBE_09C",
 		name: "09C",
@@ -3463,7 +3463,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_01A:MonitoringPoint = {
+	static readonly GA_PROBE_01A: MonitoringPoint = {
 		ordinal: 432,
 		constantName: "GA_PROBE_01A",
 		name: "01A",
@@ -3471,7 +3471,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_01B:MonitoringPoint = {
+	static readonly GA_PROBE_01B: MonitoringPoint = {
 		ordinal: 433,
 		constantName: "GA_PROBE_01B",
 		name: "01B",
@@ -3479,7 +3479,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_01C:MonitoringPoint = {
+	static readonly GA_PROBE_01C: MonitoringPoint = {
 		ordinal: 434,
 		constantName: "GA_PROBE_01C",
 		name: "01C",
@@ -3487,7 +3487,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_02A:MonitoringPoint = {
+	static readonly GA_PROBE_02A: MonitoringPoint = {
 		ordinal: 435,
 		constantName: "GA_PROBE_02A",
 		name: "02A",
@@ -3495,7 +3495,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_03A:MonitoringPoint = {
+	static readonly GA_PROBE_03A: MonitoringPoint = {
 		ordinal: 436,
 		constantName: "GA_PROBE_03A",
 		name: "03A",
@@ -3503,7 +3503,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_04A:MonitoringPoint = {
+	static readonly GA_PROBE_04A: MonitoringPoint = {
 		ordinal: 437,
 		constantName: "GA_PROBE_04A",
 		name: "04A",
@@ -3511,7 +3511,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_05A:MonitoringPoint = {
+	static readonly GA_PROBE_05A: MonitoringPoint = {
 		ordinal: 438,
 		constantName: "GA_PROBE_05A",
 		name: "05A",
@@ -3519,7 +3519,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_06A:MonitoringPoint = {
+	static readonly GA_PROBE_06A: MonitoringPoint = {
 		ordinal: 439,
 		constantName: "GA_PROBE_06A",
 		name: "06A",
@@ -3527,7 +3527,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_06B:MonitoringPoint = {
+	static readonly GA_PROBE_06B: MonitoringPoint = {
 		ordinal: 440,
 		constantName: "GA_PROBE_06B",
 		name: "06B",
@@ -3535,7 +3535,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_06C:MonitoringPoint = {
+	static readonly GA_PROBE_06C: MonitoringPoint = {
 		ordinal: 441,
 		constantName: "GA_PROBE_06C",
 		name: "06C",
@@ -3543,7 +3543,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_07A:MonitoringPoint = {
+	static readonly GA_PROBE_07A: MonitoringPoint = {
 		ordinal: 442,
 		constantName: "GA_PROBE_07A",
 		name: "07A",
@@ -3551,7 +3551,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_07B:MonitoringPoint = {
+	static readonly GA_PROBE_07B: MonitoringPoint = {
 		ordinal: 443,
 		constantName: "GA_PROBE_07B",
 		name: "07B",
@@ -3559,7 +3559,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_07C:MonitoringPoint = {
+	static readonly GA_PROBE_07C: MonitoringPoint = {
 		ordinal: 444,
 		constantName: "GA_PROBE_07C",
 		name: "07C",
@@ -3567,7 +3567,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_08A:MonitoringPoint = {
+	static readonly GA_PROBE_08A: MonitoringPoint = {
 		ordinal: 445,
 		constantName: "GA_PROBE_08A",
 		name: "08A",
@@ -3575,7 +3575,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_08B:MonitoringPoint = {
+	static readonly GA_PROBE_08B: MonitoringPoint = {
 		ordinal: 446,
 		constantName: "GA_PROBE_08B",
 		name: "08B",
@@ -3583,7 +3583,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_08C:MonitoringPoint = {
+	static readonly GA_PROBE_08C: MonitoringPoint = {
 		ordinal: 447,
 		constantName: "GA_PROBE_08C",
 		name: "08C",
@@ -3591,7 +3591,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_09A:MonitoringPoint = {
+	static readonly GA_PROBE_09A: MonitoringPoint = {
 		ordinal: 448,
 		constantName: "GA_PROBE_09A",
 		name: "09A",
@@ -3599,7 +3599,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_09B:MonitoringPoint = {
+	static readonly GA_PROBE_09B: MonitoringPoint = {
 		ordinal: 449,
 		constantName: "GA_PROBE_09B",
 		name: "09B",
@@ -3607,7 +3607,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_09C:MonitoringPoint = {
+	static readonly GA_PROBE_09C: MonitoringPoint = {
 		ordinal: 450,
 		constantName: "GA_PROBE_09C",
 		name: "09C",
@@ -3615,7 +3615,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_10A:MonitoringPoint = {
+	static readonly GA_PROBE_10A: MonitoringPoint = {
 		ordinal: 451,
 		constantName: "GA_PROBE_10A",
 		name: "10A",
@@ -3623,7 +3623,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_10B:MonitoringPoint = {
+	static readonly GA_PROBE_10B: MonitoringPoint = {
 		ordinal: 452,
 		constantName: "GA_PROBE_10B",
 		name: "10B",
@@ -3631,7 +3631,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_10C:MonitoringPoint = {
+	static readonly GA_PROBE_10C: MonitoringPoint = {
 		ordinal: 453,
 		constantName: "GA_PROBE_10C",
 		name: "10C",
@@ -3639,7 +3639,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_11A:MonitoringPoint = {
+	static readonly GA_PROBE_11A: MonitoringPoint = {
 		ordinal: 454,
 		constantName: "GA_PROBE_11A",
 		name: "11A",
@@ -3647,7 +3647,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_11B:MonitoringPoint = {
+	static readonly GA_PROBE_11B: MonitoringPoint = {
 		ordinal: 455,
 		constantName: "GA_PROBE_11B",
 		name: "11B",
@@ -3655,7 +3655,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_11C:MonitoringPoint = {
+	static readonly GA_PROBE_11C: MonitoringPoint = {
 		ordinal: 456,
 		constantName: "GA_PROBE_11C",
 		name: "11C",
@@ -3663,7 +3663,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_12A:MonitoringPoint = {
+	static readonly GA_PROBE_12A: MonitoringPoint = {
 		ordinal: 457,
 		constantName: "GA_PROBE_12A",
 		name: "12A",
@@ -3671,7 +3671,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_12B:MonitoringPoint = {
+	static readonly GA_PROBE_12B: MonitoringPoint = {
 		ordinal: 458,
 		constantName: "GA_PROBE_12B",
 		name: "12B",
@@ -3679,7 +3679,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly GA_PROBE_12C:MonitoringPoint = {
+	static readonly GA_PROBE_12C: MonitoringPoint = {
 		ordinal: 459,
 		constantName: "GA_PROBE_12C",
 		name: "12C",
@@ -3687,7 +3687,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_01A:MonitoringPoint = {
+	static readonly LC_PROBE_01A: MonitoringPoint = {
 		ordinal: 460,
 		constantName: "LC_PROBE_01A",
 		name: "01A",
@@ -3695,7 +3695,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_02A:MonitoringPoint = {
+	static readonly LC_PROBE_02A: MonitoringPoint = {
 		ordinal: 461,
 		constantName: "LC_PROBE_02A",
 		name: "02A",
@@ -3703,7 +3703,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_03A:MonitoringPoint = {
+	static readonly LC_PROBE_03A: MonitoringPoint = {
 		ordinal: 462,
 		constantName: "LC_PROBE_03A",
 		name: "03A",
@@ -3711,7 +3711,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_04A:MonitoringPoint = {
+	static readonly LC_PROBE_04A: MonitoringPoint = {
 		ordinal: 463,
 		constantName: "LC_PROBE_04A",
 		name: "04A",
@@ -3719,7 +3719,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_05A:MonitoringPoint = {
+	static readonly LC_PROBE_05A: MonitoringPoint = {
 		ordinal: 464,
 		constantName: "LC_PROBE_05A",
 		name: "05A",
@@ -3727,7 +3727,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_06A:MonitoringPoint = {
+	static readonly LC_PROBE_06A: MonitoringPoint = {
 		ordinal: 465,
 		constantName: "LC_PROBE_06A",
 		name: "06A",
@@ -3735,7 +3735,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_07A:MonitoringPoint = {
+	static readonly LC_PROBE_07A: MonitoringPoint = {
 		ordinal: 466,
 		constantName: "LC_PROBE_07A",
 		name: "07A",
@@ -3743,7 +3743,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_08A:MonitoringPoint = {
+	static readonly LC_PROBE_08A: MonitoringPoint = {
 		ordinal: 467,
 		constantName: "LC_PROBE_08A",
 		name: "08A",
@@ -3751,7 +3751,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_09A:MonitoringPoint = {
+	static readonly LC_PROBE_09A: MonitoringPoint = {
 		ordinal: 468,
 		constantName: "LC_PROBE_09A",
 		name: "09A",
@@ -3759,7 +3759,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_10A:MonitoringPoint = {
+	static readonly LC_PROBE_10A: MonitoringPoint = {
 		ordinal: 469,
 		constantName: "LC_PROBE_10A",
 		name: "10A",
@@ -3767,7 +3767,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_10B:MonitoringPoint = {
+	static readonly LC_PROBE_10B: MonitoringPoint = {
 		ordinal: 470,
 		constantName: "LC_PROBE_10B",
 		name: "10B",
@@ -3775,7 +3775,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_10C:MonitoringPoint = {
+	static readonly LC_PROBE_10C: MonitoringPoint = {
 		ordinal: 471,
 		constantName: "LC_PROBE_10C",
 		name: "10C",
@@ -3783,7 +3783,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_10D:MonitoringPoint = {
+	static readonly LC_PROBE_10D: MonitoringPoint = {
 		ordinal: 472,
 		constantName: "LC_PROBE_10D",
 		name: "10D",
@@ -3791,7 +3791,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_13A:MonitoringPoint = {
+	static readonly LC_PROBE_13A: MonitoringPoint = {
 		ordinal: 473,
 		constantName: "LC_PROBE_13A",
 		name: "13A",
@@ -3799,7 +3799,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_14A:MonitoringPoint = {
+	static readonly LC_PROBE_14A: MonitoringPoint = {
 		ordinal: 474,
 		constantName: "LC_PROBE_14A",
 		name: "14A",
@@ -3807,7 +3807,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_15A:MonitoringPoint = {
+	static readonly LC_PROBE_15A: MonitoringPoint = {
 		ordinal: 475,
 		constantName: "LC_PROBE_15A",
 		name: "15A",
@@ -3815,7 +3815,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_16A:MonitoringPoint = {
+	static readonly LC_PROBE_16A: MonitoringPoint = {
 		ordinal: 476,
 		constantName: "LC_PROBE_16A",
 		name: "16A",
@@ -3823,7 +3823,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_17A:MonitoringPoint = {
+	static readonly LC_PROBE_17A: MonitoringPoint = {
 		ordinal: 477,
 		constantName: "LC_PROBE_17A",
 		name: "17A",
@@ -3831,7 +3831,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_18A:MonitoringPoint = {
+	static readonly LC_PROBE_18A: MonitoringPoint = {
 		ordinal: 478,
 		constantName: "LC_PROBE_18A",
 		name: "18A",
@@ -3839,7 +3839,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_19A:MonitoringPoint = {
+	static readonly LC_PROBE_19A: MonitoringPoint = {
 		ordinal: 479,
 		constantName: "LC_PROBE_19A",
 		name: "19A",
@@ -3847,7 +3847,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_20A:MonitoringPoint = {
+	static readonly LC_PROBE_20A: MonitoringPoint = {
 		ordinal: 480,
 		constantName: "LC_PROBE_20A",
 		name: "20A",
@@ -3855,7 +3855,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_21A:MonitoringPoint = {
+	static readonly LC_PROBE_21A: MonitoringPoint = {
 		ordinal: 481,
 		constantName: "LC_PROBE_21A",
 		name: "21A",
@@ -3863,7 +3863,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_23A:MonitoringPoint = {
+	static readonly LC_PROBE_23A: MonitoringPoint = {
 		ordinal: 482,
 		constantName: "LC_PROBE_23A",
 		name: "23A",
@@ -3871,7 +3871,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_24A:MonitoringPoint = {
+	static readonly LC_PROBE_24A: MonitoringPoint = {
 		ordinal: 483,
 		constantName: "LC_PROBE_24A",
 		name: "24A",
@@ -3879,7 +3879,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_24B:MonitoringPoint = {
+	static readonly LC_PROBE_24B: MonitoringPoint = {
 		ordinal: 484,
 		constantName: "LC_PROBE_24B",
 		name: "24B",
@@ -3887,7 +3887,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_24C:MonitoringPoint = {
+	static readonly LC_PROBE_24C: MonitoringPoint = {
 		ordinal: 485,
 		constantName: "LC_PROBE_24C",
 		name: "24C",
@@ -3895,7 +3895,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_24D:MonitoringPoint = {
+	static readonly LC_PROBE_24D: MonitoringPoint = {
 		ordinal: 486,
 		constantName: "LC_PROBE_24D",
 		name: "24D",
@@ -3903,7 +3903,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_27A:MonitoringPoint = {
+	static readonly LC_PROBE_27A: MonitoringPoint = {
 		ordinal: 487,
 		constantName: "LC_PROBE_27A",
 		name: "27A",
@@ -3911,7 +3911,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_28A:MonitoringPoint = {
+	static readonly LC_PROBE_28A: MonitoringPoint = {
 		ordinal: 488,
 		constantName: "LC_PROBE_28A",
 		name: "28A",
@@ -3919,7 +3919,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_29A:MonitoringPoint = {
+	static readonly LC_PROBE_29A: MonitoringPoint = {
 		ordinal: 489,
 		constantName: "LC_PROBE_29A",
 		name: "29A",
@@ -3927,7 +3927,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_30A:MonitoringPoint = {
+	static readonly LC_PROBE_30A: MonitoringPoint = {
 		ordinal: 490,
 		constantName: "LC_PROBE_30A",
 		name: "30A",
@@ -3935,7 +3935,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_31A:MonitoringPoint = {
+	static readonly LC_PROBE_31A: MonitoringPoint = {
 		ordinal: 491,
 		constantName: "LC_PROBE_31A",
 		name: "31A",
@@ -3943,7 +3943,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly LC_PROBE_32A:MonitoringPoint = {
+	static readonly LC_PROBE_32A: MonitoringPoint = {
 		ordinal: 492,
 		constantName: "LC_PROBE_32A",
 		name: "32A",
@@ -3951,7 +3951,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_01A:MonitoringPoint = {
+	static readonly PH_PROBE_01A: MonitoringPoint = {
 		ordinal: 493,
 		constantName: "PH_PROBE_01A",
 		name: "01A",
@@ -3959,7 +3959,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_01B:MonitoringPoint = {
+	static readonly PH_PROBE_01B: MonitoringPoint = {
 		ordinal: 494,
 		constantName: "PH_PROBE_01B",
 		name: "01B",
@@ -3967,7 +3967,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_01C:MonitoringPoint = {
+	static readonly PH_PROBE_01C: MonitoringPoint = {
 		ordinal: 495,
 		constantName: "PH_PROBE_01C",
 		name: "01C",
@@ -3975,7 +3975,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_02A:MonitoringPoint = {
+	static readonly PH_PROBE_02A: MonitoringPoint = {
 		ordinal: 496,
 		constantName: "PH_PROBE_02A",
 		name: "02A",
@@ -3983,7 +3983,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_02B:MonitoringPoint = {
+	static readonly PH_PROBE_02B: MonitoringPoint = {
 		ordinal: 497,
 		constantName: "PH_PROBE_02B",
 		name: "02B",
@@ -3991,7 +3991,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_02C:MonitoringPoint = {
+	static readonly PH_PROBE_02C: MonitoringPoint = {
 		ordinal: 498,
 		constantName: "PH_PROBE_02C",
 		name: "02C",
@@ -3999,7 +3999,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_03A:MonitoringPoint = {
+	static readonly PH_PROBE_03A: MonitoringPoint = {
 		ordinal: 499,
 		constantName: "PH_PROBE_03A",
 		name: "03A",
@@ -4007,7 +4007,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_03B:MonitoringPoint = {
+	static readonly PH_PROBE_03B: MonitoringPoint = {
 		ordinal: 500,
 		constantName: "PH_PROBE_03B",
 		name: "03B",
@@ -4015,7 +4015,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_03C:MonitoringPoint = {
+	static readonly PH_PROBE_03C: MonitoringPoint = {
 		ordinal: 501,
 		constantName: "PH_PROBE_03C",
 		name: "03C",
@@ -4023,7 +4023,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_04A:MonitoringPoint = {
+	static readonly PH_PROBE_04A: MonitoringPoint = {
 		ordinal: 502,
 		constantName: "PH_PROBE_04A",
 		name: "04A",
@@ -4031,7 +4031,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_04B:MonitoringPoint = {
+	static readonly PH_PROBE_04B: MonitoringPoint = {
 		ordinal: 503,
 		constantName: "PH_PROBE_04B",
 		name: "04B",
@@ -4039,7 +4039,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_04C:MonitoringPoint = {
+	static readonly PH_PROBE_04C: MonitoringPoint = {
 		ordinal: 504,
 		constantName: "PH_PROBE_04C",
 		name: "04C",
@@ -4047,7 +4047,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_05A:MonitoringPoint = {
+	static readonly PH_PROBE_05A: MonitoringPoint = {
 		ordinal: 505,
 		constantName: "PH_PROBE_05A",
 		name: "05A",
@@ -4055,7 +4055,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_05B:MonitoringPoint = {
+	static readonly PH_PROBE_05B: MonitoringPoint = {
 		ordinal: 506,
 		constantName: "PH_PROBE_05B",
 		name: "05B",
@@ -4063,7 +4063,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_05C:MonitoringPoint = {
+	static readonly PH_PROBE_05C: MonitoringPoint = {
 		ordinal: 507,
 		constantName: "PH_PROBE_05C",
 		name: "05C",
@@ -4071,7 +4071,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_06A:MonitoringPoint = {
+	static readonly PH_PROBE_06A: MonitoringPoint = {
 		ordinal: 508,
 		constantName: "PH_PROBE_06A",
 		name: "06A",
@@ -4079,7 +4079,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_06B:MonitoringPoint = {
+	static readonly PH_PROBE_06B: MonitoringPoint = {
 		ordinal: 509,
 		constantName: "PH_PROBE_06B",
 		name: "06B",
@@ -4087,7 +4087,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_07A:MonitoringPoint = {
+	static readonly PH_PROBE_07A: MonitoringPoint = {
 		ordinal: 510,
 		constantName: "PH_PROBE_07A",
 		name: "07A",
@@ -4095,7 +4095,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_07B:MonitoringPoint = {
+	static readonly PH_PROBE_07B: MonitoringPoint = {
 		ordinal: 511,
 		constantName: "PH_PROBE_07B",
 		name: "07B",
@@ -4103,7 +4103,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_08A:MonitoringPoint = {
+	static readonly PH_PROBE_08A: MonitoringPoint = {
 		ordinal: 512,
 		constantName: "PH_PROBE_08A",
 		name: "08A",
@@ -4111,7 +4111,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_08B:MonitoringPoint = {
+	static readonly PH_PROBE_08B: MonitoringPoint = {
 		ordinal: 513,
 		constantName: "PH_PROBE_08B",
 		name: "08B",
@@ -4119,7 +4119,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_09A:MonitoringPoint = {
+	static readonly PH_PROBE_09A: MonitoringPoint = {
 		ordinal: 514,
 		constantName: "PH_PROBE_09A",
 		name: "09A",
@@ -4127,7 +4127,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_09B:MonitoringPoint = {
+	static readonly PH_PROBE_09B: MonitoringPoint = {
 		ordinal: 515,
 		constantName: "PH_PROBE_09B",
 		name: "09B",
@@ -4135,7 +4135,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_10A:MonitoringPoint = {
+	static readonly PH_PROBE_10A: MonitoringPoint = {
 		ordinal: 516,
 		constantName: "PH_PROBE_10A",
 		name: "10A",
@@ -4143,7 +4143,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_10B:MonitoringPoint = {
+	static readonly PH_PROBE_10B: MonitoringPoint = {
 		ordinal: 517,
 		constantName: "PH_PROBE_10B",
 		name: "10B",
@@ -4151,7 +4151,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_11A:MonitoringPoint = {
+	static readonly PH_PROBE_11A: MonitoringPoint = {
 		ordinal: 518,
 		constantName: "PH_PROBE_11A",
 		name: "11A",
@@ -4159,7 +4159,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_11B:MonitoringPoint = {
+	static readonly PH_PROBE_11B: MonitoringPoint = {
 		ordinal: 519,
 		constantName: "PH_PROBE_11B",
 		name: "11B",
@@ -4167,7 +4167,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_12A:MonitoringPoint = {
+	static readonly PH_PROBE_12A: MonitoringPoint = {
 		ordinal: 520,
 		constantName: "PH_PROBE_12A",
 		name: "12A",
@@ -4175,7 +4175,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_12B:MonitoringPoint = {
+	static readonly PH_PROBE_12B: MonitoringPoint = {
 		ordinal: 521,
 		constantName: "PH_PROBE_12B",
 		name: "12B",
@@ -4183,7 +4183,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_13A:MonitoringPoint = {
+	static readonly PH_PROBE_13A: MonitoringPoint = {
 		ordinal: 522,
 		constantName: "PH_PROBE_13A",
 		name: "13A",
@@ -4191,7 +4191,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_13B:MonitoringPoint = {
+	static readonly PH_PROBE_13B: MonitoringPoint = {
 		ordinal: 523,
 		constantName: "PH_PROBE_13B",
 		name: "13B",
@@ -4199,7 +4199,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_14A:MonitoringPoint = {
+	static readonly PH_PROBE_14A: MonitoringPoint = {
 		ordinal: 524,
 		constantName: "PH_PROBE_14A",
 		name: "14A",
@@ -4207,7 +4207,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_14B:MonitoringPoint = {
+	static readonly PH_PROBE_14B: MonitoringPoint = {
 		ordinal: 525,
 		constantName: "PH_PROBE_14B",
 		name: "14B",
@@ -4215,7 +4215,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_15A:MonitoringPoint = {
+	static readonly PH_PROBE_15A: MonitoringPoint = {
 		ordinal: 526,
 		constantName: "PH_PROBE_15A",
 		name: "15A",
@@ -4223,7 +4223,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_15B:MonitoringPoint = {
+	static readonly PH_PROBE_15B: MonitoringPoint = {
 		ordinal: 527,
 		constantName: "PH_PROBE_15B",
 		name: "15B",
@@ -4231,7 +4231,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_16A:MonitoringPoint = {
+	static readonly PH_PROBE_16A: MonitoringPoint = {
 		ordinal: 528,
 		constantName: "PH_PROBE_16A",
 		name: "16A",
@@ -4239,7 +4239,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_16B:MonitoringPoint = {
+	static readonly PH_PROBE_16B: MonitoringPoint = {
 		ordinal: 529,
 		constantName: "PH_PROBE_16B",
 		name: "16B",
@@ -4247,7 +4247,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_17A:MonitoringPoint = {
+	static readonly PH_PROBE_17A: MonitoringPoint = {
 		ordinal: 530,
 		constantName: "PH_PROBE_17A",
 		name: "17A",
@@ -4255,7 +4255,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_17B:MonitoringPoint = {
+	static readonly PH_PROBE_17B: MonitoringPoint = {
 		ordinal: 531,
 		constantName: "PH_PROBE_17B",
 		name: "17B",
@@ -4263,7 +4263,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_18A:MonitoringPoint = {
+	static readonly PH_PROBE_18A: MonitoringPoint = {
 		ordinal: 532,
 		constantName: "PH_PROBE_18A",
 		name: "18A",
@@ -4271,7 +4271,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly PH_PROBE_18B:MonitoringPoint = {
+	static readonly PH_PROBE_18B: MonitoringPoint = {
 		ordinal: 533,
 		constantName: "PH_PROBE_18B",
 		name: "18B",
@@ -4279,7 +4279,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_01A:MonitoringPoint = {
+	static readonly SH_PROBE_01A: MonitoringPoint = {
 		ordinal: 534,
 		constantName: "SH_PROBE_01A",
 		name: "01A",
@@ -4287,7 +4287,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_01B:MonitoringPoint = {
+	static readonly SH_PROBE_01B: MonitoringPoint = {
 		ordinal: 535,
 		constantName: "SH_PROBE_01B",
 		name: "01B",
@@ -4295,7 +4295,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_01C:MonitoringPoint = {
+	static readonly SH_PROBE_01C: MonitoringPoint = {
 		ordinal: 536,
 		constantName: "SH_PROBE_01C",
 		name: "01C",
@@ -4303,7 +4303,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_01D:MonitoringPoint = {
+	static readonly SH_PROBE_01D: MonitoringPoint = {
 		ordinal: 537,
 		constantName: "SH_PROBE_01D",
 		name: "01D",
@@ -4311,7 +4311,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_01E:MonitoringPoint = {
+	static readonly SH_PROBE_01E: MonitoringPoint = {
 		ordinal: 538,
 		constantName: "SH_PROBE_01E",
 		name: "01E",
@@ -4319,7 +4319,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_02A:MonitoringPoint = {
+	static readonly SH_PROBE_02A: MonitoringPoint = {
 		ordinal: 539,
 		constantName: "SH_PROBE_02A",
 		name: "02A",
@@ -4327,7 +4327,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_02B:MonitoringPoint = {
+	static readonly SH_PROBE_02B: MonitoringPoint = {
 		ordinal: 540,
 		constantName: "SH_PROBE_02B",
 		name: "02B",
@@ -4335,7 +4335,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_02C:MonitoringPoint = {
+	static readonly SH_PROBE_02C: MonitoringPoint = {
 		ordinal: 541,
 		constantName: "SH_PROBE_02C",
 		name: "02C",
@@ -4343,7 +4343,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_02D:MonitoringPoint = {
+	static readonly SH_PROBE_02D: MonitoringPoint = {
 		ordinal: 542,
 		constantName: "SH_PROBE_02D",
 		name: "02D",
@@ -4351,7 +4351,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_02E:MonitoringPoint = {
+	static readonly SH_PROBE_02E: MonitoringPoint = {
 		ordinal: 543,
 		constantName: "SH_PROBE_02E",
 		name: "02E",
@@ -4359,7 +4359,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_03A:MonitoringPoint = {
+	static readonly SH_PROBE_03A: MonitoringPoint = {
 		ordinal: 544,
 		constantName: "SH_PROBE_03A",
 		name: "03A",
@@ -4367,7 +4367,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_03B:MonitoringPoint = {
+	static readonly SH_PROBE_03B: MonitoringPoint = {
 		ordinal: 545,
 		constantName: "SH_PROBE_03B",
 		name: "03B",
@@ -4375,7 +4375,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_03C:MonitoringPoint = {
+	static readonly SH_PROBE_03C: MonitoringPoint = {
 		ordinal: 546,
 		constantName: "SH_PROBE_03C",
 		name: "03C",
@@ -4383,7 +4383,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_03D:MonitoringPoint = {
+	static readonly SH_PROBE_03D: MonitoringPoint = {
 		ordinal: 547,
 		constantName: "SH_PROBE_03D",
 		name: "03D",
@@ -4391,7 +4391,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_03E:MonitoringPoint = {
+	static readonly SH_PROBE_03E: MonitoringPoint = {
 		ordinal: 548,
 		constantName: "SH_PROBE_03E",
 		name: "03E",
@@ -4399,7 +4399,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_04A:MonitoringPoint = {
+	static readonly SH_PROBE_04A: MonitoringPoint = {
 		ordinal: 549,
 		constantName: "SH_PROBE_04A",
 		name: "04A",
@@ -4407,7 +4407,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_04B:MonitoringPoint = {
+	static readonly SH_PROBE_04B: MonitoringPoint = {
 		ordinal: 550,
 		constantName: "SH_PROBE_04B",
 		name: "04B",
@@ -4415,7 +4415,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_04C:MonitoringPoint = {
+	static readonly SH_PROBE_04C: MonitoringPoint = {
 		ordinal: 551,
 		constantName: "SH_PROBE_04C",
 		name: "04C",
@@ -4423,7 +4423,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_04D:MonitoringPoint = {
+	static readonly SH_PROBE_04D: MonitoringPoint = {
 		ordinal: 552,
 		constantName: "SH_PROBE_04D",
 		name: "04D",
@@ -4431,7 +4431,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_04E:MonitoringPoint = {
+	static readonly SH_PROBE_04E: MonitoringPoint = {
 		ordinal: 553,
 		constantName: "SH_PROBE_04E",
 		name: "04E",
@@ -4439,7 +4439,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_05A:MonitoringPoint = {
+	static readonly SH_PROBE_05A: MonitoringPoint = {
 		ordinal: 554,
 		constantName: "SH_PROBE_05A",
 		name: "05A",
@@ -4447,7 +4447,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_05B:MonitoringPoint = {
+	static readonly SH_PROBE_05B: MonitoringPoint = {
 		ordinal: 555,
 		constantName: "SH_PROBE_05B",
 		name: "05B",
@@ -4455,7 +4455,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_05C:MonitoringPoint = {
+	static readonly SH_PROBE_05C: MonitoringPoint = {
 		ordinal: 556,
 		constantName: "SH_PROBE_05C",
 		name: "05C",
@@ -4463,7 +4463,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_05D:MonitoringPoint = {
+	static readonly SH_PROBE_05D: MonitoringPoint = {
 		ordinal: 557,
 		constantName: "SH_PROBE_05D",
 		name: "05D",
@@ -4471,7 +4471,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_05E:MonitoringPoint = {
+	static readonly SH_PROBE_05E: MonitoringPoint = {
 		ordinal: 558,
 		constantName: "SH_PROBE_05E",
 		name: "05E",
@@ -4479,7 +4479,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_06A:MonitoringPoint = {
+	static readonly SH_PROBE_06A: MonitoringPoint = {
 		ordinal: 559,
 		constantName: "SH_PROBE_06A",
 		name: "06A",
@@ -4487,7 +4487,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_06B:MonitoringPoint = {
+	static readonly SH_PROBE_06B: MonitoringPoint = {
 		ordinal: 560,
 		constantName: "SH_PROBE_06B",
 		name: "06B",
@@ -4495,7 +4495,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_06C:MonitoringPoint = {
+	static readonly SH_PROBE_06C: MonitoringPoint = {
 		ordinal: 561,
 		constantName: "SH_PROBE_06C",
 		name: "06C",
@@ -4503,7 +4503,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_06D:MonitoringPoint = {
+	static readonly SH_PROBE_06D: MonitoringPoint = {
 		ordinal: 562,
 		constantName: "SH_PROBE_06D",
 		name: "06D",
@@ -4511,7 +4511,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_06E:MonitoringPoint = {
+	static readonly SH_PROBE_06E: MonitoringPoint = {
 		ordinal: 563,
 		constantName: "SH_PROBE_06E",
 		name: "06E",
@@ -4519,7 +4519,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_07A:MonitoringPoint = {
+	static readonly SH_PROBE_07A: MonitoringPoint = {
 		ordinal: 564,
 		constantName: "SH_PROBE_07A",
 		name: "07A",
@@ -4527,7 +4527,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_07B:MonitoringPoint = {
+	static readonly SH_PROBE_07B: MonitoringPoint = {
 		ordinal: 565,
 		constantName: "SH_PROBE_07B",
 		name: "07B",
@@ -4535,7 +4535,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_07C:MonitoringPoint = {
+	static readonly SH_PROBE_07C: MonitoringPoint = {
 		ordinal: 566,
 		constantName: "SH_PROBE_07C",
 		name: "07C",
@@ -4543,7 +4543,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_07D:MonitoringPoint = {
+	static readonly SH_PROBE_07D: MonitoringPoint = {
 		ordinal: 567,
 		constantName: "SH_PROBE_07D",
 		name: "07D",
@@ -4551,7 +4551,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_07E:MonitoringPoint = {
+	static readonly SH_PROBE_07E: MonitoringPoint = {
 		ordinal: 568,
 		constantName: "SH_PROBE_07E",
 		name: "07E",
@@ -4559,7 +4559,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_08A:MonitoringPoint = {
+	static readonly SH_PROBE_08A: MonitoringPoint = {
 		ordinal: 569,
 		constantName: "SH_PROBE_08A",
 		name: "08A",
@@ -4567,7 +4567,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_08B:MonitoringPoint = {
+	static readonly SH_PROBE_08B: MonitoringPoint = {
 		ordinal: 570,
 		constantName: "SH_PROBE_08B",
 		name: "08B",
@@ -4575,7 +4575,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_08C:MonitoringPoint = {
+	static readonly SH_PROBE_08C: MonitoringPoint = {
 		ordinal: 571,
 		constantName: "SH_PROBE_08C",
 		name: "08C",
@@ -4583,7 +4583,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_08D:MonitoringPoint = {
+	static readonly SH_PROBE_08D: MonitoringPoint = {
 		ordinal: 572,
 		constantName: "SH_PROBE_08D",
 		name: "08D",
@@ -4591,7 +4591,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_08E:MonitoringPoint = {
+	static readonly SH_PROBE_08E: MonitoringPoint = {
 		ordinal: 573,
 		constantName: "SH_PROBE_08E",
 		name: "08E",
@@ -4599,7 +4599,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_09A:MonitoringPoint = {
+	static readonly SH_PROBE_09A: MonitoringPoint = {
 		ordinal: 574,
 		constantName: "SH_PROBE_09A",
 		name: "09A",
@@ -4607,7 +4607,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_09B:MonitoringPoint = {
+	static readonly SH_PROBE_09B: MonitoringPoint = {
 		ordinal: 575,
 		constantName: "SH_PROBE_09B",
 		name: "09B",
@@ -4615,7 +4615,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_09C:MonitoringPoint = {
+	static readonly SH_PROBE_09C: MonitoringPoint = {
 		ordinal: 576,
 		constantName: "SH_PROBE_09C",
 		name: "09C",
@@ -4623,7 +4623,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_09D:MonitoringPoint = {
+	static readonly SH_PROBE_09D: MonitoringPoint = {
 		ordinal: 577,
 		constantName: "SH_PROBE_09D",
 		name: "09D",
@@ -4631,7 +4631,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_09E:MonitoringPoint = {
+	static readonly SH_PROBE_09E: MonitoringPoint = {
 		ordinal: 578,
 		constantName: "SH_PROBE_09E",
 		name: "09E",
@@ -4639,7 +4639,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_10A:MonitoringPoint = {
+	static readonly SH_PROBE_10A: MonitoringPoint = {
 		ordinal: 579,
 		constantName: "SH_PROBE_10A",
 		name: "10A",
@@ -4647,7 +4647,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_10B:MonitoringPoint = {
+	static readonly SH_PROBE_10B: MonitoringPoint = {
 		ordinal: 580,
 		constantName: "SH_PROBE_10B",
 		name: "10B",
@@ -4655,7 +4655,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_10C:MonitoringPoint = {
+	static readonly SH_PROBE_10C: MonitoringPoint = {
 		ordinal: 581,
 		constantName: "SH_PROBE_10C",
 		name: "10C",
@@ -4663,7 +4663,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_10D:MonitoringPoint = {
+	static readonly SH_PROBE_10D: MonitoringPoint = {
 		ordinal: 582,
 		constantName: "SH_PROBE_10D",
 		name: "10D",
@@ -4671,7 +4671,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_10E:MonitoringPoint = {
+	static readonly SH_PROBE_10E: MonitoringPoint = {
 		ordinal: 583,
 		constantName: "SH_PROBE_10E",
 		name: "10E",
@@ -4679,7 +4679,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_11A:MonitoringPoint = {
+	static readonly SH_PROBE_11A: MonitoringPoint = {
 		ordinal: 584,
 		constantName: "SH_PROBE_11A",
 		name: "11A",
@@ -4687,7 +4687,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_11B:MonitoringPoint = {
+	static readonly SH_PROBE_11B: MonitoringPoint = {
 		ordinal: 585,
 		constantName: "SH_PROBE_11B",
 		name: "11B",
@@ -4695,7 +4695,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_11C:MonitoringPoint = {
+	static readonly SH_PROBE_11C: MonitoringPoint = {
 		ordinal: 586,
 		constantName: "SH_PROBE_11C",
 		name: "11C",
@@ -4703,7 +4703,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_11D:MonitoringPoint = {
+	static readonly SH_PROBE_11D: MonitoringPoint = {
 		ordinal: 587,
 		constantName: "SH_PROBE_11D",
 		name: "11D",
@@ -4711,7 +4711,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_11E:MonitoringPoint = {
+	static readonly SH_PROBE_11E: MonitoringPoint = {
 		ordinal: 588,
 		constantName: "SH_PROBE_11E",
 		name: "11E",
@@ -4719,7 +4719,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_12A:MonitoringPoint = {
+	static readonly SH_PROBE_12A: MonitoringPoint = {
 		ordinal: 589,
 		constantName: "SH_PROBE_12A",
 		name: "12A",
@@ -4727,7 +4727,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_12B:MonitoringPoint = {
+	static readonly SH_PROBE_12B: MonitoringPoint = {
 		ordinal: 590,
 		constantName: "SH_PROBE_12B",
 		name: "12B",
@@ -4735,7 +4735,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_12C:MonitoringPoint = {
+	static readonly SH_PROBE_12C: MonitoringPoint = {
 		ordinal: 591,
 		constantName: "SH_PROBE_12C",
 		name: "12C",
@@ -4743,7 +4743,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_12D:MonitoringPoint = {
+	static readonly SH_PROBE_12D: MonitoringPoint = {
 		ordinal: 592,
 		constantName: "SH_PROBE_12D",
 		name: "12D",
@@ -4751,7 +4751,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_12E:MonitoringPoint = {
+	static readonly SH_PROBE_12E: MonitoringPoint = {
 		ordinal: 593,
 		constantName: "SH_PROBE_12E",
 		name: "12E",
@@ -4759,7 +4759,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_13A:MonitoringPoint = {
+	static readonly SH_PROBE_13A: MonitoringPoint = {
 		ordinal: 594,
 		constantName: "SH_PROBE_13A",
 		name: "13A",
@@ -4767,7 +4767,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_13B:MonitoringPoint = {
+	static readonly SH_PROBE_13B: MonitoringPoint = {
 		ordinal: 595,
 		constantName: "SH_PROBE_13B",
 		name: "13B",
@@ -4775,7 +4775,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_13C:MonitoringPoint = {
+	static readonly SH_PROBE_13C: MonitoringPoint = {
 		ordinal: 596,
 		constantName: "SH_PROBE_13C",
 		name: "13C",
@@ -4783,7 +4783,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_13D:MonitoringPoint = {
+	static readonly SH_PROBE_13D: MonitoringPoint = {
 		ordinal: 597,
 		constantName: "SH_PROBE_13D",
 		name: "13D",
@@ -4791,7 +4791,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_13E:MonitoringPoint = {
+	static readonly SH_PROBE_13E: MonitoringPoint = {
 		ordinal: 598,
 		constantName: "SH_PROBE_13E",
 		name: "13E",
@@ -4799,7 +4799,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_14A:MonitoringPoint = {
+	static readonly SH_PROBE_14A: MonitoringPoint = {
 		ordinal: 599,
 		constantName: "SH_PROBE_14A",
 		name: "14A",
@@ -4807,7 +4807,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_14B:MonitoringPoint = {
+	static readonly SH_PROBE_14B: MonitoringPoint = {
 		ordinal: 600,
 		constantName: "SH_PROBE_14B",
 		name: "14B",
@@ -4815,7 +4815,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_14C:MonitoringPoint = {
+	static readonly SH_PROBE_14C: MonitoringPoint = {
 		ordinal: 601,
 		constantName: "SH_PROBE_14C",
 		name: "14C",
@@ -4823,7 +4823,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_14D:MonitoringPoint = {
+	static readonly SH_PROBE_14D: MonitoringPoint = {
 		ordinal: 602,
 		constantName: "SH_PROBE_14D",
 		name: "14D",
@@ -4831,7 +4831,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_14E:MonitoringPoint = {
+	static readonly SH_PROBE_14E: MonitoringPoint = {
 		ordinal: 603,
 		constantName: "SH_PROBE_14E",
 		name: "14E",
@@ -4839,7 +4839,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_15A:MonitoringPoint = {
+	static readonly SH_PROBE_15A: MonitoringPoint = {
 		ordinal: 604,
 		constantName: "SH_PROBE_15A",
 		name: "15A",
@@ -4847,7 +4847,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_15B:MonitoringPoint = {
+	static readonly SH_PROBE_15B: MonitoringPoint = {
 		ordinal: 605,
 		constantName: "SH_PROBE_15B",
 		name: "15B",
@@ -4855,7 +4855,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_15C:MonitoringPoint = {
+	static readonly SH_PROBE_15C: MonitoringPoint = {
 		ordinal: 606,
 		constantName: "SH_PROBE_15C",
 		name: "15C",
@@ -4863,7 +4863,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_15D:MonitoringPoint = {
+	static readonly SH_PROBE_15D: MonitoringPoint = {
 		ordinal: 607,
 		constantName: "SH_PROBE_15D",
 		name: "15D",
@@ -4871,7 +4871,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_15E:MonitoringPoint = {
+	static readonly SH_PROBE_15E: MonitoringPoint = {
 		ordinal: 608,
 		constantName: "SH_PROBE_15E",
 		name: "15E",
@@ -4879,7 +4879,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_16A:MonitoringPoint = {
+	static readonly SH_PROBE_16A: MonitoringPoint = {
 		ordinal: 609,
 		constantName: "SH_PROBE_16A",
 		name: "16A",
@@ -4887,7 +4887,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_16B:MonitoringPoint = {
+	static readonly SH_PROBE_16B: MonitoringPoint = {
 		ordinal: 610,
 		constantName: "SH_PROBE_16B",
 		name: "16B",
@@ -4895,7 +4895,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_16C:MonitoringPoint = {
+	static readonly SH_PROBE_16C: MonitoringPoint = {
 		ordinal: 611,
 		constantName: "SH_PROBE_16C",
 		name: "16C",
@@ -4903,7 +4903,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_16D:MonitoringPoint = {
+	static readonly SH_PROBE_16D: MonitoringPoint = {
 		ordinal: 612,
 		constantName: "SH_PROBE_16D",
 		name: "16D",
@@ -4911,7 +4911,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_16E:MonitoringPoint = {
+	static readonly SH_PROBE_16E: MonitoringPoint = {
 		ordinal: 613,
 		constantName: "SH_PROBE_16E",
 		name: "16E",
@@ -4919,7 +4919,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_17A:MonitoringPoint = {
+	static readonly SH_PROBE_17A: MonitoringPoint = {
 		ordinal: 614,
 		constantName: "SH_PROBE_17A",
 		name: "17A",
@@ -4927,7 +4927,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_17B:MonitoringPoint = {
+	static readonly SH_PROBE_17B: MonitoringPoint = {
 		ordinal: 615,
 		constantName: "SH_PROBE_17B",
 		name: "17B",
@@ -4935,7 +4935,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_17C:MonitoringPoint = {
+	static readonly SH_PROBE_17C: MonitoringPoint = {
 		ordinal: 616,
 		constantName: "SH_PROBE_17C",
 		name: "17C",
@@ -4943,7 +4943,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_17D:MonitoringPoint = {
+	static readonly SH_PROBE_17D: MonitoringPoint = {
 		ordinal: 617,
 		constantName: "SH_PROBE_17D",
 		name: "17D",
@@ -4951,7 +4951,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_17E:MonitoringPoint = {
+	static readonly SH_PROBE_17E: MonitoringPoint = {
 		ordinal: 618,
 		constantName: "SH_PROBE_17E",
 		name: "17E",
@@ -4959,7 +4959,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_18A:MonitoringPoint = {
+	static readonly SH_PROBE_18A: MonitoringPoint = {
 		ordinal: 619,
 		constantName: "SH_PROBE_18A",
 		name: "18A",
@@ -4967,7 +4967,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_18B:MonitoringPoint = {
+	static readonly SH_PROBE_18B: MonitoringPoint = {
 		ordinal: 620,
 		constantName: "SH_PROBE_18B",
 		name: "18B",
@@ -4975,7 +4975,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_18C:MonitoringPoint = {
+	static readonly SH_PROBE_18C: MonitoringPoint = {
 		ordinal: 621,
 		constantName: "SH_PROBE_18C",
 		name: "18C",
@@ -4983,7 +4983,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_18D:MonitoringPoint = {
+	static readonly SH_PROBE_18D: MonitoringPoint = {
 		ordinal: 622,
 		constantName: "SH_PROBE_18D",
 		name: "18D",
@@ -4991,7 +4991,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_18E:MonitoringPoint = {
+	static readonly SH_PROBE_18E: MonitoringPoint = {
 		ordinal: 623,
 		constantName: "SH_PROBE_18E",
 		name: "18E",
@@ -4999,7 +4999,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_19A:MonitoringPoint = {
+	static readonly SH_PROBE_19A: MonitoringPoint = {
 		ordinal: 624,
 		constantName: "SH_PROBE_19A",
 		name: "19A",
@@ -5007,7 +5007,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_19B:MonitoringPoint = {
+	static readonly SH_PROBE_19B: MonitoringPoint = {
 		ordinal: 625,
 		constantName: "SH_PROBE_19B",
 		name: "19B",
@@ -5015,7 +5015,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_19C:MonitoringPoint = {
+	static readonly SH_PROBE_19C: MonitoringPoint = {
 		ordinal: 626,
 		constantName: "SH_PROBE_19C",
 		name: "19C",
@@ -5023,7 +5023,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_19D:MonitoringPoint = {
+	static readonly SH_PROBE_19D: MonitoringPoint = {
 		ordinal: 627,
 		constantName: "SH_PROBE_19D",
 		name: "19D",
@@ -5031,7 +5031,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_19E:MonitoringPoint = {
+	static readonly SH_PROBE_19E: MonitoringPoint = {
 		ordinal: 628,
 		constantName: "SH_PROBE_19E",
 		name: "19E",
@@ -5039,7 +5039,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_20A:MonitoringPoint = {
+	static readonly SH_PROBE_20A: MonitoringPoint = {
 		ordinal: 629,
 		constantName: "SH_PROBE_20A",
 		name: "20A",
@@ -5047,7 +5047,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_20B:MonitoringPoint = {
+	static readonly SH_PROBE_20B: MonitoringPoint = {
 		ordinal: 630,
 		constantName: "SH_PROBE_20B",
 		name: "20B",
@@ -5055,7 +5055,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_20C:MonitoringPoint = {
+	static readonly SH_PROBE_20C: MonitoringPoint = {
 		ordinal: 631,
 		constantName: "SH_PROBE_20C",
 		name: "20C",
@@ -5063,7 +5063,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_20D:MonitoringPoint = {
+	static readonly SH_PROBE_20D: MonitoringPoint = {
 		ordinal: 632,
 		constantName: "SH_PROBE_20D",
 		name: "20D",
@@ -5071,7 +5071,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly SH_PROBE_20E:MonitoringPoint = {
+	static readonly SH_PROBE_20E: MonitoringPoint = {
 		ordinal: 633,
 		constantName: "SH_PROBE_20E",
 		name: "20E",
@@ -5079,7 +5079,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_01A:MonitoringPoint = {
+	static readonly TC_PROBE_01A: MonitoringPoint = {
 		ordinal: 634,
 		constantName: "TC_PROBE_01A",
 		name: "01A",
@@ -5087,7 +5087,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_01B:MonitoringPoint = {
+	static readonly TC_PROBE_01B: MonitoringPoint = {
 		ordinal: 635,
 		constantName: "TC_PROBE_01B",
 		name: "01B",
@@ -5095,7 +5095,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_02A:MonitoringPoint = {
+	static readonly TC_PROBE_02A: MonitoringPoint = {
 		ordinal: 636,
 		constantName: "TC_PROBE_02A",
 		name: "02A",
@@ -5103,7 +5103,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_02B:MonitoringPoint = {
+	static readonly TC_PROBE_02B: MonitoringPoint = {
 		ordinal: 637,
 		constantName: "TC_PROBE_02B",
 		name: "02B",
@@ -5111,7 +5111,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_02C:MonitoringPoint = {
+	static readonly TC_PROBE_02C: MonitoringPoint = {
 		ordinal: 638,
 		constantName: "TC_PROBE_02C",
 		name: "02C",
@@ -5119,7 +5119,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_03A:MonitoringPoint = {
+	static readonly TC_PROBE_03A: MonitoringPoint = {
 		ordinal: 639,
 		constantName: "TC_PROBE_03A",
 		name: "03A",
@@ -5127,7 +5127,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_03B:MonitoringPoint = {
+	static readonly TC_PROBE_03B: MonitoringPoint = {
 		ordinal: 640,
 		constantName: "TC_PROBE_03B",
 		name: "03B",
@@ -5135,7 +5135,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_04A:MonitoringPoint = {
+	static readonly TC_PROBE_04A: MonitoringPoint = {
 		ordinal: 641,
 		constantName: "TC_PROBE_04A",
 		name: "04A",
@@ -5143,7 +5143,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_04B:MonitoringPoint = {
+	static readonly TC_PROBE_04B: MonitoringPoint = {
 		ordinal: 642,
 		constantName: "TC_PROBE_04B",
 		name: "04B",
@@ -5151,7 +5151,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_05A:MonitoringPoint = {
+	static readonly TC_PROBE_05A: MonitoringPoint = {
 		ordinal: 643,
 		constantName: "TC_PROBE_05A",
 		name: "05A",
@@ -5159,7 +5159,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_05B:MonitoringPoint = {
+	static readonly TC_PROBE_05B: MonitoringPoint = {
 		ordinal: 644,
 		constantName: "TC_PROBE_05B",
 		name: "05B",
@@ -5167,7 +5167,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_05C:MonitoringPoint = {
+	static readonly TC_PROBE_05C: MonitoringPoint = {
 		ordinal: 645,
 		constantName: "TC_PROBE_05C",
 		name: "05C",
@@ -5175,7 +5175,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_05D:MonitoringPoint = {
+	static readonly TC_PROBE_05D: MonitoringPoint = {
 		ordinal: 646,
 		constantName: "TC_PROBE_05D",
 		name: "05D",
@@ -5183,7 +5183,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_06A:MonitoringPoint = {
+	static readonly TC_PROBE_06A: MonitoringPoint = {
 		ordinal: 647,
 		constantName: "TC_PROBE_06A",
 		name: "06A",
@@ -5191,7 +5191,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_06B:MonitoringPoint = {
+	static readonly TC_PROBE_06B: MonitoringPoint = {
 		ordinal: 648,
 		constantName: "TC_PROBE_06B",
 		name: "06B",
@@ -5199,7 +5199,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_06C:MonitoringPoint = {
+	static readonly TC_PROBE_06C: MonitoringPoint = {
 		ordinal: 649,
 		constantName: "TC_PROBE_06C",
 		name: "06C",
@@ -5207,7 +5207,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_07A:MonitoringPoint = {
+	static readonly TC_PROBE_07A: MonitoringPoint = {
 		ordinal: 650,
 		constantName: "TC_PROBE_07A",
 		name: "07A",
@@ -5215,7 +5215,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_07B:MonitoringPoint = {
+	static readonly TC_PROBE_07B: MonitoringPoint = {
 		ordinal: 651,
 		constantName: "TC_PROBE_07B",
 		name: "07B",
@@ -5223,7 +5223,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_07C:MonitoringPoint = {
+	static readonly TC_PROBE_07C: MonitoringPoint = {
 		ordinal: 652,
 		constantName: "TC_PROBE_07C",
 		name: "07C",
@@ -5231,7 +5231,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_07D:MonitoringPoint = {
+	static readonly TC_PROBE_07D: MonitoringPoint = {
 		ordinal: 653,
 		constantName: "TC_PROBE_07D",
 		name: "07D",
@@ -5239,7 +5239,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_08A:MonitoringPoint = {
+	static readonly TC_PROBE_08A: MonitoringPoint = {
 		ordinal: 654,
 		constantName: "TC_PROBE_08A",
 		name: "08A",
@@ -5247,7 +5247,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_09A:MonitoringPoint = {
+	static readonly TC_PROBE_09A: MonitoringPoint = {
 		ordinal: 655,
 		constantName: "TC_PROBE_09A",
 		name: "09A",
@@ -5255,7 +5255,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_09B:MonitoringPoint = {
+	static readonly TC_PROBE_09B: MonitoringPoint = {
 		ordinal: 656,
 		constantName: "TC_PROBE_09B",
 		name: "09B",
@@ -5263,7 +5263,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_10A:MonitoringPoint = {
+	static readonly TC_PROBE_10A: MonitoringPoint = {
 		ordinal: 657,
 		constantName: "TC_PROBE_10A",
 		name: "10A",
@@ -5271,7 +5271,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_11A:MonitoringPoint = {
+	static readonly TC_PROBE_11A: MonitoringPoint = {
 		ordinal: 658,
 		constantName: "TC_PROBE_11A",
 		name: "11A",
@@ -5279,7 +5279,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_11B:MonitoringPoint = {
+	static readonly TC_PROBE_11B: MonitoringPoint = {
 		ordinal: 659,
 		constantName: "TC_PROBE_11B",
 		name: "11B",
@@ -5287,7 +5287,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_11C:MonitoringPoint = {
+	static readonly TC_PROBE_11C: MonitoringPoint = {
 		ordinal: 660,
 		constantName: "TC_PROBE_11C",
 		name: "11C",
@@ -5295,7 +5295,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_11D:MonitoringPoint = {
+	static readonly TC_PROBE_11D: MonitoringPoint = {
 		ordinal: 661,
 		constantName: "TC_PROBE_11D",
 		name: "11D",
@@ -5303,7 +5303,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_12A:MonitoringPoint = {
+	static readonly TC_PROBE_12A: MonitoringPoint = {
 		ordinal: 662,
 		constantName: "TC_PROBE_12A",
 		name: "12A",
@@ -5311,7 +5311,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_12B:MonitoringPoint = {
+	static readonly TC_PROBE_12B: MonitoringPoint = {
 		ordinal: 663,
 		constantName: "TC_PROBE_12B",
 		name: "12B",
@@ -5319,7 +5319,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_13A:MonitoringPoint = {
+	static readonly TC_PROBE_13A: MonitoringPoint = {
 		ordinal: 664,
 		constantName: "TC_PROBE_13A",
 		name: "13A",
@@ -5327,7 +5327,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_13B:MonitoringPoint = {
+	static readonly TC_PROBE_13B: MonitoringPoint = {
 		ordinal: 665,
 		constantName: "TC_PROBE_13B",
 		name: "13B",
@@ -5335,7 +5335,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_13C:MonitoringPoint = {
+	static readonly TC_PROBE_13C: MonitoringPoint = {
 		ordinal: 666,
 		constantName: "TC_PROBE_13C",
 		name: "13C",
@@ -5343,7 +5343,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_13D:MonitoringPoint = {
+	static readonly TC_PROBE_13D: MonitoringPoint = {
 		ordinal: 667,
 		constantName: "TC_PROBE_13D",
 		name: "13D",
@@ -5351,7 +5351,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_14A:MonitoringPoint = {
+	static readonly TC_PROBE_14A: MonitoringPoint = {
 		ordinal: 668,
 		constantName: "TC_PROBE_14A",
 		name: "14A",
@@ -5359,7 +5359,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_14B:MonitoringPoint = {
+	static readonly TC_PROBE_14B: MonitoringPoint = {
 		ordinal: 669,
 		constantName: "TC_PROBE_14B",
 		name: "14B",
@@ -5367,7 +5367,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_14C:MonitoringPoint = {
+	static readonly TC_PROBE_14C: MonitoringPoint = {
 		ordinal: 670,
 		constantName: "TC_PROBE_14C",
 		name: "14C",
@@ -5375,7 +5375,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_15A:MonitoringPoint = {
+	static readonly TC_PROBE_15A: MonitoringPoint = {
 		ordinal: 671,
 		constantName: "TC_PROBE_15A",
 		name: "15A",
@@ -5383,7 +5383,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_15B:MonitoringPoint = {
+	static readonly TC_PROBE_15B: MonitoringPoint = {
 		ordinal: 672,
 		constantName: "TC_PROBE_15B",
 		name: "15B",
@@ -5391,7 +5391,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly TC_PROBE_16A:MonitoringPoint = {
+	static readonly TC_PROBE_16A: MonitoringPoint = {
 		ordinal: 673,
 		constantName: "TC_PROBE_16A",
 		name: "16A",
@@ -5399,7 +5399,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.PROBE
 	};
 
-	static readonly CL_STORMWATER_ENTRANCE:MonitoringPoint = {
+	static readonly CL_STORMWATER_ENTRANCE: MonitoringPoint = {
 		ordinal: 674,
 		constantName: "CL_STORMWATER_ENTRANCE",
 		name: "Entrance",
@@ -5407,7 +5407,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.STORMWATER
 	};
 
-	static readonly CL_STORMWATER_EXIT:MonitoringPoint = {
+	static readonly CL_STORMWATER_EXIT: MonitoringPoint = {
 		ordinal: 675,
 		constantName: "CL_STORMWATER_EXIT",
 		name: "Exit",
@@ -5415,7 +5415,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.STORMWATER
 	};
 
-	static readonly LC_STORMWATER_A_CYN:MonitoringPoint = {
+	static readonly LC_STORMWATER_A_CYN: MonitoringPoint = {
 		ordinal: 676,
 		constantName: "LC_STORMWATER_A_CYN",
 		name: "A-Cyn",
@@ -5423,7 +5423,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.STORMWATER
 	};
 
-	static readonly LC_STORMWATER_B_CYN:MonitoringPoint = {
+	static readonly LC_STORMWATER_B_CYN: MonitoringPoint = {
 		ordinal: 677,
 		constantName: "LC_STORMWATER_B_CYN",
 		name: "B-Cyn",
@@ -5431,7 +5431,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.STORMWATER
 	};
 
-	static readonly LC_STORMWATER_B4_BASIN_INLET:MonitoringPoint = {
+	static readonly LC_STORMWATER_B4_BASIN_INLET: MonitoringPoint = {
 		ordinal: 678,
 		constantName: "LC_STORMWATER_B4_BASIN_INLET",
 		name: "B4 Basin inlet",
@@ -5439,7 +5439,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.STORMWATER
 	};
 
-	static readonly LC_STORMWATER_C_CYN:MonitoringPoint = {
+	static readonly LC_STORMWATER_C_CYN: MonitoringPoint = {
 		ordinal: 679,
 		constantName: "LC_STORMWATER_C_CYN",
 		name: "C-Cyn",
@@ -5447,7 +5447,7 @@ export class MonitoringPoint {
 		type: MonitoringPointType.STORMWATER
 	};
 
-	static readonly LC_STORMWATER_CLARIFIER_INLET:MonitoringPoint = {
+	static readonly LC_STORMWATER_CLARIFIER_INLET: MonitoringPoint = {
 		ordinal: 680,
 		constantName: "LC_STORMWATER_CLARIFIER_INLET",
 		name: "Clarifier inlet",
@@ -5457,9 +5457,9 @@ export class MonitoringPoint {
 
 	readonly ordinal:number;
 	readonly constantName:string;
-	readonly name:string;
-	readonly site:Site;
-	readonly type:MonitoringPointType;
+	readonly name: string;
+	readonly site: Site;
+	readonly type: MonitoringPointType;
 
 	static values():MonitoringPoint[] {
 		return [

@@ -6,5 +6,5 @@ import { IntegratedReportData } from './data/integrated-report-data.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class IntegratedReport extends Report {
-	integratedReportData:IntegratedReportData[];
+	integratedReportData: IntegratedReportData[];
 }

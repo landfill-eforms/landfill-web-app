@@ -7,8 +7,8 @@ import { EmailRecipientType } from '../../enums/email/email-recipient-type.enum'
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class EmailRecipient extends AbstractEntity {
-	recipientType:EmailRecipientType;
-	emailAddress:string;
-	name:string;
-	scheduledEmail:ScheduledEmail;
+	recipientType: EmailRecipientType;
+	emailAddress: string;
+	name: string;
+	scheduledEmail: ScheduledEmail;
 }

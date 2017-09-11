@@ -8,16 +8,16 @@ import { InstrumentStatus } from '../../enums/instrument/instrument-status.enum'
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class Instrument extends AbstractEntity {
-	serialNumber:string;
-	instrumentType:InstrumentType;
-	instrumentStatus:InstrumentStatus;
-	serviceDueDate:number;
-	lastServiceDate:number;
-	purchaseDate:number;
-	inventoryNumber:string;
-	description:string;
-	createdBy:User;
-	createdDate:number;
-	modifiedBy:User;
-	modifiedDate:number;
+	serialNumber: string;
+	instrumentType: InstrumentType;
+	instrumentStatus: InstrumentStatus;
+	serviceDueDate: number;
+	lastServiceDate: number;
+	purchaseDate: number;
+	inventoryNumber: string;
+	description: string;
+	createdBy: User;
+	createdDate: number;
+	modifiedBy: User;
+	modifiedDate: number;
 }

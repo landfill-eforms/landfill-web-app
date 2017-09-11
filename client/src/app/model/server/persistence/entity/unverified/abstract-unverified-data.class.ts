@@ -5,6 +5,6 @@ import { AbstractEntity } from '../abstract-entity.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export abstract class AbstractUnverifiedData extends AbstractEntity {
-	errors?:string[];
-	selected?:boolean;
+	errors?: string[];
+	selected?: boolean;
 }

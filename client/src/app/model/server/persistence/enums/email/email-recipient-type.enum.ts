@@ -4,17 +4,17 @@
  */
 export class EmailRecipientType {
 
-	static readonly TO:EmailRecipientType = {
+	static readonly TO: EmailRecipientType = {
 		ordinal: 0,
 		constantName: "TO"
 	};
 
-	static readonly CC:EmailRecipientType = {
+	static readonly CC: EmailRecipientType = {
 		ordinal: 1,
 		constantName: "CC"
 	};
 
-	static readonly BCC:EmailRecipientType = {
+	static readonly BCC: EmailRecipientType = {
 		ordinal: 2,
 		constantName: "BCC"
 	};

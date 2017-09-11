@@ -8,9 +8,9 @@ import { UserGroup } from '../user/user-group.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export abstract class ScheduledEmail extends AbstractEntity {
-	schedule:Schedule;
-	subject:string;
-	body:string;
-	userGroups:UserGroup[];
-	recipients:EmailRecipient[];
+	schedule: Schedule;
+	subject: string;
+	body: string;
+	userGroups: UserGroup[];
+	recipients: EmailRecipient[];
 }

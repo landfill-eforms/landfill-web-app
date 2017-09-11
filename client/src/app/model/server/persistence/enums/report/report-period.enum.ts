@@ -4,37 +4,37 @@
  */
 export class ReportPeriod {
 
-	static readonly SINGLE:ReportPeriod = {
+	static readonly SINGLE: ReportPeriod = {
 		ordinal: 0,
 		constantName: "SINGLE",
 		name: "Custom"
 	};
 
-	static readonly DAILY:ReportPeriod = {
+	static readonly DAILY: ReportPeriod = {
 		ordinal: 1,
 		constantName: "DAILY",
 		name: "Yesterday"
 	};
 
-	static readonly WEEKLY:ReportPeriod = {
+	static readonly WEEKLY: ReportPeriod = {
 		ordinal: 2,
 		constantName: "WEEKLY",
 		name: "Last Week"
 	};
 
-	static readonly MONTHLY:ReportPeriod = {
+	static readonly MONTHLY: ReportPeriod = {
 		ordinal: 3,
 		constantName: "MONTHLY",
 		name: "Previous Month"
 	};
 
-	static readonly QUARTERLY:ReportPeriod = {
+	static readonly QUARTERLY: ReportPeriod = {
 		ordinal: 4,
 		constantName: "QUARTERLY",
 		name: "Last Quarter"
 	};
 
-	static readonly YEARLY:ReportPeriod = {
+	static readonly YEARLY: ReportPeriod = {
 		ordinal: 5,
 		constantName: "YEARLY",
 		name: "Last Year"
@@ -42,7 +42,7 @@ export class ReportPeriod {
 
 	readonly ordinal:number;
 	readonly constantName:string;
-	readonly name:string;
+	readonly name: string;
 
 	static values():ReportPeriod[] {
 		return [

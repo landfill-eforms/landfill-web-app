@@ -4,7 +4,7 @@
  */
 export class Site {
 
-	static readonly BISHOPS:Site = {
+	static readonly BISHOPS: Site = {
 		ordinal: 0,
 		constantName: "BISHOPS",
 		name: "Bishops",
@@ -13,7 +13,7 @@ export class Site {
 		active: true
 	};
 
-	static readonly BRANFORD:Site = {
+	static readonly BRANFORD: Site = {
 		ordinal: 1,
 		constantName: "BRANFORD",
 		name: "Branford",
@@ -22,7 +22,7 @@ export class Site {
 		active: false
 	};
 
-	static readonly CLARTS:Site = {
+	static readonly CLARTS: Site = {
 		ordinal: 2,
 		constantName: "CLARTS",
 		name: "CLARTS",
@@ -31,7 +31,7 @@ export class Site {
 		active: false
 	};
 
-	static readonly GAFFEY:Site = {
+	static readonly GAFFEY: Site = {
 		ordinal: 3,
 		constantName: "GAFFEY",
 		name: "Gaffey",
@@ -40,7 +40,7 @@ export class Site {
 		active: true
 	};
 
-	static readonly GRIFFITH_PARK:Site = {
+	static readonly GRIFFITH_PARK: Site = {
 		ordinal: 4,
 		constantName: "GRIFFITH_PARK",
 		name: "Griffith Park",
@@ -49,7 +49,7 @@ export class Site {
 		active: false
 	};
 
-	static readonly LCEC:Site = {
+	static readonly LCEC: Site = {
 		ordinal: 5,
 		constantName: "LCEC",
 		name: "LCEC",
@@ -58,7 +58,7 @@ export class Site {
 		active: false
 	};
 
-	static readonly LOPEZ:Site = {
+	static readonly LOPEZ: Site = {
 		ordinal: 6,
 		constantName: "LOPEZ",
 		name: "Lopez",
@@ -67,7 +67,7 @@ export class Site {
 		active: true
 	};
 
-	static readonly POLY_HIGH:Site = {
+	static readonly POLY_HIGH: Site = {
 		ordinal: 7,
 		constantName: "POLY_HIGH",
 		name: "PolyHigh",
@@ -76,7 +76,7 @@ export class Site {
 		active: false
 	};
 
-	static readonly SHELDON:Site = {
+	static readonly SHELDON: Site = {
 		ordinal: 8,
 		constantName: "SHELDON",
 		name: "Sheldon",
@@ -85,7 +85,7 @@ export class Site {
 		active: true
 	};
 
-	static readonly TOYON:Site = {
+	static readonly TOYON: Site = {
 		ordinal: 9,
 		constantName: "TOYON",
 		name: "Toyon",
@@ -96,10 +96,10 @@ export class Site {
 
 	readonly ordinal:number;
 	readonly constantName:string;
-	readonly name:string;
-	readonly shortName:string;
-	readonly type:string;
-	readonly active:boolean;
+	readonly name: string;
+	readonly shortName: string;
+	readonly type: string;
+	readonly active: boolean;
 
 	static values():Site[] {
 		return [

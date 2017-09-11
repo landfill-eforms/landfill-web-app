@@ -4,28 +4,28 @@
  */
 export class ExceedanceType {
 
-	static readonly INSTANTANEOUS:ExceedanceType = {
+	static readonly INSTANTANEOUS: ExceedanceType = {
 		ordinal: 0,
 		constantName: "INSTANTANEOUS",
 		name: "Instantaneous Monitoring Exceedances",
 		shortName: "IME"
 	};
 
-	static readonly INTEGRATED:ExceedanceType = {
+	static readonly INTEGRATED: ExceedanceType = {
 		ordinal: 1,
 		constantName: "INTEGRATED",
 		name: "Integrated Sampling Exceedances",
 		shortName: "ISE"
 	};
 
-	static readonly PROBE:ExceedanceType = {
+	static readonly PROBE: ExceedanceType = {
 		ordinal: 2,
 		constantName: "PROBE",
 		name: "Probe Exceedances",
 		shortName: "Probe"
 	};
 
-	static readonly COMPONENT:ExceedanceType = {
+	static readonly COMPONENT: ExceedanceType = {
 		ordinal: 3,
 		constantName: "COMPONENT",
 		name: "Component Leaks",
@@ -34,8 +34,8 @@ export class ExceedanceType {
 
 	readonly ordinal:number;
 	readonly constantName:string;
-	readonly name:string;
-	readonly shortName:string;
+	readonly name: string;
+	readonly shortName: string;
 
 	static values():ExceedanceType[] {
 		return [

@@ -6,8 +6,8 @@ import { User } from '../user/user.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export abstract class SurfaceEmissionExceedanceData extends AbstractEntity {
-	inspector:User;
-	methaneLevel:number;
-	dateTime:number;
-	description:string;
+	inspector: User;
+	methaneLevel: number;
+	dateTime: number;
+	description: string;
 }

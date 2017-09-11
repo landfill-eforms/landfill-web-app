@@ -9,9 +9,9 @@ import { MonitoringPoint } from '../../../enums/location/monitoring-point.enum';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class ImeNumber extends SurfaceEmissionExceedanceNumber {
-	monitoringPoints:MonitoringPoint[];
-	instantaneousData:InstantaneousData[];
-	unverifiedInstantaneousData:UnverifiedInstantaneousData[];
-	imeData:ImeData[];
-	imeNumber?:string;
+	monitoringPoints: MonitoringPoint[];
+	instantaneousData: InstantaneousData[];
+	unverifiedInstantaneousData: UnverifiedInstantaneousData[];
+	imeData: ImeData[];
+	imeNumber?: string;
 }

@@ -8,11 +8,11 @@ import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export abstract class SurfaceEmissionData extends AbstractEntity {
-	monitoringPoint:MonitoringPoint;
-	instrument:Instrument;
-	inspector:User;
-	barometricPressure:number;
-	methaneLevel:number;
-	startTime:number;
-	endTime:number;
+	monitoringPoint: MonitoringPoint;
+	instrument: Instrument;
+	inspector: User;
+	barometricPressure: number;
+	methaneLevel: number;
+	startTime: number;
+	endTime: number;
 }

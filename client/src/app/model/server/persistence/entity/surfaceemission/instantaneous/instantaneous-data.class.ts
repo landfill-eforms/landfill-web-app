@@ -6,5 +6,5 @@ import { ImeNumber } from './ime-number.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class InstantaneousData extends SurfaceEmissionData {
-	imeNumbers:ImeNumber[];
+	imeNumbers: ImeNumber[];
 }

@@ -8,11 +8,11 @@ import { MonitoringPoint } from '../../../enums/location/monitoring-point.enum';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class WarmspotData extends AbstractEntity {
-	monitoringPoint:MonitoringPoint;
-	instrument:Instrument;
-	inspector:User;
-	methaneLevel:number;
-	date:number;
-	description:string;
-	size:string;
+	monitoringPoint: MonitoringPoint;
+	instrument: Instrument;
+	inspector: User;
+	methaneLevel: number;
+	date: number;
+	description: string;
+	size: string;
 }

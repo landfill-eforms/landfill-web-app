@@ -6,7 +6,7 @@
  */
 export class UserPermission {
 
-	static readonly ADMIN:UserPermission = {
+	static readonly ADMIN: UserPermission = {
 		ordinal: 0,
 		constantName: "ADMIN",
 		name: "Admin",
@@ -15,7 +15,7 @@ export class UserPermission {
 		description: "Admin"
 	};
 
-	static readonly VIEW_USERS:UserPermission = {
+	static readonly VIEW_USERS: UserPermission = {
 		ordinal: 1,
 		constantName: "VIEW_USERS",
 		name: "View Users",
@@ -24,7 +24,7 @@ export class UserPermission {
 		description: "User can view existing users."
 	};
 
-	static readonly CREATE_USERS:UserPermission = {
+	static readonly CREATE_USERS: UserPermission = {
 		ordinal: 2,
 		constantName: "CREATE_USERS",
 		name: "Create Users",
@@ -33,7 +33,7 @@ export class UserPermission {
 		description: "User can create new users."
 	};
 
-	static readonly CHANGE_USER_STATUS:UserPermission = {
+	static readonly CHANGE_USER_STATUS: UserPermission = {
 		ordinal: 3,
 		constantName: "CHANGE_USER_STATUS",
 		name: "Change User Status",
@@ -42,7 +42,7 @@ export class UserPermission {
 		description: "User can enable/disable other non-admin user accounts."
 	};
 
-	static readonly RESET_USER_PASSWORDS:UserPermission = {
+	static readonly RESET_USER_PASSWORDS: UserPermission = {
 		ordinal: 4,
 		constantName: "RESET_USER_PASSWORDS",
 		name: "Reset User Passwords",
@@ -51,7 +51,7 @@ export class UserPermission {
 		description: "User can reset the passwords of non-admin users."
 	};
 
-	static readonly RESET_USER_USERNAMES:UserPermission = {
+	static readonly RESET_USER_USERNAMES: UserPermission = {
 		ordinal: 5,
 		constantName: "RESET_USER_USERNAMES",
 		name: "Reset User Usernames",
@@ -60,7 +60,7 @@ export class UserPermission {
 		description: "User can reset the usernames of non-admin users."
 	};
 
-	static readonly EDIT_USER_PROFILES:UserPermission = {
+	static readonly EDIT_USER_PROFILES: UserPermission = {
 		ordinal: 6,
 		constantName: "EDIT_USER_PROFILES",
 		name: "Edit User Profiles",
@@ -69,7 +69,7 @@ export class UserPermission {
 		description: "User can edit the profiles of other non-admin users."
 	};
 
-	static readonly VIEW_USER_GROUPS:UserPermission = {
+	static readonly VIEW_USER_GROUPS: UserPermission = {
 		ordinal: 7,
 		constantName: "VIEW_USER_GROUPS",
 		name: "View User Groups",
@@ -78,7 +78,7 @@ export class UserPermission {
 		description: "User can view existing user groups."
 	};
 
-	static readonly CREATE_USER_GROUPS:UserPermission = {
+	static readonly CREATE_USER_GROUPS: UserPermission = {
 		ordinal: 8,
 		constantName: "CREATE_USER_GROUPS",
 		name: "Create User Groups",
@@ -87,7 +87,7 @@ export class UserPermission {
 		description: "User can create new user groups."
 	};
 
-	static readonly DELETE_USER_GROUPS:UserPermission = {
+	static readonly DELETE_USER_GROUPS: UserPermission = {
 		ordinal: 9,
 		constantName: "DELETE_USER_GROUPS",
 		name: "Delete User Groups",
@@ -96,7 +96,7 @@ export class UserPermission {
 		description: "User can delete existing user groups."
 	};
 
-	static readonly EDIT_USER_GROUPS:UserPermission = {
+	static readonly EDIT_USER_GROUPS: UserPermission = {
 		ordinal: 10,
 		constantName: "EDIT_USER_GROUPS",
 		name: "Edit User Groups",
@@ -105,7 +105,7 @@ export class UserPermission {
 		description: "User can add/remove roles and rename existing user groups."
 	};
 
-	static readonly VIEW_INSTRUMENTS:UserPermission = {
+	static readonly VIEW_INSTRUMENTS: UserPermission = {
 		ordinal: 11,
 		constantName: "VIEW_INSTRUMENTS",
 		name: "View Instruments",
@@ -114,7 +114,7 @@ export class UserPermission {
 		description: "User can view existing equipment."
 	};
 
-	static readonly CREATE_INSTRUMENTS:UserPermission = {
+	static readonly CREATE_INSTRUMENTS: UserPermission = {
 		ordinal: 12,
 		constantName: "CREATE_INSTRUMENTS",
 		name: "Create Instruments",
@@ -123,7 +123,7 @@ export class UserPermission {
 		description: "User can add new equipment entries."
 	};
 
-	static readonly EDIT_INSTRUMENTS:UserPermission = {
+	static readonly EDIT_INSTRUMENTS: UserPermission = {
 		ordinal: 13,
 		constantName: "EDIT_INSTRUMENTS",
 		name: "Edit Instruments",
@@ -132,7 +132,7 @@ export class UserPermission {
 		description: "User can edit existing equipment entries."
 	};
 
-	static readonly DELETE_INSTRUMENTS:UserPermission = {
+	static readonly DELETE_INSTRUMENTS: UserPermission = {
 		ordinal: 14,
 		constantName: "DELETE_INSTRUMENTS",
 		name: "Delete Instruments",
@@ -141,7 +141,7 @@ export class UserPermission {
 		description: "User can delete existing equipment entries."
 	};
 
-	static readonly VIEW_INSTRUMENT_TYPES:UserPermission = {
+	static readonly VIEW_INSTRUMENT_TYPES: UserPermission = {
 		ordinal: 15,
 		constantName: "VIEW_INSTRUMENT_TYPES",
 		name: "View Instrument Types",
@@ -150,7 +150,7 @@ export class UserPermission {
 		description: "User can view existing equipment types."
 	};
 
-	static readonly CREATE_INSTRUMENT_TYPES:UserPermission = {
+	static readonly CREATE_INSTRUMENT_TYPES: UserPermission = {
 		ordinal: 16,
 		constantName: "CREATE_INSTRUMENT_TYPES",
 		name: "Create Instrument Types",
@@ -159,7 +159,7 @@ export class UserPermission {
 		description: "User can add new equipment types."
 	};
 
-	static readonly EDIT_INSTRUMENT_TYPES:UserPermission = {
+	static readonly EDIT_INSTRUMENT_TYPES: UserPermission = {
 		ordinal: 17,
 		constantName: "EDIT_INSTRUMENT_TYPES",
 		name: "Edit Instrument Types",
@@ -168,7 +168,7 @@ export class UserPermission {
 		description: "User can edit existing equipment types."
 	};
 
-	static readonly DELETE_INSTRUMENT_TYPES:UserPermission = {
+	static readonly DELETE_INSTRUMENT_TYPES: UserPermission = {
 		ordinal: 18,
 		constantName: "DELETE_INSTRUMENT_TYPES",
 		name: "Delete Instrument Types",
@@ -177,7 +177,7 @@ export class UserPermission {
 		description: "User can delete existing equipment types."
 	};
 
-	static readonly UPLOAD_MOBILE_DATA:UserPermission = {
+	static readonly UPLOAD_MOBILE_DATA: UserPermission = {
 		ordinal: 19,
 		constantName: "UPLOAD_MOBILE_DATA",
 		name: "Upload Mobile Data",
@@ -186,7 +186,7 @@ export class UserPermission {
 		description: "User can upload data form the mobile application."
 	};
 
-	static readonly DOWNLOAD_MOBILE_DATA:UserPermission = {
+	static readonly DOWNLOAD_MOBILE_DATA: UserPermission = {
 		ordinal: 20,
 		constantName: "DOWNLOAD_MOBILE_DATA",
 		name: "Download Mobile Data",
@@ -195,7 +195,7 @@ export class UserPermission {
 		description: "User can download data for transfer to the mobile applications."
 	};
 
-	static readonly VIEW_UNVERIFIED_DATA_SETS:UserPermission = {
+	static readonly VIEW_UNVERIFIED_DATA_SETS: UserPermission = {
 		ordinal: 21,
 		constantName: "VIEW_UNVERIFIED_DATA_SETS",
 		name: "View Unverified Data Sets",
@@ -204,7 +204,7 @@ export class UserPermission {
 		description: "User can view existing unverified data sets."
 	};
 
-	static readonly VIEW_UNVERIFIED_DATA_SET:UserPermission = {
+	static readonly VIEW_UNVERIFIED_DATA_SET: UserPermission = {
 		ordinal: 22,
 		constantName: "VIEW_UNVERIFIED_DATA_SET",
 		name: "View Unverified Data Set",
@@ -213,7 +213,7 @@ export class UserPermission {
 		description: "User can view the details of an unverified data set."
 	};
 
-	static readonly EDIT_UNVERIFIED_DATA_SET:UserPermission = {
+	static readonly EDIT_UNVERIFIED_DATA_SET: UserPermission = {
 		ordinal: 23,
 		constantName: "EDIT_UNVERIFIED_DATA_SET",
 		name: "Edit Unverified Data Set",
@@ -222,7 +222,7 @@ export class UserPermission {
 		description: "User can edit and save the details of an unverified data set."
 	};
 
-	static readonly DELETE_UNVERIFIED_DATA_SET:UserPermission = {
+	static readonly DELETE_UNVERIFIED_DATA_SET: UserPermission = {
 		ordinal: 24,
 		constantName: "DELETE_UNVERIFIED_DATA_SET",
 		name: "Delete Unverified Data Set",
@@ -231,7 +231,7 @@ export class UserPermission {
 		description: "User can delete entire unverified data sets."
 	};
 
-	static readonly DELETE_UNVERIFIED_DATA:UserPermission = {
+	static readonly DELETE_UNVERIFIED_DATA: UserPermission = {
 		ordinal: 25,
 		constantName: "DELETE_UNVERIFIED_DATA",
 		name: "Delete Unverified Data",
@@ -240,7 +240,7 @@ export class UserPermission {
 		description: "User can delete individual data entries in an unverified data set."
 	};
 
-	static readonly COMMIT_UNVERIFIED_DATA_SET:UserPermission = {
+	static readonly COMMIT_UNVERIFIED_DATA_SET: UserPermission = {
 		ordinal: 26,
 		constantName: "COMMIT_UNVERIFIED_DATA_SET",
 		name: "Commit Unverified Data Set",
@@ -249,7 +249,7 @@ export class UserPermission {
 		description: "User can commit unverified data sets."
 	};
 
-	static readonly VIEW_EXCEEDANCES:UserPermission = {
+	static readonly VIEW_EXCEEDANCES: UserPermission = {
 		ordinal: 27,
 		constantName: "VIEW_EXCEEDANCES",
 		name: "View Exceedances",
@@ -258,7 +258,7 @@ export class UserPermission {
 		description: "User can view exceedances (IME, ISE, etc.)."
 	};
 
-	static readonly EDIT_EXCEEDANCES:UserPermission = {
+	static readonly EDIT_EXCEEDANCES: UserPermission = {
 		ordinal: 28,
 		constantName: "EDIT_EXCEEDANCES",
 		name: "Edit Exceedances",
@@ -267,7 +267,7 @@ export class UserPermission {
 		description: "User can edit and clear exceedances."
 	};
 
-	static readonly GENERATE_REPORTS:UserPermission = {
+	static readonly GENERATE_REPORTS: UserPermission = {
 		ordinal: 29,
 		constantName: "GENERATE_REPORTS",
 		name: "Generate Reports",
@@ -276,7 +276,7 @@ export class UserPermission {
 		description: "User can generate reports."
 	};
 
-	static readonly SCHEDULE_EMAIL_REPORTS:UserPermission = {
+	static readonly SCHEDULE_EMAIL_REPORTS: UserPermission = {
 		ordinal: 30,
 		constantName: "SCHEDULE_EMAIL_REPORTS",
 		name: "Schedule Email Reports",
@@ -285,7 +285,7 @@ export class UserPermission {
 		description: "User can schedule automated email reports."
 	};
 
-	static readonly SCHEDULE_EMAIL_NOTIFICATIONS:UserPermission = {
+	static readonly SCHEDULE_EMAIL_NOTIFICATIONS: UserPermission = {
 		ordinal: 31,
 		constantName: "SCHEDULE_EMAIL_NOTIFICATIONS",
 		name: "Schedule Email Notifications",
@@ -296,10 +296,10 @@ export class UserPermission {
 
 	readonly ordinal:number;
 	readonly constantName:string;
-	readonly name:string;
-	readonly category:string;
-	readonly categoryAction:string;
-	readonly description:string;
+	readonly name: string;
+	readonly category: string;
+	readonly categoryAction: string;
+	readonly description: string;
 
 	static values():UserPermission[] {
 		return [

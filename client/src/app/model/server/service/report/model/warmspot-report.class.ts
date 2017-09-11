@@ -6,5 +6,5 @@ import { WarmspotReportData } from './data/warmspot-report-data.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class WarmspotReport extends Report {
-	warmspotReportData:WarmspotReportData[];
+	warmspotReportData: WarmspotReportData[];
 }

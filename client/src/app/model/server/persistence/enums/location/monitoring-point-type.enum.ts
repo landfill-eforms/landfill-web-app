@@ -4,55 +4,55 @@
  */
 export class MonitoringPointType {
 
-	static readonly AMBIENT:MonitoringPointType = {
+	static readonly AMBIENT: MonitoringPointType = {
 		ordinal: 0,
 		constantName: "AMBIENT",
 		name: "Ambient"
 	};
 
-	static readonly BIOFILTER:MonitoringPointType = {
+	static readonly BIOFILTER: MonitoringPointType = {
 		ordinal: 1,
 		constantName: "BIOFILTER",
 		name: "Biofilter"
 	};
 
-	static readonly GRID:MonitoringPointType = {
+	static readonly GRID: MonitoringPointType = {
 		ordinal: 2,
 		constantName: "GRID",
 		name: "Grid"
 	};
 
-	static readonly GROUNDWATER:MonitoringPointType = {
+	static readonly GROUNDWATER: MonitoringPointType = {
 		ordinal: 3,
 		constantName: "GROUNDWATER",
 		name: "Groundwater"
 	};
 
-	static readonly LEACHATE:MonitoringPointType = {
+	static readonly LEACHATE: MonitoringPointType = {
 		ordinal: 4,
 		constantName: "LEACHATE",
 		name: "Leachate"
 	};
 
-	static readonly LFG:MonitoringPointType = {
+	static readonly LFG: MonitoringPointType = {
 		ordinal: 5,
 		constantName: "LFG",
 		name: "LFG"
 	};
 
-	static readonly PILE:MonitoringPointType = {
+	static readonly PILE: MonitoringPointType = {
 		ordinal: 6,
 		constantName: "PILE",
 		name: "Pile"
 	};
 
-	static readonly PROBE:MonitoringPointType = {
+	static readonly PROBE: MonitoringPointType = {
 		ordinal: 7,
 		constantName: "PROBE",
 		name: "Probe"
 	};
 
-	static readonly STORMWATER:MonitoringPointType = {
+	static readonly STORMWATER: MonitoringPointType = {
 		ordinal: 8,
 		constantName: "STORMWATER",
 		name: "Stormwater"
@@ -60,7 +60,7 @@ export class MonitoringPointType {
 
 	readonly ordinal:number;
 	readonly constantName:string;
-	readonly name:string;
+	readonly name: string;
 
 	static values():MonitoringPointType[] {
 		return [

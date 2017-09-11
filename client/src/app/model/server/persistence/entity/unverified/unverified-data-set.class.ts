@@ -14,19 +14,19 @@ import { Site } from '../../enums/location/site.enum';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class UnverifiedDataSet extends AbstractEntity {
-	filename:string;
-	inspector:User;
-	site:Site;
-	unverifiedInstantaneousData:UnverifiedInstantaneousData[];
-	unverifiedWarmspotData:UnverifiedWarmspotData[];
-	imeNumbers:ImeNumber[];
-	unverifiedIntegratedData:UnverifiedIntegratedData[];
-	iseNumbers:IseNumber[];
-	unverifiedProbeData:UnverifiedProbeData[];
-	probeExceedances?:ProbeExceedance[];
-	errors?:any;
-	createdBy:User;
-	createdDate:number;
-	modifiedBy:User;
-	modifiedDate:number;
+	filename: string;
+	inspector: User;
+	site: Site;
+	unverifiedInstantaneousData: UnverifiedInstantaneousData[];
+	unverifiedWarmspotData: UnverifiedWarmspotData[];
+	imeNumbers: ImeNumber[];
+	unverifiedIntegratedData: UnverifiedIntegratedData[];
+	iseNumbers: IseNumber[];
+	unverifiedProbeData: UnverifiedProbeData[];
+	probeExceedances?: ProbeExceedance[];
+	errors?: any;
+	createdBy: User;
+	createdDate: number;
+	modifiedBy: User;
+	modifiedDate: number;
 }

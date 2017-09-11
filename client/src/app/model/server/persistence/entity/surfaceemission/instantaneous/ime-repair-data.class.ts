@@ -6,5 +6,5 @@ import { ImeData } from './ime-data.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class ImeRepairData extends SurfaceEmissionExceedanceRepairData {
-	imeData:ImeData;
+	imeData: ImeData;
 }

@@ -6,7 +6,7 @@ import { User } from './user.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class UserActivity extends AbstractEntity {
-	user:User;
-	date:number;
-	activity:string;
+	user: User;
+	date: number;
+	activity: string;
 }

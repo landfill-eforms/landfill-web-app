@@ -5,5 +5,5 @@ import { ReportQuery } from './report-query.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class IndividualReportQuery extends ReportQuery {
-	lastQueried:number;
+	lastQueried: number;
 }

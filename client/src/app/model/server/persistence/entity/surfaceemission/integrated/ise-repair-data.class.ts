@@ -6,5 +6,5 @@ import { IseData } from './ise-data.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class IseRepairData extends SurfaceEmissionExceedanceRepairData {
-	iseData:IseData;
+	iseData: IseData;
 }

@@ -8,9 +8,9 @@ import { Site } from '../../enums/location/site.enum';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export abstract class SurfaceEmissionExceedanceNumber extends AbstractEntity {
-	site:Site;
-	dateCode:number;
-	sequence:number;
-	status:ExceedanceStatus;
-	unverifiedDataSet:UnverifiedDataSet;
+	site: Site;
+	dateCode: number;
+	sequence: number;
+	status: ExceedanceStatus;
+	unverifiedDataSet: UnverifiedDataSet;
 }

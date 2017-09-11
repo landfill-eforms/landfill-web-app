@@ -7,10 +7,10 @@ import { ScheduleRecurrence } from '../../enums/scheduled/schedule-recurrence.en
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class Schedule extends AbstractEntity {
-	recurrence:ScheduleRecurrence;
-	offset:number;
-	periodBoundary:SchedulePeriodBoundary;
-	frequency:number;
-	active:boolean;
-	lastOccurrence:number;
+	recurrence: ScheduleRecurrence;
+	offset: number;
+	periodBoundary: SchedulePeriodBoundary;
+	frequency: number;
+	active: boolean;
+	lastOccurrence: number;
 }

@@ -5,7 +5,7 @@ import { SurfaceEmissionData } from '../surface-emission-data.class';
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class IntegratedData extends SurfaceEmissionData {
-	bagNumber:number;
-	volume:number;
-	sampleId:string;
+	bagNumber: number;
+	volume: number;
+	sampleId: string;
 }

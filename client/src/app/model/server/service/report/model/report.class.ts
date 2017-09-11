@@ -5,5 +5,5 @@ import { ReportQuery } from '../../../persistence/entity/report/report-query.cla
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export abstract class Report {
-	reportQuery:ReportQuery;
+	reportQuery: ReportQuery;
 }

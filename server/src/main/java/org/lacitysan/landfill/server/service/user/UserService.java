@@ -1,7 +1,9 @@
 package org.lacitysan.landfill.server.service.user;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
 import org.lacitysan.landfill.server.config.app.vars.ApplicationVariableService;
@@ -59,6 +61,19 @@ public class UserService {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Returns a list of users who are part of at least one inspector user group.
+	 * The {@code User} objects returned will have some unnecessary fields removed
+	 * to reduce the amount of data that needs to be queried.
+	 * The fields that are included are sufficient for identifying each user.
+	 * @return A list of users who are part of at least one inspector user group.
+	 */
+	public List<User> getAllInspectors() {
+		return this.userGroupService.getAllInspectorGroups().stream()
+				.flatMap(userGroup -> userGroup.getUsers().stream())
+				.collect(Collectors.toList());
 	}
 	
 	public User create(User user) {

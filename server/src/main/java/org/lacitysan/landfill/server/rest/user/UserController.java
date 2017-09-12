@@ -30,6 +30,11 @@ public class UserController {
 	public User getByUsername(@PathVariable String username) {
 		return userDao.getUserByUsername(username);
 	}
+	
+	@RequestMapping(value="/list/inspectors", method=RequestMethod.GET)
+	public List<User> getAllInspectors() {
+		return userService.getAllInspectors();
+	}
 
 	@RestSecurity(UserPermission.VIEW_USERS)
 	@RequestMapping(value="/list/all", method=RequestMethod.GET)

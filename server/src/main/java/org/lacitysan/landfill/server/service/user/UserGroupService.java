@@ -1,6 +1,7 @@
 package org.lacitysan.landfill.server.service.user;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.lacitysan.landfill.server.exception.string.EmptyStringException;
 import org.lacitysan.landfill.server.persistence.dao.user.UserGroupDao;
@@ -47,6 +48,10 @@ public class UserGroupService {
 			}
 		}
 		return false;
+	}
+	
+	public List<UserGroup> getAllInspectorGroups() {
+		return this.userGroupDao.getAllInspectorGroups();
 	}
 	
 	private boolean validateName(UserGroup userGroup, boolean throwException) {

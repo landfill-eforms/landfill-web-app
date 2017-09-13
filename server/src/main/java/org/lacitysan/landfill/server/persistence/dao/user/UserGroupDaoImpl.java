@@ -25,7 +25,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
 	public List<UserGroup> getAllInspectorGroups() {
 		List<?> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(UserGroup.class)
-				.add(Restrictions.eq("containsInspectors", true))
+				.add(Restrictions.eq("inspectorGroupFlag", true))
 				.list();
 		return result.stream()
 				.map(e -> checkType(e))

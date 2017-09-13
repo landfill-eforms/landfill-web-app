@@ -18,6 +18,13 @@ export class UserService {
 			);
 	}
 
+	getAllInspectors(success:(data) => void, error?:(err) => void) {
+		this.authHttp.get(this.baseUrl + "/list/inspectors").map((res:Response) => res.json()).subscribe(
+				data => success(data),
+				err => error ? error(err) : console.log(err)
+			);
+	}
+
 	getAll(success:(data) => void, error?:(err) => void) {
 		this.authHttp.get(this.baseUrl + "/list/all").map((res:Response) => res.json()).subscribe(
 				data => success(data),

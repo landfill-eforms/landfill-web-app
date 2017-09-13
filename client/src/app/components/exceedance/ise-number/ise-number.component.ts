@@ -83,7 +83,7 @@ export class IseNumberComponent implements OnInit {
 		);
 
 		// Load list of inspectors.
-		this._userService.getAll((data) => {
+		this._userService.getAllInspectors((data) => {
 			this.users = data;
 			this.isUsersLoaded = true;
 		});

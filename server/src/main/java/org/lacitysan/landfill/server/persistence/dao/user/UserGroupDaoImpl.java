@@ -10,6 +10,7 @@ import org.lacitysan.landfill.server.persistence.entity.user.UserGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implemented data access object for <code>UserGroup</code> entities.
@@ -22,13 +23,14 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
 	HibernateTemplate hibernateTemplate;
 	
 	@Override
+	@Transactional
 	public List<UserGroup> getAllInspectorGroups() {
 		List<?> result = hibernateTemplate.getSessionFactory().getCurrentSession()
 				.createCriteria(UserGroup.class)
 				.add(Restrictions.eq("inspectorGroupFlag", true))
 				.list();
 		return result.stream()
-				.map(e -> checkType(e))
+				.map(e -> initialize(checkType(e)))
 				.filter(e -> e != null)
 				.collect(Collectors.toList());
 	}

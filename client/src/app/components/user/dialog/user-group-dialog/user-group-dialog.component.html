@@ -8,6 +8,10 @@
 			<md-input-container class="md-input-full-width">
 				<textarea mdInput rows="14" placeholder="Description" [(ngModel)]="userGroup.description"></textarea>
 			</md-input-container>
+			<div>
+				<md-checkbox [(ngModel)]="userGroup.inspectorGroupFlag"></md-checkbox>
+				Inspector Group
+			</div>
 		</div>
 		<div class="flex-item" fxFlex style="padding-left: 16px;">
 			<div style="padding: 6px 0; font-weight: 500;">User Permissions</div>

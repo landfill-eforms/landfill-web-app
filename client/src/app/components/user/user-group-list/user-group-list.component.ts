@@ -120,6 +120,7 @@ export class UserGroupListComponent extends AbstractDataTableComponent<UserGroup
 		let isNew:boolean = !userGroup;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '800px';
+		dialogConfig.height = '540px';
 		let dialogRef:MdDialogRef<UserGroupDialogComponent> = this.dialog.open(UserGroupDialogComponent, dialogConfig);
 		dialogRef.componentInstance.adminGroupExists = this.adminGroupExists(this.data);
 		if (isNew) {

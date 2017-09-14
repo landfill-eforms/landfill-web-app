@@ -39,6 +39,7 @@ public class UserGroup extends AbstractEntity implements Trackable {
 	
 	private String description;
 	
+	@NotNull
 	private Boolean inspectorGroupFlag;
 	
 	@JsonIgnoreProperties(value={"userGroups", "enabled", "lastLogin", "createdBy", "createdDate", "modifiedBy", "modifiedDate"}, allowSetters=true)

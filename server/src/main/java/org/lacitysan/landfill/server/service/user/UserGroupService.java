@@ -27,6 +27,7 @@ public class UserGroupService {
 		if (userGroup == null) {
 			return null;
 		}
+		intializeNullFields(userGroup);
 		validate(userGroup);
 		trackingService.create(userGroup);
 		return userGroupDao.create(userGroup);
@@ -36,6 +37,7 @@ public class UserGroupService {
 		if (userGroup == null) {
 			return null;
 		}
+		intializeNullFields(userGroup);
 		validate(userGroup);
 		trackingService.modify(userGroup);
 		return userGroupDao.update(userGroup);
@@ -69,6 +71,13 @@ public class UserGroupService {
 	private boolean validate(UserGroup userGroup) {
 		return validateName(userGroup, true);
 		// Add new validations here.
+	}
+	
+	/** Replaces null primitive wrapper fields with the appropriate non-null value. */
+	private void intializeNullFields(UserGroup userGroup) {
+		if (userGroup.getInspectorGroupFlag() == null) {
+			userGroup.setInspectorGroupFlag(false);
+		}
 	}
 	
 }

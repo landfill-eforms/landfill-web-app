@@ -27,6 +27,7 @@ export class UserGroupDialogComponent implements OnInit {
 		if (!this.userGroup) {
 			this.userGroup = new UserGroup();
 			this.userGroup.userPermissions = [];
+			this.userGroup.inspectorGroupFlag = false;
 		}
 		else {
 			// Clone

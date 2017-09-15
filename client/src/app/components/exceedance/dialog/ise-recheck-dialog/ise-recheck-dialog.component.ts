@@ -72,6 +72,7 @@ export class IseRecheckDialogComponent implements OnInit {
 		}
 		if (!this.originalData) {
 			this.data.methaneLevel *= 100;
+			this.data.inspector = this._findUserById(this.data.inspector.id);			
 			this.dialogRef.close(this.data);
 		}
 		else {
@@ -79,6 +80,7 @@ export class IseRecheckDialogComponent implements OnInit {
 			this.originalData.description = this.data.description;
 			this.originalData.methaneLevel = this.data.methaneLevel * 100;
 			this.originalData.inspector = this.findUserById(this.data.inspector.id);
+			this.originalData.inspector = this._findUserById(this.data.inspector.id);
 			this.dialogRef.close();
 		}
 	}
@@ -88,6 +90,7 @@ export class IseRecheckDialogComponent implements OnInit {
 	}
 
 	private findUserById(id:number):User {
+	private _findUserById(id: number): User {
 		for (let user of this.users) {
 			if (user.id == id) {
 				return user;

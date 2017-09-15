@@ -11,25 +11,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IseRecheckDialogComponent implements OnInit {
 	
-	data:IseData;
-	originalData:IseData;
-	users:User[] = [];
+	data: IseData;
+	originalData: IseData;
+	users: User[] = [];
 
-	minDateTime:number;
-	maxDateTime:number;
-	dateTime:{date:number, time:number} = {
+	minDateTime: number;
+	maxDateTime: number;
+	dateTime: {date: number, time: number} = {
 		date: 0,
 		time: 0
 	}
 
 	constructor(
-		private snackBar:MdSnackBar,
-		public dialogRef:MdDialogRef<IseRecheckDialogComponent>) {
+		private snackBar: MdSnackBar,
+		public dialogRef: MdDialogRef<IseRecheckDialogComponent>) {
 
 	}
 
 	ngOnInit() {
-		let defaultDateTime:number = new Date().getTime();
+		let defaultDateTime: number = new Date().getTime();
 		this.data = new IseData();
 		if (this.originalData) {
 			this.data.dateTime = this.originalData.dateTime;
@@ -79,7 +79,6 @@ export class IseRecheckDialogComponent implements OnInit {
 			this.originalData.dateTime = this.data.dateTime;
 			this.originalData.description = this.data.description;
 			this.originalData.methaneLevel = this.data.methaneLevel * 100;
-			this.originalData.inspector = this.findUserById(this.data.inspector.id);
 			this.originalData.inspector = this._findUserById(this.data.inspector.id);
 			this.dialogRef.close();
 		}
@@ -89,7 +88,6 @@ export class IseRecheckDialogComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
-	private findUserById(id:number):User {
 	private _findUserById(id: number): User {
 		for (let user of this.users) {
 			if (user.id == id) {

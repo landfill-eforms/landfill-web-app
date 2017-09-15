@@ -173,6 +173,10 @@ public class MobileDataDeserializer {
 				}
 				unverifiedInstantaneousData.setMonitoringPoint(grid);
 			}
+			else {
+				continue; // If grid is null, the just skip over the reading.
+			}
+			
 			if (mobileInstantaneousData.getImeNumber() != null && !mobileInstantaneousData.getImeNumber().isEmpty()) {
 
 				// Declare and IME number and initialize to null.
@@ -351,6 +355,9 @@ public class MobileDataDeserializer {
 					return null;
 				}
 				unverifiedIntegratedData.setMonitoringPoint(grid);
+			}
+			else {
+				continue; // If grid is null, then just skip over the reading.
 			}
 
 			// TODO Automate sample id.

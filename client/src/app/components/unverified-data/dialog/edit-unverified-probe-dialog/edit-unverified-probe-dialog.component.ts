@@ -13,7 +13,7 @@ export class EditUnverifiedProbeDialogComponent implements OnInit {
 	data:UnverifiedProbeData;
 	availableInstruments:Instrument[] = [];
 
-	fields:{description?:string, barometricPressure?:number, methaneLevel?:number} = {}
+	fields:{description?:string, barometricPressure?:number, methaneLevel?:number, instrumentId?:number} = {}
 
 	constructor(
 		public dialogRef:MdDialogRef<EditUnverifiedProbeDialogComponent>,
@@ -21,6 +21,7 @@ export class EditUnverifiedProbeDialogComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.fields.instrumentId = this.data.instrument ? this.data.instrument.id : null;
 		this.fields.barometricPressure = this.data.barometricPressure / 100;
 		this.fields.methaneLevel = this.data.methaneLevel / 100;
 		this.fields.description = this.data.description;

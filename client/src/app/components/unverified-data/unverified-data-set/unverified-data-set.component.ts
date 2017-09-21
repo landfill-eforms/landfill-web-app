@@ -236,6 +236,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 				data.barometricPressure = result["barometricPressure"] * 100;
 				data.methaneLevel = result["methaneLevel"] * 100;
 				data.description = result["description"];
+				data.instrument = this.findInstrumentById(result["instrumentId"]);
 			}
 			this.activeItem = null;
 			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);

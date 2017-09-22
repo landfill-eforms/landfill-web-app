@@ -233,6 +233,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
+				data.instrument = this.findInstrumentById(result["instrumentId"]);
 				data.barometricPressure = result["barometricPressure"] * 100;
 				data.methaneLevel = result["methaneLevel"] * 100;
 				data.description = result["description"];

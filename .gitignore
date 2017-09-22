@@ -27,3 +27,4 @@ nbdist/
 ### Other ###
 **/*.metadata
 .recommenders/
+.DS_Store

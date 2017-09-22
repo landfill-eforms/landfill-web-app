@@ -539,6 +539,9 @@
 										<span class="data-table-header-label">Grid</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
+										<span class="data-table-header-label">Instrument</span>
+									</div>
+									<div class="data-table-column truncate flex-item" fxFlex>
 										<span class="data-table-header-label">Barometric</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
@@ -567,6 +570,12 @@
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{unverifiedProbeData.monitoringPoint?.name}}
+											</div>
+											<div class="data-table-column truncate flex-item" fxFlex>
+												<div *ngIf="!unverifiedProbeData.instrument?.serialNumber" class="error-inline">
+													None set
+												</div>
+												{{unverifiedProbeData.instrument?.serialNumber}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												<div *ngIf="!unverifiedProbeData.barometricPressure" class="error-inline">

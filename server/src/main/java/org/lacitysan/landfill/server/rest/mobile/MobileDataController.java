@@ -39,7 +39,7 @@ public class MobileDataController {
 	public Object uploadMobileData(@RequestBody MultipartFile file) {
 		try {
 			if (ApplicationConstant.DEBUG) {
-				System.out.println("FILE SIZE: " + file.getSize());
+				System.out.println("File Uploaded. Size: " + file.getSize() + " bytes");
 			}
 			ObjectMapper mapper = new ObjectMapper();
 			MobileDataContainer rawData = mapper.readValue(file.getBytes(), new TypeReference<MobileDataContainer>(){});

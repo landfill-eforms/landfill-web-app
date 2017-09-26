@@ -28,6 +28,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class IseData extends SurfaceEmissionExceedanceData {
 	
+	/**
+	 * The minimum methane level required in ppm*100 for an integrated reading to be considered an active ISE.
+	 * To get the level in ppm, divide this number by 100.
+	 */
+	public static final int MININIMUM_READING = 2500;
+	
 	@JsonIgnoreProperties({"iseData"})
 	@Cascade(CascadeType.ALL)
 	@ManyToOne

@@ -28,6 +28,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class ImeData extends SurfaceEmissionExceedanceData {
 	
+	/**
+	 * The minimum methane level required in ppm*100 for an instantaneous reading to be considered an active IME.
+	 * To get the level in ppm, divide this number by 100.
+	 */
+	public static final int MININIMUM_READING = 50000;
+	
 	@JsonIgnoreProperties({"imeData"})
 	@Cascade(CascadeType.ALL)
 	@ManyToOne

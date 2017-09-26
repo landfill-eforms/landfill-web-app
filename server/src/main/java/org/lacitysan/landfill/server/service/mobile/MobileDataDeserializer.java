@@ -15,6 +15,7 @@ import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneo
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeNumber;
+import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.WarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseData;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrated.IseNumber;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
@@ -87,6 +88,12 @@ public class MobileDataDeserializer {
 
 		// Process the IME data entries.
 		for (MobileImeData mobileImeData : mobileDataContainer.getmImeDatas()) {
+			
+			// Check if the range is valid before doing anything else.
+			// If it is not within valid range, then it is probably bad data exported by the Andriod app, and should just be skipped.
+			if (mobileImeData.getmMethaneReading() == null || mobileImeData.getmMethaneReading() < ImeData.MININIMUM_READING / 100.0) {
+				continue;
+			}
 
 			// Get user information.
 			User user = getUser(userMap, mobileImeData.getmInspectorUserName());
@@ -148,7 +155,7 @@ public class MobileDataDeserializer {
 		}
 
 		// Process the instantaneous data entries.
-		for (MobileInstantaneousData mobileInstantaneousData : mobileDataContainer.getmInstantaneousDatas()) {
+		for (MobileInstantaneousData mobileInstantaneousData : mobileDataContainer.getmInstantaneousDatas()) {	
 
 			// Get user information.
 			User user = getUser(userMap, mobileInstantaneousData.getmInspectorUserName());
@@ -173,8 +180,12 @@ public class MobileDataDeserializer {
 				}
 				unverifiedInstantaneousData.setMonitoringPoint(grid);
 			}
+			
+			// If grid is null, the just skip over the reading.
+			// It is not possible to leave the grid null in the Andriod app,
+			// but there is a rare bug where a non-existant(?) reading is exported with a null grid.
 			else {
-				continue; // If grid is null, the just skip over the reading.
+				continue;
 			}
 			
 			if (mobileInstantaneousData.getImeNumber() != null && !mobileInstantaneousData.getImeNumber().isEmpty()) {
@@ -231,6 +242,14 @@ public class MobileDataDeserializer {
 
 		// Process the instantaneous warmspot data entries.
 		for (MobileWarmspotData mobileWarmspotData : mobileDataContainer.getmWarmSpotDatas()) {
+			
+			// Check if the range is valid before doing anything else.
+			// If it is not within valid range, then it is probably bad data exported by the Andriod app, and should just be skipped.
+			if (mobileWarmspotData.getmMaxMethaneReading() == null ||
+				mobileWarmspotData.getmMaxMethaneReading() < WarmspotData.MININIMUM_READING / 100.0 ||
+				mobileWarmspotData.getmMaxMethaneReading() >= WarmspotData.MAXNIMUM_READING / 100.0) {
+				continue;
+			}
 
 			// Get user information.
 			User user = getUser(userMap, mobileWarmspotData.getmInspectorUserName());
@@ -266,6 +285,12 @@ public class MobileDataDeserializer {
 
 		// Process the ISE data entries.
 		for (MobileIseData mobileIseData : mobileDataContainer.getmIseDatas()) {
+			
+			// Check if the range is valid before doing anything else.
+			// If it is not within valid range, then it is probably bad data exported by the Andriod app, and should just be skipped.
+			if (mobileIseData.getmMethaneReading() == null || mobileIseData.getmMethaneReading() < IseData.MININIMUM_READING / 100.0) {
+				continue;
+			}
 
 			// Get user information.
 			User user = getUser(userMap, mobileIseData.getmInspectorUserName());
@@ -356,8 +381,12 @@ public class MobileDataDeserializer {
 				}
 				unverifiedIntegratedData.setMonitoringPoint(grid);
 			}
+			
+			// If grid is null, the just skip over the reading.
+			// It is not possible to leave the grid null in the Andriod app,
+			// but there is a rare bug where a non-existant(?) reading is exported with a null grid.
 			else {
-				continue; // If grid is null, then just skip over the reading.
+				continue;
 			}
 
 			// TODO Automate sample id.

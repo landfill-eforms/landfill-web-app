@@ -88,16 +88,17 @@ public class MobileDataDeserializer {
 
 		// Process the IME data entries.
 		for (MobileImeData mobileImeData : mobileDataContainer.getmImeDatas()) {
-			
-			// Check if the range is valid before doing anything else.
-			// If it is not within valid range, then it is probably bad data exported by the Andriod app, and should just be skipped.
+
+			// Check if the methane level is within valid range.
+			// If it is not within valid range, then it is probably bad data
+			// exported by the Andriod app, and should just be skipped.
 			if (mobileImeData.getmMethaneReading() == null || mobileImeData.getmMethaneReading() < ImeData.MININIMUM_READING / 100.0) {
 				continue;
 			}
 
 			// Get user information.
 			User user = getUser(userMap, mobileImeData.getmInspectorUserName());
-			
+
 			// Get site.
 			Site site = monitoringPointService.getSiteByEnumName(mobileImeData.getmLocation());
 
@@ -126,7 +127,7 @@ public class MobileDataDeserializer {
 			if (imeNumber == null) {
 				continue;
 			}
-			
+
 			// Set grid for the IME number.
 			imeNumber.getMonitoringPoints().add(monitoringPointService.getGridBySiteNameAndId(site, mobileImeData.getmGridId()));
 
@@ -139,7 +140,7 @@ public class MobileDataDeserializer {
 			imeData.setDescription(mobileImeData.getmDescription() == null ? "" : mobileImeData.getmDescription());
 			imeData.setMethaneLevel((int)(mobileImeData.getmMethaneReading() * 100));
 			imeData.setInspector(getUser(userMap, mobileImeData.getmInspectorUserName()));
-			
+
 			// Add the IME number to the IME data entry and vice versa.
 			imeData.setImeNumber(imeNumber);
 			imeNumber.getImeData().add(imeData);
@@ -151,11 +152,18 @@ public class MobileDataDeserializer {
 			 * Let the checkRelations() method in the UnverifiedDataSetService handle this.
 			 */
 			unverifiedDataSet.getImeNumbers().add(imeNumber);
-			
+
 		}
 
 		// Process the instantaneous data entries.
-		for (MobileInstantaneousData mobileInstantaneousData : mobileDataContainer.getmInstantaneousDatas()) {	
+		for (MobileInstantaneousData mobileInstantaneousData : mobileDataContainer.getmInstantaneousDatas()) {
+
+			// Check if the methane level is null.
+			// If it is null, then it is probably bad data exported
+			// by the Andriod app, and should just be skipped.
+			if (mobileInstantaneousData.getMethaneReading() == null) {
+				continue;
+			}
 
 			// Get user information.
 			User user = getUser(userMap, mobileInstantaneousData.getmInspectorUserName());
@@ -180,50 +188,79 @@ public class MobileDataDeserializer {
 				}
 				unverifiedInstantaneousData.setMonitoringPoint(grid);
 			}
-			
+
 			// If grid is null, the just skip over the reading.
 			// It is not possible to leave the grid null in the Andriod app,
 			// but there is a rare bug where a non-existant(?) reading is exported with a null grid.
 			else {
 				continue;
 			}
-			
-			if (mobileInstantaneousData.getImeNumber() != null && !mobileInstantaneousData.getImeNumber().isEmpty()) {
 
-				// Declare and IME number and initialize to null.
+			// If the instantaneous reading is a hotspot...
+			if (mobileInstantaneousData.getMethaneReading() >= ImeData.MININIMUM_READING / 100.0) {
+				
+				// Declare a variable for an IME number and initialize to null.
 				ImeNumber imeNumber = null;
+				
+				// If there is already a IME number specified for the reading...
+				if (mobileInstantaneousData.getImeNumber() != null && !mobileInstantaneousData.getImeNumber().isEmpty()) {
 
-				// Find an existing IME number that matches the current one.
-				for (ImeNumber existingImeNumber : unverifiedDataSet.getImeNumbers()) {
-					if (existingImeNumber.getImeNumber().equals(mobileInstantaneousData.getImeNumber())) {
-						imeNumber = existingImeNumber;
-						break;
+					// Find an existing IME number (in this data set, not from the database) that matches the current one.
+					for (ImeNumber existingImeNumber : unverifiedDataSet.getImeNumbers()) {
+						if (existingImeNumber.getImeNumber().equals(mobileInstantaneousData.getImeNumber())) {
+							imeNumber = existingImeNumber;
+							break;
+						}
+					}
+
+					// If no suitable IME number was found, then create a new one.
+					// Not sure if this is a good idea... comment out this if statement block to disable.
+					if (imeNumber == null) {
+						ImeNumber newImeNumber = imeNumberService.generateImeNumberFromString(mobileInstantaneousData.getImeNumber());
+						if (newImeNumber != null) {
+
+							// Make sure the IME's date code matches with the discovery date.
+							Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate());
+							newImeNumber.setDateCode(imeNumberService.generateDateCodeFromLong(date.getTime()));
+							
+							newImeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
+							unverifiedDataSet.getImeNumbers().add(newImeNumber);
+							imeNumber = newImeNumber;
+						}
+					}
+
+				}
+				
+				// If an IME number was not specified for the hotspot, then try to link to an existing one.
+				// Not sure if this is a good idea either... comment out this else statement block to disable.
+				else  {
+					
+					// Look for an existing IME (in this dataset, not from the data base) that matches
+					// the methane level and grid of the instantaneous reading.
+					for (ImeNumber existingImeNumber : unverifiedDataSet.getImeNumbers()) {
+						ImeData existingImeData = imeNumberService.findInitialDataEntry(existingImeNumber);
+						if (existingImeData == null) {
+							continue;
+						}
+						boolean gridMatch = existingImeNumber.getMonitoringPoints().stream()
+								.filter(m -> m.getName().equals(mobileInstantaneousData.getGridId()))
+								.count() > 0;
+						if (gridMatch && (int)(mobileInstantaneousData.getMethaneReading() * 100) == existingImeData.getMethaneLevel()) {
+							imeNumber = existingImeNumber;
+							break;
+						}
 					}
 				}
-
-				// If no suitable IME number was found, then create a new one.
-				if (imeNumber == null) {
-					ImeNumber newImeNumber = imeNumberService.generateImeNumberFromString(mobileInstantaneousData.getImeNumber());
-					if (newImeNumber != null) {
-
-						// Make sure the IME's date code matches with the discovery date.
-						Timestamp date = DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate());
-						newImeNumber.setDateCode(imeNumberService.generateDateCodeFromLong(date.getTime()));
-
-						newImeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
-						unverifiedDataSet.getImeNumbers().add(newImeNumber);
-						imeNumber = newImeNumber;
-					}
-				}
-
+				
 				// Add the instantaneous data to the IME number and vice versa. Also add grid to the IME number.
 				if (imeNumber != null) {
 					imeNumber.getMonitoringPoints().add(monitoringPointService.getGridBySiteNameAndId(site, mobileInstantaneousData.getGridId()));
 					imeNumber.getUnverifiedInstantaneousData().add(unverifiedInstantaneousData);
 					unverifiedInstantaneousData.getImeNumbers().add(imeNumber);
 				}
-
+				
 			}
+
 			unverifiedInstantaneousData.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
 			unverifiedInstantaneousData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate()));
 			unverifiedInstantaneousData.setEndTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmEndDate()));
@@ -237,14 +274,15 @@ public class MobileDataDeserializer {
 			// Add the unverified data set to the unverified instantaneous data and vice versa.
 			unverifiedInstantaneousData.setUnverifiedDataSet(unverifiedDataSet);
 			unverifiedDataSet.getUnverifiedInstantaneousData().add(unverifiedInstantaneousData);
-			
+
 		}
 
 		// Process the instantaneous warmspot data entries.
 		for (MobileWarmspotData mobileWarmspotData : mobileDataContainer.getmWarmSpotDatas()) {
-			
-			// Check if the range is valid before doing anything else.
-			// If it is not within valid range, then it is probably bad data exported by the Andriod app, and should just be skipped.
+
+			// Check if the methane level is within valid range.
+			// If it is not within valid range, then it is probably bad data
+			// exported by the Andriod app, and should just be skipped.
 			if (mobileWarmspotData.getmMaxMethaneReading() == null ||
 				mobileWarmspotData.getmMaxMethaneReading() < WarmspotData.MININIMUM_READING / 100.0 ||
 				mobileWarmspotData.getmMaxMethaneReading() >= WarmspotData.MAXNIMUM_READING / 100.0) {
@@ -262,7 +300,7 @@ public class MobileDataDeserializer {
 			if (unverifiedDataSet == null) {
 				continue;
 			}
-			
+
 			// TODO Import instrument.
 			UnverifiedWarmspotData unverifiedWarmspotData = new UnverifiedWarmspotData();
 			unverifiedWarmspotData.setMethaneLevel((int)(mobileWarmspotData.getmMaxMethaneReading() * 100));
@@ -276,18 +314,19 @@ public class MobileDataDeserializer {
 				return null;
 			}
 			unverifiedWarmspotData.setMonitoringPoint(grid);
-			
+
 			// Add the unverified data set to the unverified warmspot and vice versa.
 			unverifiedWarmspotData.setUnverifiedDataSet(unverifiedDataSet);
 			unverifiedDataSet.getUnverifiedWarmspotData().add(unverifiedWarmspotData);
-			
+
 		}
 
 		// Process the ISE data entries.
 		for (MobileIseData mobileIseData : mobileDataContainer.getmIseDatas()) {
-			
-			// Check if the range is valid before doing anything else.
-			// If it is not within valid range, then it is probably bad data exported by the Andriod app, and should just be skipped.
+
+			// Check if the methane level is within valid range.
+			// If it is not within valid range, then it is probably bad data
+			// exported by the Andriod app, and should just be skipped.
 			if (mobileIseData.getmMethaneReading() == null || mobileIseData.getmMethaneReading() < IseData.MININIMUM_READING / 100.0) {
 				continue;
 			}
@@ -321,7 +360,7 @@ public class MobileDataDeserializer {
 
 				// Create new ISE number string based on site, date code, and next sequence number.
 				iseNumberString = site.getShortName() + "-" + dateCode + "-00";
-				
+
 			}
 
 			// Create new ISE number based on the ISE number string.
@@ -329,7 +368,7 @@ public class MobileDataDeserializer {
 			if (iseNumber == null) {
 				continue;
 			}
-			
+
 			// Set grid for the ISE number.
 			iseNumber.setMonitoringPoint(monitoringPointService.getGridBySiteNameAndId(site, mobileIseData.getmGridId()));
 
@@ -342,7 +381,7 @@ public class MobileDataDeserializer {
 			iseData.setDescription(mobileIseData.getmDescription() == null ? "" : mobileIseData.getmDescription());
 			iseData.setMethaneLevel((int)(mobileIseData.getmMethaneReading() * 100));
 			iseData.setInspector(getUser(userMap, mobileIseData.getmInspectorUserName()));
-			
+
 			// Add the ISE number to the ISE data entry and vice versa.
 			iseData.setIseNumber(iseNumber);
 			iseNumber.getIseData().add(iseData);
@@ -354,7 +393,7 @@ public class MobileDataDeserializer {
 			 * Let the checkRelations() method in the UnverifiedDataSetService handle this.
 			 */
 			unverifiedDataSet.getIseNumbers().add(iseNumber);
-			
+
 		}
 
 		// Process the integrated data entries.
@@ -381,7 +420,7 @@ public class MobileDataDeserializer {
 				}
 				unverifiedIntegratedData.setMonitoringPoint(grid);
 			}
-			
+
 			// If grid is null, the just skip over the reading.
 			// It is not possible to leave the grid null in the Andriod app,
 			// but there is a rare bug where a non-existant(?) reading is exported with a null grid.
@@ -406,7 +445,7 @@ public class MobileDataDeserializer {
 			// Add the unverified data set to the unverified integrated data and vice versa.
 			unverifiedIntegratedData.setUnverifiedDataSet(unverifiedDataSet);
 			unverifiedDataSet.getUnverifiedIntegratedData().add(unverifiedIntegratedData);
-			
+
 		}
 
 		// Process probe data.
@@ -448,7 +487,7 @@ public class MobileDataDeserializer {
 			// Add the unverified data set to the unverified probe data and vice versa.
 			unverifiedProbeData.setUnverifiedDataSet(unverifiedDataSet);
 			unverifiedDataSet.getUnverifiedProbeData().add(unverifiedProbeData);
-			
+
 		}
 
 		// *** If it got to this point in the code, then that means there was no 'errors' with the mobile data.

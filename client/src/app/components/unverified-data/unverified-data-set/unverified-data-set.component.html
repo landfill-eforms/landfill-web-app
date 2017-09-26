@@ -526,6 +526,23 @@
 						<app-page-loading-indicator></app-page-loading-indicator>
 					</div>
 					<div *ngIf="isDataLoaded">
+						<!-- Adding the error for Probe Readings here -->
+						<md-card>
+							<md-card-content>
+								<div class="card-title">
+									Errors
+								</div>
+								<div *ngIf="!unverifiedDataSet.errors?.probe?.length" style="padding:8px 0;">
+									<i>No errors found.</i>
+								</div>
+								<div *ngIf="unverifiedDataSet.errors">
+									<div *ngFor="let error of unverifiedDataSet.errors.probe" class="error-item">
+										{{error}}
+									</div>
+								</div>
+						</md-card-content>
+						</md-card>
+						<!-- End adding the error for Probe Readings here -->
 						<md-card>
 							<md-card-content>
 								<div class="data-table-card-title-row">

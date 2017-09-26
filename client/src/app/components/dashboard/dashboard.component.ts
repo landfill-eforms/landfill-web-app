@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
 		},
 		{
 			title: "Equipment",
-			subtitle: "Manage Equipment and Equipment Types",
+			subtitle: "Manage Equipment and Sites",
 			img: "format_paint",
 			color: "#673AB7, #7E57C2, #651FFF",
 			route: RestrictedRoute.INSTRUMENT_SELECTOR,

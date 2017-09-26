@@ -25,6 +25,7 @@ export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet
 		let dataSetErrors:string[] = [];
 		let instantaneousErrors:string[] = [];
 		let integratedErrors:string[] = [];
+		let probeErrors:string[] = [];
 		for (let i = 0; i < dataSet.unverifiedInstantaneousData.length; i++) {
 			let data = dataSet.unverifiedInstantaneousData[i];
 			if (data.monitoringPoint.site != dataSet.site) {
@@ -55,10 +56,17 @@ export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet
 				integratedErrors.push("The integrated reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an barometric pressure reading.");
 			}
 		}
+		for (let i = 0; i < dataSet.unverifiedProbeData.length; i++) {
+			let data = dataSet.unverifiedProbeData[i];
+			if (!data.instrument || !data.instrument.id) {
+				probeErrors.push("The probe reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an instrument specified.");
+			}
+		}
 		dataSet.errors = {
 			dataSet: dataSetErrors,
 			instantaneous: instantaneousErrors,
-			integrated: integratedErrors
+			integrated: integratedErrors,
+			probe: probeErrors
 		}
 		console.log(dataSet);
 		return dataSet;

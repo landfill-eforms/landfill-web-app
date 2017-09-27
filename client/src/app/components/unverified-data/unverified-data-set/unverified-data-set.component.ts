@@ -234,7 +234,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 	editIseNumber(data:IseNumber) {
 		
 	}
-
+ 
 	editProbeData(data:UnverifiedProbeData) {
 		this.activeItem = data;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
@@ -249,7 +249,6 @@ export class UnverifiedDataSetComponent implements OnInit {
 				for (let inspectorId of result["inspectorIds"]) {
 					data.inspectors.push(this.findInspectorById(inspectorId));
 				}
-				//data.inspector = this.findInspectorById(result["inspectorId"]);
 				data.barometricPressure = result["barometricPressure"] * 100;
 				data.methaneLevel = result["methaneLevel"] * 100;
 				data.description = result["description"];
@@ -389,4 +388,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		return this.imeNumberService.formatList(data.imeNumbers);
 	}
 
+	printInspectorList(inspectors: User[]): string {
+        return inspectors.map(inspector => StringUtils.formatUserName(inspector)).join("; ");
+    }
 }

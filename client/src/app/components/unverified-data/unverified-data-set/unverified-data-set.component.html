@@ -588,11 +588,11 @@
 													(click)="toggleProbeData(unverifiedProbeData)">
 												</md-checkbox>
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex>
-												<div *ngIf="!unverifiedProbeData.inspector" class="error-inline">
+											<div class="data-table-column truncate flex-item" fxFlex = "200px">
+												<div *ngIf="!unverifiedProbeData.inspectors?.length" class="error-inline">
 													None set
 												</div>
-												{{StringUtils.formatUserName(unverifiedProbeData.inspector)}}
+												{{printInspectorList(unverifiedProbeData.inspectors)}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{unverifiedProbeData.monitoringPoint?.name}}

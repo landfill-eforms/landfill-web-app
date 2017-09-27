@@ -3,10 +3,10 @@
 		<md-tab-group selectedIndex="1" class="md-tab-header-white" style="height: 100%">
 			<md-tab label="Details">
 				<div class="tab-contents grey-background">
-					<div *ngIf="!isDataLoaded || !isInstrumentsLoaded">
+					<div *ngIf="!isDataLoaded || !isInstrumentsLoaded || !isInspectorsLoaded">
 						<app-page-loading-indicator></app-page-loading-indicator>
 					</div>
-					<div *ngIf="isDataLoaded && isInstrumentsLoaded">
+					<div *ngIf="isDataLoaded && isInstrumentsLoaded && isInspectorsLoaded">
 						<md-card>
 							<md-card-content>
 								<div class="card-title">
@@ -553,6 +553,9 @@
 										<md-checkbox></md-checkbox>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
+										<span class="data-table-header-label">Inspector</span>
+									</div>
+									<div class="data-table-column truncate flex-item" fxFlex>
 										<span class="data-table-header-label">Grid</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
@@ -584,6 +587,12 @@
 												<md-checkbox [checked]="unverifiedProbeData.selected" 
 													(click)="toggleProbeData(unverifiedProbeData)">
 												</md-checkbox>
+											</div>
+											<div class="data-table-column truncate flex-item" fxFlex>
+												<div *ngIf="!unverifiedProbeData.inspector" class="error-inline">
+													None set
+												</div>
+												{{StringUtils.formatUserName(unverifiedProbeData.inspector)}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{unverifiedProbeData.monitoringPoint?.name}}

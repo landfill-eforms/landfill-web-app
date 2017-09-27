@@ -19,7 +19,7 @@
 		</div>
 		<div class="flex-item" fxFlex style="padding-left: 16px;">
 			<div style="padding: 6px 0; font-weight: 500;">Inspectors</div>
-			<div class="list-picker-box" [ngStyle]="{'height': isNew ? '399px' : '341px'}">
+			<div class="list-picker-box" style="height: 341px;">
 				<div *ngFor="let inspector of inspectorsWrapped" class="list-item-container flex-container" fxLayout="row"> 
 					<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
 						<md-checkbox [(ngModel)]="inspector.selected"></md-checkbox>

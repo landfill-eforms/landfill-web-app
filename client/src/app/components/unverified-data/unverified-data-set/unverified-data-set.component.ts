@@ -1,3 +1,5 @@
+import { UserService } from './../../../services/user/user.service';
+import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { EditUnverifiedProbeDialogComponent } from './../dialog/edit-unverified-probe-dialog/edit-unverified-probe-dialog.component';
 import { NavigationService } from './../../../services/app/navigation.service';
 import { RestrictedRoute } from './../../../routes/restricted.route';
@@ -41,7 +43,9 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 	isDataLoaded:boolean = false;
 	isInstrumentsLoaded:boolean = false;
+	isInspectorsLoaded:boolean = false;
 	instruments:Instrument[] = [];
+	inspectors:User[] = [];
 	unverifiedDataSetId:string;
 	unverifiedDataSet:UnverifiedDataSet;
 	existingImeNumbers:ImeNumber[];
@@ -58,6 +62,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		private router:Router,
 		private unverifiedDataService:UnverifiedDataService,
 		private imeNumberService:ImeNumberService,
+		private userService:UserService,
 		private instrumentService:InstrumentService,
 		private dialog:MdDialog,
 		private snackBar:MdSnackBar,
@@ -90,6 +95,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 				this.instruments = data;
 				this.instruments = data.filter(o => o.instrumentType.probe || o.instrumentType.instantaneous); // TODO Do this properly.
 				this.isInstrumentsLoaded = true;
+			}
+		);
+
+		this.userService.getAllInspectors((data) => {
+				this.inspectors = data;
+				this.isInspectorsLoaded = true;
 			}
 		);
 	}
@@ -227,12 +238,18 @@ export class UnverifiedDataSetComponent implements OnInit {
 	editProbeData(data:UnverifiedProbeData) {
 		this.activeItem = data;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
-		dialogConfig.width = '480px';
+		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<EditUnverifiedProbeDialogComponent> = this.dialog.open(EditUnverifiedProbeDialogComponent, dialogConfig);
 		dialogRef.componentInstance.availableInstruments = this.instruments;
+		dialogRef.componentInstance.availableInspectors = this.inspectors;
 		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
+				data.inspectors = [];
+				for (let inspectorId of result["inspectorIds"]) {
+					data.inspectors.push(this.findInspectorById(inspectorId));
+				}
+				//data.inspector = this.findInspectorById(result["inspectorId"]);
 				data.barometricPressure = result["barometricPressure"] * 100;
 				data.methaneLevel = result["methaneLevel"] * 100;
 				data.description = result["description"];
@@ -345,6 +362,15 @@ export class UnverifiedDataSetComponent implements OnInit {
 		for (let instrument of this.instruments) {
 			if (instrument.id === id) {
 				return instrument;
+			}
+		}
+		return null;
+	}
+
+	private findInspectorById(id:number):User {
+		for (let inspector of this.inspectors) {
+			if (inspector.id === id) {
+				return inspector;
 			}
 		}
 		return null;

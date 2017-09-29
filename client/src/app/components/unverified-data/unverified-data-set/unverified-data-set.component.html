@@ -543,7 +543,7 @@
 						</md-card-content>
 						</md-card>
 						<!-- End adding the error for Probe Readings here -->
-						<md-card>
+						<md-card  class="data-table-card">
 							<md-card-content>
 								<div class="data-table-card-title-row">
 									Probe Readings
@@ -552,22 +552,22 @@
 									<div class="data-table-checkbox-column data-table-checkbox-header truncate flex-item" fxFlex="68px">
 										<md-checkbox></md-checkbox>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex>
+									<div class="data-table-column truncate flex-item" fxFlex = "16">
 										<span class="data-table-header-label">Inspector</span>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex>
+									<div class="data-table-column truncate flex-item" fxFlex = "16">
 										<span class="data-table-header-label">Grid</span>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex>
+									<div class="data-table-column truncate flex-item" fxFlex = "16">
 										<span class="data-table-header-label">Instrument</span>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex>
+									<div class="data-table-column truncate flex-item" fxFlex = "16">
 										<span class="data-table-header-label">Barometric</span>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex>
+									<div class="data-table-column truncate flex-item" fxFlex = "16">
 										<span class="data-table-header-label">Reading (ppm)</span>
 									</div>
-									<div class="data-table-column truncate flex-item" fxFlex="40">
+									<div class="data-table-column truncate flex-item" fxFlex= "16">
 										<span class="data-table-header-label">Description</span>
 									</div>
 									<div class="data-table-last-column truncate flex-item" fxFlex="40px">
@@ -588,22 +588,22 @@
 													(click)="toggleProbeData(unverifiedProbeData)">
 												</md-checkbox>
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex = "200px">
+											<div class="data-table-column truncate flex-item" fxFlex = "16">
 												<div *ngIf="!unverifiedProbeData.inspectors?.length" class="error-inline">
 													None set
 												</div>
 												{{printInspectorList(unverifiedProbeData.inspectors)}}
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex>
+											<div class="data-table-column truncate flex-item" fxFlex = "16">
 												{{unverifiedProbeData.monitoringPoint?.name}}
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex>
+											<div class="data-table-column truncate flex-item" fxFlex = "16">
 												<div *ngIf="!unverifiedProbeData.instrument?.serialNumber" class="error-inline">
 													None set
 												</div>
 												{{unverifiedProbeData.instrument?.serialNumber}}
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex>
+											<div class="data-table-column truncate flex-item" fxFlex = "16">
 												<div *ngIf="!unverifiedProbeData.barometricPressure" class="error-inline">
 													Not set
 												</div>
@@ -611,10 +611,10 @@
 													{{unverifiedProbeData.barometricPressure / 100}}
 												</div>
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex>
+											<div class="data-table-column truncate flex-item" fxFlex = "16">
 												{{unverifiedProbeData.methaneLevel / 100}}
 											</div>
-											<div class="data-table-column truncate flex-item" fxFlex="40">
+											<div class="data-table-column truncate flex-item" fxFlex="16">
 												{{unverifiedProbeData.description}}
 											</div>
 											<div class="data-table-action-column truncate flex-item" fxFlex="64px">

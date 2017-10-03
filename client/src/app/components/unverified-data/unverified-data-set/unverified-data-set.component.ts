@@ -182,6 +182,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 				data.startTime = result["startTime"];
 				data.endTime = result["endTime"];
 				data.imeNumbers = result["imeNumbers"];
+				data.date = result["Date"]; //#42
 			}
 			this.activeItem = null;
 			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);

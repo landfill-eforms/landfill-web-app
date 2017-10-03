@@ -17,5 +17,6 @@ export class UnverifiedIntegratedData extends AbstractUnverifiedData {
 	methaneLevel: number;
 	startTime: number;
 	endTime: number;
+	date: number; //#42 adding this for date
 	unverifiedDataSet: UnverifiedDataSet;
 }

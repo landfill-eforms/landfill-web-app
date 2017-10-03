@@ -26,6 +26,7 @@ export class EditUnverifiedIntegratedDialogComponent implements OnInit {
 		this.fields.methaneLevel = this.data.methaneLevel / 100;
 		this.fields.bagNumber = this.data.bagNumber;
 		this.fields.volume = this.data.volume;
+		// this.fields.date = this.data.date;
 		this.availableInstruments = this.availableInstruments.filter(i => i.instrumentType.instantaneous);
 	}
 

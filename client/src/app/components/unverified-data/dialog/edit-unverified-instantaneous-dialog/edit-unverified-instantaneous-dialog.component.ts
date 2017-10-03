@@ -24,7 +24,6 @@ export class EditUnverifiedInstantaneousDialogComponent implements OnInit {
 		methaneLevel?:number,
 		startTime?:number,
 		endTime?:number,
-		date?:number,
 		imeNumbers?:ImeNumber[]
 	} = {}
 
@@ -44,7 +43,6 @@ export class EditUnverifiedInstantaneousDialogComponent implements OnInit {
 		this.fields.methaneLevel = this.data.methaneLevel / 100;
 		this.fields.startTime = this.data.startTime;
 		this.fields.endTime = this.data.endTime;
-		this.fields.date = this.data.date; //#42 adding this for date
 		this.availableInstruments = this.availableInstruments.filter(i => i.instrumentType.instantaneous);
 
 		// Load list of available IME numbers based on the instantaneous data's site and date.

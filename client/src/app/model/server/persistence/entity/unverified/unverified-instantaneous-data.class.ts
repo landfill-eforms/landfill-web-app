@@ -15,7 +15,6 @@ export class UnverifiedInstantaneousData extends AbstractUnverifiedData {
 	methaneLevel: number;
 	startTime: number;
 	endTime: number;
-	date: number; //#42 adding this for date
 	imeNumbers: ImeNumber[];
 	unverifiedDataSet: UnverifiedDataSet;
 }

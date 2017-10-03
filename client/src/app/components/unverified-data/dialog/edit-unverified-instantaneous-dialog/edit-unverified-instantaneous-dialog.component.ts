@@ -24,7 +24,8 @@ export class EditUnverifiedInstantaneousDialogComponent implements OnInit {
 		methaneLevel?:number,
 		startTime?:number,
 		endTime?:number,
-		imeNumbers?:ImeNumber[]
+		imeNumbers?:ImeNumber[],
+		grid?:string
 	} = {}
 
 	constructor(
@@ -44,6 +45,7 @@ export class EditUnverifiedInstantaneousDialogComponent implements OnInit {
 		this.fields.startTime = this.data.startTime;
 		this.fields.endTime = this.data.endTime;
 		this.availableInstruments = this.availableInstruments.filter(i => i.instrumentType.instantaneous);
+		this.fields.grid = this.data.monitoringPoint.name;
 
 		// Load list of available IME numbers based on the instantaneous data's site and date.
 		this.imeNumberService.getBySiteAndDateCode(this.data.monitoringPoint.site, this.imeNumberService.generateDateCodeFromLong(this.data.startTime),

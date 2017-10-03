@@ -3,6 +3,9 @@
 	<div class="dialog-form-container flex-container" fxLayout="row">
 		<div class="flex-item" fxFlex style="padding-right: 16px;">
 			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Grid" disabled type="text" [(ngModel)]="fields.grid">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Barometric Pressure" type="number" [(ngModel)]="fields.barometricPressure">
 			</md-input-container>
 			<md-input-container class="md-input-full-width">

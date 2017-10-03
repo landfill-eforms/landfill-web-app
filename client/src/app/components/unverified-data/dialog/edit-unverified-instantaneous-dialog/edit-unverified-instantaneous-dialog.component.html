@@ -1,6 +1,9 @@
 <div md-dialog-title>Edit Single Instantaneous Reading</div>
 <md-dialog-content>
 	<div class="flex-item" fxFlex style="padding-right: 16px;">
+		<md-input-container class="md-input-full-width">
+			<input mdInput placeholder="Grid" disabled type="text" [(ngModel)]="fields.grid">
+		</md-input-container>
 		<app-time-picker-input placeholder="Start Time"
 			[initialDate]="fields.startTime"
 			(dateChanged)="updateStartTime($event)"

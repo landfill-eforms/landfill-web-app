@@ -18,7 +18,14 @@ export class EditUnverifiedProbeDialogComponent implements OnInit {
 	availableInspectors:User[] = [];
 	inspectorsWrapped:{inspector:User, selected?:boolean}[] = [];
 
-	fields:{description?:string, barometricPressure?:number, methaneLevel?:number, instrumentId?:number, inspectorIds?:number[]} = {}
+	fields:{
+		description?:string, 
+		barometricPressure?:number, 
+		methaneLevel?:number, 
+		instrumentId?:number, 
+		inspectorIds?:number[],
+		grid?:string
+	} = {}
 
 	constructor(
 		public dialogRef:MdDialogRef<EditUnverifiedProbeDialogComponent>,
@@ -31,6 +38,7 @@ export class EditUnverifiedProbeDialogComponent implements OnInit {
 		this.fields.barometricPressure = this.data.barometricPressure / 100;
 		this.fields.methaneLevel = this.data.methaneLevel / 100;
 		this.fields.description = this.data.description;
+		this.fields.grid = this.data.monitoringPoint.name;
 		for (let inspector of this.availableInspectors) {
 			this.inspectorsWrapped.push({inspector: inspector});
 		}

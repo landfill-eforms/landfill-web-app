@@ -13,7 +13,13 @@ export class EditUnverifiedWarmspotDialogComponent implements OnInit {
 	data:UnverifiedWarmspotData;
 	availableInstruments:Instrument[] = [];
 
-	fields:{instrumentId?:number, methaneLevel?:number, size?:string, description?:string} = {}
+	fields:{
+		instrumentId?:number, 
+		methaneLevel?:number, 
+		size?:string, 
+		description?:string,
+		grid?:string
+	} = {}
 
 	constructor(
 		public dialogRef:MdDialogRef<EditUnverifiedWarmspotDialogComponent>,
@@ -26,6 +32,7 @@ export class EditUnverifiedWarmspotDialogComponent implements OnInit {
 		this.fields.size = this.data.size;
 		this.fields.description = this.data.description;
 		this.availableInstruments = this.availableInstruments.filter(i => i.instrumentType.instantaneous);
+		this.fields.grid = this.data.monitoringPoint.name;
 	}
 
 	confirm() {

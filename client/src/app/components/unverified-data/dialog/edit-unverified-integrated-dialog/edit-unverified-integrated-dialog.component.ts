@@ -13,7 +13,14 @@ export class EditUnverifiedIntegratedDialogComponent implements OnInit {
 	data:UnverifiedIntegratedData;
 	availableInstruments:Instrument[] = [];
 
-	fields:{instrumentId?:number, barometricPressure?:number, methaneLevel?:number, bagNumber?:number, volume?:number} = {}
+	fields:{
+		instrumentId?:number, 
+		barometricPressure?:number, 
+		methaneLevel?:number, 
+		bagNumber?:number, 
+		volume?:number,
+		grid?:string
+	} = {}
 
 	constructor(
 		public dialogRef:MdDialogRef<EditUnverifiedIntegratedDialogComponent>,
@@ -27,6 +34,7 @@ export class EditUnverifiedIntegratedDialogComponent implements OnInit {
 		this.fields.bagNumber = this.data.bagNumber;
 		this.fields.volume = this.data.volume;
 		this.availableInstruments = this.availableInstruments.filter(i => i.instrumentType.instantaneous);
+		this.fields.grid = this.data.monitoringPoint.name;
 	}
 
 	confirm() {

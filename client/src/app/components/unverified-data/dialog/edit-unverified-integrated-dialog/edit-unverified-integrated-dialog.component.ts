@@ -18,6 +18,7 @@ export class EditUnverifiedIntegratedDialogComponent implements OnInit {
 		barometricPressure?:number, 
 		methaneLevel?:number, 
 		bagNumber?:number, 
+		startTime?:number,
 		volume?:number,
 		grid?:string
 	} = {}
@@ -33,6 +34,8 @@ export class EditUnverifiedIntegratedDialogComponent implements OnInit {
 		this.fields.methaneLevel = this.data.methaneLevel / 100;
 		this.fields.bagNumber = this.data.bagNumber;
 		this.fields.volume = this.data.volume;
+		this.fields.startTime = this.data.startTime;
+		this.fields.endTime = this.data.endTime;
 		this.availableInstruments = this.availableInstruments.filter(i => i.instrumentType.instantaneous);
 		this.fields.grid = this.data.monitoringPoint.name;
 	}

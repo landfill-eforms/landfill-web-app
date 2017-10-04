@@ -5,6 +5,9 @@
 			<input mdInput placeholder="Grid" disabled type="text" [(ngModel)]="fields.grid">
 		</md-input-container>
 		<md-input-container class="md-input-full-width">
+			<input mdInput placeholder="Date" [value]="fields.startTime | date: 'shortDate'" disabled>
+		</md-input-container>
+		<md-input-container class="md-input-full-width">
 			<input mdInput placeholder="Barometric Pressure" type="number" [(ngModel)]="fields.barometricPressure">
 		</md-input-container>
 		<md-input-container class="md-input-full-width">

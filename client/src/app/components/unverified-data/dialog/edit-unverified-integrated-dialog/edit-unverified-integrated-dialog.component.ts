@@ -19,6 +19,7 @@ export class EditUnverifiedIntegratedDialogComponent implements OnInit {
 		methaneLevel?:number, 
 		bagNumber?:number, 
 		startTime?:number,
+		endTime?:number,
 		volume?:number,
 		grid?:string
 	} = {}

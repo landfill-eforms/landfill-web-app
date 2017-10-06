@@ -14,6 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReportQueryService {
 	
+	/**
+	 * Calculates the start and end date boundaries for a given report query
+	 * and updates the corresponding fields in the {@code ReportQuery} object.
+	 * @param reportQuery The {@code ReportQuery} object to calculate the date bounds for.
+	 * @return The same {@code ReportQuery} object with its date bound fields updated.
+	 */
 	public ReportQuery updateReportQueryDateRange(ReportQuery reportQuery) {
 		
 		if (reportQuery.getReportPeriod() == ReportPeriod.SINGLE) {
@@ -22,77 +28,75 @@ public class ReportQueryService {
 		
 		Calendar start = Calendar.getInstance();
 		Calendar end = Calendar.getInstance();
+		int offset = reportQuery.getPeriodOffset() == null ? 0 : reportQuery.getPeriodOffset();
+		
 		
 		if (reportQuery.getReportPeriod() == ReportPeriod.DAILY) {
 			
 			// Calculate start time.
-			start.add(Calendar.DATE, -1);
+			start.add(Calendar.DATE, offset);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
 			// Calculate end time.
-			end.add(Calendar.DATE, -1);
+			end.add(Calendar.DATE, offset);
 			reportQuery.setEndDate(new Date(end.getTimeInMillis()));
 			
 		}
 		
-		else if (reportQuery.getReportPeriod() == ReportPeriod.WEEKLY) {
+		else if (reportQuery.getReportPeriod() == ReportPeriod.WEEK) {
 			
 			int dayOfWeek = start.get(Calendar.DAY_OF_WEEK);
 			
 			// Calculate start time.
-			start.add(Calendar.DATE, -(dayOfWeek + 6));
+			start.add(Calendar.DATE, 1 - dayOfWeek + 7 * offset);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
 			// Calculate end time.
-			end.add(Calendar.DATE, 6 -(dayOfWeek + 6));
+			end.add(Calendar.DATE, 7 - dayOfWeek + 7 * offset);
 			reportQuery.setEndDate(new Date(end.getTimeInMillis()));
 			
 		}
 		
-		else if (reportQuery.getReportPeriod() == ReportPeriod.MONTHLY) {
+		else if (reportQuery.getReportPeriod() == ReportPeriod.MONTH) {
 			
 			// Calculate start time.
-			start.add(Calendar.MONTH, -1);
+			start.add(Calendar.MONTH, offset);
 			start.set(Calendar.DATE, 1);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
 			// Calculate end time.
+			end.add(Calendar.MONTH, offset + 1);
 			end.set(Calendar.DATE, 0);
 			reportQuery.setEndDate(new Date(end.getTimeInMillis()));
 			
 		}
 		
-		else if (reportQuery.getReportPeriod() == ReportPeriod.QUARTERLY) {
+		else if (reportQuery.getReportPeriod() == ReportPeriod.QUARTER) {
 			
-			int quarter = start.get(Calendar.MONTH) / 3;
+			int quarter = start.get(Calendar.MONTH) / 3 + offset;
 			
 			// Calculate start time.
-			if (quarter == 0) {
-				start.add(Calendar.YEAR, -1);
-				start.set(Calendar.MONTH, 9);
-			}
-			else {
-				start.set(Calendar.MONTH, (quarter - 1) * 3);
-			}
+			start.set(Calendar.MONTH, quarter * 3);
 			start.set(Calendar.DATE, 1);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
 			// Calculate end time.
-			end.set(Calendar.MONTH, quarter * 3 - 1);
+			end.set(Calendar.MONTH, (quarter + 1) * 3);
 			end.set(Calendar.DATE, 0);
 			reportQuery.setEndDate(new Date(end.getTimeInMillis()));
 			
 		}
 		
-		else if (reportQuery.getReportPeriod() == ReportPeriod.YEARLY) {
+		else if (reportQuery.getReportPeriod() == ReportPeriod.YEAR) {
 			
 			// Calculate start time.
-			start.add(Calendar.YEAR, -1);
+			start.add(Calendar.YEAR, offset);
 			start.set(Calendar.MONTH, 0);
 			start.set(Calendar.DATE, 1);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
 			// Calculate end time.
+			end.add(Calendar.YEAR, offset + 1);
 			end.set(Calendar.MONTH, 0);
 			end.set(Calendar.DATE, 0);
 			reportQuery.setEndDate(new Date(end.getTimeInMillis()));

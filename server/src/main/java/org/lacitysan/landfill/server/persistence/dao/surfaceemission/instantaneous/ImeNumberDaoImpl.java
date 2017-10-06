@@ -39,6 +39,7 @@ public class ImeNumberDaoImpl extends SurfaceEmissionExceedanceNumberDaoImpl<Ime
 			Hibernate.initialize(unverifiedInstantaneousData.getUnverifiedDataSet());
 		});
 		imeNumber.getImeData().forEach(imeData -> {
+			Hibernate.initialize(imeData.getInstrument());
 			imeData.getImeRepairData().forEach(imeRepairData -> {
 				Hibernate.initialize(imeRepairData);
 			});

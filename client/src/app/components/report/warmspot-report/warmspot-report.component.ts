@@ -19,6 +19,7 @@ export class WarmspotReportComponent {
 
 	selectedReportPeriod:ReportPeriod = ReportPeriod.SINGLE;
 	reportPeriodChoices:ReportPeriod[] = ReportPeriod.values();
+	periodOffset:number = 0;
 
 	report:WarmspotReport;
 
@@ -68,6 +69,8 @@ export class WarmspotReportComponent {
 		reportQuery.reportType = ReportType.WARMSPOT;
 		reportQuery.site = this.selectedSite;
 		reportQuery.reportPeriod = this.selectedReportPeriod;
+		reportQuery.periodOffset = this.periodOffset;
+		reportQuery.periodToDate = true; // Always true;
 		reportQuery.startDate = this.dateRange.start;
 		reportQuery.endDate = this.dateRange.end;
 		return reportQuery;

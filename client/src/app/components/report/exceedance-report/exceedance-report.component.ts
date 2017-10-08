@@ -20,6 +20,7 @@ export class ExceedanceReportComponent {
 
 	selectedReportPeriod:ReportPeriod = ReportPeriod.SINGLE;
 	reportPeriodChoices:ReportPeriod[] = ReportPeriod.values();
+	periodOffset:number = 0;
 
 	report:ExceedanceReport;
 
@@ -70,6 +71,8 @@ export class ExceedanceReportComponent {
 		reportQuery.exceedanceTypes = [ExceedanceType.INSTANTANEOUS, ExceedanceType.INTEGRATED]; // TODO Fix this...
 		reportQuery.site = this.selectedSite;
 		reportQuery.reportPeriod = this.selectedReportPeriod;
+		reportQuery.periodOffset = this.periodOffset;
+		reportQuery.periodToDate = true; // Always true;
 		reportQuery.startDate = this.dateRange.start;
 		reportQuery.endDate = this.dateRange.end;
 		return reportQuery;

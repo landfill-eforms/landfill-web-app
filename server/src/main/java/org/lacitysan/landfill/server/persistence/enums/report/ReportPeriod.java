@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public enum ReportPeriod {
 	
 	SINGLE ("Custom"),
-	DAILY ("Yesterday"),
+	DAILY ("Day"),
 	WEEK ("Week"),
 	MONTH ("Month"),
 	QUARTER ("Quarter"),

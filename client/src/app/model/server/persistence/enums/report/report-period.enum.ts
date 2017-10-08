@@ -13,7 +13,7 @@ export class ReportPeriod {
 	static readonly DAILY: ReportPeriod = {
 		ordinal: 1,
 		constantName: "DAILY",
-		name: "Yesterday"
+		name: "Day"
 	};
 
 	static readonly WEEK: ReportPeriod = {

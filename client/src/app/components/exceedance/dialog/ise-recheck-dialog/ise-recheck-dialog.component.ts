@@ -35,7 +35,7 @@ export class IseRecheckDialogComponent implements OnInit {
 			this.data.dateTime = this.originalData.dateTime;
 			this.data.description = this.originalData.description;
 			this.data.methaneLevel = this.originalData.methaneLevel / 100;
-			this.data.inspector = this.originalData.inspector;
+			this.data.inspector = this.originalData.inspector ? this._findUserById(this.originalData.inspector.id) : null;
 			defaultDateTime = this.originalData.dateTime;
 		}
 		else {
@@ -46,7 +46,6 @@ export class IseRecheckDialogComponent implements OnInit {
 				defaultDateTime = this.maxDateTime;
 			}
 			this.data.iseRepairData = [];
-			this.data.inspector = new User();
 		}
 		this.dateTime.date = defaultDateTime;
 		this.dateTime.time = defaultDateTime;
@@ -72,20 +71,22 @@ export class IseRecheckDialogComponent implements OnInit {
 		}
 		if (!this.originalData) {
 			this.data.methaneLevel *= 100;
-			this.data.inspector = this._findUserById(this.data.inspector.id);			
 			this.dialogRef.close(this.data);
 		}
 		else {
 			this.originalData.dateTime = this.data.dateTime;
 			this.originalData.description = this.data.description;
 			this.originalData.methaneLevel = this.data.methaneLevel * 100;
-			this.originalData.inspector = this._findUserById(this.data.inspector.id);
 			this.dialogRef.close();
 		}
 	}
 
 	cancel() {
 		this.dialogRef.close();
+	}
+
+	canSubmit(): boolean {
+		return !!this.data.inspector && this.data.methaneLevel != null;
 	}
 
 	private _findUserById(id: number): User {

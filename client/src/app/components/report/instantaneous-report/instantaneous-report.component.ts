@@ -19,6 +19,7 @@ export class InstantaneousReportComponent {
 
 	selectedReportPeriod:ReportPeriod = ReportPeriod.SINGLE;
 	reportPeriodChoices:ReportPeriod[] = ReportPeriod.values();
+	periodOffset:number = 0;
 
 	report:InstantaneousReport;
 
@@ -68,6 +69,8 @@ export class InstantaneousReportComponent {
 		reportQuery.reportType = ReportType.INSTANTANEOUS;
 		reportQuery.site = this.selectedSite;
 		reportQuery.reportPeriod = this.selectedReportPeriod;
+		reportQuery.periodOffset = this.periodOffset;
+		reportQuery.periodToDate = true; // Always true;
 		reportQuery.startDate = this.dateRange.start;
 		reportQuery.endDate = this.dateRange.end;
 		return reportQuery;

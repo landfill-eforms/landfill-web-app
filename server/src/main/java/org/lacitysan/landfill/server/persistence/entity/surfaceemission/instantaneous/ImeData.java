@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.SurfaceEmissionExceedanceData;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -44,7 +45,12 @@ public class ImeData extends SurfaceEmissionExceedanceData {
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy="imeData")
 	private Set<ImeRepairData> imeRepairData = new TreeSet<>();
-
+	
+	@JsonIgnoreProperties("instrumentType")
+	@ManyToOne
+	@JoinColumn(name="InstrumentFK")
+	private Instrument instrument;
+	
 	public ImeNumber getImeNumber() {
 		return imeNumber;
 	}
@@ -61,4 +67,12 @@ public class ImeData extends SurfaceEmissionExceedanceData {
 		this.imeRepairData = imeRepairData;
 	}
 
+	public Instrument getInstrument() {
+		return instrument;
+	}
+
+	public void setInstrument(Instrument instrument) {
+		this.instrument = instrument;
+	}
+	
 }

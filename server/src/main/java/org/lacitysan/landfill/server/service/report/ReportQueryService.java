@@ -33,75 +33,74 @@ public class ReportQueryService {
 		
 		if (reportQuery.getReportPeriod() == ReportPeriod.DAILY) {
 			
-			// Calculate start time.
+			// Calculate and set start date.
 			start.add(Calendar.DATE, offset);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
-			// Calculate end time.
+			// Calculate end date.
 			end.add(Calendar.DATE, offset);
-			reportQuery.setEndDate(new Date(end.getTimeInMillis()));
-			
 		}
 		
 		else if (reportQuery.getReportPeriod() == ReportPeriod.WEEK) {
 			
 			int dayOfWeek = start.get(Calendar.DAY_OF_WEEK);
 			
-			// Calculate start time.
+			// Calculate and set start date.
 			start.add(Calendar.DATE, 1 - dayOfWeek + 7 * offset);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
-			// Calculate end time.
+			// Calculate end date.
 			end.add(Calendar.DATE, 7 - dayOfWeek + 7 * offset);
-			reportQuery.setEndDate(new Date(end.getTimeInMillis()));
-			
 		}
 		
 		else if (reportQuery.getReportPeriod() == ReportPeriod.MONTH) {
 			
-			// Calculate start time.
+			// Calculate and set start date.
 			start.add(Calendar.MONTH, offset);
 			start.set(Calendar.DATE, 1);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
-			// Calculate end time.
+			// Calculate end date.
 			end.add(Calendar.MONTH, offset + 1);
 			end.set(Calendar.DATE, 0);
-			reportQuery.setEndDate(new Date(end.getTimeInMillis()));
-			
 		}
 		
 		else if (reportQuery.getReportPeriod() == ReportPeriod.QUARTER) {
 			
 			int quarter = start.get(Calendar.MONTH) / 3 + offset;
 			
-			// Calculate start time.
+			// Calculate and set start date.
 			start.set(Calendar.MONTH, quarter * 3);
 			start.set(Calendar.DATE, 1);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
-			// Calculate end time.
+			// Calculate end date.
 			end.set(Calendar.MONTH, (quarter + 1) * 3);
 			end.set(Calendar.DATE, 0);
-			reportQuery.setEndDate(new Date(end.getTimeInMillis()));
-			
 		}
 		
 		else if (reportQuery.getReportPeriod() == ReportPeriod.YEAR) {
 			
-			// Calculate start time.
+			// Calculate and set start date.
 			start.add(Calendar.YEAR, offset);
 			start.set(Calendar.MONTH, 0);
 			start.set(Calendar.DATE, 1);
 			reportQuery.setStartDate(new Date(start.getTimeInMillis()));
 			
-			// Calculate end time.
+			// Calculate end date.
 			end.add(Calendar.YEAR, offset + 1);
 			end.set(Calendar.MONTH, 0);
 			end.set(Calendar.DATE, 0);
-			reportQuery.setEndDate(new Date(end.getTimeInMillis()));
 			
 		}
+		
+		// If querying up to today's date, then apply cutoff before setting the end date.
+		if (reportQuery.getPeriodToDate() && end.after(Calendar.getInstance())) {
+			end = Calendar.getInstance();
+		}
+		
+		// Set end date.
+		reportQuery.setEndDate(new Date(end.getTimeInMillis()));
 		
 		System.out.println(reportQuery.getStartDate() + "\n" + reportQuery.getEndDate());
 		return reportQuery;

@@ -61,6 +61,8 @@ public abstract class ReportQuery extends AbstractEntity implements Comparable<R
 	
 	private Integer periodOffset;
 	
+	private Boolean periodToDate;
+	
 	private Date startDate;
 	
 	private Date endDate;
@@ -105,6 +107,14 @@ public abstract class ReportQuery extends AbstractEntity implements Comparable<R
 
 	public void setPeriodOffset(Integer periodOffset) {
 		this.periodOffset = periodOffset;
+	}
+
+	public Boolean getPeriodToDate() {
+		return periodToDate;
+	}
+
+	public void setPeriodToDate(Boolean periodToDate) {
+		this.periodToDate = periodToDate;
 	}
 
 	public Date getStartDate() {

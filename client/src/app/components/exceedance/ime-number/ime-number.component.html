@@ -36,7 +36,7 @@
 							Grid(s)
 						</div>
 						<div *ngIf="!isCleared" class="info-card-data-value truncate flex-item" fxFlex>
-							<a>{{listGrids(imeNumberData)}}</a>
+							<a (click)="openGridDialog()">{{listGrids(imeNumberData)}}</a>
 						</div>
 						<div *ngIf="isCleared" class="info-card-data-value truncate flex-item" fxFlex>
 							{{listGrids(imeNumberData)}}

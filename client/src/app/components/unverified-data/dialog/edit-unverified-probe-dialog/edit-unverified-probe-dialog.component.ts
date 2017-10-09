@@ -49,6 +49,7 @@ export class EditUnverifiedProbeDialogComponent implements OnInit {
 				}
 			}
 		}
+		this.availableInstruments = this.availableInstruments.filter(i => i.instrumentType.probe);		
 	}
 
 	confirm() {

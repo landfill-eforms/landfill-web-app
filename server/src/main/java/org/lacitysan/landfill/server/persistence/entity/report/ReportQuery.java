@@ -59,6 +59,12 @@ public abstract class ReportQuery extends AbstractEntity implements Comparable<R
 	@Enumerated(EnumType.STRING)
 	private ReportPeriod reportPeriod;
 	
+	@NotNull
+	private Integer periodOffset;
+	
+	@NotNull
+	private Boolean periodToDate;
+	
 	private Date startDate;
 	
 	private Date endDate;
@@ -95,6 +101,22 @@ public abstract class ReportQuery extends AbstractEntity implements Comparable<R
 
 	public void setReportPeriod(ReportPeriod reportPeriod) {
 		this.reportPeriod = reportPeriod;
+	}
+
+	public Integer getPeriodOffset() {
+		return periodOffset;
+	}
+
+	public void setPeriodOffset(Integer periodOffset) {
+		this.periodOffset = periodOffset;
+	}
+
+	public Boolean getPeriodToDate() {
+		return periodToDate;
+	}
+
+	public void setPeriodToDate(Boolean periodToDate) {
+		this.periodToDate = periodToDate;
 	}
 
 	public Date getStartDate() {

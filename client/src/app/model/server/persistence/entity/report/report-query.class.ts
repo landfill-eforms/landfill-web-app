@@ -13,6 +13,8 @@ export abstract class ReportQuery extends AbstractEntity {
 	site: Site;
 	exceedanceTypes: ExceedanceType[];
 	reportPeriod: ReportPeriod;
+	periodOffset: number;
+	periodToDate: boolean;
 	startDate: number;
 	endDate: number;
 	dateCreated: number;

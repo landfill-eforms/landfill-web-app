@@ -47,7 +47,7 @@ public class ApplicationConstant {
 	 * During development/testing, it is recommended to set to <code>false</code>,
 	 * so that the user can reuse the same JWT even after the server is restarted. 
 	 */
-	public static final Boolean TOKEN_SECRET_USE_RANDOM = true;
+	public static final Boolean TOKEN_SECRET_USE_RANDOM = false;
 	
 
 	

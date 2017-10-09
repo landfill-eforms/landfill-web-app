@@ -97,17 +97,35 @@
 								{{site.name}}
 							</md-option>
 						</md-select>
-						<md-select [(ngModel)]="scheduledReport.reportQueries[0].reportPeriod" placeholder="Period" class="mat-select-row" style="width:100%">
+						<md-select [(ngModel)]="scheduledReport.reportQueries[0].reportPeriod" placeholder="Period Range" class="mat-select-row" style="width:100%">
 							<md-option *ngFor="let p of reportPeriodChoices" [value]="p">
 								{{p.name}}
 							</md-option>
 						</md-select>
-						<app-date-picker-input [disabled]="scheduledReport.reportQueries[0].reportPeriod != reportPeriodChoices[0]"
+						<md-select *ngIf="scheduledReport.reportQueries[0].reportPeriod?.ordinal" [(ngModel)]="scheduledReport.reportQueries[0].periodOffset" placeholder="Period Selection" class="mat-select-row" style="width:100%">
+							<md-option [value]="-1" [ngSwitch]="scheduledReport.reportQueries[0].reportPeriod?.ordinal">
+								<div *ngSwitchCase="0">
+									Not Applicable
+								</div>
+								<div *ngSwitchDefault>
+									Previous {{scheduledReport.reportQueries[0].reportPeriod?.name || 'Period'}}
+								</div>
+							</md-option>
+							<md-option [value]="0" [ngSwitch]="scheduledReport.reportQueries[0].reportPeriod?.ordinal">
+								<div *ngSwitchCase="0">
+									Not Applicable
+								</div>
+								<div *ngSwitchDefault>
+									Current {{scheduledReport.reportQueries[0].reportPeriod?.name || 'Period'}}
+								</div>
+							</md-option>
+						</md-select>
+						<app-date-picker-input *ngIf="!scheduledReport.reportQueries[0].reportPeriod?.ordinal"
 							placeholder="Start Date"
 							[initialDate]="scheduledReport.reportQueries[0].startDate"
 							(dateChanged)="updateStartDate($event)">
 						</app-date-picker-input>
-						<app-date-picker-input [disabled]="scheduledReport.reportQueries[0].reportPeriod != reportPeriodChoices[0]"
+						<app-date-picker-input *ngIf="!scheduledReport.reportQueries[0].reportPeriod?.ordinal"
 							placeholder="End Date"
 							[initialDate]="scheduledReport.reportQueries[0].endDate"
 							(dateChanged)="updateEndDate($event)">

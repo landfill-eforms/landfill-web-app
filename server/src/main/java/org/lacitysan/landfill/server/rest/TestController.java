@@ -9,9 +9,11 @@ import org.lacitysan.landfill.server.persistence.entity.report.IndividualReportQ
 import org.lacitysan.landfill.server.persistence.entity.report.ReportQuery;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.persistence.enums.report.ReportType;
+import org.lacitysan.landfill.server.service.report.ReportQueryService;
 import org.lacitysan.landfill.server.service.report.ReportService;
 import org.lacitysan.landfill.server.service.report.model.Report;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +25,9 @@ public class TestController {
 	@Autowired
 	ReportService reportService;
 	
+	@Autowired
+	ReportQueryService reportQueryService;
+	
 	@RequestMapping(value="/asdf", method=RequestMethod.GET)
 	public Report reportTest() throws ParseException {
 		ReportQuery reportQuery = new IndividualReportQuery();
@@ -32,6 +37,11 @@ public class TestController {
 		reportQuery.setStartDate(new Date(new SimpleDateFormat("M/d/yyyy").parse("4/15/2017").getTime()));
 		reportQuery.setEndDate(new Date(new SimpleDateFormat("M/d/yyyy").parse("4/16/2017").getTime()));
 		return reportService.generateReport(reportQuery);
+	}
+	
+	@RequestMapping(value="/jajaja", method=RequestMethod.POST)
+	public ReportQuery reportQueryTest(@RequestBody IndividualReportQuery reportQuery) throws ParseException {
+		return reportQueryService.updateReportQueryDateRange(reportQuery);
 	}
 
 }

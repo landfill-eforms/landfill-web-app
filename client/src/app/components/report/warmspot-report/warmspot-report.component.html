@@ -5,18 +5,36 @@
 				Warmspot Report Query
 			</div>
 			<div class="flex-container" fxLayout="row">
-				<md-select [(ngModel)]="selectedSite" placeholder="Site" class="mat-select-row flex-item" fxFlex style="margin-top: 10px">
+				<md-select [(ngModel)]="selectedSite" placeholder="Site" class="mat-select-row flex-item" fxFlex="25" style="margin-top: 10px">
 					<md-option *ngFor="let site of availableSites" [value]="site">
 						{{site.name}}
 					</md-option>
 				</md-select>
-				<md-select [(ngModel)]="selectedReportPeriod" placeholder="Period" class="mat-select-row flex-item" fxFlex style="margin-top: 10px; padding-left: 16px;">
+				<md-select [(ngModel)]="selectedReportPeriod" placeholder="Period Range" class="mat-select-row flex-item" fxFlex="25" style="margin-top: 10px; padding-left: 16px;">
 					<md-option *ngFor="let period of reportPeriodChoices" [value]="period">
 						{{period.name}}
 					</md-option>
 				</md-select>
-				<app-date-picker-input placeholder="Min Date" (dateChanged)="dateChanged('start', $event)" [disabled]="selectedReportPeriod.ordinal != 0" class="flex-item" fxFlex style="padding: 16px"></app-date-picker-input>
-				<app-date-picker-input placeholder="Max Date" (dateChanged)="dateChanged('end', $event)" [disabled]="selectedReportPeriod.ordinal != 0"  class="flex-item" fxFlex style="padding: 16px"></app-date-picker-input>
+				<md-select *ngIf="selectedReportPeriod.ordinal" [(ngModel)]="periodOffset" placeholder="Period Selection" class="mat-select-row flex-item" fxFlex="25" style="margin-top: 10px; padding-left: 16px;">
+					<md-option [value]="-1" [ngSwitch]="selectedReportPeriod.ordinal">
+						<div *ngSwitchCase="0">
+							Not Applicable
+						</div>
+						<div *ngSwitchDefault>
+							{{selectedReportPeriod.ordinal == 1 ? 'Yesterday' : 'Previous ' + (selectedReportPeriod?.name || 'Period')}}
+						</div>
+					</md-option>
+					<md-option [value]="0" [ngSwitch]="selectedReportPeriod.ordinal">
+						<div *ngSwitchCase="0">
+							Not Applicable
+						</div>
+						<div *ngSwitchDefault>
+							{{selectedReportPeriod.ordinal == 1 ? 'Today' : 'Current ' + (selectedReportPeriod?.name || 'Period') + ' to Date'}}
+						</div>
+					</md-option>
+				</md-select>
+				<app-date-picker-input placeholder="Min Date" (dateChanged)="dateChanged('start', $event)" *ngIf="!selectedReportPeriod.ordinal" class="flex-item" fxFlex="25" style="padding: 16px"></app-date-picker-input>
+				<app-date-picker-input placeholder="Max Date" (dateChanged)="dateChanged('end', $event)" *ngIf="!selectedReportPeriod.ordinal"  class="flex-item" fxFlex="25" style="padding: 16px"></app-date-picker-input>
 			</div>
 			<button md-raised-button color="accent" (click)="previewReport()">RUN QUERY</button>
 		</md-card-content>

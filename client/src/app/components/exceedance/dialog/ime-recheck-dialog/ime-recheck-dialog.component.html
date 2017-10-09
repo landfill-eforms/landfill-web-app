@@ -23,8 +23,8 @@
 		<md-input-container class="md-input-full-width">
 			<input mdInput type="number" placeholder="Value (ppm/v)" [(ngModel)]="data.methaneLevel">
 		</md-input-container>
-		<md-select [(ngModel)]="data.inspector.id" placeholder="Inspector" class="mat-select-row" style="width:100%">
-			<md-option *ngFor="let user of users" [value]="user.id">
+		<md-select [(ngModel)]="data.inspector" placeholder="Inspector" class="mat-select-row" style="width:100%">
+			<md-option *ngFor="let user of users" [value]="user">
 				{{user.firstname}} {{user.lastname}}
 			</md-option>
 		</md-select>
@@ -34,7 +34,7 @@
 	<button md-button (click)="cancel()">
 		CANCEL
 	</button>
-	<button md-button (click)="submit()">
+	<button md-button (click)="submit()" [disabled]="!canSubmit()">
 		SAVE
 	</button>
 </md-dialog-actions>

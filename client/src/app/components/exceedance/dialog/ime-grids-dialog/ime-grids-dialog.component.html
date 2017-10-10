@@ -1,6 +1,8 @@
 <div md-dialog-title>Add/Remove Grids</div> 
 <md-dialog-content> 
-	Add content here... 
+	<div *ngFor="let grid of monitoringPoints">
+		{{grid.name}}
+	</div>
 </md-dialog-content>     
 <md-dialog-actions> 
 	<button md-button (click)="cancel()"> 

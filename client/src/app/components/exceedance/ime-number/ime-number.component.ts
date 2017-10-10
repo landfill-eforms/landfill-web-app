@@ -261,7 +261,7 @@ export class ImeNumberComponent implements OnInit {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '480px';
 		let dialogRef:MdDialogRef<ImeGridsDialogComponent> = this._dialog.open(ImeGridsDialogComponent, dialogConfig);
-		// TODO Pass data to dialog here...
+		dialogRef.componentInstance.data = this.imeNumberData;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				// TODO Do something with data passed back by the dialog.

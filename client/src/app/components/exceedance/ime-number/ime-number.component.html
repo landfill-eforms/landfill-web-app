@@ -33,13 +33,10 @@
 					</div>
 					<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start center">
 						<div class="info-card-data-key flex-item" fxFlex="96px">
-							Grid(s)
+							Grid(s) 
 						</div>
-						<div *ngIf="!isCleared" class="info-card-data-value truncate flex-item" fxFlex>
-							<a (click)="openGridDialog()">{{listGrids(imeNumberData)}}</a>
-						</div>
-						<div *ngIf="isCleared" class="info-card-data-value truncate flex-item" fxFlex>
-							{{listGrids(imeNumberData)}}
+						<div class="info-card-data-value truncate flex-item" fxFlex>
+							{{listGrids(imeNumberData)}} <a *ngIf="!isCleared" (click)="openGridDialog()" style="padding-left: 8px;">Edit</a>							
 						</div>
 					</div>
 				</div>

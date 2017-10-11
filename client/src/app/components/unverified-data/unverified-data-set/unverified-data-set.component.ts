@@ -215,9 +215,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<EditImeNumberDialogComponent> = this.dialog.open(EditImeNumberDialogComponent, dialogConfig);
 		// TODO Pass data to dialog here...
+		dialogRef.componentInstance.availableInstruments = this.instruments;
+		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				// TODO Do something with data passed back by the dialog.
+				
 			}
 			this.activeItem = null;
 			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);

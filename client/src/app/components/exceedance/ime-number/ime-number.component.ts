@@ -264,7 +264,7 @@ export class ImeNumberComponent implements OnInit {
 		dialogRef.componentInstance.data = this.imeNumberData;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				// TODO Do something with data passed back by the dialog.
+				this.imeNumberData.monitoringPoints = result;
 			}
 		});
 	}

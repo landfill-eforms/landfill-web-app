@@ -1,7 +1,7 @@
 <div md-dialog-title>Add/Remove Grids</div> 
 <md-dialog-content> 
-	<div *ngFor="let grid of monitoringPoints">
-		{{grid.name}}
+	<div *ngFor="let grid of wrappedGrids" (click)="grid.selected = !grid.selected">
+		{{grid.monitoringPoint.name}} {{grid.selected && 'SELECTED'}}
 	</div>
 </md-dialog-content>     
 <md-dialog-actions> 

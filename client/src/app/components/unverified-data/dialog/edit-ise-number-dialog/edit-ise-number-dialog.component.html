@@ -3,13 +3,13 @@
 	<div class="dialog-form-container flex-container" fxLayout="row">
 		<div class="flex-item" fxFlex style="padding-right: 16px;">
 			<md-input-container class="md-input-full-width">
-				<input mdInput placeholder="ISE Number" disabled type="text" [(ngModel)]="fields.iseNumber">
+				<input mdInput placeholder="ISE Number" type="text" [value]="data.iseNumber" disabled>
 			</md-input-container>
 			<md-input-container class="md-input-full-width">
-				<input mdInput placeholder="Grid" disabled type="text" [(ngModel)]="fields.grid">
+				<input mdInput placeholder="Grid" type="text" [value]="data.monitoringPoint?.name" disabled>
 			</md-input-container>
 			<md-input-container class="md-input-full-width">
-				<input mdInput placeholder="Date" [value]="fields.discoveryDate | date: 'shortDate'" disabled>
+				<input mdInput placeholder="Discovery Date" [value]="data.iseData[0].dateTime | date: 'shortDate'" disabled>
 			</md-input-container>
 			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Methane (ppm)" type="number" [(ngModel)]="fields.methaneLevel">

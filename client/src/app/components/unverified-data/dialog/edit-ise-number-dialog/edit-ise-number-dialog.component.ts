@@ -11,7 +11,6 @@ import { OnInit, Component } from '@angular/core';
 })
 export class EditIseNumberDialogComponent implements OnInit {
 
-
 	data:IseNumber;
 	availableIseNumbers:IseNumber[];
 	iseNumbersLoaded:boolean;
@@ -19,11 +18,8 @@ export class EditIseNumberDialogComponent implements OnInit {
 
 	fields: {
 		monitoringPoint?:MonitoringPoint,
-		iseNumber?:string,
 		methaneLevel?:number,
-		description?:string,
-		discoveryDate?:number
-		grid?:string
+		description?:string
 	} = {};
 
 	constructor(
@@ -31,17 +27,12 @@ export class EditIseNumberDialogComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.fields.iseNumber = this.data.iseNumber;
 		this.fields.methaneLevel = this.data.iseData[0].methaneLevel / 100;
 		this.fields.monitoringPoint = this.data.monitoringPoint;
 		this.fields.description = this.data.iseData[0].description;
-		this.fields.discoveryDate = this.data.iseData[0].dateTime;
-		this.fields.grid = this.data.monitoringPoint.name;
 	}
 	
 	confirm() {
-		// TODO Implement this.
-		// this.dialogRef.close();
 		this.dialogRef.close(this.fields);
 	}
 

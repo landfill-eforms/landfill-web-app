@@ -215,6 +215,8 @@ export class UnverifiedDataSetComponent implements OnInit {
 		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<EditImeNumberDialogComponent> = this.dialog.open(EditImeNumberDialogComponent, dialogConfig);
 		// TODO Pass data to dialog here...
+		// #64
+		// dialogRef.componentInstance.monitoringPointsWrapped = this.existingImeNumbers;
 		dialogRef.componentInstance.availableInstruments = this.instruments;
 		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {
@@ -223,6 +225,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 				data.imeData[0].methaneLevel = result["methaneLevel"] * 100;
 				data.imeData[0].instrument = this.findInstrumentById(result["instrumentId"]);
 				data.imeData[0].description = result["description"];
+				// data.monitoringPoints = result["grid"];
 			}
 			this.activeItem = null;
 			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);

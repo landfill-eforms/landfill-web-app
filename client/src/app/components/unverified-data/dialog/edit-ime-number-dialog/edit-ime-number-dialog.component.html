@@ -8,6 +8,9 @@
 			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Grids" disabled type="text" [(ngModel)]="fields.grids">
 			</md-input-container>
+			<!-- <div *ngFor="let grid of imeNumber.monitoringPoints" class="sideinfo-section-data-list-item truncate" style="width:256px;">
+				{{grid.name}}
+			</div> -->
 			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Date" [value]="fields.discoveryDate | date: 'shortDate'" disabled>
 			</md-input-container>

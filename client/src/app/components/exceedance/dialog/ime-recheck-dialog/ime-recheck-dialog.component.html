@@ -28,6 +28,11 @@
 				{{StringUtils.formatUserName(user)}}
 			</md-option>
 		</md-select>
+		<md-select [(ngModel)]="data.instrument" placeholder="Instrument S/N" class="mat-select-row" style="width:100%">
+			<md-option *ngFor="let instrument of instruments" [value]="instrument">
+				{{instrument.serialNumber}}
+			</md-option>
+		</md-select>
 	</div>
 </md-dialog-content>
 <md-dialog-actions>

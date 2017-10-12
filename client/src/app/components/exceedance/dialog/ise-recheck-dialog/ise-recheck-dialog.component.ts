@@ -1,3 +1,4 @@
+import { Instrument } from './../../../../model/server/persistence/entity/instrument/instrument.class';
 import { StringUtils } from './../../../../utils/string.utils';
 import { MdSnackBar } from '@angular/material';
 import { DateTimeUtils } from './../../../../utils/date-time.utils';
@@ -17,6 +18,7 @@ export class IseRecheckDialogComponent implements OnInit {
 	data: IseData;
 	originalData: IseData;
 	users: User[] = [];
+	instruments: Instrument[] = [];	
 
 	minDateTime: number;
 	maxDateTime: number;
@@ -39,6 +41,7 @@ export class IseRecheckDialogComponent implements OnInit {
 			this.data.description = this.originalData.description;
 			this.data.methaneLevel = this.originalData.methaneLevel / 100;
 			this.data.inspector = this.originalData.inspector ? this._findUserById(this.originalData.inspector.id) : null;
+			this.data.instrument = this.originalData.instrument ? this._findInstrumentById(this.originalData.instrument.id) : null;
 			defaultDateTime = this.originalData.dateTime;
 		}
 		else {
@@ -77,9 +80,11 @@ export class IseRecheckDialogComponent implements OnInit {
 			this.dialogRef.close(this.data);
 		}
 		else {
+			// TODO For consistency accross the app, do data processing in parent component instead of dialog.
 			this.originalData.dateTime = this.data.dateTime;
 			this.originalData.description = this.data.description;
 			this.originalData.methaneLevel = this.data.methaneLevel * 100;
+			this.originalData.instrument = this.data.instrument;
 			this.dialogRef.close();
 		}
 	}
@@ -96,6 +101,15 @@ export class IseRecheckDialogComponent implements OnInit {
 		for (let user of this.users) {
 			if (user.id == id) {
 				return user;
+			}
+		}
+		return null;
+	}
+	
+	private _findInstrumentById(id: number): Instrument {
+		for (let instrument of this.instruments) {
+			if (instrument.id === id) {
+				return instrument;
 			}
 		}
 		return null;

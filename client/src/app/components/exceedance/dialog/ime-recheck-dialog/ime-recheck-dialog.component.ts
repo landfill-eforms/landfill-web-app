@@ -1,3 +1,4 @@
+import { Instrument } from './../../../../model/server/persistence/entity/instrument/instrument.class';
 import { StringUtils } from './../../../../utils/string.utils';
 import { MdSnackBar } from '@angular/material';
 import { DateTimeUtils } from './../../../../utils/date-time.utils';
@@ -17,6 +18,7 @@ export class ImeRecheckDialogComponent implements OnInit {
 	data: ImeData;
 	originalData: ImeData;
 	users: User[] = [];
+	instruments: Instrument[] = [];
 
 	minDateTime: number;
 	maxDateTime: number;
@@ -39,6 +41,7 @@ export class ImeRecheckDialogComponent implements OnInit {
 			this.data.description = this.originalData.description;
 			this.data.methaneLevel = this.originalData.methaneLevel / 100;
 			this.data.inspector = this.originalData.inspector ? this._findUserById(this.originalData.inspector.id) : null;
+			this.data.instrument = this.originalData.instrument ? this._findInstrumentById(this.originalData.instrument.id) : null;
 			defaultDateTime = this.originalData.dateTime;
 		}
 		else {
@@ -80,6 +83,7 @@ export class ImeRecheckDialogComponent implements OnInit {
 			this.originalData.dateTime = this.data.dateTime;
 			this.originalData.description = this.data.description;
 			this.originalData.methaneLevel = this.data.methaneLevel * 100;
+			this.originalData.instrument = this.data.instrument;
 			this.dialogRef.close();
 		}
 	}
@@ -96,6 +100,15 @@ export class ImeRecheckDialogComponent implements OnInit {
 		for (let user of this.users) {
 			if (user.id == id) {
 				return user;
+			}
+		}
+		return null;
+	}
+
+	private _findInstrumentById(id: number): Instrument {
+		for (let instrument of this.instruments) {
+			if (instrument.id === id) {
+				return instrument;
 			}
 		}
 		return null;

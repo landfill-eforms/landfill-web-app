@@ -1,3 +1,5 @@
+import { InstrumentService } from './../../../services/instrument/instrument.service';
+import { Instrument } from './../../../model/server/persistence/entity/instrument/instrument.class';
 import { SortUtils } from './../../../utils/sort.utils';
 import { ImeGridsDialogComponent } from './../dialog/ime-grids-dialog/ime-grids-dialog.component';
 import { AuthService } from './../../../services/auth/auth.service';
@@ -29,7 +31,6 @@ import { Component, OnInit } from '@angular/core';
 	selector: 'app-ime-number',
 	templateUrl: './ime-number.component.html',
 	styleUrls: ['./ime-number.component.scss']
-
 })
 export class ImeNumberComponent implements OnInit {
 
@@ -43,6 +44,9 @@ export class ImeNumberComponent implements OnInit {
 	isUsersLoaded: boolean;
 	users: User[] = [];
 
+	isInstrumentsLoaded: boolean;
+	instruments: Instrument[] = []
+
 	isCleared: boolean;
 	clearable: boolean;
 
@@ -54,6 +58,7 @@ export class ImeNumberComponent implements OnInit {
 		private _imeNumberService: ImeNumberService,
 		private _dialog: MdDialog,
 		private _userService: UserService,
+		private _instrumentService: InstrumentService,				
 		private _activatedRoute: ActivatedRoute,
 		private _snackBar: MdSnackBar,
 		private _titleService: TitleService,
@@ -89,6 +94,12 @@ export class ImeNumberComponent implements OnInit {
 			this.users = data;
 			SortUtils.sort(this.users, ["lastname", "firstname"], false);			
 			this.isUsersLoaded = true;
+		});
+
+		// Load list of instruments.
+		this._instrumentService.getAll((data) => {
+			this.instruments = data.filter(i => i.instrumentType.instantaneous);
+			this.isInstrumentsLoaded = true;
 		});
 
 		// Check if user has permission to edit the IME.
@@ -185,6 +196,7 @@ export class ImeNumberComponent implements OnInit {
 		dialogConfig.width = '640px';
 		let dialogRef: MdDialogRef<ImeRecheckDialogComponent> = this._dialog.open(ImeRecheckDialogComponent, dialogConfig);
 		dialogRef.componentInstance.users = this.users;
+		dialogRef.componentInstance.instruments = this.instruments;
 		dialogRef.componentInstance.minDateTime = minDateTime;
 		dialogRef.componentInstance.maxDateTime = maxDateTime;
 		dialogRef.componentInstance.originalData = imeData;
@@ -194,6 +206,7 @@ export class ImeNumberComponent implements OnInit {
 				result["deletable"] = true; // TEMPORARY
 				this.imeNumberData.imeData.push(result);
 			}
+			console.log(this.imeNumberData);
 			this.checkIfClearable();
 		});
 	}

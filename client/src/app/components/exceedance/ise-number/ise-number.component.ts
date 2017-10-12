@@ -1,3 +1,5 @@
+import { InstrumentService } from './../../../services/instrument/instrument.service';
+import { Instrument } from './../../../model/server/persistence/entity/instrument/instrument.class';
 import { SortUtils } from './../../../utils/sort.utils';
 import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
 import { AuthService } from './../../../services/auth/auth.service';
@@ -28,7 +30,6 @@ import { Component, OnInit } from '@angular/core';
 	selector: 'app-ise-number',
 	templateUrl: './ise-number.component.html',
 	styleUrls: ['./ise-number.component.scss']
-
 })
 export class IseNumberComponent implements OnInit {
 
@@ -42,6 +43,9 @@ export class IseNumberComponent implements OnInit {
 	isUsersLoaded: boolean;
 	users: User[] = [];
 
+	isInstrumentsLoaded: boolean;
+	instruments: Instrument[] = []
+
 	isCleared: boolean;
 	clearable: boolean;
 
@@ -53,6 +57,7 @@ export class IseNumberComponent implements OnInit {
 		private _iseNumberService: IseNumberService,
 		private _dialog: MdDialog,
 		private _userService: UserService,
+		private _instrumentService: InstrumentService,		
 		private _activatedRoute: ActivatedRoute,
 		private _snackBar: MdSnackBar,
 		private _titleService: TitleService,
@@ -67,12 +72,12 @@ export class IseNumberComponent implements OnInit {
 
 	ngOnInit() {
 
-		// TODO Display error message if IME number in the URL is invalid.
+		// TODO Display error message if ISE number in the URL is invalid.
 		this.iseNumber = this._activatedRoute.params['_value']['iseNumber'];
 		this._titleService.setTitle(this.iseNumber);
 		this._navigationService.getNavbarComponent().title = this.iseNumber;
 
-		// Load IME number data.
+		// Load ISE number data.
 		this._iseNumberService.getByIseNumber(this.iseNumber,
 			(data) => {
 				console.log(data);
@@ -88,6 +93,12 @@ export class IseNumberComponent implements OnInit {
 			this.users = data;
 			SortUtils.sort(this.users, ["lastname", "firstname"], false);						
 			this.isUsersLoaded = true;
+		});
+
+		// Load list of instruments.
+		this._instrumentService.getAll((data) => {
+			this.instruments = data.filter(i => i.instrumentType.instantaneous);
+			this.isInstrumentsLoaded = true;
 		});
 
 		// Check if user has permission to edit the ISE.
@@ -182,6 +193,7 @@ export class IseNumberComponent implements OnInit {
 		dialogConfig.width = '640px';
 		let dialogRef: MdDialogRef<IseRecheckDialogComponent> = this._dialog.open(IseRecheckDialogComponent, dialogConfig);
 		dialogRef.componentInstance.users = this.users;
+		dialogRef.componentInstance.instruments = this.instruments;
 		dialogRef.componentInstance.minDateTime = minDateTime;
 		dialogRef.componentInstance.maxDateTime = maxDateTime;
 		dialogRef.componentInstance.originalData = iseData;

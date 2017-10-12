@@ -487,6 +487,9 @@
 										<span class="data-table-header-label">Grid</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
+										<span class="data-table-header-label">Instrument</span>
+									</div>
+									<div class="data-table-column truncate flex-item" fxFlex>
 										<span class="data-table-header-label">Discovery Date</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
@@ -513,6 +516,12 @@
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{iseNumber.monitoringPoint.name}}
+											</div>
+											<div class="data-table-column truncate flex-item" fxFlex>
+												<div *ngIf="!iseNumber.iseData[0].instrument?.serialNumber" class="error-inline">
+													None set
+												</div>
+												{{iseNumber.iseData[0].instrument?.serialNumber}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{iseNumber.iseData && iseNumber.iseData[0] ? DateTimeUtils.getDate(iseNumber.iseData[0].dateTime) : ''}}

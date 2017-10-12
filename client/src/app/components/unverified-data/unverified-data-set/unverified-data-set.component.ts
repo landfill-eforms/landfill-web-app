@@ -255,10 +255,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '480px';
 		let dialogRef:MdDialogRef<EditIseNumberDialogComponent> = this.dialog.open(EditIseNumberDialogComponent, dialogConfig);
+		dialogRef.componentInstance.availableInstruments = this.instruments;
 		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				data.iseData[0].methaneLevel = result["methaneLevel"] * 100;
+				data.iseData[0].instrument = this.findInstrumentById(result["instrumentId"]);
 				data.iseData[0].description = result["description"];
 			}
 			this.activeItem = null;

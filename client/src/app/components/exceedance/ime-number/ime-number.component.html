@@ -1,5 +1,5 @@
 <div class="page grey-background" [ngClass]="{'can-edit': canEdit}">
-	<app-page-loading-indicator *ngIf="!isDataLoaded || !isUsersLoaded"></app-page-loading-indicator>
+	<app-page-loading-indicator *ngIf="!isDataLoaded || !isUsersLoaded || !isInstrumentsLoaded"></app-page-loading-indicator>
 	<div *ngIf="isDataLoaded && isUsersLoaded">
 		<md-card style="margin-bottom: 16px">
 			<md-card-content>
@@ -77,6 +77,14 @@
 								</div>
 								<div class="info-card-data-value truncate flex-item" fxFlex>
 									{{StringUtils.formatUserName(imeData.inspector)}}
+								</div>
+							</div>
+							<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start start">
+								<div class="info-card-data-key flex-item" fxFlex="96px">
+									Instrument
+								</div>
+								<div class="info-card-data-value truncate flex-item" fxFlex>
+									{{imeData.instrument?.serialNumber}}
 								</div>
 							</div>
 							<div class="info-card-data-row flex-container" fxLayout="row" fxLayoutAlign="start start">

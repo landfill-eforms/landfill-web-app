@@ -21,12 +21,9 @@ export class EditImeNumberDialogComponent implements OnInit {
 
 	fields: {
 		instrumentId?:number,
-		monitoringPoints?:MonitoringPoint[],
-		imeNumber?:string,
 		methaneLevel?:number,
 		description?:string,
-		grids?:string,
-		discoveryDate?:number
+		monitoringPoints?:MonitoringPoint[] // This is only for sending the grids back to the unverified data set component.
 	} = {};
 	
 	constructor(
@@ -35,10 +32,8 @@ export class EditImeNumberDialogComponent implements OnInit {
 
 	ngOnInit() {
 		this.fields.instrumentId = this.data.imeData[0].instrument ? this.data.imeData[0].instrument.id : null;
-		this.fields.imeNumber = this.data.imeNumber;
 		this.fields.methaneLevel = this.data.imeData[0].methaneLevel / 100;
 		this.fields.description = this.data.imeData[0].description;
-		this.fields.discoveryDate = this.data.imeData[0].dateTime;
 		if (this.data) {
 			let selectedGrids: number [] = this.data.monitoringPoints.map(g => g.ordinal);
             let monitoringPoints = MonitoringPoint.values().filter(g => {
@@ -52,9 +47,7 @@ export class EditImeNumberDialogComponent implements OnInit {
 	}
 
 	confirm() {
-		// TODO Implement this.
-		let result: MonitoringPoint[] = this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint);
-		this.dialogRef.close(result);
+		this.fields.monitoringPoints = this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint);
 		this.dialogRef.close(this.fields);
 	}
 

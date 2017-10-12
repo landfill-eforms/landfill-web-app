@@ -283,7 +283,7 @@
 										<span class="data-table-header-label">IME Number</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
-										<span class="data-table-header-label">Grid</span>
+										<span class="data-table-header-label">Grids</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
 										<span class="data-table-header-label">Discovery Date</span>
@@ -314,7 +314,7 @@
 												{{imeNumber.imeNumber}}*
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
-												{{imeNumber.monitoringPoints[0].name}} <!-- TODO Fix this -->
+												{{listGrids(imeNumber)}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{imeNumber.imeData && imeNumber.imeData[0] ? DateTimeUtils.getDate(imeNumber.imeData[0].dateTime) : ''}}

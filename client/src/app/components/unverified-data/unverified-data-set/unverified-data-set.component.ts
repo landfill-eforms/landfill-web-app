@@ -64,7 +64,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		private activatedRoute:ActivatedRoute,
 		private router:Router,
 		private unverifiedDataService:UnverifiedDataService,
-		private imeNumberService:ImeNumberService,
+		private _imeNumberService:ImeNumberService,
 		private userService:UserService,
 		private instrumentService:InstrumentService,
 		private dialog:MdDialog,
@@ -225,6 +225,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 				data.imeData[0].methaneLevel = result["methaneLevel"] * 100;
 				data.imeData[0].instrument = this.findInstrumentById(result["instrumentId"]);
 				data.imeData[0].description = result["description"];
+				data.monitoringPoints = result["monitoringPoints"];
 			}
 			this.activeItem = null;
 			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
@@ -419,7 +420,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 	/** Formats the unverified instantaneous data's IME number list into a string. */
 	listImeNumbers(data:UnverifiedInstantaneousData):string {
-		return this.imeNumberService.formatList(data.imeNumbers);
+		return this._imeNumberService.formatList(data.imeNumbers);
+	}
+
+	/** Formats the IME number's grid list into a string. */
+	listGrids(imeNumber: ImeNumber): string {
+		return this._imeNumberService.listGrids(imeNumber);
 	}
 
 	printInspectorList(inspectors: User[]): string {

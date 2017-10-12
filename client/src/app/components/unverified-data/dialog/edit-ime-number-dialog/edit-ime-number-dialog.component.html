@@ -3,13 +3,10 @@
 	<div class="dialog-form-container flex-container" fxLayout="row">
 		<div class="flex-item" fxFlex style="padding-right: 16px;">
 			<md-input-container class="md-input-full-width">
-				<input mdInput placeholder="IME Number" disabled type="text" [(ngModel)]="fields.imeNumber">
+				<input mdInput placeholder="IME Number" disabled type="text" [(ngModel)]="data.imeNumber">
 			</md-input-container>
 			<md-input-container class="md-input-full-width">
-				<input mdInput placeholder="Grids" disabled type="text" [(ngModel)]="fields.grids">
-			</md-input-container>
-			<md-input-container class="md-input-full-width">
-				<input mdInput placeholder="Date" [value]="fields.discoveryDate | date: 'shortDate'" disabled>
+				<input mdInput placeholder="Date" [value]="data.imeData[0].dateTime | date: 'shortDate'" disabled>
 			</md-input-container>
 			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Methane (ppm)" type="number" [(ngModel)]="fields.methaneLevel">
@@ -30,7 +27,7 @@
 						<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
 							<md-checkbox [(ngModel)]="grid.selected"></md-checkbox>
 						</div>
-						<div class="list-item-info flex-item" fxFlex>
+						<div class="single-line list-item-info" fxFlex>
 							<div class="list-item-title">
 								{{grid.monitoringPoint.name}}
 							</div>

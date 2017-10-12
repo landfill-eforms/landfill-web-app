@@ -106,11 +106,9 @@
 									<div class="data-table-column truncate flex-item" fxFlex="3">
 										<span class="data-table-header-label">Grid</span>
 									</div>
-									<!-- #42 -->
 									<div class="data-table-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">Date</span>
 									</div> 
-									<!-- #42 -->
 									<div class="data-table-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">Start</span>
 									</div>
@@ -150,11 +148,9 @@
 											<div class="data-table-column truncate flex-item" fxFlex="3">
 												{{unverifiedInstantaneousData.monitoringPoint?.name}}
 											</div>
-											<!-- #42 -->
 											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{DateTimeUtils.getDate(unverifiedInstantaneousData.startTime)}}
 											</div>
-											<!-- #42 -->
 											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{DateTimeUtils.getTime(unverifiedInstantaneousData.startTime)}}
 											</div>
@@ -293,6 +289,9 @@
 										<span class="data-table-header-label">Discovery Date</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
+										<span class="data-table-header-label">Instrument</span>
+									</div>
+									<div class="data-table-column truncate flex-item" fxFlex>
 										<span class="data-table-header-label">Initial Reading (ppm)</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex="25">
@@ -319,6 +318,12 @@
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{imeNumber.imeData && imeNumber.imeData[0] ? DateTimeUtils.getDate(imeNumber.imeData[0].dateTime) : ''}}
+											</div>
+											<div class="data-table-column truncate flex-item" fxFlex>
+												<div *ngIf="!imeNumber.imeData[0].instrument?.serialNumber" class="error-inline">
+													None set
+												</div>
+												{{imeNumber.imeData[0].instrument?.serialNumber}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{imeNumber.imeData && imeNumber.imeData[0] ? imeNumber.imeData[0].methaneLevel / 100: ''}}
@@ -377,11 +382,9 @@
 									<div class="data-table-column truncate flex-item" fxFlex="3">
 										<span class="data-table-header-label">Grid</span>
 									</div>
-									<!-- #42 -->
 									<div class="data-table-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">Date</span>
 									</div> 
-									<!-- #42 -->
 									<div class="data-table-column truncate flex-item" fxFlex="5">
 										<span class="data-table-header-label">Start</span>
 									</div>
@@ -424,11 +427,9 @@
 											<div class="data-table-column truncate flex-item" fxFlex="3">
 												{{unverifiedIntegratedData.monitoringPoint?.name}}
 											</div>
-											<!-- #42 -->
 											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{DateTimeUtils.getDate(unverifiedIntegratedData.startTime)}}
 											</div> 
-											<!-- #42 -->
 											<div class="data-table-column truncate flex-item" fxFlex="5">
 												{{DateTimeUtils.getTime(unverifiedIntegratedData.startTime)}}
 											</div>

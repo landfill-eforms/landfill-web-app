@@ -1,7 +1,9 @@
+import { EnumUtils } from './../../../../utils/enum.utils';
 import { MonitoringPointType } from './../../../../model/server/persistence/enums/location/monitoring-point-type.enum';
 import { MonitoringPoint } from './../../../../model/server/persistence/enums/location/monitoring-point.enum';
 import { ImeNumber } from './../../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-number.class';
 import { Instrument } from './../../../../model/server/persistence/entity/instrument/instrument.class';
+import { MdSnackBar } from '@angular/material';
 import { MdDialogRef } from '@angular/material';
 import { OnInit, Component } from '@angular/core';
 
@@ -21,7 +23,10 @@ export class EditImeNumberDialogComponent implements OnInit {
 		instrumentId?:number,
 		monitoringPoints?:MonitoringPoint[],
 		imeNumber?:string,
-		methaneLevel?:number
+		methaneLevel?:number,
+		description?:string,
+		grids?:string,
+		discoveryDate?:number
 	} = {};
 	
 	constructor(
@@ -32,24 +37,25 @@ export class EditImeNumberDialogComponent implements OnInit {
 		this.fields.instrumentId = this.data.imeData[0].instrument ? this.data.imeData[0].instrument.id : null;
 		this.fields.imeNumber = this.data.imeNumber;
 		this.fields.methaneLevel = this.data.imeData[0].methaneLevel / 100;
+		this.fields.description = this.data.imeData[0].description;
+		this.fields.discoveryDate = this.data.imeData[0].dateTime;
 		if (this.data) {
-            this.fields.monitoringPoints = MonitoringPoint.values().filter(g => {
+			let selectedGrids: number [] = this.data.monitoringPoints.map(g => g.ordinal);
+            let monitoringPoints = MonitoringPoint.values().filter(g => {
                 return g.site.ordinal == this.data.site.ordinal &&
                     g.type.ordinal == MonitoringPointType.GRID.ordinal;
-            });
-		}
-		
-		for (let monitoringPoint of this.monitoringPointsWrapped) {
-			for (let monitoringPointsWrapped of this.monitoringPointsWrapped) {
-				if (monitoringPointsWrapped.monitoringPoint.ordinal == monitoringPoint.monitoringPoint.ordinal) {
-					monitoringPointsWrapped.selected = true;
-				}
-			}
+			});
+			for (let monitoringPoint of monitoringPoints) {
+                this.monitoringPointsWrapped.push({monitoringPoint: monitoringPoint, selected: selectedGrids.indexOf(monitoringPoint.ordinal) > -1});
+            }
 		}
 	}
 
 	confirm() {
 		// TODO Implement this.
+		let result: MonitoringPoint[] = this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint);
+		this.dialogRef.close(result);
+		this.dialogRef.close(this.fields);
 	}
 
 	/** Closes the dialog without passing any data back. */

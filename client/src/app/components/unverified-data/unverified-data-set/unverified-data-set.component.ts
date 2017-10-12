@@ -220,7 +220,9 @@ export class UnverifiedDataSetComponent implements OnInit {
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				// TODO Do something with data passed back by the dialog.
-				
+				data.imeData[0].methaneLevel = result["methaneLevel"] * 100;
+				data.imeData[0].instrument = this.findInstrumentById(result["instrumentId"]);
+				data.imeData[0].description = result["description"];
 			}
 			this.activeItem = null;
 			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
@@ -253,9 +255,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 		dialogConfig.width = '480px';
 		let dialogRef:MdDialogRef<EditIseNumberDialogComponent> = this.dialog.open(EditIseNumberDialogComponent, dialogConfig);
 		// TODO Pass data to dialog here...
+		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				// TODO Do something with data passed back by the dialog.
+				data.iseData[0].methaneLevel = result["methaneLevel"] * 100;
+				data.iseData[0].description = result["description"];
 			}
 			this.activeItem = null;
 			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);

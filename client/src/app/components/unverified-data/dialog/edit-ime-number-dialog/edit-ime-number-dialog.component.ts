@@ -2,6 +2,7 @@ import { MonitoringPointType } from './../../../../model/server/persistence/enum
 import { MonitoringPoint } from './../../../../model/server/persistence/enums/location/monitoring-point.enum';
 import { ImeNumber } from './../../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-number.class';
 import { Instrument } from './../../../../model/server/persistence/entity/instrument/instrument.class';
+import { MdSnackBar } from '@angular/material';
 import { MdDialogRef } from '@angular/material';
 import { OnInit, Component } from '@angular/core';
 
@@ -21,7 +22,10 @@ export class EditImeNumberDialogComponent implements OnInit {
 		instrumentId?:number,
 		monitoringPoints?:MonitoringPoint[],
 		imeNumber?:string,
-		methaneLevel?:number
+		methaneLevel?:number,
+		description?:string,
+		grids?:string,
+		discoveryDate?:number
 	} = {};
 	
 	constructor(
@@ -32,6 +36,8 @@ export class EditImeNumberDialogComponent implements OnInit {
 		this.fields.instrumentId = this.data.imeData[0].instrument ? this.data.imeData[0].instrument.id : null;
 		this.fields.imeNumber = this.data.imeNumber;
 		this.fields.methaneLevel = this.data.imeData[0].methaneLevel / 100;
+		this.fields.description = this.data.imeData[0].description;
+		this.fields.discoveryDate = this.data.imeData[0].dateTime;
 		if (this.data) {
 			let selectedGrids: number [] = this.data.monitoringPoints.map(g => g.ordinal);
             let monitoringPoints = MonitoringPoint.values().filter(g => {

@@ -6,6 +6,12 @@
 				<input mdInput placeholder="IME Number" disabled type="text" [(ngModel)]="fields.imeNumber">
 			</md-input-container>
 			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Grids" disabled type="text" [(ngModel)]="fields.grids">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Date" [value]="fields.discoveryDate | date: 'shortDate'" disabled>
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Methane (ppm)" type="number" [(ngModel)]="fields.methaneLevel">
 			</md-input-container>
 			<md-select [(ngModel)]="fields.instrumentId" placeholder="Equipment" class="mat-select-row" style="width:100%">
@@ -13,6 +19,9 @@
 					{{instrument.serialNumber}}
 				</md-option>
 			</md-select>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Description" type="text" [(ngModel)]="fields.description">
+			</md-input-container>
 		</div>
 		<div class="flex-item" fxFlex style="padding-left: 16px;">
 				<div style="padding: 6px 0; font-weight: 500;">Grids</div>

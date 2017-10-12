@@ -253,6 +253,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		dialogConfig.width = '480px';
 		let dialogRef:MdDialogRef<EditIseNumberDialogComponent> = this.dialog.open(EditIseNumberDialogComponent, dialogConfig);
 		// TODO Pass data to dialog here...
+		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				// TODO Do something with data passed back by the dialog.

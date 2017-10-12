@@ -1,6 +1,24 @@
 <div md-dialog-title>Edit ISE</div>
 <md-dialog-content>
-	Add content here...
+	<div class="dialog-form-container flex-container" fxLayout="row">
+		<div class="flex-item" fxFlex style="padding-right: 16px;">
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="ISE Number" disabled type="text" [(ngModel)]="fields.iseNumber">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Grid" disabled type="text" [(ngModel)]="fields.grid">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Date" [value]="fields.discoveryDate | date: 'shortDate'" disabled>
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Methane (ppm)" type="number" [(ngModel)]="fields.methaneLevel">
+			</md-input-container>
+			<md-input-container class="md-input-full-width">
+				<input mdInput placeholder="Description" type="text" [(ngModel)]="fields.description">
+			</md-input-container>
+		</div>
+	</div>
 </md-dialog-content>		
 <md-dialog-actions>
 	<button md-button (click)="cancel()">

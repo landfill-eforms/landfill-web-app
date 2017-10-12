@@ -1,3 +1,4 @@
+import { SortUtils } from './../../../utils/sort.utils';
 import { EditImeNumberDialogComponent } from './../dialog/edit-ime-number-dialog/edit-ime-number-dialog.component';
 import { EditIseNumberDialogComponent } from './../dialog/edit-ise-number-dialog/edit-ise-number-dialog.component';
 import { UserService } from './../../../services/user/user.service';
@@ -63,7 +64,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		private activatedRoute:ActivatedRoute,
 		private router:Router,
 		private unverifiedDataService:UnverifiedDataService,
-		private imeNumberService:ImeNumberService,
+		private _imeNumberService:ImeNumberService,
 		private userService:UserService,
 		private instrumentService:InstrumentService,
 		private dialog:MdDialog,
@@ -102,6 +103,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 		this.userService.getAllInspectors((data) => {
 				this.inspectors = data;
+				SortUtils.sort(this.inspectors, ["lastname", "firstname"], false);
 				this.isInspectorsLoaded = true;
 			}
 		);
@@ -214,18 +216,24 @@ export class UnverifiedDataSetComponent implements OnInit {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<EditImeNumberDialogComponent> = this.dialog.open(EditImeNumberDialogComponent, dialogConfig);
+<<<<<<< HEAD
 		// TODO Pass data to dialog here...
 		// #64
 		// dialogRef.componentInstance.monitoringPointsWrapped = this.existingImeNumbers;
+=======
+>>>>>>> 686a6fc67f981b6ac82f001b91df4be536b8c499
 		dialogRef.componentInstance.availableInstruments = this.instruments;
 		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				// TODO Do something with data passed back by the dialog.
 				data.imeData[0].methaneLevel = result["methaneLevel"] * 100;
 				data.imeData[0].instrument = this.findInstrumentById(result["instrumentId"]);
 				data.imeData[0].description = result["description"];
+<<<<<<< HEAD
 				// data.monitoringPoints = result["grid"];
+=======
+				data.monitoringPoints = result["monitoringPoints"];
+>>>>>>> 686a6fc67f981b6ac82f001b91df4be536b8c499
 			}
 			this.activeItem = null;
 			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
@@ -257,12 +265,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '480px';
 		let dialogRef:MdDialogRef<EditIseNumberDialogComponent> = this.dialog.open(EditIseNumberDialogComponent, dialogConfig);
-		// TODO Pass data to dialog here...
+		dialogRef.componentInstance.availableInstruments = this.instruments;
 		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				// TODO Do something with data passed back by the dialog.
 				data.iseData[0].methaneLevel = result["methaneLevel"] * 100;
+				data.iseData[0].instrument = this.findInstrumentById(result["instrumentId"]);
 				data.iseData[0].description = result["description"];
 			}
 			this.activeItem = null;
@@ -420,7 +428,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 	/** Formats the unverified instantaneous data's IME number list into a string. */
 	listImeNumbers(data:UnverifiedInstantaneousData):string {
-		return this.imeNumberService.formatList(data.imeNumbers);
+		return this._imeNumberService.formatList(data.imeNumbers);
+	}
+
+	/** Formats the IME number's grid list into a string. */
+	listGrids(imeNumber: ImeNumber): string {
+		return this._imeNumberService.listGrids(imeNumber);
 	}
 
 	printInspectorList(inspectors: User[]): string {

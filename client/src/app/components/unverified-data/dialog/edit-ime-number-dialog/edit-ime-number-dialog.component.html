@@ -3,9 +3,10 @@
 	<div class="dialog-form-container flex-container" fxLayout="row">
 		<div class="flex-item" fxFlex style="padding-right: 16px;">
 			<md-input-container class="md-input-full-width">
-				<input mdInput placeholder="IME Number" disabled type="text" [(ngModel)]="fields.imeNumber">
+				<input mdInput placeholder="IME Number" disabled type="text" [value]="data.imeNumber">
 			</md-input-container>
 			<md-input-container class="md-input-full-width">
+<<<<<<< HEAD
 				<input mdInput placeholder="Grids" disabled type="text" [(ngModel)]="fields.grids">
 			</md-input-container>
 			<!-- <div *ngFor="let grid of imeNumber.monitoringPoints" class="sideinfo-section-data-list-item truncate" style="width:256px;">
@@ -13,11 +14,14 @@
 			</div> -->
 			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Date" [value]="fields.discoveryDate | date: 'shortDate'" disabled>
+=======
+				<input mdInput placeholder="Discovery Date" [value]="data.imeData[0].dateTime | date: 'shortDate'" disabled>
+>>>>>>> 686a6fc67f981b6ac82f001b91df4be536b8c499
 			</md-input-container>
 			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Methane (ppm)" type="number" [(ngModel)]="fields.methaneLevel">
 			</md-input-container>
-			<md-select [(ngModel)]="fields.instrumentId" placeholder="Equipment" class="mat-select-row" style="width:100%">
+			<md-select [(ngModel)]="fields.instrumentId" placeholder="Instrument S/N" class="mat-select-row" style="width:100%">
 				<md-option *ngFor="let instrument of availableInstruments" [value]="instrument.id">
 					{{instrument.serialNumber}}
 				</md-option>
@@ -33,7 +37,7 @@
 						<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
 							<md-checkbox [(ngModel)]="grid.selected"></md-checkbox>
 						</div>
-						<div class="list-item-info flex-item" fxFlex>
+						<div class="single-line list-item-info" fxFlex>
 							<div class="list-item-title">
 								{{grid.monitoringPoint.name}}
 							</div>

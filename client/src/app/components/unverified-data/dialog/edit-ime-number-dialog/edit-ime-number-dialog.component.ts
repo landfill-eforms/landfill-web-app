@@ -33,23 +33,21 @@ export class EditImeNumberDialogComponent implements OnInit {
 		this.fields.imeNumber = this.data.imeNumber;
 		this.fields.methaneLevel = this.data.imeData[0].methaneLevel / 100;
 		if (this.data) {
-            this.fields.monitoringPoints = MonitoringPoint.values().filter(g => {
+			let selectedGrids: number [] = this.data.monitoringPoints.map(g => g.ordinal);
+            let monitoringPoints = MonitoringPoint.values().filter(g => {
                 return g.site.ordinal == this.data.site.ordinal &&
                     g.type.ordinal == MonitoringPointType.GRID.ordinal;
-            });
-		}
-		
-		for (let monitoringPoint of this.monitoringPointsWrapped) {
-			for (let monitoringPointsWrapped of this.monitoringPointsWrapped) {
-				if (monitoringPointsWrapped.monitoringPoint.ordinal == monitoringPoint.monitoringPoint.ordinal) {
-					monitoringPointsWrapped.selected = true;
-				}
-			}
+			});
+			for (let monitoringPoint of monitoringPoints) {
+                this.monitoringPointsWrapped.push({monitoringPoint: monitoringPoint, selected: selectedGrids.indexOf(monitoringPoint.ordinal) > -1});
+            }
 		}
 	}
 
 	confirm() {
 		// TODO Implement this.
+		let result: MonitoringPoint[] = this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint);
+		this.dialogRef.close(result);
 	}
 
 	/** Closes the dialog without passing any data back. */

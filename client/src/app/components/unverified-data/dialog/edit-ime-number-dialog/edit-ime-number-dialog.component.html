@@ -17,18 +17,20 @@
 		<div class="flex-item" fxFlex style="padding-left: 16px;">
 				<div style="padding: 6px 0; font-weight: 500;">Grids</div>
 				<div class="list-picker-box" style="height: 341px;">
-					<div *ngFor="let inspector of inspectorsWrapped" class="list-item-container flex-container" fxLayout="row"> 
+					<div *ngFor="let grid of monitoringPointsWrapped" class="list-item-container flex-container" fxLayout="row"> 
 						<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
-							<md-checkbox [(ngModel)]="inspector.selected"></md-checkbox>
+							<md-checkbox [(ngModel)]="grid.selected"></md-checkbox>
 						</div>
 						<div class="list-item-info flex-item" fxFlex>
 							<div class="list-item-title">
-								{{StringUtils.formatUserName(inspector.inspector)}}
+								{{grid.monitoringPoint.name}}
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
+			<!-- (click)="grid.selected = !grid.selected" -->
 	</div>
 </md-dialog-content>		
 <md-dialog-actions>

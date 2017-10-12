@@ -1,3 +1,4 @@
+import { ImeGridsDialogComponent } from './dialog/ime-grids-dialog/ime-grids-dialog.component';
 import { IseNumberComponent } from './ise-number/ise-number.component';
 import { ImeRecheckDialogComponent } from './dialog/ime-recheck-dialog/ime-recheck-dialog.component';
 import { IseRepairDialogComponent } from './dialog/ise-repair-dialog/ise-repair-dialog.component';
@@ -24,6 +25,7 @@ import { CommonModule } from '../common/common.module';
 		ImeNumberListComponent,
 		ImeNumberListSideinfoComponent,
 		ImeNumberComponent,
+		ImeGridsDialogComponent,
 		ImeRecheckDialogComponent,
 		ImeRepairDialogComponent,
 		IseNumberListComponent,

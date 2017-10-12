@@ -46,11 +46,6 @@ public class ImeData extends SurfaceEmissionExceedanceData {
 	@OneToMany(mappedBy="imeData")
 	private Set<ImeRepairData> imeRepairData = new TreeSet<>();
 	
-	@JsonIgnoreProperties("instrumentType")
-	@ManyToOne
-	@JoinColumn(name="InstrumentFK")
-	private Instrument instrument;
-	
 	public ImeNumber getImeNumber() {
 		return imeNumber;
 	}
@@ -65,14 +60,6 @@ public class ImeData extends SurfaceEmissionExceedanceData {
 
 	public void setImeRepairData(Set<ImeRepairData> imeRepairData) {
 		this.imeRepairData = imeRepairData;
-	}
-
-	public Instrument getInstrument() {
-		return instrument;
-	}
-
-	public void setInstrument(Instrument instrument) {
-		this.instrument = instrument;
 	}
 	
 }

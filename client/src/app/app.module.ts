@@ -1,3 +1,6 @@
+import { ImeGridsDialogComponent } from './components/exceedance/dialog/ime-grids-dialog/ime-grids-dialog.component';
+import { EditIseNumberDialogComponent } from './components/unverified-data/dialog/edit-ise-number-dialog/edit-ise-number-dialog.component';
+import { EditImeNumberDialogComponent } from './components/unverified-data/dialog/edit-ime-number-dialog/edit-ime-number-dialog.component';
 import { EditUnverifiedProbeDialogComponent } from './components/unverified-data/dialog/edit-unverified-probe-dialog/edit-unverified-probe-dialog.component';
 import { ScheduledReportDialogComponent } from './components/report/dialog/scheduled-report-dialog/scheduled-report-dialog.component';
 import { ScheduledEmailService } from './services/scheduled/scheduled-email.service';
@@ -99,12 +102,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 		UserPasswordDialogComponent,
 		UserStatusDialogComponent,
 		UserGroupDialogComponent,
+		ImeGridsDialogComponent,
 		ImeRecheckDialogComponent,
 		ImeRepairDialogComponent,
 		IseRecheckDialogComponent,
 		IseRepairDialogComponent,
 		InstrumentDialogComponent,
 		InstrumentTypeDialogComponent,
+		EditImeNumberDialogComponent,
+		EditIseNumberDialogComponent,
 		EditUnverifiedInstantaneousDialogComponent,
 		EditUnverifiedWarmspotDialogComponent,
 		EditUnverifiedIntegratedDialogComponent,

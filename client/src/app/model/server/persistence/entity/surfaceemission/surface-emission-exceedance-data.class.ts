@@ -1,4 +1,5 @@
 import { AbstractEntity } from '../abstract-entity.class';
+import { Instrument } from '../instrument/instrument.class';
 import { User } from '../user/user.class';
 
 /**
@@ -7,6 +8,7 @@ import { User } from '../user/user.class';
  */
 export abstract class SurfaceEmissionExceedanceData extends AbstractEntity {
 	inspector: User;
+	instrument: Instrument;
 	methaneLevel: number;
 	dateTime: number;
 	description: string;

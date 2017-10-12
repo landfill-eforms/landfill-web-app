@@ -23,14 +23,7 @@ export class ImeNumberService extends SurfaceExceedanceNumberService<ImeNumber> 
 	}
 
 	listGrids(imeNumber:ImeNumber):string {
-		let result:string = "";
-		for (let i = 0; i < imeNumber.monitoringPoints.length; i++) {
-			if (i > 0) {
-				result += ", ";
-			}
-			result += imeNumber.monitoringPoints[i].name;
-		}
-		return result;
+		return imeNumber.monitoringPoints.map(g => g.name).sort().join(", ");
 	}
 
 	/** Formats a list of IME numbers into a string. */

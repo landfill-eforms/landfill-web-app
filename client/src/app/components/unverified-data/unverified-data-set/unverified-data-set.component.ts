@@ -1,3 +1,5 @@
+import { EditImeNumberDialogComponent } from './../dialog/edit-ime-number-dialog/edit-ime-number-dialog.component';
+import { EditIseNumberDialogComponent } from './../dialog/edit-ise-number-dialog/edit-ise-number-dialog.component';
 import { UserService } from './../../../services/user/user.service';
 import { User } from './../../../model/server/persistence/entity/user/user.class';
 import { EditUnverifiedProbeDialogComponent } from './../dialog/edit-unverified-probe-dialog/edit-unverified-probe-dialog.component';
@@ -208,7 +210,21 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	editImeNumber(data:ImeNumber) {
-		
+		this.activeItem = data;
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '800px';
+		let dialogRef:MdDialogRef<EditImeNumberDialogComponent> = this.dialog.open(EditImeNumberDialogComponent, dialogConfig);
+		// TODO Pass data to dialog here...
+		dialogRef.componentInstance.availableInstruments = this.instruments;
+		dialogRef.componentInstance.data = data;
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				// TODO Do something with data passed back by the dialog.
+				
+			}
+			this.activeItem = null;
+			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
+		});
 	}
 
 	editIntegrated(data:UnverifiedIntegratedData) {
@@ -232,7 +248,18 @@ export class UnverifiedDataSetComponent implements OnInit {
 	}
 
 	editIseNumber(data:IseNumber) {
-		
+		this.activeItem = data;
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '480px';
+		let dialogRef:MdDialogRef<EditIseNumberDialogComponent> = this.dialog.open(EditIseNumberDialogComponent, dialogConfig);
+		// TODO Pass data to dialog here...
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				// TODO Do something with data passed back by the dialog.
+			}
+			this.activeItem = null;
+			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);
+		});
 	}
  
 	editProbeData(data:UnverifiedProbeData) {

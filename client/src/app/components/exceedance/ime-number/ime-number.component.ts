@@ -1,3 +1,4 @@
+import { ImeGridsDialogComponent } from './../dialog/ime-grids-dialog/ime-grids-dialog.component';
 import { AuthService } from './../../../services/auth/auth.service';
 import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
 import { ImeRecheckDialogComponent } from './../dialog/ime-recheck-dialog/ime-recheck-dialog.component';
@@ -252,6 +253,18 @@ export class ImeNumberComponent implements OnInit {
 						this._snackBar.open(JSON.parse(err.text()).message, "OK", {duration: 5000});
 					}
 				);
+			}
+		});
+	}
+
+	openGridDialog() {
+		let dialogConfig:MdDialogConfig = new MdDialogConfig();
+		dialogConfig.width = '480px';
+		let dialogRef:MdDialogRef<ImeGridsDialogComponent> = this._dialog.open(ImeGridsDialogComponent, dialogConfig);
+		dialogRef.componentInstance.data = this.imeNumberData;
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.imeNumberData.monitoringPoints = result;
 			}
 		});
 	}

@@ -8,6 +8,7 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.lacitysan.landfill.server.persistence.entity.AbstractEntity;
+import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -22,6 +23,11 @@ public abstract class SurfaceEmissionExceedanceData extends AbstractEntity imple
 	@ManyToOne
 	@JoinColumn(name="InspectorFK")
 	private User inspector;
+	
+	@JsonIgnoreProperties("instrumentType")
+	@ManyToOne
+	@JoinColumn(name="InstrumentFK")
+	private Instrument instrument;
 	
 	@NotNull
 	private Integer methaneLevel;
@@ -38,6 +44,14 @@ public abstract class SurfaceEmissionExceedanceData extends AbstractEntity imple
 
 	public void setInspector(User inspector) {
 		this.inspector = inspector;
+	}
+
+	public Instrument getInstrument() {
+		return instrument;
+	}
+
+	public void setInstrument(Instrument instrument) {
+		this.instrument = instrument;
 	}
 
 	public Integer getMethaneLevel() {

@@ -1,3 +1,4 @@
+import { EnumUtils } from './../../../../utils/enum.utils';
 import { MonitoringPointType } from './../../../../model/server/persistence/enums/location/monitoring-point-type.enum';
 import { MonitoringPoint } from './../../../../model/server/persistence/enums/location/monitoring-point.enum';
 import { ImeNumber } from './../../../../model/server/persistence/entity/surfaceemission/instantaneous/ime-number.class';
@@ -54,6 +55,7 @@ export class EditImeNumberDialogComponent implements OnInit {
 		// TODO Implement this.
 		let result: MonitoringPoint[] = this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint);
 		this.dialogRef.close(result);
+		this.dialogRef.close(this.fields);
 	}
 
 	/** Closes the dialog without passing any data back. */

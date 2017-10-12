@@ -41,7 +41,8 @@ export class EditIseNumberDialogComponent implements OnInit {
 	
 	confirm() {
 		// TODO Implement this.
-		this.dialogRef.close();
+		// this.dialogRef.close();
+		this.dialogRef.close(this.fields);
 	}
 
 	/** Closes the dialog without passing any data back. */

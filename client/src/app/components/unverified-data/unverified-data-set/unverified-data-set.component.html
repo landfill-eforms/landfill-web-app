@@ -289,6 +289,9 @@
 										<span class="data-table-header-label">Discovery Date</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex>
+										<span class="data-table-header-label">Instrument</span>
+									</div>
+									<div class="data-table-column truncate flex-item" fxFlex>
 										<span class="data-table-header-label">Initial Reading (ppm)</span>
 									</div>
 									<div class="data-table-column truncate flex-item" fxFlex="25">
@@ -315,6 +318,12 @@
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{imeNumber.imeData && imeNumber.imeData[0] ? DateTimeUtils.getDate(imeNumber.imeData[0].dateTime) : ''}}
+											</div>
+											<div class="data-table-column truncate flex-item" fxFlex>
+												<div *ngIf="!imeNumber.imeData[0].instrument?.serialNumber" class="error-inline">
+													None set
+												</div>
+												{{imeNumber.imeData[0].instrument?.serialNumber}}
 											</div>
 											<div class="data-table-column truncate flex-item" fxFlex>
 												{{imeNumber.imeData && imeNumber.imeData[0] ? imeNumber.imeData[0].methaneLevel / 100: ''}}

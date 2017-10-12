@@ -25,7 +25,7 @@
 		</md-input-container>
 		<md-select [(ngModel)]="data.inspector" placeholder="Inspector" class="mat-select-row" style="width:100%">
 			<md-option *ngFor="let user of users" [value]="user">
-				{{user.firstname}} {{user.lastname}}
+				{{StringUtils.formatUserName(user)}}
 			</md-option>
 		</md-select>
 	</div>

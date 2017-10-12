@@ -1,3 +1,4 @@
+import { SortUtils } from './../../../utils/sort.utils';
 import { ImeGridsDialogComponent } from './../dialog/ime-grids-dialog/ime-grids-dialog.component';
 import { AuthService } from './../../../services/auth/auth.service';
 import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
@@ -86,6 +87,7 @@ export class ImeNumberComponent implements OnInit {
 		// Load list of inspectors.
 		this._userService.getAllInspectors((data) => {
 			this.users = data;
+			SortUtils.sort(this.users, ["lastname", "firstname"], false);			
 			this.isUsersLoaded = true;
 		});
 

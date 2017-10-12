@@ -1,3 +1,4 @@
+import { StringUtils } from './../../../../utils/string.utils';
 import { MdSnackBar } from '@angular/material';
 import { DateTimeUtils } from './../../../../utils/date-time.utils';
 import { User } from './../../../../model/server/persistence/entity/user/user.class';
@@ -11,6 +12,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IseRecheckDialogComponent implements OnInit {
 	
+	StringUtils = StringUtils;
+
 	data: IseData;
 	originalData: IseData;
 	users: User[] = [];

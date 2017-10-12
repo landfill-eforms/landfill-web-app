@@ -1,3 +1,4 @@
+import { SortUtils } from './../../../utils/sort.utils';
 import { UserPermission } from './../../../model/server/persistence/enums/user/user-permission.enum';
 import { AuthService } from './../../../services/auth/auth.service';
 import { IseRepairDialogComponent } from './../dialog/ise-repair-dialog/ise-repair-dialog.component';
@@ -85,6 +86,7 @@ export class IseNumberComponent implements OnInit {
 		// Load list of inspectors.
 		this._userService.getAllInspectors((data) => {
 			this.users = data;
+			SortUtils.sort(this.users, ["lastname", "firstname"], false);						
 			this.isUsersLoaded = true;
 		});
 

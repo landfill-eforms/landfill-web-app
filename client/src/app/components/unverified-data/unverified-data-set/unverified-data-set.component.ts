@@ -1,3 +1,4 @@
+import { SortUtils } from './../../../utils/sort.utils';
 import { EditImeNumberDialogComponent } from './../dialog/edit-ime-number-dialog/edit-ime-number-dialog.component';
 import { EditIseNumberDialogComponent } from './../dialog/edit-ise-number-dialog/edit-ise-number-dialog.component';
 import { UserService } from './../../../services/user/user.service';
@@ -102,6 +103,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 		this.userService.getAllInspectors((data) => {
 				this.inspectors = data;
+				SortUtils.sort(this.inspectors, ["lastname", "firstname"], false);
 				this.isInspectorsLoaded = true;
 			}
 		);

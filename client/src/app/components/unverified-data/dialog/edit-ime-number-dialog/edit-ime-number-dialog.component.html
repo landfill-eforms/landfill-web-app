@@ -6,17 +6,7 @@
 				<input mdInput placeholder="IME Number" disabled type="text" [value]="data.imeNumber">
 			</md-input-container>
 			<md-input-container class="md-input-full-width">
-<<<<<<< HEAD
-				<input mdInput placeholder="Grids" disabled type="text" [(ngModel)]="fields.grids">
-			</md-input-container>
-			<!-- <div *ngFor="let grid of imeNumber.monitoringPoints" class="sideinfo-section-data-list-item truncate" style="width:256px;">
-				{{grid.name}}
-			</div> -->
-			<md-input-container class="md-input-full-width">
-				<input mdInput placeholder="Date" [value]="fields.discoveryDate | date: 'shortDate'" disabled>
-=======
 				<input mdInput placeholder="Discovery Date" [value]="data.imeData[0].dateTime | date: 'shortDate'" disabled>
->>>>>>> 686a6fc67f981b6ac82f001b91df4be536b8c499
 			</md-input-container>
 			<md-input-container class="md-input-full-width">
 				<input mdInput placeholder="Methane (ppm)" type="number" [(ngModel)]="fields.methaneLevel">

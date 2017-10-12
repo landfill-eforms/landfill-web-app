@@ -47,15 +47,6 @@ export class EditImeNumberDialogComponent implements OnInit {
 	}
 
 	confirm() {
-<<<<<<< HEAD
-		// TODO Implement this.
-		// let result: MonitoringPoint[] = this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint);
-		// this.dialogRef.close(result);
-		// this.dialogRef.close(this.fields);
-
-		// let result: MonitoringPoint[] = this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint);
-=======
->>>>>>> 686a6fc67f981b6ac82f001b91df4be536b8c499
 		this.fields.monitoringPoints = this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint);
 		this.dialogRef.close(this.fields);
 	}

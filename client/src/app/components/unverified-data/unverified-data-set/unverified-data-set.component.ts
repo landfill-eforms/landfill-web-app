@@ -90,6 +90,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 						this.unverifiedDataSet.unverifiedIntegratedData[i].instrument = new Instrument();
 					}
 				}
+				console.log(this.unverifiedDataSet.imeNumbers)
 				this.isDataLoaded = true;
 			}
 		);

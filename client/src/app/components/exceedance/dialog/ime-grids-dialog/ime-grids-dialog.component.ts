@@ -1,3 +1,4 @@
+import { ImeNumberService } from './../../../../services/instantaneous/ime-number.service';
 import { EnumUtils } from './../../../../utils/enum.utils';
 import { MonitoringPointType } from './../../../../model/server/persistence/enums/location/monitoring-point-type.enum';
 import { MonitoringPoint } from './../../../../model/server/persistence/enums/location/monitoring-point.enum';
@@ -13,9 +14,10 @@ import { OnInit, Component } from '@angular/core';
 export class ImeGridsDialogComponent implements OnInit {
 
     data: ImeNumber;
-    wrappedGrids: {monitoringPoint: MonitoringPoint, selected: boolean}[] = [];
+    wrappedGrids: {monitoringPoint: MonitoringPoint, selected: boolean, locked?: boolean}[] = [];
 
 	constructor(
+		private _imeNumberService: ImeNumberService,
 		private snackBar: MdSnackBar,
 		public dialogRef: MdDialogRef<ImeGridsDialogComponent>) {
 
@@ -30,7 +32,20 @@ export class ImeGridsDialogComponent implements OnInit {
             });
             for (let monitoringPoint of monitoringPoints) {
                 this.wrappedGrids.push({monitoringPoint: monitoringPoint, selected: selectedGrids.indexOf(monitoringPoint.ordinal) > -1});
-            }
+			}
+			
+			// Automatically add and lock the grids from the instantaneous readings that are linked to the IME.
+			if (this.data.instantaneousData) {
+				for (let grid of this.data.instantaneousData.map(i => EnumUtils.convertToEnum(MonitoringPoint, i.monitoringPoint).ordinal)) {
+					for (let wrappedGrid of this.wrappedGrids) {
+						if (wrappedGrid.monitoringPoint.ordinal == grid) {
+							wrappedGrid.selected = true;
+							wrappedGrid.locked = true;
+							break;
+						}
+					}
+				}
+			}
         }
 	}
 
@@ -41,6 +56,10 @@ export class ImeGridsDialogComponent implements OnInit {
 
 	cancel() {
 		this.dialogRef.close();
+	}
+
+	listGrids(): string {
+		return this.wrappedGrids.filter(g => g.selected).map(g => g.monitoringPoint.name).sort().join(", ");
 	}
 
 }

@@ -51,6 +51,10 @@ export class EditImeNumberDialogComponent implements OnInit {
 		this.dialogRef.close(this.fields);
 	}
 
+	canSubmit(): boolean {
+		return this.fields.methaneLevel >= 500 && !!this.monitoringPointsWrapped.filter(g => g.selected).length && this.fields.instrumentId != null; 
+	}
+
 	/** Closes the dialog without passing any data back. */
 	cancel() {
 		this.dialogRef.close();

@@ -173,7 +173,7 @@ public class StringUtils {
 		StringBuilder sb = new StringBuilder();
 		int i = 0;
 		for (Object object : objects) {
-			if (i > 0) {
+			if (i++ > 0) {
 				sb.append(addSpace ? ", " : ",");
 			}
 			sb.append(object.toString());

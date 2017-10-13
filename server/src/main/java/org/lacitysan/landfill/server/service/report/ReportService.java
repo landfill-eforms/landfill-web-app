@@ -148,17 +148,18 @@ public class ReportService {
 
 						// Get initial IME entry and final repair entry, if exists.
 						List<ImeData> imeDataList = c.getImeData().stream().sorted().collect(Collectors.toList());
-						ImeData initial = imeDataList.get(0);
+						ImeData initialReading = imeDataList.get(0);
+						ImeData finalReading = imeDataList.get(imeDataList.size() - 1);
 						ImeRepairData finalRepair = imeNumberService.findLastRepair(c);
 
 						SurfaceEmissionExceedanceReportData d = new SurfaceEmissionExceedanceReportData();
-						d.setDiscoveredDate(DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()));
+						d.setDiscoveredDate(DateTimeUtils.formatSimpleDate(initialReading.getDateTime().getTime()));
 						d.setExceedanceNumber(c.getImeNumber());
 						d.setMonitoringPoints(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
 						d.setRepairDescription(finalRepair == null ? "" : finalRepair.getDescription());
-						d.setInitial(String.format("%.2f", initial.getMethaneLevel() / 100.0));
+						d.setInitial(String.format("%.2f", initialReading.getMethaneLevel() / 100.0));
 						d.setRecheck(imeDataList.size() == 1 ? "" : String.format("%.2f", imeDataList.get(imeDataList.size() - 1).getMethaneLevel() / 100.0));
-						d.setClearedDate(c.getStatus() == ExceedanceStatus.CLEARED ? DateTimeUtils.formatSimpleDate(finalRepair.getDateTime().getTime()) : "");
+						d.setClearedDate(c.getStatus() == ExceedanceStatus.CLEARED ? DateTimeUtils.formatSimpleDate(finalReading.getDateTime().getTime()) : "");
 						return d;
 					})
 					.filter(e -> e != null)

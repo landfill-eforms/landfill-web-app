@@ -1,13 +1,17 @@
 package org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -43,10 +47,11 @@ public class WarmspotData extends AbstractEntity {
 	 */
 	public static final int MAXNIMUM_READING = 50000;
 	
-	@NotNull
+	@ElementCollection(targetClass=MonitoringPoint.class)
+	@JoinTable(name="dbo.WarmspotDataXRefMonitoringPoints", joinColumns=@JoinColumn(name="WarmspotFK"))
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
-	private MonitoringPoint monitoringPoint;
+	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();
 	
 	@NotNull
 	@ManyToOne
@@ -70,13 +75,21 @@ public class WarmspotData extends AbstractEntity {
 	
 	@NotNull
 	private String size;
-
-	public MonitoringPoint getMonitoringPoint() {
-		return monitoringPoint;
+	
+	public static int getMininimumReading() {
+		return MININIMUM_READING;
 	}
 
-	public void setMonitoringPoint(MonitoringPoint monitoringPoint) {
-		this.monitoringPoint = monitoringPoint;
+	public static int getMaxnimumReading() {
+		return MAXNIMUM_READING;
+	}
+
+	public Set<MonitoringPoint> getMonitoringPoints() {
+		return monitoringPoints;
+	}
+
+	public void setMonitoringPoints(Set<MonitoringPoint> monitoringPoints) {
+		this.monitoringPoints = monitoringPoints;
 	}
 
 	public Instrument getInstrument() {

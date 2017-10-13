@@ -9,7 +9,10 @@ import { MonitoringPoint } from '../../enums/location/monitoring-point.enum';
  */
 export class UnverifiedWarmspotData extends AbstractUnverifiedData {
 	monitoringPoints: MonitoringPoint[];
+<<<<<<< HEAD
 	// monitoringPoint: MonitoringPoint;
+=======
+>>>>>>> a655e60406492ac1859a4af7833312c86a861331
 	instrument: Instrument;
 	methaneLevel: number;
 	date: number;

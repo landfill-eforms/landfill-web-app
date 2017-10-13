@@ -22,7 +22,11 @@ bootRun {
 
 jar {
 	baseName = 'lef-server'
+<<<<<<< HEAD
 	version = '0.7.3'
+=======
+	version = '0.8.0'
+>>>>>>> a655e60406492ac1859a4af7833312c86a861331
 }
 
 // Uncomment the following lines to build project as WAR instead of JAR.
@@ -30,7 +34,11 @@ jar {
 apply plugin: 'war'
 war {
 	baseName = 'lef-server'
+<<<<<<< HEAD
 	version = '0.7.3'
+=======
+	version = '0.8.0'
+>>>>>>> a655e60406492ac1859a4af7833312c86a861331
 }
 */
 

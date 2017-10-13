@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.lacitysan.landfill.server.persistence.dao.AbstractDaoImpl;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.WarmspotData;
+import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
 import org.lacitysan.landfill.server.persistence.enums.location.Site;
 import org.lacitysan.landfill.server.util.DateTimeUtils;
 import org.springframework.stereotype.Repository;
@@ -52,7 +53,17 @@ public class WarmspotDataDaoImpl extends AbstractDaoImpl<WarmspotData> implement
 		List<?> result = criteria.list();
 		return result.stream()
 				.map(e -> checkType(e))
-				.filter(e -> e != null && e.getMonitoringPoint().getSite() == site) // Filter by sites.
+				.filter(e -> {
+					if (e == null) {
+						return false;
+					}
+					// Filter by site.
+					MonitoringPoint grid = e.getMonitoringPoints().stream().findAny().orElse(null);
+					if (grid == null) {
+						return false;
+					}
+					return grid.getSite() == site;
+				})
 				.map(e -> initialize(e))
 				.collect(Collectors.toList());
 	}

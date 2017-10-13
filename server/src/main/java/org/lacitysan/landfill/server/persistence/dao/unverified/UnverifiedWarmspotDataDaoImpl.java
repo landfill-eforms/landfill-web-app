@@ -19,7 +19,7 @@ public class UnverifiedWarmspotDataDaoImpl extends AbstractDaoImpl<UnverifiedWar
 			return null;
 		}
 		Hibernate.initialize(unverifiedWarmspotData.getInstrument());
-		Hibernate.initialize(unverifiedWarmspotData.getMonitoringPoint());
+		Hibernate.initialize(unverifiedWarmspotData.getMonitoringPoints());
 		Hibernate.initialize(unverifiedWarmspotData.getUnverifiedDataSet());
 		return unverifiedWarmspotData;
 	}

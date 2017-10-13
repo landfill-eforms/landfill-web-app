@@ -22,7 +22,6 @@ import org.lacitysan.landfill.server.persistence.entity.surfaceemission.integrat
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedDataSet;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedInstantaneousData;
 import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedIntegratedData;
-import org.lacitysan.landfill.server.persistence.entity.unverified.UnverifiedWarmspotData;
 import org.lacitysan.landfill.server.persistence.entity.user.User;
 import org.lacitysan.landfill.server.persistence.enums.exceedance.ExceedanceStatus;
 import org.lacitysan.landfill.server.persistence.enums.location.MonitoringPoint;
@@ -131,18 +130,18 @@ public class DataVerificationService {
 							// Check if there is a corresponding warmspot entry in the dataset.
 							boolean warmspotGridFound = false;
 							boolean warmspotReadingFound = false;
-							for (UnverifiedWarmspotData unverifiedWarmspotData : unverifiedDataSet.getUnverifiedWarmspotData()) {
-								if (unverifiedWarmspotData.getMonitoringPoint() == unverifiedInstantaneousData.getMonitoringPoint()) {
-									warmspotGridFound = true;
-								}
-								else {
-									continue;
-								}
-								if (unverifiedWarmspotData.getMethaneLevel().equals(unverifiedInstantaneousData.getMethaneLevel())) {
-									warmspotReadingFound = true;
-									break;
-								}
-							}
+//							for (UnverifiedWarmspotData unverifiedWarmspotData : unverifiedDataSet.getUnverifiedWarmspotData()) {
+//								if (unverifiedWarmspotData.getMonitoringPoint() == unverifiedInstantaneousData.getMonitoringPoint()) {
+//									warmspotGridFound = true;
+//								}
+//								else {
+//									continue;
+//								}
+//								if (unverifiedWarmspotData.getMethaneLevel().equals(unverifiedInstantaneousData.getMethaneLevel())) {
+//									warmspotReadingFound = true;
+//									break;
+//								}
+//							}
 
 							// If the data point is a warmspot, but doesn't contain any warmspot data...
 							if (!warmspotReadingFound) {
@@ -211,7 +210,7 @@ public class DataVerificationService {
 				.map(unverifiedWarmspotData -> {
 					// TODO Verify warmspot data, such as instrument, inspector, grid, and date.
 					WarmspotData warmspotData = new WarmspotData();
-					warmspotData.setMonitoringPoint(unverifiedWarmspotData.getMonitoringPoint());
+					warmspotData.getMonitoringPoints().addAll(unverifiedWarmspotData.getMonitoringPoints());
 					warmspotData.setInstrument(unverifiedWarmspotData.getInstrument());
 					warmspotData.setInspector(inspector);
 					warmspotData.setMethaneLevel(unverifiedWarmspotData.getMethaneLevel());

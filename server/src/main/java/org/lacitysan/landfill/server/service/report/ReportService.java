@@ -302,13 +302,16 @@ public class ReportService {
 					if (sort != 0) {
 						return sort;
 					}
-					return a.getMonitoringPoint().ordinal() - b.getMonitoringPoint().ordinal();
+					// TODO Find an alternative to sorting by grid.
+					return sort;
+					// return a.getMonitoringPoint().ordinal() - b.getMonitoringPoint().ordinal();
 				})
 				.map(c -> {
 					WarmspotReportData d = new WarmspotReportData();
 					d.setDate(DateTimeUtils.formatSimpleDate(c.getDate().getTime()));
 					d.setInspector(c.getInspector().printName());
-					d.setMonitoringPoint(c.getMonitoringPoint().getName());
+					// TODO Format multiple grids.
+					// d.setMonitoringPoint(c.getMonitoringPoint().getName());
 					d.setInstrument(c.getInstrument().getSerialNumber());
 					d.setMethane(String.format("%.2f", c.getMethaneLevel() / 100.0));
 					d.setDescription(c.getDescription());

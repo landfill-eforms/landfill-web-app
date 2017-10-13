@@ -17,7 +17,7 @@ export class EditImeNumberDialogComponent implements OnInit {
 	availableInstruments:Instrument[] = [];
 	availableImeNumbers:ImeNumber[];
 	imeNumbersLoaded:boolean;
-	monitoringPointsWrapped:{monitoringPoint:MonitoringPoint, selected?:boolean}[] = [];
+	monitoringPointsWrapped:{monitoringPoint: MonitoringPoint, selected?: boolean, locked?: boolean}[] = [];
 
 	fields: {
 		instrumentId?:number,
@@ -42,7 +42,20 @@ export class EditImeNumberDialogComponent implements OnInit {
 			});
 			for (let monitoringPoint of monitoringPoints) {
                 this.monitoringPointsWrapped.push({monitoringPoint: monitoringPoint, selected: selectedGrids.indexOf(monitoringPoint.ordinal) > -1});
-            }
+			}
+			
+			// Automatically add and lock the grids from the instantaneous readings that are linked to the IME.
+			if (this.data.unverifiedInstantaneousData) {
+				for (let grid of this.data.unverifiedInstantaneousData.map(i => EnumUtils.convertToEnum(MonitoringPoint, i.monitoringPoint).ordinal)) {
+					for (let wrappedGrid of this.monitoringPointsWrapped) {
+						if (wrappedGrid.monitoringPoint.ordinal == grid) {
+							wrappedGrid.selected = true;
+							wrappedGrid.locked = true;
+							break;
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -58,6 +71,10 @@ export class EditImeNumberDialogComponent implements OnInit {
 	/** Closes the dialog without passing any data back. */
 	cancel() {
 		this.dialogRef.close();
+	}
+
+	listGrids(): string {
+		return this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint.name).sort().join(", ");
 	}
 
 }

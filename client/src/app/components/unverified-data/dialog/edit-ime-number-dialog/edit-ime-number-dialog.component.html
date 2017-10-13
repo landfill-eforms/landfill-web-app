@@ -21,11 +21,14 @@
 			</md-input-container>
 		</div>
 		<div class="flex-item" fxFlex style="padding-left: 16px;">
-				<div style="padding: 6px 0; font-weight: 500;">Grids</div>
+				<div fxLayout="row" style="padding: 6px 0;">
+					<div style="padding-right: 6px; font-weight: 500;">Grid(s):</div>
+					<div>{{listGrids()}}</div>
+				</div>
 				<div class="list-picker-box" style="height: 341px;">
 					<div *ngFor="let grid of monitoringPointsWrapped" class="list-item-container flex-container" fxLayout="row"> 
 						<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
-							<md-checkbox [(ngModel)]="grid.selected"></md-checkbox>
+							<md-checkbox [(ngModel)]="grid.selected" [disabled]="grid.locked"></md-checkbox>
 						</div>
 						<div class="single-line list-item-info" fxFlex>
 							<div class="list-item-title">

@@ -70,6 +70,10 @@ export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet
 			if (!data.imeData[0].instrument || !data.imeData[0].instrument.id) {
 				instantaneousErrors.push("The Instantaneous Exceedances reading of " + data.imeData[0].methaneLevel / 100 + "ppm does not have an instrument specified.");
 			}
+			if (data.monitoringPoints.length <= 0) {
+				instantaneousErrors.push("The Instantaneous Exceedances reading of " + data.imeData[0].methaneLevel / 100 + "ppm must have at least 1 grid.");
+			}
+
 		}
 
 		for (let i = 0; i < dataSet.unverifiedIntegratedData.length; i++) {

@@ -2,9 +2,6 @@
 <md-dialog-content>
 	<div class="flex-item" fxFlex style="padding-right: 16px;">
 		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Grid" disabled type="text" [(ngModel)]="fields.grid">
-		</md-input-container>
-		<md-input-container class="md-input-full-width">
 			<input mdInput placeholder="Methane (ppm)" type="number" [(ngModel)]="fields.methaneLevel">
 		</md-input-container>
 		<md-input-container class="md-input-full-width">
@@ -18,6 +15,22 @@
 				{{instrument.serialNumber}}
 			</md-option>
 		</md-select>
+		<div class="flex-item" fxFlex style="padding-left: 16px;">
+			<div style="padding: 6px 0; font-weight: 500;">Grids</div>
+			<div class="list-picker-box" style="height: 341px;">
+				<div *ngFor="let grid of monitoringPointsWrapped" class="list-item-container flex-container" fxLayout="row"> 
+					<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
+						<md-checkbox [(ngModel)]="grid.selected"></md-checkbox>
+					</div>
+					<div class="single-line list-item-info" fxFlex>
+						<div class="list-item-title">
+							{{grid.monitoringPoint.name}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
 	</div>
 </md-dialog-content>
 <md-dialog-actions>

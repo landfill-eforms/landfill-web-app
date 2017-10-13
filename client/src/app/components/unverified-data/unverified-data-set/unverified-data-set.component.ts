@@ -123,9 +123,9 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 		// Warmspot
 		for (let unverifiedWarmspotData of data.unverifiedWarmspotData) {
-			unverifiedWarmspotData.monitoringPoint = EnumUtils.convertToEnum(MonitoringPoint, unverifiedWarmspotData.monitoringPoint);
+			unverifiedWarmspotData.monitoringPoints = EnumUtils.convertToEnum(MonitoringPoint, unverifiedWarmspotData.monitoringPoints);
 		}
-		data.unverifiedWarmspotData.sort((a, b) => a.monitoringPoint.ordinal - b.monitoringPoint.ordinal);
+		// data.unverifiedWarmspotData.sort((a, b) => a.monitoringPoint.ordinal - b.monitoringPoint.ordinal);
 
 		// IME Numbers
 		for (let imeNumber of data.imeNumbers) {

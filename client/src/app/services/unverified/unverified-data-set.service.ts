@@ -49,13 +49,13 @@ export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet
 		for (let i = 0; i < dataSet.unverifiedWarmspotData.length; i++) {
 			let data = dataSet.unverifiedWarmspotData[i];
 			if (data.methaneLevel >= 50000 ) {
-				instantaneousErrors.push("The Warmspot reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " is too high for a Warmspot.");
+				instantaneousErrors.push("The Warmspot reading of " + data.methaneLevel / 100 + "ppm on grid is too high for a Warmspot.");
 			}
 			if (data.methaneLevel < 20000) {
-				instantaneousErrors.push("The Warmspot reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " is too low for a Warmspot.");
+				instantaneousErrors.push("The Warmspot reading of " + data.methaneLevel / 100 + "ppm on grid is too low for a Warmspot.");
 			}
 			if (!data.instrument || !data.instrument.id) {
-				instantaneousErrors.push("The Warmspot reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an instrument specified.");
+				instantaneousErrors.push("The Warmspot reading of " + data.methaneLevel / 100 + "ppm on grid does not have an instrument specified.");
 			}
 		}
 

@@ -5,9 +5,9 @@ import { AppConstant } from './../app/app.constant';
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 // To test with local server in Eclipse
-const UseDevResourceServer:boolean = true;
+// const UseDevResourceServer:boolean = true;
 // To test with actual server
-// const UseDevResourceServer:boolean = false;
+const UseDevResourceServer:boolean = false;
 
 
 export const environment = {

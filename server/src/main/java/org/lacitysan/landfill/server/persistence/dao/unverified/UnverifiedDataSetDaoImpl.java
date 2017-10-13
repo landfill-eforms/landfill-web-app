@@ -37,7 +37,10 @@ public class UnverifiedDataSetDaoImpl extends AbstractDaoImpl<UnverifiedDataSet>
 				});
 			});
 		});
-		unverifiedDataSet.getUnverifiedWarmspotData().forEach(unverifiedWarmspotData -> Hibernate.initialize(unverifiedWarmspotData.getInstrument()));
+		unverifiedDataSet.getUnverifiedWarmspotData().forEach(unverifiedWarmspotData -> {
+				Hibernate.initialize(unverifiedWarmspotData.getInstrument());
+				Hibernate.initialize(unverifiedWarmspotData.getMonitoringPoints());
+			});
 		unverifiedDataSet.getImeNumbers().forEach(imeNumber -> {
 			imeNumber.getUnverifiedInstantaneousData().forEach(unverifiedInstantaneousData -> Hibernate.initialize(unverifiedInstantaneousData));
 			imeNumber.getImeData().forEach(imeData -> {

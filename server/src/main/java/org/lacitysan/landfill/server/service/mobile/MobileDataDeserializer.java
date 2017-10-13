@@ -2,6 +2,7 @@ package org.lacitysan.landfill.server.service.mobile;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -133,6 +134,24 @@ public class MobileDataDeserializer {
 			for (String grid: arrayOfGrids) {
 				imeNumber.getMonitoringPoints().add(monitoringPointService.getGridBySiteNameAndId(site, grid ));
 			}
+			
+			// Parse set of grids from the space delimited string.
+			Set<MonitoringPoint> grids = Arrays.stream(mobileImeData.getmGridId().split("\\s+"))
+					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
+
+					// Collect here instead of adding directly to IME so that we can check for nulls.
+					.collect(Collectors.toSet()); 
+			
+			// If the a grid is null, then stop the data import process.
+			for (MonitoringPoint grid : grids) {
+				if (grid == null) {
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileImeData.getmGridId() + " in " + mobileImeData.getmLocation() + " not found.");
+					return null;
+				}
+			}
+			
+			// Add grids to the IME.
+			imeNumber.getMonitoringPoints().addAll(grids);
 
 			// Set the status of the IME number as unverified.
 			imeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
@@ -311,13 +330,24 @@ public class MobileDataDeserializer {
 			unverifiedWarmspotData.setDescription(mobileWarmspotData.getmDescription() == null ? "" : mobileWarmspotData.getmDescription());
 			unverifiedWarmspotData.setSize(String.valueOf(mobileWarmspotData.getmEstimatedSize()));
 			unverifiedWarmspotData.setInstrument(mobileWarmspotData.getmInstrument());
-			MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(site, mobileWarmspotData.getmGridId());
-			if (grid == null) {
-				if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGridId() + " in " + mobileWarmspotData.getmLocation() + " not found.");
-				return null;
+			
+			// Parse set of grids from the space delimited string.
+			Set<MonitoringPoint> grids = Arrays.stream(mobileWarmspotData.getmGridId().split("\\s+"))
+					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
+					
+					// Collect here instead of adding directly to warmspot data so that we can check for nulls.
+					.collect(Collectors.toSet()); 
+			
+			// If the a grid is null, then stop the data import process.
+			for (MonitoringPoint grid : grids) {
+				if (grid == null) {
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGridId() + " in " + mobileWarmspotData.getmLocation() + " not found.");
+					return null;
+				}
 			}
-			// TODO Import mutiple grids
-//			unverifiedWarmspotData.setMonitoringPoint(grid);
+			
+			// Add grids to warmspot data.
+			unverifiedWarmspotData.getMonitoringPoints().addAll(grids);
 
 			// Add the unverified data set to the unverified warmspot and vice versa.
 			unverifiedWarmspotData.setUnverifiedDataSet(unverifiedDataSet);

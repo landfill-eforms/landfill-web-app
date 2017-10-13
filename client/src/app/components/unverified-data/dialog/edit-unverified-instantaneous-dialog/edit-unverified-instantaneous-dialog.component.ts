@@ -89,4 +89,8 @@ export class EditUnverifiedInstantaneousDialogComponent implements OnInit {
 	canSubmit(): boolean {
 		return this.fields.methaneLevel != null && this.fields.barometricPressure != null && this.fields.instrumentId != null;
 	}
+
+	canAddIME(): boolean {
+		return this.fields.methaneLevel <= 500;
+	}
 }

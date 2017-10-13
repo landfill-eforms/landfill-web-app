@@ -1,7 +1,5 @@
 package org.lacitysan.landfill.server.service.report.model.data;
 
-import java.util.Set;
-
 public class WarmspotReportData {
 	private String monitoringPoints;
 	private String instrument;

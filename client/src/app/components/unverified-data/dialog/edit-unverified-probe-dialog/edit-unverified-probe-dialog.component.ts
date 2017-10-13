@@ -62,6 +62,10 @@ export class EditUnverifiedProbeDialogComponent implements OnInit {
 		this.dialogRef.close(this.fields);
 	}
 
+	canSubmit(): boolean {
+		return !!this.fields.instrumentId && this.fields.barometricPressure && this.fields.methaneLevel != null;
+	}
+
 	cancel() {
 		this.dialogRef.close();
 	}

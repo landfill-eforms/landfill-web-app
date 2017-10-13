@@ -77,6 +77,7 @@ export class EditUnverifiedInstantaneousDialogComponent implements OnInit {
 	/** Passes the field data back to the parent component, and closes the dialog. */
 	confirm() {
 		this.fields.imeNumbers = this.availableImeNumbers.filter(i => i["selected"]); // Include the selected IME numbers with the rest of field data.
+		// this.fields.methaneLevel = this.fields.methaneLevel;
 		this.dialogRef.close(this.fields);
 	}
 

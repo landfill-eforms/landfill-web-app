@@ -33,7 +33,7 @@ export class EditUnverifiedWarmspotDialogComponent implements OnInit {
 		this.fields.description = this.data.description;
 		this.availableInstruments = this.availableInstruments.filter(i => i.instrumentType.instantaneous);
 		this.fields.grid = this.data.monitoringPoint.name;
-	}
+	} 
 
 	confirm() {
 		this.dialogRef.close(this.fields);

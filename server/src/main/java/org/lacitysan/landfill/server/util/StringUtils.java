@@ -170,6 +170,8 @@ public class StringUtils {
 	 * @return A comma delimited string representing the collection.
 	 */
 	public static String collectionToCommaDelimited(Collection<? extends Object> objects, boolean addSpace) {
+		// TODO Add sorted variant of this method.
+		// TODO Allow any delimiter as input.
 		StringBuilder sb = new StringBuilder();
 		int i = 0;
 		for (Object object : objects) {

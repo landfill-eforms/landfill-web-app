@@ -3,7 +3,7 @@
  * https://github.com/landfill-eforms/landfill-tools/tree/master/typescript-gen
  */
 export class WarmspotReportData {
-	monitoringPoint: string;
+	monitoringPoints: string;
 	instrument: string;
 	inspector: string;
 	methane: string;

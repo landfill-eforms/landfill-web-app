@@ -310,8 +310,12 @@ public class ReportService {
 					WarmspotReportData d = new WarmspotReportData();
 					d.setDate(DateTimeUtils.formatSimpleDate(c.getDate().getTime()));
 					d.setInspector(c.getInspector().printName());
-					// TODO Format multiple grids.
-					// d.setMonitoringPoint(c.getMonitoringPoint().getName());
+					d.setMonitoringPoints(StringUtils.collectionToCommaDelimited(
+							c.getMonitoringPoints().stream()
+							.map(g -> g.getName())
+							.sorted()
+							.collect(Collectors.toList()),
+							true));
 					d.setInstrument(c.getInstrument().getSerialNumber());
 					d.setMethane(String.format("%.2f", c.getMethaneLevel() / 100.0));
 					d.setDescription(c.getDescription());
@@ -374,7 +378,7 @@ public class ReportService {
 		for(int i = 0; i < dataEntries.size(); i++){
 			ArrayList<String> info = new ArrayList<>();
 			info.add( (dataEntries.get(i)).getDate() );                	
-			info.add( (dataEntries.get(i)).getMonitoringPoint() );
+			info.add( (dataEntries.get(i)).getMonitoringPoints() );
 			info.add( (dataEntries.get(i)).getDescription() );     	
 			info.add( (dataEntries.get(i)).getSize() );
 			info.add( (dataEntries.get(i)).getInspector() );

@@ -1,13 +1,17 @@
 package org.lacitysan.landfill.server.persistence.entity.unverified;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,10 +32,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class UnverifiedWarmspotData extends AbstractUnverifiedData {
 	
-	@NotNull
+	@ElementCollection(targetClass=MonitoringPoint.class)
+	@JoinTable(name="dbo.UnverifiedWarmspotDataXRefMonitoringPoints", joinColumns=@JoinColumn(name="UnverifiedWarmspotFK"))
 	@Column(name="MonitoringPointString")
 	@Enumerated(EnumType.STRING)
-	private MonitoringPoint monitoringPoint;
+	private Set<MonitoringPoint> monitoringPoints = new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name="InstrumentFK")
@@ -56,12 +61,12 @@ public class UnverifiedWarmspotData extends AbstractUnverifiedData {
 //	@Cascade(CascadeType.ALL)
 	private UnverifiedDataSet unverifiedDataSet;
 
-	public MonitoringPoint getMonitoringPoint() {
-		return monitoringPoint;
+	public Set<MonitoringPoint> getMonitoringPoints() {
+		return monitoringPoints;
 	}
 
-	public void setMonitoringPoint(MonitoringPoint monitoringPoint) {
-		this.monitoringPoint = monitoringPoint;
+	public void setMonitoringPoints(Set<MonitoringPoint> monitoringPoints) {
+		this.monitoringPoints = monitoringPoints;
 	}
 
 	public Instrument getInstrument() {

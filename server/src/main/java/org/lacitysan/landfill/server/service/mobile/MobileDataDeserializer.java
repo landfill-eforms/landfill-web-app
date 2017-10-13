@@ -316,7 +316,8 @@ public class MobileDataDeserializer {
 				if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGridId() + " in " + mobileWarmspotData.getmLocation() + " not found.");
 				return null;
 			}
-			unverifiedWarmspotData.setMonitoringPoint(grid);
+			// TODO Import mutiple grids
+//			unverifiedWarmspotData.setMonitoringPoint(grid);
 
 			// Add the unverified data set to the unverified warmspot and vice versa.
 			unverifiedWarmspotData.setUnverifiedDataSet(unverifiedDataSet);

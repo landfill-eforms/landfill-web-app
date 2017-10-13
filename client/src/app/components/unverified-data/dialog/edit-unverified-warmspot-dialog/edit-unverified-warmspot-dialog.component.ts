@@ -18,23 +18,14 @@ export class EditUnverifiedWarmspotDialogComponent implements OnInit {
 	site:Site;
 	data:UnverifiedWarmspotData;
 	availableInstruments:Instrument[] = [];
-<<<<<<< HEAD
-	monitoringPointsWrapped:{monitoringPoint:MonitoringPoint, selected?:boolean}[] = [];
-=======
 	monitoringPointsWrapped:{monitoringPoint:MonitoringPoint, selected?:boolean} [] = [];
->>>>>>> a655e60406492ac1859a4af7833312c86a861331
 
 	fields:{
 		instrumentId?:number, 
 		methaneLevel?:number, 
 		size?:string, 
 		description?:string,
-<<<<<<< HEAD
-		// grid?:string
-		monitoringPoints?:MonitoringPoint[] // This is only for sending the grids back to the unverified data set component.
-=======
 		monitoringPoints?:MonitoringPoint[]
->>>>>>> a655e60406492ac1859a4af7833312c86a861331
 	} = {}
 
 	constructor(
@@ -49,29 +40,17 @@ export class EditUnverifiedWarmspotDialogComponent implements OnInit {
 		this.fields.description = this.data.description;
 
 		this.availableInstruments = this.availableInstruments.filter(i => i.instrumentType.instantaneous);
-<<<<<<< HEAD
-		
-		if (this.data) {
-			let selectedGrids: number [] = this.data.monitoringPoints.map(g => g.ordinal);
-            let monitoringPoints = MonitoringPoint.values().filter(g => {
-                return g.type.ordinal == MonitoringPointType.GRID.ordinal;
-=======
 		if (this.data) {
 			let selectedGrids: number [] = this.data.monitoringPoints.map(g => g.ordinal);
             let monitoringPoints = MonitoringPoint.values().filter(g => {
                 return g.site.ordinal == this.site.ordinal &&
                     g.type.ordinal == MonitoringPointType.GRID.ordinal;
->>>>>>> a655e60406492ac1859a4af7833312c86a861331
 			});
 			for (let monitoringPoint of monitoringPoints) {
                 this.monitoringPointsWrapped.push({monitoringPoint: monitoringPoint, selected: selectedGrids.indexOf(monitoringPoint.ordinal) > -1});
             }
 		}
-<<<<<<< HEAD
-	} 
-=======
 	}
->>>>>>> a655e60406492ac1859a4af7833312c86a861331
 
 	confirm() {
 		this.fields.monitoringPoints = this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint);
@@ -83,13 +62,6 @@ export class EditUnverifiedWarmspotDialogComponent implements OnInit {
 	}
 
 	canSubmit(): boolean{
-<<<<<<< HEAD
-		return this.fields.monitoringPoints != null && this.fields.instrumentId != null && this.fields.methaneLevel != null && !!this.fields.size;
-	}
-
-
-=======
 		return !!this.monitoringPointsWrapped.filter(g => g.selected).length && this.fields.instrumentId != null && this.fields.instrumentId != null && this.fields.methaneLevel != null && !!this.fields.size;
 	}
->>>>>>> a655e60406492ac1859a4af7833312c86a861331
 }

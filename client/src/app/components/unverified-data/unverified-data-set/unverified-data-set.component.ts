@@ -216,6 +216,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
 		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<EditImeNumberDialogComponent> = this.dialog.open(EditImeNumberDialogComponent, dialogConfig);
+
 		dialogRef.componentInstance.availableInstruments = this.instruments;
 		dialogRef.componentInstance.data = data;
 		dialogRef.afterClosed().subscribe(result => {

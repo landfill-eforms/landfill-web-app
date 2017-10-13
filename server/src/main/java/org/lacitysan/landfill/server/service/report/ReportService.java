@@ -371,7 +371,7 @@ public class ReportService {
 		for(int i = 0; i < dataEntries.size(); i++){
 			ArrayList<String> info = new ArrayList<>();
 			info.add( (dataEntries.get(i)).getDate() );                	
-			info.addAll( (dataEntries.get(i)).getMonitoringPoint() );
+			info.add( (dataEntries.get(i)).getMonitoringPoint() );
 			info.add( (dataEntries.get(i)).getDescription() );     	
 			info.add( (dataEntries.get(i)).getSize() );
 			info.add( (dataEntries.get(i)).getInspector() );

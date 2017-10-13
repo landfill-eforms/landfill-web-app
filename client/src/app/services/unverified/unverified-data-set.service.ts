@@ -57,6 +57,10 @@ export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet
 			if (!data.instrument || !data.instrument.id) {
 				instantaneousErrors.push("The Warmspot reading of " + data.methaneLevel / 100 + "ppm does not have an instrument specified.");
 			}
+			if(data.monitoringPoints.length <= 0) {
+				instantaneousErrors.push("The Warmspot reading of " + data.methaneLevel / 100 + "ppm must have at least 1 grid.");
+			}
+
 		}
 
 		for(let i = 0; i < dataSet.imeNumbers.length; i++) {

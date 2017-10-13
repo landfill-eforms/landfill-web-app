@@ -129,7 +129,10 @@ public class MobileDataDeserializer {
 			}
 
 			// Set grid for the IME number.
-			imeNumber.getMonitoringPoints().add(monitoringPointService.getGridBySiteNameAndId(site, mobileImeData.getmGridId()));
+			String[] arrayOfGrids = mobileImeData.getmGridId().split(" ");
+			for (String grid: arrayOfGrids) {
+				imeNumber.getMonitoringPoints().add(monitoringPointService.getGridBySiteNameAndId(site, grid ));
+			}
 
 			// Set the status of the IME number as unverified.
 			imeNumber.setStatus(ExceedanceStatus.UNVERIFIED);

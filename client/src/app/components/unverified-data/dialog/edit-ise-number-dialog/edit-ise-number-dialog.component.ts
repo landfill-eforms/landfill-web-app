@@ -40,6 +40,10 @@ export class EditIseNumberDialogComponent implements OnInit {
 		this.dialogRef.close(this.fields);
 	}
 
+	canSubmit(): boolean {
+		return !!(this.fields.monitoringPoint && this.fields.instrumentId != null) && ( this.fields.methaneLevel >= 25);
+	}
+
 	/** Closes the dialog without passing any data back. */
 	cancel() {
 		this.dialogRef.close();

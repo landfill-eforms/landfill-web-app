@@ -41,7 +41,7 @@
 	<button md-button (click)="cancel()">
 		CANCEL
 	</button>
-	<button md-button (click)="confirm()">
+	<button md-button (click)="confirm()" [disabled]="!canSubmit()">
 		UPDATE
 	</button>
 </md-dialog-actions>

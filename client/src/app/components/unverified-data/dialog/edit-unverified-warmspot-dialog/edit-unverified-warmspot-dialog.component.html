@@ -1,22 +1,5 @@
 <div md-dialog-title>Edit Single Warmspot Entry</div>
 <md-dialog-content>
-<<<<<<< HEAD
-	<div class="flex-item" fxFlex style="padding-right: 16px;">
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Methane (ppm)" type="number" [(ngModel)]="fields.methaneLevel">
-		</md-input-container>
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Size" [(ngModel)]="fields.size">
-		</md-input-container>
-		<md-input-container class="md-input-full-width">
-			<input mdInput placeholder="Description" [(ngModel)]="fields.description">
-		</md-input-container>
-		<md-select [(ngModel)]="fields.instrumentId" placeholder="Instrument S/N" class="mat-select-row" style="width:100%">
-			<md-option *ngFor="let instrument of availableInstruments" [value]="instrument.id">
-				{{instrument.serialNumber}}
-			</md-option>
-		</md-select>
-=======
 	<div class="dialog-form-container flex-container" fxLayout="row">
 		<div class="flex-item" fxFlex style="padding-right: 16px;">
 			<md-input-container class="md-input-full-width">
@@ -37,7 +20,6 @@
 				</md-option>
 			</md-select>
 		</div>
->>>>>>> a655e60406492ac1859a4af7833312c86a861331
 		<div class="flex-item" fxFlex style="padding-left: 16px;">
 			<div style="padding: 6px 0; font-weight: 500;">Grids</div>
 			<div class="list-picker-box" style="height: 341px;">

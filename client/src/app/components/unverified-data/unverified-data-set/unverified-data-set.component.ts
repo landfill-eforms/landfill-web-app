@@ -432,6 +432,12 @@ export class UnverifiedDataSetComponent implements OnInit {
 		return this._imeNumberService.listGrids(imeNumber);
 	}
 
+	listWarmspotGrids(unverifiedWarmspotData: UnverifiedWarmspotData) {
+		if (unverifiedWarmspotData && unverifiedWarmspotData.monitoringPoints) {
+			return unverifiedWarmspotData.monitoringPoints.map(m => EnumUtils.convertToEnum(MonitoringPoint, m).name).sort().join(", ");
+		}
+	}
+
 	printInspectorList(inspectors: User[]): string {
         return inspectors.map(inspector => StringUtils.formatUserName(inspector)).join("; ");
     }

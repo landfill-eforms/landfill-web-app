@@ -410,6 +410,8 @@ public class MobileDataDeserializer {
 			iseData.setMethaneLevel((int)(mobileIseData.getmMethaneReading() * 100));
 			iseData.setInspector(getUser(userMap, mobileIseData.getmInspectorUserName()));
 
+			
+			
 			// Add the ISE number to the ISE data entry and vice versa.
 			iseData.setIseNumber(iseNumber);
 			iseNumber.getIseData().add(iseData);

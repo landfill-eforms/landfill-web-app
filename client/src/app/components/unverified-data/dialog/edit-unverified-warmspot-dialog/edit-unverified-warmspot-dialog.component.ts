@@ -1,7 +1,7 @@
 import { Site } from './../../../../model/server/persistence/enums/location/site.enum';
+import { UnverifiedWarmspotData } from './../../../../model/server/persistence/entity/unverified/unverified-warmspot-data.class';
 import { MonitoringPointType } from './../../../../model/server/persistence/enums/location/monitoring-point-type.enum';
 import { MonitoringPoint } from './../../../../model/server/persistence/enums/location/monitoring-point.enum';
-import { UnverifiedWarmspotData } from './../../../../model/server/persistence/entity/unverified/unverified-warmspot-data.class';
 import { MdDialogRef, MdSnackBar } from '@angular/material';
 import { Instrument } from './../../../../model/server/persistence/entity/instrument/instrument.class';
 import { Component, OnInit } from '@angular/core';
@@ -62,4 +62,9 @@ export class EditUnverifiedWarmspotDialogComponent implements OnInit {
 	canSubmit(): boolean{
 		return !!this.monitoringPointsWrapped.filter(g => g.selected).length && this.fields.instrumentId != null && this.fields.instrumentId != null && this.fields.methaneLevel != null && !!this.fields.size;
 	}
+
+	listGrids(): string {
+		return this.monitoringPointsWrapped.filter(g => g.selected).map(g => g.monitoringPoint.name).sort().join(", ");
+	}
+
 }

@@ -198,7 +198,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 	editWarmspot(data:UnverifiedWarmspotData) {
 		this.activeItem = data;
 		let dialogConfig:MdDialogConfig = new MdDialogConfig();
-		dialogConfig.width = '480px';
+		dialogConfig.width = '800px';
 		let dialogRef:MdDialogRef<EditUnverifiedWarmspotDialogComponent> = this.dialog.open(EditUnverifiedWarmspotDialogComponent, dialogConfig);
 		dialogRef.componentInstance.availableInstruments = this.instruments;
 		dialogRef.componentInstance.data = data;
@@ -209,6 +209,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 				data.methaneLevel = result["methaneLevel"] * 100;
 				data.size = result["size"];
 				data.description = result["description"];
+				data.monitoringPoints = result["monitoringPoints"];
 			}
 			this.activeItem = null;
 			this.unverifiedDataService.checkForErrors(this.unverifiedDataSet);

@@ -128,13 +128,7 @@ public class MobileDataDeserializer {
 			if (imeNumber == null) {
 				continue;
 			}
-
-			// Set grid for the IME number.
-			String[] arrayOfGrids = mobileImeData.getmGridId().split(" ");
-			for (String grid: arrayOfGrids) {
-				imeNumber.getMonitoringPoints().add(monitoringPointService.getGridBySiteNameAndId(site, grid ));
-			}
-			
+	
 			// Parse set of grids from the space delimited string.
 			Set<MonitoringPoint> grids = Arrays.stream(mobileImeData.getmGridId().split("\\s+"))
 					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))

@@ -128,8 +128,10 @@ public class DataVerificationService {
 						if (unverifiedInstantaneousData.getMethaneLevel() >= 20000) {
 
 							// Check if there is a corresponding warmspot entry in the dataset.
-							boolean warmspotGridFound = false;
-							boolean warmspotReadingFound = false;
+							// This is temporarily disabled for now; we might just get rid of this altogether.
+							
+//							boolean warmspotGridFound = false;
+//							boolean warmspotReadingFound = false;
 //							for (UnverifiedWarmspotData unverifiedWarmspotData : unverifiedDataSet.getUnverifiedWarmspotData()) {
 //								if (unverifiedWarmspotData.getMonitoringPoint() == unverifiedInstantaneousData.getMonitoringPoint()) {
 //									warmspotGridFound = true;
@@ -144,14 +146,14 @@ public class DataVerificationService {
 //							}
 
 							// If the data point is a warmspot, but doesn't contain any warmspot data...
-							if (!warmspotReadingFound) {
-								if (warmspotGridFound) {
-									errorLog.add(getDescription(unverifiedInstantaneousData) + " is a warmspot, and the data set contains a warmspot entry with the same grid, but it has a different a ppm.");
-								}
-								else {
-									errorLog.add(getDescription(unverifiedInstantaneousData) + " is a warmspot, but the data set doesn't contain a corresponding warmspot entry with the same grid and ppm.");
-								}
-							}
+//							if (!warmspotReadingFound) {
+//								if (warmspotGridFound) {
+//									errorLog.add(getDescription(unverifiedInstantaneousData) + " is a warmspot, and the data set contains a warmspot entry with the same grid, but it has a different a ppm.");
+//								}
+//								else {
+//									errorLog.add(getDescription(unverifiedInstantaneousData) + " is a warmspot, but the data set doesn't contain a corresponding warmspot entry with the same grid and ppm.");
+//								}
+//							}
 
 						}
 

@@ -4,7 +4,11 @@ import { AppConstant } from './../app/app.constant';
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
+// To test with local server in Eclipse
+// const UseDevResourceServer:boolean = true;
+// To test with actual server
 const UseDevResourceServer:boolean = false;
+
 
 export const environment = {
   production: false,

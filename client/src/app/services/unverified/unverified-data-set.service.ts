@@ -24,6 +24,7 @@ export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet
 	checkForErrors(dataSet:UnverifiedDataSet):UnverifiedDataSet {
 		let dataSetErrors:string[] = [];
 		let instantaneousErrors:string[] = [];
+		let imeErrors:string[] = [];
 		let integratedErrors:string[] = [];
 		let probeErrors:string[] = [];
 		for (let i = 0; i < dataSet.unverifiedInstantaneousData.length; i++) {
@@ -60,6 +61,17 @@ export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet
 				instantaneousErrors.push("The Warmspot reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an instrument specified.");
 			}
 		}
+
+		for(let i = 0; i < dataSet.imeNumbers.length; i++) {
+			let data = dataSet.imeNumbers[i];
+			if (data.imeData[0].methaneLevel <= 50000 ) {
+				instantaneousErrors.push("The Instantaneous Exceedances reading of " + data.imeData[0].methaneLevel / 100 + "ppm is too low for a IME.");
+			}
+			if (!data.imeData[0].instrument || !data.imeData[0].instrument.id) {
+				instantaneousErrors.push("The Instantaneous Exceedances reading of " + data.imeData[0].methaneLevel / 100 + "ppm does not have an instrument specified.");
+			}
+		}
+
 		for (let i = 0; i < dataSet.unverifiedIntegratedData.length; i++) {
 			let data = dataSet.unverifiedIntegratedData[i];
 			if (data.monitoringPoint.site != dataSet.site) {
@@ -72,6 +84,17 @@ export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet
 				integratedErrors.push("The integrated reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " does not have an barometric pressure reading.");
 			}
 		}
+
+		for(let i = 0; i < dataSet.iseNumbers.length; i++) {
+			let data = dataSet.iseNumbers[i];
+			if (data.iseData[0].methaneLevel <= 2500 ) {
+				integratedErrors.push("The Integrated Exceedances reading of " + data.iseData[0].methaneLevel / 100 + "ppm is too low for a IME.");
+			}
+			if (!data.iseData[0].instrument || !data.iseData[0].instrument.id) {
+				integratedErrors.push("The Integrated Exceedances reading of " + data.iseData[0].methaneLevel / 100 + "ppm does not have an instrument specified.");
+			}
+		}
+
 		for (let i = 0; i < dataSet.unverifiedProbeData.length; i++) {
 			let data = dataSet.unverifiedProbeData[i];
 			if (!data.instrument || !data.instrument.id) {

@@ -11,9 +11,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.lacitysan.landfill.server.config.app.ApplicationConstant;
+import org.lacitysan.landfill.server.persistence.dao.instrument.InstrumentDao;
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.ImeNumberDao;
 import org.lacitysan.landfill.server.persistence.dao.surfaceemission.instantaneous.WarmspotDataDao;
 import org.lacitysan.landfill.server.persistence.dao.user.UserDao;
+import org.lacitysan.landfill.server.persistence.entity.instrument.Instrument;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeData;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.ImeNumber;
 import org.lacitysan.landfill.server.persistence.entity.surfaceemission.instantaneous.WarmspotData;
@@ -60,6 +62,9 @@ public class MobileDataDeserializer {
 
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+	InstrumentDao instrumentDao;
 
 	@Autowired
 	UnverifiedDataSetService unverifiedDataSetService;
@@ -75,7 +80,7 @@ public class MobileDataDeserializer {
 
 	@Autowired
 	MonitoringPointService monitoringPointService;
-
+	
 	@Autowired
 	TrackingService trackingService;
 
@@ -149,6 +154,18 @@ public class MobileDataDeserializer {
 
 			// Set the status of the IME number as unverified.
 			imeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
+			
+			// Find instrument based provided ID, if any.
+			Instrument instrument = null;
+			if (mobileImeData.getmInstrument() != null && !mobileImeData.getmInstrument().isEmpty()) {
+				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
+				try {
+					instrument = instrumentDao.getById(Integer.parseInt(mobileImeData.getmInstrument()));
+				}
+				catch (NumberFormatException e) {
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileImeData.getmInstrument() + "' in IME data is not a number.");
+				}
+			}
 
 			// Create initial IME data entry based on imported info.
 			ImeData imeData = new ImeData();
@@ -156,6 +173,7 @@ public class MobileDataDeserializer {
 			imeData.setDescription(mobileImeData.getmDescription() == null ? "" : mobileImeData.getmDescription());
 			imeData.setMethaneLevel((int)(mobileImeData.getmMethaneReading() * 100));
 			imeData.setInspector(getUser(userMap, mobileImeData.getmInspectorUserName()));
+			imeData.setInstrument(instrument);
 
 			// Add the IME number to the IME data entry and vice versa.
 			imeData.setImeNumber(imeNumber);

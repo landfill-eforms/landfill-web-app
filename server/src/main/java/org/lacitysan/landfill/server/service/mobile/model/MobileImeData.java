@@ -13,6 +13,7 @@ public class MobileImeData {
 	private String mDescription;
 	private String mInspectorUserName;
 	private Double mMethaneReading;
+	private String mInstrument; // TODO Change this to integer on Andriod side.
 
 	public String getmId() {
 		return mId;
@@ -76,6 +77,14 @@ public class MobileImeData {
 
 	public void setmMethaneReading(Double mMethaneReading) {
 		this.mMethaneReading = mMethaneReading;
+	}
+
+	public String getmInstrument() {
+		return mInstrument;
+	}
+
+	public void setmInstrument(String mInstrument) {
+		this.mInstrument = mInstrument;
 	}
 
 }

@@ -48,9 +48,6 @@ export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet
 		//WARMSPOT
 		for (let i = 0; i < dataSet.unverifiedWarmspotData.length; i++) {
 			let data = dataSet.unverifiedWarmspotData[i];
-			// if (data.monitoringPoint.site != dataSet.site) {
-			// 	instantaneousErrors.push("The instantaneous reading of " + data.methaneLevel / 100 + "ppm has a grid on the wrong site (" + data.monitoringPoint.site.name + ")!");
-			// }
 			if (data.methaneLevel >= 50000 ) {
 				instantaneousErrors.push("The Warmspot reading of " + data.methaneLevel / 100 + "ppm on grid " + data.monitoringPoint.name + " is too high for a Warmspot.");
 			}

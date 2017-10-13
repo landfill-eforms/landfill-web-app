@@ -123,9 +123,11 @@ export class UnverifiedDataSetComponent implements OnInit {
 
 		// Warmspot
 		for (let unverifiedWarmspotData of data.unverifiedWarmspotData) {
-			unverifiedWarmspotData.monitoringPoint = EnumUtils.convertToEnum(MonitoringPoint, unverifiedWarmspotData.monitoringPoint);
+			for (let i = 0; i < unverifiedWarmspotData.monitoringPoints.length; i++) {
+				unverifiedWarmspotData.monitoringPoints[i] = EnumUtils.convertToEnum(MonitoringPoint, unverifiedWarmspotData.monitoringPoints[i]);
+			}
 		}
-		data.unverifiedWarmspotData.sort((a, b) => a.monitoringPoint.ordinal - b.monitoringPoint.ordinal);
+		//data.unverifiedWarmspotData.sort((a, b) => a.monitoringPoint.ordinal - b.monitoringPoint.ordinal);
 
 		// IME Numbers
 		for (let imeNumber of data.imeNumbers) {
@@ -200,6 +202,7 @@ export class UnverifiedDataSetComponent implements OnInit {
 		let dialogRef:MdDialogRef<EditUnverifiedWarmspotDialogComponent> = this.dialog.open(EditUnverifiedWarmspotDialogComponent, dialogConfig);
 		dialogRef.componentInstance.availableInstruments = this.instruments;
 		dialogRef.componentInstance.data = data;
+		dialogRef.componentInstance.site = this.unverifiedDataSet.site;
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				data.instrument = this.findInstrumentById(result["instrumentId"]);

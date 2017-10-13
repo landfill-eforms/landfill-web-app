@@ -1,7 +1,10 @@
 package org.lacitysan.landfill.server.service.report.model.data;
 
+import java.util.Set;
+
 public class WarmspotReportData {
-	private String monitoringPoint;
+//	private String monitoringPoint;
+	private Set<String> monitoringPoint;
 	private String instrument;
 	private String inspector;
 	private String methane;
@@ -9,12 +12,23 @@ public class WarmspotReportData {
 	private String description;
 	private String size;
 	
-	public String getMonitoringPoint() {
+//	public String getMonitoringPoint() {
+//		return monitoringPoint;
+//	}
+//	public void setMonitoringPoint(String monitoringPoint) {
+//		this.monitoringPoint = monitoringPoint;
+//	}
+	public Set<String> getMonitoringPoint() {
 		return monitoringPoint;
 	}
-	public void setMonitoringPoint(String monitoringPoint) {
+	public void setMonitoringPoint(Set<String> monitoringPoint) {
 		this.monitoringPoint = monitoringPoint;
 	}
+	public void setMonitoringPoint(String name) {
+		this.monitoringPoint = monitoringPoint;
+	}
+	
+	
 	public String getInstrument() {
 		return instrument;
 	}

@@ -15,6 +15,7 @@ public class MobileProbeData {
 	private String mProbeNumber;
 	private String mRemarks;
 	private Double mWaterPressure;
+	private String mInstrument; // TODO Change this to integer on Andriod side.
 
 	public Double getmBarometricPressure() {
 		return mBarometricPressure;
@@ -94,6 +95,14 @@ public class MobileProbeData {
 
 	public void setmWaterPressure(Double mWaterPressure) {
 		this.mWaterPressure = mWaterPressure;
+	}
+
+	public String getmInstrument() {
+		return mInstrument;
+	}
+
+	public void setmInstrument(String mInstrument) {
+		this.mInstrument = mInstrument;
 	}
 
 }

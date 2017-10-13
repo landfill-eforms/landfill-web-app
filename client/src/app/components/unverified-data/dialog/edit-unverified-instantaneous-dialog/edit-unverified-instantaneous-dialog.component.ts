@@ -85,4 +85,7 @@ export class EditUnverifiedInstantaneousDialogComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
+	canSubmit(): boolean {
+		return this.fields.methaneLevel != null && this.fields.barometricPressure != null && this.fields.instrumentId != null;
+	}
 }

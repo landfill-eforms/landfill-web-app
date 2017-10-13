@@ -43,4 +43,7 @@ export class EditUnverifiedWarmspotDialogComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
+	canSubmit(): boolean{
+		return this.fields.grid != null && this.fields.instrumentId != null && this.fields.methaneLevel != null && !!this.fields.size;
+	}
 }

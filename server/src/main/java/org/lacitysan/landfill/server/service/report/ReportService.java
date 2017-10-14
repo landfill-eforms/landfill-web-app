@@ -155,7 +155,7 @@ public class ReportService {
 						SurfaceEmissionExceedanceReportData d = new SurfaceEmissionExceedanceReportData();
 						d.setDiscoveredDate(DateTimeUtils.formatSimpleDate(initialReading.getDateTime().getTime()));
 						d.setExceedanceNumber(c.getImeNumber());
-						d.setMonitoringPoints(StringUtils.collectionToCommaDelimited(c.getMonitoringPoints(), true));
+						d.setMonitoringPoints(StringUtils.collectionToSortedString(c.getMonitoringPoints(), ", "));
 						d.setRepairDescription(finalRepair == null ? "" : finalRepair.getDescription());
 						d.setInitial(String.format("%.2f", initialReading.getMethaneLevel() / 100.0));
 						d.setRecheck(imeDataList.size() == 1 ? "" : String.format("%.2f", imeDataList.get(imeDataList.size() - 1).getMethaneLevel() / 100.0));
@@ -310,12 +310,11 @@ public class ReportService {
 					WarmspotReportData d = new WarmspotReportData();
 					d.setDate(DateTimeUtils.formatSimpleDate(c.getDate().getTime()));
 					d.setInspector(c.getInspector().printName());
-					d.setMonitoringPoints(StringUtils.collectionToCommaDelimited(
+					d.setMonitoringPoints(StringUtils.collectionToSortedString(
 							c.getMonitoringPoints().stream()
 							.map(g -> g.getName())
-							.sorted()
 							.collect(Collectors.toList()),
-							true));
+							", "));
 					d.setInstrument(c.getInstrument().getSerialNumber());
 					d.setMethane(String.format("%.2f", c.getMethaneLevel() / 100.0));
 					d.setDescription(c.getDescription());

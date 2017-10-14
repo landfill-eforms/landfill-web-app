@@ -2,6 +2,7 @@ package org.lacitysan.landfill.server.util;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 /**
@@ -163,20 +164,58 @@ public class StringUtils {
 	}
 	
 	/**
-	 * Converts a collection of objects to their string representation via the <code>toString()<code> method,
-	 * and then delimits the strings using commas.
+	 * Converts a collection of objects to their string representation via the {@code toString()} method,
+	 * and then delimits the strings using the specified delimiter.
 	 * @param objects The collection of objects.
-	 * @param addSpace Whether to include a space after each comma.
-	 * @return A comma delimited string representing the collection.
+	 * @param delimiter The string used to delimit each object.
+	 * @return A delimited string representing the collection.
 	 */
-	public static String collectionToCommaDelimited(Collection<? extends Object> objects, boolean addSpace) {
-		// TODO Add sorted variant of this method.
-		// TODO Allow any delimiter as input.
+	public static String collectionToString(Collection<? extends Object> objects, String delimiter) {
 		StringBuilder sb = new StringBuilder();
 		int i = 0;
 		for (Object object : objects) {
 			if (i++ > 0) {
-				sb.append(addSpace ? ", " : ",");
+				sb.append(delimiter);
+			}
+			sb.append(object.toString());
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * Sorts a collection of {@code Comparable} objects,
+	 * then converts the sorted collection of objects to their string representation via the {@code toString()} method,
+	 * and then delimits the strings using the specified delimiter.
+	 * @param objects The collection of objects.
+	 * @param delimiter The string used to delimit each object.
+	 * @return A delimited string representing the collection.
+	 */
+	public static String collectionToSortedString(Collection<? extends Comparable<?>> objects, String delimiter) {
+		StringBuilder sb = new StringBuilder();
+		int i = 0;
+		for (Object object : objects.stream().sorted().collect(Collectors.toList())) {
+			if (i++ > 0) {
+				sb.append(delimiter);
+			}
+			sb.append(object.toString());
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * Sorts a collection of {@code Comparable} objects using the provided {@code Comparator},
+	 * then converts the sorted collection of objects to their string representation via the {@code toString()} method,
+	 * and then delimits the strings using the specified delimiter.
+	 * @param objects The collection of objects.
+	 * @param delimiter The string used to delimit each object.
+	 * @return A delimited string representing the collection.
+	 */
+	public static String collectionToSortedString(Collection<? extends Comparable<?>> objects, String delimiter, Comparator<? super Comparable<?>> comparator) {
+		StringBuilder sb = new StringBuilder();
+		int i = 0;
+		for (Object object : objects.stream().sorted(comparator).collect(Collectors.toList())) {
+			if (i++ > 0) {
+				sb.append(delimiter);
 			}
 			sb.append(object.toString());
 		}

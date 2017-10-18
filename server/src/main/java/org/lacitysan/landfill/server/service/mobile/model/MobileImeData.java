@@ -8,12 +8,21 @@ public class MobileImeData {
 	private String mId;
 	private String mImeNumber;
 	private String mLocation;
-	private String mGridId;
+	private String mGrids;
 	private String mDate;
 	private String mDescription;
 	private String mInspectorUserName;
 	private Double mMethaneReading;
-	private String mInstrument; // TODO Change this to integer on Andriod side.
+	private Integer mInstrument; // TODO Change this to integer on Android
+	
+
+	public Integer getmInstrument() {
+		return mInstrument;
+	}
+
+	public void setmInstrument(Integer mInstrument) {
+		this.mInstrument = mInstrument;
+	}
 
 	public String getmId() {
 		return mId;
@@ -39,12 +48,12 @@ public class MobileImeData {
 		this.mLocation = mLocation;
 	}
 
-	public String getmGridId() {
-		return mGridId;
+	public String getmGrids() {
+		return mGrids;
 	}
 
-	public void setmGridId(String mGridId) {
-		this.mGridId = mGridId;
+	public void setmGrids(String mGridId) {
+		this.mGrids = mGridId;
 	}
 
 	public String getmDate() {
@@ -77,14 +86,6 @@ public class MobileImeData {
 
 	public void setmMethaneReading(Double mMethaneReading) {
 		this.mMethaneReading = mMethaneReading;
-	}
-
-	public String getmInstrument() {
-		return mInstrument;
-	}
-
-	public void setmInstrument(String mInstrument) {
-		this.mInstrument = mInstrument;
 	}
 
 }

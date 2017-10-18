@@ -13,6 +13,15 @@ public class MobileIseData {
 	private String mDescription;
 	private String mInspectorUserName;
 	private Double mMethaneReading;
+	private Integer mInstrument;
+
+	public Integer getmInstrument() {
+		return mInstrument;
+	}
+
+	public void setmInstrument(Integer mInstrument) {
+		this.mInstrument = mInstrument;
+	}
 
 	public String getmId() {
 		return mId;

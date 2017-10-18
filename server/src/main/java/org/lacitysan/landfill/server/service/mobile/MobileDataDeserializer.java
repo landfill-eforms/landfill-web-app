@@ -135,7 +135,7 @@ public class MobileDataDeserializer {
 			}
 	
 			// Parse set of grids from the space delimited string.
-			Set<MonitoringPoint> grids = Arrays.stream(mobileImeData.getmGridId().split("\\s+"))
+			Set<MonitoringPoint> grids = Arrays.stream(mobileImeData.getmGrids().split("\\s+"))
 					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
 
 					// Collect here instead of adding directly to IME so that we can check for nulls.
@@ -144,7 +144,7 @@ public class MobileDataDeserializer {
 			// If the a grid is null, then stop the data import process.
 			for (MonitoringPoint grid : grids) {
 				if (grid == null) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileImeData.getmGridId() + " in " + mobileImeData.getmLocation() + " not found.");
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileImeData.getmGrids() + " in " + mobileImeData.getmLocation() + " not found.");
 					return null;
 				}
 			}
@@ -157,10 +157,10 @@ public class MobileDataDeserializer {
 			
 			// Find instrument based provided ID, if any.
 			Instrument instrument = null;
-			if (mobileImeData.getmInstrument() != null && !mobileImeData.getmInstrument().isEmpty()) {
+			if (mobileImeData.getmInstrument() != null) {
 				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
 				try {
-					instrument = instrumentDao.getById(Integer.parseInt(mobileImeData.getmInstrument()));
+					instrument = instrumentDao.getById(mobileImeData.getmInstrument());
 				}
 				catch (NumberFormatException e) {
 					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileImeData.getmInstrument() + "' in IME data is not a number.");
@@ -191,7 +191,7 @@ public class MobileDataDeserializer {
 
 		// Process the instantaneous data entries.
 		for (MobileInstantaneousData mobileInstantaneousData : mobileDataContainer.getmInstantaneousDatas()) {
-
+			
 			// Check if the methane level is null.
 			// If it is null, then it is probably bad data exported
 			// by the Andriod app, and should just be skipped.
@@ -222,6 +222,7 @@ public class MobileDataDeserializer {
 				}
 				unverifiedInstantaneousData.setMonitoringPoint(grid);
 			}
+			
 
 			// If grid is null, the just skip over the reading.
 			// It is not possible to leave the grid null in the Andriod app,
@@ -298,7 +299,18 @@ public class MobileDataDeserializer {
 			unverifiedInstantaneousData.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
 			unverifiedInstantaneousData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate()));
 			unverifiedInstantaneousData.setEndTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmEndDate()));
-			unverifiedInstantaneousData.setInstrument(mobileInstantaneousData.getmInstrument());
+			// Find instrument based provided ID, if any.
+			Instrument instrument = null;
+			if (mobileInstantaneousData.getmInstrument() != null) {
+				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
+				try {
+					instrument = instrumentDao.getById(mobileInstantaneousData.getmInstrument());
+				}
+				catch (NumberFormatException e) {
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileInstantaneousData.getmInstrument() + "' in IME data is not a number.");
+				}
+			}
+			unverifiedInstantaneousData.setInstrument(instrument);
 
 			// Set barometric pressure
 			if (mobileInstantaneousData.getmBarometricPressure() != null) {
@@ -341,7 +353,18 @@ public class MobileDataDeserializer {
 			unverifiedWarmspotData.setDate(new Date(DateTimeUtils.mobileDateToTimestamp(mobileWarmspotData.getmDate()).getTime()));
 			unverifiedWarmspotData.setDescription(mobileWarmspotData.getmDescription() == null ? "" : mobileWarmspotData.getmDescription());
 			unverifiedWarmspotData.setSize(String.valueOf(mobileWarmspotData.getmEstimatedSize()));
-			unverifiedWarmspotData.setInstrument(mobileWarmspotData.getmInstrument());
+			// Find instrument based provided ID, if any.
+			Instrument instrument = null;
+			if (mobileWarmspotData.getmInstrument() != null) {
+				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
+				try {
+					instrument = instrumentDao.getById(mobileWarmspotData.getmInstrument());
+				}
+				catch (NumberFormatException e) {
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileWarmspotData.getmInstrument() + "' in IME data is not a number.");
+				}
+			}
+			unverifiedWarmspotData.setInstrument(instrument);
 			
 			// Parse set of grids from the space delimited string.
 			Set<MonitoringPoint> grids = Arrays.stream(mobileWarmspotData.getmGridId().split("\\s+"))
@@ -427,6 +450,17 @@ public class MobileDataDeserializer {
 			iseData.setDescription(mobileIseData.getmDescription() == null ? "" : mobileIseData.getmDescription());
 			iseData.setMethaneLevel((int)(mobileIseData.getmMethaneReading() * 100));
 			iseData.setInspector(getUser(userMap, mobileIseData.getmInspectorUserName()));
+			Instrument instrument = null;
+			if (mobileIseData.getmInstrument() != null) {
+				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
+				try {
+					instrument = instrumentDao.getById(mobileIseData.getmInstrument());
+				}
+				catch (NumberFormatException e) {
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileIseData.getmInstrument() + "' in IME data is not a number.");
+				}
+			}
+			iseData.setInstrument(instrument);
 
 			
 			
@@ -483,7 +517,17 @@ public class MobileDataDeserializer {
 			unverifiedIntegratedData.setMethaneLevel((int)(mobileIntegratedData.getmMethaneReading() * 100));
 			unverifiedIntegratedData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileIntegratedData.getmStartDate()));
 			unverifiedIntegratedData.setEndTime(DateTimeUtils.mobileDateToTimestamp(mobileIntegratedData.getmEndDate()));
-			unverifiedIntegratedData.setInstrument(mobileIntegratedData.getmInstrument());
+			Instrument instrument = null;
+			if (mobileIntegratedData.getmInstrument() != null) {
+				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
+				try {
+					instrument = instrumentDao.getById(mobileIntegratedData.getmInstrument());
+				}
+				catch (NumberFormatException e) {
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileIntegratedData.getmInstrument() + "' in IME data is not a number.");
+				}
+			}
+			unverifiedIntegratedData.setInstrument(instrument);
 
 			// Set barometric pressure
 			if (mobileIntegratedData.getmBarometricPressure() != null) {
@@ -516,6 +560,19 @@ public class MobileDataDeserializer {
 			unverifiedProbeData.setPressureLevel((int)(mobileProbeData.getmWaterPressure() * 100));
 			unverifiedProbeData.setDescription(mobileProbeData.getmRemarks() == null ? "" : mobileProbeData.getmRemarks());
 			unverifiedProbeData.setAccessible(false);
+			
+			Instrument instrument = null;
+			if (mobileProbeData.getmInstrument() != null) {
+				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
+				try {
+					instrument = instrumentDao.getById(mobileProbeData.getmInstrument());
+				}
+				catch (NumberFormatException e) {
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileProbeData.getmInstrument() + "' in IME data is not a number.");
+				}
+			}
+			unverifiedProbeData.setInstrument(instrument);
+
 
 			// Set barometric pressure
 			if (mobileProbeData.getmBarometricPressure() != null) {

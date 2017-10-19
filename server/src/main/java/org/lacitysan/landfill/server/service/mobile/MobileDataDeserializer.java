@@ -163,7 +163,7 @@ public class MobileDataDeserializer {
 					instrument = instrumentDao.getById(mobileImeData.getmInstrument());
 				}
 				catch (NumberFormatException e) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileImeData.getmInstrument() + "' in IME data is not a number.");
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileImeData.getmInstrument() + "' in IME data is not a number. Instrument will be left as null.");
 				}
 			}
 
@@ -295,23 +295,23 @@ public class MobileDataDeserializer {
 				}
 				
 			}
-
-			unverifiedInstantaneousData.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
-			unverifiedInstantaneousData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate()));
-			unverifiedInstantaneousData.setEndTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmEndDate()));
-			// Find instrument based provided ID, if any.
+			
 			Instrument instrument = null;
 			if (mobileInstantaneousData.getmInstrument() != null) {
-				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
 				try {
+					// Find instrument based provided ID, if any.
 					instrument = instrumentDao.getById(mobileInstantaneousData.getmInstrument());
 				}
 				catch (NumberFormatException e) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileInstantaneousData.getmInstrument() + "' in IME data is not a number.");
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileInstantaneousData.getmInstrument() + "' in instantaneous data is not a number. Instrument will be left as null.");
 				}
 			}
+			
 			unverifiedInstantaneousData.setInstrument(instrument);
-
+			unverifiedInstantaneousData.setMethaneLevel((int)(mobileInstantaneousData.getMethaneReading() * 100));
+			unverifiedInstantaneousData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmStartDate()));
+			unverifiedInstantaneousData.setEndTime(DateTimeUtils.mobileDateToTimestamp(mobileInstantaneousData.getmEndDate()));
+			
 			// Set barometric pressure
 			if (mobileInstantaneousData.getmBarometricPressure() != null) {
 				unverifiedInstantaneousData.setBarometricPressure((short)(mobileInstantaneousData.getmBarometricPressure() * 100));
@@ -346,22 +346,21 @@ public class MobileDataDeserializer {
 			if (unverifiedDataSet == null) {
 				continue;
 			}
-
-			// TODO Import instrument.
+			
 			UnverifiedWarmspotData unverifiedWarmspotData = new UnverifiedWarmspotData();
 			unverifiedWarmspotData.setMethaneLevel((int)(mobileWarmspotData.getmMaxMethaneReading() * 100));
 			unverifiedWarmspotData.setDate(new Date(DateTimeUtils.mobileDateToTimestamp(mobileWarmspotData.getmDate()).getTime()));
 			unverifiedWarmspotData.setDescription(mobileWarmspotData.getmDescription() == null ? "" : mobileWarmspotData.getmDescription());
 			unverifiedWarmspotData.setSize(String.valueOf(mobileWarmspotData.getmEstimatedSize()));
-			// Find instrument based provided ID, if any.
+			
 			Instrument instrument = null;
 			if (mobileWarmspotData.getmInstrument() != null) {
-				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
 				try {
+					// Find instrument based provided ID, if any.
 					instrument = instrumentDao.getById(mobileWarmspotData.getmInstrument());
 				}
 				catch (NumberFormatException e) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileWarmspotData.getmInstrument() + "' in IME data is not a number.");
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileWarmspotData.getmInstrument() + "' in warmspot data is not a number. Instrument will be left as null.");
 				}
 			}
 			unverifiedWarmspotData.setInstrument(instrument);
@@ -443,26 +442,25 @@ public class MobileDataDeserializer {
 
 			// Set the status of the ISE number as unverified.
 			iseNumber.setStatus(ExceedanceStatus.UNVERIFIED);
-
+			
 			// Create initial ISE data entry based on imported info.
 			IseData iseData = new IseData();
+			
 			iseData.setDateTime(DateTimeUtils.mobileDateToTimestamp(mobileIseData.getmDate()));
 			iseData.setDescription(mobileIseData.getmDescription() == null ? "" : mobileIseData.getmDescription());
 			iseData.setMethaneLevel((int)(mobileIseData.getmMethaneReading() * 100));
 			iseData.setInspector(getUser(userMap, mobileIseData.getmInspectorUserName()));
+			
 			Instrument instrument = null;
 			if (mobileIseData.getmInstrument() != null) {
-				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
 				try {
 					instrument = instrumentDao.getById(mobileIseData.getmInstrument());
 				}
 				catch (NumberFormatException e) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileIseData.getmInstrument() + "' in IME data is not a number.");
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileIseData.getmInstrument() + "' in ISE data is not a number. Instrument will be left as null.");
 				}
 			}
 			iseData.setInstrument(instrument);
-
-			
 			
 			// Add the ISE number to the ISE data entry and vice versa.
 			iseData.setIseNumber(iseNumber);
@@ -510,6 +508,17 @@ public class MobileDataDeserializer {
 				continue;
 			}
 
+			Instrument instrument = null;
+			if (mobileIntegratedData.getmInstrument() != null) {
+				try {
+					instrument = instrumentDao.getById(mobileIntegratedData.getmInstrument());
+				}
+				catch (NumberFormatException e) {
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileIntegratedData.getmInstrument() + "' in integrated data is not a number. Instrument will be left as null.");
+				}
+			}
+			unverifiedIntegratedData.setInstrument(instrument);
+			
 			// TODO Automate sample id.
 			unverifiedIntegratedData.setSampleId(mobileIntegratedData.getmSampleId() == null ? "" : mobileIntegratedData.getmSampleId());
 			unverifiedIntegratedData.setBagNumber(mobileIntegratedData.getmBagNumber().shortValue());
@@ -517,17 +526,6 @@ public class MobileDataDeserializer {
 			unverifiedIntegratedData.setMethaneLevel((int)(mobileIntegratedData.getmMethaneReading() * 100));
 			unverifiedIntegratedData.setStartTime(DateTimeUtils.mobileDateToTimestamp(mobileIntegratedData.getmStartDate()));
 			unverifiedIntegratedData.setEndTime(DateTimeUtils.mobileDateToTimestamp(mobileIntegratedData.getmEndDate()));
-			Instrument instrument = null;
-			if (mobileIntegratedData.getmInstrument() != null) {
-				// TODO Change instrument to integer on Andriod side, so that we don't need to convert string to integer.
-				try {
-					instrument = instrumentDao.getById(mobileIntegratedData.getmInstrument());
-				}
-				catch (NumberFormatException e) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileIntegratedData.getmInstrument() + "' in IME data is not a number.");
-				}
-			}
-			unverifiedIntegratedData.setInstrument(instrument);
 
 			// Set barometric pressure
 			if (mobileIntegratedData.getmBarometricPressure() != null) {
@@ -568,7 +566,7 @@ public class MobileDataDeserializer {
 					instrument = instrumentDao.getById(mobileProbeData.getmInstrument());
 				}
 				catch (NumberFormatException e) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileProbeData.getmInstrument() + "' in IME data is not a number.");
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tInstrument ID '" + mobileProbeData.getmInstrument() + "' in probe data is not a number. Instrument will be left as null.");
 				}
 			}
 			unverifiedProbeData.setInstrument(instrument);

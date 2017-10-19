@@ -367,7 +367,7 @@ public class MobileDataDeserializer {
 			unverifiedWarmspotData.setInstrument(instrument);
 			
 			// Parse set of grids from the space delimited string.
-			Set<MonitoringPoint> grids = Arrays.stream(mobileWarmspotData.getmGridId().split("\\s+"))
+			Set<MonitoringPoint> grids = Arrays.stream(mobileWarmspotData.getmGrids().split("\\s+"))
 					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
 					
 					// Collect here instead of adding directly to warmspot data so that we can check for nulls.
@@ -376,7 +376,7 @@ public class MobileDataDeserializer {
 			// If the a grid is null, then stop the data import process.
 			for (MonitoringPoint grid : grids) {
 				if (grid == null) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGridId() + " in " + mobileWarmspotData.getmLocation() + " not found.");
+					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGrids() + " in " + mobileWarmspotData.getmLocation() + " not found.");
 					return null;
 				}
 			}

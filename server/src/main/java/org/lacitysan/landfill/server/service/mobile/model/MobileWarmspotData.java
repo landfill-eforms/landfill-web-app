@@ -4,7 +4,7 @@ public class MobileWarmspotData {
 	
 	private String mId;
     private String mLocation;
-    private String mGridId;
+    private String mGrids;
     private String mDate;
     private String mDescription;
     private String mEstimatedSize;
@@ -37,15 +37,15 @@ public class MobileWarmspotData {
 	public void setmLocation(String mLocation) {
 		this.mLocation = mLocation;
 	}
-	
-	public String getmGridId() {
-		return mGridId;
+
+	public String getmGrids() {
+		return mGrids;
 	}
-	
-	public void setmGridId(String mGridId) {
-		this.mGridId = mGridId;
+
+	public void setmGrids(String mGrids) {
+		this.mGrids = mGrids;
 	}
-	
+
 	public String getmDate() {
 		return mDate;
 	}

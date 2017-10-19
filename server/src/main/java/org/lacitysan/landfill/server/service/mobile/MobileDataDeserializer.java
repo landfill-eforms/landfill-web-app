@@ -135,7 +135,7 @@ public class MobileDataDeserializer {
 			}
 	
 			// Parse set of grids from the space delimited string.
-			Set<MonitoringPoint> grids = Arrays.stream(mobileImeData.getmGrids().split("\\s+"))
+			Set<MonitoringPoint> grids = Arrays.stream(mobileImeData.getmGrids().split(", "))
 					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
 
 					// Collect here instead of adding directly to IME so that we can check for nulls.
@@ -367,7 +367,7 @@ public class MobileDataDeserializer {
 			unverifiedWarmspotData.setInstrument(instrument);
 			
 			// Parse set of grids from the space delimited string.
-			Set<MonitoringPoint> grids = Arrays.stream(mobileWarmspotData.getmGrids().split("\\s+"))
+			Set<MonitoringPoint> grids = Arrays.stream(mobileWarmspotData.getmGridId().split(", "))
 					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
 					
 					// Collect here instead of adding directly to warmspot data so that we can check for nulls.

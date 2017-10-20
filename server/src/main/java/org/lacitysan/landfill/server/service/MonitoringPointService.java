@@ -19,31 +19,19 @@ public class MonitoringPointService {
 	
 	/**
 	 * Finds a site by its short name. 
-	 * If there are multiple sites with the same short name, then it will try to return the active site.
+	 * If there are multiple sites with the same short name, then it will return the last site.
 	 * @param shortName The case-insensitive short name of the site.
 	 * @return A <code>Site</code> that matches the given short name, or <code>null</code> if no suitable site was found.
 	 */
 	public Site getSiteByShortName(String shortName) {
-		
-		Site[] sites = Site.values();
-		
-		// Prefer active site.
-		for (Site site : sites) {
-			if (site.getShortName().equalsIgnoreCase(shortName) && site.isActive()) {
-				return site;
-			}
-		}
-		
-		// If no active site was found, then consider all sites.
-		for (Site site : sites) {
+		// TODO Find a better way to return Lopez instead of LCEC for "LC".
+		Site result = null;
+		for (Site site : Site.values()) {
 			if (site.getShortName().equalsIgnoreCase(shortName)) {
-				return site;
+				result = site;
 			}
 		}
-		
-		// If no site was found, then return null.
-		return null;
-		
+		return result;
 	}
 	
 	/**

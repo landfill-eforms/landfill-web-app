@@ -65,7 +65,7 @@ export class UnverifiedDataService extends AbstractHttpService<UnverifiedDataSet
 
 		for(let i = 0; i < dataSet.imeNumbers.length; i++) {
 			let data = dataSet.imeNumbers[i];
-			if (data.imeData[0].methaneLevel <= 50000 ) {
+			if (data.imeData[0].methaneLevel < 50000 ) {
 				instantaneousErrors.push("The Instantaneous Exceedances reading of " + data.imeData[0].methaneLevel / 100 + "ppm is too low for a IME.");
 			}
 			if (!data.imeData[0].instrument || !data.imeData[0].instrument.id) {

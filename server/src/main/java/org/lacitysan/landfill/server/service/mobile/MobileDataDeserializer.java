@@ -136,18 +136,13 @@ public class MobileDataDeserializer {
 	
 			// Parse set of grids from the space delimited string.
 			Set<MonitoringPoint> grids = Arrays.stream(mobileImeData.getmGrids().split(", "))
+					.filter(g -> g != null)
 					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
 
 					// Collect here instead of adding directly to IME so that we can check for nulls.
 					.collect(Collectors.toSet()); 
 			
-			// If the a grid is null, then stop the data import process.
-			for (MonitoringPoint grid : grids) {
-				if (grid == null) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileImeData.getmGrids() + " in " + mobileImeData.getmLocation() + " not found.");
-					return null;
-				}
-			}
+			// TODO Handle case when grids is empty.
 			
 			// Add grids to the IME.
 			imeNumber.getMonitoringPoints().addAll(grids);
@@ -214,22 +209,16 @@ public class MobileDataDeserializer {
 			// Declare new unverified instantaneous data.
 			UnverifiedInstantaneousData unverifiedInstantaneousData = new UnverifiedInstantaneousData();
 
-			if (mobileInstantaneousData.getGridId() != null && !mobileInstantaneousData.getGridId().isEmpty()) {
-				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(site, mobileInstantaneousData.getGridId());
-				if (grid == null) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileInstantaneousData.getGridId() + " in " + mobileInstantaneousData.getmLocation() + " not found.");
-					return null;
-				}
-				unverifiedInstantaneousData.setMonitoringPoint(grid);
-			}
-			
+			MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(site, mobileInstantaneousData.getGridId());
+			if (grid == null) {
+				if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileInstantaneousData.getGridId() + " in " + mobileInstantaneousData.getmLocation() + " not found.");
 
-			// If grid is null, the just skip over the reading.
-			// It is not possible to leave the grid null in the Andriod app,
-			// but there is a rare bug where a non-existant(?) reading is exported with a null grid.
-			else {
+				// If grid is null, the just skip over the reading.
+				// It is not possible to leave the grid null in the Andriod app,
+				// but there is a rare bug where a non-existent(?) reading is exported with a null grid.
 				continue;
 			}
+			unverifiedInstantaneousData.setMonitoringPoint(grid);
 
 			// If the instantaneous reading is a hotspot...
 			if (mobileInstantaneousData.getMethaneReading() >= ImeData.MININIMUM_READING / 100.0) {
@@ -367,18 +356,13 @@ public class MobileDataDeserializer {
 			
 			// Parse set of grids from the space delimited string.
 			Set<MonitoringPoint> grids = Arrays.stream(mobileWarmspotData.getmGrids().split(", "))
+					.filter(g -> g != null)
 					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
 					
 					// Collect here instead of adding directly to warmspot data so that we can check for nulls.
 					.collect(Collectors.toSet()); 
 			
-			// If the a grid is null, then stop the data import process.
-			for (MonitoringPoint grid : grids) {
-				if (grid == null) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Instantaneous Data: Grid " + mobileWarmspotData.getmGrids() + " in " + mobileWarmspotData.getmLocation() + " not found.");
-					return null;
-				}
-			}
+			// TODO Handle case when grids is empty.
 			
 			// Add grids to warmspot data.
 			unverifiedWarmspotData.getMonitoringPoints().addAll(grids);
@@ -491,22 +475,16 @@ public class MobileDataDeserializer {
 			// Declare new unverfied integrated data. 
 			UnverifiedIntegratedData unverifiedIntegratedData = new UnverifiedIntegratedData();
 
-			// TODO Implement this inside the enum.
-			if (mobileIntegratedData.getmGridId() != null && !mobileIntegratedData.getmGridId().isEmpty() && mobileIntegratedData.getmLocation() != null && !mobileIntegratedData.getmLocation().isEmpty()) {
-				MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByEnumName(mobileIntegratedData.getmLocation()), mobileIntegratedData.getmGridId());
-				if (grid == null) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Integrated Data: Grid " + mobileIntegratedData.getmGridId() + " in " + mobileIntegratedData.getmLocation() + " not found.");
-					return null;
-				}
-				unverifiedIntegratedData.setMonitoringPoint(grid);
-			}
-
-			// If grid is null, the just skip over the reading.
-			// It is not possible to leave the grid null in the Andriod app,
-			// but there is a rare bug where a non-existant(?) reading is exported with a null grid.
-			else {
+			MonitoringPoint grid = monitoringPointService.getGridBySiteNameAndId(monitoringPointService.getSiteByEnumName(mobileIntegratedData.getmLocation()), mobileIntegratedData.getmGridId());
+			if (grid == null) {
+				if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Integrated Data: Grid " + mobileIntegratedData.getmGridId() + " in " + mobileIntegratedData.getmLocation() + " not found.");
+				
+				// If grid is null, the just skip over the reading.
+				// It is not possible to leave the grid null in the Andriod app,
+				// but there is a rare bug where a non-existent(?) reading is exported with a null grid.
 				continue;
 			}
+			unverifiedIntegratedData.setMonitoringPoint(grid);
 
 			Instrument instrument = null;
 			if (mobileIntegratedData.getmInstrument() != null) {

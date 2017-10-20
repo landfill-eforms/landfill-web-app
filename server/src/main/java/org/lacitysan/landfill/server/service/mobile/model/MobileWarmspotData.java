@@ -12,15 +12,6 @@ public class MobileWarmspotData {
     private String mInspectorUserName;
     private Double mMaxMethaneReading;
 	private Integer mInstrument;
-    
-	
-	public Integer getmInstrument() {
-		return mInstrument;
-	}
-
-	public void setmInstrument(Integer mInstrument) {
-		this.mInstrument = mInstrument;
-	}
 
 	public String getmId() {
 		return mId;
@@ -93,4 +84,13 @@ public class MobileWarmspotData {
 	public void setmMaxMethaneReading(Double mMaxMethaneReading) {
 		this.mMaxMethaneReading = mMaxMethaneReading;
 	}
+
+	public Integer getmInstrument() {
+		return mInstrument;
+	}
+
+	public void setmInstrument(Integer mInstrument) {
+		this.mInstrument = mInstrument;
+	}
+	
 }

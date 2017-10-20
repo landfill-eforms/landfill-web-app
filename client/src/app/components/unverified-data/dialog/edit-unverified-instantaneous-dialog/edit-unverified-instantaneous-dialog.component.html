@@ -35,7 +35,7 @@
 			<app-page-loading-indicator *ngIf="!availableImeNumbers"></app-page-loading-indicator>
 			<div *ngFor="let imeNumber of availableImeNumbers" class="list-item-container flex-container" fxLayout="row"> 
 				<div class="list-item-add-button flex-item" fxFlex="36px" fxFlexAlign="center">
-					<md-checkbox [(ngModel)]="imeNumber.selected" [disabled]="data.methaneLevel < 50000"></md-checkbox>
+					<md-checkbox [(ngModel)]="imeNumber.selected" [disabled]="canAddIME()"></md-checkbox>
 				</div>
 				<div class="list-item-info flex-item" fxFlex style="height: 48px;">
 					<div class="list-item-title">

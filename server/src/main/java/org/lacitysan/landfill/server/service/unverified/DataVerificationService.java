@@ -189,6 +189,9 @@ public class DataVerificationService {
 				errorLog.add(getDescription(imeNumber) + " is for a different site (" + imeNumber.getSite().getName() + ").");
 				continue;
 			}
+			if (imeNumber.getMonitoringPoints().isEmpty()) {
+				errorLog.add(getDescription(imeNumber) + " has no grids.");
+			}
 			for (MonitoringPoint monitoringPoint : imeNumber.getMonitoringPoints()) {
 				if (monitoringPoint.getSite() != site) {
 					errorLog.add(getDescription(imeNumber) + " contains a grid (" + monitoringPoint.name() + ") from a different site (" + monitoringPoint.getSite().getName() + ").");
@@ -199,12 +202,26 @@ public class DataVerificationService {
 				errorLog.add(getDescription(imeNumber) + " does not contain an initial reading.");
 				continue;
 			}
+			
+			// Check if there is an instrument defined and if it of the correct type.
+			Instrument instrument = initial.getInstrument();
+			if (instrument == null) {
+				errorLog.add(getDescription(imeNumber) + " has no instrument defined.");
+			}
+			else if (!instrument.getInstrumentType().getInstantaneous()) {
+				errorLog.add(getDescription(imeNumber) + " has an instrument that cannot be used for instantaneous readings.");
+			}
+			
+			// Check methane range.
 			if (initial.getMethaneLevel() < 50000) {
 				errorLog.add(getDescription(imeNumber) + " has an initial reading below the threshold (" + (initial.getMethaneLevel() / 100.0) + " < 500.00).");
 			}
+			
+			// Check discovery date.
 			if (imeNumber.getDateCode() != imeNumberService.generateDateCodeFromLong(initial.getDateTime().getTime())) {
 				errorLog.add(getDescription(imeNumber) + " has a discovery date (" + DateTimeUtils.formatSimpleDate(initial.getDateTime().getTime()) + ") that does not correspond the IME number.");
 			}
+			
 		}
 
 		// Go through all the unverified warmspot data entries.
@@ -212,6 +229,9 @@ public class DataVerificationService {
 				.map(unverifiedWarmspotData -> {
 					// TODO Verify warmspot data, such as instrument, inspector, grid, and date.
 					WarmspotData warmspotData = new WarmspotData();
+					if (unverifiedWarmspotData.getMonitoringPoints().isEmpty()) {
+						errorLog.add(getDescription(unverifiedWarmspotData) + " has no grids.");
+					}
 					warmspotData.getMonitoringPoints().addAll(unverifiedWarmspotData.getMonitoringPoints());
 					warmspotData.setInstrument(unverifiedWarmspotData.getInstrument());
 					warmspotData.setInspector(inspector);

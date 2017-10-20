@@ -135,17 +135,17 @@ public class MobileDataDeserializer {
 			}
 	
 			// Parse set of grids from the space delimited string.
-			Set<MonitoringPoint> grids = Arrays.stream(mobileImeData.getmGrids().split(", "))
-					.filter(g -> g != null)
-					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
+			if (mobileImeData.getmGrids() != null) {
+				Set<MonitoringPoint> grids = Arrays.stream(mobileImeData.getmGrids().split(", "))
+						.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
+						.filter(g -> g != null)
+						.collect(Collectors.toSet()); 
 
-					// Collect here instead of adding directly to IME so that we can check for nulls.
-					.collect(Collectors.toSet()); 
-			
-			// TODO Handle case when grids is empty.
-			
-			// Add grids to the IME.
-			imeNumber.getMonitoringPoints().addAll(grids);
+				// TODO Handle case when grids is empty.
+
+				// Add grids to the IME.
+				imeNumber.getMonitoringPoints().addAll(grids);
+			}
 
 			// Set the status of the IME number as unverified.
 			imeNumber.setStatus(ExceedanceStatus.UNVERIFIED);
@@ -229,7 +229,7 @@ public class MobileDataDeserializer {
 				// If there is already a IME number specified for the reading...
 				if (mobileInstantaneousData.getImeNumber() != null && !mobileInstantaneousData.getImeNumber().isEmpty()) {
 
-					// Find an existing IME number (in this data set, not from the database) that matches the current one.
+					// Find an ing IME number (in this data set, not from the database) that matches the current one.
 					for (ImeNumber existingImeNumber : unverifiedDataSet.getImeNumbers()) {
 						if (existingImeNumber.getImeNumber().equals(mobileInstantaneousData.getImeNumber())) {
 							imeNumber = existingImeNumber;
@@ -355,17 +355,17 @@ public class MobileDataDeserializer {
 			unverifiedWarmspotData.setInstrument(instrument);
 			
 			// Parse set of grids from the space delimited string.
-			Set<MonitoringPoint> grids = Arrays.stream(mobileWarmspotData.getmGrids().split(", "))
-					.filter(g -> g != null)
-					.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
-					
-					// Collect here instead of adding directly to warmspot data so that we can check for nulls.
-					.collect(Collectors.toSet()); 
-			
-			// TODO Handle case when grids is empty.
-			
-			// Add grids to warmspot data.
-			unverifiedWarmspotData.getMonitoringPoints().addAll(grids);
+			if (mobileWarmspotData.getmGrids() != null) {
+				Set<MonitoringPoint> grids = Arrays.stream(mobileWarmspotData.getmGrids().split(", "))
+						.map(g -> monitoringPointService.getGridBySiteNameAndId(site, g))
+						.filter(g -> g != null)
+						.collect(Collectors.toSet()); 
+				
+				// TODO Handle case when grids is empty.
+				
+				// Add grids to warmspot data.
+				unverifiedWarmspotData.getMonitoringPoints().addAll(grids);
+			}
 
 			// Add the unverified data set to the unverified warmspot and vice versa.
 			unverifiedWarmspotData.setUnverifiedDataSet(unverifiedDataSet);
@@ -521,15 +521,12 @@ public class MobileDataDeserializer {
 
 			UnverifiedProbeData unverifiedProbeData = new UnverifiedProbeData();
 
-			// TODO Implement this inside the enum.
-			if (mobileProbeData.getmProbeNumber() != null && !mobileProbeData.getmProbeNumber().isEmpty() && mobileProbeData.getmLocation() != null && !mobileProbeData.getmLocation().isEmpty()) {
-				MonitoringPoint probe = monitoringPointService.getProbeBySiteNameAndId(monitoringPointService.getSiteByEnumName(mobileProbeData.getmLocation()), mobileProbeData.getmProbeNumber());
-				if (probe == null) {
-					if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Probe Data: Probe " + mobileProbeData.getmProbeNumber() + " in " + mobileProbeData.getmLocation() + " not found.");
-					return null;
-				}
-				unverifiedProbeData.setMonitoringPoint(probe);
+			MonitoringPoint probe = monitoringPointService.getProbeBySiteNameAndId(monitoringPointService.getSiteByEnumName(mobileProbeData.getmLocation()), mobileProbeData.getmProbeNumber());
+			if (probe == null) {
+				if (ApplicationConstant.DEBUG) System.out.println("DEBUG:\tError Unmapping Probe Data: Probe " + mobileProbeData.getmProbeNumber() + " in " + mobileProbeData.getmLocation() + " not found.");
+				continue;
 			}
+			unverifiedProbeData.setMonitoringPoint(probe);
 
 			unverifiedProbeData.setDate(new Date(DateTimeUtils.mobileDateToTimestamp(mobileProbeData.getmDate()).getTime()));
 			unverifiedProbeData.setMethaneLevel((int)(mobileProbeData.getmMethanePercentage() * 100));

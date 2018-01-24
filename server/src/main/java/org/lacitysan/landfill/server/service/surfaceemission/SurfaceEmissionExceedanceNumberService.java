@@ -94,9 +94,12 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 	public void verify(Set<T> exceedanceNumbers) {
 
 		// Numbers need to be sorted in order for this to work.
-		exceedanceNumbers.stream()
-		.sorted()
-		.forEach(exceedanceNumber -> {
+		List<T> exceedanceNumbersList = exceedanceNumbers.stream().sorted().collect(Collectors.toList());
+		
+		for (int i = 0; i < exceedanceNumbersList.size(); i++) {
+			
+			T exceedanceNumber = getCrudRepository().getById(exceedanceNumbersList.get(i).getId());
+			exceedanceNumbersList.set(i, exceedanceNumber);
 
 			// This method is only used for unverified exceedance numbers.
 			if (exceedanceNumber.getStatus() != ExceedanceStatus.UNVERIFIED) {
@@ -114,35 +117,77 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 					.stream()
 					.sorted()
 					.collect(Collectors.toList());
+			
+			
+			// Sometimes there are duplicate IME numbers with different statuses,
+			// with one usually being unverified. I don't know how this happens yet.
+			// We need to check if this is the case and update the duplicates accordingly.
+			boolean dupeFound = false;
+			
+			// Find the last sequence of existing exceedances.
+			short lastSequence = existingExceedanceNumbers.stream()
+					.map(e -> e.getSequence())
+					.reduce((a, b) -> b)
+					.orElse((short)0);
+			
+			for (int j = 0; j < existingExceedanceNumbers.size(); j++) {
+				T current = existingExceedanceNumbers.get(j);
+				
+				// This issue only seems to affect unverified exceedances.
+				if (current.getStatus() != ExceedanceStatus.UNVERIFIED) {
+					continue;
+				}
+				
+				if (j + 1 == existingExceedanceNumbers.size()) {
+					break;
+				}
+				
+				T next = existingExceedanceNumbers.get(j + 1);
+				if (current.getSequence() == next.getSequence()) {
+					if (current.getSequence() == exceedanceNumber.getSequence()) {
+						exceedanceNumber.setSequence((short)(lastSequence + 1));
+					}
+					current.setSequence(++lastSequence);
+					getCrudRepository().update(current);
+					dupeFound = true;
+				}
+			}
+			
+			// If a duplicate was found, then re-sort the list.
+			if (dupeFound) {
+				existingExceedanceNumbers = existingExceedanceNumbers.stream().sorted().collect(Collectors.toList());
+			}
 
 			boolean shift = false; // Whether we will need to shift the sequences of some of the unverified exceedance numbers.
 
-			short i = 1;
+			short j = 1;
 			for (T existingExceedanceNumber : existingExceedanceNumbers) {
-				if (existingExceedanceNumber.getSequence() > i) {
+				if (existingExceedanceNumber.getSequence() > j) {
 					break;
 				}
 				if (existingExceedanceNumber.getStatus() == ExceedanceStatus.UNVERIFIED) {
 					shift = true;
 					break;
 				}
-				i++;
+				j++;
 			}
 
-			exceedanceNumber.setSequence(i);
+			exceedanceNumber.setSequence(j);
 			exceedanceNumber.setUnverifiedDataSet(null);
 			getCrudRepository().update(exceedanceNumber);
 
 			if (shift) {
-				for (int j = originalSequence - 1; j >= i; j--) {
-					T existingExceedanceNumber = existingExceedanceNumbers.get(j - 1);
+				for (T existingExceedanceNumber : existingExceedanceNumbers) {
 					if (existingExceedanceNumber.getStatus() == ExceedanceStatus.UNVERIFIED && existingExceedanceNumber.getSequence() < originalSequence) {
 						existingExceedanceNumber.setSequence((short)(existingExceedanceNumber.getSequence() + 1));
 						getCrudRepository().update(existingExceedanceNumber);
 					}
 				}
 			}
-		});
+		}
+		
+		exceedanceNumbers.clear();
+		exceedanceNumbers.addAll(exceedanceNumbersList);
 
 	}
 

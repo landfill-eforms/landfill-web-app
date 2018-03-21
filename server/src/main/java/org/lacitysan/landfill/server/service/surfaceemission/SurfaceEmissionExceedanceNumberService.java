@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
@@ -177,6 +178,7 @@ public abstract class SurfaceEmissionExceedanceNumberService<T extends SurfaceEm
 			getCrudRepository().update(exceedanceNumber);
 
 			if (shift) {
+				Collections.reverse(existingExceedanceNumbers);
 				for (T existingExceedanceNumber : existingExceedanceNumbers) {
 					if (existingExceedanceNumber.getStatus() == ExceedanceStatus.UNVERIFIED && existingExceedanceNumber.getSequence() < originalSequence) {
 						existingExceedanceNumber.setSequence((short)(existingExceedanceNumber.getSequence() + 1));

@@ -102,14 +102,17 @@ public abstract class SurfaceEmissionExceedanceNumber extends AbstractEntity imp
 
 	@Override
 	public int compareTo(SurfaceEmissionExceedanceNumber o) {
-		if (this.site != o.getSite()) {
+		if (site != o.getSite()) {
 			return this.site.compareTo(o.getSite());
 		}
-		if (!this.dateCode.equals(o.getDateCode())) {
+		if (!dateCode.equals(o.getDateCode())) {
 			return this.dateCode - o.getDateCode();
 		}
-		if (!this.sequence.equals(o.getSequence())) {
+		if (!sequence.equals(o.getSequence())) {
 			return this.sequence - o.getSequence();
+		}
+		if (status != o.getStatus()) {
+			return status.compareTo(o.getStatus());
 		}
 		return 0;
 	}

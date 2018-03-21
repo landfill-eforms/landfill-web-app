@@ -3,7 +3,6 @@ import { MdSnackBar } from '@angular/material';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { FileUploadResult, FileUploadService } from './../../../services/file/file-upload.service';
 import { AuthService } from './../../../services/auth/auth.service';
-import { environment } from './../../../../environments/environment.prod';
 import { AppNavLink } from './../../../model/client/app-nav-link';
 import { FileDownloadService } from './../../../services/file/file-download.service';
 import { RestrictedRoutes } from './../../../app.routing';
